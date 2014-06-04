@@ -34,8 +34,8 @@
         </div>
         <p>
             Validation of user input is a very frequent situation for a developer. RichFaces library offers 2 componenta to get
-            this job done: <span class="bold"><strong><span class="property">&lt;r:graphValidator&gt;</span></strong></span>,
-            and <span class="bold"><strong><span class="property">&lt;r:validator&gt;</span></strong></span>. <span class="bold"><strong><span
+            this job done: <strong><span class="property">&lt;r:graphValidator&gt;</span></strong><>,
+            and <strong><span class="property">&lt;r:validator&gt;</span></strong>. <span class="bold"><strong><span
                     class="property">&lt;r:graphValidator&gt;</span></strong></span> is intended to validate the whole object or the graph of
             interrelated objects and the validation occurs when the whole form is submitted. While <span class="bold"><strong><span
                     class="property">&lt;r:validator&gt;</span></strong></span> validates only one input field or a value at a time,
@@ -47,20 +47,19 @@
         <p>Let's have a look at the components usage on the registration page. This is how the page looks like (some
             irrelevant details were removed from the example):</p>
         <pre class="brush:xml, gutter: false, highlight: [18]">
-                …
             &lt;r:graphValidator&gt;
                     …
                 &lt;h:inputText id=&quot;userLoginName&quot; value=&quot;#{'#{'}authenticator.user.login}&quot; styleClass=&quot;reg-table-input&quot; /&gt;                  
                 &lt;r:messages for=&quot;userLoginName&quot; styleClass=&quot;required&quot; /&gt;
-                        
+
                 &lt;h:inputSecret required=&quot;true&quot; id=&quot;userPassword&quot; value=&quot;#{'#{'}authenticator.user.password}&quot;
                     styleClass=&quot;reg-table-input&quot; /&gt;
                 &lt;r:messages for=&quot;userPassword&quot; styleClass=&quot;required&quot; /&gt;
-            
+
                 &lt;h:inputSecret required=&quot;true&quot; id=&quot;userConfirmPassword&quot;
                     value=&quot;#{'#{'}authenticator.user.confirmPassword}&quot; styleClass=&quot;reg-table-input&quot; /&gt;           
                 &lt;r:messages for=&quot;userConfirmPassword&quot; styleClass=&quot;required&quot; /&gt;
-                    …                                             
+                    …
                 &lt;r:outputPanel id=&quot;userCalendar&quot; layout=&quot;block&quot;&gt;
                     &lt;r:calendar id=&quot;userBirthDate&quot; enableManualInput=&quot;true&quot; value=&quot;#{'#{'}authenticator.user.birthDate}&quot;
                         cellWidth=&quot;24px&quot; cellHeight=&quot;22px&quot; inputClass=&quot;reg-table-input&quot;&gt;
@@ -70,14 +69,14 @@
                 &lt;r:messages for=&quot;userBirthDate&quot; styleClass=&quot;required&quot; /&gt;
                     …
             &lt;/r:graphValidator&gt;
-            
+
             &lt;richx:commandButton actionListener=&quot;#{'#{'}authenticator.register(authenticator.user)}&quot;
-                render=&quot;mainArea,treePanel,searchForm, headerPanel&quot; value=&quot;#{'#{'}messages['user.register']}&quot; /&gt;        
+                render=&quot;mainArea,treePanel,searchPanel,headerPanel&quot; value=&quot;#{'#{'}messages['user.register']}&quot; /&gt;
             &lt;richx:commandButton actionListener=&quot;#{'#{'}controller.cancelRegistration()}&quot; render=&quot;mainArea&quot; immediate=&quot;true&quot;
                 value=&quot;#{'#{'}messages['user.cancel']}&quot; /&gt;
         </pre>
         <p>
-            <span class="bold"><strong><span class="property">&lt;r:graphValidator&gt;</span></strong></span> validates the
+            <strong><span class="property">&lt;r:graphValidator&gt;</span></strong> validates the
             entity User object, in which restrictions are set with the help of Hibernate annotations. When the <span
                 class="bold"><strong>Register</strong></span> button is clicked on the <span class="property">name,
                 password, sex</span> etc. fields are validated sequentially. In case of an error (for example, if a <span
@@ -88,7 +87,7 @@
             method will be invoked and the user will be saved to the database.
         </p>
         <p>
-            <span class="bold"><strong><span class="property">&lt;r:validator&gt;</span></strong></span> acts in a
+            <strong><span class="property">&lt;r:validator&gt;</span></strong> acts in a
             slightly different way, in our case it is attached to the
             <code class="code">authenticator.user.birthDate</code>
             field. When the value of the field is changed and the field loses focus it is immediately validated. If the input

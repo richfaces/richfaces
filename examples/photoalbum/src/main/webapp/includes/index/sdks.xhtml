@@ -32,7 +32,7 @@
               status     : false, // check the login status upon init?
               cookie     : true, // set sessions cookies to allow your server to access the session?
               xfbml      : false,  // parse XFBML tags on this page?
-              channelUrl : '/social/fbchannel.jsf'
+              channelUrl : '/includes/fbchannel.jsf'
             });
         
             // Additional initialization code such as adding Event Listeners goes here
@@ -55,4 +55,17 @@
     <!-- Google+ -->
     <script src="https://apis.google.com/js/client.js"></script>
 
+    <script>
+        socialLogout = function() {
+            // Facebook
+            FB.getLoginStatus(function(response) {
+              if (response.status === 'connected') {
+                FB.logout(function() {});
+              } 
+             });
+                
+            // Google+
+            gapi.auth.signOut();
+        }
+    </script>
 </ui:composition>

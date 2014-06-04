@@ -22,8 +22,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
     <ui:include src="/includes/image/imageHeaderInfo.xhtml" />
 
     <h:panelGroup layout="block" styleClass="image-edit-div">
@@ -50,7 +50,7 @@
                         <td style="vertical-align: top;">
                             <r:outputPanel id="calendar" layout="block">
                                 <r:calendar id="image_uploaded" styleClass="image-edit-calendar" enableManualInput="true"
-                                    value="#{model.selectedImage.created}">
+                                            value="#{model.selectedImage.created}">
                                     <r:validator event="inputblur" />
                                 </r:calendar>
                             </r:outputPanel>
@@ -71,15 +71,15 @@
                         <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['description']}</td>
                         <td style="vertical-align: top;" colspan="2">
                             <h:inputTextarea value="#{model.selectedImage.description}"
-                                styleClass="image-edit-description-input" />
+                                             styleClass="image-edit-description-input" />
                         </td>
                     </tr>
                     <tr>
                         <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['popular_tags']}</td>
                         <td style="vertical-align: top;" colspan="2">
-                            <r:autocomplete id="suggestionBoxId" autocompleteMethod="#{imageManager.autoComplete}"
-                                value="#{model.selectedImage.meta}" minChars="1" var="result" fetchValue="#{result.tag}"
-                                tokens=", " autofill="false" selectFirst="false" mode="client">
+                            <r:autocomplete id="suggestionBoxId" autocompleteMethod="#{imageManager.autoComplete}" 
+                                            value="#{model.selectedImage.meta}" minChars="1" var="result" fetchValue="#{result.tag}"
+                                            tokens=", " autofill="false" selectFirst="false">
                                 <h:outputText value="#{result.tag}" />
                             </r:autocomplete>
                             <br />
@@ -87,9 +87,9 @@
                                 <r:repeat value="#{imageManager.popularTags()}" var="tag" rowKeyVar="row">
                                     <h:outputText value=", " rendered="#{!(row == 0)}" />
                                     <r:outputPanel style="cursor:pointer"
-                                        onclick="selectPopularTag('#{tag.tag}', #{r:component('suggestionBoxId')});">
-									#{tag.tag}
-								</r:outputPanel>
+                                                   onclick="selectPopularTag('#{tag.tag}', #{r:component('suggestionBoxId')});">
+                                        #{tag.tag}
+                                    </r:outputPanel>
                                 </r:repeat>
                             </h:panelGroup>
                         </td>
@@ -98,7 +98,7 @@
                         <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['direct_link']}</td>
                         <td style="vertical-align: top;" colspan="2">
                             <h:outputText styleClass="image-edit-direct-link "
-                                value="#{imageManager.getImageDirectLink(model.selectedImage)}" />
+                                          value="#{imageManager.getImageDirectLink(model.selectedImage)}" />
                         </td>
                     </tr>
                     <tr>
@@ -118,12 +118,12 @@
                     <tr>
                         <td style="vertical-align: top;" />
                         <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right;">
-                            <richx:commandButton value="#{messages['image.save']}" style="float: left"
-                                actionListener="#{imageManager.editImage(model.selectedImage, false)}" render="mainArea"
-                                execute="@region" />
-                            <richx:commandButton value="#{messages['image.cancel']}" immediate="true"
-                                actionListener="#{controller.cancelEditImage(model.selectedImage)}" render="mainArea"
-                                execute="@none" />
+                            <richx:commandButton id="saveButton" value="#{messages['image.store']}" style="float: left"
+                                                 actionListener="#{imageManager.editImage(model.selectedImage, false)}" render="mainArea"
+                                                 execute="@region" />
+                            <richx:commandButton id="cancelButton" value="#{messages['image.cancel']}" style="float: right" immediate="true"
+                                                 actionListener="#{controller.cancelEditImage(model.selectedImage)}" render="mainArea"
+                                                 execute="@none" />
                         </td>
                     </tr>
                 </table>

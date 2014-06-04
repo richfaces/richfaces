@@ -29,9 +29,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
 /**

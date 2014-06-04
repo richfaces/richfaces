@@ -21,42 +21,40 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
-    xmlns:richx="http://richfaces.orgx">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
+                xmlns:richx="http://richfaces.orgx">
 
     <ui:include src="/includes/image/imageScroller.xhtml" />
-
+    <r:hotKey key="right" onkeyup="showNext()"/>
+    <r:hotKey key="left" onkeyup="showPrev()" />
+    <r:jsFunction name="showNext" actionListener="#{controller.showNextImage()}" render="mainArea"/>
+    <r:jsFunction name="showPrev" actionListener="#{controller.showPrevImage()}" render="mainArea"/>
     <br clear="all" />
     <h:panelGroup id="mainImage" layout="block" styleClass="mainImage-div">
         <table style="padding: 0px;" class="mainImage-table">
-            <tr>
+            <tr>         
                 <td class="mainImage-table-col1" rowspan="2">
                     <h:panelGroup layout="block" styleClass="slideshow-outerdiv">
                         <r:commandLink rendered="#{fn:length(model.images) > 0}"
-                            actionListener="#{slideshow.startSlideshow(model.selectedImage)}" styleClass="slideshow-link"
-                            render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
-                            <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
-                                style="vertical-align : bottom; margin-right : 5px; border:0;" />
+                                         actionListener="#{slideshow.startSlideshow(model.selectedImage)}" styleClass="slideshow-link"
+                                         render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel" 
+                                         oncomplete="#{r:component('slideShowModalPanel')}.show()">
+                            <h:graphicImage value="resources/img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
+                                            style="vertical-align : bottom; margin-right : 5px; border:0;" />
                             <h:outputText value="#{messages['slideshow.start']}" />
                         </r:commandLink>
-                        <r:commandLink rendered="#{help.isShowHelp()}"
-                            actionListener="#{help.navigateTo('/includes/help/slideshow.xhtml')}"
-                            oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
-                            <h:panelGroup
-                                style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
-                                <h:graphicImage style="border:none;" styleClass="ie6transparency" height="34" width="34"
-                                    value="img/icons/help_sign.png" />
-                            </h:panelGroup>
-                        </r:commandLink>
+                        <ui:include src="/includes/help/button.xhtml">
+                            <ui:param name="page" value="slideshow.xhtml" />
+                        </ui:include>
                     </h:panelGroup>
                     <r:mediaOutput id="img" element="img" styleClass="main-image" createContent="#{imageLoader.paintImage}"
-                        style="border : 3px solid #808080;"
-                        value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}" mimeType="image/jpeg">
+                                   style="border : 3px solid #808080;"
+                                   value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}" mimeType="image/jpeg">
                         <r:dragSource rendered="#{controller.isUserImage(model.selectedImage)}" render="mainArea, treePanel"
-                            id="dragSource" dragIndicator="dragIndicator" type="image" dragValue="#{model.selectedImage}" />
+                                      id="dragSource" dragIndicator="dragIndicator" type="image" dragValue="#{model.selectedImage}" />
                         <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip"
-                            rendered="#{model.selectedImage.showMetaInfo}">
+                                   rendered="#{model.selectedImage.showMetaInfo}">
                             <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText
                                     value="#{messages['image.size']} #{model.selectedImage.size}" /> <br /> <h:outputText
                                     value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
@@ -66,10 +64,10 @@
                         </r:tooltip>
                     </r:mediaOutput>
                 </td>
-                <td style="vertical-align: top;">
+                <td style="vertical-align: top; padding: 45px 0 0 0;">
                     <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;">
                         <h:link outcome="/includes/directImage.xhtml" value="#{messages['original_size']}" target="_blank"
-                            styleClass="buttons-body-text-div">
+                                styleClass="buttons-body-text-div">
                             <f:param name="imageId" value="#{model.selectedImage.id}" />
                         </h:link>
                     </h:panelGroup>
@@ -77,32 +75,31 @@
             </tr>
             <tr>
                 <td style="vertical-align: bottom;" class="mainImage-table-col3">
-                    <richx:commandButton value="#{messages['image.edit']}"
-                        rendered="#{controller.isUserImage(model.selectedImage)}"
+                    <richx:commandButton value="#{messages['image.edit']}" rendered="#{controller.isUserImage(model.selectedImage)}"
                         actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" execute="@this" />
                     <richx:commandButton value="#{messages['image.delete']}"
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
                         oncomplete="#{r:component('confirmation')}.show()" execute="@this" />
                     <richx:commandButton value="Share" rendered="#{controller.isUserImage(model.selectedImage)}" execute="@this"
-                        styleClass="fb-comm-button" render="albumsPopupPanel" />
+                        styleClass="fb-comm-button" render="albumsPopupPanel" oncomplete="#{r:component('albumsPopupPanel')}.show()"/>
                 </td>
             </tr>
         </table>
     </h:panelGroup>
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.camera']} " />
-    <h:outputText value="#{model.selectedImage.cameraModel}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.captured']} " />
-    <h:outputText value="#{model.selectedImage.created}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['uploaded']}: " />
-    <h:outputText value="#{model.selectedImage.uploaded}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.author']} " />
-    <r:commandLink actionListener="#{controller.showUser(model.selectedImage.album.owner)}" render="mainArea"
-        value="#{model.selectedImage.album.owner.login}" />
-    <br />
-    <br />
+    <r:outputPanel id="imageAdditionalInfo" style="left: 30px;position: relative;">
+        <h:outputText styleClass="additional-info-text" value="#{messages['image.camera']} " />
+        <h:outputText value="#{model.selectedImage.cameraModel}" />
+        <br />
+        <h:outputText styleClass="additional-info-text" value="#{messages['image.captured']} " />
+        <h:outputText value="#{model.selectedImage.created}" />
+        <br />
+        <h:outputText styleClass="additional-info-text" value="#{messages['uploaded']}: " />
+        <h:outputText value="#{model.selectedImage.uploaded}" />
+        <br />
+        <h:outputText styleClass="additional-info-text" value="#{messages['image.uploadedby']} " />
+        <r:commandLink actionListener="#{controller.showUser(model.selectedImage.album.owner)}" render="mainArea"
+                         value="#{model.selectedImage.album.owner.login}" />
+    </r:outputPanel>
     <ui:include src="/includes/image/albumPanel.xhtml" />
 </ui:composition>

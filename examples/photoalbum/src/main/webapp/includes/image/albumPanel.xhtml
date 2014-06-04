@@ -25,31 +25,37 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
     xmlns:richx="http://richfaces.orgx">
 
-    <r:popupPanel id="albumsPopupPanel" minHeight="300" minWidth="500">
+    <r:popupPanel id="albumsPopupPanel" minHeight="300" minWidth="500"
+        onshow="if(!#{facebookAlbumCache.areAlbumsLoaded(facebookBean.userAlbumIds)}){F.getShelfAlbums(#{facebookBean.userId}, loadFBAlbums, showError);}">
         <f:facet name="header">
             <h:outputText value="Choose album to share to" />
         </f:facet>
         <f:facet name="controls">
             <h:panelGroup>
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer">
+                <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer">
                     <r:componentControl target="albumsPopupPanel" operation="hide" event="click" />
                 </h:graphicImage>
             </h:panelGroup>
         </f:facet>
-        <r:mediaOutput id="imgUri" style="display:none" element="a" createContent="#{directLinkHelper.paintImage}"
+        <r:hotKey key="esc" onkeyup="#{r:component('albumsPopupPanel')}.hide()" />
+        <a:mediaOutput id="imgUri" style="display:none" element="a" createContent="#{directLinkHelper.paintImage}"
             value="#{model.selectedImage.id}" mimeType="image/jpeg" />
 
         <h:outputText value="No available albums. Log into Facebook and create one."
             rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) == 0}" />
-        <r:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) > 0}"
-            value="#{facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)}" var="album" columns="3">
-            <r:panel header="#{album.getString('name')}">
-                <r:commandLink execute="@none"
-                    onclick="F.pushImage('#{album.getString('id')}', #{r:element('imgUri')}.href, showError); #{r:component('albumsPopupPanel')}.hide()">
-                    <img src="#{album.getString('coverUrl')}" />
-                </r:commandLink>
-            </r:panel>
-        </r:dataGrid>
+        <r:outputPanel id="fbAlbums">
+            <r:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) > 0}"
+                value="#{facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)}" var="album" columns="3">
+                <r:panel header="#{album.getString('name')}">
+                    <r:commandLink execute="@none"
+                        onclick="F.pushImage('#{album.getString('id')}', #{r:element('imgUri')}.href, '#{model.selectedImage.description}', showError); #{r:component('albumsPopupPanel')}.hide()">
+                        <img src="#{album.getString('coverUrl')}" />
+                    </r:commandLink>
+                </r:panel>
+            </r:dataGrid>
+        </r:outputPanel>
+        <r:jsFunction name="loadFBAlbums" render="fbAlbums">
+            <r:param assignTo="#{facebookAlbumCache.albums}" name="albums" />
+        </r:jsFunction>
     </r:popupPanel>
-
 </ui:composition>

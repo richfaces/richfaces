@@ -28,11 +28,11 @@
 
         <f:facet name="controls">
             <h:panelGroup id="eventPanelHideControl">
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink20"
+                <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer" id="hidelink20"
                     onclick="#{r:component('eventModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
-
+        <r:hotKey key="esc" onkeyup="#{r:component('eventModalPanel')}.hide()" enabledInInput="true"/>
         <r:region id="eventform">
             <h:panelGroup id="eventPanel" width="100%" layout="block">
                 <r:region>

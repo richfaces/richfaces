@@ -41,16 +41,16 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.AlbumEvent;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.EventTypeQualifier;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Shelf;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IAlbumAction;
+import org.richfaces.photoalbum.model.event.AlbumEvent;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.EventTypeQualifier;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
 @Named

@@ -9,11 +9,11 @@
                     onclick="#{r:component('gAlbumModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
-
+        <r:hotKey key="esc" onkeyup="#{r:component('gAlbumModalPanel')}.hide()"/>
         <h:outputText value="Do you want to import the album?" style="display: inline-block; margin-bottom: 20px" />
         <br />
         <h:panelGroup layout="block" styleClass="preview_box_album_120" style="height: 160px">
-            <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+            <h:graphicImage styleClass="pr_album_bg" value="resources/img/shell/frame_album_200.png" />
             <h:panelGrid cellpadding="0">
                 <h:panelGroup style="margin-bottom:7px;" layout="block">
                     <h:graphicImage id="img" url="#{gDndManager.album.getString('coverUrl')}"

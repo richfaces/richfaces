@@ -28,14 +28,14 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="photoAlbum"> <!--  transaction-type="JTA" -->
         <jta-data-source>java:jboss/datasources/photoalbumDatasource</jta-data-source>
-        <class>org.richfaces.photoalbum.domain.User</class>
-        <class>org.richfaces.photoalbum.domain.Shelf</class>
-        <class>org.richfaces.photoalbum.domain.MetaTag</class>
-        <class>org.richfaces.photoalbum.domain.Image</class>
-        <class>org.richfaces.photoalbum.domain.Comment</class>
-        <class>org.richfaces.photoalbum.domain.Album</class>
-        <class>org.richfaces.photoalbum.domain.Event</class>
-        <class>org.richfaces.photoalbum.domain.EventCategory</class>
+        <class>org.richfaces.photoalbum.model.User</class>
+        <class>org.richfaces.photoalbum.model.Shelf</class>
+        <class>org.richfaces.photoalbum.model.MetaTag</class>
+        <class>org.richfaces.photoalbum.model.Image</class>
+        <class>org.richfaces.photoalbum.model.Comment</class>
+        <class>org.richfaces.photoalbum.model.Album</class>
+        <class>org.richfaces.photoalbum.model.Event</class>
+        <class>org.richfaces.photoalbum.model.EventCategory</class>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         </properties>

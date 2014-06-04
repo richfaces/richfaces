@@ -36,13 +36,13 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.richfaces.photoalbum.domain.Comment;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
-import org.richfaces.photoalbum.service.IImageAction;
+import org.richfaces.photoalbum.model.Comment;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IImageAction;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 
 @SessionScoped
 public class SessionListener implements Serializable {

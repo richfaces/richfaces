@@ -30,7 +30,7 @@
                 <h:outputText value="#{album.getString('name')}" />
             </h1>
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
-                <h:outputText value="#{messages['created.album']} " />
+                <h:outputText value="#{messages['created.album']}" />
                 <h:outputText styleClass="bold" value="#{album.getString('created')}" converter="#{timestampConverter}" />
                 <h:outputText value=", #{messages['contain']}" />
                 <h:outputText styleClass="bold" value=" #{album.getString('size')}" />
@@ -39,9 +39,10 @@
         </h:panelGroup>
         <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
             render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
-            rendered="#{model.selectedEvent.facebookAlbumIds.contains(album.getString('id'))}" />
-        <h:outputText value="Facebook" styleClass="additional-info-text"
-            rendered="#{not model.selectedEvent.facebookAlbumIds.contains(album.getString('id'))}" />
+            rendered="#{controller.isEventFacebookAlbum(album.getString('id'))}" />
+        <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFbShelf()}"
+            render="mainArea, treePanel" value="Facebook"
+            rendered="#{not controller.isEventGoogleAlbum(album.getString('fullId'))}" />
     </h:panelGrid>
 
     <!-- imageList -->
@@ -51,18 +52,18 @@
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
 
-    <!-- 
+
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
-            <r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
-                styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
-                <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
+            <r:commandLink rendered="#{fn:length(facebookAlbumCache.currentImages) > 0}"
+                actionListener="#{slideshow.startSlideshowRemote(2)}" styleClass="slideshow-link"
+                render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
+                <h:graphicImage value="resources/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
             </r:commandLink>
         </h:panelGroup>
-
-    </h:panelGroup> -->
+    </h:panelGroup>
     <br />
     <br />
 

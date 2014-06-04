@@ -28,69 +28,50 @@
             <table style="border-collapse: collapse; padding: 5px; border: 0">
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['shelf_name']}</td>
-                    <td style="vertical-align: top;" colspan="2">
-                        <h:inputText id="shelf_name" value="#{model.selectedShelf.name}" styleClass="shelf-edit-input"
-                            required="true">
+                    <td style="vertical-align: top;" colspan="2"><h:inputText id="shelf_name"
+                            value="#{model.selectedShelf.name}" styleClass="shelf-edit-input" required="true">
                             <r:validator event="blur" />
-                        </h:inputText>
-                        <r:message for="shelf_name" />
-                    </td>
+                        </h:inputText> <r:message for="shelf_name" /></td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
-                    <td style="padding: 0; margin: 0;" class="errors">
-                        <r:message for="shelf_name" />
-                    </td>
+                    <td style="padding: 0; margin: 0;" class="errors"><r:message for="shelf_name" /></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['creation_date']}</td>
-                    <td style="vertical-align: top;">
-                        <r:outputPanel id="calendar" layout="block">
+                    <td style="vertical-align: top;"><r:outputPanel id="calendar" layout="block">
                             <r:calendar id="shelf_date" styleClass="shelf-edit-calendar" enableManualInput="true"
                                 value="#{model.selectedShelf.created}" disabled="true">
                                 <r:validator event="inputblur" />
                             </r:calendar>
-                        </r:outputPanel>
-                        <r:message for="calendar" />
-                    </td>
+                        </r:outputPanel> <r:message for="calendar" /></td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
-                    <td style="padding: 0; margin: 0;" class="errors">
-                        <r:message for="shelf_date" />
-                    </td>
+                    <td style="padding: 0; margin: 0;" class="errors"><r:message for="shelf_date" /></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['description']}</td>
-                    <td style="vertical-align: top;" colspan="2">
-                        <h:inputTextarea id="shelf_description" value="#{model.selectedShelf.description}"
-                            styleClass="shelf-edit-area" />
-                    </td>
+                    <td style="vertical-align: top;" colspan="2"><h:inputTextarea id="shelf_description"
+                            value="#{model.selectedShelf.description}" styleClass="shelf-edit-area" /></td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
-                    <td style="padding: 0; margin: 0;">
-                        <r:message for="shelf_description" />
-                    </td>
+                    <td style="padding: 0; margin: 0;"><r:message for="shelf_description" /></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">
-                        <h:outputText value="#{messages['album.shared']}" />
-                    </td>
-                    <td style="vertical-align: top;">
-                        <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shared"
-                            value="#{model.selectedShelf.shared}" />
-                        <r:message for="shared" />
-                    </td>
+                    <td style="vertical-align: top; white-space: nowrap; padding-top: 8px"><h:outputText
+                            value="#{messages['album.shared']}" /></td>
+                    <td style="vertical-align: top;"><h:selectBooleanCheckbox styleClass="selectBooleanCheckbox"
+                            id="shared" value="#{model.selectedShelf.shared}" /> <r:message for="shared" /></td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top;" />
-                    <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right">
-                        <richx:commandButton id="saveButton" style="float: left" value="#{messages['save']}"
+                    <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right"><richx:commandButton
+                            id="saveButton" style="float: left" value="#{messages['save']}"
                             actionListener="#{shelfManager.editShelf(model.selectedShelf, false)}" render="treePanel, mainArea" />
-                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: left" immediate="true"
-                            actionListener="#{controller.cancelEditShelf()}" render="mainArea" />
-                    </td>
+                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: left"
+                            immediate="true" actionListener="#{controller.cancelEditShelf()}" render="mainArea" /></td>
                 </tr>
             </table>
         </r:graphValidator>

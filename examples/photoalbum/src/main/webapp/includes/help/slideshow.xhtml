@@ -49,28 +49,28 @@
             <ul>
                 <li>
                     <p>
-                        <span class="bold"><strong><span class="property">&lt;r:popupPanel&gt;</span></strong></span> located
+                        <strong><span class="property">&lt;r:popupPanel&gt;</span></strong> located
                         in
                         <code class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
                         that is hidden by default as the attribute
-                        <code class="code">show=" {slideshow.active}"</code>
+                        <code class="code">show="#{'#{'}slideshow.active}"</code>
                         and the active property of SlideshowManager.java is set to "false" by default.
                     </p>
                 </li>
                 <li>
                     <p>
-                        <span class="bold"><strong><span class="property">&lt;r:poll&gt;</span></strong></span> located also
+                        <strong><span class="property">&lt;r:poll&gt;</span></strong> located also
                         in
                         <code class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
                         which is also inactive due to the mentioned active property (
-                        <code class="code">active= {slideshow.active}</code>
+                        <code class="code">active="#{'#{'}slideshow.active}"</code>
                         )
                     </p>
                 </li>
             </ul>
         </div>
         <p>
-            After activation, <span class="bold"><strong><span class="property">&lt;r:poll&gt;</span></strong></span> will
+            After activation, <strong><span class="property">&lt;r:poll&gt;</span></strong> will
             send asynchronous requests to the server with some certain interval, as the result of these requests modal panel
             will display the next image in the row.
         </p>
@@ -126,9 +126,7 @@
             file and referred from the corresponding pages with the help of &lt;ui:include&gt; Facelets tag:
         </p>
         <pre class="brush: xml, gutter: false">
-            …
         &lt;ui:include src=&quot;/includes/image/slideshow.xhtml&quot; /&gt;
-            …
         </pre>
         <p>
             Have a look at
@@ -137,42 +135,42 @@
         </p>
         <pre class="brush: xml, gutter: false">
         &lt;ui:composition … &gt;
-            &lt;r:region&gt;
-                &lt;r:popupPanel show=&quot;#{'#{'}slideshow.active}&quot;
-                    domElementAttachment=&quot;parent&quot;
-                    id=&quot;slideShowModalPanel&quot;
-                    autosized=&quot;true&quot;
-                    onshow=&quot;$(#{'#{'}r:element('imgSlideShow')}).fadeIn(600);&quot;&gt;
-                    &lt;f:facet name=&quot;header&quot;&gt;Slideshow panel&lt;/f:facet&gt;
-                    &lt;f:facet name=&quot;controls&quot;&gt;
-                        &lt;h:panelGroup&gt;
-                            &lt;h:graphicImage value=&quot;/img/modal/close.png&quot; style=&quot;cursor:pointer&quot; id=&quot;hidelink&quot;&gt;
-                                &lt;r:ajax event=&quot;click&quot; listener=&quot;#{'#{'}slideshow.stopSlideshow()}&quot;
-                                    render=&quot;mainArea, treePanel, slideShowModalPanel&quot; execute=&quot;@region&quot; /&gt;
-                            &lt;/h:graphicImage&gt;
-                        &lt;/h:panelGroup&gt;
-                    &lt;/f:facet&gt;
-                    &lt;h:panelGrid styleClass=&quot;slideshow-table&quot; columnClasses=&quot;slideshow-table-col&quot; rowClasses=&quot;slideshow-table-row&quot;&gt;
-                        &lt;h:panelGroup id=&quot;slideshowImage&quot;&gt;
-                            &lt;r:mediaOutput id=&quot;imgSlideShow&quot; element=&quot;img&quot; styleClass=&quot;main-image&quot;
-                                createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
-                                value=&quot;#{'#{'}slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}&quot;
-                                mimeType=&quot;image/png&quot; style=&quot;display:none&quot;&gt;
-                                &lt;r:tooltip followMouse=&quot;true&quot; direction=&quot;topRight&quot; showDelay=&quot;500&quot; styleClass=&quot;tooltip&quot;&gt;
-                                    &lt;span style=&quot;white-space: nowrap&quot;&gt; #{'#{'}slideshow.selectedImage.description} &lt;/span&gt;
-                                &lt;/r:tooltip&gt;
-                            &lt;/r:mediaOutput&gt;
-                        &lt;/h:panelGroup&gt;
-                    &lt;/h:panelGrid&gt;
-                    &lt;r:poll id=&quot;slideShowPoll&quot;
-                        data=&quot;#{'#{'}slideshow.errorDetected}&quot;
-                        render=&quot;slideshowImage&quot;
-                        interval=&quot;#{'#{'}slideshow.interval}&quot;
-                        enabled=&quot;#{'#{'}slideshow.active}&quot;
-                        oncomplete=&quot;if(event.data)#{'#{'}r:component('slideShowModalPanel')}.hide(); $(#{'#{'}r:element('imgSlideShow')}).fadeIn(600);&quot;
-                        actionListener=&quot;#{'#{'}slideshow.showNextImage()}&quot; /&gt;
-                &lt;/r:popupPanel&gt;
-            &lt;/r:region&gt;
+          &lt;r:region&gt;
+            &lt;r:popupPanel show=&quot;#{'#{'}slideshow.active}&quot;
+                domElementAttachment=&quot;parent&quot;
+                id=&quot;slideShowModalPanel&quot;
+                autosized=&quot;true&quot;
+                onshow=&quot;$(#{'#{'}r:element('imgSlideShow')}).fadeIn(600);&quot;&gt;
+              &lt;f:facet name=&quot;header&quot;&gt;Slideshow panel&lt;/f:facet&gt;
+              &lt;f:facet name=&quot;controls&quot;&gt;
+                &lt;h:panelGroup&gt;
+                  &lt;h:graphicImage value=&quot;/resources/img/modal/close.png&quot; style=&quot;cursor:pointer&quot; id=&quot;hidelink&quot;&gt;
+                     &lt;r:ajax event=&quot;click&quot; listener=&quot;#{'#{'}slideshow.stopSlideshow()}&quot;
+                         render=&quot;mainArea, treePanel, slideShowModalPanel&quot; execute=&quot;@region&quot; /&gt;
+                  &lt;/h:graphicImage&gt;
+                &lt;/h:panelGroup&gt;
+              &lt;/f:facet&gt;
+              &lt;h:panelGrid styleClass=&quot;slideshow-table&quot; columnClasses=&quot;slideshow-table-col&quot; rowClasses=&quot;slideshow-table-row&quot;&gt;
+                &lt;h:panelGroup id=&quot;slideshowImage&quot;&gt;
+                  &lt;r:mediaOutput id=&quot;imgSlideShow&quot; element=&quot;img&quot; styleClass=&quot;main-image&quot;
+                      createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
+                      value=&quot;#{'#{'}slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}&quot;
+                      mimeType=&quot;image/png&quot; style=&quot;display:none&quot;&gt;
+                    &lt;r:tooltip followMouse=&quot;true&quot; direction=&quot;topRight&quot; showDelay=&quot;500&quot; styleClass=&quot;tooltip&quot;&gt;
+                      &lt;span style=&quot;white-space: nowrap&quot;&gt; #{'#{'}slideshow.selectedImage.description} &lt;/span&gt;
+                    &lt;/r:tooltip&gt;
+                  &lt;/r:mediaOutput&gt;
+                &lt;/h:panelGroup&gt;
+              &lt;/h:panelGrid&gt;
+              &lt;r:poll id=&quot;slideShowPoll&quot;
+                  data=&quot;#{'#{'}slideshow.errorDetected}&quot;
+                  render=&quot;slideshowImage&quot;
+                  interval=&quot;#{'#{'}slideshow.interval}&quot;
+                  enabled=&quot;#{'#{'}slideshow.active}&quot;
+                  oncomplete=&quot;if(event.data)#{'#{'}r:component('slideShowModalPanel')}.hide(); $(#{'#{'}r:element('imgSlideShow')}).fadeIn(600);&quot;
+                  actionListener=&quot;#{'#{'}slideshow.showNextImage()}&quot; /&gt;
+            &lt;/r:popupPanel&gt;
+          &lt;/r:region&gt;
         &lt;/ui:composition&gt;
         </pre>
         
@@ -193,7 +191,7 @@
             <a id="d0e975" />
             <div class="figure-contents">
                 <div class="mediaobject">
-                    <img src="img/help/slide_show.png" alt="Image size control" />
+                    <img src="resources/img/help/slide_show.png" alt="Image size control" />
                 </div>
             </div>
             <p class="title">
@@ -202,7 +200,7 @@
         </div>
         <br class="figure-break" />
         <p>
-            To stop the slide-show user clicks <span class="bold"><strong>Close window</strong></span> button on the slide-show
+            To stop the slide-show user clicks <strong>Close window</strong> button on the slide-show
             panel and
             <code class="code">stopSlideshow()</code>
             method is invoked.
@@ -230,7 +228,7 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=popup">PopupPanel</a>
-                    page for the <span class="bold"><strong><span class="property">&lt;r:popupPanel&gt;</span></strong></span>
+                    page for the <strong><span class="property">&lt;r:popupPanel&gt;</span></strong>
                     component;
                 </p>
             </li>
@@ -238,7 +236,7 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=mediaOutput">MediaOutput</a>
-                    for the <span class="bold"><strong><span class="property">&lt;r:mediaOutput&gt;</span></strong></span>
+                    for the <strong><span class="property">&lt;r:mediaOutput&gt;</span></strong>
                     component;
                 </p>
             </li>
@@ -246,14 +244,14 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for the
-                    <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span> component;
+                    <strong><span class="property">&lt;r:ajax&gt;</span></strong> component;
                 </p>
             </li>
             <li>
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=commandLink">CommandLink</a>
-                    for the <span class="bold"><strong><span class="property">&lt;r:commandLink&gt;</span></strong></span>
+                    for the <strong><span class="property">&lt;r:commandLink&gt;</span></strong>
                     component;
                 </p>
             </li>

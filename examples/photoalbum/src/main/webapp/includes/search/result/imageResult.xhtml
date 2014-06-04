@@ -21,50 +21,55 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org">
-    <r:outputPanel rendered="#{fn:length(result) > 0}" id="imagesList">
-        <ui:include src="/includes/image/inputNumberSlider.xhtml">
-            <ui:param name="renderArea" value="userAlbumImages" />
-            <ui:param name="size" value="#{fn:length(result)}" />
-        </ui:include>
-        <br />
-        <br />
-        <h:panelGroup id="userAlbumImages">
-            <r:dataGrid value="#{result}" var="image" columns="3" elements="3" first="1" id="pics">
-                <f:facet name="header">
-                    <r:dataScroller render="pics" stepControls="hide" boundaryControls="hide" fastControls="hide"
-                        maxPages="3" />
-                </f:facet>
-                <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
-                    <h:graphicImage styleClass="pr_photo_bg" value="#{imageSizeHelper.currentDimension.imageBg}" />
-                    <h:panelGrid cellpadding="0">
-                        <h:panelGroup>
-                            <r:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
-                                <r:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
-                                    style="border: 2px solid #FFFFFF;"
-                                    value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}"
-                                    mimeType="image/jpeg">
-                                    <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
-                                </r:mediaOutput>
-                            </r:commandLink>
-                            <br />
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <c:choose>
+        <c:when test="#{not empty result}">
+            <r:outputPanel  id="imagesList">
+                <ui:include src="/includes/image/inputNumberSlider.xhtml">
+                    <ui:param name="renderArea" value="userAlbumImages" />
+                    <ui:param name="size" value="#{fn:length(result)}" />
+                </ui:include>
+                <br />
+                <br />
+                <h:panelGroup id="userAlbumImages">
+                    <r:dataGrid value="#{result}" var="image" columns="4" elements="8" first="1" id="pics">
+                        <f:facet name="header">
+                            <r:dataScroller render="pics" maxPages="5"/>
+                        </f:facet>
+                        <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
+                            <h:graphicImage styleClass="pr_photo_bg" value="#{imageSizeHelper.currentDimension.imageBg}" />
+                            <h:panelGrid cellpadding="0">
+                                <h:panelGroup>
+                                    <r:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
+                                        <r:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
+                                                       style="border: 2px solid #FFFFFF;"
+                                                       value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}"
+                                                       mimeType="image/jpeg">
+                                            <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
+                                        </r:mediaOutput>
+                                    </r:commandLink>
+                                    <br />
+                                </h:panelGroup>
+                            </h:panelGrid>
+                            <h:panelGroup layout="block" styleClass="photo_name">#{image.name}</h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="photo_data">
+                                <h:outputText value="#{image.created}">
+                                    <f:convertDateTime />
+                                </h:outputText>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="photo_data">
+                                <r:commandLink render="mainArea" actionListener="#{controller.showUser(image.album.owner)}"
+                                               value="#{image.album.owner.firstName} #{image.album.owner.secondName}" />
+                            </h:panelGroup>
                         </h:panelGroup>
-                    </h:panelGrid>
-                    <h:panelGroup layout="block" styleClass="photo_name">#{image.name}</h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="photo_data">
-                        <h:outputText value="#{image.created}">
-                            <f:convertDateTime />
-                        </h:outputText>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="photo_data">
-                        <r:commandLink render="mainArea" actionListener="#{controller.showUser(image.album.owner)}"
-                            value="#{image.album.owner.firstName} #{image.album.owner.secondName}" />
-                    </h:panelGroup>
+                    </r:dataGrid>
                 </h:panelGroup>
-            </r:dataGrid>
-        </h:panelGroup>
-    </r:outputPanel>
-    <h:outputText rendered="#{fn:length(result) == 0}" value="#{messages['no_results_found']}" />
+            </r:outputPanel>
+        </c:when>
+        <c:otherwise>
+            <h:outputText  value="#{messages['no_results_found']}" />
+        </c:otherwise>
+    </c:choose>
 </ui:composition>

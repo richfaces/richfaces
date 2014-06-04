@@ -23,22 +23,21 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org"
     xmlns:richx="http://richfaces.orgx">
-    <r:repeat id="userAlbums" value="#{albums}" var="album">
+    <r:repeat id="userAlbums" value="#{albums}" var="album" rowKeyVar="rk">
         <h:panelGroup layout="block" styleClass="preview_box_album_120">
-            <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+            <h:graphicImage styleClass="pr_album_bg" value="resources/img/shell/frame_album_200.png" />
             <h:panelGrid cellpadding="0">
                 <h:panelGroup style="margin-bottom:7px;" layout="block">
-                    <r:commandLink actionListener="#{controller.showAlbum(album)}" render="mainArea, treePanel">
+                    <r:commandLink actionListener="#{controller.showAlbum(album)}" onclick="select($(this).find('>img')); #{r:component('albumListTooltip')}.hide()" render="mainArea, treePanel">
                         <r:mediaOutput rendered="#{!album.isEmpty()}" id="img" element="img"
-                            createContent="#{imageLoader.paintImage}" styleClass="album-cover-image"
-                            value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}"
-                            mimeType="image/jpeg">
+                                         createContent="#{imageLoader.paintImage}" styleClass="album-cover-image"
+                                         value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}" mimeType="image/jpeg">
                             <r:dragSource rendered="#{controller.isUserAlbum(album)}" render="mainArea, treePanel"
                                 id="dragSource2" dragIndicator="dragIndicator" type="album" dragValue="#{album}" />
                         </r:mediaOutput>
                         <h:graphicImage rendered="#{album.isEmpty()}" style="width:80px; height:80px;"
-                            value="img/shell/frame_album_200.png" styleClass="album-cover-image" />
-                        <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                                        value="resources/img/shell/frame_album_200.png" styleClass="album-cover-image"/>
+                        <r:tooltip id="albumListTooltip" followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap"> #{album.name} </span>
                         </r:tooltip>
                     </r:commandLink>

@@ -26,20 +26,20 @@
     xmlns:richx="http://richfaces.orgx">
     <r:outputPanel id="filesPanel" ajaxRendered="true">
         <h:panelGroup layout="block" id="uploadProgress"
-            rendered="#{(fn:length(fileWrapper.files) > 0 or fn:length(fileWrapper.errorFiles) > 0) and !fileWrapper.complete}"
-            style="clear:both;padding-top:15px;margin : 0px 0px 0px 0px; display : !none; height : 40px">
+                      rendered="#{(fn:length(fileWrapper.files) > 0 or fn:length(fileWrapper.errorFiles) > 0) and !fileWrapper.complete}"
+                      style="clear:both;padding-top:15px;margin : 0px 0px 0px 0px; display : !none; height : 40px">
             <h:outputText styleClass="bold" value="#{messages['photo_upload_progress']} " />
             <h:outputText value="#{fn:length(fileWrapper.files)} #{messages['photos_was_uploaded_to']} " />
             <r:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-                render="mainArea, treePanel" value="#{model.selectedAlbum.name}" />
+                             render="mainArea, treePanel" value="#{model.selectedAlbum.name}" />
         </h:panelGroup>
         <h:panelGroup layout="block" id="uploadComplete" rendered="#{fileWrapper.complete}"
-            style="clear:both;margin : 0px 0px 0px 0px; display : !none; height : 40px;">
+                      style="clear:both;margin : 0px 0px 0px 0px; display : !none; height : 40px;">
             <h:panelGroup id="completeLabel">
                 <h:outputText styleClass="bold" value="#{messages['photo_upload_complete']} " />
                 <h:outputText value=" #{fn:length(fileWrapper.files)} #{messages['photos_was_uploaded_to']} " />
                 <r:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-                    render="mainArea, tree" value="#{model.selectedAlbum.name}" execute="@this" limitRender="true" />
+                                 render="mainArea, tree" value="#{model.selectedAlbum.name}" execute="@this" limitRender="true" />
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGroup style="padding-bottom:7px;" layout="block" rendered="#{fn:length(fileWrapper.errorFiles) > 0}">
@@ -50,8 +50,8 @@
                 <h:panelGroup style="padding-bottom:7px;" layout="block">
                     <h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} " />
                     <r:commandLink style="padding-bottom:7px;"
-                        actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}"
-                        value="#{messages['error']}" execute="@this" />
+                                   actionListener="#{controller.showError(fileWrapper.getErrorDescription(error))}"
+                                   value="#{messages['error']}" execute="@this" />
                 </h:panelGroup>
             </r:repeat>
         </h:panelGroup>
@@ -61,23 +61,23 @@
             </h:panelGroup>
             <r:repeat id="files" columns="1" value="#{fileWrapper.files}" var="image" rowKeyVar="row">
                 <h:panelGroup layout="block" styleClass="preview_box_photo_120">
-                    <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
+                    <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_200.png" style="border:0" />
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup>
                             <r:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel"
-                                execute="@this" limitRender="true">
+                                           execute="@this" limitRender="true">
                                 <r:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
-                                    value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
+                                               value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
                                     <r:dragSource id="dragSource" dragIndicator="iDragIndicator" type="image"
-                                        dragValue="#{image}" />
+                                                 dragValue="#{image}" />
                                 </r:mediaOutput>
                             </r:commandLink>
                         </h:panelGroup>
                     </h:panelGrid>
                     <h:panelGroup layout="block"
-                        style="width : 30px; background : #f1f1f1; border : 1px solid #A1A1A1; position : absolute; top : 4px; right : 4px; text-align : center">
-							#{row+1}
-						</h:panelGroup>
+                                  style="width : 30px; background : #f1f1f1; border : 1px solid #A1A1A1; position : absolute; top : 4px; right : 4px; text-align : center">
+                        #{row+1}
+                    </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="photo_name">
                         <h:outputText value="#{image.name}" />
                     </h:panelGroup>

@@ -24,31 +24,29 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org">
 
-    <!-- 
     <r:outputPanel rendered="#{not userBean.loggedInGPlus}">
-        <h:outputText value="This event has #{fn:length(albumIds)} albums on Facebook, " />
+        <h:outputText value="This event has #{fn:length(albumIds)} albums on Google+, " />
         <r:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
             oncomplete="#{r:component('loginPanel')}.show();" />
         <h:outputText value=" to see them." />
     </r:outputPanel>
-    -->
 
     <r:outputPanel id="googlePlusAlbums" rendered="#{userBean.loggedInGPlus}">
         <br style="clear: both" />
-        <r:repeat value="#{albumIds}" var="albumId" rendered="#{userBean.loggedInGPlus}">
+        <r:repeat value="#{albumIds}" var="albumId" rowKeyVar="rk">
             <h:panelGroup layout="block" styleClass="preview_box_album_120">
 
                 <r:outputPanel>
-                    <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+                    <h:graphicImage styleClass="pr_album_bg" value="resources/img/shell/frame_album_200.png" />
 
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
                             <r:commandLink execute="@this"
-                                onclick="G.getImages('#{albumId}', loadPhotos)">
-                                <h:graphicImage id="img"
-                                    url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}"
+                                onclick="select(':#{rk}:img'); #{r:component('albumListTooltip')}.hide(); #{googlePlusAlbumCache.isAlbumLoaded(albumId)} ? loadAlbum('#{albumId}') : G.getImages('#{albumId}', loadPhotos)">
+                                <h:graphicImage id="img" url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
-                                <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                                <r:tooltip id="albumListTooltip" followMouse="true" direction="topRight" showDelay="500"
+                                    styleClass="tooltip">
                                     <span style="white-space: nowrap">
                                         #{googlePlusAlbumCache.getAlbum(albumId).getString("name")} </span>
                                 </r:tooltip>
@@ -71,13 +69,14 @@
         </r:repeat>
 
         <br style="clear: both" />
-        <r:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
+        <r:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100"
+            enabled="#{fileDownloadManager.hasNext()}" interval="1000">
             <f:facet name="initial">
                 <h:outputText value="" />
             </f:facet>
             <h:outputText value="Importing #{fileDownloadManager.text}" />
-            <r:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
-            <r:ajax event="finish" oncomplete="finishImport()"/>
+            <r:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}" />
+            <r:ajax event="finish" oncomplete="finishImport()" />
         </r:progressBar>
 
         <!-- **Photo fetching** -->
@@ -89,8 +88,12 @@
         <ui:include src="/includes/gplus/albumImport.xhtml" />
 
         <!-- **Image import** -->
-        <r:jsFunction name="finishImport" render="gBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
-            oncomplete="reload();" />
+        <r:jsFunction name="finishImport" render="gBar" execute="@this"
+            actionListener="#{fileDownloadManager.finishDownload()}" oncomplete="reload();" />
+
+        <r:jsFunction name="loadAlbum" execute="@this" actionListener="#{controller.showGPlusAlbum()}" oncomplete="reload()">
+            <r:param assignTo="#{googlePlusAlbumCache.currentAlbumId}" name="response" />
+        </r:jsFunction>
 
     </r:outputPanel>
 </ui:composition>

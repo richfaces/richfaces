@@ -34,9 +34,9 @@ import javax.inject.Named;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
 
 @Named
 @SessionScoped
@@ -71,7 +71,7 @@ public class GooglePlusBean implements Serializable {
     }
 
     public String getUserId() {
-        return userInfo.optString("id");
+        return userInfo != null ? userInfo.optString("id", "1") : "1";
     }
 
     public String getName() {

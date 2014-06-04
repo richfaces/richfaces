@@ -26,6 +26,6 @@
     xmlns:r="http://richfaces.org">
     <ui:include src="/includes/shelf/shelvesList.xhtml">
         <ui:param name="shelves" value="#{shelfManager.predefinedShelves}" />
-        <ui:param name="header" value="#{messages['public_shelves']} #{fn:length(shelfManager.predefinedShelves)}" />
+        <ui:param name="header" value="#{messages['public_shelves']} (#{fn:length(shelfManager.predefinedShelves)})" />
     </ui:include>
 </ui:composition>

@@ -28,9 +28,9 @@
         </h:panelGrid>
     </ui:insert>
     <r:commandLink rendered="#{userBean.loggedIn}" actionListener="#{eventManager.createEvent()}" render="eventModalPanel"
-        oncomplete="#{r:component('eventModalPanel')}.show()" execute="@this">
-        <h:graphicImage value="/img/shell/icon_add_shelf.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
-        <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+        oncomplete="#{r:component('eventModalPanel')}.show()" execute="@this" onclick="#{r:component('eventListTooltip')}.hide()">
+        <h:graphicImage value="resources/img/shell/icon_add_shelf.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
+        <r:tooltip id="eventListTooltip" followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
             <h:outputText value="#{messages['add_shelf']}"
                 style="white-space: nowrap; display: block; text-align: left; color: #DF6400" />
         </r:tooltip>

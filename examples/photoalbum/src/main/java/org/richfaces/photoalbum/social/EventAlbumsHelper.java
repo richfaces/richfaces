@@ -13,16 +13,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.domain.Event;
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.Model;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
 import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
 import org.richfaces.photoalbum.util.ImageHandler;
-import org.richfaces.photoalbum.util.ListUtils;
+import org.richfaces.photoalbum.util.converters.ListConverter;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -100,7 +100,7 @@ public class EventAlbumsHelper implements Serializable {
             }));
 
             // set up the id
-            setFbAlbumIds(ListUtils.sListToString(emptyFacebookIds));
+            setFbAlbumIds(ListConverter.sListToString(emptyFacebookIds));
 
             // load the loaded images
             for (String lId : facebookAlbumIds) {

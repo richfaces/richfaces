@@ -26,7 +26,7 @@
     <r:contextMenu style="text-align:left;" rendered="#{controller.isUserShelf(shelf)}" mode="ajax" target="#{target}">
         <r:menuItem label="#{messages['add_album']}" limitRender="true" render="albumModalPanel"
             data="#{albumManager.errorInCreate}" actionListener="#{albumManager.createAlbum(shelf, true)}"
-            oncomplete="if(!data)$('albumModalPanel').component.show()" />
+            oncomplete="if(!event.data)#{r:component('albumModalPanel')}.show()" />
         <r:menuItem label="#{messages['delete_shelf']}" limitRender="true"
             actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
             oncomplete="#{r:component('confirmation')}.show()" render="confirmation" />

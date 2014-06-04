@@ -25,6 +25,7 @@
     xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
     <h:panelGrid styleClass="album-header-table" cellpadding="0">
         <ui:insert name="header" />
+        <r:commandButton execute="@this" onclick="setEdit(true)" value="Edit" rendered="#{controller.isProfileEditable(model.selectedUser)}"/>
     </h:panelGrid>
     <h:panelGroup id="userPref">
         <table style="padding: 0; border-spacing: 0; border: 0" class="reg-table">
@@ -34,7 +35,7 @@
                 </td>
                 <td style="padding-left: 2px; padding-bottom: 2px">
                     <h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
-                        <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
+                        <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_200.png" style="border:0" />
                         <h:panelGrid cellpadding="0">
                             <h:panelGroup>
                                 <ui:include src="/includes/userPrefs/avatar.xhtml" />
@@ -50,7 +51,7 @@
                     <h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel>
                 </td>
                 <td>
-                    <h:outputText value="#{userBean.user.login}" styleClass="reg-table-output" />
+                    <h:outputText id="userLoginName" value="#{user.login}" styleClass="reg-table-output" />
                 </td>
                 <td />
             </tr>
@@ -73,7 +74,7 @@
                     <h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel>
                 </td>
                 <td>
-                    <h:outputText value="#{userBean.user.secondName}" styleClass="reg-table-output" />
+                    <h:outputText id="userSecondname" value="#{user.secondName}" styleClass="reg-table-output" />
                 </td>
                 <td />
             </tr>
@@ -82,9 +83,7 @@
                     <h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel>
                 </td>
                 <td>
-                    <h:outputText rendered="#{userBean.user.sex.key =='1'}" value="#{messages['male']}"
-                        styleClass="reg-table-output" />
-                    <h:outputText rendered="#{userBean.user.sex.key =='0'}" value="#{messages['female']}"
+                    <h:outputText id="userSex" value="#{user.sex.key =='1' ? messages['male'] : messages['female']}"
                         styleClass="reg-table-output" />
                 </td>
                 <td />
@@ -94,7 +93,7 @@
                     <h:outputLabel for="calendar">#{messages['user.birthdate']}</h:outputLabel>
                 </td>
                 <td>
-                    <h:outputText value="#{userBean.user.birthDate}" styleClass="reg-table-output">
+                    <h:outputText id="calendar" value="#{user.birthDate}" styleClass="reg-table-output">
                         <f:convertDateTime />
                     </h:outputText>
                 </td>
@@ -105,7 +104,7 @@
                     <h:outputLabel for="email">#{messages['user.email']}</h:outputLabel>
                 </td>
                 <td>
-                    <h:outputText value="#{userBean.user.email}" styleClass="reg-table-output" />
+                    <h:outputText id="email" value="#{user.email}" styleClass="reg-table-output" />
                 </td>
                 <td />
             </tr>

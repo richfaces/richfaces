@@ -88,7 +88,7 @@
                     <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right">
                         <richx:commandButton id="saveButton" style="float: left" value="#{messages['save']}"
                             actionListener="#{shelfManager.editShelf(model.selectedShelf, false)}" render="treePanel, mainArea" />
-                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: left" immediate="true"
+                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: right" immediate="true"
                             actionListener="#{controller.cancelEditShelf()}" render="mainArea" />
                     </td>
                 </tr>

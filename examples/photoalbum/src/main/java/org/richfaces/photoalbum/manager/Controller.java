@@ -23,42 +23,42 @@ package org.richfaces.photoalbum.manager;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Event;
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.MetaTag;
-import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.AlbumEvent;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.EventTypeQualifier;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.event.ShelfEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.MetaTag;
+import org.richfaces.photoalbum.model.Shelf;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.event.AlbumEvent;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.EventTypeQualifier;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.ImageEvent;
+import org.richfaces.photoalbum.model.event.ShelfEvent;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
 import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.ui.iteration.tree.AbstractTree;
+import org.richfaces.ui.iteration.tree.UITree;
 
 /**
  * This class represent 'C' in MVC pattern. It is logic that determine what actions invoked and what next page need to be
  * showed. Typically on almost all user actions, this class populates the model and determine new view to show. Also contain
  * utility logic, such as checking is the given shelf belongs to the specified user etc..
- * 
+ *
  * @author Andrey Markhel
  */
 
 @Named
-@ConversationScoped
+@SessionScoped
 public class Controller implements Serializable {
 
     private static final long serialVersionUID = 5656562187249324512L;
@@ -66,11 +66,11 @@ public class Controller implements Serializable {
     @Inject
     Model model;
 
-    User user;
-
     @Inject
     @Preferred
-    User loggedUser;
+    private User loggedUser;
+    @Inject
+    UserBean loggedUserBean;
 
     @Inject
     FileManager fileManager;
@@ -85,47 +85,54 @@ public class Controller implements Serializable {
 
     @Inject
     FacebookAlbumCache fac;
-    
+
     @Inject
     GooglePlusAlbumCache gpac;
 
     private int currentPage = 0;
 
     /**
+     * Hack to prevent of returning 'null' user from @Produces method in UserBean.
+     */
+    private User getLoggedUser() {
+        return (loggedUser == null ? loggedUserBean.getUser() : loggedUser);
+    }
+
+    /**
      * This method invoked after the user want to see all predefined shelves, existed in application
      */
     public void selectPublicShelves() {
-        model.resetModel(NavigationEnum.ANONYM, user, null, null, null, null);
+        model.resetModel(NavigationEnum.ANONYM, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to see all her shelves.
      */
     public void selectShelves() {
-        model.resetModel(NavigationEnum.ALL_SHELFS, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.ALL_SHELFS, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to see all her albums.
      */
     public void selectAlbums() {
-        model.resetModel(NavigationEnum.ALL_ALBUMS, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.ALL_ALBUMS, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to see all her images.
      */
     public void selectImages() {
-        model.resetModel(NavigationEnum.ALL_IMAGES, loggedUser, null, null, null, loggedUser.getImages());
+        model.resetModel(NavigationEnum.ALL_IMAGES, getLoggedUser(), null, null, null, getLoggedUser().getImages());
     }
 
     /**
      * This method invoked after the user want to edit specified shelf.
-     * 
+     *
      * @param shelf - shelf to edit
      */
     public void startEditShelf(Shelf shelf) {
-        if (loggedUser == null) {
+        if (getLoggedUser() == null) {
             return;
         }
         if (!canViewShelf(shelf)) {
@@ -137,7 +144,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt edit shelf process
-     * 
+     *
      */
     public void cancelEditShelf() {
         model.resetModel(NavigationEnum.SHELF_PREVIEW, model.getSelectedShelf().getOwner(), model.getSelectedShelf(), null,
@@ -146,7 +153,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see specified album independently is it her album or not.
-     * 
+     *
      * @param album - album to show
      */
     public void showAlbum(Album album) {
@@ -154,6 +161,7 @@ public class Controller implements Serializable {
             showError("", Constants.HAVENT_ACCESS);
             return;
         }
+        // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         // Check, that album was not deleted recently.
         if (!fileManager.isDirectoryPresent(album.getPath())) {
             showError("", Constants.ALBUM_RECENTLY_DELETED_ERROR);
@@ -166,34 +174,36 @@ public class Controller implements Serializable {
 
     public void showFBAlbum(String albumId) {
         fac.setCurrentAlbumId(albumId);
-        model.resetModel(NavigationEnum.FB_ALBUM_PREVIEW, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.FB_ALBUM_PREVIEW, getLoggedUser(), null, null, null, null);
     }
 
     public void showFbImage(String imageId) {
+        setFPage(0);
         fac.setCurrentImageId(imageId);
-        model.resetModel(NavigationEnum.FB_IMAGE_PREVIEW, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.FB_IMAGE_PREVIEW, getLoggedUser(), null, null, null, null);
     }
 
     public void showFbShelf() {
-        model.resetModel(NavigationEnum.FB_SHELF, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.FB_SHELF, getLoggedUser(), null, null, null, null);
     }
 
     public void showGPlusShelf() {
-        model.resetModel(NavigationEnum.GPLUS_SHELF, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.GPLUS_SHELF, getLoggedUser(), null, null, null, null);
     }
-    
+
     public void showGPlusAlbum() {
-        model.resetModel(NavigationEnum.GPLUS_ALBUM_PREVIEW, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.GPLUS_ALBUM_PREVIEW, getLoggedUser(), null, null, null, null);
     }
-    
+
     public void showGPlusImage(String imageId) {
+        setGplusPage(0);
         gpac.setCurrentImageId(imageId);
-        model.resetModel(NavigationEnum.GPLUS_IMAGE_PREVIEW, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.GPLUS_IMAGE_PREVIEW, getLoggedUser(), null, null, null, null);
     }
-    
+
     /**
      * This method invoked in cases, when it is need to clear fileUpload component
-     * 
+     *
      */
     public void resetFileUpload() {
         pushEvent(Events.CLEAR_FILE_UPLOAD_EVENT);
@@ -201,7 +211,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see specified image independently is it her image or not.
-     * 
+     *
      * @param album - album to show
      */
     public void showImage(Image image) {
@@ -223,13 +233,85 @@ public class Controller implements Serializable {
         image.setVisited(true);
     }
 
+    public void showNextImage() {
+        int id = model.getSelectedAlbum().getImages().indexOf(model.getSelectedImage());
+        int max = model.getSelectedAlbum().getImages().size() - 1;
+
+        if (id == max) {
+            id = -1;
+        }
+
+        setPage((id + 1) / 5 + 1);
+        showImage(model.getSelectedAlbum().getImages().get(id + 1));
+    }
+
+    public void showPrevImage() {
+        int id = model.getSelectedAlbum().getImages().indexOf(model.getSelectedImage());
+        int max = model.getSelectedAlbum().getImages().size() - 1;
+
+        if (id == 0) {
+            id = max + 1;
+        }
+
+        setPage((id - 1) / 5 + 1);
+        showImage(model.getSelectedAlbum().getImages().get(id - 1));
+    }
+
+    public void showNextFbImage() {
+        int id = fac.getCurrentImages().indexOf(fac.getCurrentImage());
+        int max = fac.getCurrentImages().size() - 1;
+
+        if (id == max) {
+            id = -1;
+        }
+
+        setPage((id + 1) / 5 + 1);
+        showFbImage(fac.getCurrentImages().get(id + 1).optString("id"));
+    }
+
+    public void showPrevFbImage() {
+        int id = fac.getCurrentImages().indexOf(fac.getCurrentImage());
+        int max = fac.getCurrentImages().size() - 1;
+
+        if (id == 0) {
+            id = max + 1;
+        }
+
+        setPage((id - 1) / 5 + 1);
+        showFbImage(fac.getCurrentImages().get(id - 1).optString("id"));
+    }
+
+    public void showNextGPlusImage() {
+        int id = gpac.getCurrentImages().indexOf(gpac.getCurrentImage());
+        int max = gpac.getCurrentImages().size() - 1;
+
+        if (id == max) {
+            id = -1;
+        }
+
+        setPage((id + 1) / 5 + 1);
+        showGPlusImage(gpac.getCurrentImages().get(id + 1).optString("id"));
+    }
+
+    public void showPrevGPlusImage() {
+        int id = gpac.getCurrentImages().indexOf(gpac.getCurrentImage());
+        int max = gpac.getCurrentImages().size() - 1;
+
+        if (id == 0) {
+            id = max + 1;
+        }
+
+        setPage((id - 1) / 5 + 1);
+        showGPlusImage(gpac.getCurrentImages().get(id - 1).optString("id"));
+    }
+
     /**
      * This method invoked after the user want to edit specified image.
-     * 
+     *
      * @param image - image to edit
      */
     public void startEditImage(Image image) {
-        if (loggedUser == null) {
+        if (getLoggedUser() == null) {
             return;
         }
         if (!canViewImage(image)) {
@@ -242,29 +324,26 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to save just edited user to database.
-     * 
+     *
      */
     public void editUser() {
-        if (loggedUser == null) {
+        if (getLoggedUser() == null) {
             return;
         }
         pushEvent(Events.EDIT_USER_EVENT);
-        model.resetModel(NavigationEnum.ALL_SHELFS, user, model.getSelectedShelf(), model.getSelectedAlbum(),
-            model.getSelectedImage(), model.getImages());
     }
 
     /**
      * This method invoked after the user want to interrupt edit user process
-     * 
+     *
      */
     public void cancelEditUser() {
         pushEvent(Events.CANCEL_EDIT_USER_EVENT);
-        model.resetModel(NavigationEnum.ANONYM, user, null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to interrupt edit image process
-     * 
+     *
      */
     public void cancelEditImage() {
         model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, model.getSelectedImage().getAlbum().getShelf().getOwner(), model
@@ -274,7 +353,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see specified shelf independently is it her shelf or not.
-     * 
+     *
      * @param album - album to show
      */
     public void showShelf(Shelf shelf) {
@@ -287,20 +366,20 @@ public class Controller implements Serializable {
     }
 
     public void showEvent(Event event) {
-        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, event);
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, getLoggedUser(), null, null, null, null, event);
         pushEvent(Events.EVENT_DISPLAYED_EVENT);
     }
 
     /**
      * This method invoked after the user want to edit specified album.
-     * 
+     *
      * @param album - album to edit
      */
     public void startEditAlbum(Album album) {
-        if (loggedUser == null) {
+        if (getLoggedUser() == null) {
             return;
         }
-        if (!album.isOwner(loggedUser)) {
+        if (!album.isOwner(getLoggedUser())) {
             showError("", Constants.HAVENT_ACCESS);
             return;
         }
@@ -309,7 +388,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt edit album process
-     * 
+     *
      */
     public void cancelEditAlbum() {
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, model.getSelectedAlbum().getOwner(),
@@ -318,7 +397,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_ADDED_EVENT</code> and invoked after the user add new album
-     * 
+     *
      * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
@@ -330,7 +409,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_EDITED_EVENT</code> and invoked after the user edit her album
-     * 
+     *
      * @param album - edited album
      */
     public void onAlbumEdited(@Observes @EventType(Events.ALBUM_EDITED_EVENT) AlbumEvent ae) {
@@ -341,27 +420,29 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_DELETED_EVENT</code> and invoked after the user delete her album
-     * 
+     *
      * @param album - deleted album
      * @param path - relative path of the album directory
      */
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
-        model.resetModel(NavigationEnum.ALL_ALBUMS, model.getSelectedUser(), model.getSelectedShelf(), null, null, null);
+        loggedUserBean.refreshUser();
+        model.resetModel(NavigationEnum.ALL_ALBUMS, getLoggedUser(), ae.getAlbum().getShelf(), null, null, null);
     }
 
     /**
      * This method observes <code>Constants.SHELF_DELETED_EVENT</code> and invoked after the user delete her shelf
-     * 
+     *
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
-        model.resetModel(NavigationEnum.ALL_SHELFS, model.getSelectedUser(), null, null, null, null);
+        loggedUserBean.refreshUser();
+        model.resetModel(NavigationEnum.ALL_SHELFS, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This method observes <code>Constants.SHELF_ADDED_EVENT</code> and invoked after the user add new shelf
-     * 
+     *
      * @param shelf - added shelf
      */
     public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
@@ -371,7 +452,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.SHELF_EDITED_EVENT</code> and invoked after the user edit her shelf
-     * 
+     *
      * @param shelf - edited shelf
      */
     public void onShelfEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
@@ -380,46 +461,47 @@ public class Controller implements Serializable {
     }
 
     public void onEventDeleted(@Observes @EventType(Events.EVENT_DELETED_EVENT) ShelfEvent se) {
-        model.resetModel(NavigationEnum.ANONYM, loggedUser, null, null, null, null, null);
+        model.resetModel(NavigationEnum.ANONYM, getLoggedUser(), null, null, null, null, null);
     }
 
     public void onEventAdded(@Observes @EventType(Events.EVENT_ADDED_EVENT) ShelfEvent se) {
-        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, getLoggedUser(), null, null, null, null, se.getEvent());
         pushEvent(Events.EVENT_DISPLAYED_EVENT);
     }
 
     public void onEventEdited(@Observes @EventType(Events.EVENT_EDITED_EVENT) ShelfEvent se) {
-        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, getLoggedUser(), null, null, null, null, se.getEvent());
         pushEvent(Events.EVENT_DISPLAYED_EVENT);
     }
 
     /**
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image
-     * 
+     *
      * @param image - deleted image
      * @param path - relative path of the image file
      */
     public void onImageDeleted(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
-        model.resetModel(NavigationEnum.ALBUM_PREVIEW, model.getSelectedUser(), model.getSelectedShelf(),
-            model.getSelectedAlbum(), null, model.getSelectedAlbum().getImages());
+        loggedUserBean.refreshUser();
+        Album album = ie.getImage().getAlbum();
+        model.resetModel(NavigationEnum.ALBUM_PREVIEW, getLoggedUser(), album.getShelf(), album, null, album.getImages());
     }
 
     /**
      * This method observes <code>Constants.AUTHENTICATED_EVENT</code> and invoked after the user successfully authenticate to
      * the system
-     * 
+     *
      * @param u - authenticated user
      */
     public void onAuthenticate(@Observes @EventType(Events.AUTHENTICATED_EVENT) SimpleEvent se) {
-        model.resetModel(NavigationEnum.ALL_SHELFS, loggedUser, null, null, null, null);
+        model.resetModel(NavigationEnum.ALL_SHELFS, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to go to the file-upload page
-     * 
+     *
      */
     public void showFileUpload() {
-        if (!(loggedUser.getShelves().size() > 0)) {
+        if (!(getLoggedUser().getShelves().size() > 0)) {
             // If user have no shelves, that can start fileupload process
             showError("", Constants.FILE_UPLOAD_SHOW_ERROR);
             return;
@@ -427,15 +509,15 @@ public class Controller implements Serializable {
         Album alb = null;
         // If selected album belongs to user
         alb = setDefaultAlbumToUpload(alb);
-        model.resetModel(NavigationEnum.FILE_UPLOAD, loggedUser, alb != null ? alb.getShelf() : null, alb, null,
+        model.resetModel(NavigationEnum.FILE_UPLOAD, getLoggedUser(), alb != null ? alb.getShelf() : null, alb, null,
             alb != null ? alb.getImages() : null);
     }
 
     /**
      * This method invoked after the user want to go to the file-upload page and download images to the specified album
-     * 
+     *
      * @param album - selected album
-     * 
+     *
      */
     public void showFileUpload(Album album) {
         if (!isUserAlbum(album)) {
@@ -448,9 +530,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all shared albums of the specified user
-     * 
+     *
      * @param user - user to see
-     * 
+     *
      */
     public void showSharedAlbums(User user) {
         model.resetModel(NavigationEnum.USER_SHARED_ALBUMS, user, null, null, null, user.getSharedImages());
@@ -458,9 +540,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all shared images of the specified user
-     * 
+     *
      * @param user - user to see
-     * 
+     *
      */
     public void showSharedImages(User user) {
         model.resetModel(NavigationEnum.USER_SHARED_IMAGES, user, null, null, null, user.getSharedImages());
@@ -468,20 +550,24 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see profile of the specified user
-     * 
+     *
      * @param user - user to see
-     * 
+     *
      */
     public void showUser(User user) {
         model.resetModel(NavigationEnum.USER_PREFS, user, null, null, null, null);
         // Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
     }
+    
+    public void showCurrentUser() {
+        showUser(getLoggedUser());
+    }
 
     /**
      * This method invoked after the user want to see all unvisited images, belongs to the of specified shelf
-     * 
+     *
      * @param shelf - shelf to see
-     * 
+     *
      */
     public void showUnvisitedImages(Shelf shelf) {
         model.resetModel(NavigationEnum.SHELF_UNVISITED, shelf.getOwner(), shelf, null, null, shelf.getUnvisitedImages());
@@ -489,9 +575,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all unvisited images, belongs to the of specified album
-     * 
+     *
      * @param album - album to see
-     * 
+     *
      */
     public void showUnvisitedImages(Album album) {
         model.resetModel(NavigationEnum.ALBUM_UNVISITED, album.getOwner(), album.getShelf(), album, null,
@@ -500,9 +586,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all images, related to the of specified album
-     * 
+     *
      * @param metatag - tag to see
-     * 
+     *
      */
     public void showTag(MetaTag metatag) {
         model.resetModel(NavigationEnum.TAGS, model.getSelectedUser(), model.getSelectedShelf(), model.getSelectedAlbum(),
@@ -513,24 +599,24 @@ public class Controller implements Serializable {
     /**
      * This method observes <code>Constants.START_REGISTER_EVENT</code> and invoked after the user want to start registration
      * process.
-     * 
+     *
      */
     public void startRegistration(@Observes @EventType(Events.START_REGISTER_EVENT) SimpleEvent se) {
-        model.resetModel(NavigationEnum.REGISTER, user, null, null, null, null);
+        model.resetModel(NavigationEnum.REGISTER, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to interrupt registration process
-     * 
+     *
      */
     public void cancelRegistration() {
-        model.resetModel(NavigationEnum.ANONYM, user, null, null, null, null);
+        model.resetModel(NavigationEnum.ANONYM, getLoggedUser(), null, null, null, null);
     }
 
     /**
      * This utility method determine if the specified node should be marked as selected. Used in internal r:tree mechanism
      */
-    public Boolean adviseNodeSelected(AbstractTree tree) {
+    public Boolean adviseNodeSelected(UITree tree) {
         Object currentNode = tree.getRowData();
         if (currentNode.equals(model.getSelectedAlbum()) || currentNode.equals(model.getSelectedShelf())) {
             return true;
@@ -552,80 +638,106 @@ public class Controller implements Serializable {
     public void setPage(Integer page) {
         currentPage = page;
     }
+    
+    public Integer getFPage() {
+        if (currentPage == 0) {
+            Integer index = fac.getCurrentImages().indexOf(fac.getCurrentImage());
+            currentPage = index / 5 + 1;
+        }
+        return currentPage;
+    }
+
+    public void setFPage(Integer page) {
+        currentPage = page;
+    }
+    
+    public Integer getGplusPage() {
+        if (currentPage == 0) {
+            Integer index = gpac.getCurrentImages().indexOf(gpac.getCurrentImage());
+            currentPage = index / 5 + 1;
+        }
+        return currentPage;
+    }
+
+    public void setGplusPage(Integer page) {
+        currentPage = page;
+    }
 
     /**
      * This utility method used to determine if the specified image belongs to the logged user
-     * 
+     *
      * @param image - image to check
      */
     public boolean isUserImage(Image image) {
-        if (image == null || image.getOwner() == null || loggedUser == null) {
+        if (image == null || image.getOwner() == null || getLoggedUser() == null) {
             return false;
         }
-        return loggedUser.equals(image.getOwner());
+        return getLoggedUser().equals(image.getOwner());
     }
 
     /**
      * This utility method used to determine if the logged user have any shelves.
-     * 
+     *
      */
     public boolean isUserHaveShelves() {
-        return loggedUser.getShelves().size() > 0; // loggedUser might be null right after successful login
+        return getLoggedUser().getShelves().size() > 0; // loggedUser might be null right after successful login
     }
 
     /**
      * This utility method used to determine if the logged user have any albums.
-     * 
+     *
      */
     public boolean isUserHaveAlbums() {
-        return loggedUser.getAlbums().size() > 0;
+        return getLoggedUser().getAlbums().size() > 0;
     }
 
     /**
      * This utility method used to determine if the specified shelf belongs to the logged user
-     * 
+     *
      * @param shelf - shelf to check
      */
     public boolean isUserShelf(Shelf shelf) {
-        return shelf != null && loggedUser != null && loggedUser.equals(shelf.getOwner());
+        return shelf != null && getLoggedUser() != null && getLoggedUser().equals(shelf.getOwner());
     }
 
     /**
      * This utility method used to determine if the specified album belongs to the logged user
-     * 
+     *
      * @param album - album to check
      */
     public boolean isUserAlbum(Album album) {
-        return album != null && loggedUser != null && loggedUser.equals(album.getOwner());
+        return album != null && getLoggedUser() != null && getLoggedUser().equals(album.getOwner());
     }
 
     /**
      * This utility method used to determine if the specified user can be edited
-     * 
+     *
      * @param user - user to check
      */
     public boolean isProfileEditable(User selectedUser) {
-        return selectedUser != null && selectedUser.equals(loggedUser);
+        return selectedUser != null && selectedUser.equals(getLoggedUser());
     }
 
     private boolean canViewShelf(Shelf shelf) {
-        return shelf != null && shelf.isOwner(loggedUser) || shelf.isShared();
+        return shelf != null && shelf.isOwner(getLoggedUser()) || shelf.isShared();
     }
 
     private boolean canViewAlbum(Album album) {
-        return album != null && (album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser)));
+        return album != null && album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(getLoggedUser()));
     }
 
     private boolean canViewImage(Image image) {
-        return image != null && image.getAlbum() != null
-            && (image.getAlbum().getShelf() != null && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser)));
+        return image != null
+            && image.getAlbum() != null
+            && (image.getAlbum().getShelf() != null && (image.getAlbum().getShelf().isShared() || image
+                .isOwner(getLoggedUser())));
     }
 
     /**
      * This utility method invoked in case if you want to show to the user specified error in popup
-     * 
+     *
      * @param error - error to show
-     * 
+     *
      */
     public void showError(String summary, String errorMessage) {
         error.fire(new ErrorEvent(summary, errorMessage));
@@ -640,9 +752,9 @@ public class Controller implements Serializable {
             alb = model.getSelectedAlbum();
         }
         if (alb == null) {
-            if (loggedUser != null && loggedUser.getShelves().size() > 0
-                && loggedUser.getShelves().get(0).getAlbums().size() > 0) {
-                for (Shelf s : loggedUser.getShelves()) {
+            if (getLoggedUser() != null && getLoggedUser().getShelves().size() > 0
+                && getLoggedUser().getShelves().get(0).getAlbums().size() > 0) {
+                for (Shelf s : getLoggedUser().getShelves()) {
                     if (s.getAlbums().size() > 0) {
                         alb = s.getAlbums().get(0);
                         break;
@@ -651,5 +763,16 @@ public class Controller implements Serializable {
             }
         }
         return alb;
+    }
+
+    /*
+     * Checks if selected album belong to selected event
+     */
+    public boolean isEventFacebookAlbum(String id) {
+        return model.getSelectedEvent() != null && model.getSelectedEvent().getFacebookAlbumIds().contains(id);
+    }
+
+    public boolean isEventGoogleAlbum(String id) {
+        return model.getSelectedEvent() != null && model.getSelectedEvent().getGooglePlusAlbumIds().contains(id);
     }
 }

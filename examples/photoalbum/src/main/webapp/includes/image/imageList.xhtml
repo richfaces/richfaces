@@ -30,14 +30,15 @@
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
 
-    <r:dataScroller rendered="#{fn:length(model.images) > 20}" for="imageList" render="userAlbumImages" />
+    <r:dataScroller rendered="#{fn:length(model.images) > 12}" for="imageList" render="userAlbumImages" />
 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
-        <h:panelGroup layout="block" style="float : right; cursor : pointer">
+        <h:panelGroup layout="block" style="float : left; cursor : pointer">
             <r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
-                styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
-                <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
-                    style="vertical-align : bottom; margin-right : 5px; border:0;" />
+                             styleClass="slideshow-link" render="slideShowModalPanel" execute="@this, slideShowModalPanel"
+                             oncomplete="#{r:component('slideShowModalPanel')}.show()">
+                <h:graphicImage value="resources/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
+                                style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
             </r:commandLink>
 
@@ -48,19 +49,20 @@
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <r:repeat id="imageList" value="#{model.images}" var="image" rows="20">
+        <r:repeat id="imageList" value="#{model.images}" var="image" rows="12" rowKeyVar="rk">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
-                    value="#{imageSizeHelper.currentDimension.imageBg}" />
+                                value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <r:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
+                        <r:commandLink actionListener="#{controller.showImage(image)}" onclick="select(':#{rk}:img');"
+                                         render="mainArea, treePanel" styleClass="imageLink">
                             <r:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
-                                style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
-                                value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
+                                             style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
+                                             value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 <r:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
-                                    id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
+                                                 id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
                             </r:mediaOutput>
                         </r:commandLink>
                         <br />

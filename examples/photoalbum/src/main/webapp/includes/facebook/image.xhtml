@@ -23,7 +23,8 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org"
-    xmlns:richx="http://richfaces.orgx">
+    xmlns:richx="http://richfaces.orgx"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ui:param name="image" value="#{facebookAlbumCache.currentImage}" />
     <ui:param name="album" value="#{facebookAlbumCache.currentAlbum}" />
     <!-- imageHeaderInfo -->
@@ -33,7 +34,11 @@
                 <h:outputText value="#{image.getString('name')}" />
             </h1>
             <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
-                render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}" />
+            render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
+            rendered="#{controller.isEventFacebookAlbum(album.getString('id'))}" />
+        <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFbShelf()}"
+            render="mainArea, treePanel" value="Facebook"
+            rendered="#{not controller.isEventGoogleAlbum(album.getString('fullId'))}" />
             <h:outputText value=" #{messages['delimiter']} " />
             <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum(album.getString('id'))}"
                 render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
@@ -50,10 +55,11 @@
                 <r:outputPanel layout="block"
                     styleClass="preview_box_photo_nav #{image.getString('id') == img.getString('id') ? 'preview_box_photo_current' : 'preview_box_photo_default'}">
                     <h:panelGroup layout="block" styleClass="preview_box_photo_80">
-                        <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_80.png" />
+                        <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_80.png" />
                         <h:panelGrid cellpadding="0" cellspacing="2">
                             <h:panelGroup layout="block">
-                                <h:graphicImage url="#{img.getString('thumbUrl')}" style="max-width: 80px; max-height: 80px" />
+                                <h:graphicImage id="img" url="#{img.getString('thumbUrl')}"
+                                    style="max-width: 80px; max-height: 80px" />
                                 <br />
                             </h:panelGroup>
                         </h:panelGrid>
@@ -70,57 +76,46 @@
             </r:repeat>
         </h:panelGrid>
 
-        <h:panelGrid columns="3">
+        <h:panelGrid columns="3" rendered="#{fn:length(facebookAlbumCache.currentImages) > 5}">
             <h:panelGroup styleClass="image-scroller-left-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_left.png',sizingMethod='scale');">
                 <h:graphicImage styleClass="ie6transparency" value="img/shell/arr_left.png"
                     onclick="#{r:component('scroller')}.fastRewind()" />
             </h:panelGroup>
-            <r:dataScroller styleClass="image-scroller" lastPageMode="full" for="repeat" render="imagesTable"
-                boundaryControls="hide" stepControls="hide" id="scroller" fastControls="hide">
+            <r:dataScroller styleClass="image-scroller" for="repeat" render="imagesTable"
+                boundaryControls="hide" stepControls="hide" id="scroller" fastControls="hide" page="#{controller.FPage}">
             </r:dataScroller>
             <h:panelGroup styleClass="image-scroller-right-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_right.png',sizingMethod='scale');">
-                <h:graphicImage value="img/shell/arr_right.png" styleClass="ie6transparency" height="34" width="56" border="0"
+                <h:graphicImage value="resources/img/shell/arr_right.png" styleClass="ie6transparency" height="34" width="56" border="0"
                     onclick="#{r:component('scroller')}.fastForward()" />
             </h:panelGroup>
         </h:panelGrid>
     </h:panelGroup>
 
+    <r:hotKey key="right" onkeyup="showFNext()"/>
+    <r:hotKey key="left" onkeyup="showFPrev()" />
+    <r:jsFunction name="showFNext" actionListener="#{controller.showNextFbImage()}" render="mainArea"/>
+    <r:jsFunction name="showFPrev" actionListener="#{controller.showPrevFbImage()}" render="mainArea"/>
     <br clear="all" />
     <h:panelGroup id="mainImage" layout="block" styleClass="mainImage-div">
         <table style="padding: 0px;" class="mainImage-table">
             <tr>
-                <td class="mainImage-table-col1" rowspan="2">
-                    <h:panelGroup layout="block" styleClass="slideshow-outerdiv">
-                        <h:outputText value="Slideshow" />
-                        <!-- rendered="#{album.getInt('size') > 0}" -->
-                        <r:commandLink disabled="true" actionListener="#{slideshow.startSlideshow(model.selectedImage)}"
+                <td class="mainImage-table-col1" rowspan="2"><h:panelGroup layout="block" styleClass="slideshow-outerdiv">
+                        <r:commandLink actionListener="#{slideshow.startSlideshow(facebookAlbumCache.currentImage)}"
                             styleClass="slideshow-link" render="mainArea, slideShowModalPanel"
-                            execute="@this, slideShowModalPanel">
-                            <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
+                            execute="@this, slideShowModalPanel" rendered="#{album.getInt('size') > 1}">
+                            <h:graphicImage value="resources/img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
                                 style="vertical-align : bottom; margin-right : 5px; border:0;" />
                             <h:outputText value="#{messages['slideshow.start']}" />
                         </r:commandLink>
-                    </h:panelGroup>
-                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('url') != null}"
-                        style="border : 3px solid #808080; max-width: 600px; max-height: 600px"
-                        url="#{image.getString('url')}">
-                    </h:graphicImage>
-                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('url') == null}"
-                        style="border : 3px solid #808080; max-width: 600px; max-height: 600px" url="#{image.getString('thumbUrl')}">
-                    </h:graphicImage>
-                </td>
-                <td style="vertical-align: top;">
-                    <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;"
-                        rendered="#{image.getString('url') != null}">
+                    </h:panelGroup> <h:graphicImage styleClass="main-image"
+                        style="border : 3px solid #808080; max-width: 600px; max-height: 600px" url="#{image.getString('url')}">
+                    </h:graphicImage></td>
+                <td style="vertical-align: top;"><h:panelGroup layout="block" styleClass="buttons-body"
+                        style="margin : 26px 0px 0px 0px;" rendered="#{image.getString('url') != null}">
                         <a href="#{image.getString('url')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
-                    </h:panelGroup>
-                    <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;"
-                        rendered="#{image.getString('url') == null}">
-                        <a href="#{image.getString('thumbUrl')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
-                    </h:panelGroup>
-                </td>
+                    </h:panelGroup></td>
             </tr>
         </table>
     </h:panelGroup>

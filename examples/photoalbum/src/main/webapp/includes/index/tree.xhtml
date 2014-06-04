@@ -26,35 +26,34 @@
     xmlns:richx="http://richfaces.orgx">
     <h:panelGroup layout="block">
         <h:panelGrid columns="2">
-            <r:commandLink actionListener="#{controller.selectPublicShelves()}" render="mainArea, treePanel">
+            <r:commandLink execute="@this" actionListener="#{treeSelectionHelper.unselectOtherTrees('R')}" render="treePanel"
+                oncomplete="showPTree()">
+                <r:jsFunction name="showPTree" actionListener="#{controller.selectPublicShelves()}" render="mainArea" />
                 <h2>
                     <h:outputText value="#{messages['public_shelves']}" />
                 </h2>
             </r:commandLink>
-            <r:commandLink rendered="#{help.isShowHelp()}"
-                actionListener="#{help.navigateTo('/includes/help/tree_predefined.xhtml')}"
-                oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
-                <h:panelGroup
-                    style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
-                    <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
-                        value="img/icons/help_sign.png" />
-                </h:panelGroup>
-            </r:commandLink>
+            <ui:include src="/includes/help/button.xhtml">
+                <ui:param name="page" value="tree_predefined.xhtml" />
+            </ui:include>
         </h:panelGrid>
-
-        <br />
-        <r:tree id="PreDefinedTree" var="treeNode" toggleType="client">
+        <r:tree id="PreDefinedTree" var="treeNode" toggleType="client" styleClass="tree"
+            binding="#{treeSelectionHelper.predefinedTree}">
+            <r:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('PreDefinedTree')}"
+                render="userTree, eventTree" />
             <r:treeModelAdaptor nodes="#{shelfManager.predefinedShelves}">
                 <r:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
-                    iconCollapsed="img/shell/tree_icon_shelf.png" iconExpanded="img/shell/tree_icon_shelf.png">
-                    <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
+                    iconCollapsed="resources/img/shell/tree_icon_shelf.png"
+                    iconExpanded="resources/img/shell/tree_icon_shelf.png">
+                    <r:outputPanel layout="block" onclick="#{r:component('shelfTooltip')}.hide()"
+                        style="cursor:pointer;width:150px; overflow-x:hidden;text-overflow: ellipsis;">
                         <h:outputText value="#{treeNode.name}" />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['delimiter']} " />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" styleClass="bold"
                             value="#{fn:length(treeNode.unvisitedImages)}" />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
                         <r:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}" />
-                        <r:tooltip direction="topRight" showDelay="1000">
+                        <r:tooltip id="shelfTooltip" direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap">#{treeNode.name}</span>
                         </r:tooltip>
                     </r:outputPanel>
@@ -62,8 +61,9 @@
 
                 <r:treeModelAdaptor nodes="#{treeNode.albums}">
                     <r:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
-                        iconLeaf="img/shell/tree_icon_album.png">
-                        <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
+                        iconLeaf="resources/img/shell/tree_icon_album.png">
+                        <r:outputPanel layout="block" onclick="#{r:component('albumTooltip')}.hide()"
+                            style="cursor:pointer;width:150px; overflow-x:hidden;text-overflow: ellipsis;">
                             <h:outputText value="#{treeNode.name}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}"
                                 value=" #{messages['delimiter']} " />
@@ -71,8 +71,8 @@
                                 value="#{fn:length(treeNode.unvisitedImages)}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
                             <r:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}" />
-                            <r:tooltip direction="topRight" showDelay="1000">
-                                <span style="white-space: nowrap">#{treeNode.name}</span>
+                            <r:tooltip id="albumTooltip" direction="topRight" showDelay="1000">
+                                <span style="white-space: nowrap;">#{treeNode.name}</span>
                             </r:tooltip>
                         </r:outputPanel>
                     </r:treeNode>
@@ -85,21 +85,18 @@
     <br />
     <h:panelGroup id="tree" rendered="#{userBean.loggedIn}" layout="block">
         <h:panelGrid columns="2">
-            <r:commandLink actionListener="#{controller.selectShelves()}" render="mainArea, treePanel">
+            <r:commandLink execute="@this" actionListener="#{treeSelectionHelper.unselectOtherTrees('R')}" render="treePanel"
+                oncomplete="showUTree()">
+                <r:jsFunction name="showUTree" actionListener="#{controller.selectShelves()}" render="mainArea" />
                 <h2>
                     <h:outputText value="#{messages['myAlbumShelves']}" />
                 </h2>
             </r:commandLink>
-            <r:commandLink rendered="#{help.isShowHelp()}" actionListener="#{help.navigateTo('/includes/help/tree_user.xhtml')}"
-                oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
-                <h:panelGroup
-                    style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
-                    <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
-                        value="img/icons/help_sign.png" />
-                </h:panelGroup>
-            </r:commandLink>
+            <ui:include src="/includes/help/button.xhtml">
+                <ui:param name="page" value="tree_user.xhtml" />
+            </ui:include>
         </h:panelGrid>
-        <br />
+
         <r:dragIndicator id="dragIndicator">
             <r:panel>
                 [Album]
@@ -110,15 +107,19 @@
                 [Image]
             </r:panel>
         </r:dragIndicator>
-        <r:tree id="userTree" var="treeNode" toggleType="client">
+        <r:tree id="userTree" var="treeNode" toggleType="client" styleClass="tree" binding="#{treeSelectionHelper.userTree}">
+            <r:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('userTree')}"
+                render="PreDefinedTree, eventTree" />
             <r:treeModelAdaptor nodes="#{userBean.user.shelves}">
                 <r:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
-                    iconExpanded="/img/shell/tree_icon_shelf.png" iconCollapsed="/img/shell/tree_icon_shelf.png" id="shelf">
+                    iconExpanded="resources/img/shell/tree_icon_shelf.png"
+                    iconCollapsed="resources/img/shell/tree_icon_shelf.png" id="shelf">
                     <ui:include src="/includes/contextMenu/CMForShelf.xhtml">
                         <ui:param name="shelf" value="#{treeNode}" />
                         <ui:param name="target" value="shelf" />
                     </ui:include>
-                    <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
+                    <r:outputPanel layout="block" onclick="#{r:component('userShelfTooltip')}.hide()"
+                        style="cursor:pointer;width:150px; overflow-x:hidden;text-overflow: ellipsis;">
                         <h:outputText value="#{treeNode.name}" />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['delimiter']} " />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" styleClass="bold"
@@ -129,7 +130,7 @@
                         <r:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
                             render="treePanel, mainArea" />
 
-                        <r:tooltip direction="topRight" showDelay="1000">
+                        <r:tooltip id="userShelfTooltip" direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap">#{treeNode.name}</span>
                         </r:tooltip>
                     </r:outputPanel>
@@ -137,12 +138,13 @@
 
                 <r:treeModelAdaptor nodes="#{treeNode.albums}">
                     <r:treeNode style="cursor:pointer" render="mainArea, treePanel" selectedClass="tree-selected-node"
-                        iconLeaf="img/shell/tree_icon_album.png" id="album">
+                        iconLeaf="resources/img/shell/tree_icon_album.png" id="album">
                         <ui:include src="/includes/contextMenu/CMForAlbum.xhtml">
                             <ui:param name="album" value="#{treeNode}" />
                             <ui:param name="target" value="album" />
                         </ui:include>
-                        <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
+                        <r:outputPanel layout="block" onclick="#{r:component('userAlbumTooltip')}.hide()"
+                            style="cursor:pointer;width:150px; overflow-x:hidden;text-overflow: ellipsis;">
                             <h:outputText value="#{treeNode.name}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}"
                                 value=" #{messages['delimiter']} " />
@@ -152,10 +154,10 @@
                             <r:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}" />
 
                             <r:dragSource type="album" dragIndicator="dragIndicator" dragValue="#{treeNode}" />
-                            <r:dropTarget acceptedTypes="image" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
-                                render="treePanel, mainArea" />
+                            <r:dropTarget acceptedTypes="image" dropValue="#{treeNode}"
+                                dropListener="#{dndManager.processDrop}" render="treePanel, mainArea" />
 
-                            <r:tooltip direction="topRight" showDelay="1000">
+                            <r:tooltip id="userAlbumTooltip" direction="topRight" showDelay="1000">
                                 <span style="white-space: nowrap"> #{treeNode.name} </span>
                             </r:tooltip>
                         </r:outputPanel>
@@ -167,32 +169,37 @@
         </r:tree>
     </h:panelGroup>
 
-    <r:commandLink execute="@this" rendered="#{userBean.loggedInFB}" actionListener="#{controller.showFbShelf()}"
-        render="mainArea">
-        <h2>
-            <h:outputText value="Facebook Albums" />
-        </h2>
-    </r:commandLink>
-    
-    <r:commandLink execute="@this" rendered="#{userBean.loggedInGPlus}" actionListener="#{controller.showGPlusShelf()}"
-        render="mainArea">
-        <h2>
-            <h:outputText value="G+ Albums" />
-        </h2>
-    </r:commandLink>
+    <h:panelGrid rendered="#{userBean.loggedInFB}">
+        <r:commandLink execute="@this" actionListener="#{treeSelectionHelper.unselectOtherTrees('R')}" render="treePanel"
+            oncomplete="showFShelf()">
+            <r:jsFunction name="showFShelf" actionListener="#{controller.showFbShelf()}" render="mainArea" />
+            <h2>
+                <h:outputText value="Facebook Albums" />
+            </h2>
+        </r:commandLink>
+    </h:panelGrid>
+
+    <h:panelGrid columns="2" rendered="#{userBean.loggedInGPlus}">
+        <r:commandLink execute="@this" actionListener="#{treeSelectionHelper.unselectOtherTrees('R')}" render="treePanel"
+            oncomplete="showGShelf()">
+            <r:jsFunction name="showGShelf" actionListener="#{controller.showGPlusShelf()}" render="mainArea" />
+            <h2>
+                <h:outputText value="G+ Albums" />
+            </h2>
+        </r:commandLink>
+        <ui:include src="/includes/help/button.xhtml">
+            <ui:param name="page" value="googleAlbums.xhtml" />
+        </ui:include>
+    </h:panelGrid>
 
     <h:panelGroup>
-
-        <h:panelGrid columns="2">
+        <h:panelGrid>
             <r:commandLink disabled="true">
                 <h2>
                     <h:outputText value="Events" />
                 </h2>
             </r:commandLink>
-
         </h:panelGrid>
-
         <ui:include src="/includes/event/eventtree.xhtml" />
-
     </h:panelGroup>
 </ui:composition>

@@ -29,11 +29,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.ImageEvent;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 
 @Named
 @ApplicationScoped

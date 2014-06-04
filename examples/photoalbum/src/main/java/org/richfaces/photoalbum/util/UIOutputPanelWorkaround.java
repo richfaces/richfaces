@@ -22,6 +22,9 @@
 
 package org.richfaces.photoalbum.util;
 
+/*
+ * Workaround for RF-12222
+ */
 
 public class UIOutputPanelWorkaround extends org.richfaces.ui.output.outputPanel.UIOutputPanel {
     public boolean isKeepTransient() {

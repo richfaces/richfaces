@@ -77,9 +77,9 @@
                     <td style="vertical-align: top;" />
                     <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right;">
                         <richx:commandButton id="saveButton" value="#{messages['save']}" style="float: left"
-                            actionListener="#{albumManager.editAlbum(model.selectedAlbum, false)}" render="treePanel, mainArea" />
-                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float:left" immediate="true"
-                            actionListener="#{controller.cancelEditAlbum()}" render="mainArea" />
+                                             actionListener="#{albumManager.editAlbum(model.selectedAlbum, false)}" render="treePanel, mainArea" />
+                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: right" immediate="true"
+                                             actionListener="#{controller.cancelEditAlbum()}" render="mainArea" />
                     </td>
                 </tr>
             </table>

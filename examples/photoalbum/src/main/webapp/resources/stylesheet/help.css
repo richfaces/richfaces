@@ -1,0 +1,148 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+span.property {
+    color: #0066CC;
+}
+
+.itemizedlist {
+    margin-top: .6em;
+}
+
+div.note {
+    background: #b5bcbd;
+    color: #4c5253;
+    border: 1px solid #8a9195;
+    margin-bottom: 1.5em;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    padding: 1em;
+    padding-bottom: 20px;
+}
+
+div.note pre {
+    background-color: #d6dee0;
+    color: #334558;
+    border: 1px solid #e1e9eb;
+}
+
+div.note {
+    margin-top: .5em;
+}
+
+div.note {
+    background-image: url(../resources/img/help/note.png);
+}
+
+div.note .replaceable {
+    color: #e3dcc0;
+}
+
+div.note h2 {
+    height: 32px;
+    font-size: 1.3em;
+}
+
+div.note h2 {
+    color: #4c5253;
+}
+
+div.note .guilabel {
+    color: white !important;
+}
+
+div.note li {
+    padding-left: 10px;
+    margin: 0em;
+}
+
+div.note ul {
+    padding-left: 40px;
+    margin: 0em;
+}
+
+div.note pre pre a:visited, div.note pre a:link {
+    color: #0066cc !important;
+}
+
+div.note a:visited, div.note a:link {
+    color: #f7f2d0;
+}
+
+div.note a:visited, div.note a:link, div.caution a:link, div.caution a:visited {
+    color: #0066cc;
+}
+
+/* Admonition icons spacing */
+div.note h2, div.note p {
+    padding: 0em;
+    margin: 0em;
+    padding-left: 56px;
+}
+
+div.note .replaceable, div.note .keycap {
+    color: white;
+}
+
+div.note {
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+}
+
+h2.title a, h3.title a, h4.title a, h5.title a, h6.title a, p.title a {
+    text-decoration: none;
+    color: #334D69;
+}
+
+p.title a {
+    color: #333333;
+}
+
+div.mediaobject img {
+    margin: left;
+}
+
+p.title {
+    text-align: left;
+    font-size: 11px;
+}
+
+code.code {
+    color: #000000;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+div.note {
+    height: 100%;
+}
+
+div.section {
+    padding-top: 2em;
+}
+
+div.section {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: justify;
+    font-weight: 100;
+} 

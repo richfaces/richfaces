@@ -33,29 +33,31 @@ import java.text.SimpleDateFormat;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.bean.UserBean;
-import org.richfaces.photoalbum.domain.Sex;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.EventTypeQualifier;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.NavEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.photoalbum.model.Sex;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IUserAction;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.EventTypeQualifier;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.NavEvent;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.social.facebook.FacebookBean;
 import org.richfaces.photoalbum.social.gplus.GooglePlusBean;
 import org.richfaces.photoalbum.ui.UserPrefsHelper;
+import org.richfaces.photoalbum.util.ApplicationUtils;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Environment;
 import org.richfaces.photoalbum.util.HashUtils;
-import org.richfaces.photoalbum.util.Utils;
 
 @Named
 @ApplicationScoped
@@ -110,6 +112,9 @@ public class Authenticator implements Serializable {
     @Inject
     UserPrefsHelper uph;
 
+    private File avatarData;
+
+
     /**
      * Method, that invoked when user try to login to the application.
      *
@@ -138,6 +143,7 @@ public class Authenticator implements Serializable {
             }
         } catch (Exception nre) {
             loginFailed();
+            error.fire(new ErrorEvent("Error:" + nre.getMessage()));
             return false;
         }
         return false;
@@ -147,7 +153,7 @@ public class Authenticator implements Serializable {
         // Remove previous session id from users store
         userTracker.removeUserId(userId);
         // Mark current user as actual
-        userTracker.addUserId(userId, Utils.getSession().getId());
+        userTracker.addUserId(userId, ApplicationUtils.getSession().getId());
     }
 
     public boolean authenticateWithFacebook() {
@@ -159,20 +165,18 @@ public class Authenticator implements Serializable {
 
             String facebookId = userInfo.getString("id");
 
-            if (!userBean.isLoggedIn()) {
-                user = userBean.logIn(facebookId);
-            } else {
-                user = userBean.getUser();
-                user.setFbId(facebookId);
-                userAction.updateUser();
-                userBean.logIn(facebookId);
-            }
+            if (!userBean.isLoggedIn()) { // user is not logged in
+                user = userBean.facebookLogIn(facebookId); // try logging with Facebook
 
-            if (user == null) { // user does not exist
+                if (user != null) {
+                    addToTracker(user.getId());
+                    return true;
+                }
+
+                // Facebook id was not found, creating new account
                 User newUser = new User();
 
                 newUser.setFbId(facebookId);
-                newUser.setgPlusId("1");
                 newUser.setFirstName(userInfo.getString("first_name"));
                 newUser.setSecondName(userInfo.getString("last_name"));
                 newUser.setEmail(userInfo.getString("email"));
@@ -191,15 +195,16 @@ public class Authenticator implements Serializable {
 
                 userAction.register(newUser);
 
-                userBean.logIn(facebookId);
+                userBean.facebookLogIn(facebookId);
             } else {
-                addToTracker(user.getId());
+                userBean.facebookLogIn(facebookId);
+                addToTracker(userBean.getUser().getId());
             }
 
             return true;
         } catch (Exception nre) {
             loginFailed();
-            error.fire(new ErrorEvent(nre.getMessage()));
+            error.fire(new ErrorEvent("Error:" + nre.getMessage()));
             return false;
         }
     }
@@ -215,17 +220,14 @@ public class Authenticator implements Serializable {
 
             if (!userBean.isLoggedIn()) {
                 user = userBean.gPlusLogIn(gPlusId);
-            } else {
-                user = userBean.getUser();
-                user.setgPlusId(gPlusId);
-                userAction.updateUser();
-                userBean.gPlusLogIn(gPlusId);
-            }
 
-            if (user == null) { // user does not exist
+                if (user != null) {
+                    addToTracker(user.getId());
+                    return true;
+                }
+
                 User newUser = new User();
 
-                newUser.setFbId("1");
                 newUser.setgPlusId(gPlusId);
                 newUser.setFirstName(userInfo.getJSONObject("name").getString("givenName"));
                 newUser.setSecondName(userInfo.getJSONObject("name").getString("familyName"));
@@ -239,10 +241,6 @@ public class Authenticator implements Serializable {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String birthday = userInfo.optString("birthday", "1900-01-01");
-                // if (birthday.substring(0, 3).equals("0000")) {
-                // // G+ allows hiding of the year of birth, change to 1900
-                // birthday = "19" + birthday.substring(2);
-                // }
                 newUser.setBirthDate(sdf.parse(birthday));
 
                 // random password, the user will not be using this to log in
@@ -252,13 +250,14 @@ public class Authenticator implements Serializable {
 
                 userBean.gPlusLogIn(gPlusId);
             } else {
-                addToTracker(user.getId());
+                userBean.gPlusLogIn(gPlusId);
+                addToTracker(userBean.getUser().getId());
             }
 
             return true;
         } catch (Exception nre) {
-            error.fire(new ErrorEvent("Error", nre.getMessage()));
             loginFailed();
+            error.fire(new ErrorEvent("Error:" + nre.getMessage()));
             return false;
         }
     }
@@ -296,14 +295,13 @@ public class Authenticator implements Serializable {
         // This check is actual only on livedemo server to prevent hacks.
         // Only admins can mark user as pre-defined
         user.setPreDefined(false);
-        user.setFbId("1");
         if (!handleAvatar(user)) {
             return;
         }
         try {
             userAction.register(user);
         } catch (Exception e) {
-            error.fire(new ErrorEvent(Constants.REGISTRATION_ERROR));
+            error.fire(new ErrorEvent(Constants.REGISTRATION_ERROR + ": " + e.getMessage()));
             return;
         }
         // Registration was successful, so we can login this user.
@@ -315,6 +313,40 @@ public class Authenticator implements Serializable {
         }
         if (this.user == null) {
             error.fire(new ErrorEvent(Constants.LOGIN_ERROR));
+        }
+        navEvent.fire(new NavEvent(NavigationEnum.USER_PREFS));
+
+        UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
+        UIComponent component = root.findComponent("overForm");
+        FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "Registration was successful."));
+    }
+
+    /**
+     * Method, that invoked when user want to edit her profile.
+     *
+     */
+    public void editUser(@Observes @EventType(Events.EDIT_USER_EVENT) SimpleEvent se) {
+        avatarData = uph.getAvatarData();
+        // If new avatar was uploaded
+        if (avatarData != null) {
+            if (!fileManager.saveAvatar(avatarData, user)) {
+                error.fire(new ErrorEvent(Constants.FILE_IO_ERROR));
+                return;
+            }
+            avatarData.delete();
+            avatarData = null;
+            uph.setAvatarData(null);
+            user.setHasAvatar(true);
+        }
+        try {
+            // This check is actual only on livedemo server to prevent hacks.
+            // Prevent hackers to mark user as pre-defined
+            //user.setPreDefined(false);
+            userAction.updateUser(user);
+        } catch (Exception e) {
+            error.fire(new ErrorEvent("Error", Constants.UPDATE_USER_ERROR + " <br/>" + e.getMessage()));
+            return;
         }
     }
 
@@ -344,7 +376,7 @@ public class Authenticator implements Serializable {
     }
 
     private boolean handleAvatar(User user) {
-        File avatarData = uph.getAvatarData();
+        avatarData = uph.getAvatarData();
         if (avatarData != null) {
             user.setHasAvatar(true);
             if (fileManager == null || !fileManager.saveAvatar(avatarData, user)) {
@@ -357,7 +389,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkUserExist(User user) {
         if (userAction.isUserExist(user.getLogin())) {
-            Utils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST, "");
+            ApplicationUtils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST, "");
             return true;
         }
         return false;
@@ -365,7 +397,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkEmailExist(String email) {
         if (userAction.isEmailExist(email)) {
-            Utils.addFacesMessage(Constants.REGISTER_EMAIL_ID, Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST, "");
+            ApplicationUtils.addFacesMessage(Constants.REGISTER_EMAIL_ID, Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST, "");
             return true;
         }
         return false;
@@ -373,7 +405,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkPassword(User user) {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            Utils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD, "");
+            ApplicationUtils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD, "");
             return true;
         }
         return false;
@@ -381,7 +413,7 @@ public class Authenticator implements Serializable {
 
     private void loginFailed() {
         setLoginFailed(true);
-        Utils.addFacesMessage("overForm:loginPanel", Constants.INVALID_LOGIN_OR_PASSWORD, "");
+        ApplicationUtils.addFacesMessage("overForm:loginPanel", Constants.INVALID_LOGIN_OR_PASSWORD, "");
         FacesContext.getCurrentInstance().renderResponse();
     }
 

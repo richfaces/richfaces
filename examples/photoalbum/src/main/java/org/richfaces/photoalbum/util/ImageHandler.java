@@ -1,7 +1,7 @@
 package org.richfaces.photoalbum.util;
 
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.model.Image;
 
 /**
  * Class to handle local (photoalbum.domain.Image) and remote images (JSONobject)
@@ -20,6 +20,10 @@ public class ImageHandler {
     public static final int GOOGLE = 3;
 
     public ImageHandler(Object o) {
+        setImage(o);
+    }
+    
+    public void setImage(Object o) {
         if (o == null) {
             return;
         }
@@ -61,6 +65,10 @@ public class ImageHandler {
     public String getThumbUrl() {
         return isLocalImage() ? localImage.getFullPath() : remoteImage.optString("thumbUrl");
     }
+    
+    public String getUrl() {
+        return isLocalImage() ? localImage.getFullPath() : remoteImage.optString("url");
+    }
 
     public String getId() {
         return isLocalImage() ? localImage.getId().toString() : remoteImage.optString("id");
@@ -69,8 +77,12 @@ public class ImageHandler {
     public String getAlbumId() {
         return isLocalImage() ? localImage.getAlbum().getId().toString() : remoteImage.optString("fullAlbumId");
     }
+    
+    public int getType() {
+        return type;
+    }
 
-//    public String getFullPath() {
-//        return isLocalImage() ?  : "";
-//    }
+    public String getDescription() {
+        return isLocalImage() ? localImage.getDescription() : "";
+    }
 }

@@ -32,10 +32,10 @@
                 </div>
             </div>
         </div>
-        <p>In the previous chapter we have discussed how to create Navigation Trees that represent "Shelves - Albums"
+        <p>In the previous chapter we have discussed how to create Navigation Trees that represent "Album Groups - Albums"
             hierarchy. Now it is time to upload images.</p>
         <p>
-            The <span class="bold"><strong><span class="property">&lt;r:fileUpload&gt;</span></strong></span> component in
+            The <strong><span class="property">&lt;r:fileUpload&gt;</span></strong> component in
             the Photo Album application uses the embedded Flash module that adds extra functionality to the component:
         </p>
         <div class="itemizedlist">
@@ -52,7 +52,7 @@
             </ul>
         </div>
         <p>
-            The code for the <span class="bold"><strong><span class="property">&lt;r:fileUpload&gt;</span></strong></span> is
+            The code for the <strong><span class="property">&lt;r:fileUpload&gt;</span></strong> is
             contained in the "/includes/fileUpload/fileUploader.xhtml" page:
         </p>
         <pre class="brush: xml, gutter: false, highlight: [3,6]">
@@ -69,11 +69,11 @@
                     …
         </pre>
         <p>
-            The <span class="emphasis"><em><span class="property">"acceptedTypes"</span></em></span> attribute specifies "jpg",
+            The <em><span class="property">"acceptedTypes"</span></em> attribute specifies "jpg",
             "jpeg" as the permitted file types you can upload.
         </p>
         <p>
-            The <span class="emphasis"><em><span class="property">"fileUploadListener"</span></em></span> attribute represents
+            The <em><span class="property">"fileUploadListener"</span></em> attribute represents
             the action listener method
             <code class="code">listener()</code>
             of the
@@ -82,23 +82,27 @@
         </p>
         <pre class="brush: java, gutter: false">
             public void listener(FileUploadEvent event) {
-                if (user == null) return;
+                if (user == null) {
+                    return;
+                }
                 UploadedFile file = event.getUploadedFile();
-                
-                Image image = constructImage(file);
+                uploadFile(new FileHandler(file), model.getSelectedAlbum());
+            }
+        
+            public void uploadFile(FileHandler fileHandler, Album album) {
+                Image image = constructImage(fileHandler);
                 try {
-                    extractMetadata(file, image);
+                    extractMetadata(fileHandler, image);
                 } catch (Exception e1) {
-                    addError(file, image, Constants.FILE_PROCESSING_ERROR);
+                    addError(fileHandler, image, Constants.FILE_PROCESSING_ERROR);
                     return;
                 }
         
-                image.setAlbum(model.getSelectedAlbum());
+                image.setAlbum(album);
                 if (image.getAlbum() == null) {
-                    addError(file, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);
+                    addError(fileHandler, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);
                     return;
                 }
-                
                 try {
                     if (imageAction.isImageWithThisPathExist(image.getAlbum(), image.getPath())) {
                         String newPath = generateNewPath(image);
@@ -107,37 +111,37 @@
                     }
                     imageAction.addImage(image);
                 } catch (Exception e) {
-                    addError(file, image, Constants.IMAGE_SAVING_ERROR);
+                    addError(fileHandler, image, Constants.IMAGE_SAVING_ERROR);
                     return;
                 }
-                
                 try {
-                    if (!fileManager.addImage(image.getFullPath(), file)) {
-                        addError(file, image, Constants.FILE_SAVE_ERROR);
+                    if (!fileManager.addImage(image.getFullPath(), fileHandler)) {
+                        addError(fileHandler, image, Constants.FILE_SAVE_ERROR);
                         return;
                     }
                 } catch (IOException ioe) {
+                    log.log(Level.INFO, &quot;error&quot;, ioe);
                     addError(image, Constants.FILE_SAVE_ERROR + &quot; - &quot; + ioe.getMessage());
                 }
         
                 fileWrapper.setComplete(false);
                 fileWrapper.getFiles().add(image);
                 imageEvent.fire(new ImageEvent(image));
-                
                 try {
-                    file.delete();
+                    fileHandler.delete();
                 } catch (IOException ioe) {
+                    log.log(Level.INFO, &quot;error&quot;, ioe);
                     addError(image, &quot;Error deleting file - &quot; + ioe.getMessage());
                 }
             }
         </pre>
         <p>
             The
-            <code class="code">listener()</code>
+            <code class="code">uploadFile()</code>
             method creates an
             <code class="code">Image</code>
             object and extracts all image metadata such as Camera name, Image size, etc. It performs scaling of an image and
-            saves six different image's dimentions in order to create thumbnails. After that the photo is added into the
+            saves six different image's dimensions in order to create thumbnails. After that the photo is added into the
             database the temporary file is removed.
         </p>
         <p>Visit following pages at RichFaces Showcase for more information, examples and sources on the components used in
@@ -148,7 +152,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=fileUpload">FileUpload</a>
-                        page for the <span class="bold"><strong><span class="property">&lt;r:fileUpload&gt;</span></strong></span>
+                        page for the <strong><span class="property">&lt;r:fileUpload&gt;</span></strong>
                         component;
                     </p>
                 </li>
@@ -156,7 +160,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for
-                        the <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span>
+                        the <strong><span class="property">&lt;r:ajax&gt;</span></strong>
                         component.
                     </p>
                 </li>

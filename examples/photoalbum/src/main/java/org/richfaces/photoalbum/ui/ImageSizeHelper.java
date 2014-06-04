@@ -24,7 +24,7 @@ package org.richfaces.photoalbum.ui;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.ImageDimension;
 
 /**

@@ -31,15 +31,9 @@
                 showArrows="false" showBoundaryValues="true" showInput="false" step="40" width="100">
                 <r:ajax event="change" render="#{renderArea}" />
             </r:inputNumberSlider>
-            <r:commandLink rendered="#{help.isShowHelp()}"
-                actionListener="#{help.navigateTo('/includes/help/inputSliderHelp.xhtml')}"
-                oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
-                <h:panelGroup
-                    style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
-                    <h:graphicImage style="border:none;" border="0" width="34" height="34" styleClass="ie6transparency"
-                        value="img/icons/help_sign.png" />
-                </h:panelGroup>
-            </r:commandLink>
+            <ui:include src="/includes/help/button.xhtml">
+                <ui:param name="page" value="inputSliderHelp.xhtml" />
+            </ui:include>
         </h:panelGrid>
     </div>
 </ui:composition>

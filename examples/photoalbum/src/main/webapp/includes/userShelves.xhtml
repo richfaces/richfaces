@@ -26,6 +26,6 @@
     xmlns:r="http://richfaces.org">
     <ui:include src="/includes/shelf/shelvesList.xhtml">
         <ui:param name="shelves" value="#{userBean.user.shelves}" />
-        <ui:param name="header" value="#{messages['myAlbumShelves']} #{fn:length(userBean.user.shelves)}" />
+        <ui:param name="header" value="#{messages['myAlbumShelves']} (#{fn:length(userBean.user.shelves)})" />
     </ui:include>
 </ui:composition>

@@ -24,19 +24,17 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
     xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
     <r:outputPanel id="avatar">
-        <h:panelGroup rendered="#{user.hasAvatar and avatarData == null}">
+        <h:panelGroup rendered="#{user.hasAvatar and userPrefsHelper.avatarData == null}">
             <r:mediaOutput element="img" createContent="#{imageLoader.paintAvatarImage}" styleClass="additional-info-avatar"
                 value="/#{user.login}/avatar.jpg" mimeType="image/jpeg" />
         </h:panelGroup>
-        <h:panelGroup rendered="#{avatarData != null}">
+        <h:panelGroup rendered="#{userPrefsHelper.avatarData != null}">
             <r:mediaOutput styleClass="additional-info-avatar" element="img" createContent="#{imageLoader.paintAvatarImage}"
-                value="#{avatarData.path}" mimeType="image/jpeg" />
+                value="#{userPrefsHelper.avatarData.path}" mimeType="image/jpeg" />
         </h:panelGroup>
-        <h:panelGroup rendered="#{!user.hasAvatar and avatarData == null}">
-            <h:graphicImage rendered="#{user.sex.key == null or user.sex.key =='1'}" value="/img/shell/avatar_default.png"
+        <h:panelGroup rendered="#{!user.hasAvatar and userPrefsHelper.avatarData == null}">
+            <h:graphicImage value="resources/img/shell/avatar_#{user.sex.key =='0' ? 'w_' : ''}default.png"
                 width="80" height="80" alt="" style="border:none" />
-            <h:graphicImage rendered="#{user.sex.key =='0' }" value="/img/shell/avatar_w_default.png" width="80" height="80"
-                alt="" style="border:none" />
         </h:panelGroup>
     </r:outputPanel>
 </ui:composition>

@@ -24,18 +24,19 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
     xmlns:richx="http://richfaces.orgx">
 
-    <r:popupPanel id="albumModalPanel" width="450" height="140" domElementAttachment="parent">
+    <r:popupPanel id="albumModalPanel" domElementAttachment="parent"
+        onshow="$('[id$=albumName]').delay(600).focus()" autosized="true">
         <f:facet name="header">
             <h:outputText value="#{messages['album.add']}" />
         </f:facet>
         <f:facet name="controls">
             <h:panelGroup>
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="albumHidelink">
+                <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer" id="albumHidelink">
                     <r:componentControl target="albumModalPanel" operation="hide" event="click" />
                 </h:graphicImage>
             </h:panelGroup>
         </f:facet>
-
+        <r:hotKey key="esc" onkeyup="#{r:component('albumModalPanel')}.hide()" enabledInInput="true" />
         <r:region id="form2">
             <h:panelGroup id="albumPanel" width="100%">
                 <r:region>

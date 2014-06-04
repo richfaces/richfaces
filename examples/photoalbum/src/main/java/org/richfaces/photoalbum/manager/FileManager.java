@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.enterprise.context.ApplicationScoped;
@@ -41,20 +40,22 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.AlbumEvent;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.event.ShelfEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.event.AlbumEvent;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.ImageEvent;
+import org.richfaces.photoalbum.model.event.ShelfEvent;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.FileHandler;
-import org.richfaces.photoalbum.util.FileUtils;
+import org.richfaces.photoalbum.util.FileManipulation;
 import org.richfaces.photoalbum.util.ImageDimension;
+
+import com.google.common.io.Files;
 
 @Named
 @ApplicationScoped
@@ -67,7 +68,7 @@ public class FileManager {
     private String uploadRootPath;
 
     @Inject
-    User user;
+    UserBean userBean;
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
@@ -109,10 +110,12 @@ public class FileManager {
      * This method observes <code>Constants.ALBUM_DELETED_EVENT</code> and invoked after the user delete album. This method
      * delete album directory from the disk
      *
+     * @param album - deleted album
+     * @param path - relative path of the album directory
      *
      */
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
-        if (user == null) {
+        if (!userBean.isLoggedIn()) {
             return;
         }
         deleteDirectory(ae.getPath());
@@ -122,9 +125,11 @@ public class FileManager {
      * This method observes <code>Constants.SHELF_DELETED_EVENT</code> and invoked after the user delete her shelf This method
      * delete shelf directory from the disk
      *
+     * @param shelf - deleted shelf
+     * @param path - relative path of the shelf directory
      */
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
-        if (user == null) {
+        if (!userBean.isLoggedIn()) {
             return;
         }
         deleteDirectory(se.getPath());
@@ -134,29 +139,33 @@ public class FileManager {
      * This method observes <code>Constants.USER_DELETED_EVENT</code> and invoked after the user was deleted(used in livedemo to
      * prevent flooding) This method delete user directory from the disk
      *
+     * @param user - deleted user
+     * @param path - relative path of the user directory
      */
     public void onUserDeleted(@Observes @EventType(Events.USER_DELETED_EVENT) SimpleEvent se) {
-        deleteDirectory(user.getPath());
+        deleteDirectory(userBean.getUser().getPath());
     }
 
     /**
      * This method observes <code>SHELF_ADDED_EVENT</code> and invoked after the user add new shelf This method add shelf
      * directory to the disk
      *
+     * @param shelf - added shelf
      */
     public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
         File directory = getFileByPath(se.getShelf().getPath());
-        FileUtils.addDirectory(directory);
+        FileManipulation.addDirectory(directory);
     }
 
     /**
      * This method observes <code>ALBUM_ADDED_EVENT</code> and invoked after the user add new album This method add album
      * directory to the disk
      *
+     * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
         File directory = getFileByPath(ae.getAlbum().getPath());
-        FileUtils.addDirectory(directory);
+        FileManipulation.addDirectory(directory);
     }
 
     /**
@@ -181,13 +190,15 @@ public class FileManager {
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image This method
      * delete image and all thumbnails of this image from the disk
      *
+     * @param image - deleted image
+     * @param path - relative path of the image file
      */
     public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
-        if (user == null) {
+        if (!userBean.isLoggedIn()) {
             return;
         }
         for (ImageDimension d : ImageDimension.values()) {
-            FileUtils.deleteFile(getFileByPath(transformPath(ie.getPath(), d.getFilePostfix())));
+            FileManipulation.deleteFile(getFileByPath(transformPath(ie.getPath(), d.getFilePostfix())));
         }
     }
 
@@ -195,10 +206,11 @@ public class FileManager {
      * This method invoked after user upload new image
      *
      * @param fileName - new relative path to the image file
+     * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
     public boolean addImage(String fileName, FileHandler fileHandler) throws IOException {
-        if (user == null) {
+        if (!userBean.isLoggedIn()) {
             return false;
         }
         createDirectoryIfNotExist(fileName);
@@ -270,6 +282,8 @@ public class FileManager {
      * This method observes <code>Constants.ALBUM_DRAGGED_EVENT</code> and invoked after the user dragged album form one shelf
      * to the another. This method rename album directory to the new directory
      *
+     * @param album - dragged album
+     * @param pathOld - old path of album directory
      */
     public void renameAlbumDirectory(@Observes @EventType(Events.ALBUM_DRAGGED_EVENT) AlbumEvent ae) {
         String pathOld = ae.getPath();
@@ -278,14 +292,14 @@ public class FileManager {
         File file2 = getFileByPath(album.getPath());
         if (file2.exists()) {
             if (file2.isDirectory()) {
-                FileUtils.deleteDirectory(file2, false);
+                FileManipulation.deleteDirectory(file2, false);
             } else {
-                FileUtils.deleteFile(file2);
+                FileManipulation.deleteFile(file2);
             }
         }
 
         try {
-            Files.createDirectories(file2.toPath());
+            Files.createParentDirs(file2);
         } catch (IOException ioe) {
             error.fire(new ErrorEvent("Error moving file", ioe.getMessage()));
         }
@@ -297,6 +311,8 @@ public class FileManager {
      * This method observes <code>Constants.IMAGE_DRAGGED_EVENT</code> and invoked after the user dragged image form one album
      * to the another. This method rename image file and all thumbnails to the new name
      *
+     * @param image - dragged image
+     * @param pathOld - old path of image file
      */
     public void renameImageFile(@Observes @EventType(Events.IMAGE_DRAGGED_EVENT) ImageEvent ie) {
         File file = null;
@@ -309,9 +325,9 @@ public class FileManager {
             file2 = getFileByPath(transformPath(image.getFullPath(), dimension.getFilePostfix()));
             if (file2.exists()) {
                 if (file2.isDirectory()) {
-                    FileUtils.deleteDirectory(file2, false);
+                    FileManipulation.deleteDirectory(file2, false);
                 } else {
-                    FileUtils.deleteFile(file2);
+                    FileManipulation.deleteFile(file2);
                 }
             }
             file.renameTo(file2);
@@ -323,7 +339,7 @@ public class FileManager {
         String format = MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(newFileName).split("/")[1];
         try {
             // Read file form disk
-            bsrc = FileUtils.bitmapToImage(inputStream, format);
+            bsrc = FileManipulation.bitmapToImage(inputStream, format);
         } catch (IOException e1) {
             error.fire(new ErrorEvent("Error", "error reading file<br/>" + e1.getMessage()));
             return false;
@@ -340,14 +356,14 @@ public class FileManager {
             height = bsrc.getHeight();
         }
         // scale image if need
-        BufferedImage bdest = FileUtils
+        BufferedImage bdest = FileManipulation
             .getScaledInstance(bsrc, width, height, RenderingHints.VALUE_INTERPOLATION_BICUBIC, true);
         // Determine new path of image file
         String dest = includeUploadRoot ? this.uploadRootPath + transformPath(newFileName, pattern) : transformPath(
             newFileName, pattern);
         try {
             // save to disk
-            FileUtils.imageToBitmap(bdest, dest, format);
+            FileManipulation.imageToBitmap(bdest, dest, format);
         } catch (IOException ex) {
             error.fire(new ErrorEvent("Error", "error saving image to disc: " + ex.getMessage()));
             return false;
@@ -357,7 +373,7 @@ public class FileManager {
 
     private void deleteDirectory(String directory) {
         final File file = getFileByPath(directory);
-        FileUtils.deleteDirectory(file, false);
+        FileManipulation.deleteDirectory(file, false);
     }
 
     private void createDirectoryIfNotExist(String fileNameNew) {

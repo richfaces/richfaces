@@ -38,42 +38,43 @@
             <code class="code"> {model.selectedAlbum.images}</code>
             , which is a collection of images of the selected album and the <span class="bold"><strong><span
                     class="property">&lt;r:dataScroller&gt;</span></strong></span> component tied to the <span class="bold"><strong><span
-                    class="property">&lt;r:repeat&gt;</span></strong></span> .
+                    class="property">&lt;r:repeat&gt;</span></strong></span>.
         </p>
         <p>
             The source code you can find in the includes/images/imageScroller.xhtml file. Now let's go deeper into the details.
-            The main component here is <span class="bold"><strong><span class="property">&lt;r:repeat&gt;</span></strong></span>:
+            The main component here is <strong><span class="property">&lt;r:repeat&gt;</span></strong>:
         </p>
         <pre class="brush: xml, gutter: false, highlight: [2,3]">
             &lt;r:repeat value=&quot;#{'#{'}model.selectedAlbum.images}&quot; rows=&quot;5&quot; var=&quot;img&quot; id=&quot;repeat&quot; rowKeyVar=&quot;rk&quot;&gt;
-                &lt;r:outputPanel layout=&quot;block&quot;
-                    styleClass=&quot;preview_box_photo_nav #{'#{'}model.selectedImage == img ? 'preview_box_photo_current' : 'preview_box_photo_default'}&quot;&gt;
-                    &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;preview_box_photo_80&quot;&gt;
-                        &lt;h:graphicImage styleClass=&quot;pr_photo_bg&quot; value=&quot;/img/shell/frame_photo_80.png&quot; /&gt;
-                        &lt;h:panelGrid cellpadding=&quot;0&quot; cellspacing=&quot;2&quot;&gt;
-                            &lt;h:panelGroup layout=&quot;block&quot;&gt;
-                                &lt;r:mediaOutput element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
-                                    value=&quot;#{'#{'}fileManager.transformPath(img.fullPath, '_small80')}&quot; mimeType=&quot;image/jpeg&quot; /&gt;
-                                &lt;br /&gt;
-                            &lt;/h:panelGroup&gt;
-                        &lt;/h:panelGrid&gt;
-                        &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_name&quot;&gt;
-                            &lt;h:outputText value=&quot;#{'#{'}img.name}&quot; /&gt;
-                        &lt;/h:panelGroup&gt;
-                        &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_data&quot;&gt;
-                            &lt;h:outputText value=&quot;#{'#{'}rk + 1}&quot; /&gt;
-                        &lt;/h:panelGroup&gt;
+              &lt;r:outputPanel layout=&quot;block&quot;
+                  styleClass=&quot;preview_box_photo_nav #{'#{'}model.selectedImage == img ? 'preview_box_photo_current' : 'preview_box_photo_default'}&quot;&gt;
+                &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;preview_box_photo_80&quot;&gt;
+                  &lt;h:graphicImage styleClass=&quot;pr_photo_bg&quot; value=&quot;/resources/img/shell/frame_photo_80.png&quot; /&gt;
+                  &lt;h:panelGrid cellpadding=&quot;0&quot; cellspacing=&quot;2&quot;&gt;
+                    &lt;h:panelGroup layout=&quot;block&quot;&gt;
+                      &lt;r:mediaOutput element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
+                         value=&quot;#{'#{'}fileManager.transformPath(img.fullPath, '_small80')}&quot; mimeType=&quot;image/jpeg&quot; /&gt;
+                      &lt;br /&gt;
                     &lt;/h:panelGroup&gt;
+                  &lt;/h:panelGrid&gt;
+                  &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_name&quot;&gt;
+                    &lt;h:outputText value=&quot;#{'#{'}img.name}&quot; /&gt;
+                  &lt;/h:panelGroup&gt;
+                  &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_data&quot;&gt;
+                    &lt;h:outputText value=&quot;#{'#{'}rk + 1}&quot; /&gt;
+                  &lt;/h:panelGroup&gt;
+                &lt;/h:panelGroup&gt;
 
-                    &lt;r:ajax event=&quot;click&quot; render=&quot;mainImage, treePanel, imagesTable&quot; listener=&quot;#{'#{'}controller.showImage(img)}&quot; /&gt;
-                &lt;/r:outputPanel&gt;
+                &lt;r:ajax event=&quot;click&quot; render=&quot;imageHeader, mainImage, …&quot; listener=&quot;#{'#{'}controller.showImage(img)}&quot;
+                   onbeforesubmit=&quot;select('#{'#{'}rk}:scrollerImage');&quot; execute=&quot;@this&quot; /&gt;
+              &lt;/r:outputPanel&gt;
             &lt;/r:repeat&gt;
         </pre>
         <p>
-            Each element of the <span class="bold"><strong><span class="property">&lt;r:repeat&gt;</span></strong></span> has
-            a corresponding <span class="bold"><strong><span class="property">&lt;r:outputPanel&gt;</span></strong></span>
-            with the <span class="bold"><strong><span class="property">&lt;r:mediaOutput&gt;</span></strong></span> as a
-            nested element. <span class="bold"><strong><span class="property">&lt;r:mediaOutput&gt;</span></strong></span>
+            Each element of the <strong><span class="property">&lt;r:repeat&gt;</span></strong> has
+            a corresponding <strong><span class="property">&lt;r:outputPanel&gt;</span></strong>
+            with the <strong><span class="property">&lt;r:mediaOutput&gt;</span></strong> as a
+            nested element. <strong><span class="property">&lt;r:mediaOutput&gt;</span></strong>
             renders the thumbnail of the image. As the rows attribute is set to "5" (
             <code class="code">rows="5"</code>
             ), only 5 images are displayed on the page at a time.
@@ -82,12 +83,12 @@
             around thumbnail, which is implemented with the highlighted code.</p>
         <p>
             As you can see from the code snippet, identification of whether the currently selected image is the same image
-            displayed by the <span class="bold"><strong><span class="property">&lt;r:repeat&gt;</span></strong></span> is
+            displayed by the <strong><span class="property">&lt;r:repeat&gt;</span></strong> is
             performed in the styleClass, if it returns "true", different style is applied.
         </p>
         <p>
-            Each <span class="bold"><strong><span class="property">&lt;r:repeat&gt;</span></strong></span> has a corresponding
-            <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span> configured like this:
+            Each <strong><span class="property">&lt;r:repeat&gt;</span></strong> has a corresponding
+            <strong><span class="property">&lt;r:ajax&gt;</span></strong> configured like this:
         </p>
         <pre class="brush: xml, gutter: false">
         &lt;r:ajax disabled=&quot;#{'#{'}model.selectedImage == img}&quot; 
@@ -96,34 +97,34 @@
             listener=&quot;#{'#{'}controller.showImage(img)}&quot; /&gt;
         </pre>
         <p>
-            On every click <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span> calls
+            On every click <strong><span class="property">&lt;r:ajax&gt;</span></strong> calls
             <code class="code"> {controller.showImage(img)}</code>
             method that sets the current image, thumbnail of which has just been clicked on. For more details please see
             Controller.java class.
         </p>
         <p>
-            To implement thumbnails scrolling effect the <span class="bold"><strong><span class="property">&lt;r:datascroller&gt;</span></strong></span>
-            is attached to the <span class="bold"><strong><span class="property">&lt;r:repeat&gt;</span></strong></span>:
+            To implement thumbnails scrolling effect the <strong><span class="property">&lt;r:datascroller&gt;</span></strong>
+            is attached to the <strong><span class="property">&lt;r:repeat&gt;</span></strong>:
         </p>
         <pre class="brush: xml, gutter: false, highlight: [6, 17]">
         &lt;h:panelGrid columns=&quot;3&quot;&gt;
-            &lt;h:panelGroup styleClass=&quot;image-scroller-left-arrow&quot;
-                style=&quot;width: 56px; height:34px; display: inline-block; 
-                    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_left.png',sizingMethod='scale');&quot;&gt;
-                &lt;h:graphicImage styleClass=&quot;ie6transparency&quot; value=&quot;img/shell/arr_left.png&quot;
-                    onclick=&quot;#{'#{'}r:component('scroller')}.fastRewind()&quot; /&gt;
-            &lt;/h:panelGroup&gt;
+          &lt;h:panelGroup styleClass=&quot;image-scroller-left-arrow&quot;
+              style=&quot;width: 56px; height:34px; display: inline-block; 
+              filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='resources/img/shell/arr_left.png',sizingMethod='scale');&quot;&gt;
+            &lt;h:graphicImage styleClass=&quot;ie6transparency&quot; value=&quot;resources/img/shell/arr_left.png&quot;
+                onclick=&quot;#{'#{'}r:component('scroller')}.fastRewind()&quot; /&gt;
+          &lt;/h:panelGroup&gt;
             
             &lt;r:dataScroller page=&quot;#{'#{'}controller.page}&quot; styleClass=&quot;image-scroller&quot; lastPageMode=&quot;full&quot; for=&quot;repeat&quot;
                 render=&quot;imagesTable&quot; boundaryControls=&quot;hide&quot; stepControls=&quot;hide&quot; id=&quot;scroller&quot; fastControls=&quot;hide&quot;&gt;
             &lt;/r:dataScroller&gt;
             
-            &lt;h:panelGroup styleClass=&quot;image-scroller-right-arrow&quot;
-                style=&quot;width: 56px; height:34px; display: inline-block; 
-                    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_right.png',sizingMethod='scale');&quot;&gt;
-                &lt;h:graphicImage value=&quot;img/shell/arr_right.png&quot; styleClass=&quot;ie6transparency&quot; height=&quot;34&quot; width=&quot;56&quot; border=&quot;0&quot;
-                    onclick=&quot;#{'#{'}r:component('scroller')}.fastForward()&quot; /&gt;
-            &lt;/h:panelGroup&gt;
+          &lt;h:panelGroup styleClass=&quot;image-scroller-right-arrow&quot;
+              style=&quot;width: 56px; height:34px; display: inline-block; 
+              filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='resources/img/shell/arr_right.png',sizingMethod='scale');&quot;&gt;
+            &lt;h:graphicImage value=&quot;resources/img/shell/arr_right.png&quot; styleClass=&quot;ie6transparency&quot; height=&quot;34&quot; width=&quot;56&quot; border=&quot;0&quot;
+                onclick=&quot;#{'#{'}r:component('scroller')}.fastForward()&quot; /&gt;
+          &lt;/h:panelGroup&gt;
         &lt;/h:panelGrid&gt;
         </pre>
         <p>
@@ -146,7 +147,7 @@
             this, in case the 19th thumbnail out of 20 had been selected then only 2 last thumbnails would have been displayed.
         </p>
         <p>
-            As you can see, <span class="bold"><strong><span class="property">&lt;r:dataScroller&gt;</span></strong></span>
+            As you can see, <strong><span class="property">&lt;r:dataScroller&gt;</span></strong>
             has a slightly different look-and-feel, the trick is in hiding the original controls -
             <code class="code">stepControls="hide"</code>
             ,
@@ -156,12 +157,12 @@
             .
         </p>
         <p>
-            To get more details about the <span class="bold"><strong><span class="property">&lt;r:repeat&gt;</span></strong></span>
-            and <span class="bold"><strong><span class="property">&lt;r:dataScroller&gt;</span></strong></span> components
+            To get more details about the <strong><span class="property">&lt;r:repeat&gt;</span></strong>
+            and <strong><span class="property">&lt;r:dataScroller&gt;</span></strong> components
             please visit <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                 href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=dataScroller">Showcase</a> web page and
             <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
-                href="http://docs.jboss.org/richfaces/latest_4_2_X/Component_Reference/en-US/html/chap-Component_Reference-Tables_and_grids.html#sect-Component_Reference-Tables_and_grids-richdataScroller">RichFaces
+                href="http://docs.jboss.org/richfaces/latest_5_X/Component_Reference/en-US/html/chap-Component_Reference-Tables_and_grids.html#sect-Component_Reference-Tables_and_grids-richdataScroller">RichFaces
                 Developer Guide</a>
         </p>
     </div>

@@ -27,41 +27,44 @@
         <ui:insert name="header" />
     </h:panelGrid>
     <h:panelGroup id="userPrefEdit">
-        <r:region rendered="#{user.fbId == '1'}">
-            <h:inputHidden value="#{user.fbId}" id="userFbId" />
-            <richx:commandButton styleClass="fb-comm-button" execute="@this"
-                oncomplete="F.bind(bindWithFB, #{r:element('userFbId')}, showError)" value="Bind with Facebook" />
-            <r:jsFunction name="bindWithFB" actionListener="#{controller.editUser}" render="mainArea" />
-        </r:region>
-        <h:outputText value="This account is bound to Facebook" rendered="#{not empty user.fbId and user.fbId != '1'}" />
+
+        <r:commandButton styleClass="FB-text-button" execute="@this" oncomplete="bindAccount()"
+            value="#{userBean.user.fbId == '1' ? 'Bind' : 'Bound'} with Facebook" rendered="#{userBean.loggedInFB}"
+            disabled="#{userBean.user.fbId != '1'}">
+            <r:param assignTo="#{userBean.user.fbId}" value="#{userBean.fbId}" />
+        </r:commandButton>
+
+        <br />
+        <r:commandButton styleClass="G-text-button" execute="@this" oncomplete="bindAccount()"
+            value="#{userBean.user.gPlusId == '1' ? 'Bind' : 'Bound'} with Google+" rendered="#{userBean.loggedInGPlus}"
+            disabled="#{userBean.user.gPlusId != '1'}">
+            <r:param assignTo="#{userBean.user.gPlusId}" value="#{userBean.gplusId}" />
+        </r:commandButton>
+        
+        <r:jsFunction name="bindAccount" render="mainArea" actionListener="#{controller.editUser()}" execute="@this"/>
 
         <table style="padding: 0; border-spacing: 0; border: 0">
             <tr>
-                <td style="width: 125px">
-                    <h:outputLabel for="avatar">#{messages['user.avatar']}</h:outputLabel>
-                </td>
-                <td style="padding-left: 2px; padding-bottom: 2px">
-                    <h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
-                        <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
+                <td style="width: 125px"><h:outputLabel for="avatar">#{messages['user.avatar']}</h:outputLabel></td>
+                <td style="padding-left: 2px; padding-bottom: 2px"><h:panelGroup layout="block"
+                        styleClass="preview_box_photo_nav" style="margin-right : 5px">
+                        <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_200.png" style="border:0" />
                         <h:panelGrid cellpadding="0">
                             <h:panelGroup style="margin-bottom:7px;">
-                                <ui:include src="/includes/userPrefs/avatar.xhtml">
-                                    <ui:param name="user" value="#{user}" />
-                                </ui:include>
+                                <ui:include src="/includes/userPrefs/avatar.xhtml" />
                             </h:panelGroup>
                         </h:panelGrid>
-                    </h:panelGroup>
-                </td>
+                    </h:panelGroup></td>
                 <td />
             </tr>
             <tr>
                 <td style="vertical-align: top;" />
                 <td style="padding-bottom: 5px">
                     <div class="avatarUpload">
-                        <r:fileUpload addControlLabel="Change avatar" stopButtonClass="file-upload-stop-button"
-                            addButtonClass="file-upload-button" execute="@this" maxFilesQuantity="100"
+                        <r:fileUpload addLabel="Change avatar" execute="@this" maxFilesQuantity="100"
                             fileUploadListener="#{userPrefsHelper.uploadAvatar}" listHeight="0" listWidth="0"
-                            immediateUpload="true" autoclear="true" acceptedTypes="jpg,jpeg">
+                            immediateUpload="true" acceptedTypes="jpg,jpeg"
+                            ontyperejected="showError('Error$#$Invalid file type. Only JPG is allowed.')">
                             <r:ajax execute="@this" event="uploadcomplete" render="avatar" />
                         </r:fileUpload>
                     </div>
@@ -72,143 +75,83 @@
         <r:graphValidator>
             <table style="padding: 0; border-spacing: 0; border: 0" class="reg-table">
                 <tr>
-                    <td style="width: 125px;">
-                        <h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel>
+                    <td style="width: 125px;"><h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel>
                     </td>
 
-                    <td>
-                        <h:panelGroup rendered="#{user.id == null}">
+                    <td><h:panelGroup rendered="#{user.id == null}">
                             <h:inputText id="userLoginName" value="#{user.login}" styleClass="reg-table-input" />
                             <h:outputText styleClass="required" value="*" />
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{user.id != null}">
+                        </h:panelGroup> <h:panelGroup rendered="#{user.id != null}">
                             <h:outputText value="#{user.login}" />
-                        </h:panelGroup>
-                    </td>
-                    <td>
-                        <r:messages for="userLoginName" styleClass="required" />
-                    </td>
+                        </h:panelGroup></td>
+                    <td><r:messages for="userLoginName" styleClass="required" /></td>
                 </tr>
                 <tr>
                     <h:panelGroup rendered="#{user.id == null}">
-                        <td>
-                            <h:outputLabel for="userPassword">#{messages['user.password']}</h:outputLabel>
-                        </td>
-                        <td>
-                            <h:inputSecret required="true" id="userPassword" value="#{user.password}"
-                                styleClass="reg-table-input" />
-                            <h:outputText styleClass="required" value="*" />
-                        </td>
-                        <td>
-                            <r:messages for="userPassword" styleClass="required" />
-                        </td>
+                        <td><h:outputLabel for="userPassword">#{messages['user.password']}</h:outputLabel></td>
+                        <td><h:inputSecret required="true" id="userPassword" value="#{authenticator.user.password}"
+                                styleClass="reg-table-input" /> <h:outputText styleClass="required" value="*" /></td>
+                        <td><r:messages for="userPassword" styleClass="required" /></td>
                     </h:panelGroup>
                 </tr>
                 <tr>
                     <h:panelGroup rendered="#{user.id == null}">
-                        <td>
-                            <h:outputLabel for="userConfirmPassword">#{messages['user.confirm']}</h:outputLabel>
-                        </td>
-                        <td>
-                            <h:panelGroup rendered="#{user.id == null}">
+                        <td><h:outputLabel for="userConfirmPassword">#{messages['user.confirm']}</h:outputLabel></td>
+                        <td><h:panelGroup rendered="#{user.id == null}">
                                 <h:inputSecret required="true" id="userConfirmPassword" value="#{user.confirmPassword}"
                                     styleClass="reg-table-input" />
                                 <h:outputText styleClass="required" value="*" />
-                            </h:panelGroup>
-                        </td>
-                        <td>
-                            <r:messages for="userConfirmPassword" styleClass="required" />
-                        </td>
+                            </h:panelGroup></td>
+                        <td><r:messages for="userConfirmPassword" styleClass="required" /></td>
                     </h:panelGroup>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <br />
-                    </td>
+                    <td colspan="2"><br /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:inputText id="userFirstname" value="#{user.firstName}" styleClass="reg-table-input" />
-                        <h:outputText styleClass="required" value="*" />
-                    </td>
-                    <td>
-                        <r:messages for="userFirstname" styleClass="required" />
-                    </td>
+                    <td><h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel></td>
+                    <td><h:inputText id="userFirstname" value="#{authenticator.user.firstName}"
+                            styleClass="reg-table-input" /> <h:outputText styleClass="required" value="*" /></td>
+                    <td><r:messages for="userFirstname" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:inputText id="userSecondname" value="#{user.secondName}" styleClass="reg-table-input" />
-                        <h:outputText styleClass="required" value="*" />
-                    </td>
-                    <td>
-                        <r:messages for="userSecondname" styleClass="required" />
-                    </td>
+                    <td><h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel></td>
+                    <td><h:inputText id="userSecondname" value="#{authenticator.user.secondName}"
+                            styleClass="reg-table-input" /> <h:outputText styleClass="required" value="*" /></td>
+                    <td><r:messages for="userSecondname" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:panelGrid columns="2">
-                            <h:selectOneRadio required="true" id="userSex" value="#{user.sex}">
+                    <td><h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel></td>
+                    <td><h:panelGrid columns="2">
+                            <h:selectOneRadio required="true" id="userSex" value="#{authenticator.user.sex}">
                                 <f:selectItems value="#{userPrefsHelper.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex}" />
                                 <!-- TODO: format output -->
                                 <r:ajax event="click" execute="@this" render="avatar" />
                             </h:selectOneRadio>
-                        </h:panelGrid>
-                    </td>
-                    <td>
-                        <r:messages for="userSex" styleClass="required" />
-                    </td>
+                        </h:panelGrid></td>
+                    <td><r:messages for="userSex" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userCalendar">#{messages['user.birthdate']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <r:outputPanel id="userCalendar" layout="block">
-                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{user.birthDate}"
-                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/yyyy"
-                                defaultLabel="d/M/yyyy">
+                    <td><h:outputLabel for="userCalendar">#{messages['user.birthdate']}</h:outputLabel></td>
+                    <td><r:outputPanel id="userCalendar" layout="block">
+                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{authenticator.user.birthDate}"
+                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input">
                                 <r:validator event="inputblur" />
                             </r:calendar>
-                        </r:outputPanel>
-                    </td>
-                    <td>
-                        <r:messages for="userBirthDate" styleClass="required" />
-                    </td>
+                        </r:outputPanel></td>
+                    <td><r:messages for="userBirthDate" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userEmail">#{messages['user.email']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:inputText id="userEmail" value="#{user.email}" styleClass="reg-table-input" />
-                        <h:outputText styleClass="required" value="*" />
-                    </td>
-                    <td>
-                        <r:messages for="userEmail" styleClass="required" />
-                        <r:commandLink rendered="#{help.isShowHelp()}"
-                            actionListener="#{help.navigateTo('/includes/help/validationHelp.xhtml')}"
-                            oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" immediate="true">
-                            <h:panelGroup styleClass="image-scroller-right-arrow"
-                                style="cursor: hand; width: 34px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
-                                <h:graphicImage style="border:none;" border="0" height="34" width="34"
-                                    styleClass="ie6transparency" value="/img/icons/help_sign.png" />
-                            </h:panelGroup>
-                        </r:commandLink>
-                    </td>
+                    <td><h:outputLabel for="userEmail">#{messages['user.email']}</h:outputLabel></td>
+                    <td><h:inputText id="userEmail" value="#{authenticator.user.email}" styleClass="reg-table-input" /> <h:outputText
+                            styleClass="required" value="*" /></td>
+                    <td><r:messages for="userEmail" styleClass="required" /> <ui:include
+                            src="/includes/help/button.xhtml">
+                            <ui:param name="page" value="validationHelp.xhtml" />
+                        </ui:include></td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <ui:insert name="controls" />
-                    </td>
+                    <td colspan="2"><ui:insert name="controls" /></td>
                 </tr>
             </table>
         </r:graphValidator>
