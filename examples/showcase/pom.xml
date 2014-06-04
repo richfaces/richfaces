@@ -304,11 +304,6 @@
 
                             <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
                             <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
-                            <archive>
-                                <manifestEntries>
-                                    <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
-                                </manifestEntries>
-                            </archive>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -341,11 +336,6 @@
 
                             <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
                             <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
-                            <archive>
-                                <manifestEntries>
-                                    <Dependencies>${jbas71.manifest.dependencies}</Dependencies>
-                                </manifestEntries>
-                            </archive>
                         </configuration>
                     </plugin>
                     <plugin>
