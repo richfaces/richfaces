@@ -125,7 +125,7 @@
                             <value>org.richfaces.css/$1</value>
                         </property>
                     </fileNameMappings>
-                    <excludedFiles>                        
+                    <excludedFiles>
                         <exclude>^javax.faces</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
@@ -175,6 +175,14 @@
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Packed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.ckeditor\E</exclude>
+                                <exclude>^\Qorg.richfaces.staticResource\E</exclude>
+                                <exclude>^org\.richfaces:jquery\.js$</exclude>
+                            </excludedFiles>
                         </configuration>
                     </execution>
                     <execution>
@@ -205,6 +213,14 @@
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/PackedCompressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.ckeditor\E</exclude>
+                                <exclude>^\Qorg.richfaces.staticResource\E</exclude>
+                                <exclude>^org\.richfaces:jquery\.js$</exclude>
+                            </excludedFiles>
                         </configuration>
                     </execution>
                     <execution>
