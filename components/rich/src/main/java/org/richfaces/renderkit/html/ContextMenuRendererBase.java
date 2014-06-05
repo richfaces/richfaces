@@ -37,7 +37,7 @@ import org.richfaces.renderkit.util.RendererUtils;
 public abstract class ContextMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
-    public static final String DEFAULT_SHOWEVENT = "mouseover";
+    public static final String DEFAULT_SHOWEVENT = "contextmenu";
     protected static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     @Override
