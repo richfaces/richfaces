@@ -1,0 +1,59 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+    <h:form>
+        
+        <rich:chart title="Countries by carbon dioxide emissions per capita" styleClass="graf">
+	        <a4j:repeat value="#{chartBean.countries}" var="country" >
+	            <rich:series label="#{country.name}" type="line">
+	                <a4j:repeat value="#{country.data}" var="record">
+	                    <rich:point x="#{record.year}" y="#{record.tons}" />
+	                </a4j:repeat>
+	            </rich:series>
+	        </a4j:repeat>
+	        <rich:xaxis  label="year"/>
+	        <rich:yaxis label="metric tons of CO2 per capita"/>
+    	</rich:chart> 
+    	
+    	<rich:chart id="bar" title="GDP sector composition">
+	        <rich:legend sorting="ascending"/>
+	        <a4j:repeat value="#{chartBean.gdp}" var="country">
+	            <rich:series label="#{country.state}" type="bar">
+	                <rich:point x="Agricultural" y="#{country.agricult}"/>
+	                <rich:point x="Industrial" y="#{country.industry}"/>
+	                <rich:point x="Service" y="#{country.service}"/>
+	            </rich:series>
+	        </a4j:repeat>
+		</rich:chart>
+		
+		<rich:chart id="pie" title="USA GDP" >
+	        <rich:legend sorting="ascending"/>
+	        <rich:series data="#{chartBean.pie}" type="pie"/>
+		</rich:chart>
+    	
+
+    </h:form>
+</ui:composition>

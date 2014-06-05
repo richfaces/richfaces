@@ -417,6 +417,20 @@
     <group>
         <name>Output/Panels</name>
         <demos>
+        	<demo>
+                <id>chart</id>
+                <name>r:chart</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple charts</name>
+                    </sample>
+                    <sample>
+                        <id>events</id>
+                        <name>Event handling</name>
+                    </sample>
+                </samples>
+            </demo>
             <demo>
                 <id>panel</id>
                 <name>rich:panel</name>
