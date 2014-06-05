@@ -140,7 +140,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
     public abstract String getAddLabel();
 
     /**
-     *  The label for the Add button.
+     *  The label for the Upload button.
      */
     @Attribute
     public abstract String getUploadLabel();

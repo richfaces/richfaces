@@ -46,9 +46,18 @@ public class AutocompleteHandler extends ComponentHandler {
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractAutocomplete.class)) {
                 if ("autocompleteMethod".equals(name)) {
+
+                    // workaround for RF-11469
+                    final MethodMetadata oneParameterMetadata = new MethodMetadata(attribute, String.class) {
+                        public void applyMetadata(FaceletContext ctx, Object instance) {
+                            ((AbstractAutocomplete) instance).setAutocompleteMethodWithOneParameter(getMethodExpression(ctx));
+                        }
+                    };
+
                     return new MethodMetadata(attribute, FacesContext.class, UIComponent.class, String.class) {
                         public void applyMetadata(FaceletContext ctx, Object instance) {
                             ((AbstractAutocomplete) instance).setAutocompleteMethod(getMethodExpression(ctx));
+                            ((AbstractAutocomplete) instance).setAutocompleteMethodWithOneParameter(oneParameterMetadata.getMethodExpression(ctx));
                         }
                     };
                 }

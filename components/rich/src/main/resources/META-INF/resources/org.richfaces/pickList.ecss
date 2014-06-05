@@ -6,6 +6,7 @@
 
 .rf-pick {
     display: inline-block;
+    outline: none !important;
 }
 
 .rf-pick-hdr {

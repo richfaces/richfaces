@@ -75,34 +75,13 @@
     };
 
     var bindEventHandlers = function () {
-        var handlers = {};
-        handlers["click" + this.namespace] = handlers["mouseover" + this.namespace] = onMouseAction;
-        if (!$.browser.msie && !$.browser.opera) {
-            handlers["mouseenter" + this.namespace] = onMouseEnter;
-            handlers["mouseleave" + this.namespace] = onMouseLeave;
-        }
-        rf.Event.bind(rf.getDomElement(this.id + ID.ITEMS).parentNode, handlers, this);
-    };
-
-    var onMouseLeave = function(event) {
-        rf.Event.unbind(rf.getDomElement(this.id + ID.ITEMS).parentNode, "mousemove" + this.namespace);
-        this.lastMouseX = null;
-        this.lastMouseY = null;
-    };
-
-    var onMouseMove = function(event) {
-        this.lastMouseX = event.pageX;
-        this.lastMouseY = event.pageY;
-    };
-
-    var onMouseEnter = function(event) {
-        this.lastMouseX = event.pageX;
-        this.lastMouseY = event.pageY;
-        rf.Event.bind(rf.getDomElement(this.id + ID.ITEMS).parentNode, "mousemove" + this.namespace, onMouseMove, this);
+        var list = $(rf.getDomElement(this.id + ID.ITEMS).parentNode);
+        list.on("click" + this.namespace, "."+this.options.itemClass, $.proxy(onMouseAction, this));
+        list.on("mouseover" + this.namespace, "."+this.options.itemClass, $.proxy(onMouseAction, this));
     };
 
     var onMouseAction = function(event) {
-        var element = $(event.target).closest("." + this.options.itemClass, event.currentTarget).get(0);
+        var element = $(event.target);
 
         if (element) {
             if (event.type == "mouseover") {
@@ -279,7 +258,7 @@
                 this.__setInputValue(subValue);
             }
             if (subValue.length >= this.options.minChars) {
-                if ((this.options.ajaxMode || this.options.lazyClientMode) && oldValue != subValue) {
+                if ((this.options.ajaxMode || this.options.lazyClientMode) && (oldValue != subValue || (oldValue === '' && subValue === ''))) {
                     callAjax.call(this, event, callback);
                 }
             } else {

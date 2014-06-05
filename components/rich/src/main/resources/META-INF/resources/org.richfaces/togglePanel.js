@@ -234,6 +234,7 @@
 
                 // Don't do like this and remove it ASAP
                 this.__itemsSwitcher().execClient(oldItem, newItem);
+                $(document.getElementById(newItem.getTogglePanel().id)).trigger("resize");
             },
 
             /**

@@ -155,8 +155,6 @@
 
                 border.modalPanel.endDrag(border);
 
-                border.modalPanel.doResizeOrMove(rf.ui.PopupPanel.Sizer.Diff.EMPTY);
-
                 document.onselectstart = border.onselectStartHandler;
                 border.onselectStartHandler = null;
             },

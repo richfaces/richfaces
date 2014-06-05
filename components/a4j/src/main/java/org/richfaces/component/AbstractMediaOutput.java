@@ -66,7 +66,7 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
     public abstract String getUriAttribute();
 
     /**
-     * Get Element name for rendering ( imj , a , object, applet ).
+     * Get the Element name for rendering ( img , a , object, applet ).
      */
     @Attribute
     public abstract String getElement();

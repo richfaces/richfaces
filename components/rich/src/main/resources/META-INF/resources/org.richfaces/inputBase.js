@@ -12,7 +12,7 @@
         this.attachToDom();
 
         var inputEventHandlers = {};
-        inputEventHandlers[($.browser.opera || $.browser.mozilla ? "keypress" : "keydown") + this.namespace] = $.proxy(this.__keydownHandler, this);
+        inputEventHandlers["keydown" + this.namespace] = $.proxy(this.__keydownHandler, this);
         inputEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
         inputEventHandlers["change" + this.namespace] = $.proxy(this.__changeHandler, this);
         inputEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);

@@ -60,45 +60,22 @@
         var handlers = {};
         handlers["click" + this.namespace] = $.proxy(this.onClick, this);
         handlers["dblclick" + this.namespace] = $.proxy(this.onDblclick, this);
-        handlers["mouseover" + this.namespace] = onMouseOver;
-        if (!$.browser.msie && !$.browser.opera) {
-            handlers["mouseenter" + this.namespace] = onMouseEnter;
-            handlers["mouseleave" + this.namespace] = onMouseLeave;
-        }
+        this.list.on("mouseover" + this.namespace, "."+this.itemCss, $.proxy(onMouseOver, this));
         rf.Event.bind(this.list, handlers, this);
     };
 
     var bindFocusEventHandlers = function () {
         var focusEventHandlers = {};
-        focusEventHandlers[($.browser.opera || $.browser.mozilla ? "keypress" : "keydown") + this.namespace] = $.proxy(this.__keydownHandler, this);
+        focusEventHandlers["keydown" + this.namespace] = $.proxy(this.__keydownHandler, this);
         focusEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
         focusEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);
         rf.Event.bind(this.focusKeeper, focusEventHandlers, this);
     };
 
-    var onMouseLeave = function(e) {
-        rf.Event.unbind(this.list, "mousemove" + this.namespace);
-        this.lastMouseX = null;
-        this.lastMouseY = null;
-    };
-
-    var onMouseMove = function(e) {
-        this.lastMouseX = e.pageX;
-        this.lastMouseY = e.pageY;
-    };
-
-    var onMouseEnter = function(e) {
-        this.lastMouseX = e.pageX;
-        this.lastMouseY = e.pageY;
-        rf.Event.bind(this.list, "mousemove" + this.namespace, onMouseMove, this);
-    };
-
     var onMouseOver = function(e) {
-        if (this.lastMouseX == null || this.lastMouseX != e.pageX || this.lastMouseY != e.pageY) {
-            var item = this.__getItem(e);
-            if (item && !this.clickRequiredToSelect && !this.disabled) {
-                this.__select(item);
-            }
+        var item = $(e.target);
+        if (item && !this.clickRequiredToSelect && !this.disabled) {
+            this.__select(item);
         }
     };
 

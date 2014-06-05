@@ -35,7 +35,7 @@ import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 /**
  * <p>The &lt;rich:accordion&gt; is a series of panels stacked on top of each other, each collapsed such that only the
  * header of the panel is showing. When the header of a panel is clicked, it is expanded to show the content of the
- * panel. Clicking on a different header will collapse the previous panel and epand the selected one. Each panel
+ * panel. Clicking on a different header will collapse the previous panel and expand the selected one. Each panel
  * contained in a &lt;rich:accordion&gt; component is a &lt;rich:accordionItem&gt; component.</p>
  *
  * @author akolonitsky

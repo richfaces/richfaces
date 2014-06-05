@@ -10,7 +10,7 @@
         this.fieldId = fieldId;
         this.options = $.extend({}, defaultOptions, options);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.selectId);
-        this.currentValue = "";
+        this.currentValue = $(rf.getDomElement(fieldId)).val();
         this.tempValue = this.getValue();
         this.isChanged = this.tempValue.length != 0;
         bindEventHandlers.call(this);
@@ -40,7 +40,7 @@
         inputEventHandlers["focus" + this.namespace] = onFocus;
         inputEventHandlers["blur" + this.namespace] = onBlur;
         inputEventHandlers["click" + this.namespace] = onClick;
-        inputEventHandlers[($.browser.opera || $.browser.mozilla ? "keypress" : "keydown") + this.namespace] = onKeyDown;
+        inputEventHandlers["keydown" + this.namespace] = onKeyDown;
         inputEventHandlers["change" + this.namespace] = function (event) {
             if (this.focused) {
                 event.stopPropagation()

@@ -69,8 +69,14 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(signature = @Signature(returnType = Object.class, parameters = { FacesContext.class, UIComponent.class,
             String.class }))
     public abstract MethodExpression getAutocompleteMethod();
-
     public abstract void setAutocompleteMethod(MethodExpression expression);
+
+    /**
+     * Workaround for RF-11469
+     */
+    @Attribute(hidden = true, signature = @Signature(returnType = Object.class, parameters = { String.class }))
+    public abstract MethodExpression getAutocompleteMethodWithOneParameter();
+    public abstract void setAutocompleteMethodWithOneParameter(MethodExpression expression);
 
     /**
      * A request-scope attribute via which the data object for the current row will be used when iterating

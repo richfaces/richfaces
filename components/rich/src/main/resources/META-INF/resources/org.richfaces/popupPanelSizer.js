@@ -92,9 +92,7 @@
 
     };
 
-    rf.ui.PopupPanel.Sizer.Diff.EMPTY = function() {
-        return new rf.ui.PopupPanel.Sizer.Diff(0, 0, 0, 0);
-    },
+    rf.ui.PopupPanel.Sizer.Diff.EMPTY = new rf.ui.PopupPanel.Sizer.Diff(0, 0, 0, 0),
 
         rf.ui.PopupPanel.Sizer.N = function() {
 

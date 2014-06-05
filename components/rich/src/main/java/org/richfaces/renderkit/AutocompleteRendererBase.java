@@ -101,14 +101,18 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             String value = requestParameters.get(component.getClientId(facesContext) + "Value");
             try {
                 try {
-                    // String value = getInputValue(facesContext, component);
                     itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
                             component, value });
-                } catch (MethodNotFoundException e) {
-                    ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-                    autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
-                        autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
+                } catch (MethodNotFoundException e1) {
+                    try {
+                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
+                        itemsObject = component.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
+                    } catch (MethodNotFoundException e2) {
+                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
+                            autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
+                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
+                    }
                 }
             } catch (ELException ee) {
                 LOGGER.error(ee.getMessage(), ee);

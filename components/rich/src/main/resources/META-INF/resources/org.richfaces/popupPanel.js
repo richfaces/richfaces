@@ -90,6 +90,7 @@
             $(rf.getDomElement(id + "_header")).css('cursor', 'default');
         }
 
+        this.cdiv.resize($.proxy(this.resizeListener, this));
     };
 
     rf.BaseComponent.extend(rf.ui.PopupPanel);
@@ -266,7 +267,6 @@
                         }
                     }
 
-
                     var options = {};
                     this.userOptions = {};
                     $.extend(options, this.options);
@@ -274,6 +274,48 @@
                     if (opts) {
                         $.extend(options, opts);
                         $.extend(this.userOptions, opts);
+                    }
+
+                    // reset dimensions
+                    if (this.options.autosized) {
+                        if (options.left) {
+                            var _left;
+                            if (options.left != "auto") {
+                                _left = parseInt(options.left, 10);
+                            } else {
+                                var cw = this.__calculateWindowWidth();
+                                var _width = this.width();
+                                if (cw >= _width) {
+                                    _left = (cw - _width) / 2;
+                                } else {
+                                    _left = 0;
+                                }
+                            }
+
+                            this.setLeft(Math.round(_left));
+                            $(this.shadowDiv).css("left", this.shadowDepth);
+                        }
+
+                        if (options.top) {
+                            var _top;
+                            if (options.top != "auto") {
+                                _top = parseInt(options.top, 10);
+                            } else {
+                                var ch = this.__calculateWindowHeight();
+                                var _height = this.height();
+                                if (ch >= _height) {
+                                    _top = (ch - _height) / 2;
+                                } else {
+                                    _top = 0;
+                                }
+                            }
+
+                            this.setTop(Math.round(_top));
+                            $(this.shadowDiv).css("top", this.shadowDepth);
+                            $(this.shadowDiv).css("bottom", -this.shadowDepth);
+                        }
+
+                        this.doResizeOrMove(rf.ui.PopupPanel.Sizer.Diff.EMPTY);
                     }
 
                     this.currentMinHeight = this.getMinimumSize(this.__getParsedOption(options, 'minHeight'));
@@ -304,29 +346,53 @@
 
                     }
 
-                    if (options.width && options.width != -1) {
-                        if (this.currentMinWidth > options.width) {
-                            options.width = this.currentMinWidth;
+                    if (options.width && options.width != -1 || options.autosized) {
+                        var width;
+                        if (options.autosized) {
+                            width = this.getStyle(this.getContentElement(), "width");
+                            if (this.currentMinWidth > width) {
+                                width = this.currentMinWidth;
+                            }
+                            if (width > this.maxWidth) {
+                                width = this.maxWidth;
+                            }
+                        } else {
+                            if (this.currentMinWidth > options.width) {
+                                options.width = this.currentMinWidth;
+                            }
+                            if (options.width > this.maxWidth) {
+                                options.width = this.maxWidth;
+                            }
+                            width = options.width;
                         }
-                        if (options.width > this.maxWidth) {
-                            options.width = this.maxWidth;
-                        }
-                        $(rf.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
-                        this.shadowDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
-                        this.scrollerDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
+                        $(rf.getDomElement(eContentElt)).css('width', width + (/px/.test(width) ? '' : 'px'));
+                        this.shadowDiv.css('width', width + (/px/.test(width) ? '' : 'px'));
+                        this.scrollerDiv.css('width', width + (/px/.test(width) ? '' : 'px'));
                     }
 
-                    if (options.height && options.height != -1) {
-                        if (this.currentMinHeight > options.height) {
-                            options.height = this.currentMinHeight;
+                    if (options.height && options.height != -1 || options.autosized) {
+                        var height;
+                        if (options.autosized) {
+                            height = this.getStyle(this.getContentElement(), "height");
+                            if (this.currentMinHeight > height) {
+                                height = this.currentMinHeight;
+                            }
+                            if (height > this.maxHeight) {
+                                height = this.maxHeight;
+                            }
+                        } else {
+                            if (this.currentMinHeight > options.height) {
+                                options.height = this.currentMinHeight;
+                            }
+                            if (options.height > this.maxHeight) {
+                                options.height = this.maxHeight;
+                            }
+                            height = options.height;
                         }
-                        if (options.height > this.maxHeight) {
-                            options.height = this.maxHeight;
-                        }
-                        $(rf.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
+                        $(rf.getDomElement(eContentElt)).css('height', height + (/px/.test(height) ? '' : 'px'));
                         var headerHeight = $(rf.getDomElement(this.markerId + "_header")) ? $(rf.getDomElement(this.markerId + "_header")).innerHeight() : 0;
-                        this.shadowDiv.css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-                        this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
+                        this.shadowDiv.css('height', height + (/px/.test(height) ? '' : 'px'));
+                        this.scrollerDiv.css('height', height - headerHeight + (/px/.test(height) ? '' : 'px'));
                     }
 
                     var eIframe;
@@ -382,6 +448,8 @@
                     var showEvent = {};
                     showEvent.parameters = opts || {};
                     this.shown = true;
+                    // Cache the height difference between the shadoww div and the scroller div for later height calculations
+                    this.scrollerSizeDelta = parseInt(this.shadowDiv.css('height')) - parseInt(this.scrollerDiv.css('height'));
                     this.invokeEvent("show", showEvent, null, element);
                 }
             },
@@ -527,12 +595,20 @@
                     }
 
                     this.shown = false;
-                    this.invokeEvent("hide", hideEvent, null, element)
+                    this.invokeEvent("hide", hideEvent, null, element);
+
+                    // reset position for proper resizing
+                    this.setLeft(10);
+                    this.setTop(10);
                 }
             },
 
             getStyle: function(elt, name) {
                 return parseInt($(rf.getDomElement(elt)).css(name).replace("px", ""), 10);
+            },
+
+            resizeListener: function(event, diff) {
+                this.doResizeOrMove(rf.ui.PopupPanel.Sizer.Diff.EMPTY);
             },
 
             doResizeOrMove: function(diff) {
@@ -544,41 +620,51 @@
                 var contentHashWH = {};
                 var scrollerHashWH = {};
                 var newSize;
-                var scrollerHeight = 22;
+                var scrollerHeight = this.scrollerSizeDelta;
                 var scrollerWidth = 0;
                 var eContentElt = this.getContentElement();
 
-                newSize = this.getStyle(eContentElt, "width");
+                var doResize = diff === rf.ui.PopupPanel.Sizer.Diff.EMPTY || diff.deltaWidth || diff.deltaHeight;
 
-                var oldWidthSize = newSize;
-                newSize += diff.deltaWidth || 0;
-
-
-                if (newSize >= this.currentMinWidth || this.options.autosized) {
-                    cssHashWH.width = newSize + 'px';
-                    shadowHashWH.width = newSize + 'px';
-                    contentHashWH.width = newSize - scrollerWidth + 'px';
-                    scrollerHashWH.width = newSize - scrollerWidth + 'px';
-                } else {
-                    cssHashWH.width = this.currentMinWidth + 'px';
-                    shadowHashWH.width = this.currentMinWidth + 'px';
-                    contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
-                    scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
-                    vetoes.vx = oldWidthSize - this.currentMinWidth;
-
-                    vetoes.x = true;
-                }
-
-                if (newSize > this.options.maxWidth) {
-                    if (diff.deltaWidth) {
-                        cssHashWH.width = this.currentMaxWidth + 'px';
-                        shadowHashWH.width = this.currentMaxWidth + 'px';
-                        contentHashWH.width = this.currentMaxWidth - scrollerWidth + 'px';
-                        scrollerHashWH.width = this.currentMaxWidth - scrollerWidth + 'px';
-                        vetoes.vx = oldWidthSize - this.currentMaxWidth;
+                if (doResize) {
+                    if (this.options.autosized) {
+                        this.resetWidth();
+                        this.resetHeight();
                     }
 
-                    vetoes.x = true;
+                    newSize = this.getStyle(eContentElt, "width");
+
+                    var oldWidthSize = newSize;
+                    newSize += diff.deltaWidth || 0;
+
+                    if (newSize >= this.currentMinWidth) {
+                        cssHashWH.width = newSize + 'px';
+                        shadowHashWH.width = newSize + 'px';
+                        contentHashWH.width = newSize - scrollerWidth + 'px';
+                        scrollerHashWH.width = newSize - scrollerWidth + 'px';
+                    } else {
+                        cssHashWH.width = this.currentMinWidth + 'px';
+                        shadowHashWH.width = this.currentMinWidth + 'px';
+                        contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
+                        scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
+
+                        if (diff.deltaWidth) {
+                            vetoes.vx = oldWidthSize - this.currentMinWidth;
+                            vetoes.x = true;
+                        }
+                    }
+
+                    if (newSize > this.options.maxWidth) {
+                        cssHashWH.width = this.options.maxWidth + 'px';
+                        shadowHashWH.width = this.options.maxWidth + 'px';
+                        contentHashWH.width = this.options.maxWidth - scrollerWidth + 'px';
+                        scrollerHashWH.width = this.options.maxWidth - scrollerWidth + 'px';
+
+                        if (diff.deltaWidth) {
+                            vetoes.vx = oldWidthSize - this.options.maxWidth;
+                            vetoes.x = true;
+                        }
+                    }
                 }
 
                 if (vetoes.vx && diff.deltaX) {
@@ -598,37 +684,37 @@
 
                 }
 
-                newSize = this.getStyle(eContentElt, "height");
+                if (doResize) {
+                    newSize = this.getStyle(eContentElt, "height");
 
-                var oldHeightSize = newSize;
-                newSize += diff.deltaHeight || 0;
+                    var oldHeightSize = newSize;
+                    newSize += diff.deltaHeight || 0;
 
-                if (newSize >= this.currentMinHeight || this.options.autosized) {
-                    if (diff.deltaHeight) {
+                    if (newSize >= this.currentMinHeight) {
                         cssHashWH.height = newSize + 'px';
                         shadowHashWH.height = newSize + 'px';
                         scrollerHashWH.height = newSize - scrollerHeight + 'px';
-                    }
-                } else {
-                    if (diff.deltaHeight) {
+                    } else {
                         cssHashWH.height = this.currentMinHeight + 'px';
                         shadowHashWH.height = this.currentMinHeight + 'px';
                         scrollerHashWH.height = this.currentMinHeight - scrollerHeight + 'px';
-                        vetoes.vy = oldHeightSize - this.currentMinHeight;
+
+                        if (diff.deltaHeight) {
+                            vetoes.vy = oldHeightSize - this.currentMinHeight;
+                            vetoes.y = true;
+                        }
                     }
 
-                    vetoes.y = true;
-                }
+                    if (newSize > this.options.maxHeight) {
+                        cssHashWH.height = this.options.maxHeight + 'px';
+                        shadowHashWH.height = this.options.maxHeight + 'px';
+                        scrollerHashWH.height = this.options.maxHeight - scrollerHeight + 'px';
 
-                if (newSize > this.options.maxHeight) {
-                    if (diff.deltaHeight) {
-                        cssHashWH.height = this.currentMaxHeight + 'px';
-                        shadowHashWH.height = this.currentMaxHeight + 'px';
-                        scrollerHashWH.height = this.currentMaxHeight - scrollerHeight + 'px';
-                        vetoes.vy = oldHeightSize - this.currentMaxHeight;
+                        if (diff.deltaHeight) {
+                            vetoes.vy = oldHeightSize - this.options.maxHeight;
+                            vetoes.y = true;
+                        }
                     }
-
-                    vetoes.y = true;
                 }
 
                 if (vetoes.vy && diff.deltaY) {
@@ -640,16 +726,11 @@
                         diff.deltaY = vetoes.vy;
                     }
 
-                }
-                if (diff.deltaY && (vetoes.vy || !vetoes.y)) {
-                    if (vetoes.vy) {
-                        diff.deltaY = vetoes.vy;
-                    }
-
                     var newTopPos = this.getStyle(eCdiv, "top");
                     newTopPos += diff.deltaY;
                     cssHash.top = newTopPos + 'px';
                 }
+
                 eContentElt.css(cssHashWH);
                 this.scrollerDiv.css(scrollerHashWH);
                 if (this.eIframe) {
@@ -685,6 +766,26 @@
                 }
 
                 return vetoes;
+            },
+
+            resetWidth: function() {
+                this.getContentElement().css('width', '');
+                this.scrollerDiv.css('width', '');
+                if (this.eIframe) {
+                    this.eIframe.css('width', '');
+                }
+                this.shadowDiv.css('width', '');
+                $(this.cdiv).css('width', '');
+            },
+
+            resetHeight: function() {
+                this.getContentElement().css('height', '');
+                this.scrollerDiv.css('height', '');
+                if (this.eIframe) {
+                    this.eIframe.css('height', '');
+                }
+                this.shadowDiv.css('height', '');
+                $(this.cdiv).css('height', '');
             },
 
             setSize : function (width, height) {
