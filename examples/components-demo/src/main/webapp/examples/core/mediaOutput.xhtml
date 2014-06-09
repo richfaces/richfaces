@@ -31,13 +31,13 @@
     <ui:param name="title" value="Media Output" />
     <!-- content -->
     <ui:define name="content">
-        <r:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces.jpg" element="img" />
+        <a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces.jpg" element="img" />
         <br />
         <h:form>
-            <r:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces-twitter.jpg" element="img"
+            <a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces-twitter.jpg" element="img"
                 cacheable="true" fileName="richfaces-twitter.jpg">
                 <f:ajax event="dblclick" listener="#{commandBean.listener}" />
-            </r:mediaOutput>
+            </a4j:mediaOutput>
             <br />
         </h:form>
     </ui:define>

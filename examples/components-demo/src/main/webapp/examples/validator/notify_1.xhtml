@@ -65,7 +65,7 @@
                                 </f:facet>
                             </r:notify>
                     
-                    <r:outputPanel ajaxRendered="true">
+                    <a4j:outputPanel ajaxRendered="true">
                         <r:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
                             method="#{notifyBean.method}" styleClass="#{notifyBean.stackStyleClass}" />
                         <r:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
@@ -75,13 +75,13 @@
                         hideAnimation="#{notifyBean.hideAnimation}" animationSpeed="#{notifyBean.animationSpeed}"
                         nonblockingOpacity="#{notifyBean.nonblockingOpacity}" styleClass="#{notifyBean.styleClass}" />
                         
-                    </r:outputPanel>
+                    </a4j:outputPanel>
                     
                     
-                    <r:commandButton value="Say Hello" action="#{notifyBean.sayHello}" execute="@form" />
-                    <r:commandButton value="Warn me" action="#{notifyBean.warnMe}" execute="@form" />
-                    <r:commandButton value="Say error" action="#{notifyBean.sayError}" execute="@form" />
-                    <r:commandButton value="Say fatal" action="#{notifyBean.sayFatal}" execute="@form" />
+                    <a4j:commandButton value="Say Hello" action="#{notifyBean.sayHello}" execute="@form" />
+                    <a4j:commandButton value="Warn me" action="#{notifyBean.warnMe}" execute="@form" />
+                    <a4j:commandButton value="Say error" action="#{notifyBean.sayError}" execute="@form" />
+                    <a4j:commandButton value="Say fatal" action="#{notifyBean.sayFatal}" execute="@form" />
                     <h:panelGrid columns="2">
                         <h:panelGroup>
                             <f:facet name="header">Common</f:facet>

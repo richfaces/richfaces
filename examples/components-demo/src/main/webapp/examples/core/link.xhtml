@@ -31,30 +31,30 @@
     <ui:param name="title" value="Link" />
     <!-- content -->
     <ui:define name="content">
-        <r:outputPanel ajaxRendered="true">
+        <a4j:outputPanel ajaxRendered="true">
             <h:outputText value="#{commandBean.date}" />
-        </r:outputPanel>
+        </a4j:outputPanel>
         <h:outputText value="Name:" />
         <h:form>
             <h:inputText value="#{commandBean.name}" />
 
             <h:panelGrid>
-                <r:commandLink action="#{commandBean.submit}" render="out">
+                <a4j:commandLink action="#{commandBean.submit}" render="out">
                     <h:outputText value="Say Hello" />
-                </r:commandLink>
-                <r:commandLink action="#{commandBean.submit}" render="out" limitRender="true">
+                </a4j:commandLink>
+                <a4j:commandLink action="#{commandBean.submit}" render="out" limitRender="true">
                     <h:outputText value="Say Hello with limitRender" />
-                </r:commandLink>
-                <r:commandLink action="#{commandBean.submit}" render="out" execute="@this">
+                </a4j:commandLink>
+                <a4j:commandLink action="#{commandBean.submit}" render="out" execute="@this">
                     <h:outputText value="Say Hello with execute=@this" />
-                </r:commandLink>
-                <r:commandLink action="#{commandBean.reset}" render="out">
+                </a4j:commandLink>
+                <a4j:commandLink action="#{commandBean.reset}" render="out">
                     <h:outputText value="Reset" />
-                </r:commandLink>
-                <r:commandLink>
+                </a4j:commandLink>
+                <a4j:commandLink>
                     <f:ajax event="action" execute="@form" render=":out" listener="#{commandBean.listener}" />
                     <h:outputText value="Test AjaxBehavior" />
-                </r:commandLink>
+                </a4j:commandLink>
             </h:panelGrid>
         </h:form>
         <br />

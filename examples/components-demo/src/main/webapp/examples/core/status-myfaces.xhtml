@@ -32,23 +32,23 @@
     <!-- content -->
     <ui:define name="content">
 
-        <r:status startStyle="color: green" errorStyle="color: red" onstart="RichFaces.log.info('START')"
+        <a4j:status startStyle="color: green" errorStyle="color: red" onstart="RichFaces.log.info('START')"
             onerror="RichFaces.log.info('ERROR')" onsuccess="RichFaces.log.info('SUCCESS')" onstop="RichFaces.log.info('STOP')">
             <f:facet name="start">...start...</f:facet>
             <f:facet name="stop">stop</f:facet>
             <f:facet name="error">error</f:facet>
-        </r:status>
+        </a4j:status>
 
         <h:form>
             <h:commandLink value="A4J:Ajax error" action="#{statusBean.delayWithError}">
-                <r:ajax />
+                <a4j:ajax />
             </h:commandLink>
             <h:commandLink value="F:Ajax error" action="#{statusBean.delayWithError}">
                 <f:ajax />
             </h:commandLink>
         </h:form>
 
-        <r:log />
+        <a4j:log />
 
     </ui:define>
 </ui:composition>

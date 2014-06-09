@@ -40,21 +40,21 @@
         </h:form>
 
         <h:form id="formId">
-            <r:outputPanel ajaxRendered="true">
+            <a4j:outputPanel ajaxRendered="true">
                 Actions counter: #{dynamicExecuteBean.actionsCounter}<br />
                 Input value: #{dynamicExecuteBean.inputValue}<br />
                 Applied value: #{dynamicExecuteBean.value}<br />
-            </r:outputPanel>
+            </a4j:outputPanel>
 
             <h:inputText value="#{dynamicExecuteBean.inputValue}" />
 
-            <r:jsFunction action="#{dynamicExecuteBean.applyValue}" name="testFunction"
+            <a4j:jsFunction action="#{dynamicExecuteBean.applyValue}" name="testFunction"
                 execute="#{dynamicExecuteBean.execute}" />
             <a href="javascript:testFunction()">Call test function</a>
         </h:form>
 
         <h:form id="anotherFormId">
-            <r:jsFunction action="#{dynamicExecuteBean.applyValue}" name="anotherTestFunction"
+            <a4j:jsFunction action="#{dynamicExecuteBean.applyValue}" name="anotherTestFunction"
                 execute="#{dynamicExecuteBean.execute}" />
             <a href="javascript:anotherTestFunction()">Call test function from another form</a>
         </h:form>

@@ -41,13 +41,13 @@
                     <f:selectItems value="#{selectBean.values}" />
                 </r:select>
                 <br />
-                <r:commandButton value="Send" render="output1" />
+                <a4j:commandButton value="Send" render="output1" />
             </h:form>
-            <r:outputPanel id="output1">
+            <a4j:outputPanel id="output1">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
                 <r:messages for="select1" />
-            </r:outputPanel>
+            </a4j:outputPanel>
         </fieldset>
 
 
@@ -60,13 +60,13 @@
                     <f:selectItems value="#{selectBean.values}" />
                 </r:select>
                 <br />
-                <r:commandButton value="Send" render="output2" />
+                <a4j:commandButton value="Send" render="output2" />
             </h:form>
-            <r:outputPanel id="output2">
+            <a4j:outputPanel id="output2">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
                 <r:messages for="select2" />
-            </r:outputPanel>
+            </a4j:outputPanel>
         </fieldset>
 
 
@@ -81,13 +81,13 @@
                     <r:validator event="blur"  />
                 </r:select>
                 <br />
-                <r:commandButton value="Send" render="output3" />
+                <a4j:commandButton value="Send" render="output3" />
             </h:form>
-            <r:outputPanel id="output3">
+            <a4j:outputPanel id="output3">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
                 <r:messages for="select3" />
-            </r:outputPanel>
+            </a4j:outputPanel>
         </fieldset>
         
         
@@ -103,13 +103,13 @@
                     <r:validator event="blur" />
                 </r:select>
                 <br />
-                <r:commandButton value="Send" render="output4" />
+                <a4j:commandButton value="Send" render="output4" />
             </h:form>
-            <r:outputPanel id="output4">
+            <a4j:outputPanel id="output4">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
                 <r:messages for="select4" />
-            </r:outputPanel>
+            </a4j:outputPanel>
         </fieldset>
     </ui:define>
 </ui:composition>

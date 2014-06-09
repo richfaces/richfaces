@@ -36,21 +36,21 @@
         <h:form>
             Active:
             <h:selectBooleanCheckbox id="panelRendered" value="#{requestScope.panelRendered}">
-                <r:ajax event="click" render="panel" />
+                <a4j:ajax event="click" render="panel" />
             </h:selectBooleanCheckbox>
             <script>
                 $(#{r:element('panelRendered')}).attr('checked', true);
             </script>
         </h:form>
 
-        <r:outputPanel id="panel">
-            <r:outputPanel>
+        <a4j:outputPanel id="panel">
+            <a4j:outputPanel>
                 <b>Note</b> key actions can be seen in document title and in JS console log.<br />
                 
                 <p>CTRL A(on document) works in both cases if input focused or not (and it has attached ajax behavior)</p>
                 <r:hotKey key="CTRL+a" onkeydown="myCallback(event, 'CTRL+a');" enabledInInput="true"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}">
-                    <!-- <r:ajax />  -->
+                    <!-- <a4j:ajax />  -->
                 </r:hotKey>
 
                 <p>CTRL B(on document) works only if inputs not focused</p>
@@ -69,8 +69,8 @@
                 <r:hotKey key="CTRL+z" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+z in third input');"
                     enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
 
-            </r:outputPanel>
-        </r:outputPanel>
+            </a4j:outputPanel>
+        </a4j:outputPanel>
 
         <h:inputText value="just input" />
 

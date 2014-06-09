@@ -50,12 +50,12 @@
             </h:panelGroup>
 
             <ul>
-                <r:repeat value="#{repeatBean.dataList}" var="item" iterationStatusVar="status">
+                <a4j:repeat value="#{repeatBean.dataList}" var="item" iterationStatusVar="status">
                     <li><h:inputText value="#{item.text}" /> <h:commandLink value="Link">
                             <f:ajax render="@form" execute="@form" />
                             <f:setPropertyActionListener target="#{repeatBean.selectedDataItem}" value="#{item}" />
                         </h:commandLink> #{status}</li>
-                </r:repeat>
+                </a4j:repeat>
             </ul>
         </h:form>
 
@@ -64,9 +64,9 @@
                 <h:messages />
                 <table>
                     <tbody>
-                        <r:repeat value="#{repeatBean.matrixRows}" var="row" iterationStatusVar="rowStatus">
+                        <a4j:repeat value="#{repeatBean.matrixRows}" var="row" iterationStatusVar="rowStatus">
                             <tr>
-                                <r:repeat value="#{row.cells}" var="cell" iterationStatusVar="cellStatus">
+                                <a4j:repeat value="#{row.cells}" var="cell" iterationStatusVar="cellStatus">
                                     <td><h:panelGroup layout="block"
                                             styleClass="cell #{rowStatus.even ? 'row-even' : 'row-odd'} #{cellStatus.even ? 'cell-even' : 'cell-odd'}">
                                             <h:inputText value="#{cell.value}" size="3">
@@ -86,9 +86,9 @@
                                                 <f:ajax render=":matrixForm:matrixInput :matrixOutput" />
                                             </h:commandLink>
                                         </h:panelGroup></td>
-                                </r:repeat>
+                                </a4j:repeat>
                             </tr>
-                        </r:repeat>
+                        </a4j:repeat>
                     </tbody>
                 </table>
             </h:panelGroup>
@@ -97,15 +97,15 @@
         <h:panelGroup id="matrixOutput" layout="block">
             <table>
                 <tbody>
-                    <r:repeat value="#{repeatBean.matrixRows}" var="row">
+                    <a4j:repeat value="#{repeatBean.matrixRows}" var="row">
                         <tr>
-                            <r:repeat value="#{row.cells}" var="cell">
+                            <a4j:repeat value="#{row.cells}" var="cell">
                                 <td><h:panelGroup styleClass="cell" layout="block">
                                     #{cell.value}
                                 </h:panelGroup></td>
-                            </r:repeat>
+                            </a4j:repeat>
                         </tr>
-                    </r:repeat>
+                    </a4j:repeat>
                 </tbody>
             </table>
         </h:panelGroup>

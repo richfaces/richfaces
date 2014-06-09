@@ -45,12 +45,12 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Placeholder text" for="text" />
                     <h:inputTextarea id="text" value="#{placeholderBean.placeholderText}" required="true">
-                        <r:ajax event="valueChange" execute="@form" render="samples" />
+                        <a4j:ajax event="valueChange" execute="@form" render="samples" />
                     </h:inputTextarea>
                     
                     <h:outputLabel value="Rendered" for="text" />
                     <h:selectBooleanCheckbox value="#{placeholderBean.rendered}">
-                        <r:ajax event="click" execute="@form" render="samples" />
+                        <a4j:ajax event="click" execute="@form" render="samples" />
                     </h:selectBooleanCheckbox>
                     
                     <h:commandButton value="Submit" action="#{placeholderBean.submit}" />
@@ -123,12 +123,12 @@
                 <br />
 
                 <h:commandButton value="Submit" />
-                <r:commandButton value="AJAX" execute="@form" render="@form" />
+                <a4j:commandButton value="AJAX" execute="@form" render="@form" />
             </fieldset>
             
-            <r:outputPanel ajaxRendered="true">
+            <a4j:outputPanel ajaxRendered="true">
                 <h:messages />
-            </r:outputPanel>
+            </a4j:outputPanel>
         </h:form>
 
     </ui:define>

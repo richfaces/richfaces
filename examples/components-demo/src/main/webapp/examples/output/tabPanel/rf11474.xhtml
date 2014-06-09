@@ -48,20 +48,20 @@
                 </r:tabPanel>
                 <br />
                 <br />
-                <r:commandButton id="but1" value="go to tab1" action="#{rf11474.goToTab1}" execute="@this" render="tabpanel" />
+                <a4j:commandButton id="but1" value="go to tab1" action="#{rf11474.goToTab1}" execute="@this" render="tabpanel" />
                 <br />
                 <br />
-                <r:commandButton id="but2" value="go to tab2" action="#{rf11474.goToTab2}" execute="@this" render="tabpanel" />
+                <a4j:commandButton id="but2" value="go to tab2" action="#{rf11474.goToTab2}" execute="@this" render="tabpanel" />
                 <br />
                 <br />
-                <r:commandButton id="but3" value="go to tab3" action="#{rf11474.goToTab3}" execute="@this" render="tabpanel" />
+                <a4j:commandButton id="but3" value="go to tab3" action="#{rf11474.goToTab3}" execute="@this" render="tabpanel" />
             </h:form>
             
-            <r:outputPanel ajaxRendered="true">
+            <a4j:outputPanel ajaxRendered="true">
                 <h:outputText value="Active: #{rf11474.activeTab}" />
-            </r:outputPanel>
+            </a4j:outputPanel>
                         
-            <r:log />
+            <a4j:log />
 
         </ui:define>
     </ui:composition>

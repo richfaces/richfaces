@@ -306,9 +306,9 @@
             </r:treeNode>
         </r:tree>
 
-        <r:outputPanel ajaxRendered="true">
+        <a4j:outputPanel ajaxRendered="true">
             <h:messages for="serverListenersTree"/>
-        </r:outputPanel>
+        </a4j:outputPanel>
 
         <hr />
 
@@ -363,11 +363,11 @@
 
                 <br/>
 
-                <r:outputPanel ajaxRendered="true">
+                <a4j:outputPanel ajaxRendered="true">
                     Current time: #{treeBean.currentTimeAsString}
                     <br/>
                     <h:outputText value="#{treeBean.executeTestText}"/>
-                </r:outputPanel>
+                </a4j:outputPanel>
 
             </h:panelGroup>
         </h:panelGrid>
@@ -390,9 +390,9 @@
         'handleLoading' without facet:
         <r:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node" styleClass="loadingWithoutFacet"/>
 
-        <r:queue/>
+        <a4j:queue/>
 
-        <r:log/>
+        <a4j:log/>
         
         </h:form>
     

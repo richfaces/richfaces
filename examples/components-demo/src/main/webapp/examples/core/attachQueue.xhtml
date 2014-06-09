@@ -31,19 +31,19 @@
     <ui:param name="title" value="Attach Queue" />
     <!-- content -->
     <ui:define name="content">
-        <r:queue requestDelay="750"></r:queue>
+        <a4j:queue requestDelay="750"></a4j:queue>
         <h:form id="form">
 
             <h:panelGrid columns="2">
-                <r:commandButton value="Set Name to Alex" render="rep ">
-                    <r:attachQueue requestGroupingId="group1" requestDelay="5000" />
-                    <r:param name="username" value="Alex" assignTo="#{attachQueueBean.name}" />
-                </r:commandButton>
+                <a4j:commandButton value="Set Name to Alex" render="rep ">
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000" />
+                    <a4j:param name="username" value="Alex" assignTo="#{attachQueueBean.name}" />
+                </a4j:commandButton>
 
-                <r:commandButton value="Set Name to John" render="rep ">
-                    <r:attachQueue requestGroupingId="group1" requestDelay="5000" />
-                    <r:param name="username" value="John" assignTo="#{attachQueueBean.name}" />
-                </r:commandButton>
+                <a4j:commandButton value="Set Name to John" render="rep ">
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000" />
+                    <a4j:param name="username" value="John" assignTo="#{attachQueueBean.name}" />
+                </a4j:commandButton>
             </h:panelGrid>
 
             <div>
@@ -51,25 +51,25 @@
 
             </div>
 
-            <r:ajax>
+            <a4j:ajax>
                 <h:inputText />
 
-                <r:attachQueue id="firstAttach" />
-            </r:ajax>
+                <a4j:attachQueue id="firstAttach" />
+            </a4j:ajax>
 
-            <r:ajax event="valueChange">
+            <a4j:ajax event="valueChange">
                 <h:panelGroup>
-                    <r:ajax event="valueChange">
+                    <a4j:ajax event="valueChange">
                         <h:inputText />
 
-                        <r:commandLink value="Link">
-                            <r:attachQueue id="linkAttach" />
-                        </r:commandLink>
+                        <a4j:commandLink value="Link">
+                            <a4j:attachQueue id="linkAttach" />
+                        </a4j:commandLink>
 
-                        <r:attachQueue id="secondAttach" />
-                    </r:ajax>
+                        <a4j:attachQueue id="secondAttach" />
+                    </a4j:ajax>
                 </h:panelGroup>
-            </r:ajax>
+            </a4j:ajax>
         </h:form>
 
         <ui:debug hotkey="L" />

@@ -140,15 +140,15 @@
             Current value:
             <h:panelGroup id="currentValue">#{progressBarBean.value}</h:panelGroup>
             <br/>
-            <r:commandLink value="-5" action="#{progressBarBean.decreaseValueByFive}" render="currentValue"/>
+            <a4j:commandLink value="-5" action="#{progressBarBean.decreaseValueByFive}" render="currentValue"/>
 
             <h:outputText value=" / "/>
 
-            <r:commandLink value="+5" action="#{progressBarBean.increaseValueByFive}" render="currentValue"/>
+            <a4j:commandLink value="+5" action="#{progressBarBean.increaseValueByFive}" render="currentValue"/>
 
             <h:outputText value=" / "/>
 
-            <r:commandLink value="re-render progress bar" render="progressBar"/>
+            <a4j:commandLink value="re-render progress bar" render="progressBar"/>
         </h:form>
 
         <h:form id="ajaxExtResourcePBForm">

@@ -111,7 +111,7 @@
             <h:panelGrid columns="2">
                 <h:outputText value="Select joint point:" />
                 <h:selectOneMenu value="#{tooltipBean.jointPoint}">
-                    <r:ajax execute="@form" event="change" render="tooltip @this" />
+                    <a4j:ajax execute="@form" event="change" render="tooltip @this" />
                     <f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}" />
                 </h:selectOneMenu>
                 <h:outputText value="Select direction:" />
@@ -121,16 +121,16 @@
                 </h:selectOneMenu>
                 <h:outputText value="Horisontal offset:" />
                 <h:inputText value="#{tooltipBean.horizontalOffset}">
-                    <r:ajax execute="@form" event="change" render="tooltip @this" />
+                    <a4j:ajax execute="@form" event="change" render="tooltip @this" />
                 </h:inputText>
                 <h:outputText value="Vertical offset:" />
                 <h:inputText value="#{tooltipBean.verticalOffset}">
                     <f:ajax execute="@form" event="change" render="tooltip @this" />
                 </h:inputText>
             </h:panelGrid>
-            <r:outputPanel ajaxRendered="true">
+            <a4j:outputPanel ajaxRendered="true">
                 <h:messages></h:messages>
-            </r:outputPanel>
+            </a4j:outputPanel>
         </h:form>
     </ui:define>
 </ui:composition>

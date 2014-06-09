@@ -37,24 +37,24 @@
 
             <h:panelGrid columns="1">
                 <h:commandButton value="Invoke listener method">
-                    <r:actionListener listener="#{actionListenerBean.handleActionMethod}" />
+                    <a4j:actionListener listener="#{actionListenerBean.handleActionMethod}" />
                     <f:ajax render="messages" />
                 </h:commandButton>
 
                 <h:commandButton value="Invoke listener by type">
-                    <r:actionListener type="org.richfaces.demo.core.ActionListenerBean$ActionListenerImpl" />
+                    <a4j:actionListener type="org.richfaces.demo.core.ActionListenerBean$ActionListenerImpl" />
                     <f:ajax render="messages" />
                 </h:commandButton>
 
                 <h:commandButton value="Invoke listener by binding">
-                    <r:actionListener binding="#{actionListenerBean.actionListener}" />
+                    <a4j:actionListener binding="#{actionListenerBean.actionListener}" />
                     <f:ajax render="messages" />
                 </h:commandButton>
 
                 <!-- This is broken, see: https://issues.jboss.org/browse/RF-11922 -->
                 <ui:remove>
                 <rc:actionComposite render=":form:messages" value="Invoke listener method in composite component">
-                    <r:actionListener for="button" listener="#{actionListenerBean.handleActionMethodComposite}" />
+                    <a4j:actionListener for="button" listener="#{actionListenerBean.handleActionMethodComposite}" />
                 </rc:actionComposite>
                 </ui:remove>
             </h:panelGrid>

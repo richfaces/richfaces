@@ -37,28 +37,28 @@
             }
         </script>
 
-        <r:status id="myStatus" name="ilStatus" startText="...named status request start..." />
+        <a4j:status id="myStatus" name="ilStatus" startText="...named status request start..." />
         <br />
 
-        <r:status startStyle="color: green" errorStyle="color: red"
+        <a4j:status startStyle="color: green" errorStyle="color: red"
             onstart="selectEventSource(event.source, '3px dotted navy')"
             onerror="selectEventSource(event.source, '2px solid red')"
             onsuccess="selectEventSource(event.source, '0px none white')">
             <f:facet name="start">...start...</f:facet>
             <f:facet name="stop">stop</f:facet>
             <f:facet name="error">error</f:facet>
-        </r:status>
+        </a4j:status>
 
         <br />
 
-        <r:status startStyle="color: green">
+        <a4j:status startStyle="color: green">
             <f:facet name="start">...start...</f:facet>
             <f:facet name="stop">stop</f:facet>
             <f:ajax event="error" listener="#{commandBean.listener}" />
-        </r:status>
+        </a4j:status>
 
         <h:form>
-            <r:jsFunction name="statusFunction" status="ilStatus" action="#{statusBean.delay}" />
+            <a4j:jsFunction name="statusFunction" status="ilStatus" action="#{statusBean.delay}" />
 
             <h:commandLink value="Named status" onclick="statusFunction(); return false;" />
             &#160;
@@ -73,11 +73,11 @@
 
         Another form:
         <h:form>
-            <r:status>
+            <a4j:status>
                 <f:facet name="start">+++</f:facet>
                 <f:facet name="stop"></f:facet>
                 <f:facet name="error">!!!</f:facet>
-            </r:status>
+            </a4j:status>
             <br />
 
             <h:commandLink value="Ajax" action="#{statusBean.delay}">
@@ -89,7 +89,7 @@
             </h:commandLink>
         </h:form>
 
-        <r:log />
+        <a4j:log />
 
     </ui:define>
 </ui:composition>

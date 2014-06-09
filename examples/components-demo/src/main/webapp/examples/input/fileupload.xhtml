@@ -78,9 +78,9 @@
                     RichFaces.log.info(jQuery('<span><b>onfileselect:</b> ' + data + '</span>'));
                 };
             </h:outputScript>
-            <r:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
-                <r:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
-            </r:jsFunction>
+            <a4j:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
+                <a4j:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
+            </a4j:jsFunction>
             <h:panelGrid columns="2" columnClasses="top,top">
                 <r:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}"
                                disabled="#{fileUploadBean.disabled}"
@@ -94,7 +94,7 @@
                                maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}"
                                immediateUpload="#{fileUploadBean.immediateUpload}"
                         >
-                    <r:ajax event="uploadcomplete" execute="@none" render="info"/>
+                    <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
                 </r:fileUpload>
                 <h:panelGroup id="info" layout="block">
                     <r:panel bodyClass="info">
@@ -112,14 +112,14 @@
                         </r:dataGrid>
                     </r:panel>
                     <br/>
-                    <r:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload"
+                    <a4j:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload"
                                        value="Clear Uploaded Data"
                                        rendered="#{not empty fileUploadBean.files}"/>
                 </h:panelGroup>
             </h:panelGrid>
 
             <h:outputText value="File name:"/>
-            <r:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</r:outputPanel>
+            <a4j:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</a4j:outputPanel>
             <br/>
             <h:outputText value="Attribute name: "/>
             <h:inputText id="name"/>
@@ -160,7 +160,7 @@
             </h:selectBooleanCheckbox>
             <br/>
             <input type="submit"/>
-            <r:log/>
+            <a4j:log/>
         </h:form>
     </ui:define>
 </ui:composition>

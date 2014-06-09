@@ -38,21 +38,21 @@
         </script>
     
         <h:form>
-            <r:status name="ilStatus" startText="...start..." stopText="...stop..." />
+            <a4j:status name="ilStatus" startText="...start..." stopText="...stop..." />
             <h:panelGrid columns="2">
                 <h:outputText value="a:ajax attached fires ajax submit on 'keyup' event" />
                 <h:inputText value="#{supportBean.text1}">
-                    <r:ajax event="keyup" render="text1" status="ilStatus" listener="#{supportBean.behaviorListener}" />
+                    <a4j:ajax event="keyup" render="text1" status="ilStatus" listener="#{supportBean.behaviorListener}" />
                 </h:inputText>
             </h:panelGrid>
     
             <h:panelGrid columns="1">
                 <h:outputText value="a:ajax for 'keyup' event wrapping several elements" />
-                <r:ajax event="keyup" execute="@this" render="text1" status="ilStatus" listener="#{supportBean.behaviorListener}">
+                <a4j:ajax event="keyup" execute="@this" render="text1" status="ilStatus" listener="#{supportBean.behaviorListener}">
                     <h:inputText value="#{supportBean.text1}" />
                     <h:inputText value="#{supportBean.text1}" />
                     <h:inputText value="#{supportBean.text1}" />
-                </r:ajax>
+                </a4j:ajax>
             </h:panelGrid>
     
             <h:panelGrid columns="2" style="border: 1px solid green;">
@@ -60,19 +60,19 @@
                 <h:outputText id="text1" value="#{supportBean.text1}" />
     
                 <h:outputText value="Ajax Panel ajaxRendered='true':" />
-                <r:outputPanel ajaxRendered="true" style="border: 1px solid red;">
+                <a4j:outputPanel ajaxRendered="true" style="border: 1px solid red;">
                     <f:facet name="header">test</f:facet>
                     <h:outputText value="Ajax Panel ajaxRendered='true':" />
                     <h:panelGroup style="padding: 2px;">
                         <h:outputText value="#{supportBean.text1}" />
                     </h:panelGroup>
-                </r:outputPanel>
+                </a4j:outputPanel>
             </h:panelGrid>
     
             <h:panelGrid columns="2">
                 <h:outputText value="a:ajax attached fires ajax submit on default event" />
                 <h:inputText value="#{supportBean.text2}">
-                    <r:ajax render="text2" status="ilStatus" limitRender="true" />
+                    <a4j:ajax render="text2" status="ilStatus" limitRender="true" />
                 </h:inputText>
             </h:panelGrid>
     
@@ -81,12 +81,12 @@
                 <h:outputText id="text2" value="#{supportBean.text2}" />
     
                 <h:outputText value="Ajax Panel shouldn't work coz &lt; a:ajax limitRender='true' /&gt; :" />
-                <r:outputPanel ajaxRendered="true" style="border: 1px solid red;">
+                <a4j:outputPanel ajaxRendered="true" style="border: 1px solid red;">
                     <h:outputText value="Ajax Panel ajaxRendered='true':" />
                     <h:panelGroup style="padding: 2px;">
                         <h:outputText value="#{supportBean.text2}" />
                     </h:panelGroup>
-                </r:outputPanel>
+                </a4j:outputPanel>
             </h:panelGrid>
     
         </h:form>
@@ -95,26 +95,26 @@
             <h:panelGrid columns="3">
                 bypassUpdates undefined
                 <h:inputText>
-                    <r:ajax event="keyup" />
+                    <a4j:ajax event="keyup" />
                 </h:inputText>
                 <h:commandLink value="Link">
-                    <r:ajax />
+                    <a4j:ajax />
                 </h:commandLink>
     
                 bypassUpdates="true"
                 <h:inputText>
-                    <r:ajax bypassUpdates="true" event="keyup" />
+                    <a4j:ajax bypassUpdates="true" event="keyup" />
                 </h:inputText>
                 <h:commandLink value="Link">
-                    <r:ajax bypassUpdates="true" />
+                    <a4j:ajax bypassUpdates="true" />
                 </h:commandLink>
     
                 bypassUpdates="#{'#'}{true}"
                 <h:inputText>
-                    <r:ajax bypassUpdates="#{true}" event="keyup" />
+                    <a4j:ajax bypassUpdates="#{true}" event="keyup" />
                 </h:inputText>
                 <h:commandLink value="Link">
-                    <r:ajax bypassUpdates="#{true}" />
+                    <a4j:ajax bypassUpdates="#{true}" />
                 </h:commandLink>
     
             </h:panelGrid>

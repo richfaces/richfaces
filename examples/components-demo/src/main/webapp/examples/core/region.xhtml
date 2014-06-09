@@ -99,33 +99,33 @@
             <h:inputText value="#{regionBean.outerValue}" />
 
             <h:commandLink value="Out of region">
-                <r:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.outerExecute}" render="outputValues" />
+                <a4j:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.outerExecute}" render="outputValues" />
             </h:commandLink>
 
             <fieldset>
                 <legend>Region</legend>
 
-                <r:region>
+                <a4j:region>
                     <h:inputText value="#{regionBean.regionValue}" />
 
                     <h:commandLink value="Region">
-                        <r:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.execute}" render="outputValues" />
+                        <a4j:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.execute}" render="outputValues" />
                     </h:commandLink>
 
                     <fieldset>
                         <legend>Nested region</legend>
 
-                        <r:region id="nestedRegion">
+                        <a4j:region id="nestedRegion">
                             <h:inputText value="#{regionBean.nestedRegionValue}" />
 
                             <h:commandLink value="Nested region">
-                                <r:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.nestedExecute}"
+                                <a4j:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.nestedExecute}"
                                     render="outputValues" />
                             </h:commandLink>
 
-                        </r:region>
+                        </a4j:region>
                     </fieldset>
-                </r:region>
+                </a4j:region>
             </fieldset>
         </h:form>
     </ui:define>

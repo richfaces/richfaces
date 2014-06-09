@@ -37,31 +37,31 @@
             Time2:
             <h:panelGroup id="time2">#{timeBean.dateString}</h:panelGroup>
             Ajax time:
-            <r:outputPanel ajaxRendered="true">#{timeBean.dateString}</r:outputPanel>
+            <a4j:outputPanel ajaxRendered="true">#{timeBean.dateString}</a4j:outputPanel>
         </h:panelGrid>
 
         <h:form id="form">
-            <r:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction1" execute="@all"
+            <a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction1" execute="@all"
                 render="#{requestBean.idsToRender}">
                 <f:param name="idsToRender" value="time1" />
-            </r:jsFunction>
-            <r:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction1Limited" execute="form"
+            </a4j:jsFunction>
+            <a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction1Limited" execute="form"
                 limitRender="true" render="#{requestBean.idsToRender}">
                 <f:param name="idsToRender" value="time1" />
-            </r:jsFunction>
-            <r:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction2" execute="form"
+            </a4j:jsFunction>
+            <a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction2" execute="form"
                 render="#{requestBean.idsToRender}">
                 <f:param name="idsToRender" value="time2" />
-            </r:jsFunction>
-            <r:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction2Limited" execute="form"
+            </a4j:jsFunction>
+            <a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction2Limited" execute="form"
                 limitRender="true" render="#{requestBean.idsToRender}">
                 <f:param name="idsToRender" value="time2" />
-            </r:jsFunction>
+            </a4j:jsFunction>
 
-            <r:jsFunction name="eventsBoundFunction" status="someStatus" onbegin="alert(event.type + ' begin')"
+            <a4j:jsFunction name="eventsBoundFunction" status="someStatus" onbegin="alert(event.type + ' begin')"
                 oncomplete="alert(event.type + ' complete')" onbeforedomupdate="alert(event.type + ' beforedomupdate')">
                 <f:ajax event="complete" />
-            </r:jsFunction>
+            </a4j:jsFunction>
 
             <h:commandLink value="test">
                 <f:ajax />
@@ -74,6 +74,6 @@
         <a href="javascript:testFunction2()">Call test function2</a>
         <a href="javascript:testFunction2Limited()">Call test function2 with limitRender=true</a>
         <a href="javascript:eventsBoundFunction()">Call events bound function</a>
-        <r:log />
+        <a4j:log />
     </ui:define>
 </ui:composition>

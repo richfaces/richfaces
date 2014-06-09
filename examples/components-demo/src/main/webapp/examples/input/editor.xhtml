@@ -34,7 +34,7 @@
 <ui:define name="content">
             
     <h:form id="form">
-    <r:status onstop="console.log('onstop')" />
+    <a4j:status onstop="console.log('onstop')" />
         <h:panelGrid columns="2">
             
             <r:editor id="editor" value="#{editor.value}" title="#{editor.title}"
@@ -53,10 +53,10 @@
             
             <h:panelGrid columns="3">
                 <h:panelGrid columns="1">
-                    <r:commandButton value="Re-render @form" process="@form" render="@form"/>
-                    <r:commandButton value="Re-render editor" process="@form" render="editor"/>        
+                    <a4j:commandButton value="Re-render @form" process="@form" render="@form"/>
+                    <a4j:commandButton value="Re-render editor" process="@form" render="editor"/>        
                     <h:commandButton value="Submit form"/>
-                    <r:commandButton value="AJAX" process="@form" render="output"/>
+                    <a4j:commandButton value="AJAX" process="@form" render="output"/>
                 </h:panelGrid>
                 
                 <h:panelGrid columns="1">
@@ -148,13 +148,13 @@
             </h:panelGrid>
         </h:panelGrid>
         
-        <r:outputPanel id="output">
+        <a4j:outputPanel id="output">
             Output: <h:outputText value="#{editor.value}" />
-        </r:outputPanel>
+        </a4j:outputPanel>
     </h:form>
 
 
-    <r:log mode="console"/>
+    <a4j:log mode="console"/>
 
 </ui:define>
 </ui:composition>

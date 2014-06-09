@@ -41,11 +41,11 @@
                     Manual Tab 2
                 </r:tab>
 
-                <r:repeat value="#{dynamicTabBean.names}" var="name" id="repeat" iterationStatusVar="var">
+                <a4j:repeat value="#{dynamicTabBean.names}" var="name" id="repeat" iterationStatusVar="var">
                     <r:tab header="#{name}" id="dynamic">
                         #{name} content: tab#{var.index}
                     </r:tab>
-                </r:repeat>
+                </a4j:repeat>
 
             </r:tabPanel>
         </h:form>

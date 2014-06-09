@@ -47,12 +47,12 @@
             <r:calendar id="calendar" enableManualInput="true" tabindex="1" /><br />
             
             <h:commandButton value="submit" /><br />
-            <r:commandButton value="ajax" render="@form" /><br />
+            <a4j:commandButton value="ajax" render="@form" /><br />
             
             Current focus: #{facesContext.attributes['org.richfaces.FocusManager.submittedFocus'].clientId}
         </h:form>
 
-        <r:log level="debug" mode="console" />
+        <a4j:log level="debug" mode="console" />
 
     </ui:define>
 </ui:composition>

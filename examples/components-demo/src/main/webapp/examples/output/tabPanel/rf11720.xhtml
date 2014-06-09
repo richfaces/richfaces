@@ -36,11 +36,11 @@
 
             <h:form>
                 <h:selectBooleanCheckbox value="#{sessionScope.showCustomer}">
-                    <r:ajax render="panel" />
+                    <a4j:ajax render="panel" />
                 </h:selectBooleanCheckbox>
             </h:form>
 
-            <r:outputPanel id="panel">
+            <a4j:outputPanel id="panel">
                 <h:outputText value="#{sessionScope.showCustomer}" />
 
                 <h:panelGroup rendered="#{sessionScope.showCustomer}" layout="block">
@@ -65,7 +65,7 @@
                         </r:tabPanel>
                     </h:form>
                 </h:panelGroup>
-            </r:outputPanel>
+            </a4j:outputPanel>
 
 
         </ui:define>
