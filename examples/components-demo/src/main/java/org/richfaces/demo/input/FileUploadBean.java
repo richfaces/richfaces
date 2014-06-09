@@ -32,7 +32,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.richfaces.model.UploadedFile;
-import org.richfaces.ui.input.fileUpload.FileUploadEvent;
+import org.richfaces.event.FileUploadEvent;
 
 /**
  * @author Konstantin Mishin

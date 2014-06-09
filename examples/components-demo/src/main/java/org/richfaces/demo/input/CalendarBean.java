@@ -30,8 +30,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
-import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.input.calendar.CurrentDateChangeEvent;
+import org.richfaces.component.Positioning;
+import org.richfaces.event.CurrentDateChangeEvent;
 
 @ManagedBean
 @SessionScoped

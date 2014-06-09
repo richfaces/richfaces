@@ -30,7 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.model.UploadedFile;
-import org.richfaces.ui.input.fileUpload.FileUploadEvent;
+import org.richfaces.event.FileUploadEvent;
 
 /**
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>

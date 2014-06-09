@@ -29,7 +29,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
-import org.richfaces.ui.toggle.ItemChangeEvent;
+import org.richfaces.event.ItemChangeEvent;
 
 @ManagedBean
 @ViewScoped

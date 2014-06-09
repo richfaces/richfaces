@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.richfaces.ui.iteration.collapsibleSubTable.CollapsibleSubTableToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
 
 public class Employee {
     private static String[] phoneNames = { "Cell phone", "Work phone", "Home phone" };

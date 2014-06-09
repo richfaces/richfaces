@@ -21,8 +21,8 @@
  */
 package org.richfaces.demo.input;
 
-import org.richfaces.ui.input.inputNumberSlider.InputNumberSliderHandleType;
-import org.richfaces.ui.input.inputNumberSlider.InputNumberSliderInputPosition;
+import org.richfaces.component.InputNumberSliderHandleType;
+import org.richfaces.component.InputNumberSliderInputPosition;
 
 import java.util.Date;
 

@@ -32,9 +32,9 @@ import javax.faces.bean.SessionScoped;
 
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.demo.iteration.utils.EmployeeUtils;
-import org.richfaces.model.DataComponentState;
+import org.ajax4jsf.model.DataComponentState;
 import org.richfaces.model.SelectionMode;
-import org.richfaces.ui.iteration.SortingEvent;
+import org.richfaces.event.SortingEvent;
 
 @ManagedBean
 @SessionScoped

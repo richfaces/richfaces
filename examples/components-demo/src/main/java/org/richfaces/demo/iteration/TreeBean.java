@@ -44,17 +44,17 @@ import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.model.TreeDataModel;
-import org.richfaces.ui.common.SwitchType;
-import org.richfaces.ui.iteration.tree.AbstractTree;
-import org.richfaces.ui.iteration.tree.AbstractTreeNode;
-import org.richfaces.ui.iteration.tree.TreeSelectionChangeEvent;
-import org.richfaces.ui.iteration.tree.TreeSelectionChangeListener;
-import org.richfaces.ui.iteration.tree.TreeToggleEvent;
-import org.richfaces.ui.iteration.tree.TreeToggleListener;
-import org.richfaces.ui.iteration.tree.convert.SequenceRowKeyConverter;
-import org.richfaces.ui.iteration.tree.model.SwingTreeNodeDataModelImpl;
-import org.richfaces.ui.iteration.tree.model.SwingTreeNodeImpl;
-import org.richfaces.ui.iteration.tree.model.TreeNodeImpl;
+import org.richfaces.component.SwitchType;
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.event.TreeSelectionChangeEvent;
+import org.richfaces.event.TreeSelectionChangeListener;
+import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
+import org.richfaces.convert.SequenceRowKeyConverter;
+import org.richfaces.model.SwingTreeNodeDataModelImpl;
+import org.richfaces.model.SwingTreeNodeImpl;
+import org.richfaces.model.TreeNodeImpl;
 
 /**
  * @author Nick Belaevski

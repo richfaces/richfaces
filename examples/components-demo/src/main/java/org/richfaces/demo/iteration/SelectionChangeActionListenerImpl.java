@@ -24,8 +24,8 @@ package org.richfaces.demo.iteration;
 
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.ui.iteration.tree.TreeSelectionChangeEvent;
-import org.richfaces.ui.iteration.tree.TreeSelectionChangeListener;
+import org.richfaces.event.TreeSelectionChangeEvent;
+import org.richfaces.event.TreeSelectionChangeListener;
 
 /**
  * User: Gleb Galkin Date: 23.02.11

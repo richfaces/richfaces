@@ -26,7 +26,7 @@
  */
 package org.richfaces.demo.output;
 
-import org.richfaces.ui.common.Positioning;
+import org.richfaces.component.Positioning;
 
 import java.io.Serializable;
 import java.util.Date;
