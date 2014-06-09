@@ -1,0 +1,114 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition template="/layout/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:r="http://richfaces.org">
+    <ui:param name="title" value="Select - RF-12474" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <fieldset>
+            <legend>Sample for server-side validation of entered value (enter non-existing value)</legend>
+
+            <h:form>
+                <r:select id="select1" enableManualInput="true" value="#{selectBean.value}">
+                    <f:selectItems value="#{selectBean.values}" />
+                </r:select>
+                <br />
+                <r:commandButton value="Send" render="output1" />
+            </h:form>
+            <r:outputPanel id="output1">
+                Output: <h:outputText value="#{selectBean.value}" />
+                <br />
+                <r:messages for="select1" />
+            </r:outputPanel>
+        </fieldset>
+
+
+
+        <fieldset>
+            <legend>Sample for server-side validation of entered value with defaultValue</legend>
+
+            <h:form>
+                <r:select id="select2" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
+                    <f:selectItems value="#{selectBean.values}" />
+                </r:select>
+                <br />
+                <r:commandButton value="Send" render="output2" />
+            </h:form>
+            <r:outputPanel id="output2">
+                Output: <h:outputText value="#{selectBean.value}" />
+                <br />
+                <r:messages for="select2" />
+            </r:outputPanel>
+        </fieldset>
+
+
+
+
+        <fieldset>
+            <legend>Sample for client-side validation of entered value</legend>
+
+            <h:form>
+                <r:select id="select3" enableManualInput="true" value="#{selectBean.value}">
+                    <f:selectItems value="#{selectBean.values}" />
+                    <r:validator event="blur"  />
+                </r:select>
+                <br />
+                <r:commandButton value="Send" render="output3" />
+            </h:form>
+            <r:outputPanel id="output3">
+                Output: <h:outputText value="#{selectBean.value}" />
+                <br />
+                <r:messages for="select3" />
+            </r:outputPanel>
+        </fieldset>
+        
+        
+        
+        
+        
+        <fieldset>
+            <legend>Sample for client-side validation of entered value with defaultValue</legend>
+
+            <h:form>
+                <r:select id="select4" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
+                    <f:selectItems value="#{selectBean.values}" />
+                    <r:validator event="blur" />
+                </r:select>
+                <br />
+                <r:commandButton value="Send" render="output4" />
+            </h:form>
+            <r:outputPanel id="output4">
+                Output: <h:outputText value="#{selectBean.value}" />
+                <br />
+                <r:messages for="select4" />
+            </r:outputPanel>
+        </fieldset>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,105 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition template="/layout/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:r="http://richfaces.org">
+
+<ui:param name="title" value="Toolbar" />
+    <!-- content -->
+    <ui:define name="content">
+        <r:toolbar id="tb" height="45" itemSeparator="grid" itemStyle="color:red;" itemClass="custom-item">
+            <f:facet name="itemSeparator">
+                ||
+            </f:facet>
+            <r:toolbarGroup itemStyle="border: 1px solid green" itemClass="custom-item-group" itemSeparator="line"
+                onitemclick="22">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <a href="#">link 1</a> Text
+                <a href="#">link 2</a>
+                <h:graphicImage value="/images/icons/create_folder.gif" onclick="q1" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+                <a href="#">link 3</a> Text
+                <a href="#">link 4</a>
+            </r:toolbarGroup>
+            <r:toolbarGroup itemSeparator="none">
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+            </r:toolbarGroup>
+            <r:toolbarGroup itemSeparator="line">
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+            </r:toolbarGroup>
+
+            <r:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </r:toolbarGroup>
+        </r:toolbar>
+        <br />
+        <r:toolbar itemSeparator="grid" itemStyle="border: 1px solid green" itemClass="custom-item">
+            <r:toolbarGroup itemSeparator="line" itemStyle="border: 1px solid green" itemClass="custom-item-group">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <h:graphicImage value="/images/icons/create_folder.gif" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+            </r:toolbarGroup>
+            <r:toolbarGroup itemSeparator="disc">
+                <h:graphicImage value="/images/icons/save.gif" />
+                <h:graphicImage value="/images/icons/save_as.gif" />
+                <h:graphicImage value="/images/icons/save_all.gif" />
+            </r:toolbarGroup>
+            <r:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </r:toolbarGroup>
+        </r:toolbar>
+
+        <br />
+        <r:toolbar height="26" itemSeparator="grid">
+            <r:toolbarGroup itemSeparator="line">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <h:graphicImage value="/images/icons/create_folder.gif" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+            </r:toolbarGroup>
+            <r:toolbarGroup itemSeparator="disc">
+                <h:graphicImage value="/images/icons/save.gif" />
+                <h:graphicImage value="/images/icons/save_as.gif" />
+                <h:graphicImage value="/images/icons/save_all.gif" />
+            </r:toolbarGroup>
+            <r:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </r:toolbarGroup>
+        </r:toolbar>
+
+        <h:form>
+            <r:commandLink value="Ajax Rerender Toolbar" render="tb" />
+            <r:log />
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,295 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:r="http://richfaces.org">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="scripts">
+            <h:outputScript name="qunit/qunit.js" />
+            <h:outputScript name="qunit/richfaces-qunit.js" />
+
+            <h:outputScript name="Tab.js" />
+            <h:outputScript name="TabPanel.js" />
+
+            <h:outputStylesheet name="qunit/qunit.css" />
+        </ui:define>
+
+        <ui:define name="title">Tab Example</ui:define>
+        <ui:define name="body_head">Tab Example</ui:define>
+
+        <ui:define name="body">
+            <p>Page</p>
+
+            <h:form id="f" style="border:blue solid thin;">
+                <r:accordion>
+                    <r:accordionItem></r:accordionItem>
+                </r:accordion>
+
+                <div id="f:panel" style="width: 100%;">
+                    <input type="hidden" name="f:panel-value" id="f:panel-value" value="name1" />
+                    <script type="text/javascript">
+    new RichFaces.ui.TabPanel(
+        "f:panel",
+        {
+            "onbeforeitemchange":function(event) {
+                RichFaces.ajax("f:panel", event, {"incId":"1"})
+            },
+            "onitemchange":function(event) {
+                RichFaces.ajax("f:panel", event, {"incId":"1"})
+            },
+            "activeItem":"name1",
+            "ajax":{"incId":"1"} ,
+            "cycledSwitching":false,
+            "isKeepHeight":true
+        }
+    )
+
+</script>
+
+                    <div id="f:panel:header" class="rftp_toptab_tabline_vis">
+                        <div class="rftp_toptab_tabs">
+                            <div style="display: table-row;">
+                                <div style="padding-left: 5px;" class="rftp_toptab_spacer"></div>
+
+                                <div id="f:name1:header">
+                                    <div id="f:name1:header:active" class="rftp_toptab rftp_active_top">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 1 Active</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="f:name1:header:inactive" style="display: none" class="rftp_toptab rftp_active_top">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 1 Inactive</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="f:name1:header:disabled" style="display: none" class="rftp_toptab rftp_active_top">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 1 Disabled</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rftp_toptab_spacer rftp_horizonttab_tabspacer_width"></div>
+
+                                <div id="f:name2:header">
+                                    <div id="f:name2:header:active" style="display: none" class="rftp_toptab">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 2 Active</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close_act.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="f:name2:header:inactive" class="rftp_toptab">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 2 Inactive</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close_act.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="f:name2:header:disabled" style="display: none" class="rftp_toptab">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 2 Disabled</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close_act.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rftp_toptab_spacer rftp_horizonttab_tabspacer_width"></div>
+
+                                <div id="f:name3:header">
+                                    <div id="f:name3:header:active" style="display: none" class="rftp_toptab">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 3 Active</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close_act.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="f:name3:header:inactive" class="rftp_toptab">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 3 Inactive</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close_act.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="f:name3:header:disabled" style="display: none" class="rftp_toptab">
+                                        <div style="display: table;">
+                                            <div style="display: table-row;">
+                                                <div class="rftp_icon">
+                                                    <img width="16" height="16" src="ico.gif" alt="" />
+                                                </div>
+                                                <div class="rftp_label">Tab name 3 Disabled</div>
+                                                <div class="rftp_close">
+                                                    <img width="16" height="16" src="close_act.gif" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rftp_toptab_spacer rftp_horizonttab_tabspacer_width"></div>
+
+                                <div style="padding-right: 5px; width: 100%;" class="rftp_toptab_spacer"></div>
+                            </div>
+                        </div>
+
+                        <div class="rftp_toptab_scroll_left rftp_hidden">«</div>
+                        <div class="rftp_toptab_tabslist rftp_hidden">↓</div>
+                        <div class="rftp_toptab_scroll_right rftp_hidden">»</div>
+                    </div>
+
+                    <div class="rftp_toptab_border"></div>
+
+                    <div id="f:panel:content">
+                        <div id="f:name1" class="rftp_toptab_content">
+                            <script type="text/javascript">
+            new RichFaces.ui.Tab(
+                "f:name1",
+                {
+                    "onleave":function(event) {
+                        RichFaces.ajax("f:name1", event, {"incId":"1"})
+                    },
+                    "onenter":function(event) {
+                        RichFaces.ajax("f:name1", event, {"incId":"1"})
+                    },
+                    "index":0,
+                    "togglePanelId":"f:panel",
+                    "switchMode":"client",
+                    "name":"name1"
+                }
+            )
+        </script>
+                            Content 01 will be here.
+                        </div>
+                        <div id="f:name2" class="rftp_toptab_content" style="display: none;">
+                            <script type="text/javascript">
+            new RichFaces.ui.Tab(
+                "f:name2",
+                {
+                    "onleave":function(event) {
+                        RichFaces.ajax("f:name2", event, {"incId":"1"})
+                    },
+                    "onenter":function(event) {
+                        RichFaces.ajax("f:name2", event, {"incId":"1"})
+                    },
+                    "index":1,
+                    "togglePanelId":"f:panel",
+                    "switchMode":"client",
+                    "name":"name2"
+                }
+            )
+        </script>
+                            Content 02 will be here.
+                        </div>
+                        <div id="f:name3" class="rftp_toptab_content" style="display: none;">
+                            <script type="text/javascript">
+            new RichFaces.ui.Tab(
+                "f:name3",
+                {
+                    "onleave":function(event) {
+                        RichFaces.ajax("f:name3", event, {"incId":"1"})
+                    },
+                    "onenter":function(event) {
+                        RichFaces.ajax("f:name3", event, {"incId":"1"})
+                    },
+                    "index":2,
+                    "togglePanelId":"f:panel",
+                    "switchMode":"client",
+                    "name":"name3"
+                }
+            )
+        </script>
+                            Content 03 will be here.
+                        </div>
+                    </div>
+                </div>
+
+            </h:form>
+
+            <p>Result</p>
+
+            <div>
+                <ol id="qunit-tests"></ol>
+
+                <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+            </div>
+            <h:outputScript name="tests/richfaces-tab-qunit.js" />
+        </ui:define>
+    </ui:composition>
+</body>
+</html>
+

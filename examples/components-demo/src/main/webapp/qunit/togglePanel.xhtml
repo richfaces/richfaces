@@ -1,0 +1,79 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:r="http://richfaces.org">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="scripts">
+            <h:outputScript name="qunit/qunit.js" />
+            <h:outputScript name="qunit/richfaces-qunit.js" />
+
+            <h:outputStylesheet name="qunit/qunit.css" />
+        </ui:define>
+
+        <ui:define name="title">Toggle Panel Example</ui:define>
+        <ui:define name="body_head">Toggle Panel Example</ui:define>
+
+        <ui:define name="body">
+            <p>Page</p>
+
+            <h:form id="f" style="border:blue solid thin;">
+                <r:togglePanel id="panel" activeItem="name1" switchType="client" lang="en">
+                    <r:togglePanelItem id="name1" name="name1">hello name1</r:togglePanelItem>
+                    <r:togglePanelItem id="name2" name="name2">hello name2</r:togglePanelItem>
+                    <r:togglePanelItem id="name3" name="name3">hello name3</r:togglePanelItem>
+                </r:togglePanel>
+
+                <h:outputLink>
+                    <r:toggleControl targetPanel="panel" targetItem="name1" event="click" />
+                name1
+            </h:outputLink>
+                <h:outputLink>
+                    <r:toggleControl targetPanel="panel" targetItem="name2" event="click" />
+                name2
+            </h:outputLink>
+                <h:outputLink>
+                    <r:toggleControl targetPanel="panel" targetItem="name3" event="click" />
+                name3
+            </h:outputLink>
+            </h:form>
+
+            <p>Result</p>
+
+            <div>
+                <!--<h1 id="qunit-header">Richfaces Client API Tests</h1>-->
+                <!--<h2 id="qunit-banner"></h2>-->
+                <!--<h2 id="qunit-userAgent"></h2>-->
+                <ol id="qunit-tests"></ol>
+
+                <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+
+            </div>
+            <h:outputScript name="tests/richfaces-toggle-panel-qunit.js" />
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

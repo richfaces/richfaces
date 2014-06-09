@@ -1,0 +1,68 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition template="/layout/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:r="http://richfaces.org">
+
+    <ui:param name="title" value="Panel Menu"/>
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="f">
+
+            <r:panelMenu id="panelMenu" itemLeftIcon="grid" groupCollapsedLeftIcon="grid"
+                         topGroupCollapsedLeftIcon="grid" topGroupExpandedLeftIcon="chevronLeft"
+                         topGroupDisabledLeftIcon="disc"
+                         itemDisabledLeftIcon="triangleLeft" topItemDisabledLeftIcon="triangleUp"
+                         topItemLeftIcon="triangleDown"
+                         groupMode="client" activeItem="item41" bubbleSelection="true" expandSingle="true">
+                <r:panelMenuGroup id="group1" label="Group 1" selectable="true"
+                                  onbeforecollapse="alert('onbeforecollapse')" onbeforeexpand="alert('onbeforeexpand')"
+                                  onbeforeselect="alert('onbeforeselect')" oncollapse="alert('oncollapse')"
+                                  onexpand="alert('onexpand')"
+                                  onselect="alert('onselect')" onswitch="alert('onswitch')"
+                                  onbeforeswitch="alert('onbeforeswitch')">
+                    <r:panelMenuItem id="item11" label="Item 1.1" onbeforeselect="alert('onbeforeselect-Item')"
+                                     onselect="alert('onselect-Item')"/>
+                    <r:panelMenuItem id="item12" label="Item 1.2" rightIcon="chevron" rightIconClass="rightIconClass"
+                                     leftIconClass="aaaa"/>
+                </r:panelMenuGroup>
+                <r:panelMenuItem id="item2" label="Item 2" disabled="true"/>
+                <r:panelMenuItem id="item3" label="Item 3"/>
+                <r:panelMenuGroup id="group4" label="Group 4" expanded="false">
+                    <r:panelMenuItem id="item41" label="Item 4.1"/>
+                    <r:panelMenuItem id="item42" label="Item 4.2" disabled="true"/>
+                    <r:panelMenuGroup id="group43" label="Group 4.1" disabled="true">
+                        <r:panelMenuItem id="item431" label="Item 4.1.1"/>
+                    </r:panelMenuGroup>
+                </r:panelMenuGroup>
+            </r:panelMenu>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
+
