@@ -91,6 +91,7 @@
     </dependencies>
 
     <build>
+        <finalName>components-demo</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
