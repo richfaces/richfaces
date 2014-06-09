@@ -52,7 +52,7 @@
                     <h:outputText value="Reset" />
                 </a4j:commandLink>
                 <a4j:commandLink>
-                    <f:ajax event="action" execute="@form" render=":out" listener="#{commandBean.listener}" />
+                    <f:ajax event="click" execute="@form" render=":out" listener="#{commandBean.listener}" />
                     <h:outputText value="Test AjaxBehavior" />
                 </a4j:commandLink>
             </h:panelGrid>
