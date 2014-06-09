@@ -40,10 +40,10 @@
             Click here
         </h:panelGroup>
 
-        <r:jQuery selector="#clickTest" event="click" query="alert('immediate attachment')" timing="immediate" />
-        <r:jQuery selector="#clickTestForReady" event="click" query="alert('onready attachment')" timing="domready" />
+        <rich:jQuery selector="#clickTest" event="click" query="alert('immediate attachment')" timing="immediate" />
+        <rich:jQuery selector="#clickTestForReady" event="click" query="alert('onready attachment')" timing="domready" />
 
-        <r:jQuery selector="document.body" query="css({'background-color': '#AAA'})" />
+        <rich:jQuery selector="document.body" query="css({'background-color': '#AAA'})" />
 
         <br />
 
@@ -52,8 +52,8 @@
         </h:panelGroup>
         <a href="#" onclick="rebindOneClickEvent(); return false;">Re-enable one-typed click handler</a>
 
-        <r:jQuery event="click" selector="#clickTestOne" query="alert('one attachType')" attachType="one" />
-        <r:jQuery event="click" name="rebindOneClickEvent" selector="#clickTestOne"
+        <rich:jQuery event="click" selector="#clickTestOne" query="alert('one attachType')" attachType="one" />
+        <rich:jQuery event="click" name="rebindOneClickEvent" selector="#clickTestOne"
             query="alert('one attachType rebound event')" attachType="one" />
 
         <h:panelGroup id="liveTestGroup">
@@ -65,19 +65,19 @@
         </h:panelGroup>
 
         <h:form>
-            <r:jQuery selector="#liveTestGroup .liveTestComponent" attachType="live" event="click"
+            <rich:jQuery selector="#liveTestGroup .liveTestComponent" attachType="live" event="click"
                 query="alert(jQuery(this).text())" />
             <h:commandButton value="Add component for live test" action="#{jQueryBean.addComponent}">
                 <f:ajax render=":liveTestGroup" />
             </h:commandButton>
         </h:form>
 
-        <r:jQuery name="emphasizeElement" query="siblings().css({'border-width': '0px'}).end().css({'border-width': '1px'})" />
+        <rich:jQuery name="emphasizeElement" query="siblings().css({'border-width': '0px'}).end().css({'border-width': '1px'})" />
 
         Click any list item to make selection (imitated by red 1px border):
         <ul>
             <ui:repeat value="#{jQueryBean.emphasizedElements}" var="elt">
-                <li style="border-color: red; border-style: solid; border-width: 0px;" onclick="emphasizeElement(this, {})">
+                <li style="border-colorich: red; border-style: solid; border-width: 0px;" onclick="emphasizeElement(this, {})">
                     #{elt}</li>
             </ui:repeat>
         </ul>

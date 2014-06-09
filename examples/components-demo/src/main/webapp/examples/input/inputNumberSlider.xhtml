@@ -42,7 +42,7 @@
             <h:outputText value="Date: "/>
             <h:outputText id="date" value="#{inputNumberSliderBean.date}"/>
             <br/>
-            <r:inputNumberSlider id="ins" value="#{inputNumberSliderBean.value}"
+            <rich:inputNumberSlider id="ins" value="#{inputNumberSliderBean.value}"
                                    accesskey="#{inputNumberSliderBean.accesskey}"
                                    delay="#{inputNumberSliderBean.delay}" disabled="#{inputNumberSliderBean.disabled}"
                                    enableManualInput="#{inputNumberSliderBean.enableManualInput}"
@@ -57,7 +57,7 @@
                                    step="#{inputNumberSliderBean.step}"
                                    handleType="#{inputNumberSliderBean.handleType}">
                 <f:ajax render="date"/>
-            </r:inputNumberSlider>
+            </rich:inputNumberSlider>
             <br/>
             <h:outputText value="Accesskey: "/>
             <h:inputText value="#{inputNumberSliderBean.accesskey}">

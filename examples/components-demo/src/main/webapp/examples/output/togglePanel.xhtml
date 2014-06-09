@@ -33,23 +33,23 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="f">
-            <r:togglePanel id="my_id" lang="en" activeItem="name1"
+            <rich:togglePanel id="my_id" lang="en" activeItem="name1"
                 itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
-                <r:togglePanelItem name="name1">
+                <rich:togglePanelItem name="name1">
                 hello name1
-            </r:togglePanelItem>
-                <r:togglePanelItem name="name2">
+            </rich:togglePanelItem>
+                <rich:togglePanelItem name="name2">
                 hello name2
-            </r:togglePanelItem>
-            </r:togglePanel>
+            </rich:togglePanelItem>
+            </rich:togglePanel>
 
             <h:outputLink>
-                <r:toggleControl targetPanel="my_id" targetItem="name2" event="click" />
+                <rich:toggleControl targetPanel="my_id" targetItem="name2" event="click" />
 
             Click me :) it is toggle control
         </h:outputLink>
             <h:outputLink>
-                <r:toggleControl targetPanel="my_id" targetItem="name1" event="click" />
+                <rich:toggleControl targetPanel="my_id" targetItem="name1" event="click" />
 
             Click me :) it another toggle control
         </h:outputLink>

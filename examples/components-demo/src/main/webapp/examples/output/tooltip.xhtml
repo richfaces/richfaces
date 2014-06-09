@@ -33,31 +33,31 @@
     <!-- content -->
     <ui:define name="content">
         <h:panelGrid columns="2">
-            <r:panel id="sample1" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+            <rich:panel id="sample1" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
                 <p>
                     Here you can see <b>default client-side</b> tool-tip
                 </p>
-                <r:tooltip id="tt1" styleClass="tooltip">
+                <rich:tooltip id="tt1" styleClass="tooltip">
                     <span style="white-space: nowrap"> This tool-tip content was <strong>pre-rendered</strong> to the
                         page.\n Also the tooltip following mouse by default </span>
-                </r:tooltip>
-            </r:panel>
-            <r:panel id="sample2" styleClass="tooltip" bodyClass="rich-laguna-panel-no-header">
+                </rich:tooltip>
+            </rich:panel>
+            <rich:panel id="sample2" styleClass="tooltip" bodyClass="rich-laguna-panel-no-header">
                 <p>
                     This tool-tip will not <b>follow mouse</b>. Also this tool-tip has a <b>delay 1.5 sec</b>, so be
                     patient!
                 </p>
-                <r:tooltip followMouse="false" showDelay="1500" styleClass="tooltip-custom-body">
+                <rich:tooltip followMouse="false" showDelay="1500" styleClass="tooltip-custom-body">
                     <span style="white-space: nowrap"> This tool-tip content also <strong>pre-rendered</strong> to
                         the page. </span>
-                </r:tooltip>
-            </r:panel>
+                </rich:tooltip>
+            </rich:panel>
             <h:form>
-                <r:panel id="sample3" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                <rich:panel id="sample3" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
                     <p>
                         This tool-tip rendered on server <b>in separate request</b>.
                     </p>
-                    <r:tooltip mode="ajax" styleClass="tooltip" layout="block">
+                    <rich:tooltip mode="ajax" styleClass="tooltip" layout="block">
                         <f:facet name="defaultContent">
                             <strong>Wait...</strong>
                         </f:facet>
@@ -66,15 +66,15 @@
                         <h:panelGrid columns="2">
                             <h:outputText style="white-space:nowrap" value="tooltips requested" />
                         </h:panelGrid>
-                    </r:tooltip>
-                </r:panel>
+                    </rich:tooltip>
+                </rich:panel>
             </h:form>
             <h:form>
-                <r:panel id="sample4" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                <rich:panel id="sample4" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
                     <p>
                         This tool-tip will be <b>activated on mouse click</b>.
                     </p>
-                    <r:tooltip showEvent="click" mode="ajax" styleClass="tooltip" layout="block" horizontalOffset="50"
+                    <rich:tooltip showEvent="click" mode="ajax" styleClass="tooltip" layout="block" horizontalOffset="50"
                         verticalOffset="50">
                         <f:facet name="defaultContent">
                             <strong>Wait...</strong>
@@ -85,18 +85,18 @@
                             <h:outputText style="white-space:nowrap" value="tooltips requested:" />
                             <h:outputText value="#{tooltipBean.tooltipCounter}" styleClass="tooltipData" />
                         </h:panelGrid>
-                    </r:tooltip>
-                </r:panel>
+                    </rich:tooltip>
+                </rich:panel>
             </h:form>
         </h:panelGrid>
         <br />
         <br />
         <h:form>
-            <r:panel id="tooltip" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+            <rich:panel id="tooltip" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
                 <p>
                     This tool-tip rendered on server <b>in separate request</b>.
                 </p>
-                <r:tooltip styleClass="tooltip" layout="block" jointPoint="#{tooltipBean.jointPoint}"
+                <rich:tooltip styleClass="tooltip" layout="block" jointPoint="#{tooltipBean.jointPoint}"
                     direction="#{tooltipBean.direction}" horizontalOffset="#{tooltipBean.horizontalOffset}"
                     verticalOffset="#{tooltipBean.verticalOffset}">
                 Sample tooltip to test attributes:
@@ -106,8 +106,8 @@
                         <li>horizontalOffset</li>
                         <li>verticalOffset</li>
                     </ul>
-                </r:tooltip>
-            </r:panel>
+                </rich:tooltip>
+            </rich:panel>
             <h:panelGrid columns="2">
                 <h:outputText value="Select joint point:" />
                 <h:selectOneMenu value="#{tooltipBean.jointPoint}">

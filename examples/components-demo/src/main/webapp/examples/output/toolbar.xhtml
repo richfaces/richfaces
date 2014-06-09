@@ -32,11 +32,11 @@
 <ui:param name="title" value="Toolbar" />
     <!-- content -->
     <ui:define name="content">
-        <r:toolbar id="tb" height="45" itemSeparator="grid" itemStyle="color:red;" itemClass="custom-item">
+        <rich:toolbar id="tb" height="45" itemSeparator="grid" itemStyle="colorich:red;" itemClass="custom-item">
             <f:facet name="itemSeparator">
                 ||
             </f:facet>
-            <r:toolbarGroup itemStyle="border: 1px solid green" itemClass="custom-item-group" itemSeparator="line"
+            <rich:toolbarGroup itemStyle="borderich: 1px solid green" itemClass="custom-item-group" itemSeparator="line"
                 onitemclick="22">
                 <h:graphicImage value="/images/icons/create_doc.gif" />
                 <a href="#">link 1</a> Text
@@ -45,58 +45,58 @@
                 <h:graphicImage value="/images/icons/copy.gif" />
                 <a href="#">link 3</a> Text
                 <a href="#">link 4</a>
-            </r:toolbarGroup>
-            <r:toolbarGroup itemSeparator="none">
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="none">
                 <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
                 <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
                 <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
                 <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
-            </r:toolbarGroup>
-            <r:toolbarGroup itemSeparator="line">
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="line">
                 <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
                 <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
-            </r:toolbarGroup>
+            </rich:toolbarGroup>
 
-            <r:toolbarGroup location="right" itemSeparator="square">
+            <rich:toolbarGroup location="right" itemSeparator="square">
                 <h:graphicImage value="/images/icons/find.gif" />
                 <h:graphicImage value="/images/icons/filter.gif" />
-            </r:toolbarGroup>
-        </r:toolbar>
+            </rich:toolbarGroup>
+        </rich:toolbar>
         <br />
-        <r:toolbar itemSeparator="grid" itemStyle="border: 1px solid green" itemClass="custom-item">
-            <r:toolbarGroup itemSeparator="line" itemStyle="border: 1px solid green" itemClass="custom-item-group">
+        <rich:toolbar itemSeparator="grid" itemStyle="borderich: 1px solid green" itemClass="custom-item">
+            <rich:toolbarGroup itemSeparator="line" itemStyle="borderich: 1px solid green" itemClass="custom-item-group">
                 <h:graphicImage value="/images/icons/create_doc.gif" />
                 <h:graphicImage value="/images/icons/create_folder.gif" />
                 <h:graphicImage value="/images/icons/copy.gif" />
-            </r:toolbarGroup>
-            <r:toolbarGroup itemSeparator="disc">
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="disc">
                 <h:graphicImage value="/images/icons/save.gif" />
                 <h:graphicImage value="/images/icons/save_as.gif" />
                 <h:graphicImage value="/images/icons/save_all.gif" />
-            </r:toolbarGroup>
-            <r:toolbarGroup location="right" itemSeparator="square">
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right" itemSeparator="square">
                 <h:graphicImage value="/images/icons/find.gif" />
                 <h:graphicImage value="/images/icons/filter.gif" />
-            </r:toolbarGroup>
-        </r:toolbar>
+            </rich:toolbarGroup>
+        </rich:toolbar>
 
         <br />
-        <r:toolbar height="26" itemSeparator="grid">
-            <r:toolbarGroup itemSeparator="line">
+        <rich:toolbar height="26" itemSeparator="grid">
+            <rich:toolbarGroup itemSeparator="line">
                 <h:graphicImage value="/images/icons/create_doc.gif" />
                 <h:graphicImage value="/images/icons/create_folder.gif" />
                 <h:graphicImage value="/images/icons/copy.gif" />
-            </r:toolbarGroup>
-            <r:toolbarGroup itemSeparator="disc">
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="disc">
                 <h:graphicImage value="/images/icons/save.gif" />
                 <h:graphicImage value="/images/icons/save_as.gif" />
                 <h:graphicImage value="/images/icons/save_all.gif" />
-            </r:toolbarGroup>
-            <r:toolbarGroup location="right" itemSeparator="square">
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right" itemSeparator="square">
                 <h:graphicImage value="/images/icons/find.gif" />
                 <h:graphicImage value="/images/icons/filter.gif" />
-            </r:toolbarGroup>
-        </r:toolbar>
+            </rich:toolbarGroup>
+        </rich:toolbar>
 
         <h:form>
             <a4j:commandLink value="Ajax Rerender Toolbar" render="tb" />

@@ -35,13 +35,13 @@
         <h:form id="form">
             <h:inputText id="text" value="#{test.value}">
                 <f:validator validatorId="custom" />
-                <r:validator event="blur" />
+                <rich:validator event="blur" />
             </h:inputText>
             <h:outputText id="out" value="#{test.value}"></h:outputText>
-            <r:notifyMessage id="uiMessage" for="text" />
+            <rich:notifyMessage id="uiMessage" for="text" />
             <h:commandButton value="Submit form" />
             <a4j:commandButton value="AJAX Submit" render="out" />
         </h:form>
-        <r:notifyMessages />
+        <rich:notifyMessages />
     </ui:define>
 </ui:composition>

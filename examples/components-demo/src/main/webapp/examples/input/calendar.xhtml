@@ -41,7 +41,7 @@
         <h:form id="form">
             <h:panelGrid id="panel" columns="3">
                 <h:panelGroup layout="block">
-                    <r:calendar value="#{calendarBean.selectedDate}" id="calendar"
+                    <rich:calendar value="#{calendarBean.selectedDate}" id="calendar"
                                        jointPoint="#{calendarBean.jointPoint}"
                                        direction="#{calendarBean.direction}" locale="#{calendarBean.locale}"
                                        popup="#{calendarBean.popup}"
@@ -66,12 +66,12 @@
                                        defaultTime="00:00:00" timeZone="#{calendarBean.timeZone}"
                                        valueChangeListener="#{calendarBean.doValueChangeListener}"
                                        currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}"
-                                       style="width:200px;border:10px solid #000000"
+                                       style="width:200px;borderich:10px solid #000000"
                                        styleClass="hello"
                                        boundaryDatesMode="scroll" defaultLabel="bla-bla-bla" enableManualInput="true"
                                        showApplyButton="#{calendarBean.showApply}">
                         <f:ajax event="change" render="output"/>
-                    </r:calendar>
+                    </rich:calendar>
                     <h:outputText id="output" value="#{calendarBean.selectedDate}"/>
                     <h:outputText id="echo-text" value="#{calendarBean.selectedDate}"/>
                 </h:panelGroup>

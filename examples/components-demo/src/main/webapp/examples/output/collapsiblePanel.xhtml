@@ -35,7 +35,7 @@
         <p>Page</p>
 
         <h:form id="f">
-            <r:collapsiblePanel id="panel1" expanded="false" switchType="server">
+            <rich:collapsiblePanel id="panel1" expanded="false" switchType="server">
                 <f:facet name="headerExpanded">
                 header exanded
             </f:facet>
@@ -45,9 +45,9 @@
 
             Hello Server!!!
 
-        </r:collapsiblePanel>
+        </rich:collapsiblePanel>
 
-            <r:collapsiblePanel id="panel2" expanded="false" switchType="ajax" toggleListener="#{collapsiblePanel.action}">
+            <rich:collapsiblePanel id="panel2" expanded="false" switchType="ajax" toggleListener="#{collapsiblePanel.action}">
                 <f:facet name="headerExpanded">
                 header expanded
             </f:facet>
@@ -57,9 +57,9 @@
 
             Hello Ajax!!!
 
-        </r:collapsiblePanel>
+        </rich:collapsiblePanel>
 
-            <r:collapsiblePanel id="panel3" expanded="false" switchType="client">
+            <rich:collapsiblePanel id="panel3" expanded="false" switchType="client">
                 <f:facet name="headerExpanded">
                 header expanded
             </f:facet>
@@ -69,7 +69,7 @@
 
             Hello client!!!
 
-        </r:collapsiblePanel>
+        </rich:collapsiblePanel>
 
         </h:form>
     </ui:define>

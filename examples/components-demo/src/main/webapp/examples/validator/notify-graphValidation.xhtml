@@ -33,24 +33,24 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="form">
-            <r:graphValidator value="#{graphValidatorBean}" id="validator">
+            <rich:graphValidator value="#{graphValidatorBean}" id="validator">
                 <h:panelGrid columns="3">
                     <h:outputLabel for="value0" value="First value:" />
                     <h:inputText id="value0" value="#{graphValidatorBean.first}" label="First" />
-                    <r:notifyMessage for="value0" />
+                    <rich:notifyMessage for="value0" />
                     <h:outputLabel for="value1" value="Second value:" />
                     <h:inputText id="value1" value="#{graphValidatorBean.second}" label="First" />
-                    <r:notifyMessage for="value1" />
+                    <rich:notifyMessage for="value1" />
                     <h:outputLabel for="value2" value="Third value:" />
                     <h:inputText id="value2" value="#{graphValidatorBean.third}" label="First" />
-                    <r:notifyMessage for="value2" />
+                    <rich:notifyMessage for="value2" />
                     <h:outputLabel for="total" value="Total:" />
                     <h:outputText id="total" value="#{graphValidatorBean.summ}" />
                 </h:panelGrid>
                 <h:commandButton value="Submit" action="#{graphValidatorBean.action}"></h:commandButton>
                 <h:outputText id="result" value="#{graphValidatorBean.actionResult}" />
-            </r:graphValidator>
-            <r:notifyMessages />
+            </rich:graphValidator>
+            <rich:notifyMessages />
         </h:form>
     </ui:define>
 </ui:composition>

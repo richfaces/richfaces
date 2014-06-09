@@ -42,15 +42,15 @@
         </h:form>
     
         <h:form id="form1">
-            <r:list id="list" var="item" value="#{iterationBean.employeeList}" rows="20" type="#{listBean.listType}">
+            <rich:list id="list" var="item" value="#{iterationBean.employeeList}" rows="20" type="#{listBean.listType}">
                 <f:facet name="term">
                     E-mail: #{item.EMail}
                 </f:facet>
     
                 Name: #{item.name}
-            </r:list>
+            </rich:list>
     
-            <r:dataScroller for="list" />
+            <rich:dataScroller for="list" />
         </h:form>
     </ui:define>
 </ui:composition>

@@ -34,33 +34,33 @@
     <ui:define name="content">
         <h:form id="f">
 
-            <r:panelMenu id="panelMenu" itemLeftIcon="grid" groupCollapsedLeftIcon="grid"
+            <rich:panelMenu id="panelMenu" itemLeftIcon="grid" groupCollapsedLeftIcon="grid"
                          topGroupCollapsedLeftIcon="grid" topGroupExpandedLeftIcon="chevronLeft"
                          topGroupDisabledLeftIcon="disc"
                          itemDisabledLeftIcon="triangleLeft" topItemDisabledLeftIcon="triangleUp"
                          topItemLeftIcon="triangleDown"
                          groupMode="client" activeItem="item41" bubbleSelection="true" expandSingle="true">
-                <r:panelMenuGroup id="group1" label="Group 1" selectable="true"
+                <rich:panelMenuGroup id="group1" label="Group 1" selectable="true"
                                   onbeforecollapse="alert('onbeforecollapse')" onbeforeexpand="alert('onbeforeexpand')"
                                   onbeforeselect="alert('onbeforeselect')" oncollapse="alert('oncollapse')"
                                   onexpand="alert('onexpand')"
                                   onselect="alert('onselect')" onswitch="alert('onswitch')"
                                   onbeforeswitch="alert('onbeforeswitch')">
-                    <r:panelMenuItem id="item11" label="Item 1.1" onbeforeselect="alert('onbeforeselect-Item')"
+                    <rich:panelMenuItem id="item11" label="Item 1.1" onbeforeselect="alert('onbeforeselect-Item')"
                                      onselect="alert('onselect-Item')"/>
-                    <r:panelMenuItem id="item12" label="Item 1.2" rightIcon="chevron" rightIconClass="rightIconClass"
+                    <rich:panelMenuItem id="item12" label="Item 1.2" rightIcon="chevron" rightIconClass="rightIconClass"
                                      leftIconClass="aaaa"/>
-                </r:panelMenuGroup>
-                <r:panelMenuItem id="item2" label="Item 2" disabled="true"/>
-                <r:panelMenuItem id="item3" label="Item 3"/>
-                <r:panelMenuGroup id="group4" label="Group 4" expanded="false">
-                    <r:panelMenuItem id="item41" label="Item 4.1"/>
-                    <r:panelMenuItem id="item42" label="Item 4.2" disabled="true"/>
-                    <r:panelMenuGroup id="group43" label="Group 4.1" disabled="true">
-                        <r:panelMenuItem id="item431" label="Item 4.1.1"/>
-                    </r:panelMenuGroup>
-                </r:panelMenuGroup>
-            </r:panelMenu>
+                </rich:panelMenuGroup>
+                <rich:panelMenuItem id="item2" label="Item 2" disabled="true"/>
+                <rich:panelMenuItem id="item3" label="Item 3"/>
+                <rich:panelMenuGroup id="group4" label="Group 4" expanded="false">
+                    <rich:panelMenuItem id="item41" label="Item 4.1"/>
+                    <rich:panelMenuItem id="item42" label="Item 4.2" disabled="true"/>
+                    <rich:panelMenuGroup id="group43" label="Group 4.1" disabled="true">
+                        <rich:panelMenuItem id="item431" label="Item 4.1.1"/>
+                    </rich:panelMenuGroup>
+                </rich:panelMenuGroup>
+            </rich:panelMenu>
         </h:form>
     </ui:define>
 </ui:composition>

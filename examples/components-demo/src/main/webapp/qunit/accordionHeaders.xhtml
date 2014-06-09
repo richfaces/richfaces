@@ -41,45 +41,45 @@
         <ui:define name="body">
             <p>Page</p>
 
-            <h:form id="f" style="border:blue solid thin;">
-                <r:accordion id="panel" style="padding: 0px; height: 400px; width: 500px;" switchType="client">
-                    <r:accordionItem header="label 1">
+            <h:form id="f" style="borderich:blue solid thin;">
+                <rich:accordion id="panel" style="padding: 0px; height: 400px; width: 500px;" switchType="client">
+                    <rich:accordionItem header="label 1">
                         <f:facet name="headerInactive">headerInactive 1</f:facet>
                         <f:facet name="headerActive">headerActive 1</f:facet>
                         <f:facet name="header">headerDisable 1</f:facet>
                     content 1
-                </r:accordionItem>
-                    <r:accordionItem header="label 2" disabled="true">
+                </rich:accordionItem>
+                    <rich:accordionItem header="label 2" disabled="true">
                         <f:facet name="headerInactive">headerInactive 2</f:facet>
                         <f:facet name="header">headerActive 2</f:facet>
                         <f:facet name="headerDisable">headerDisable 2</f:facet>
                     content 2
-                </r:accordionItem>
-                    <r:accordionItem header="label 3">
+                </rich:accordionItem>
+                    <rich:accordionItem header="label 3">
                         <f:facet name="header">headerInactive 3</f:facet>
                         <f:facet name="headerActive">headerActive 3</f:facet>
                         <f:facet name="headerDisable">headerDisable 3</f:facet>
                     content 3
-                </r:accordionItem>
-                </r:accordion>
+                </rich:accordionItem>
+                </rich:accordion>
 
                 <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@first" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@first" event="click" />
                 |&lt; first
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
                 &lt;- prev
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@next" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@next" event="click" />
                 next ->
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@last" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@last" event="click" />
                 last >|
             </h:outputLink>
 
@@ -90,7 +90,7 @@
             <div>
                 <ol id="qunit-tests"></ol>
 
-                <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+                <div id="testDiv" style="margin-top: 10px; borderich: 1px solid #a0a0a0">Main Test Div</div>
             </div>
             <h:outputScript name="tests/richfaces-accordion-headers-qunit.js" />
         </ui:define>

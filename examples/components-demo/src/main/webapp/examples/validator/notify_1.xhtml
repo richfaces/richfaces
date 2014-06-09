@@ -51,7 +51,7 @@
     <ui:define name="content">
                 <h:form>
                     
-                    <r:notify stack="customStack" summary="#{notifyBean.title}"
+                    <rich:notify stack="customStack" summary="#{notifyBean.title}"
                             nonblocking="#{notifyBean.nonblocking}" showShadow="#{notifyBean.showShadow}"
                             showHistory="#{notifyBean.showHistory}" showCloseButton="#{notifyBean.showCloseButton}"
                             sticky="#{notifyBean.sticky}" stayTime="#{notifyBean.stayTime}"
@@ -63,12 +63,12 @@
                                     <hr />
                                     <h:outputText value="#{notifyBean.text}" />
                                 </f:facet>
-                            </r:notify>
+                            </rich:notify>
                     
                     <a4j:outputPanel ajaxRendered="true">
-                        <r:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
+                        <rich:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
                             method="#{notifyBean.method}" styleClass="#{notifyBean.stackStyleClass}" />
-                        <r:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
+                        <rich:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
                         showShadow="#{notifyBean.showShadow}" showHistory="#{notifyBean.showHistory}"
                         showCloseButton="#{notifyBean.showCloseButton}" sticky="#{notifyBean.sticky}"
                         stayTime="#{notifyBean.stayTime}" appearAnimation="#{notifyBean.appearAnimation}"
@@ -184,8 +184,8 @@
                     <h:commandButton value="Apply" />
                 </h:form>
                 <!--
-    TODO uncomment this once r:insert is implemented
-    <r:insert src="/notify_1.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    TODO uncomment this once rich:insert is implemented
+    <rich:insert src="/notify_1.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
     -->
         </ui:define>
     </ui:composition>

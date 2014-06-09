@@ -44,57 +44,57 @@ of RichFaces showcase.
         </pre>
 
         <h:form>
-            <r:panel>
+            <rich:panel>
                 <f:facet name="header">
                     <h:outputText value="Административная панель"/>
                 </f:facet>
 
                 <h:panelGrid columns="2">
-                    <r:panelMenu style="width:200px" mode="ajax" groupMode="ajax" iconExpandedGroup="disc"
+                    <rich:panelMenu style="width:200px" mode="ajax" groupMode="ajax" iconExpandedGroup="disc"
                                  iconCollapsedGroup="disc" iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
                                  iconCollapsedTopGroup="chevronDown">
-                        <r:panelMenuGroup label="Базы данных">
-                            <r:panelMenuItem name="Item_1_1">
+                        <rich:panelMenuGroup label="Базы данных">
+                            <rich:panelMenuItem name="Item_1_1">
                                 <h:link outcome="admin" value="Загрузка абзацев с сервера"/>
-                            </r:panelMenuItem>
-                            <r:panelMenuItem name="Item_1_2">
+                            </rich:panelMenuItem>
+                            <rich:panelMenuItem name="Item_1_2">
                                 <h:link outcome="admin" value="Тесты абзацев"/>
-                            </r:panelMenuItem>
-                            <r:panelMenuItem name="Item_1_3">
+                            </rich:panelMenuItem>
+                            <rich:panelMenuItem name="Item_1_3">
                                 <h:link outcome="admin" value="Создать главы"/>
-                            </r:panelMenuItem>
-                        </r:panelMenuGroup>
-                        <r:panelMenuGroup label="Подсказки">
-                            <r:panelMenuItem name="Item_2_1">
+                            </rich:panelMenuItem>
+                        </rich:panelMenuGroup>
+                        <rich:panelMenuGroup label="Подсказки">
+                            <rich:panelMenuItem name="Item_2_1">
                                 <h:link outcome="admin" value="Загрузка подсказок с сервера"/>
-                            </r:panelMenuItem>
-                            <r:panelMenuItem name="Item_2_2">
+                            </rich:panelMenuItem>
+                            <rich:panelMenuItem name="Item_2_2">
                                 <h:link outcome="admin" value="Тесты подсказок"/>
-                            </r:panelMenuItem>
-                            <r:panelMenuItem name="Item_2_3">
+                            </rich:panelMenuItem>
+                            <rich:panelMenuItem name="Item_2_3">
                                 <h:link outcome="admin" value="Создать подсказки"/>
-                            </r:panelMenuItem>
-                        </r:panelMenuGroup>
-                        <r:panelMenuGroup label="Документы">
-                            <r:panelMenuItem name="Item_3_1">
+                            </rich:panelMenuItem>
+                        </rich:panelMenuGroup>
+                        <rich:panelMenuGroup label="Документы">
+                            <rich:panelMenuItem name="Item_3_1">
                                 <h:link outcome="admin" value="Загрузка документов с сервера"/>
-                            </r:panelMenuItem>
-                            <r:panelMenuItem name="Item_3_2">
+                            </rich:panelMenuItem>
+                            <rich:panelMenuItem name="Item_3_2">
                                 <h:link outcome="admin" value="Тесты документов"/>
-                            </r:panelMenuItem>
-                            <r:panelMenuItem name="Item_3_3">
+                            </rich:panelMenuItem>
+                            <rich:panelMenuItem name="Item_3_3">
                                 <h:link outcome="admin" value="Создать документы"/>
-                            </r:panelMenuItem>
-                        </r:panelMenuGroup>
-                    </r:panelMenu>
-                    <r:panel>
+                            </rich:panelMenuItem>
+                        </rich:panelMenuGroup>
+                    </rich:panelMenu>
+                    <rich:panel>
                         <f:facet name="header">
                             <h:outputText value="Загрузка глав с сервера"/>
                         </f:facet>
                         Здесь сегодня будет загрузка глав с локального сервера...
-                    </r:panel>
+                    </rich:panel>
                 </h:panelGrid>
-            </r:panel>
+            </rich:panel>
         </h:form>
     </ui:define>
 </ui:composition>

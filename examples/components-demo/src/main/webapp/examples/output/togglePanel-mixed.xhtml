@@ -33,52 +33,52 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="f">
-            <r:togglePanel id="panel" activeItem="name1" switchType="client" lang="en" cycledSwitching="true">
-                <r:togglePanelItem name="name1" rendered="false">hello name1 client</r:togglePanelItem>
-                <r:togglePanelItem name="name2" onenter="alert('onenter ajax');" switchType="ajax">hello name2 ajax
-            </r:togglePanelItem>
-                <r:togglePanelItem name="name3" switchType="server">hello name3 server</r:togglePanelItem>
-                <r:togglePanelItem name="name4">hello name4</r:togglePanelItem>
-            </r:togglePanel>
+            <rich:togglePanel id="panel" activeItem="name1" switchType="client" lang="en" cycledSwitching="true">
+                <rich:togglePanelItem name="name1" rendered="false">hello name1 client</rich:togglePanelItem>
+                <rich:togglePanelItem name="name2" onenter="alert('onenter ajax');" switchType="ajax">hello name2 ajax
+            </rich:togglePanelItem>
+                <rich:togglePanelItem name="name3" switchType="server">hello name3 server</rich:togglePanelItem>
+                <rich:togglePanelItem name="name4">hello name4</rich:togglePanelItem>
+            </rich:togglePanel>
 
             <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="name1" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="name1" event="click" />
             name1 client
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="name2" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="name2" event="click" />
                 name2 ajax
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="name3" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="name3" event="click" />
                 name3 server
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="name4" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="name4" event="click" />
                 name4 client disabled
             </h:outputLink>
     
                 <br />
                 <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@first" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@first" event="click" />
                 |&lt; first
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
                 &lt;- prev
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@next" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@next" event="click" />
                 next ->
             </h:outputLink>
             |
             <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="@last" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="@last" event="click" />
                 last >|
             </h:outputLink>
         </h:form>

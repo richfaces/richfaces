@@ -40,42 +40,42 @@
         <br />
 		
         <h:form id="f">
-            <r:tabPanel id="panel" switchType="ajax" tabDisabledHeaderClass="myClass_01"
+            <rich:tabPanel id="panel" switchType="ajax" tabDisabledHeaderClass="myClass_01"
                 itemChangeListener="#{togglePanelBean.itemChangeActionListener}"
                 headerPosition="bottom" headerAlignment="center">
-                <r:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')"
+                <rich:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')"
                     execute="date-t1" render="date-t1">
                 Content will be here. Content will be here. Content will be here. Content will be here. Content will be
                 here. Content will be here. Content will be here. Content will be here. Content will be here. Content will
                 be here. Content will be here. Content will be here. Content will be here. Content will be here.
-            </r:tab>
-                <r:tab header="tab 1a (disabled) header" disabled="true">
+            </rich:tab>
+                <rich:tab header="tab 1a (disabled) header" disabled="true">
                 Disabled tab content
-            </r:tab>
-                <r:tab header="tab2 header" onenter="alert('onenter 02')" execute="date-t2" render="date-t2">
+            </rich:tab>
+                <rich:tab header="tab2 header" onenter="alert('onenter 02')" execute="date-t2" render="date-t2">
                 He he
-            </r:tab>
-            </r:tabPanel>
+            </rich:tab>
+            </rich:tabPanel>
         </h:form>
         <br/>
         <br/>
         <h:form id="f2">
-            <r:tabPanel id="panel2" switchType="ajax" tabDisabledHeaderClass="myClass_01"
+            <rich:tabPanel id="panel2" switchType="ajax" tabDisabledHeaderClass="myClass_01"
                 itemChangeListener="#{togglePanelBean.itemChangeActionListener}"
                 headerPosition="top" headerAlignment="right">
-                <r:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')"
+                <rich:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')"
                     execute="date-t1" render="date-t1">
                 Content will be here. Content will be here. Content will be here. Content will be here. Content will be
                 here. Content will be here. Content will be here. Content will be here. Content will be here. Content will
                 be here. Content will be here. Content will be here. Content will be here. Content will be here.
-            </r:tab>
-                <r:tab header="tab 1a (disabled) header" disabled="true">
+            </rich:tab>
+                <rich:tab header="tab 1a (disabled) header" disabled="true">
                 Disabled tab content
-            </r:tab>
-                <r:tab header="tab2 header" onenter="alert('onenter 02')" execute="date-t2" render="date-t2">
+            </rich:tab>
+                <rich:tab header="tab2 header" onenter="alert('onenter 02')" execute="date-t2" render="date-t2">
                 He he
-            </r:tab>
-            </r:tabPanel>
+            </rich:tab>
+            </rich:tabPanel>
         </h:form>  
     </ui:define>
 </ui:composition>

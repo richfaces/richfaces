@@ -42,7 +42,7 @@
             <h:outputText value="Date: "/>
             <h:outputText id="date" value="#{inputNumberSliderBean.date}"/>
             <br/>
-            <r:inputNumberSpinner id="ins" value="#{inputNumberSliderBean.value}"
+            <rich:inputNumberSpinner id="ins" value="#{inputNumberSliderBean.value}"
                                     accesskey="#{inputNumberSliderBean.accesskey}"
                                     cycled="#{inputNumberSliderBean.showInput}"
                                     disableBrowserAutoComplete="#{inputNumberSliderBean.showArrows}"
@@ -52,7 +52,7 @@
                                     maxValue="#{inputNumberSliderBean.maxValue}"
                                     minValue="#{inputNumberSliderBean.minValue}" step="#{inputNumberSliderBean.step}">
                 <f:ajax render="date"/>
-            </r:inputNumberSpinner>
+            </rich:inputNumberSpinner>
             <br/>
             <h:outputText value="Accesskey: "/>
             <h:inputText value="#{inputNumberSliderBean.accesskey}">

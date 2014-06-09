@@ -43,45 +43,45 @@
         </h:form>
 
         <h:form id="form">
-            <r:tree id="tree" var="node" toggleType="ajax">
-                <r:treeNode>
+            <rich:tree id="tree" var="node" toggleType="ajax">
+                <rich:treeNode>
                     <a4j:commandLink value="#{node}" action="#{node.processClick}" />
-                </r:treeNode>
+                </rich:treeNode>
     
-                <r:treeModelAdaptor nodes="#{treeModelDataBean.root.projects}" leaf="#{treeModelBean.projectIsLeaf}">
-                    <r:treeNode iconExpanded="/images/folder_key.png" iconCollapsed="/images/folder_key.png">
+                <rich:treeModelAdaptor nodes="#{treeModelDataBean.root.projects}" leaf="#{treeModelBean.projectIsLeaf}">
+                    <rich:treeNode iconExpanded="/images/folder_key.png" iconCollapsed="/images/folder_key.png">
                         <a4j:commandLink value="#{node}" action="#{node.processClick}" />
-                    </r:treeNode>
+                    </rich:treeNode>
     
-                    <r:treeModelAdaptor nodes="#{node.sourceDirectories}">
-                        <r:treeNode iconExpanded="/images/page_white_cup.png" iconCollapsed="/images/page_white_cup.png">
+                    <rich:treeModelAdaptor nodes="#{node.sourceDirectories}">
+                        <rich:treeNode iconExpanded="/images/page_white_cup.png" iconCollapsed="/images/page_white_cup.png">
                             <a4j:commandLink value="#{node}" action="#{node.processClick}" />
-                        </r:treeNode>
+                        </rich:treeNode>
     
-                        <r:treeModelAdaptor nodes="#{node.packages}" rowKeyConverter="packageKeyConverter">
-                            <r:treeModelAdaptor nodes="#{node.classes}" />
-                        </r:treeModelAdaptor>
-                    </r:treeModelAdaptor>
+                        <rich:treeModelAdaptor nodes="#{node.packages}" rowKeyConverter="packageKeyConverter">
+                            <rich:treeModelAdaptor nodes="#{node.classes}" />
+                        </rich:treeModelAdaptor>
+                    </rich:treeModelAdaptor>
     
-                    <r:treeModelRecursiveAdaptor roots="#{node.commonDirectories}" nodes="#{node.directories}">
-                        <r:treeNode iconExpanded="/images/folder_page.png" iconCollapsed="/images/folder.png">
+                    <rich:treeModelRecursiveAdaptor roots="#{node.commonDirectories}" nodes="#{node.directories}">
+                        <rich:treeNode iconExpanded="/images/folder_page.png" iconCollapsed="/images/folder.png">
                             <a4j:commandLink value="#{node}" action="#{node.processClick}" />
-                        </r:treeNode>
+                        </rich:treeNode>
     
-                        <r:treeModelRecursiveAdaptor roots="#{node.archiveFiles}" nodes="#{node.archiveEntries}">
+                        <rich:treeModelRecursiveAdaptor roots="#{node.archiveFiles}" nodes="#{node.archiveEntries}">
     
-                            <r:treeNode rendered="#{node.class.simpleName eq 'ArchiveFile'}" iconExpanded="/images/compress.png"
+                            <rich:treeNode rendered="#{node.class.simpleName eq 'ArchiveFile'}" iconExpanded="/images/compress.png"
                                 iconCollapsed="/images/compress.png">
                                 <a4j:commandLink value="#{node}" action="#{node.processClick}" />
-                            </r:treeNode>
+                            </rich:treeNode>
     
-                            <r:treeModelAdaptor rendered="#{node.class.simpleName eq 'ArchiveEntry'}"
+                            <rich:treeModelAdaptor rendered="#{node.class.simpleName eq 'ArchiveEntry'}"
                                 nodes="#{node.archiveEntryFiles}" />
-                        </r:treeModelRecursiveAdaptor>
-                        <r:treeModelAdaptor nodes="#{node.files}" />
-                    </r:treeModelRecursiveAdaptor>
-                </r:treeModelAdaptor>
-            </r:tree>
+                        </rich:treeModelRecursiveAdaptor>
+                        <rich:treeModelAdaptor nodes="#{node.files}" />
+                    </rich:treeModelRecursiveAdaptor>
+                </rich:treeModelAdaptor>
+            </rich:tree>
         </h:form>
     
         <h:panelGroup style="margin-top: 20px;">

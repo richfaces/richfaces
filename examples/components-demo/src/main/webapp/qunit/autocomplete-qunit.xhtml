@@ -49,38 +49,38 @@
             <p>Page</p>
 
             <h:form id="form">
-                <r:autocomplete id="autocompleteDefault" value="a" fetchValue="#{country.name}"
+                <rich:autocomplete id="autocompleteDefault" value="a" fetchValue="#{country.name}"
                     autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
                     onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);"
                     onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
                     #{country.name} #{country.iso} #{country.domain}
-                </r:autocomplete>
+                </rich:autocomplete>
                 <br />
-                <r:autocomplete id="autocompleteDefault2" fetchValue="#{country.name}"
+                <rich:autocomplete id="autocompleteDefault2" fetchValue="#{country.name}"
                     autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
                     onselectitem="return onEvent.call(this, event);" showButton="true" mode="client">
                     #{country.name} #{country.iso} #{country.domain}
-                </r:autocomplete>
+                </rich:autocomplete>
                 <br />
-                <r:autocomplete id="autocompleteClientMode" mode="client" fetchValue="#{country.name}"
+                <rich:autocomplete id="autocompleteClientMode" mode="client" fetchValue="#{country.name}"
                     autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
                     #{country.name} #{country.iso} #{country.domain}
-                </r:autocomplete>
+                </rich:autocomplete>
                 <br />
-                <r:autocomplete id="autocompleteLazyClientMode" mode="lazyClient" fetchValue="#{country.name}"
+                <rich:autocomplete id="autocompleteLazyClientMode" mode="lazyClient" fetchValue="#{country.name}"
                     autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
                     #{country.name} #{country.iso} #{country.domain}
-                </r:autocomplete>
+                </rich:autocomplete>
                 <br />
-                <r:autocomplete id="autocompleteAjaxMode" mode="ajax" fetchValue="#{country.name}"
+                <rich:autocomplete id="autocompleteAjaxMode" mode="ajax" fetchValue="#{country.name}"
                     autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
                     #{country.name} #{country.iso} #{country.domain}
-                </r:autocomplete>
+                </rich:autocomplete>
                 <br />
-                <r:autocomplete id="autocompleteCachedAjaxMode" mode="cachedAjax" fetchValue="#{country.name}"
+                <rich:autocomplete id="autocompleteCachedAjaxMode" mode="cachedAjax" fetchValue="#{country.name}"
                     autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
                     #{country.name} #{country.iso} #{country.domain}
-                </r:autocomplete>
+                </rich:autocomplete>
             </h:form>
 
             <p>Result</p>

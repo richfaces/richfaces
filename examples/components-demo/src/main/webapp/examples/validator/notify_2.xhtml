@@ -49,12 +49,12 @@
             </style>
 
             <p>Skinning. Icon, skining by message type.</p>
-            <r:notify summary="You've got mail" nonblocking="#{notifyBean.nonblocking}" sticky="true" styleClass="mail" />
-            <r:notify summary="You've got more mail (hides in 3sec)" nonblocking="true" sticky="false" styleClass="mail"
+            <rich:notify summary="You've got mail" nonblocking="#{notifyBean.nonblocking}" sticky="true" styleClass="mail" />
+            <rich:notify summary="You've got more mail (hides in 3sec)" nonblocking="true" sticky="false" styleClass="mail"
                 delay="1500" stayTime="3000" />
             <!--
-    TODO uncomment this once r:insert is implemented
-    <r:insert src="/notify_2.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    TODO uncomment this once rich:insert is implemented
+    <rich:insert src="/notify_2.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
     -->
         </ui:define>
     </ui:composition>

@@ -45,23 +45,23 @@
             </h:form>
         </f:subview>
 
-        <h:outputText value="#{r:clientId('input')}" />
+        <h:outputText value="#{rich:clientId('input')}" />
         <br />
-        <h:outputText value="#{r:element('input')}" />
+        <h:outputText value="#{rich:element('input')}" />
         <br />
-        <h:outputText value="#{r:component('input')}" />
+        <h:outputText value="#{rich:component('input')}" />
         <br />
-        <h:outputText value="#{r:findComponent('input').value}" />
+        <h:outputText value="#{rich:findComponent('input').value}" />
         <br />
-        <h:outputText value="#{r:toScript('input')}" />
+        <h:outputText value="#{rich:toScript('input')}" />
         <br />
 
         Roles:
-        <h:outputText rendered="#{r:isUserInRole('admin, user')}" value="admin or user" />
+        <h:outputText rendered="#{rich:isUserInRole('admin, user')}" value="admin or user" />
         <br />
-        <h:outputText rendered="#{r:isUserInRole('admin')}" value="admin" />
+        <h:outputText rendered="#{rich:isUserInRole('admin')}" value="admin" />
         <br />
-        <h:outputText rendered="#{r:isUserInRole('user')}" value="user" />
+        <h:outputText rendered="#{rich:isUserInRole('user')}" value="user" />
         <br />
         
     </ui:define>

@@ -34,15 +34,15 @@
     <ui:define name="body">
         <p>Page</p>
 
-        <h:form id="f" style="border:blue solid thin;">
+        <h:form id="f" style="borderich:blue solid thin;">
             <h:dataTable value="#{templateBean.dataTableModel}" var="item" id="containerHDataTable1">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="JSF Data Table"/>
                     </f:facet>
                     <h:panelGroup columns="1" rendered="#{item == 'row 1'}">
-                        <r:accordion width="500px" height="300px" switchType="server">
-                            <r:accordionItem
+                        <rich:accordion width="500px" height="300px" switchType="server">
+                            <rich:accordionItem
                                     header="label 1">Content will be here. Content will be here. Content will be here. Content will
                                 be here. Content will be here. Content will be here. Content will be here. Content will be here.
                                 Content will be here. Content will be here. Content will be here. Content will be here. Content
@@ -51,10 +51,10 @@
                                 Content will be here. Content will be here. Content will be here. Content will be here. Content
                                 will be here. Content will be here. Content will be here. Content will be here. Content will be
                                 here. Content will be here. Content will be here. Content will be here. Content will be here.
-                            </r:accordionItem>
-                            <r:accordionItem header="label 2">content 2</r:accordionItem>
-                            <r:accordionItem header="label 3">content 3</r:accordionItem>
-                        </r:accordion>
+                            </rich:accordionItem>
+                            <rich:accordionItem header="label 2">content 2</rich:accordionItem>
+                            <rich:accordionItem header="label 3">content 3</rich:accordionItem>
+                        </rich:accordion>
                     </h:panelGroup>
                     <h:outputText value="#{item}" rendered="#{item != 'row 1'}"/>
                 </h:column>

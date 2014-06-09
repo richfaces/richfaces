@@ -55,12 +55,12 @@
                 </a4j:ajax>
             </h:panelGrid>
     
-            <h:panelGrid columns="2" style="border: 1px solid green;">
+            <h:panelGrid columns="2" style="borderich: 1px solid green;">
                 <h:outputText value="reRender text1: " />
                 <h:outputText id="text1" value="#{supportBean.text1}" />
     
                 <h:outputText value="Ajax Panel ajaxRendered='true':" />
-                <a4j:outputPanel ajaxRendered="true" style="border: 1px solid red;">
+                <a4j:outputPanel ajaxRendered="true" style="borderich: 1px solid red;">
                     <f:facet name="header">test</f:facet>
                     <h:outputText value="Ajax Panel ajaxRendered='true':" />
                     <h:panelGroup style="padding: 2px;">
@@ -76,12 +76,12 @@
                 </h:inputText>
             </h:panelGrid>
     
-            <h:panelGrid columns="2" style="border: 1px solid green;">
+            <h:panelGrid columns="2" style="borderich: 1px solid green;">
                 <h:outputText value="reRender text2 limitRender='true': " />
                 <h:outputText id="text2" value="#{supportBean.text2}" />
     
                 <h:outputText value="Ajax Panel shouldn't work coz &lt; a:ajax limitRender='true' /&gt; :" />
-                <a4j:outputPanel ajaxRendered="true" style="border: 1px solid red;">
+                <a4j:outputPanel ajaxRendered="true" style="borderich: 1px solid red;">
                     <h:outputText value="Ajax Panel ajaxRendered='true':" />
                     <h:panelGroup style="padding: 2px;">
                         <h:outputText value="#{supportBean.text2}" />

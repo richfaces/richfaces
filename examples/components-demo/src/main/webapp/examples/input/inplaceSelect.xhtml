@@ -38,7 +38,7 @@
                 <fieldset>
                     <legend>InplaceSelect Test App</legend>
                     Fresh off his victory in the Florida primary, Sen. John McCain is poised to take another big prize. Former
-                    <r:inplaceSelect id='ii' defaultLabel="hello!" value="#{inputBean.value}" openOnEdit="true"
+                    <rich:inplaceSelect id='ii' defaultLabel="hello!" value="#{inputBean.value}" openOnEdit="true"
                                       activeClass="activeClass" changedClass="changedClass"
                                       disabledClass="disabledClass"
                                       styleClass="styleClass" disabled="false">
@@ -56,7 +56,7 @@
                         <f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
                         <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
                         <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
-                    </r:inplaceSelect>
+                    </rich:inplaceSelect>
 
                     Mayor Rudy Giuliani plans to drop out and endorse McCain, two GOP sources said. That would give McCain added
                     momentum heading into a debate Wednesday and next week's Super Tuesday contests
@@ -64,7 +64,7 @@
                 <ul>
                     <li><h:commandButton value="submit"></h:commandButton></li>
                     <li><h:commandButton value="ShowPopup"
-                                         onclick="#{r:component('ii')}.showPopup(); return false;"/>
+                                         onclick="#{rich:component('ii')}.showPopup(); return false;"/>
                     </li>
                     <li></li>
                 </ul>
@@ -75,10 +75,10 @@
             </h:panelGroup>
 
             <!--a4j:poll render="is" interval="2000" />
-            <r:inplaceSelect id='is'  defaultLabel="Edit Text" value="#{inputBean.value}" openOnEdit="true" saveOnSelect="false">
+            <rich:inplaceSelect id='is'  defaultLabel="Edit Text" value="#{inputBean.value}" openOnEdit="true" saveOnSelect="false">
                 <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                 <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-            </r:inplaceSelect-->
+            </rich:inplaceSelect-->
         </h:form>
     </ui:define>
 </ui:composition>

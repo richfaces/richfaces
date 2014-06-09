@@ -51,7 +51,7 @@
                         <h:outputText style="font-weight:bold" value="#{menuBean.current}"></h:outputText>
                     </a4j:outputPanel>
                     <br />
-                    <r:dropDownMenu hideDelay="600" showEvent="click" jointPoint="bottomLeft" direction="autoRight"
+                    <rich:dropDownMenu hideDelay="600" showEvent="click" jointPoint="bottomLeft" direction="autoRight"
                         id="ddmenu" disabled="#{menuBean.disabled}" mode="#{menuBean.mode}">
                         <f:facet name="label">
                             <h:panelGroup>
@@ -65,74 +65,74 @@
                                 <h:outputText value="(disabled)File" />
                             </h:panelGroup>
                         </f:facet>
-                        <r:menuItem id="menuNew1" label="New" icon="/images/ddmenu/create_doc.gif"
+                        <rich:menuItem id="menuNew1" label="New" icon="/images/ddmenu/create_doc.gif"
                             action="#{menuBean.doNew}" execute="@form">
                             <f:facet name="icon">
                                 <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}" />
                             </f:facet>
                             <f:param name="myParam" value="12345" />
                             <f:param name="myParam2" value="${222}" />
-                        </r:menuItem>
-                        <r:menuItem label="Open" action="#{menuBean.doOpen}">
+                        </rich:menuItem>
+                        <rich:menuItem label="Open" action="#{menuBean.doOpen}">
                             <f:facet name="icon">
                                 <h:graphicImage value="/images/ddmenu/open.gif" />
                             </f:facet>
-                        </r:menuItem>
-                        <r:menuGroup label="Save As..." disabled="true">
-                            <r:menuItem label="Save" icon="/images/ddmenu/save.gif">
+                        </rich:menuItem>
+                        <rich:menuGroup label="Save As..." disabled="true">
+                            <rich:menuItem label="Save" icon="/images/ddmenu/save.gif">
                                 <f:facet name="icon">
                                     <h:graphicImage value="/images/ddmenu/save.gif" />
                                 </f:facet>
-                            </r:menuItem>
-                            <r:menuItem label="Save All" icon="/images/ddmenu/save_all.gif">
+                            </rich:menuItem>
+                            <rich:menuItem label="Save All" icon="/images/ddmenu/save_all.gif">
                                 <f:setPropertyActionListener target="#{menuBean.value}" value="Save All" />
-                            </r:menuItem>
-                        </r:menuGroup>
-                        <r:menuGroup label="Save As..." horizontalOffset="10" jointPoint="topRight"
+                            </rich:menuItem>
+                        </rich:menuGroup>
+                        <rich:menuGroup label="Save As..." horizontalOffset="10" jointPoint="topRight"
                             direction="bottomRight">
-                            <r:menuItem label="Save" icon="/images/ddmenu/save.gif">
+                            <rich:menuItem label="Save" icon="/images/ddmenu/save.gif">
                                 <f:setPropertyActionListener target="#{menuBean.value}" value="Save" />
-                            </r:menuItem>
-                            <r:menuGroup label="Save All" icon="/images/ddmenu/save_all.gif" direction="bottomRight"
+                            </rich:menuItem>
+                            <rich:menuGroup label="Save All" icon="/images/ddmenu/save_all.gif" direction="bottomRight"
                                 jointPoint="topRight" verticalOffset="10">
-                                <r:menuItem label="Save All 1" icon="/images/ddmenu/save_all.gif">
+                                <rich:menuItem label="Save All 1" icon="/images/ddmenu/save_all.gif">
                                     <f:setPropertyActionListener target="#{menuBean.value}" value="Save All 1" />
-                                </r:menuItem>
-                                <r:menuItem label="Save All 2" icon="/images/ddmenu/save_all.gif">
+                                </rich:menuItem>
+                                <rich:menuItem label="Save All 2" icon="/images/ddmenu/save_all.gif">
                                     <f:setPropertyActionListener target="#{menuBean.value}" value="Save All 2" />
-                                </r:menuItem>
-                                <r:menuGroup label="Deep1" icon="/images/ddmenu/save.gif">
-                                    <r:menuItem label="Deep All 1" icon="/images/ddmenu/save_all.gif">
+                                </rich:menuItem>
+                                <rich:menuGroup label="Deep1" icon="/images/ddmenu/save.gif">
+                                    <rich:menuItem label="Deep All 1" icon="/images/ddmenu/save_all.gif">
                                         <f:setPropertyActionListener target="#{menuBean.value}" value="Deep All 1" />
-                                    </r:menuItem>
-                                    <r:menuItem label="Deep All 2" icon="/images/ddmenu/save_all.gif">
+                                    </rich:menuItem>
+                                    <rich:menuItem label="Deep All 2" icon="/images/ddmenu/save_all.gif">
                                         <f:setPropertyActionListener target="#{menuBean.value}" value="Deep All 2" />
-                                    </r:menuItem>
-                                    <r:menuGroup label="Deep2" icon="/images/ddmenu/save.gif">
-                                        <r:menuItem label="Deep2 All 1" icon="/images/ddmenu/save_all.gif">
+                                    </rich:menuItem>
+                                    <rich:menuGroup label="Deep2" icon="/images/ddmenu/save.gif">
+                                        <rich:menuItem label="Deep2 All 1" icon="/images/ddmenu/save_all.gif">
                                             <f:setPropertyActionListener target="#{menuBean.value}" value="Deep2 All 1" />
-                                        </r:menuItem>
-                                        <r:menuItem label="Deep2 All 2" icon="/images/ddmenu/save_all.gif">
+                                        </rich:menuItem>
+                                        <rich:menuItem label="Deep2 All 2" icon="/images/ddmenu/save_all.gif">
                                             <f:setPropertyActionListener target="#{menuBean.value}" value="Deep2 All 2" />
-                                        </r:menuItem>
+                                        </rich:menuItem>
 
-                                    </r:menuGroup>
+                                    </rich:menuGroup>
 
-                                </r:menuGroup>
-                            </r:menuGroup>
-                        </r:menuGroup>
-                        <r:menuItem label="Close" action="#{menuBean.doClose}" />
-                        <r:menuItem label="Close" disabled="true" />
-                        <r:menuSeparator id="menuSeparator11" />
-                        <r:menuItem label="Exit" action="#{menuBean.doExit}" />
-                        <r:menuItem>
+                                </rich:menuGroup>
+                            </rich:menuGroup>
+                        </rich:menuGroup>
+                        <rich:menuItem label="Close" action="#{menuBean.doClose}" />
+                        <rich:menuItem label="Close" disabled="true" />
+                        <rich:menuSeparator id="menuSeparator11" />
+                        <rich:menuItem label="Exit" action="#{menuBean.doExit}" />
+                        <rich:menuItem>
                             <h:inputText />
-                        </r:menuItem>
-                        <r:menuItem label="Add user!" mode="client">
+                        </rich:menuItem>
+                        <rich:menuItem label="Add user!" mode="client">
                             <a4j:ajax event="click" execute="menuNew1" render="@this ddmenu2"
                                 oncomplete="alert('addUser()!')"></a4j:ajax>
-                        </r:menuItem>
-                    </r:dropDownMenu>
+                        </rich:menuItem>
+                    </rich:dropDownMenu>
 
                 </h:panelGroup>
 
@@ -167,8 +167,8 @@
             <h:panelGroup>
                 <h:panelGrid styleClass="vertical-menu-cell" columnClasses="optionList" columns="1" cellspacing="0"
                     cellpadding="0">
-                    <r:dropDownMenu id="ddmenu2" horizontalOffset="10" verticalOffset="20" jointPoint="topRight"
-                        direction="bottomRight" style="border:1px solid #{richSkin.panelBorderColor}">
+                    <rich:dropDownMenu id="ddmenu2" horizontalOffset="10" verticalOffset="20" jointPoint="topRight"
+                        direction="bottomRight" style="borderich:1px solid #{richSkin.panelBorderColor}">
                         <f:facet name="label">
                             <h:panelGroup>
                                 <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
@@ -181,19 +181,19 @@
                                 <h:outputText value="(disabled)File" />
                             </h:panelGroup>
                         </f:facet>
-                        <r:menuItem id="menuNew2" label="New" icon="/images/ddmenu/create_doc.gif"
+                        <rich:menuItem id="menuNew2" label="New" icon="/images/ddmenu/create_doc.gif"
                             action="#{menuBean.doNew}" execute="@form">
                             <f:facet name="icon">
                                 <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}" />
                             </f:facet>
-                        </r:menuItem>
-                        <r:menuItem label="Open" action="#{menuBean.doOpen}">
+                        </rich:menuItem>
+                        <rich:menuItem label="Open" action="#{menuBean.doOpen}">
                             <f:facet name="icon">
                                 <h:graphicImage value="/images/ddmenu/open.gif" />
                             </f:facet>
-                        </r:menuItem>
-                    </r:dropDownMenu>
-                    <r:dropDownMenu id="ddmenu3">
+                        </rich:menuItem>
+                    </rich:dropDownMenu>
+                    <rich:dropDownMenu id="ddmenu3">
                         <f:facet name="label">
                             <h:panelGroup>
                                 <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
@@ -206,17 +206,17 @@
                                 <h:outputText value="(disabled)File" />
                             </h:panelGroup>
                         </f:facet>
-                        <r:menuItem id="menuNew3" label="New" icon="/images/ddmenu/create_doc.gif"
+                        <rich:menuItem id="menuNew3" label="New" icon="/images/ddmenu/create_doc.gif"
                             action="#{menuBean.doNew}" execute="@form">
 
-                        </r:menuItem>
-                        <r:menuItem label="Open" action="#{menuBean.doOpen}">
+                        </rich:menuItem>
+                        <rich:menuItem label="Open" action="#{menuBean.doOpen}">
                             <f:facet name="icon">
                                 <h:graphicImage value="/images/ddmenu/open.gif" />
                             </f:facet>
-                        </r:menuItem>
-                    </r:dropDownMenu>
-                    <r:dropDownMenu id="ddmenu4">
+                        </rich:menuItem>
+                    </rich:dropDownMenu>
+                    <rich:dropDownMenu id="ddmenu4">
                         <f:facet name="label">
                             <h:panelGroup>
                                 <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
@@ -229,40 +229,40 @@
                                 <h:outputText value="(disabled)File" />
                             </h:panelGroup>
                         </f:facet>
-                        <r:menuItem id="menuNew" label="New" icon="/images/ddmenu/create_doc.gif"
+                        <rich:menuItem id="menuNew" label="New" icon="/images/ddmenu/create_doc.gif"
                             action="#{menuBean.doNew}" execute="@form">
-                        </r:menuItem>
-                        <r:menuItem label="Open" action="#{menuBean.doOpen}">
+                        </rich:menuItem>
+                        <rich:menuItem label="Open" action="#{menuBean.doOpen}">
                             <f:facet name="icon">
                                 <h:graphicImage value="/images/ddmenu/open.gif" />
                             </f:facet>
-                        </r:menuItem>
-                    </r:dropDownMenu>
+                        </rich:menuItem>
+                    </rich:dropDownMenu>
 
                 </h:panelGrid>
 
                 <br />
                 <br />
                 <br />
-                <r:toolbar>
-                    <r:dropDownMenu id="ddmenuToolbar" horizontalOffset="10" verticalOffset="20" jointPoint="topRight"
-                        direction="bottomRight" style="border:0px solid #{richSkin.panelBorderColor}">
+                <rich:toolbar>
+                    <rich:dropDownMenu id="ddmenuToolbar" horizontalOffset="10" verticalOffset="20" jointPoint="topRight"
+                        direction="bottomRight" style="borderich:0px solid #{richSkin.panelBorderColor}">
                         <f:facet name="label">
                             <h:panelGroup>
                                 <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
                                 <h:outputText value="File" />
                             </h:panelGroup>
                         </f:facet>
-                    </r:dropDownMenu>
+                    </rich:dropDownMenu>
         `
-        <r:menuItem id="menuItemToolbar1" />
-                    <r:menuItem id="menuItemFacet1" label="Open" action="#{menuBean.doOpen}">
+        <rich:menuItem id="menuItemToolbar1" />
+                    <rich:menuItem id="menuItemFacet1" label="Open" action="#{menuBean.doOpen}">
                         <f:facet name="icon">
                             <h:graphicImage value="/images/ddmenu/open.gif" />
                         </f:facet>
-                    </r:menuItem>
+                    </rich:menuItem>
 
-                </r:toolbar>
+                </rich:toolbar>
 
             </h:panelGroup>
         </h:form>

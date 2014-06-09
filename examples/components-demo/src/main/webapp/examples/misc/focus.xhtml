@@ -33,10 +33,10 @@
     <ui:define name="content">
 
         <h:form>
-            <r:focus id="focus" delayed="true" />
+            <rich:focus id="focus" delayed="true" />
             
             <h:commandButton value="Apply Focus">
-                <r:componentControl target="focus" operation="applyFocus" />
+                <rich:componentControl target="focus" operation="applyFocus" />
             </h:commandButton>
             <br />
             
@@ -44,7 +44,7 @@
             
             <br />
             <h:inputText id="input2" tabindex="3" /><br />
-            <r:calendar id="calendar" enableManualInput="true" tabindex="1" /><br />
+            <rich:calendar id="calendar" enableManualInput="true" tabindex="1" /><br />
             
             <h:commandButton value="submit" /><br />
             <a4j:commandButton value="ajax" render="@form" /><br />

@@ -51,7 +51,7 @@
                 </h:inputText>
             </h:panelGrid>
 
-            <r:dataScroller id="scroller" for="table" />
+            <rich:dataScroller id="scroller" for="table" />
             <h:dataTable value="#{rf10888.filteredData}" id="table" var="record" rows="20">
                 <h:column>
                     <f:facet name="header">
@@ -75,7 +75,7 @@
                 </h:column>
 
                 <f:facet name="footer">
-                    <r:dataScroller />
+                    <rich:dataScroller />
                 </f:facet>
             </h:dataTable>
         </h:form>

@@ -34,14 +34,14 @@
     <ui:define name="content">
         <p>Page</p>
 
-        <h:form id="f" style="border:blue solid thin;">
+        <h:form id="f" style="borderich:blue solid thin;">
             <h:panelGroup>
-                <r:accordion width="500px" height="300px"
+                <rich:accordion width="500px" height="300px"
                              itemChangeListener="#{togglePanelBean.itemChangeActionListener}"
                              switchType="ajax" itemActiveRightIcon="triangleDown" itemInactiveRightIcon="triangleUp"
                              itemDisabledRightIcon="disc" itemDisabledLeftIcon="disc"
                              itemActiveHeaderClass="ac-active-header">
-                    <r:accordionItem
+                    <rich:accordionItem
                             header="label 1">Content will be here. Content will be here. Content will be here. Content
                         will be here. Content will be here. Content will be here. Content will be here. Content will be here.
                         Content will be here. Content will be here. Content will be here. Content will be here. Content will be
@@ -50,11 +50,11 @@
                         Content will be here. Content will be here. Content will be here. Content will be here. Content will be
                         here. Content will be here. Content will be here. Content will be here. Content will be here. Content
                         will be here. Content will be here. Content will be here.
-                    </r:accordionItem>
-                    <r:accordionItem header="label 2">content 2</r:accordionItem>
-                    <r:accordionItem header="label 3" onenter="alert('hello, world!')">content 3</r:accordionItem>
-                    <r:accordionItem header="label 4" disabled="true">content 4</r:accordionItem>
-                </r:accordion>
+                    </rich:accordionItem>
+                    <rich:accordionItem header="label 2">content 2</rich:accordionItem>
+                    <rich:accordionItem header="label 3" onenter="alert('hello, world!')">content 3</rich:accordionItem>
+                    <rich:accordionItem header="label 4" disabled="true">content 4</rich:accordionItem>
+                </rich:accordion>
             </h:panelGroup>
         </h:form>
     </ui:define>

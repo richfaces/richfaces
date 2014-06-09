@@ -37,7 +37,7 @@
     <a4j:status onstop="console.log('onstop')" />
         <h:panelGrid columns="2">
             
-            <r:editor id="editor" value="#{editor.value}" title="#{editor.title}"
+            <rich:editor id="editor" value="#{editor.value}" title="#{editor.title}"
                            readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
                            rendered="#{editor.rendered}" toolbar="#{editor.toolbar}" skin="#{editor.skin}"
                            lang="#{editor.lang}"
@@ -49,7 +49,7 @@
                            textareaClass="#{editor.textareaClass}" textareaStyle="#{editor.textareaStyle}">
                            
                <f:facet name="config">#{editor.config}</f:facet>
-            </r:editor>
+            </rich:editor>
             
             <h:panelGrid columns="3">
                 <h:panelGrid columns="1">
@@ -61,27 +61,27 @@
                 
                 <h:panelGrid columns="1">
                     <h:button type="button" value="readOnly(true)"
-                           onclick="#{r:component('editor')}.readOnly(true); return false;"/>
+                           onclick="#{rich:component('editor')}.readOnly(true); return false;"/>
                     <h:button type="button" value="readOnly(false)"
-                           onclick="#{r:component('editor')}.readOnly(false); return false;"/>
+                           onclick="#{rich:component('editor')}.readOnly(false); return false;"/>
                     <h:button type="button" value="readOnly()"
-                           onclick="alert(#{r:component('editor')}.readOnly()); return false;"/>
+                           onclick="alert(#{rich:component('editor')}.readOnly()); return false;"/>
                     <h:button type="button" value="value('test')"
-                           onclick="#{r:component('editor')}.value('test'); return false;"/>
+                           onclick="#{rich:component('editor')}.value('test'); return false;"/>
                     <h:button type="button" value="value()"
-                           onclick="alert(#{r:component('editor')}.value()); return false;"/>
+                           onclick="alert(#{rich:component('editor')}.value()); return false;"/>
                     <h:button type="button" value="editor()"
-                           onclick="alert(#{r:component('editor')}.editor()); return false;"/>
+                           onclick="alert(#{rich:component('editor')}.editor()); return false;"/>
                     <h:button type="button" value="focus()"
-                           onclick="#{r:component('editor')}.focus(); return false;"/>
+                           onclick="#{rich:component('editor')}.focus(); return false;"/>
                     <h:button type="button" value="blur()"
-                           onclick="#{r:component('editor')}.blur(); return false;"/>
+                           onclick="#{rich:component('editor')}.blur(); return false;"/>
                     <h:button type="button" value="isFocused()"
-                           onclick="alert(#{r:component('editor')}.isFocused()); return false;"/>
+                           onclick="alert(#{rich:component('editor')}.isFocused()); return false;"/>
                     <h:button type="button" value="isValueChanged()"
-                           onclick="alert(#{r:component('editor')}.isValueChanged()); return false;"/>
+                           onclick="alert(#{rich:component('editor')}.isValueChanged()); return false;"/>
                     <h:button type="button" value="isDirty()"
-                           onclick="alert(#{r:component('editor')}.isDirty()); return false;"/>
+                           onclick="alert(#{rich:component('editor')}.isDirty()); return false;"/>
                </h:panelGrid>
                 
                 <h:panelGrid columns="2">
@@ -106,7 +106,7 @@
                     <h:outputLabel value="onfocus:"/>
                     <h:inputText value="#{editor.onfocus}"/>
         
-                    <h:outputLabel value="onblur:"/>
+                    <h:outputLabel value="onblurich:"/>
                     <h:inputText value="#{editor.onblur}"/>
         
                     <h:outputLabel value="onchange:"/>
@@ -139,7 +139,7 @@
                     <h:outputLabel value="Skin:"/>
                     <h:inputText value="#{editor.skin}"/>
         
-                    <h:outputLabel value="Toolbar:"/>
+                    <h:outputLabel value="Toolbarich:"/>
                     <h:inputText value="#{editor.toolbar}"/>
                     
                     <h:outputLabel value="config:" />

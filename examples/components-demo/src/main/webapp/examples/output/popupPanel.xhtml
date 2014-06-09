@@ -37,7 +37,7 @@
             <h:outputLink value="#" onclick="RichFaces.component('form:popup').show(); return false;">
                 Open popup
             </h:outputLink>
-            <r:popupPanel id="popup" left="#{modalPanel.left}" top="#{modalPanel.top}" height="#{modalPanel.height}"
+            <rich:popupPanel id="popup" left="#{modalPanel.left}" top="#{modalPanel.top}" height="#{modalPanel.height}"
                 width="#{modalPanel.width}" minHeight="#{modalPanel.minHeight}" minWidth="#{modalPanel.minWidth}"
                 maxHeight="#{modalPanel.maxHeight}" maxWidth="#{modalPanel.maxWidth}" moveable="#{modalPanel.moveable}"
                 resizeable="#{modalPanel.resizeable}" keepVisualState="#{modalPanel.keepVisualState}"
@@ -68,7 +68,7 @@
 
                 <h:inputText value="#{modalPanel.inputTextTest}" />
 
-            </r:popupPanel>
+            </rich:popupPanel>
 
             <h:panelGrid columns="2">
                 <h:outputText value="Left: " />

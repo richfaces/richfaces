@@ -34,17 +34,17 @@
     <ui:define name="head">
         <style type="text/css">
             .droppable {
-                border: 1px solid blue;
+                borderich: 1px solid blue;
                 margin: 4px;
                 height: 200px;
                 width: 200px;
-                background-color: yellow;
+                background-colorich: yellow;
                 overflow: auto;
             }
             
             .draggable {
-                border: 1px solid #000000;
-                background-color: gray;
+                borderich: 1px solid #000000;
+                background-colorich: gray;
                 opacity: 0.3;
                 margin: 2px;
                 height: 50px;
@@ -54,22 +54,22 @@
             .rf-ind {
                 height: 20px;
                 width: 20px;
-                border: 1px dotted red;
-                background-color: blue
+                borderich: 1px dotted red;
+                background-colorich: blue
             }
             
             .rf-ind-acpt {
                 height: 20px;
                 width: 20px;
-                border: 1px dotted red;
-                background-color: green;
+                borderich: 1px dotted red;
+                background-colorich: green;
             }
             
             .rf-ind-rejt {
                 height: 20px;
                 width: 20px;
-                border: 1px dotted green;
-                background-color: red;
+                borderich: 1px dotted green;
+                background-colorich: red;
             }
             #testDND {
                 position: absolute;
@@ -93,22 +93,22 @@
             </ul>
             
             
-            <r:dragIndicator id="ind" />
+            <rich:dragIndicator id="ind" />
             
             <div  id="testDNDDiv">
                 <table id="testDND">
                     <tr>
                         <td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
                                 <h:outputText value="#{dndBean.dragValue1}" />
-                                <r:dragSource type="drg1" dragValue="#{dndBean.dragValue1}" />
+                                <rich:dragSource type="drg1" dragValue="#{dndBean.dragValue1}" />
                             </a4j:outputPanel></td>
                         <td><a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
                                 <h:outputText value="#{dndBean.dragValue2}" />
-                                <r:dragSource type="drg2" dragIndicator="ind" dragValue="#{dndBean.dragValue2}" />
+                                <rich:dragSource type="drg2" dragIndicator="ind" dragValue="#{dndBean.dragValue2}" />
                             </a4j:outputPanel></td>
                         <td><a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
                                 <h:outputText value="#{dndBean.dragValue3}" />
-                                <r:dragSource type="drg3" dragIndicator="ind" dragValue="#{dndBean.dragValue3}" />
+                                <rich:dragSource type="drg3" dragIndicator="ind" dragValue="#{dndBean.dragValue3}" />
                             </a4j:outputPanel></td>
                         <td>
                             <ul>
@@ -130,7 +130,7 @@
             </div>
 
             <a4j:outputPanel id="drp" layout="block" styleClass="droppable">
-                <r:dropTarget acceptedTypes="#{dndBean.acceptedTypes}" dropListener="#{dropListenerBean.processDrop}"
+                <rich:dropTarget acceptedTypes="#{dndBean.acceptedTypes}" dropListener="#{dropListenerBean.processDrop}"
                     render="grid executeOut" execute="executeIn" immediate="#{dndBean.immediate}"
                     onbeforedomupdate="alert('onbeforedomupdate')" oncomplete="alert('oncomlete')" status="dndstatus"
                     bypassUpdates="#{dndBean.bypassUpdates}" />

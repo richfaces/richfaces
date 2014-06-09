@@ -38,22 +38,22 @@
                 <h:inputText id="text" value="#{test.value}">
                     <f:validateRegex pattern="^ab[1-3]*$" />
                     <f:validator validatorId="custom" />
-                    <r:validator event="blur" />
+                    <rich:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="out" value="#{test.value}"></h:outputText>
-                <r:notifyMessage id="uiMessage" for="text" />
+                <rich:notifyMessage id="uiMessage" for="text" />
                 <h:outputLabel for="number" value="Four annotations for number, with custom msg" />
                 <h:inputText id="number" value="#{test.numbers}" converterMessage="Nor a number" validatorMessage="Wrong number">
-                    <r:validator event="blur" />
+                    <rich:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="outNum" value="#{test.numbers}"></h:outputText>
-                <r:notifyMessage id="uiNumMessage" for="number" />
+                <rich:notifyMessage id="uiNumMessage" for="number" />
             </h:panelGrid>
             <h:commandButton value="Submit form" />
             <h:graphicImage value="/bg.jpg">
                 <a4j:ajax event="click" value="AJAX Submit" render="out" onbeforesubmit="alert('Before AJAX')" />
             </h:graphicImage>
         </h:form>
-        <r:notifyMessages />
+        <rich:notifyMessages />
     </ui:define>
 </ui:composition>

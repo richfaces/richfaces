@@ -65,7 +65,7 @@
 
                 var onclear = function (event) {
                     var data = event.rf.data;
-                    RichFaces.log.info(jQuery('<b>onclear:</b>'));
+                    RichFaces.log.info(jQuery('<b>onclearich:</b>'));
                     for (var i in data) {
                         var item = data[i];
                         RichFaces.log.info('    ' + item.name + ' ' + item.state);
@@ -82,7 +82,7 @@
                 <a4j:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
             </a4j:jsFunction>
             <h:panelGrid columns="2" columnClasses="top,top">
-                <r:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}"
+                <rich:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}"
                                disabled="#{fileUploadBean.disabled}"
                                fileUploadListener="#{fileUploadBean.listener}"
                                noDuplicate="#{fileUploadBean.noDuplicate}"
@@ -95,22 +95,22 @@
                                immediateUpload="#{fileUploadBean.immediateUpload}"
                         >
                     <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
-                </r:fileUpload>
+                </rich:fileUpload>
                 <h:panelGroup id="info" layout="block">
-                    <r:panel bodyClass="info">
+                    <rich:panel bodyClass="info">
                         <f:facet name="header">
                             <h:outputText value="Uploaded Files Info"/>
                         </f:facet>
                         <h:outputText value="No files currently uploaded" rendered="#{empty fileUploadBean.files}"/>
-                        <r:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
-                            <r:panel bodyClass="rich-laguna-panel-no-header">
+                        <rich:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
+                            <rich:panel bodyClass="rich-laguna-panel-no-header">
                                 <h:panelGrid columns="2">
                                     <h:outputText value="File Name:"/>
                                     <h:outputText value="#{file.name}"/>
                                 </h:panelGrid>
-                            </r:panel>
-                        </r:dataGrid>
-                    </r:panel>
+                            </rich:panel>
+                        </rich:dataGrid>
+                    </rich:panel>
                     <br/>
                     <a4j:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload"
                                        value="Clear Uploaded Data"

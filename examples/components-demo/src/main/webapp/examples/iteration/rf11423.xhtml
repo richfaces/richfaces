@@ -41,15 +41,15 @@
             <h:commandLink value="Regular submit"/>
 
             <!--jLT=jobLineTable-->
-            <r:dataTable id="jLT" value="#{rf11423.titles}" var="title" rowClasses="even,odd">
+            <rich:dataTable id="jLT" value="#{rf11423.titles}" var="title" rowClasses="even,odd">
 
-                <r:column>
+                <rich:column>
                     <f:facet name="header">Hero</f:facet>
                     <h:outputText value="#{title}" />
                     
-                </r:column>
+                </rich:column>
 
-            </r:dataTable>
+            </rich:dataTable>
         </h:form>
     
     </ui:define>

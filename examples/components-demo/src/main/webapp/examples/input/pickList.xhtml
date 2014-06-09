@@ -45,7 +45,7 @@
         <fieldset>
             <legend>PickList w/ selectItem</legend>
             <h:form>
-                <r:pickList id="pickList1" value="#{inputBean.values}" style="font-size: 2em;" sourceCaption="Source Items"
+                <rich:pickList id="pickList1" value="#{inputBean.values}" style="font-size: 2em;" sourceCaption="Source Items"
                              targetCaption="target Items">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
@@ -62,7 +62,7 @@
                     <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
                     <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
                     <f:ajax event="change" execute="@form" render="out1"/>
-                </r:pickList>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList1 out1"/>
                 </h:commandButton>
@@ -78,7 +78,7 @@
         <fieldset>
             <legend>PickList - disabled</legend>
             <h:form>
-                <r:pickList id="pickList2" value="#{inputBean.values}" disabled="true" disabledClass="someDisabledClass"
+                <rich:pickList id="pickList2" value="#{inputBean.values}" disabled="true" disabledClass="someDisabledClass"
                              sourceCaption="Source Items" targetCaption="target Items">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
@@ -95,7 +95,7 @@
                     <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
                     <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
                     <f:ajax event="change" execute="@form" render="out2"/>
-                </r:pickList>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList2 out2"/>
                 </h:commandButton>
@@ -111,7 +111,7 @@
         <fieldset>
             <legend>PickList - addItems and removeItems listeners</legend>
             <h:form>
-                <r:pickList id="pickList3" value="#{inputBean.values}" sourceCaption="Source Items"
+                <rich:pickList id="pickList3" value="#{inputBean.values}" sourceCaption="Source Items"
                              targetCaption="target Items"
                              onadditems="alert('Item Added.')"
                              onremoveitems="alert('Item Removed.')">
@@ -130,7 +130,7 @@
                     <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
                     <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
                     <f:ajax event="change" execute="@form" render="out3"/>
-                </r:pickList>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList3 out3"/>
                 </h:commandButton>
@@ -146,13 +146,13 @@
         <fieldset>
             <legend>PickList f:selectItems</legend>
             <h:form>
-                <r:pickList id="pickList3b" value="#{richBean.values}" sourceCaption="Source Items"
+                <rich:pickList id="pickList3b" value="#{richBean.values}" sourceCaption="Source Items"
                              targetCaption="target Items" listHeight="">
                     <f:selectItems value="#{entityBeanSelector.values}" var="item" itemValue="#{item}"
                                    itemLabel="#{item.title}"/>
                     <f:converter converterId="EntityBeanConverter"/>
                     <f:ajax event="change" execute="@form" render="out3b"/>
-                </r:pickList>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList3b out3b"/>
                 </h:commandButton>
@@ -168,17 +168,17 @@
         <fieldset>
             <legend>PickList w/ f:selectItems and columns</legend>
             <h:form>
-                <r:pickList id="pickList4" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                <rich:pickList id="pickList4" value="#{richBean.values}" var="item" sourceCaption="Source Items"
                              targetCaption="Target Items">
                     <f:selectItems value="#{entityBeanSelector.values}"/>
                     <f:converter converterId="EntityBeanConverter"/>
-                    <r:column styleClass="my-select-class">
+                    <rich:column styleClass="my-select-class">
                         #{item.value}
-                    </r:column>
-                    <r:column>
+                    </rich:column>
+                    <rich:column>
                         #{item.title}
-                    </r:column>
-                </r:pickList>
+                    </rich:column>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList4 out4"/>
                 </h:commandButton>
@@ -196,17 +196,17 @@
         <fieldset>
             <legend>PickList w/ ordering (listShuttle)</legend>
             <h:form>
-                <r:pickList id="pickList5" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                <rich:pickList id="pickList5" value="#{richBean.values}" var="item" sourceCaption="Source Items"
                              targetCaption="Target Items" orderable="true">
                     <f:selectItems value="#{entityBeanSelector.values}"/>
                     <f:converter converterId="EntityBeanConverter"/>
-                    <r:column>
+                    <rich:column>
                         #{item.value}
-                    </r:column>
-                    <r:column>
+                    </rich:column>
+                    <rich:column>
                         #{item.title}
-                    </r:column>
-                </r:pickList>
+                    </rich:column>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList5 out5"/>
                 </h:commandButton>
@@ -224,17 +224,17 @@
         <fieldset>
             <legend>PickList w/ my-select-class</legend>
             <h:form>
-                <r:pickList id="pickList6" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                <rich:pickList id="pickList6" value="#{richBean.values}" var="item" sourceCaption="Source Items"
                              targetCaption="Target Items" orderable="true" selectItemClass="my-select-class">
                     <f:selectItems value="#{entityBeanSelector.values}"/>
                     <f:converter converterId="EntityBeanConverter"/>
-                    <r:column>
+                    <rich:column>
                         #{item.value}
-                    </r:column>
-                    <r:column>
+                    </rich:column>
+                    <rich:column>
                         #{item.title}
-                    </r:column>
-                </r:pickList>
+                    </rich:column>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList6 out6"/>
                 </h:commandButton>
@@ -252,18 +252,18 @@
         <fieldset>
             <legend>PickList w/ required</legend>
             <h:form>
-                <r:pickList id="pickList7" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                <rich:pickList id="pickList7" value="#{richBean.values}" var="item" sourceCaption="Source Items"
                              targetCaption="Target Items" required="true" requiredMessage="This is required!">
                     <f:selectItems value="#{entityBeanSelector.values}"/>
                     <f:converter converterId="EntityBeanConverter"/>
                     <f:validator validatorId="EntityBeanValidator"/>
-                    <r:column>
+                    <rich:column>
                         #{item.value}
-                    </r:column>
-                    <r:column>
+                    </rich:column>
+                    <rich:column>
                         #{item.title}
-                    </r:column>
-                </r:pickList>
+                    </rich:column>
+                </rich:pickList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="pickList7 out7"/>
                 </h:commandButton>

@@ -37,23 +37,23 @@
 
     <h:outputStylesheet>/*<![CDATA[*/
 	.customClass .customNodeClass {
-		border: 1px solid navy;
+		borderich: 1px solid navy;
 	}
 
 	.customClass .customHandleClass {
-		border: 1px solid red;
+		borderich: 1px solid red;
 	}
 
 	.customClass .customIconClass {
-		border: 1px solid yellow;
+		borderich: 1px solid yellow;
 	}
 
 	.customClass .customLabelClass {
-		border: 1px solid green;
+		borderich: 1px solid green;
 	}
 
 	.loadingWithoutFacet .rf-trn-ldn .rf-trn-hnd {
-		cursor: default;
+		cursorich: default;
 		background-image: url(#{facesContext.externalContext.requestContextPath}/images/loading.gif);
 	}
 
@@ -137,32 +137,32 @@
     <hr />
 
     Base tree:
-        <r:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node"
+        <rich:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node"
                  value="#{treeBean.rootNodes}"
                  selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
                  selection="#{treeBean.selection}">
 
-            <r:treeToggleListener listener="#{treeBean.toggleActionListenerImpl.processToggleAction}"/>
-            <r:treeSelectionChangeListener binding="#{treeBean.selectionChangeActionListener}"
+            <rich:treeToggleListener listener="#{treeBean.toggleActionListenerImpl.processToggleAction}"/>
+            <rich:treeSelectionChangeListener binding="#{treeBean.selectionChangeActionListener}"
                                             type="org.richfaces.demo.SelectionChangeActionListenerImpl"/>
 
-            <r:treeNode type="rootNode">
+            <rich:treeNode type="rootNode">
                 <h:panelGroup id="rootNodeGroup" styleClass="rootNode">
                     Root node: #{node.data} -
                     <h:commandLink value="link" action="#{treeBean.clickNode}">
                         <f:ajax render=":messages"/>
                     </h:commandLink>
                 </h:panelGroup>
-            </r:treeNode>
-            <r:treeNode type="childNode">
+            </rich:treeNode>
+            <rich:treeNode type="childNode">
                 <h:panelGroup id="childNodeGroup">
                     #{node.data} -
                     <h:commandLink value="link" action="#{treeBean.clickNode}">
                         <f:ajax render=":messages"/>
                     </h:commandLink>
                 </h:panelGroup>
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <h:commandLink value="Re-render">
             <f:ajax render=":form:tree" execute="@all"/>
@@ -171,37 +171,37 @@
         <hr />
 
         Base tree w/ filtered contextMenu:
-        <r:tree id="treeContextMenu" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node"
+        <rich:tree id="treeContextMenu" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node"
                  value="#{treeBean.rootNodes}"
                  selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
                  selection="#{treeBean.selection}">
 
-            <r:treeToggleListener listener="#{treeBean.toggleActionListenerImpl.processToggleAction}"/>
-            <r:treeSelectionChangeListener binding="#{treeBean.selectionChangeActionListener}"
+            <rich:treeToggleListener listener="#{treeBean.toggleActionListenerImpl.processToggleAction}"/>
+            <rich:treeSelectionChangeListener binding="#{treeBean.selectionChangeActionListener}"
                                             type="org.richfaces.demo.SelectionChangeActionListenerImpl"/>
 
-            <r:treeNode type="rootNode">
+            <rich:treeNode type="rootNode">
                 <h:panelGroup id="rootNodeGroup" styleClass="rootNode">
                     Root node: #{node.data} -
                     <h:commandLink value="link" action="#{treeBean.clickNode}">
                         <f:ajax render=":messages"/>
                     </h:commandLink>
                 </h:panelGroup>
-            </r:treeNode>
-            <r:treeNode type="childNode">
+            </rich:treeNode>
+            <rich:treeNode type="childNode">
                 <h:panelGroup id="childNodeGroup">
                     #{node.data} -
                     <h:commandLink value="link" action="#{treeBean.clickNode}">
                         <f:ajax render=":messages"/>
                     </h:commandLink>
                 </h:panelGroup>
-            </r:treeNode>
+            </rich:treeNode>
             <f:ajax render=":form:contextMenu" event="nodetoggle"/>
-        </r:tree>
+        </rich:tree>
 
-        <r:contextMenu id="contextMenu" target="form:treeContextMenu" mode="ajax" targetSelector=".rootNode">
-            <r:menuItem label="View" render="popupContent" oncomplete="alert('view')" mode="ajax"/>
-        </r:contextMenu>
+        <rich:contextMenu id="contextMenu" target="form:treeContextMenu" mode="ajax" targetSelector=".rootNode">
+            <rich:menuItem label="View" render="popupContent" oncomplete="alert('view')" mode="ajax"/>
+        </rich:contextMenu>
 
         <h:commandLink value="Re-render">
             <f:ajax render=":form:treeContextMenu" execute="@all"/>
@@ -210,68 +210,68 @@
         <hr />
 
         org.richfaces.model.TreeNode support:
-        <r:tree id="treeNodeSupport" value="#{treeBean.classicTreeNode}" var="node"
+        <rich:tree id="treeNodeSupport" value="#{treeBean.classicTreeNode}" var="node"
                  selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}" rowKeyConverter="#{treeBean.integerSequenceKeyConveter}">
-            <r:treeNode>
+            <rich:treeNode>
                 #{node.data} -
                 <h:commandLink value="link" action="#{treeBean.clickNode}">
                     <f:ajax render=":messages"/>
                 </h:commandLink>
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
         org.richfaces.model.TreeDataModel support:
-        <r:tree id="treeDataModelSupport" value="#{treeBean.treeDataModel}" var="node"
+        <rich:tree id="treeDataModelSupport" value="#{treeBean.treeDataModel}" var="node"
                  selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}" rowKeyConverter="#{treeBean.integerSequenceKeyConveter}">
-            <r:treeNode>
+            <rich:treeNode>
                 #{node.data} -
                 <h:commandLink value="link" action="#{treeBean.clickNode}">
                     <f:ajax render=":messages"/>
                 </h:commandLink>
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
         Tree with customized look:
-        <r:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}"
+        <rich:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}" styleClass="#{treeBean.showCustomClasses ? 'customClass' : ''}"
                  nodeClass="customNodeClassFromTree" handleClass="customHandleClassFromTree"
                  iconClass="customIconClassFromTree"
                  labelClass="customLabelClassFromTree">
 
-            <r:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png"
+            <rich:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png"
                          styleClass="customNodeClass" handleClass="customHandleClass" iconClass="customIconClass"
                          labelClass="customLabelClass">
                 #{node.data}
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
         Tree with default node:
-        <r:tree id="defaultNodeTree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}"
+        <rich:tree id="defaultNodeTree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}">
-        </r:tree>
+        </rich:tree>
 
         <hr />
 
         Tree with client-side event handlers:
-        <r:tree id="clientSideEventsTree" var="node" value="#{treeBean.rootNodes}"
+        <rich:tree id="clientSideEventsTree" var="node" value="#{treeBean.rootNodes}"
                  selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}" onnodetoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, false)"
                  onselectionchange="handleNodeSelect(event)" onbeforeselectionchange="return handleBeforeNodeSelect(event)"
                  onbeforenodetoggle="return handleBeforeNodeToggle(event, false)">
 
-            <r:treeNode ontoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, true)"
+            <rich:treeNode ontoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, true)"
                          onbeforetoggle="return handleBeforeNodeToggle(event, true)">
                 #{node.data}
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
@@ -279,7 +279,7 @@
         <h:messages id="treeBehaviorsMessages" for="behaviorsAttachedTree"/>
         <h:messages id="treeNodeBehaviorsMessages" globalOnly="true"/>
 
-        <r:tree id="behaviorsAttachedTree" var="node" value="#{treeBean.rootNodes}"
+        <rich:tree id="behaviorsAttachedTree" var="node" value="#{treeBean.rootNodes}"
                  selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}">
 
@@ -287,24 +287,24 @@
             <f:ajax event="selectionchange" listener="#{treeBean.behaviorSelectionChangeListener}"
                     render=":form:treeBehaviorsMessages :form:treeNodeBehaviorsMessages"/>
 
-            <r:treeNode>
+            <rich:treeNode>
                 #{node.data}
 
                 <f:ajax event="toggle" listener="#{treeBean.behaviorToggleListener}"
                         render=":form:treeNodeBehaviorsMessages"/>
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
         Lazy loaded tree:
-        <r:tree id="lazyLoadedTree" var="node" value="#{treeBean.lazyRootNodes}" selectionType="#{treeBean.selectionType}"
+        <rich:tree id="lazyLoadedTree" var="node" value="#{treeBean.lazyRootNodes}" selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}">
 
-            <r:treeNode>
+            <rich:treeNode>
                 #{node.wrappedNode.data}
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <a4j:outputPanel ajaxRendered="true">
             <h:messages for="serverListenersTree"/>
@@ -313,41 +313,41 @@
         <hr />
 
         Server listeners test:
-        <r:tree id="serverListenersTree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}"
+        <rich:tree id="serverListenersTree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}"
                  toggleType="#{treeBean.toggleType}" selectionChangeListener="#{treeBean.processSelectionChange}"
                  toggleListener="#{treeBean.processToggle}">
 
-            <r:treeSelectionChangeListener type="org.richfaces.demo.TreeBean$SelectionChangeHandler"/>
-            <r:treeToggleListener type="org.richfaces.demo.TreeBean$ToggleHandler"/>
+            <rich:treeSelectionChangeListener type="org.richfaces.demo.TreeBean$SelectionChangeHandler"/>
+            <rich:treeToggleListener type="org.richfaces.demo.TreeBean$ToggleHandler"/>
 
-            <r:treeNode toggleListener="#{treeBean.processToggle}">
-                <r:treeToggleListener type="org.richfaces.demo.TreeBean$ToggleHandler"/>
+            <rich:treeNode toggleListener="#{treeBean.processToggle}">
+                <rich:treeToggleListener type="org.richfaces.demo.TreeBean$ToggleHandler"/>
 
                 #{node.data}
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
         Toggle node event:
-        <r:tree toggleNodeEvent="#{treeBean.toggleNodeEvent}" var="node" value="#{treeBean.rootNodes}"
+        <rich:tree toggleNodeEvent="#{treeBean.toggleNodeEvent}" var="node" value="#{treeBean.rootNodes}"
                  selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
-            <r:treeNode>
+            <rich:treeNode>
                 #{node.data}
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
-        execute/render:
+        execute/renderich:
         <h:panelGrid columns="2" id="executeRenderTreeGrid">
-            <r:tree var="node" value="#{treeBean.rootNodes}" execute="executeRenderTreeGrid" render="selectionIndicator"
+            <rich:tree var="node" value="#{treeBean.rootNodes}" execute="executeRenderTreeGrid" render="selectionIndicator"
                      selection="#{treeBean.selection}" selectionType="#{treeBean.selectionType}"
                      toggleType="#{treeBean.toggleType}">
-                <r:treeNode>
+                <rich:treeNode>
                     #{node.data}
-                </r:treeNode>
-            </r:tree>
+                </rich:treeNode>
+            </rich:tree>
 
             <h:panelGroup layout="block" id="selectionIndicator" style="margin-left: 50px;">
                 Current time: #{treeBean.currentTimeAsString}
@@ -375,20 +375,20 @@
         <hr />
 
         'handleLoading' facet:
-        <r:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node">
-            <r:treeNode>
+        <rich:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node">
+            <rich:treeNode>
                 <f:facet name="handleLoading">
                     <h:graphicImage value="/images/loading.gif"/>
                 </f:facet>
 
                 #{node}
-            </r:treeNode>
-        </r:tree>
+            </rich:treeNode>
+        </rich:tree>
 
         <hr />
 
         'handleLoading' without facet:
-        <r:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node" styleClass="loadingWithoutFacet"/>
+        <rich:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node" styleClass="loadingWithoutFacet"/>
 
         <a4j:queue/>
 

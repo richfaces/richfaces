@@ -34,7 +34,7 @@
 
         <style type="text/css">
         input.customPlaceholderClass {
-            color: blue !important
+            colorich: blue !important
         }
         </style>
         
@@ -64,61 +64,61 @@
                 
                 h:inputText with styleClass:
                 <h:inputText id="with-placeholder" value="#{placeholderBean.inputText}">
-                    <r:placeholder value="#{placeholderBean.placeholderText}" styleClass="customPlaceholderClass" rendered="#{placeholderBean.rendered}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" styleClass="customPlaceholderClass" rendered="#{placeholderBean.rendered}" />
                 </h:inputText>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
     
-                r:calendar:
-                <r:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
-                    <r:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </r:calendar>
+                rich:calendarich:
+                <rich:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </rich:calendar>
                 <h:outputText value="Output: #{placeholderBean.date}" />
                 <br />
     
                 textarea:
                 <h:inputTextarea id="textarea" value="#{placeholderBean.textarea}" rows="10" cols="40">
-                    <r:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </h:inputTextarea>
                 <h:outputText value="Output: #{placeholderBean.textarea}" />
                 <br />
     
                 non-JSF input:
                 <input id="htmlInput" type="text" />
-                <r:placeholder value="#{placeholderBean.textObject}" selector="#htmlInput"
+                <rich:placeholder value="#{placeholderBean.textObject}" selector="#htmlInput"
                     converter="#{placeholderBean.converter}" rendered="#{placeholderBean.rendered}" />
 
                 <br />
                 
-                r:autocomplete
-                <r:autocomplete id="autocomplete" value="#{placeholderBean.inputText}">
-                    <r:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </r:autocomplete>
+                rich:autocomplete
+                <rich:autocomplete id="autocomplete" value="#{placeholderBean.inputText}">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </rich:autocomplete>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
                 
-                r:inplaceSelect
-                <r:inplaceSelect id="inplaceSelect" value="#{placeholderBean.inputText}">
+                rich:inplaceSelect
+                <rich:inplaceSelect id="inplaceSelect" value="#{placeholderBean.inputText}">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-                    <r:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </r:inplaceSelect>
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </rich:inplaceSelect>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
                 
-                r:inplaceInput
-                <r:inplaceInput id="inplaceInput" value="#{placeholderBean.inputText}">
-                    <r:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </r:inplaceInput>
+                rich:inplaceInput
+                <rich:inplaceInput id="inplaceInput" value="#{placeholderBean.inputText}">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </rich:inplaceInput>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
 
-                r:select
-                <r:select id="select" value="#{placeholderBean.inputText}">
+                rich:select
+                <rich:select id="select" value="#{placeholderBean.inputText}">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-                    <r:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </r:select>
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </rich:select>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
 

@@ -50,57 +50,57 @@
             <h:outputText id="date-p" value="Current date-p  #{modalPanel.date}" />
             <br />
 
-            <h:form id="f" style="border:blue solid thin;">
-                <r:panelMenu id="panelMenu" expandSingle="true" itemMode="ajax" groupMode="ajax" activeItem="myFavariteIten"
+            <h:form id="f" style="borderich:blue solid thin;">
+                <rich:panelMenu id="panelMenu" expandSingle="true" itemMode="ajax" groupMode="ajax" activeItem="myFavariteIten"
                     itemDisabledLeftIcon="disc" groupDisabledLeftIcon="disc" topItemDisabledLeftIcon="disc"
                     topGroupDisabledLeftIcon="disc" itemChangeListener="#{modalPanel.itemChangeEventListener}"
                     expandEvent="dblclick" collapseEvent="dblclick" execute="date-p" render="date-p">
 
-                    <r:panelMenuGroup label="Group 1" selectable="true" execute="date-g1" render="date-g1" mode="ajax"
+                    <rich:panelMenuGroup label="Group 1" selectable="true" execute="date-g1" render="date-g1" mode="ajax"
                         action="#{modalPanel.action}">
                         <f:param name="alexParam01" value="alexValue01" />
                         <f:param name="alexParam02" value="alexValue02" />
                         <f:param name="alexParam03" value="alexValue03" />
                         <f:param name="alexParam04" value="alexValue04" />
 
-                        <r:panelMenuItem execute="date-i" render="date-i" mode="server" action="#{modalPanel.action}">
+                        <rich:panelMenuItem execute="date-i" render="date-i" mode="server" action="#{modalPanel.action}">
                             <f:param name="alexParam11" value="alexValue11" />
                             <f:param name="alexParam12" value="alexValue12" />
                             <f:param name="alexParam13" value="alexValue13" />
                             <f:param name="alexParam14" value="alexValue14" />
                         Item 1.1
-                    </r:panelMenuItem>
-                        <r:panelMenuItem execute="date-i" render="date-i" mode="server" action="#{modalPanel.action}">Item 1.2
-                    </r:panelMenuItem>
-                        <r:panelMenuItem execute="date-i" render="date-i" mode="server" action="#{modalPanel.action}">Item 1.3
-                    </r:panelMenuItem>
-                    </r:panelMenuGroup>
-                    <r:panelMenuGroup label="Group 2" leftCollapsedIcon="triangle" leftExpandedIcon="triangleDown">
-                        <r:panelMenuItem label="Item 2.1" />
-                        <r:panelMenuGroup label="Group 2.2" leftCollapsedIcon="chevron" leftExpandedIcon="chevronDown">
-                            <r:panelMenuItem label="Item 2.2.1" action="#{modalPanel.action}" />
-                            <r:panelMenuItem label="Item 2.2.2" name="myFavariteIten" />
-                            <r:panelMenuItem label="Item 2.2.3" />
-                        </r:panelMenuGroup>
-                        <r:panelMenuItem label="Item 2.3" />
-                    </r:panelMenuGroup>
-                    <r:panelMenuGroup label="Group 3">
-                        <r:panelMenuItem label="Item 3.1" disabled="true" />
-                        <r:panelMenuItem label="Item 3.2" />
-                        <r:panelMenuItem label="Item 3.3" />
-                        <r:panelMenuGroup label="Group 3.4" disabled="true">
-                            <r:panelMenuItem label="Item 3.4.1" />
-                            <r:panelMenuItem label="Item 3.4.2" name="mySecondFavariteIten" />
-                            <r:panelMenuItem label="Item 3.4.3" />
-                        </r:panelMenuGroup>
-                    </r:panelMenuGroup>
-                    <r:panelMenuGroup label="Group 4">
-                        <r:panelMenuItem label="Item 4.1" />
-                        <r:panelMenuItem label="Item 4.2" />
-                        <r:panelMenuItem label="Item 4.3" />
-                    </r:panelMenuGroup>
-                    <r:panelMenuGroup label="Group 5" disabled="true" />
-                </r:panelMenu>
+                    </rich:panelMenuItem>
+                        <rich:panelMenuItem execute="date-i" render="date-i" mode="server" action="#{modalPanel.action}">Item 1.2
+                    </rich:panelMenuItem>
+                        <rich:panelMenuItem execute="date-i" render="date-i" mode="server" action="#{modalPanel.action}">Item 1.3
+                    </rich:panelMenuItem>
+                    </rich:panelMenuGroup>
+                    <rich:panelMenuGroup label="Group 2" leftCollapsedIcon="triangle" leftExpandedIcon="triangleDown">
+                        <rich:panelMenuItem label="Item 2.1" />
+                        <rich:panelMenuGroup label="Group 2.2" leftCollapsedIcon="chevron" leftExpandedIcon="chevronDown">
+                            <rich:panelMenuItem label="Item 2.2.1" action="#{modalPanel.action}" />
+                            <rich:panelMenuItem label="Item 2.2.2" name="myFavariteIten" />
+                            <rich:panelMenuItem label="Item 2.2.3" />
+                        </rich:panelMenuGroup>
+                        <rich:panelMenuItem label="Item 2.3" />
+                    </rich:panelMenuGroup>
+                    <rich:panelMenuGroup label="Group 3">
+                        <rich:panelMenuItem label="Item 3.1" disabled="true" />
+                        <rich:panelMenuItem label="Item 3.2" />
+                        <rich:panelMenuItem label="Item 3.3" />
+                        <rich:panelMenuGroup label="Group 3.4" disabled="true">
+                            <rich:panelMenuItem label="Item 3.4.1" />
+                            <rich:panelMenuItem label="Item 3.4.2" name="mySecondFavariteIten" />
+                            <rich:panelMenuItem label="Item 3.4.3" />
+                        </rich:panelMenuGroup>
+                    </rich:panelMenuGroup>
+                    <rich:panelMenuGroup label="Group 4">
+                        <rich:panelMenuItem label="Item 4.1" />
+                        <rich:panelMenuItem label="Item 4.2" />
+                        <rich:panelMenuItem label="Item 4.3" />
+                    </rich:panelMenuGroup>
+                    <rich:panelMenuGroup label="Group 5" disabled="true" />
+                </rich:panelMenu>
             </h:form>
 
             <p>Result</p>
@@ -108,7 +108,7 @@
             <div>
                 <ol id="qunit-tests"></ol>
 
-                <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+                <div id="testDiv" style="margin-top: 10px; borderich: 1px solid #a0a0a0">Main Test Div</div>
             </div>
             <h:outputScript name="tests/richfaces-panel-menu-qunit.js" />
         </ui:define>

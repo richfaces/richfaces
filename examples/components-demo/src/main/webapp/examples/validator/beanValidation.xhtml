@@ -37,18 +37,18 @@
                 <c:forEach items="#{validatorBean.beans}" var="bean">
                     <h:outputLabel for="${bean.label}" value="#{bean.description}" />
                     <h:inputText id="${bean.label}" value="#{bean.value}" label="#{bean.label}" converter="#{bean.converter}">
-                        <r:validator summary="Invalid value" />
+                        <rich:validator summary="Invalid value" />
                     </h:inputText>
-                    <r:message for="${bean.label}" tooltip="true" />
+                    <rich:message for="${bean.label}" tooltip="true" />
                 </c:forEach>
                 <h:outputLabel for="assertTrue" value="#{booleanBean.description}" />
                 <h:selectBooleanCheckbox id="assertTrue" value="#{booleanBean.value}" label="#{booleanBean.label}">
-                    <r:validator summary="Required checkbox" />
+                    <rich:validator summary="Required checkbox" />
                 </h:selectBooleanCheckbox>
-                <r:message for="assertTrue" showDetail="true" showSummary="true" />
+                <rich:message for="assertTrue" showDetail="true" showSummary="true" />
             </h:panelGrid>
             <h:commandButton value="Submit"></h:commandButton>
-            <r:messages showDetail="true" showSummary="true" />
+            <rich:messages showDetail="true" showSummary="true" />
         </h:form>
     </ui:define>
 </ui:composition>

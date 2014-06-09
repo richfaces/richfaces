@@ -41,23 +41,23 @@
         <ui:define name="body">
             <p>Page</p>
 
-            <h:form id="f" style="border:blue solid thin;">
-                <r:togglePanel id="panel" activeItem="name1" switchType="client" lang="en">
-                    <r:togglePanelItem id="name1" name="name1">hello name1</r:togglePanelItem>
-                    <r:togglePanelItem id="name2" name="name2">hello name2</r:togglePanelItem>
-                    <r:togglePanelItem id="name3" name="name3">hello name3</r:togglePanelItem>
-                </r:togglePanel>
+            <h:form id="f" style="borderich:blue solid thin;">
+                <rich:togglePanel id="panel" activeItem="name1" switchType="client" lang="en">
+                    <rich:togglePanelItem id="name1" name="name1">hello name1</rich:togglePanelItem>
+                    <rich:togglePanelItem id="name2" name="name2">hello name2</rich:togglePanelItem>
+                    <rich:togglePanelItem id="name3" name="name3">hello name3</rich:togglePanelItem>
+                </rich:togglePanel>
 
                 <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="name1" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="name1" event="click" />
                 name1
             </h:outputLink>
                 <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="name2" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="name2" event="click" />
                 name2
             </h:outputLink>
                 <h:outputLink>
-                    <r:toggleControl targetPanel="panel" targetItem="name3" event="click" />
+                    <rich:toggleControl targetPanel="panel" targetItem="name3" event="click" />
                 name3
             </h:outputLink>
             </h:form>
@@ -70,7 +70,7 @@
                 <!--<h2 id="qunit-userAgent"></h2>-->
                 <ol id="qunit-tests"></ol>
 
-                <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+                <div id="testDiv" style="margin-top: 10px; borderich: 1px solid #a0a0a0">Main Test Div</div>
 
             </div>
             <h:outputScript name="tests/richfaces-toggle-panel-qunit.js" />

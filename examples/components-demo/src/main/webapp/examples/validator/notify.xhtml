@@ -35,25 +35,25 @@
             classes.</p>
         <h:form>
 
-            <r:notify stayTime="5000" summary="Default stack" detail="Details of the message"
+            <rich:notify stayTime="5000" summary="Default stack" detail="Details of the message"
                       nonblockingOpacity="0"/>
 
-            <r:notify summary="Before stack definition" detail="This message is defined in code before stack"
+            <rich:notify summary="Before stack definition" detail="This message is defined in code before stack"
                       stack="bottomLeftStack"/>
-            <r:notify summary="Left bottom stack 2"
+            <rich:notify summary="Left bottom stack 2"
                       detail="This message alos should be displayed in the left bottom corner"
                       showCloseButton="true" stack="bottomLeftStack"/>
-            <r:notifyStack id="bottomLeftStack" position="bottomLeft">
-                <r:notify sticky="true" summary="Left bottom stack"
+            <rich:notifyStack id="bottomLeftStack" position="bottomLeft">
+                <rich:notify sticky="true" summary="Left bottom stack"
                           detail="This message should be displayed in the left bottom corner
                                        and should stay until you close it"
                           showCloseButton="true"/>
-                <r:notify summary="Nonblocking" nonblocking="true"/>
-            </r:notifyStack>
-            <r:notifyMessages interval="1000" stack="bottomRightStack" ajaxRendered="true"/>
-            <r:notifyStack id="bottomRightStack" position="bottomRight" direction="horizontal"/>
+                <rich:notify summary="Nonblocking" nonblocking="true"/>
+            </rich:notifyStack>
+            <rich:notifyMessages interval="1000" stack="bottomRightStack" ajaxRendered="true"/>
+            <rich:notifyStack id="bottomRightStack" position="bottomRight" direction="horizontal"/>
 
-            Leave this blank for error:
+            Leave this blank for errorich:
             <br/>
             <h:outputLabel for="greeting" value="Greeting"/>
             <h:inputText id="greeting" value="#{notifyBean.greeting}" required="true"/>
@@ -74,7 +74,7 @@
         </h:form>
         <!--
         TODO uncomment this once csv:insert is available
-        <r:insert src="/notify.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+        <rich:insert src="/notify.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
         -->
     </ui:define>
 </ui:composition>

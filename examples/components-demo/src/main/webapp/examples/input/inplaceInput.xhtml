@@ -34,14 +34,14 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="form">
-            <r:inplaceInput showControls="true" value="New York" defaultLabel="#{null}">
-            </r:inplaceInput>
+            <rich:inplaceInput showControls="true" value="New York" defaultLabel="#{null}">
+            </rich:inplaceInput>
             <h:commandButton value="submit"/>
-            <r:inplaceInput showControls="true" defaultLabel="click to enter your name" saveOnBlur="true"
+            <rich:inplaceInput showControls="true" defaultLabel="click to enter your name" saveOnBlur="true"
                              onblur="RichFaces.component('form:ii').cancel()" id="ii" activeClass="activeClass"
                              disabledClass="disabledClass"
                              editClass="editClass" changedClass="changedClass" styleClass="styleClass">
-            </r:inplaceInput>
+            </rich:inplaceInput>
         </h:form>
     </ui:define>
 </ui:composition>

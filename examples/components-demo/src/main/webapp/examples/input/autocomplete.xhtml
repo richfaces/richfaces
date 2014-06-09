@@ -37,10 +37,10 @@
     Following sample shows usage of autocomplete in AJAX mode with custom suggestion formatting and fetched value:
     
     <h:form id="custom-formatting">
-    	<r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="cachedAjax" minChars="2" selectFirst="true" var="p" fetchValue="#{p.name}"
+    	<rich:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="cachedAjax" minChars="2" selectFirst="true" var="p" fetchValue="#{p.name}"
             onblur="console.log('blur')">
             #{p.name} - #{p.age}
-        </r:autocomplete>
+        </rich:autocomplete>
         
         <a4j:commandButton render="autocomplete" value="Re-render" />
     </h:form>
@@ -48,14 +48,14 @@
     <h3>Autocomplete with suggestion in table layout</h3>
     
     <h:form id="table-layout">
-        <r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="ajax" var="p" fetchValue="#{p.name}">
-            <r:column>
+        <rich:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="ajax" var="p" fetchValue="#{p.name}">
+            <rich:column>
                 #{p.name}
-            </r:column>
-            <r:column>
+            </rich:column>
+            <rich:column>
                 #{p.age}
-            </r:column>
-        </r:autocomplete>
+            </rich:column>
+        </rich:autocomplete>
         
         <a4j:commandButton render="autocomplete" value="Re-render" />
     </h:form>

@@ -33,46 +33,46 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="f">
-            <r:togglePanel id="panel" activeItem="#{togglePanelBean.value}" switchType="ajax"
+            <rich:togglePanel id="panel" activeItem="#{togglePanelBean.value}" switchType="ajax"
                 itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
-                <r:togglePanelItem name="name1">hello name1</r:togglePanelItem>
-                <r:togglePanelItem name="name2">hello name2</r:togglePanelItem>
-                <r:togglePanelItem name="name3">hello name3</r:togglePanelItem>
-            </r:togglePanel>
+                <rich:togglePanelItem name="name1">hello name1</rich:togglePanelItem>
+                <rich:togglePanelItem name="name2">hello name2</rich:togglePanelItem>
+                <rich:togglePanelItem name="name3">hello name3</rich:togglePanelItem>
+            </rich:togglePanel>
 
             <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="name1" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="name1" event="click" />
             name1
         </h:outputLink>
         |
         <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="name2" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="name2" event="click" />
             name2
         </h:outputLink>
         |
         <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="name3" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="name3" event="click" />
             name3
         </h:outputLink>
 
             <br />
             <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="@first" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="@first" event="click" />
             |&lt; first
         </h:outputLink>
         |
         <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
             &lt;- prev
         </h:outputLink>
         |
         <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="@next" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="@next" event="click" />
             next ->
         </h:outputLink>
         |
         <h:outputLink>
-                <r:toggleControl targetPanel="panel" targetItem="@last" event="click" />
+                <rich:toggleControl targetPanel="panel" targetItem="@last" event="click" />
             last >|
         </h:outputLink>
         </h:form>

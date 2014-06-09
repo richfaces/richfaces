@@ -35,26 +35,26 @@
     <ui:define name="content">
         <h:form id="form">
 
-            <r:panel>
-                <r:fileUpload id="uploadFile1"
+            <rich:panel>
+                <rich:fileUpload id="uploadFile1"
                                fileUploadListener="#{richFileUploadBean2.listener}"
                                maxFilesQuantity="1"
                                immediateUpload="true"
                                listHeight="65px"/>
-            </r:panel>
+            </rich:panel>
 
-            <r:panel>
-                <r:fileUpload id="uploadFile2"
+            <rich:panel>
+                <rich:fileUpload id="uploadFile2"
                                fileUploadListener="#{richFileUploadBean2.listener2}"
                                maxFilesQuantity="1"
                                immediateUpload="true"
                                listHeight="65px"/>
-            </r:panel>
+            </rich:panel>
 
-            <!-- r:panel>
+            <!-- rich:panel>
                 <a4j:commandButton id="addB" value="value" action="#{bean.method3}"
                     render="stg" />
-            </r:panel-->
+            </rich:panel-->
         </h:form>
     </ui:define>
 </ui:composition>

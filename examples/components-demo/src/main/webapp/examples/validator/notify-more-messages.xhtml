@@ -37,37 +37,37 @@
                 <h:outputLabel for="length" value="Text length from 1 to 3:" />
                 <h:inputText id="length" value="#{test.value}">
                     <f:validateLength minimum="1" maximum="3" />
-                    <r:validator event="blur" />
+                    <rich:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="lengthOut" value="#{test.value}"></h:outputText>
-                <r:message for="length" />
-                <r:notifyMessage for="length" />
+                <rich:message for="length" />
+                <rich:notifyMessage for="length" />
 
                 <h:outputLabel for="dblrange" value="Text dblrange from 1.0 to 3.0:" />
                 <h:inputText id="dblrange" value="#{test.doubleValue}">
                     <f:validateDoubleRange minimum="1" maximum="3" />
-                    <r:validator event="blur" />
+                    <rich:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="dblrangeOut" value="#{test.doubleValue}"></h:outputText>
-                <r:message for="dblrange" />
-                <r:notifyMessage for="dblrange" />
+                <rich:message for="dblrange" />
+                <rich:notifyMessage for="dblrange" />
 
                 <h:outputLabel for="longrange" value="Text long range from 2 to 5, custom msg:" />
                 <h:inputText id="longrange" value="#{test.longValue}" converternotifyMessage="Not a number"
                     validatornotifyMessage="Wrong number">
                     <f:validateLongRange minimum="2" maximum="5" />
-                    <r:validator event="blur" />
+                    <rich:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="longrangeOut" value="#{test.longValue}"></h:outputText>
-                <r:message for="longrange" />
-                <r:notifyMessage for="longrange" />
+                <rich:message for="longrange" />
+                <rich:notifyMessage for="longrange" />
 
             </h:panelGrid>
             <h:commandButton value="Submit form with client-side validation">
-                <r:validator />
+                <rich:validator />
             </h:commandButton>
             <a4j:commandButton value="AJAX Submit with client-side validation" render="lengthOut,dblrangeOut,longrangeOut">
-                <r:validator event="click" />
+                <rich:validator event="click" />
             </a4j:commandButton>
         </h:form>
     </ui:define>
