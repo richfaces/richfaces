@@ -145,7 +145,6 @@
     var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
     var MIN_WIDTH = 20;
 
-    rf.rf4 = rf.rf4 || {};
     rf.ui = rf.ui || {};
 
     rf.ui.ExtendedDataTable = rf.BaseComponent.extendClass({
