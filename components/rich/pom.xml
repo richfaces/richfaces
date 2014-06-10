@@ -127,6 +127,7 @@
                     </fileNameMappings>
                     <excludedFiles>
                         <exclude>^javax.faces</exclude>
+                        <exclude>^flot</exclude> 
                         <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.ckeditor\E</exclude>
