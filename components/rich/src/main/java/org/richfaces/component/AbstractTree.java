@@ -228,6 +228,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     @Override
+    @Attribute
     public Converter getRowKeyConverter() {
         Converter converter = super.getRowKeyConverter();
         if (converter == null) {
