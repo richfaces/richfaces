@@ -198,10 +198,10 @@
 
 	    };
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.Chart = rf.BaseComponent.extendClass({
+    rf.ui.Chart = rf.BaseComponent.extendClass({
             // class name
             name:"Chart",
 
@@ -487,5 +487,5 @@
         });
 
     // define super class link
-    var $super = rf.rf4.ui.Chart.$super;
+    var $super = rf.ui.Chart.$super;
 })(RichFaces.jQuery, RichFaces);
