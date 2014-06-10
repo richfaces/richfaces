@@ -52,7 +52,7 @@
 	        <script type="text/javascript">
 	            //<![CDATA[
 	                    
-	                      new RichFaces.rf4.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
+	                      new RichFaces.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
 		                                    handlers: RichFaces.jQuery.extend(#{toScriptArgs(events)}),
 		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
 		                                    data: #{getChartData(facesContext,component)},
