@@ -1,0 +1,166 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2014, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+*.rf-edt {
+    overflow: hidden;
+    border: 0px solid ;
+}
+*.rf-edt-tbl {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+*.rf-edt-tbl tr td, table.rf-edt-tbl tr th {
+    padding: 0;
+}
+*.rf-edt-hdr, *.rf-edt-tbl-hdr {
+    /*background-image: url(/components-demo/org.richfaces.resources/rfRes/colHdrGrad.png?v=4.5.0-SNAPSHOT&db=eAFjZJBjZDBiZBBhYGBgAgADawBq&ln=org.richfaces.images);*/
+}
+*.rf-edt-tbl-hdr {
+    border-bottom: 0px solid ;
+}
+*.rf-edt-b {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+}
+*.rf-edt-spcr {
+    height: 0px;
+    font-size: 0px;
+}
+*.rf-edt-ftr, *.rf-edt-tbl-ftr {
+    border-top: 0px solid ;
+}
+*.rf-edt-ftr-fzn {
+    vertical-align: top;
+}
+*.rf-edt-cnt {
+    overflow: hidden;
+}
+div.rf-edt-ftr-cnt {
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+*.rf-edt-scrl {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+*.rf-edt-scrl-cnt {
+    height: 1px;
+    overflow-y: hidden;
+}
+*.rf-edt-rsz-cntr {
+    left: 0px;
+    position: relative;
+    height: 0px;
+}
+*.rf-edt-rsz {
+    /*background-image: url(/components-demo/org.richfaces.resources/javax.faces.resource/spacer.gif?ln=org.richfaces);*/
+    cursor: e-resize;
+    height: 20px;
+    position: absolute;
+    left: 100%;
+    margin-left: -3px;
+    width: 6px;
+}
+*.rf-edt-rsz-mkr {
+    cursor: e-resize;
+    position: absolute;
+    border-left: 1px dotted ;
+    width: 1px;
+    display: none;
+}
+*.rf-edt-rord {
+    position: absolute;
+    border-collapse: collapse;
+    display: none;
+}
+*.rf-edt-rord th {
+    width: 20px;
+    height: 5px;
+    font-size: 1px;
+    border: 0px solid ;
+}
+*.rf-edt-rord td {
+    width: 20px;
+    height: 5px;
+    font-size: 1px;
+    border: 0px solid ;
+}
+*.rf-edt-c, *.rf-edt-hdr-c, *.rf-edt-ftr-c, *.rf-edt-flt-c {
+    overflow-x: hidden;
+    border-bottom: 0px solid ;
+    border-right: 0px solid ;
+}
+*.rf-edt-c {
+    height: 20px;
+    overflow: hidden;
+}
+*.rf-edt-ftr-c-emp {
+    border-right: 0px solid ;
+    height: 1px;
+}
+*.rf-edt-c-cnt {
+    white-space: nowrap;
+}
+*.rf-edt-c-cnt, *.rf-edt-hdr-c-cnt, *.rf-edt-ftr-c-cnt, *.rf-edt-tbl-hdr, *.rf-edt-tbl-ftr {
+    padding: 3px 7px;
+}
+*.rf-edt-hdr-c-cnt, *.rf-edt-tbl-hdr, *.rf-edt-ftr-c-cnt, *.rf-edt-tbl-ftr {
+    font-weight: bold;
+    text-align: center;
+}
+*.rf-edt-rord-mkr {
+    position: absolute;
+    height: 9px;
+    font-size: 9px;
+    width: 9px;
+    /*background-image: url(/components-demo/org.richfaces.resources/javax.faces.resource/reorderMarker.gif?ln=org.richfaces);*/
+    display: none;
+}
+*.rf-edt-r-act {
+    font-weight: bold;
+}
+*.rf-edt-c-srt {
+    cursor: pointer;
+}
+*.rf-edt-srt-btn {
+    height: 1em;
+    width: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+*.rf-edt-srt-uns {
+    /*background: url(/components-demo/org.richfaces.resources/javax.faces.resource/sort_uns.gif?ln=org.richfaces) no-repeat center;*/
+}
+*.rf-edt-srt-asc {
+    /*background: url(/components-demo/org.richfaces.resources/javax.faces.resource/sort_asc.gif?ln=org.richfaces) no-repeat center;*/
+}
+*.rf-edt-srt-des {
+    /*background: url(/components-demo/org.richfaces.resources/javax.faces.resource/sort_des.gif?ln=org.richfaces) no-repeat center;*/
+}
+*.rf-edt-flt-cnt {
+    text-align: center;
+    height: 27px;
+}
+*.rf-edt-flt-i {
+    width: 80%;
+}
