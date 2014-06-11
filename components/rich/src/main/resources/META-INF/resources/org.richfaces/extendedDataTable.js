@@ -189,7 +189,7 @@
                 this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
 
                 this.frozenHeaderPartElement = document.getElementById(this.id + ":frozenHeader");
-                this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
+                this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.children[0].rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
 
                 this.headerElement = document.getElementById(this.id + ":header");
                 this.footerElement = document.getElementById(this.id + ":footer");
@@ -427,7 +427,7 @@
                 var bodyJQuery = $(this.bodyElement);
                 this.contentElement = bodyJQuery.children("div:not(.rf-edt-ndt):first")[0];
                 if (this.contentElement) {
-                    this.spacerElement = this.contentElement.firstChild;//TODO this.marginElement = Richfaces.firstDescendant(this.contentElement);
+                    this.spacerElement = this.contentElement.children[0];//TODO this.marginElement = Richfaces.firstDescendant(this.contentElement);
                     this.dataTableElement = this.contentElement.lastChild;//TODO this.dataTableElement = Richfaces.lastDescendant(this.contentElement);
                     this.tbodies = $(document.getElementById(this.id + ":tbf")).add(document.getElementById(this.id + ":tbn"));
                     this.rows = this.tbodies[0].rows.length;
