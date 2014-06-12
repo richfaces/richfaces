@@ -9,6 +9,7 @@ import org.jboss.arquillian.core.api.annotation.Observes;
 import org.jboss.arquillian.drone.api.annotation.Default;
 import org.jboss.arquillian.drone.spi.DroneContext;
 import org.jboss.arquillian.drone.spi.event.AfterDroneEnhanced;
+import org.jboss.arquillian.drone.webdriver.factory.remote.reusable.ReusableRemoteWebDriver;
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
 import org.jboss.arquillian.graphene.proxy.Interceptor;
@@ -16,6 +17,7 @@ import org.jboss.arquillian.graphene.proxy.InvocationContext;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
 import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
 
@@ -46,7 +48,7 @@ public class ScreenshotTaker {
                         Object result = ctx.invoke();
                         if (TakesScreenshot.class != ctx.getMethod().getDeclaringClass()) {
                             try {
-                                TakesScreenshot takesScreenshot = (TakesScreenshot) GrapheneContext.getContextFor(Default.class).getWebDriver(TakesScreenshot.class);
+                                TakesScreenshot takesScreenshot = (TakesScreenshot) getTakingScreenshotsBrowser();
                                 File tempFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
                                 FileUtils.copyFile(tempFile, new File("target/screenshot.png"));
                             } catch (Exception e) {
@@ -61,5 +63,14 @@ public class ScreenshotTaker {
                 ((GrapheneProxyInstance) proxy).registerInterceptor(interceptor);
             }
         }
+    }
+
+    public static WebDriver getTakingScreenshotsBrowser() {
+        WebDriver result = ((GrapheneProxyInstance) (GrapheneContext.getContextFor(Default.class)
+            .getWebDriver(TakesScreenshot.class))).unwrap();
+        if (result instanceof ReusableRemoteWebDriver) {
+            result = new Augmenter().augment(result);
+        }
+        return result;
     }
 }
