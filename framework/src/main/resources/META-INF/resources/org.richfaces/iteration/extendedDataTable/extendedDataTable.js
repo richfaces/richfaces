@@ -31,31 +31,6 @@
             style[0].styleSheet.cssText = cssText;
         }
     };
-    
-    rf.utils.getCSSRule = function (className) {
-        return rf.utils.findCSSRule(function(selectorText) {
-            return selectorText.toLowerCase() == className.toLowerCase();
-        });
-    };
-
-    rf.utils.findCSSRule = function (selectFunction) {
-        var rule = null;
-        var sheets = document.styleSheets;
-        for (var j = 0; !rule && j < sheets.length; j++) {
-            try {
-                var sheet = sheets[j];
-                var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
-                for (var i = 0; !rule && i < rules.length; i++) {
-                    if (rules[i].selectorText && selectFunction(rules[i].selectorText)) {
-                        rule = rules[i];
-                    }
-                }
-            } catch (e) {
-                rf.log.debug("Cannot obtain CSS rule for " + (sheet.href || sheet) + ": " + e);
-            }
-        }
-        return rule;
-    };
 
     rf.utils.Ranges = function() {
         this.ranges = [];
@@ -169,7 +144,7 @@
                 $(this.scrollElement).bind("scroll", $.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
                 $(this.element).bind("r:onajaxcomplete", $.proxy(this.ajaxComplete, this));
-                
+
                 this.resizeData = {};
                 this.idOfReorderingColumn = "";
                 this.timeoutId = null;
@@ -324,7 +299,7 @@
                     }
                 });
                 this.footerCells.height(footerCellHeight + "px");
-                this.normalPartStyle.width = "auto";
+                this.contentDivElement.css('width', 'auto');
                 var offsetWidth = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.offsetWidth : 0;
                 var width = Math.max(0, this.element.clientWidth - offsetWidth);
                 if (width) {
@@ -333,9 +308,9 @@
                     });
                     var contentWidth = this.parts.width();
                     if (contentWidth > width) {
-                        this.normalPartStyle.width = width + "px";
+                        this.contentDivElement.css('width', width + 'px');
                     }
-                    this.normalPartStyle.display = "block";
+                    this.contentDivElement.css('display', 'block');
                     // update scroller and scroll-content
                     if (contentWidth > width) {
                         this.parts.each(function() {
@@ -353,7 +328,7 @@
                         this.scrollElement.style.display = "none";
                     }
                 } else {
-                    this.normalPartStyle.display = "none";
+                    this.contentDivElement.css('display', 'none');
                 }
                 var height = this.element.clientHeight;
                 var el = this.element.firstChild;
@@ -423,7 +398,7 @@
                 }
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
-                this.normalPartStyle = rf.utils.getCSSRule("div.rf-edt-cnt").style;
+                this.contentDivElement = $(this.bodyElement).find('.rf-edt-cnt');
                 var bodyJQuery = $(this.bodyElement);
                 this.contentElement = bodyJQuery.children("div:not(.rf-edt-ndt):first")[0];
                 if (this.contentElement) {
@@ -837,7 +812,7 @@
                         this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
                     }
                 }
-                
+
                 // resize columns if necessary
                 var size;
                 for (id in this.newWidths) {
