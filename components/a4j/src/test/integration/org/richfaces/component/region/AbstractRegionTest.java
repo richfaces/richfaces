@@ -31,6 +31,7 @@ import org.jboss.arquillian.warp.Warp;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.CoreUIDeployment;
 
@@ -57,24 +58,24 @@ public abstract class AbstractRegionTest {
     }
 
     protected void setupExecute(String execute) {
-        Warp
-            .initiate(new Activity() {
+        Warp.initiate(new Activity() {
 
-                @Override
-                public void perform() {
-                    browser.get(contextPath.toString());
-                }
-            })
-            .inspect(new SetupExecute(execute));
+            @Override
+            public void perform() {
+                browser.get(contextPath.toString());
+            }
+        }).inspect(new SetupExecute(execute));
     }
 
     protected void verifyExecutedIds(String... expectedExecutedIds) {
-        Warp
-            .initiate(new Activity() {
-                public void perform() {
-                    button.click();
-                }
-            })
-            .inspect(new VerifyExecutedIds(expectedExecutedIds));
+        // this will trigger button background image loading in Chrome
+        Actions action = new Actions(browser);
+        action.moveToElement(button).build().perform();
+        // continue with Warp activity as usual
+        Warp.initiate(new Activity() {
+            public void perform() {
+                button.click();
+            }
+        }).inspect(new VerifyExecutedIds(expectedExecutedIds));
     }
 }
