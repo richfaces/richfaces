@@ -62,6 +62,10 @@ public class InitializationListener implements SystemEventListener {
      * Called on application startup
      */
     protected void onStart() {
+        JsfVersionInspector enforcer = new JsfVersionInspector();
+        if (!enforcer.verifyJsfImplVersion()) {
+            throw new RuntimeException(String.format("The JSF implementation %s does not support the RichFaces ExtendedPartialViewContext.  Please upgrade to at least Mojarra 2.1.28 or 2.2.6", enforcer.getVersionString()));
+        }
         createFactory();
 
         if (LOGGER.isInfoEnabled()) {
