@@ -49,6 +49,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.javascript.JavaScriptService;
@@ -91,27 +92,36 @@ public class ITJavaScriptServiceAjax {
     @Test
     public void jsf_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
-
+        // this will trigger button background image loading in Chrome
+        Actions action = new Actions(driver);
+        action.moveToElement(jsfAjax).build().perform();
+        // continue with Warp activity as usual
         Warp.initiate(new Activity() {
             public void perform() {
                 guardAjax(jsfAjax).click();
             }
         }).inspect(new AddScriptViaJavaScriptService());
 
-        assertThat(driver.getTitle(), equalTo("ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete ajaxcomplete"));
+        assertThat(driver.getTitle(),
+            equalTo("ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete ajaxcomplete"));
     }
 
     @Test
     public void richfaces_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
-
+        // this will trigger button background image loading in Chrome
+        Actions action = new Actions(driver);
+        action.moveToElement(richfacesAjax).build().perform();
+        // continue with Warp activity as usual
         Warp.initiate(new Activity() {
             public void perform() {
                 guardAjax(richfacesAjax).click();
             }
         }).inspect(new AddScriptViaJavaScriptService());
 
-        assertThat(driver.getTitle(), equalTo("onbeforedomupdate ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete oncomplete ajaxcomplete"));
+        assertThat(
+            driver.getTitle(),
+            equalTo("onbeforedomupdate ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete oncomplete ajaxcomplete"));
     }
 
     private static void addIndexPage(CoreDeployment deployment) {
@@ -123,13 +133,11 @@ public class ITJavaScriptServiceAjax {
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
-        p.form("<h:commandButton id='jsfAjax' "
-                + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
+        p.form("<h:commandButton id='jsfAjax' " + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
 
-        p.form("<h:commandButton id='richfacesAjax' "
-                + "onclick='RichFaces.ajax(this, event, {}); return false;' "
-                + "onbeforedomupdate=\"document.title += ' onbeforedomupdate'\" "
-                + "oncomplete=\"document.title += ' oncomplete';\" />");
+        p.form("<h:commandButton id='richfacesAjax' " + "onclick='RichFaces.ajax(this, event, {}); return false;' "
+            + "onbeforedomupdate=\"document.title += ' onbeforedomupdate'\" "
+            + "oncomplete=\"document.title += ' oncomplete';\" />");
 
         p.form("<script>");
         p.form("$(document).on('ajaxbeforedomupdate', function() { document.title += ' ajaxbeforedomupdate'; })");
