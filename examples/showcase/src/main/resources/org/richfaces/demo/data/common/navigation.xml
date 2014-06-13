@@ -329,7 +329,7 @@
                         <id>exTableSelection</id>
                         <name>Selection Management</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>edt-builtin-sorting-and-filtering</id>
                         <name>Built-in Sorting and Filtering</name>
                     </sample>    
@@ -421,7 +421,7 @@
                 <id>chart</id>
                 <name>r:chart</name>
                 <samples>
-                    <sample>
+                    <sample new="true">
                         <id>simple</id>
                         <name>Simple charts</name>
                     </sample>
@@ -453,7 +453,7 @@
                         <id>simple</id>
                         <name>Simple Toggle Panel</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>dynamic</id>
                         <name>Dynamic Panels</name>
                     </sample>
@@ -474,7 +474,7 @@
                     </sample>
                     <!-- sample> <id>headerCustomization</id> <description>Headers Customization</description>
                              <name>Headers Customization</name> </sample -->
-                     <sample new="true">
+                     <sample>
                         <id>dynamic</id>
                         <description>Dynamic Tabs</description>
                         <name>Dynamic Tabs</name>
@@ -504,7 +504,7 @@
                         <id>simple</id>
                         <name>Simple Accordion</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>dynamic</id>
                         <name>Dynamic Accordion</name>
                     </sample>
@@ -791,7 +791,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>placeholder</id>
                 <name>Placeholder</name>
                 <samples>
@@ -811,7 +811,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>focus</id>
                 <name>Focus</name>
                 <samples>
