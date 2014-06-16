@@ -814,11 +814,16 @@
                 }
                 
                 // resize columns if necessary
-                var size;
-                for (id in this.newWidths) {
-                    size = this.newWidths[id];
-                    this.setColumnWidth(id, size.substr(0, size.length - 2));
+                var $table = $(document.getElementById(this.element.id)),
+                    widthsArray = new Array();
+                for (var id in this.newWidths) {
+                    $table.find("." + WIDTH_CLASS_NAME_BASE + id).css('width', this.newWidths[id])
+                        .parent().css('width', this.newWidths[id]);
+                    widthsArray.push(id + ":" + this.newWidths[id]);
                 }
+                this.widthInput.value = widthsArray.toString();
+                this.updateLayout();
+                this.adjustResizers();
             },
 
             activateResizeListener: function() {
