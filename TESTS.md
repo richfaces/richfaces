@@ -6,6 +6,7 @@ Framework tests allow you to run a set of Arquillian-based tests using the Graph
 The supported container matrix is:
 
 * WildFly 8.0
+* WildFly 8.1
 * JBoss EAP 6.1
 * JBoss AS 7.1
 * TomEE 1.5
@@ -243,6 +244,10 @@ Managed Containers
 
     mvn verify -Dintegration=wildfly80
 
+### WildFly 8.1 - Managed
+
+    mvn verify -Dintegration=wildfly81
+
 ### JBoss EAP 6.1 - Managed
 
     mvn verify -Dintegration=jbosseap61
@@ -306,9 +311,17 @@ then run the test from the IDE (eg. in Eclipse: `Run As > JUnit Test`).
 
 Start: `[wildfly-8.0]$ ./bin/standalone.sh`
 
-Profile: `wildfly-remote-8.0`
+Profile: `wildfly-remote-8-0`
 
     mvn verify -Dintegration=wildfly80-remote
+
+### WildFly 8.1 - Remote
+
+Start: `[wildfly-8.1]$ ./bin/standalone.sh`
+
+Profile: `wildfly-remote-8-1`
+
+    mvn verify -Dintegration=wildfly81-remote
 
 ### JBoss EAP 6.1 - Remote
 
