@@ -85,7 +85,7 @@ public class MenuNodeImage implements Java2DUserResource, StateHolderResource {
     }
 
     public ImageType getImageType() {
-        return ImageType.GIF;
+        return ImageType.PNG;
     }
 
     public Dimension getDimension() {

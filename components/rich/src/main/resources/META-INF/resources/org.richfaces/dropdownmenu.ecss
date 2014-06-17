@@ -124,7 +124,7 @@
 }
 
 .rf-ddm-nd {
-    background-image: "url(#{resource['org.richfaces.images:menuNodeImage.gif']})";
+    background-image: "url(#{resource['org.richfaces.images:menuNodeImage.png']})";
     background-repeat: no-repeat;
     background-position: top;
     font-size: 1px;
