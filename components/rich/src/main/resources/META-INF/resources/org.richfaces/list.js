@@ -21,9 +21,6 @@
         this.focusKeeper = $(document.getElementById(id + "FocusKeeper"));
         this.focusKeeper.focused = false;
 
-        this.lastMouseX = null;
-        this.lastMouseY = null;
-
         this.isMouseDown = false;
         this.list
             .bind("mousedown", $.proxy(this.__onMouseDown, this))

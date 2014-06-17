@@ -17,8 +17,6 @@
         this.value = "";
         this.index = null;
         this.isFirstAjax = true;
-        this.lastMouseX = null;
-        this.lastMouseY = null;
         updateTokenOptions.call(this);
         bindEventHandlers.call(this);
         updateItemsList.call(this, "");
@@ -76,26 +74,31 @@
 
     var bindEventHandlers = function () {
         var list = $(rf.getDomElement(this.id + ID.ITEMS).parentNode);
-        list.on("click" + this.namespace, "."+this.options.itemClass, $.proxy(onMouseAction, this));
-        list.on("mouseover" + this.namespace, "."+this.options.itemClass, $.proxy(onMouseAction, this));
+        list.on("click" + this.namespace, "."+this.options.itemClass, $.proxy(onMouseClick, this));
+        // The mouseenter event is available only natively in Internet Explorer, however jQuery emulates it in other browsers
+        list.on("mouseenter" + this.namespace, "."+this.options.itemClass, $.proxy(onMouseEnter, this));
     };
 
-    var onMouseAction = function(event) {
+    var onMouseEnter = function(event) {
         var element = $(event.target);
 
+        if (element && element.hasClass(this.options.itemClass)) {
+            var index = this.items.index(element);
+            selectItem.call(this, event, index);
+        }
+    };
+
+    var onMouseClick = function(event) {
+        var element = $(event.target);
+
+        if (element && !element.hasClass(this.options.itemClass)) {
+            element = element.parent(this.options.itemClass).first();
+        }
+
         if (element) {
-            if (event.type == "mouseover") {
-                if (this.lastMouseX == null || this.lastMouseX != event.pageX || this.lastMouseY != event.pageY) {
-                    //window.console && console.log && console.log("[mouseover] lastMouseX:" + this.lastMouseX+" lastMouseY:" + this.lastMouseY);
-                    //window.console && console.log && console.log("[mouseover] pageX:" + event.pageX+" pageY:" + event.pageY);
-                    var index = this.items.index(element);
-                    selectItem.call(this, event, index);
-                }
-            } else {
-                this.__onEnter(event);
-                rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
-                this.__hide(event);
-            }
+            this.__onEnter(event);
+            rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
+            this.__hide(event);
         }
     };
 
