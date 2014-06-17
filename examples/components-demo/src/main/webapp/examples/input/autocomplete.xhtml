@@ -39,7 +39,7 @@
     <h:form id="custom-formatting">
     	<rich:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="cachedAjax" minChars="2" selectFirst="true" var="p" fetchValue="#{p.name}"
             onblur="console.log('blur')">
-            #{p.name} - #{p.age}
+            <span>#{p.name} - #{p.age}</span>
         </rich:autocomplete>
         
         <a4j:commandButton render="autocomplete" value="Re-render" />
