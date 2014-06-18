@@ -230,7 +230,7 @@
         },
 
         blur : function() {
-            this.ckeditor.focusManager.forceBlur();
+            this.ckeditor.focusManager.blur(true);
         },
 
         isFocused : function() {
