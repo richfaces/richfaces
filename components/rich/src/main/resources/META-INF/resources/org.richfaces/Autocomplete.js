@@ -82,7 +82,11 @@
     var onMouseEnter = function(event) {
         var element = $(event.target);
 
-        if (element && element.hasClass(this.options.itemClass)) {
+        if (element && !element.hasClass(this.options.itemClass)) {
+            element = element.parents("." + this.options.itemClass).get(0);
+        }
+
+        if (element) {
             var index = this.items.index(element);
             selectItem.call(this, event, index);
         }
@@ -92,7 +96,7 @@
         var element = $(event.target);
 
         if (element && !element.hasClass(this.options.itemClass)) {
-            element = element.parent(this.options.itemClass).first();
+            element = element.parents("." + this.options.itemClass).get(0);
         }
 
         if (element) {
