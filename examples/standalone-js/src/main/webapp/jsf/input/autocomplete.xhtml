@@ -31,8 +31,22 @@
 <h:head></h:head>
 <h:body>
     <h:form id="custom-formatting">
-        <rich:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="client" minChars="1" selectFirst="true" var="p" fetchValue="#{p.name}" onblur="console.log('blur')">
+        <rich:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="client" minChars="1" selectFirst="true" var="p" fetchValue="#{p.name}" >
             <span>#{p.name} - #{p.age}</span>
+        </rich:autocomplete>
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <rich:autocomplete id="autocomplete_table" autocompleteMethod="#{autocompleteBean.suggest}" mode="client" minChars="1" selectFirst="true" var="p" fetchValue="#{p.name}" layout="table">
+            <rich:column>
+                #{p.name}
+            </rich:column>
+            <rich:column>
+                #{p.age}
+            </rich:column>
         </rich:autocomplete>
 
         <a4j:commandButton render="autocomplete" value="Re-render" />
