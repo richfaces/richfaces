@@ -24,6 +24,7 @@ package org.richfaces.integration.javascript;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
 import static org.jboss.arquillian.warp.jsf.Phase.RENDER_RESPONSE;
 import static org.junit.Assert.assertThat;
 
@@ -49,7 +50,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.javascript.JavaScriptService;
@@ -92,15 +92,11 @@ public class ITJavaScriptServiceAjax {
     @Test
     public void jsf_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
-        // this will trigger button background image loading in Chrome
-        Actions action = new Actions(driver);
-        action.moveToElement(jsfAjax).build().perform();
-        // continue with Warp activity as usual
         Warp.initiate(new Activity() {
             public void perform() {
                 guardAjax(jsfAjax).click();
             }
-        }).inspect(new AddScriptViaJavaScriptService());
+        }).observe(request().uri().contains("index.xhtml")).inspect(new AddScriptViaJavaScriptService());
 
         assertThat(driver.getTitle(),
             equalTo("ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete ajaxcomplete"));
@@ -109,15 +105,11 @@ public class ITJavaScriptServiceAjax {
     @Test
     public void richfaces_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
-        // this will trigger button background image loading in Chrome
-        Actions action = new Actions(driver);
-        action.moveToElement(richfacesAjax).build().perform();
-        // continue with Warp activity as usual
         Warp.initiate(new Activity() {
             public void perform() {
                 guardAjax(richfacesAjax).click();
             }
-        }).inspect(new AddScriptViaJavaScriptService());
+        }).observe(request().uri().contains("index.xhtml")).inspect(new AddScriptViaJavaScriptService());
 
         assertThat(
             driver.getTitle(),

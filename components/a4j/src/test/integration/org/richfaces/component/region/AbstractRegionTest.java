@@ -22,6 +22,8 @@
 
 package org.richfaces.component.region;
 
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+
 import java.net.URL;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -31,7 +33,6 @@ import org.jboss.arquillian.warp.Warp;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.CoreUIDeployment;
 
@@ -68,14 +69,10 @@ public abstract class AbstractRegionTest {
     }
 
     protected void verifyExecutedIds(String... expectedExecutedIds) {
-        // this will trigger button background image loading in Chrome
-        Actions action = new Actions(browser);
-        action.moveToElement(button).build().perform();
-        // continue with Warp activity as usual
         Warp.initiate(new Activity() {
             public void perform() {
                 button.click();
             }
-        }).inspect(new VerifyExecutedIds(expectedExecutedIds));
+        }).observe(request().uri().contains("index.xhtml")).inspect(new VerifyExecutedIds(expectedExecutedIds));
     }
 }
