@@ -25,6 +25,7 @@ package org.richfaces.application;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -156,20 +157,28 @@ public class JsfVersionInspector {
         else return "no match";
     }
 
-    Version parseVersion(String version) {
+    Version parseVersion(String versionString) {
         String qualifier;
         String[] numbers;
-        if (version.matches("[0-9][0-9\\.]*\\-[a-z0-9\\-]*")) { // eg. 2.1.4-jbossorg-1
+        if (versionString.matches("[0-9][0-9\\.]*\\-[a-zA-Z0-9\\-]*")) { // eg. 2.1.4-jbossorg-1 or 2.1.6-SNAPSHOT
             // modifier is present
-            String[] parts = version.split("-", 2);
+            String[] parts = versionString.split("-", 2);
             numbers = parts[0].split("\\.", 4);
             qualifier = parts[1];
         } else { // eg. 2.1.27.redhat-9
-            numbers = version.split("\\.", 5);
+            numbers = versionString.split("\\.", 5);
             qualifier = numbers.length > 3 ? numbers[3] : "";
         }
 
-        return new Version(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]), Integer.parseInt(numbers[2]), qualifier);
+        Version version;
+
+        try {
+            version = new Version(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]), Integer.parseInt(numbers[2]), qualifier);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(MessageFormat.format("Error parsing detected JSF version string: {0} ", versionString), e);
+        }
+
+        return version;
     }
 
     boolean isMojarra() {

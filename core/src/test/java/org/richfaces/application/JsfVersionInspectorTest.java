@@ -52,6 +52,14 @@ public class JsfVersionInspectorTest {
         Assert.assertEquals(1, version.minor);
         Assert.assertEquals(4, version.micro);
         Assert.assertEquals("jbossorg-1", version.qualifier);
+
+        version = enforcer.parseVersion("2.1.6-SNAPSHOT");
+        Assert.assertEquals(2, version.major);
+        Assert.assertEquals(1, version.minor);
+        Assert.assertEquals(6, version.micro);
+        Assert.assertEquals("SNAPSHOT", version.qualifier);
+
+
     }
 
     @Test
