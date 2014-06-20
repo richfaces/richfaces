@@ -584,7 +584,9 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
         super.release();
 
-        setInstance(facesContext, null);
+        if (facesContext != null && !facesContext.isReleased()) {
+            setInstance(facesContext, null);
+        }
         facesContext = null;
 
         released = true;
