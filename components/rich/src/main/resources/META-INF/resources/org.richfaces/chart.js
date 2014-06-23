@@ -206,6 +206,7 @@
             name:"Chart",
 
             init : function (componentId, options) {
+            	$super.constructor.call(this, componentId, options);
             	this.options = $.extend(true,{},defaultOptions,options);
             	
             	this.element = $(document.getElementById(componentId));
@@ -385,15 +386,41 @@
                       }
                     }
                   }
-            	$super.constructor.call(this, componentId, this.options);
-                $.plot(this.element,this.options.data,this.options);
+            	
+                this.plot = $.plot(this.element,this.options.data,this.options);
                 //this.options=options;
                 this.__bindEventHandlers(this.element,this.options);
             },
 
             /***************************** Public Methods  ****************************************************************/
 
-            
+            /**
+             * Returns chart object
+             *
+             * @method getPlotObject
+             */
+            getPlotObject: function () {
+              return this.plot;
+            },
+
+            /**
+             * Highlights the point in chart selected by seriesIndex or point index. Does not work for pie charts.
+             * @param seriesIndex {int}
+             * @param pointIndex {int}
+             * @method highlight
+             */
+            highlight: function(seriesIndex,pointIndex){
+               this.plot.highlight(seriesIndex,pointIndex);
+            },
+            /**
+             * Removes highlighting of point. If method is called without parameters it unhighlights all points.
+             * @param seriesIndex {int}
+             * @param pointIndex {int}
+             * @method unghighlight
+             */
+            unhighlight: function(seriesIndex,pointIndex){
+               this.plot.unhighlight(seriesIndex,pointIndex);
+            },
 
             /***************************** Private Methods ********************************************************/
             __bindEventHandlers:function(element,options){
