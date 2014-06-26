@@ -132,7 +132,7 @@
                     for (var i = 0 ; i < files.length; i++) {
                         this.__tryAddItem(context, files[i]);
 
-                        if (this.maxFilesQuantity && (context.acceptedFileNames.length >= this.maxFilesQuantity)) {
+                        if (this.maxFilesQuantity && this.__getTotalItemCount() >= this.maxFilesQuantity) {
                             this.addButton.hide();
                             break;
                         }
