@@ -31,7 +31,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import category.FailingOnPhantomJS;
+import category.Failing;
 import category.Smoke;
 
 @RunWith(Arquillian.class)
@@ -68,7 +68,7 @@ public class ITFileUpload {
     private JavascriptExecutor executor;
 
     @Test
-    @Category({Smoke.class, FailingOnPhantomJS.class})
+    @Category({Smoke.class, Failing.class})
     public void test_file_upload() throws InterruptedException, URISyntaxException {
         browser.get(contextPath.toExternalForm());
 
