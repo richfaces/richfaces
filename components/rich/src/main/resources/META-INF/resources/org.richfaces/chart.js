@@ -376,7 +376,7 @@
                   }
                   else if (options.charttype === 'line') {
                     if (options.zoom) {
-                      options.selection = {mode: 'xy'};
+                      this.options.selection = {mode: 'xy'};
                     }
                     if (this.options.xtype === 'date') {
                       this.options = $.extend({},this.options, dateDefaults);
