@@ -57,7 +57,7 @@ public abstract class ValidationTestBase {
     }
 
     protected void submitValue() {
-        body.click(); // blur
+        browser.findElement(By.id("form:out")).click(); //blur
     }
 
     protected void checkMessage(String messageId, Matcher<String> matcher) {
