@@ -20,9 +20,6 @@
         <cdk:resource-dependency library="org.richfaces" name="chart.js" />
         <cdk:resource-dependency library="org.richfaces" name="chart.ecss" />
 
-        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js"/>
-        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js"/>
-
         <cdk:resource-dependency library="flot" name="jquery.flot.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.categories.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.pie.js"/>
