@@ -12,10 +12,6 @@
         <cdk:renderer-type>org.richfaces.ChartRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.component.AbstractChart</cdk:component-base-class>
 
-
-
-
-
         <cdk:resource-dependency library="javax.faces" name="jsf.js" />
         <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
@@ -37,8 +33,6 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.tooltip.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.selection.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.resize.js"/>
-
-
     </cc:interface>
 
     <cc:implementation>
@@ -52,7 +46,7 @@
 	        <script type="text/javascript">
 	            //<![CDATA[
 	                    
-	                      new RichFaces.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
+	                      new RichFaces.ui.Chart("#{clientId}Chart", RichFaces.jQuery.extend({
 		                                    handlers: RichFaces.jQuery.extend(#{toScriptArgs(events)}),
 		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
 		                                    data: #{getChartData(facesContext,component)},
