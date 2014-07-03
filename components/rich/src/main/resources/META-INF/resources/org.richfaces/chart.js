@@ -429,7 +429,7 @@
 
                   }
 
-                  var clientId = element.attr('id');
+                  var clientId = element.parents(".chart-container").first().attr('id');
 
                   //sent request only if a server-side listener attached
                   if (options.serverSideListener) {
