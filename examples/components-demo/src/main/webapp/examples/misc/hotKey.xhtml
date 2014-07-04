@@ -32,6 +32,12 @@
     <!-- content -->
     <ui:define name="content">
 
+        <script>
+            function myCallback(event, msg) {
+                console.log("Callback called with message: " + msg.toString());
+            }
+        </script>
+
         <!-- Switches hotKeys between rendered and not rendered state (testring destructor) -->
         <h:form>
             Active:
