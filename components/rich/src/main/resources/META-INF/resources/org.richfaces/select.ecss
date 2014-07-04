@@ -15,7 +15,7 @@
 
 input.rf-sel-inp {
     background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-image: "#{richSkin.imageUrl('inputBackgroundImage.png')}";
     background-position: 1px 1px;
     background-repeat: no-repeat;
     border: 0px;
@@ -34,7 +34,7 @@ input.rf-sel-inp {
 }
 
 .rf-sel-btn {
-    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-image: "#{richSkin.imageUrl('autocompleteButtonGradient.png')}";
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';
@@ -48,7 +48,7 @@ input.rf-sel-inp {
 .rf-sel-btn-arrow {
     background-position: center;
     background-repeat: no-repeat;
-    background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
+    background-image: "#{richSkin.imageUrl('comboDownButton.png')}";
     cursor: pointer;
     width: 15px;
     height: 16px;
@@ -61,7 +61,7 @@ input.rf-sel-inp {
 
 .rf-sel-btn-dis .rf-sel-btn-arrow {
     cursor: default;
-    background-image: "url(#{resource['org.richfaces.images:comboDisabledDownButton.png']})";
+    background-image: "#{richSkin.imageUrl('comboDisabledDownButton.png')}";
 }
 
 .rf-sel-lst-cord {

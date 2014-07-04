@@ -5,81 +5,61 @@
 }
 
 .rf-ico-chevron-hdr {
-    background-image: "url(#{resource['org.richfaces.images:chevron.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevron.png')}";}
 
 .rf-ico-chevron,.rf-ico-chevron-dis,.rf-ico-chevron-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:chevronDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronDisabled.png')}";}
 
 .rf-ico-chevron-down-hdr {
-    background-image: "url(#{resource['org.richfaces.images:chevronDown.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronDown.png')}";}
 
 .rf-ico-chevron-down,.rf-ico-chevron-down-dis,.rf-ico-chevron-down-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:chevronDownDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronDownDisabled.png')}";}
 
 .rf-ico-chevron-left-hdr {
-    background-image: "url(#{resource['org.richfaces.images:chevronLeft.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronLeft.png')}";}
 
 .rf-ico-chevron-left,.rf-ico-chevron-left-dis,.rf-ico-chevron-left-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:chevronLeftDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronLeftDisabled.png')}";}
 
 .rf-ico-chevron-up-hdr {
-    background-image: "url(#{resource['org.richfaces.images:chevronUp.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronUp.png')}";}
 
 .rf-ico-chevron-up,.rf-ico-chevron-up-dis,.rf-ico-chevron-up-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:chevronUpDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('chevronUpDisabled.png')}";}
 
 .rf-ico-disc-hdr {
-    background-image: "url(#{resource['org.richfaces.images:disc.png']})"
-}
+    background-image: "#{richSkin.imageUrl('disc.png')}";}
 
 .rf-ico-disc,.rf-ico-disc-dis,.rf-ico-disc-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:discDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('discDisabled.png')}";}
 
 .rf-ico-grid-hdr {
-    background-image: "url(#{resource['org.richfaces.images:grid.png']})"
-}
+    background-image: "#{richSkin.imageUrl('grid.png')}";}
 
 .rf-ico-grid,.rf-ico-grid-dis,.rf-ico-grid-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:gridDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('gridDisabled.png')}";}
 
 .rf-ico-triangle-hdr {
-    background-image: "url(#{resource['org.richfaces.images:triangle.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangle.png')}";}
 
 .rf-ico-triangle,.rf-ico-triangle-dis,.rf-ico-triangle-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:triangleDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleDisabled.png')}";}
 
 .rf-ico-triangle-down-hdr {
-    background-image: "url(#{resource['org.richfaces.images:triangleDown.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleDown.png')}";}
 
 .rf-ico-triangle-down,.rf-ico-triangle-down-dis,.rf-ico-triangle-down-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:triangleDownDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleDownDisabled.png')}";}
 
 .rf-ico-triangle-left-hdr {
-    background-image: "url(#{resource['org.richfaces.images:triangleLeft.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleLeft.png')}";}
 
 .rf-ico-triangle-left,.rf-ico-triangle-left-dis,.rf-ico-triangle-left-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:triangleLeftDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleLeftDisabled.png')}";}
 
 .rf-ico-triangle-up-hdr {
-    background-image: "url(#{resource['org.richfaces.images:triangleUp.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleUp.png')}";}
 
 .rf-ico-triangle-up,.rf-ico-triangle-up-dis,.rf-ico-triangle-up-hdr-dis {
-    background-image: "url(#{resource['org.richfaces.images:triangleUpDisabled.png']})"
-}
+    background-image: "#{richSkin.imageUrl('triangleUpDisabled.png')}";}

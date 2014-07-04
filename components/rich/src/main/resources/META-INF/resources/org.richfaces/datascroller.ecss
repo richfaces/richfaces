@@ -40,7 +40,7 @@ a.rf-ds-btn {
     background-position: top left;
     background-repeat: repeat-x;
     background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:dsBtnGrad.png']})";
+    background-image: "#{richSkin.imageUrl('dsBtnGrad.png')}";
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
     color: '#{richSkin.generalTextColor}';
@@ -79,7 +79,7 @@ a.rf-ds-btn {
     border-top-style: solid;
     border-top-color: '#{richSkin.tableBorderColor}';
     background-color: '#{richSkin.tableBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:dsDigGrad.png']})";
+    background-image: "#{richSkin.imageUrl('dsDigGrad.png')}";
     background-position: top left;
     background-repeat: repeat-x;
     display: inline-block;
@@ -97,7 +97,7 @@ a.rf-ds-btn {
     background-position: top left;
     background-repeat: repeat-x;
     background-color: '#{richSkin.tableBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:dsBtnGradOver.png']})";
+    background-image: "#{richSkin.imageUrl('dsBtnGradOver.png')}";
 }
 
 .rf-ds-press {
