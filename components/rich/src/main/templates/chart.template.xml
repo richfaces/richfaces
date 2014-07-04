@@ -17,6 +17,7 @@
         <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-event.js" />
         <cdk:resource-dependency library="org.richfaces" name="chart.js" />
         <cdk:resource-dependency library="org.richfaces" name="chart.ecss" />
 
@@ -43,7 +44,7 @@
 	        <script type="text/javascript">
 	            //<![CDATA[
 	                    
-	                      new RichFaces.ui.Chart("#{clientId}Chart", RichFaces.jQuery.extend({
+	                      new RichFaces.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
 		                                    handlers: RichFaces.jQuery.extend(#{toScriptArgs(events)}),
 		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
 		                                    data: #{getChartData(facesContext,component)},

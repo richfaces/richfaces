@@ -207,9 +207,13 @@
 
             init : function (componentId, options) {
             	$super.constructor.call(this, componentId, options);
+
+                this.namespace = this.namespace || "." + RichFaces.Event.createNamespace(this.name, this.id);
+                this.attachToDom();
             	this.options = $.extend(true,{},defaultOptions,options);
             	
             	this.element = $(document.getElementById(componentId));
+                this.chartElement = this.element.find(".chart");
             	
             	if (this.options.charttype === 'pie') {
                     this.options = $.extend(true,{},this.options,pieDefaults);
@@ -387,9 +391,9 @@
                     }
                   }
             	
-                this.plot = $.plot(this.element,this.options.data,this.options);
+                this.plot = $.plot(this.chartElement,this.options.data,this.options);
                 //this.options=options;
-                this.__bindEventHandlers(this.element,this.options);
+                this.__bindEventHandlers(this.chartElement,this.options);
             },
 
             /***************************** Public Methods  ****************************************************************/
@@ -425,10 +429,14 @@
             /***************************** Private Methods ********************************************************/
             __bindEventHandlers:function(element,options){
             	
-            	this.element.on('plotclick', this._getPlotClickHandler(this.options, this.element, _plotClickServerSide));
-            	this.element.on('plothover', this._getPlotHoverHandler(this.options, this.element));
+                this.chartElement.on('plotclick', this._getPlotClickHandler(this.options, this.chartElement, _plotClickServerSide));
+                this.chartElement.on('plothover', this._getPlotHoverHandler(this.options, this.chartElement));
             	if (this.options.handlers && this.options.handlers.onmouseout) {
-                    this.element.on('mouseout', this.options.handlers.onmouseout);
+                    this.chartElement.on('mouseout', this.options.handlers.onmouseout);
+                }
+
+                if (this.options.zoom) {
+                    this.chartElement.on('plotselected', $.proxy(this._zoomFunction, this));
                 }
                 
             },
@@ -437,6 +445,7 @@
             	
               var clickHandler = options.handlers['onplotclick'];	
               var particularClickHandlers= options.particularSeriesHandlers['onplotclick'];
+              var clientId = this.element.attr('id');
               return function (event, mouse, item) {
                 if (item !== null) {
                   //point in a chart clicked
@@ -455,8 +464,6 @@
                 	  event.data.x = options.xaxis.ticks[item.seriesIndex][1];
 
                   }
-
-                  var clientId = element.parents(".chart-container").first().attr('id');
 
                   //sent request only if a server-side listener attached
                   if (options.serverSideListener) {
@@ -505,6 +512,22 @@
                   }
                 }
               };
+            },
+
+            _zoomFunction: function (event, ranges) {
+                var plot = this.getPlotObject();
+                $.each(plot.getXAxes(), function(_, axis) {
+                    var opts = axis.options;
+                    opts.min = ranges.xaxis.from;
+                    opts.max = ranges.xaxis.to;
+                });
+                plot.setupGrid();
+                plot.draw();
+                plot.clearSelection();
+            },
+
+            resetZoom: function () {
+                this.plot = $.plot(this.chartElement,this.options.data,this.options);
             },
 
             destroy: function () {
