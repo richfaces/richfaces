@@ -174,12 +174,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     private void writeTopTabHeader(FacesContext context, ResponseWriter writer, AbstractTab tab) throws IOException {
-        boolean isActive = tab.isActive();
-        boolean isDisabled = tab.isDisabled();
-        // TODO: Ilya, review. Much HTML because we always encoding all states. Need to optimize somehow.
-        encodeTabHeader(context, tab, writer, inactive, !isActive && !isDisabled);
-        encodeTabHeader(context, tab, writer, active, isActive && !isDisabled);
-        encodeTabHeader(context, tab, writer, disabled, isDisabled);
+        AbstractTogglePanelTitledItem.HeaderStates state = tab.isDisabled() ? disabled : tab.isActive() ? active : inactive;
+        encodeTabHeader(context, tab, writer, state);
     }
 
     private String positionAbbreviation(AbstractTab tab) {
@@ -205,20 +201,20 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         }
 
     private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
-            AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
+            AbstractTogglePanelTitledItem.HeaderStates state) throws IOException {
 
         String headerStateClass = "rf-tab-hdr-" + state.abbreviation();
         String headerPositionClass = "rf-tab-hdr-" + positionAbbreviation(tab);
 
         writer.startElement(TD_ELEM, tab);
-        writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header:" + state.toString(), null);
+        writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header", null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
         writer.writeAttribute(
                 CLASS_ATTRIBUTE,
                 concatClasses("rf-tab-hdr", headerStateClass, headerPositionClass,
                         attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
-        writer.writeAttribute(STYLE_ATTRIBUTE,
-                concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, attributeAsString(tab, "headerStyle"), null);
+        writer.writeAttribute("data-tabname", tab.getName(), null);
 
         writer.startElement(SPAN_ELEM, tab);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tab-lbl", null);

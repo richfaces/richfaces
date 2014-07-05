@@ -38,33 +38,29 @@
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId, options);
+                this.attachToDom();
                 this.index = options["index"];
                 this.getTogglePanel().getItems()[this.index] = this;
-
-                //TODO - optimize this
-                rf.Event.bindById(this.id + ":header:active", "click", this.__onHeaderClick, this);
-                rf.Event.bindById(this.id + ":header:inactive", "click", this.__onHeaderClick, this)
-            },
-
-            /***************************** Public Methods  ****************************************************************/
-
-            __onHeaderClick : function (comp) {
-                this.getTogglePanel().switchToItem(this.getName());
             },
 
             /**
-             * @param state {string} = inactive | active | disabled
+             * @param newState {string} = inactive | active | disabled
              *     in that case looking header by css class appropriate to this state
              *
              * @return {jQuery Object}
              * */
-            __header : function (state) {
-                var res = $(rf.getDomElement(this.id + ":header"));
-                if (state) {
-                    return $(rf.getDomElement(this.id + ":header:" + state));
-                }
+            __header : function (newState) {
+                var header = $(rf.getDomElement(this.id + ":header"));
 
-                return res;
+                for (var state in stateMap) {
+                    if (state !== newState) {
+                        header.removeClass(stateMap[state]);
+                    }
+                    if (!header.hasClass(stateMap[newState])) {
+                        header.addClass(stateMap[newState]);
+                    }
+                }
+                return header;
             },
 
             /**
@@ -85,8 +81,7 @@
             __enter : function () {
 
                 this.__content().show();
-                this.__header("inactive").hide();
-                this.__header("active").show();
+                this.__header("active");
 
                 return this.__fireEnter();
             },
@@ -126,8 +121,7 @@
                 }
 
                 this.__content().hide();
-                this.__header("active").hide();
-                this.__header("inactive").show();
+                this.__header("inactive");
 
                 return true;
             },
@@ -143,14 +137,16 @@
 
                 rf.Event.unbindById(this.id);
 
-                //TODO - optimize
-                rf.Event.unbindById(this.id + ":header:active");
-                rf.Event.unbindById(this.id + ":header:inactive");
-
                 $super.destroy.call(this);
             }
         });
 
     // define super class link
     var $super = rf.ui.Tab.$super;
+
+    var stateMap = {
+        active: 'rf-tab-hdr-act',
+        inactive: 'rf-tab-hdr-inact',
+        disabled: 'rf-tab-hdr-dis'
+    };
 })(RichFaces.jQuery, RichFaces);

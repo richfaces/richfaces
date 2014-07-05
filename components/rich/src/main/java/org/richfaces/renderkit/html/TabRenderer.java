@@ -32,6 +32,7 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
@@ -39,8 +40,10 @@ import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTab;
 import org.richfaces.component.AbstractTabPanel;
+import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.ComponentIterators;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.VisitChildrenRejectable;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
@@ -69,9 +72,20 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
         AbstractTab tab = (AbstractTab) component;
         String compClientId = component.getClientId(context);
-        if (requestMap.get(compClientId) != null) {
-            AbstractTabPanel parentTabPanel = getParentTabPanel(tab);
 
+        AbstractTabPanel parentTabPanel = getParentTabPanel(tab);
+
+        PartialViewContext pvc = context.getPartialViewContext();
+
+        if (pvc.isPartialRequest()) {
+            // encode the tabPanel headers when the tab is encoded
+            String headerMetaComponentId = parentTabPanel.getClientId(context)
+                    + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                    + AbstractTabPanel.HEADER_META_COMPONENT;
+            pvc.getRenderIds().add(headerMetaComponentId);
+        }
+
+        if (requestMap.get(compClientId) != null) {
             if (parentTabPanel.isImmediate()) {
                 tab.setImmediate(true);
             }
