@@ -270,10 +270,26 @@
             submitFirstEntry();
         };
 
+        var removeStaleEntriesFromQueue = function () {
+            var entry;
+            var foundValidEntry = false;
+            while (items.length > 0 && !foundValidEntry) {
+                entry = items[0];
+                var element = richfaces.getDomElement(entry.source);
+                if (element == null || $(element).closest("form").length == 0) {
+                    items.shift();
+                    richfaces.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
+                } else {
+                    foundValidEntry = true;
+                }
+            }
+        }
+
         var onComplete = function (data) {
             if (data.type == JSF_EVENT_TYPE && data.status == JSF_EVENT_SUCCESS) { // or JSF_EVENT_COMPLETE will be rather
                 rf.log.debug("richfaces.queue: ajax submit successfull");
                 lastRequestedEntry = null;
+                removeStaleEntriesFromQueue();
                 submitFirstEntry();
             }
         };
