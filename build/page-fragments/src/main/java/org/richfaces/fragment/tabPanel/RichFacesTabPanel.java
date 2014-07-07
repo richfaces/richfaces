@@ -34,17 +34,14 @@ import com.google.common.base.Predicate;
 
 public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab> implements TabPanel<RichFacesTab> {
 
-    @FindByJQuery(".rf-tab-hdr:visible")
+    @FindByJQuery(".rf-tab-hdr")
     private List<WebElement> switcherControllerElements;
 
     @FindByJQuery(".rf-tab:visible")
     private WebElement rootOfContainerElement;
 
-    @FindByJQuery(".rf-tab-hdr-act:visible")
+    @FindByJQuery(".rf-tab-hdr-act")
     private WebElement activeHeader;
-
-    @FindBy(className = "rf-tab-hdr-act")
-    private List<WebElement> allActiveHeaders;
 
     @FindBy(className = "rf-tab-hdr-inact")
     private List<WebElement> allInactiveHeaders;
@@ -69,10 +66,6 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
 
         public WebElement getActiveHeaderElement() {
             return activeHeader;
-        }
-
-        public List<WebElement> getAllActiveHeadersElements() {
-            return Collections.unmodifiableList(allActiveHeaders);
         }
 
         public List<WebElement> getAllInactiveHeadersElements() {
