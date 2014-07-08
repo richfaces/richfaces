@@ -421,6 +421,11 @@ public class CoreDeployment extends Deployment {
         return this;
     }
 
+    public void withWholeFramework() {
+        addMavenDependency("org.richfaces:richfaces:4.5.0-SNAPSHOT");
+        addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
+    }
+
     /**
      * Adds {@link CoreTestingRemoteExtension} (for testing Core with Arquillian) and its dependencies
      * @return
