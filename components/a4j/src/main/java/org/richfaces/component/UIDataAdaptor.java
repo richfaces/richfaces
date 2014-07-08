@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Stack;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -137,7 +138,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     private ExtendedDataModel<?> extendedDataModel = null;
     private Object rowKey = null;
     private String containerClientId;
-    private Object originalVarValue;
+    Stack<Object> originalVarValues = new Stack<Object>();
     private Converter rowKeyConverter;
 
     /**
@@ -693,7 +694,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (var != null) {
             Map<String, Object> attrs = getVariablesMap(faces);
 
-            this.originalVarValue = attrs.get(var);
+            this.originalVarValues.push(attrs.get(var));
         }
 
         // TODO add support for another variables
@@ -710,8 +711,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (var != null) {
             Map<String, Object> attrs = getVariablesMap(faces);
 
-            if (this.originalVarValue != null) {
-                attrs.put(var, this.originalVarValue);
+            if (!this.originalVarValues.isEmpty()) {
+                attrs.put(var, this.originalVarValues.pop());
             } else {
                 attrs.remove(var);
             }
