@@ -83,7 +83,7 @@
         <version.weld>1.1.4.Final</version.weld>
         <version.rewrite>1.0.4.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
-        <version.solder>3.1.1.Final</version.solder>
+        <version.solder>3.2.1.Final</version.solder>
         <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
         

@@ -5,7 +5,7 @@
 ### Requirements
 
  * Maven 3.0.3 or later
- * JBoss AS 7
+ * JBoss AS 7 or later
 
 ### Optional Additional Software
 
@@ -20,6 +20,16 @@ To build the project you need to navigate to the root folder and run
 When you see the BUILD SUCCESSFUL message you can deploy the application on the server. 
 
 You can deploy the application on the server by copying the _target/richfaces-photoalbum.war_ file to the _JBOSS\_HOME/standalone/deployments_ folder. Then launch the run.bat or run.sh file from _JBOSS\_HOME/bin/_ directory to start the server.
+
+#### Running on WildFly
+
+In order to run the demo on WildFly the server has to be started with `-Dorg.jboss.weld.nonPortableMode=true`. Alternatively, put this in the standalone.xml:
+
+    <system-properties>
+        <property name="org.jboss.weld.nonPortableMode" value="true"/>
+    </system-properties>
+    
+     
 
 ### Testing
 
@@ -59,4 +69,4 @@ There's a number of errors being thrown during deployment
         Table "ALBUM" not found; SQL statement: alter table Album drop constraint FK3C68E4FB7F856D [42102-168]
         …
         
-These errors are not serious, they are caused by the database trying to tear down tables that do not yet exist.  
+These errors are not serious, they are caused by the database trying to tear down tables that do not yet exist.
