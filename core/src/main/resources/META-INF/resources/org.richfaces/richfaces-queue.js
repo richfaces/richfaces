@@ -275,10 +275,14 @@
             var foundValidEntry = false;
             while (items.length > 0 && !foundValidEntry) {
                 entry = items[0];
-                var element = richfaces.getDomElement(entry.source);
-                if (element == null || $(element).closest("form").length == 0) {
-                    items.shift();
-                    richfaces.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
+                if (entry.getReadyToSubmit() === true) {
+                    var element = richfaces.getDomElement(entry.source);
+                    if (element == null || $(element).closest("form").length == 0) {
+                        items.shift();
+                        richfaces.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
+                    } else {
+                        foundValidEntry = true;
+                    }
                 } else {
                     foundValidEntry = true;
                 }
