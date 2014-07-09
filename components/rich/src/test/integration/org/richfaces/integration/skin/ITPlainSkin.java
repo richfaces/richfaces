@@ -38,10 +38,10 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
+import org.richfaces.integration.UIDeployment;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -67,7 +67,7 @@ public class ITPlainSkin {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITPlainSkin.class);
+        UIDeployment deployment = new UIDeployment(ITPlainSkin.class);
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
 
@@ -96,7 +96,7 @@ public class ITPlainSkin {
         Assert.assertEquals(expectedUrl, buttonDefault.getCssValue("background-image"));
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");
