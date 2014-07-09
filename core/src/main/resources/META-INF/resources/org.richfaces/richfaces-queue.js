@@ -276,10 +276,10 @@
             while (items.length > 0 && !foundValidEntry) {
                 entry = items[0];
                 if (entry.getReadyToSubmit() === true) {
-                    var element = richfaces.getDomElement(entry.source);
+                    var element = rf.getDomElement(entry.source);
                     if (element == null || $(element).closest("form").length == 0) {
                         items.shift();
-                        richfaces.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
+                        rf.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
                     } else {
                         foundValidEntry = true;
                     }
