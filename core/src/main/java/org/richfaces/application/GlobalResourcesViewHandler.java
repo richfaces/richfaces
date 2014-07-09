@@ -143,10 +143,7 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
         return resourceComponent;
     }
 
-    @Override
-    public UIViewRoot createView(FacesContext context, String viewId) {
-        UIViewRoot viewRoot = super.createView(context, viewId);
-
+    private UIViewRoot addSkinningResourcesToViewRoot(FacesContext context, UIViewRoot viewRoot) {
         boolean skinningResourceFound = false;
         List<UIComponent> resources = viewRoot.getComponentResources(context, HEAD);
         for (UIComponent resource : resources) {
@@ -173,5 +170,19 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
         }
 
         return viewRoot;
+    }
+
+    @Override
+    public UIViewRoot restoreView(FacesContext context, String viewId) {
+        UIViewRoot viewRoot = super.restoreView(context, viewId);
+
+        return addSkinningResourcesToViewRoot(context, viewRoot);
+    }
+
+    @Override
+    public UIViewRoot createView(FacesContext context, String viewId) {
+        UIViewRoot viewRoot = super.createView(context, viewId);
+
+        return addSkinningResourcesToViewRoot(context, viewRoot);
     }
 }
