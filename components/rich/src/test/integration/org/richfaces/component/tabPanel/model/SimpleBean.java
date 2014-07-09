@@ -23,14 +23,14 @@ package org.richfaces.component.tabPanel.model;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@Named
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class SimpleBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -56,5 +56,4 @@ public class SimpleBean implements Serializable {
     public void incrementCount() {
         count++;
     }
-
 }

@@ -1,6 +1,7 @@
 package org.richfaces.component.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.guardNoRequest;
 
 import java.net.URL;
 import java.util.List;
@@ -41,11 +42,8 @@ public class ITStaticTab {
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
-    @FindBy(className = "rf-tab-hdr-inact")
-    private List<WebElement> inactiveHeaders;
-
-    @FindBy(className = "rf-tab-hdr-act")
-    private List<WebElement> activeHeaders;
+    @FindBy(className = "rf-tab-hdr")
+    private List<WebElement> headers;
 
     @FindBy(id = "out")
     private WebElement out;
@@ -75,14 +73,14 @@ public class ITStaticTab {
     }
 
     /**
-     * RF-12839
+     * {@link https://issues.jboss.org/browse/RF-12839}
      */
     @Test
     @Category(Smoke.class)
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        guardAjax(inactiveHeaders.get(1)).click();
+        guardAjax(headers.get(1)).click();
         Assert.assertTrue(out.getText().contains("begin"));
 //        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
 //        Assert.assertTrue(out.getText().contains("beforedomupdate"));
@@ -93,13 +91,13 @@ public class ITStaticTab {
     }
 
     /**
-     * RF-12969
+     * {@link https://issues.jboss.org/browse/RF-12969}
      */
     @Test
     public void check_click_active_tab() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
         WebElement activeTab = tabTestHelper.getActiveTab(tabPanel);
-        guardAjax(activeTab).click();
+        guardNoRequest(activeTab).click();
         Assert.assertEquals(null, body.getAttribute("JSError"));
     }
 
@@ -108,19 +106,28 @@ public class ITStaticTab {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         inputText.sendKeys("abcd");
-        guardAjax(inactiveHeaders.get(1)).click();
+        guardAjax(headers.get(1)).click();
         Assert.assertEquals("abcd", outputText.getText());
     }
 
     /**
      * {@link https://issues.jboss.org/browse/RF-13278}
+     * {@link https://issues.jboss.org/browse/RF-13687}
      */
     @Test
     public void check_header_render() {
         browser.get(contextPath.toExternalForm() + "header.jsf");
-        Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
-        guardAjax(activeHeaders.get(0)).click();
-        Assert.assertEquals("1 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        Assert.assertEquals("0 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(headers.get(1)).click();
+        guardAjax(headers.get(0)).click();
+        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(headers.get(1)).click();
+        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+
+        guardAjax(headers.get(0)).click();
+        Assert.assertEquals("2 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
     /**
@@ -129,9 +136,17 @@ public class ITStaticTab {
     @Test
     public void check_header_button_render() {
         browser.get(contextPath.toExternalForm() + "headerButton.jsf");
-        Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
-        guardAjax(activeHeaders.get(0).findElement(By.className("button"))).click();
-        Assert.assertEquals("1 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        Assert.assertEquals("0 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        
+        guardAjax(headers.get(0).findElement(By.className("button"))).click();
+        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        
+        guardAjax(headers.get(1)).click();
+        guardAjax(headers.get(0)).click();
+        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        
+        guardAjax(headers.get(0).findElement(By.className("button"))).click();
+        Assert.assertEquals("2 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
 
@@ -149,12 +164,12 @@ public class ITStaticTab {
         p.body("               onbeforedomupdate='$(\"#out\").append(\"beforedomupdate \\n\")'>");
         p.body("    <rich:tab id='tab0' name='tab0' header='tab0 header' ");
         p.body("               oncomplete='$(\"#out\").append(\"tab0_complete \\n\")'>");
-        p.body("        content of tab 1");
+        p.body("        content of tab 0");
         p.body("    </rich:tab>");
         p.body("    <rich:tab id='tab1' name='tab1' header='tab1 header' ");
         p.body("               execute='inputText'");
         p.body("               oncomplete='$(\"#out\").append(\"tab1_complete \\n\")'>");
-        p.body("        content of tab 2");
+        p.body("        content of tab 1");
         p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
         p.body("    </rich:tab>");
         p.body("</rich:tabPanel> ");
@@ -168,21 +183,21 @@ public class ITStaticTab {
     private static void addHeaderPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
-        p.body("<rich:tabPanel id='tabPanel' >");
+        p.body("<rich:tabPanel id='tabPanel'>");
         p.body("    <rich:tab id='tab0' name='tab0' "); // header='tab0 header' ");
         p.body("            action='#{simpleBean.incrementCount()}' ");
         p.body("            render='tabPanel@header'> ");
         p.body("        <f:facet name='header'> ");
         p.body("        Click Me ");
         p.body("        </f:facet> ");
-        p.body("        content of tab 1");
+        p.body("        content of tab 0");
         p.body("    </rich:tab>");
         p.body("    <rich:tab id='tab1'>");
         p.body("        <f:facet name='header'> ");
         p.body("            <h:outputText id='label' value='#{simpleBean.count} clicks' /> ");
         p.body("        </f:facet> ");
-        p.body("        content of tab 2");
-        p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
+        p.body("        content of tab 1");
+        p.body("        <h:outputText id='outputText' value='#{simpleBean.string}' />");
         p.body("    </rich:tab>");
         p.body("</rich:tabPanel> ");
         p.body("</h:form>");
@@ -195,7 +210,8 @@ public class ITStaticTab {
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' >");
         p.body("    <rich:tab id='tab0' name='tab0'> "); // header='tab0 header' ");
-        p.body("        <f:facet name='header'> ");
+        p.body("        <f:facet name='header'>");
+        p.body("            Tab 0 ");
         p.body("            <a4j:commandLink value='click me' ");
         p.body("                styleClass='button' ");
         p.body("                action='#{simpleBean.incrementCount()}' ");
@@ -203,13 +219,13 @@ public class ITStaticTab {
         p.body("                oncomplete='return false;' ");
         p.body("                execute='@this' /> ");
         p.body("        </f:facet> ");
-        p.body("        content of tab 1");
+        p.body("        content of tab 0");
         p.body("    </rich:tab>");
         p.body("    <rich:tab id='tab1'>");
         p.body("        <f:facet name='header'> ");
         p.body("            <h:outputText id='label' value='#{simpleBean.count} clicks' /> ");
         p.body("        </f:facet> ");
-        p.body("        content of tab 2");
+        p.body("        content of tab 1");
         p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
         p.body("    </rich:tab>");
         p.body("</rich:tabPanel> ");

@@ -35,7 +35,7 @@ public class ITRepeatTab {
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
-    @FindBy(className = "rf-tab-hdr-inact")
+    @FindBy(className = "rf-tab-hdr")
     private List<WebElement> tabs;
 
     @FindBy(id = "myForm:a4jCreateTabButton")
