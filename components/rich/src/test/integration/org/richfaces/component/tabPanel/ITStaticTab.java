@@ -97,7 +97,7 @@ public class ITStaticTab {
     public void check_click_active_tab() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
         WebElement activeTab = tabTestHelper.getActiveTab(tabPanel);
-        guardNoRequest(activeTab).click();
+        guardAjax(activeTab).click();
         Assert.assertEquals(null, body.getAttribute("JSError"));
     }
 
@@ -140,9 +140,9 @@ public class ITStaticTab {
         
         guardAjax(headers.get(0).findElement(By.className("button"))).click();
         Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
-        
+
         guardAjax(headers.get(1)).click();
-        guardAjax(headers.get(0)).click();
+        guardAjax(headers.get(0).findElement(By.className("myText"))).click();
         Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
         
         guardAjax(headers.get(0).findElement(By.className("button"))).click();
@@ -211,7 +211,7 @@ public class ITStaticTab {
         p.body("<rich:tabPanel id='tabPanel' >");
         p.body("    <rich:tab id='tab0' name='tab0'> "); // header='tab0 header' ");
         p.body("        <f:facet name='header'>");
-        p.body("            Tab 0 ");
+        p.body("            <span class='myText'>Tab 0</span> ");
         p.body("            <a4j:commandLink value='click me' ");
         p.body("                styleClass='button' ");
         p.body("                action='#{simpleBean.incrementCount()}' ");

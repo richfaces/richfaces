@@ -156,6 +156,7 @@
                 this.element = document.getElementById(componentId);
                 var $element = $(this.element);
 
+                $element.on("click", ".rf-tab-hdr-act", $.proxy(this.__clickListener, this))
                 $element.on("click", ".rf-tab-hdr-inact", $.proxy(this.__clickListener, this))
             },
 
