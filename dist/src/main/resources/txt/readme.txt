@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                                 RichFaces 5.0.0-SNAPSHOT
+                                                RichFaces 4.5.0-SNAPSHOT
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the
@@ -52,24 +52,21 @@ SETTING UP YOUR PROJECT
     After downloading the distribution package, extract its content in a
     folder of your choice.
 
-    Search for the 'artifacts' directory in the extracted files. There you
-    will find 'framework' and 'ui' directories, each of them having the
-    jars needed to use RichFaces inside your project.
+    In the root of the extracted folder you will find the jars needed to
+    use RichFaces inside your project.  Copy the following jars to your
+    application libraries folder:
 
-        - From 'ui' directory: Copy richfaces-components-api-4.x.jar and
-          richfaces-components-ui-4.x.jar to your application libraries
-          folder.
-
-        - From 'framework' directory: Copy richfaces-core-api-4.x.jar and
-          richfaces-core-impl-4.x.jar to your application libraries folder.
+        - richfaces-rich-4.5.0-SNAPSHOT
+        - richfaces-a4j-4.5.0-SNAPSHOT
+        - richfaces-core-4.5.0-SNAPSHOT
 
     In addition to the RichFaces jars, a number of dependencies are
     required in order to properly configure the framework.
 
 
-      a.  sac-1.3, cssparser-0.9.5 - required for components CSS work.
+      a.  sac.jar, cssparser.jar - required for components CSS work.
 
-      b.  google-guava-11.0.2 - core runtime dependency.
+      b.  guava - core runtime dependency.
 
       c.  annotations.jar  - from org.richfaces.cdk.
 
@@ -107,8 +104,8 @@ GETTING STARTED
 2. Add RichFaces namespaces/taglibs declarations to your VDL/XHTML pages
    which will use RichFaces components.
 
-   - Use xmlns:r="http://richfaces.org" namespace for core components
-   - Use xmlns:r="http://richfaces.org" namespace for rich components
+   - Use xmlns:rich="http://richfaces.org/rich" namespace for core components
+   - Use xmlns:a4j="http://richfaces.org/a4j" namespace for rich components
 
 3. Add on of the available RichFaces components to your page and try it!
    Take a look at the RichFaces examples for assistance with usage.
@@ -245,6 +242,7 @@ rich:progressBar
 rich:tooltip
 rich:message
 rich:notify
+rich:chart
 
 ---------------------------------
 Menus:
