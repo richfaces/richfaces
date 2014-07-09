@@ -111,6 +111,7 @@
 .rf-fu-btn-cnt-add {
     background-image: url("#{resource['org.richfaces:fu-add.gif']}");
     position: relative;
+    overflow: hidden;
 }
 
 .rf-fu-btn-cnt-add-dis {
