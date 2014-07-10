@@ -23,6 +23,7 @@ package org.richfaces.component.chart;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URL;
@@ -40,12 +41,12 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
+import category.FailingOnFirefox;
 import category.Smoke;
 
 @RunWith(Arquillian.class)
@@ -103,7 +104,7 @@ public class ITChartBasic {
         p.head("</script>");
 
         p.body("<h:form id='frm'>");
-        p.body("<rich:chart id='chart' title='ChartTitle' onplotclick='logClick(event)' onplothover='hover(event)' onmouseout='clear()' plotClickListener='#{chartBean.handler}' >");
+        p.body("<rich:chart id='chart' zoom ='true' title='ChartTitle' onplotclick='logClick(event)' onplothover='hover(event)' onmouseout='clear()' plotClickListener='#{chartBean.handler}' >");
         p.body("    <a4j:repeat value='#{chartBean.countries}' var='country'>");
         p.body("                <rich:series label='#{country.name}' type='line'>");
         p.body("                    <a4j:repeat value='#{country.data}' var='record'>");
@@ -136,8 +137,9 @@ public class ITChartBasic {
     }
 
     @Test
-    @Category(Smoke.class)
+    @Category({ Smoke.class, FailingOnFirefox.class })
     public void testChartEvents() {
+        // does not work on FF - Webdriver cannot click into position on canvas hence cannot fire event
         final String serverSide = "Server's speaking:Point with index 0 within series 0 was clicked. Point coordinates: [1990,19.1].";
         final String plotClick = "1990,19.1";
         final String plotHover = "USA [1990,19.1]";
@@ -147,20 +149,49 @@ public class ITChartBasic {
         int x = chtestjs.pointXPos("frm:chart", 0, 0);
         int y = chtestjs.pointYPos("frm:chart", 0, 0);
 
-        //FIXME
-        // in FF canvas cannot be clicked via selenium, hence we need to skip these tests
-        if (!(browser instanceof FirefoxDriver)) {
-            // onplotclick client side
-            new Actions(browser).moveToElement(chartCanvas, x, y).click().build().perform();
-            waitAjax(browser).until().element(clickInfo).text().contains(plotClick);
+        // onplotclick client side
+        new Actions(browser).moveToElement(chartCanvas, x, y).click().build().perform();
+        waitAjax(browser).until().element(clickInfo).text().contains(plotClick);
 
-            // onplotclick server side, since the element was already clicked only assertion is needed
-            waitAjax(browser).until().element(serverSideInfo).text().contains(serverSide);
-        }
+        // onplotclick server side, since the element was already clicked only assertion is needed
+        waitAjax(browser).until().element(serverSideInfo).text().contains(serverSide);
 
         // onplothover, first move away to clear the text from previous events
         new Actions(browser).moveToElement(serverSideInfo).click().build().perform();
         new Actions(browser).moveToElement(chartCanvas, x, y).build().perform();
         waitAjax(browser).until().element(hoverInfo).text().contains(plotHover);
+    }
+
+    @Test
+    @Category({ Smoke.class, FailingOnFirefox.class })
+    public void testZoom() {
+        // does not work on FF - Webdriver cannot click into position on canvas
+        browser.get(deploymentUrl.toExternalForm());
+
+        // get plot coordinates on screen before zooming
+        int xBeforeZoom = chtestjs.pointXPos("frm:chart", 0, 0);
+
+        // zoom some area
+        new Actions(browser)
+            .moveToElement(chartCanvas, chtestjs.pointXPos("frm:chart", 1, 1), chtestjs.pointYPos("frm:chart", 1, 1))
+            .clickAndHold()
+            .moveToElement(chartCanvas, chtestjs.pointXPos("frm:chart", 2, 2), chtestjs.pointYPos("frm:chart", 2, 2)).release()
+            .build().perform();
+        // new Actions(browser).clickAndHold().moveByOffset(200, 50).release().build().perform();
+
+        // get the coordinates after zooming, they should be different
+        int xAfterZoom = chtestjs.pointXPos("frm:chart", 0, 0);
+
+        // assert coordinates do not equal after zoom, only x axis is zoomed
+        assertNotEquals(xBeforeZoom, xAfterZoom);
+
+        // perform zoom reset by JS
+        chtestjs.resetZoom("frm:chart");
+
+        // get the coordinates again
+        int xZoomReset = chtestjs.pointXPos("frm:chart", 0, 0);
+
+        // assert that this equals initial state, only x axis is zoomed
+        assertEquals(xBeforeZoom, xZoomReset);
     }
 }

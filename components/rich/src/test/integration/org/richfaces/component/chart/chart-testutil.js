@@ -20,6 +20,10 @@ window.charttestutil = {
 		var yVal = window.charttestutil.pointY(id, seriesIndex, pointIndex);
 		var plotObj = RichFaces.component(id).getPlotObject();
 		return plotObj.getYAxes()[0].p2c(yVal) + plotObj.offset().top - 25;// -10 originally
+	},
+	
+	resetZoom: function(id) {
+		// line chart only
+		return RichFaces.component(id).resetZoom();
 	}
-
 }
