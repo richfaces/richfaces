@@ -87,7 +87,7 @@ public class FrameworkDeployment extends org.richfaces.deployment.Deployment {
 
     public void withWholeFramework() {
         archive().addAsLibrary(RICHFACES_JAR.get());
-        addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
+        addMavenDependency("org.richfaces:richfaces-a4j:4.5.0.Alpha3");
     }
 
     /**
