@@ -275,14 +275,11 @@
             var foundValidEntry = false;
             while (items.length > 0 && !foundValidEntry) {
                 entry = items[0];
-                if (entry.getReadyToSubmit() === true) {
-                    var element = rf.getDomElement(entry.source);
-                    if (element == null || $(element).closest("form").length == 0) {
-                        items.shift();
-                        rf.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
-                    } else {
-                        foundValidEntry = true;
-                    }
+                var element = rf.getDomElement(entry.source);
+                if (element == null || $(element).closest("form").length == 0) {
+                    var removedEntry = items.shift();
+                    removedEntry.stopTimer();
+                    rf.log.debug("richfaces.queue: removing stale entry from the queue (source element: " + element + ")");
                 } else {
                     foundValidEntry = true;
                 }
