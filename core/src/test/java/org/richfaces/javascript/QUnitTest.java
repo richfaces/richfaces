@@ -120,42 +120,42 @@ public class QUnitTest {
 
     @Test
     public void testEvent() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?richfaces-event");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=richfaces-event");
     }
 
     @Test
     public void testPosition() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?jquery-position");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=jquery-position");
     }
 
     @Test
     public void testQueueRequest() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?richfaces-queue-request");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=richfaces-queue-request");
     }
 
     @Test
     public void testQueueGetSize() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?richfaces-queue-getSize");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=richfaces-queue-getSize");
     }
 
     @Test
     public void testQueueEmpty() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?richfaces-queue-isEmpty");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=richfaces-queue-isEmpty");
     }
 
     @Test
     public void testQueueClear() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?richfaces-queue-clear");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=richfaces-queue-clear");
     }
 
     @Test
     public void testQueueSubmitFirst() throws Exception {
-        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?richfaces-queue-submitFirst");
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"), "?module=richfaces-queue-submitFirst");
     }
 
     @Test
     public void testBaseComponent() throws Exception {
         runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"),
-            "?richfaces-base-component module");
+            "?module=richfaces-base-component");
     }
 }
