@@ -417,7 +417,7 @@
     <group>
         <name>Output/Panels</name>
         <demos>
-        	<demo>
+            <demo mobileExclude="true">
                 <id>chart</id>
                 <name>r:chart</name>
                 <samples>

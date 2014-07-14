@@ -24,7 +24,7 @@
     background-color: '#{richSkin.selectControlColor}';
     height: 100%;
     padding: 0px;
-    background-image: "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
+    background-image: "#{richSkin.imageUrl('pbAniBg.gif')}";
 }
 
 .rf-pb-lbl {

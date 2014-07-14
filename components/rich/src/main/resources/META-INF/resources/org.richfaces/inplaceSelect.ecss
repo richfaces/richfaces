@@ -66,7 +66,7 @@ input.rf-is-fld {
 }
 
 .rf-is-btn {
-    background-image: url("#{resource['org.richfaces.images:inplaceBtnGrad.png']}");
+    background-image: "#{richSkin.imageUrl('inplaceBtnGrad.png')}";
     background-position: top;
     background-repeat: repeat-x;
     background-color: '#{richSkin.tabBackgroundColor}';
@@ -78,7 +78,7 @@ input.rf-is-fld {
 }
 
 .rf-is-btn-p {
-    background-image: url("#{resource['org.richfaces.images:inplaceBtnPressGrad.png']}");
+    background-image: "#{richSkin.imageUrl('inplaceBtnPressGrad.png')}";
     background-position: top;
     background-repeat: repeat-x;
     background-color: '#{richSkin.tabBackgroundColor}';

@@ -45,9 +45,9 @@
         this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
         this.input = this.inputContainer.children("input");
         this.list = header.next();
-        this.list.bind('dragenter', function(e) {e.stopPropagation(); e.preventDefault();});
-        this.list.bind('dragover', function(e) {e.stopPropagation(); e.preventDefault();});
-        this.list.bind('drop', $.proxy(this.__addItemsFromDrop, this));
+        this.element.bind('dragenter', function(e) {e.stopPropagation(); e.preventDefault();});
+        this.element.bind('dragover', function(e) {e.stopPropagation(); e.preventDefault();});
+        this.element.bind('drop', $.proxy(this.__addItemsFromDrop, this));
 
         this.hiddenContainer = this.list.next();
         this.cleanInput = this.input.clone();
@@ -132,7 +132,7 @@
                     for (var i = 0 ; i < files.length; i++) {
                         this.__tryAddItem(context, files[i]);
 
-                        if (this.maxFilesQuantity && (context.acceptedFileNames.length >= this.maxFilesQuantity)) {
+                        if (this.maxFilesQuantity && this.__getTotalItemCount() >= this.maxFilesQuantity) {
                             this.addButton.hide();
                             break;
                         }

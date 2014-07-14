@@ -80,7 +80,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
 
-    private static enum PartName {
+    protected static enum PartName {
 
         frozen,
         normal;
@@ -95,7 +95,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
 
-    private class Part {
+    protected final class Part {
         private PartName name;
         private List<UIComponent> columns;
 
@@ -113,7 +113,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
 
-    private class RendererState extends RowHolderBase {
+    protected class RendererState extends RowHolderBase {
         private UIDataTableBase table;
         private List<Part> parts;
         private Part current;
@@ -143,7 +143,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
         }
 
-        private List<UIComponent> getOrderedColumns(FacesContext context) {
+        protected List<UIComponent> getOrderedColumns(FacesContext context) {
             Map<String, UIComponent> columnsMap = new LinkedHashMap<String, UIComponent>();
             Iterator<UIComponent> iterator = table.columns();
             while (iterator.hasNext()) { // initialize a map of all the columns
@@ -198,7 +198,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
 
-    private enum EncoderVariance {
+    protected enum EncoderVariance {
         full {
             public void encodeStartUpdate(FacesContext context, String targetId) throws IOException {
                 // do nothing

@@ -1,6 +1,6 @@
 ![RichFaces Project Logo][logo]
 
-RichFaces 5 [![Build Status](https://travis-ci.org/richfaces/richfaces.png?branch=master)](https://travis-ci.org/richfaces/richfaces)
+RichFaces 4.5 [![Build Status](https://travis-ci.org/richfaces/richfaces.png?branch=master)](https://travis-ci.org/richfaces/richfaces)
 ===========
 
 <h3>The next-generation JSF component framework by JBoss, Red Hat</h3>
@@ -11,13 +11,10 @@ RichFaces 5 [![Build Status](https://travis-ci.org/richfaces/richfaces.png?branc
 Goal
 ----
 
-<h3>Version 5</h3>
+<h3>Version 4.5</h3>
 
-* New approach to styling based on LESS
-* New components based on third-party widgets
 * Full JSF 2.2 Compatibility
 * Simplified Setup for Users
-* Smooth Migration from RF4 to RF5
 
 <h3>Architecture Goals</h3>
 
@@ -56,7 +53,7 @@ In order to start with the project, you need just include the RichFaces JARs on 
     <dependency>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces</artifactId>
-        <type>pom</type>
+        <version>4.5.0-SNAPSHOT</version>
     </dependency>
 
 or download the project ZIP distribution from [Downloads Page](http://www.jboss.org/richfaces/download.html).
@@ -67,7 +64,8 @@ Once you have the RichFaces JARs on the classpath, you can start developing by a
     <html lang="en"
 		xmlns="http://www.w3.org/1999/xhtml"
 		...
-		xmlns:r="http://richfaces.org">
+		xmlns:rich="http://richfaces.org/rich">
+		xmlns:a4j="http://richfaces.org/a4j">
 
 	</html>
 
@@ -99,21 +97,21 @@ Maven will build the project and execute unit tests, but it won't build distribu
 
 the ZIP distribution will be stored in `dist/target/`.
 
-[Contributor Getting Started](https://github.com/richfaces/richfaces5/blob/master/CONTRIBUTING.md)
+[Contributor Getting Started](https://github.com/richfaces/richfaces/blob/master/CONTRIBUTING.md)
 -----------------------------
 
-Read [How to Contribute](https://github.com/richfaces/richfaces5/blob/master/CONTRIBUTING.md).
+Read [How to Contribute](https://github.com/richfaces/richfaces/blob/master/CONTRIBUTING.md).
 
 Developing the Project
 ----------------------
 
 <h3>How to Explore the Sources</h3>
 
-All the sources related to RichFaces framework and component library are located in `framework` folder:
+All the sources related to RichFaces framework and component library are located in `core` and `components` folders:
 
 * `src/main/java`
   * framework sources
-  * JSF components under `org.richfaces.ui` package
+  * JSF components under `org.richfaces.components` package
 * `src/main/resources/META-INF/resources`
   * JavaScript and CSS resources
 
@@ -121,7 +119,7 @@ Examples such as *RichFaces Showcase* and *Components Demo* are stored in `examp
 
 <h3>Developing the Project in IDE</h3>
 
-Once you have [built the project](#building-the-project) you can import `framework` and one of `examples` to the IDE.
+Once you have [built the project](#building-the-project) you can import `core`, `components` and one of the `examples` to the IDE.
 
 If you are using Eclipse, you should use `Import Existing Maven Project` option.
 

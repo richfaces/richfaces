@@ -31,7 +31,7 @@
 
 .rf-fu-hdr {
     background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: url("#{resource['org.richfaces.images:gradientA.png']}");
+    background-image: "#{richSkin.imageUrl('gradientA.png')}";
     border-color: '#{richSkin.headerBackgroundColor}';
     border-style: solid;
     border-width: 1px;
@@ -78,13 +78,13 @@
 
 .rf-fu-btn-add,.rf-fu-btn-upl,.rf-fu-btn-clr {
     background-color: '#{richSkin.trimColor}';
-    background-image: url("#{resource['org.richfaces.images:fuBtnGrad.png']}");
+    background-image: "#{richSkin.imageUrl('fuBtnGrad.png')}";
     border-color: '#{richSkin.panelBorderColor}';
 }
 
 .rf-fu-btn-add-dis {
     background-color: '#{richSkin.tableFooterBackgroundColor}';
-    background-image: url("#{resource['org.richfaces.images:fuBtnDisGrad.png']}");
+    background-image: "#{richSkin.imageUrl('fuBtnDisGrad.png')}";
     border-color: '#{richSkin.tableFooterBackgroundColor}';
 }
 
@@ -111,6 +111,7 @@
 .rf-fu-btn-cnt-add {
     background-image: url("#{resource['org.richfaces:fu-add.gif']}");
     position: relative;
+    overflow: hidden;
 }
 
 .rf-fu-btn-cnt-add-dis {

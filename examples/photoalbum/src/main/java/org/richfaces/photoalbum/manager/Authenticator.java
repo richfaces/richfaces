@@ -366,13 +366,11 @@ public class Authenticator implements Serializable {
      * Method, that invoked when new conversation is started. This method prevent instantiation of couples of conversations when
      * user refresh the whole page.
      *
-     * @return string outcome to properly redirect on the current page(to assign to page parameters conversationId.
      */
     @PostConstruct
-    public String startConversation() {
+    public void startConversation() {
         navEvent.fire(new NavEvent(NavigationEnum.ANONYM));
         setConversationStarted(true);
-        return "";
     }
 
     private boolean handleAvatar(User user) {

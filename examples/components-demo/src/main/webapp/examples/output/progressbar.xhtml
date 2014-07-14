@@ -120,7 +120,7 @@
                            maxValue="#{progressBarBean.maxValue}" minValue="#{progressBarBean.minValue}"
                            label="#{progressBarBean.value} % ~ #{progressBarBean.currentTimeAsString}"
                            reRenderAfterComplete="progressPanel"
-                           onfinish="alert('\'finish\' event handlerich: ' + this.tagName)"
+                           onfinish="alert('\'finish\' event handler: ' + this.tagName)"
                            enabled="#{progressBarBean.enabled}">
                 <h:outputText value="child + " rendered="#{progressBarBean.childrenRendered}"/>
 

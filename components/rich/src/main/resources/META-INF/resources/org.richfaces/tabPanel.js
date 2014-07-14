@@ -151,7 +151,22 @@
                 rf.ui.TogglePanel.call(this, componentId, options);
                 this.items = [];
 
-                this.isKeepHeight = options["isKeepHeight"] || false
+                this.isKeepHeight = options["isKeepHeight"] || false;
+
+                this.element = document.getElementById(componentId);
+                var $element = $(this.element);
+
+                $element.on("click", ".rf-tab-hdr-act", $.proxy(this.__clickListener, this))
+                $element.on("click", ".rf-tab-hdr-inact", $.proxy(this.__clickListener, this))
+            },
+
+            __clickListener: function(event) {
+                var header = $(event.target);
+                if (! header.hasClass("rf-tab-hdr")) {
+                    header = header.parents(".rf-tab-hdr").first();
+                }
+                var tabname = header.data('tabname');
+                this.switchToItem(tabname);
             },
 
             __itemsSwitcher : function () {

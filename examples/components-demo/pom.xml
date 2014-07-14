@@ -41,26 +41,6 @@
         <version.richfaces>4.5.0-SNAPSHOT</version.richfaces>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- RichFaces BOM Import -->
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${version.richfaces}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-build</artifactId>
-                <version>${version.richfaces}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.jboss.spec</groupId>
@@ -86,6 +66,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

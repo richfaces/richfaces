@@ -1,5 +1,27 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
 .rf-trn {
-    background: "url(#{resource['org.richfaces.images:last.png']}) no-repeat center left";
+    background: "#{richSkin.imageUrl('last.png')} no-repeat center left";
     cursor: default;
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
@@ -26,7 +48,7 @@
 }
 
 .rf-tr-nd {
-    background: "url(#{resource['org.richfaces.images:line.png']}) repeat-y";
+    background: "#{richSkin.imageUrl('line.png')} repeat-y";
     min-height: 0px;
 }
 
@@ -52,19 +74,19 @@
 }
 
 .rf-trn-hnd-colps {
-    background: "url(#{resource['org.richfaces.images:plus.png']}) no-repeat center";
+    background: "#{richSkin.imageUrl('plus.png')} no-repeat center";
 }
 
 .rf-trn-hnd-exp {
-    background: "url(#{resource['org.richfaces.images:minus.png']}) no-repeat center";
+    background: "#{richSkin.imageUrl('minus.png')} no-repeat center";
 }
 
 .rf-trn-ico-exp,.rf-trn-ico-colps {
-    background: "url(#{resource['org.richfaces.images:node_icon.gif']}) no-repeat center";
+    background: "#{richSkin.imageUrl('node_icon.gif')} no-repeat center";
 }
 
 .rf-trn-ico-lf {
-    background: "url(#{resource['org.richfaces.images:leaf_icon.gif']}) no-repeat center";
+    background: "#{richSkin.imageUrl('leaf_icon.gif')} no-repeat center";
 }
 
 .rf-trn-ico-cst {

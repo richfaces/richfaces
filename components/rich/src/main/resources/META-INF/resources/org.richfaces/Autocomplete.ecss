@@ -6,7 +6,7 @@
 
 input.rf-au-inp {
     background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-image: "#{richSkin.imageUrl('inputBackgroundImage.png')}";
     background-position: 1px 1px;
     background-repeat: no-repeat;
     border: 0px;
@@ -21,7 +21,7 @@ input.rf-au-inp {
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
     display: inline-block;
-    background-image: "url(#{resource['org.richfaces.images:autocompleteFieldGradient.png']})";
+    background-image: "#{richSkin.imageUrl('autocompleteFieldGradient.png')}";
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.controlBackgroundColor}';
@@ -36,7 +36,7 @@ input.rf-au-inp {
 }
 
 .rf-au-btn {
-    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-image: "#{richSkin.imageUrl('autocompleteButtonGradient.png')}";
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';
@@ -50,7 +50,7 @@ input.rf-au-inp {
 .rf-au-btn-arrow,.rf-au-btn-arrow-dis {
     background-position: center;
     background-repeat: no-repeat;
-    background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
+    background-image: "#{richSkin.imageUrl('comboDownButton.png')}";
     cursor: pointer;
     width: 15px;
     height: 16px;
@@ -58,7 +58,7 @@ input.rf-au-inp {
 }
 
 .rf-au-btn-arrow-dis {
-    background-image: "url(#{resource['org.richfaces.images:comboDisabledDownButton.png']})";
+    background-image: "#{richSkin.imageUrl('comboDisabledDownButton.png')}";
     cursor: default;
 }
 

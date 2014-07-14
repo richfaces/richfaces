@@ -35,7 +35,7 @@ public class DynamicTabTestHelper {
         guardAjax(tabs.get(0)).click();
         Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
-        WebElement removeLink =tabs.get(6).findElement(By.tagName("a"));
+        WebElement removeLink = tabs.get(6).findElement(By.tagName("a"));
         guardAjax(removeLink).click();
         Assert.assertEquals(6, tabs.size());
     }

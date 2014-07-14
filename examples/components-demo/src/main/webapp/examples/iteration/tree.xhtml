@@ -37,23 +37,23 @@
 
     <h:outputStylesheet>/*<![CDATA[*/
 	.customClass .customNodeClass {
-		borderich: 1px solid navy;
+		border: 1px solid navy;
 	}
 
 	.customClass .customHandleClass {
-		borderich: 1px solid red;
+		border: 1px solid red;
 	}
 
 	.customClass .customIconClass {
-		borderich: 1px solid yellow;
+		border: 1px solid yellow;
 	}
 
 	.customClass .customLabelClass {
-		borderich: 1px solid green;
+		border: 1px solid green;
 	}
 
 	.loadingWithoutFacet .rf-trn-ldn .rf-trn-hnd {
-		cursorich: default;
+		cursor: default;
 		background-image: url(#{facesContext.externalContext.requestContextPath}/images/loading.gif);
 	}
 
@@ -339,7 +339,7 @@
 
         <hr />
 
-        execute/renderich:
+        execute/render:
         <h:panelGrid columns="2" id="executeRenderTreeGrid">
             <rich:tree var="node" value="#{treeBean.rootNodes}" execute="executeRenderTreeGrid" render="selectionIndicator"
                      selection="#{treeBean.selection}" selectionType="#{treeBean.selectionType}"

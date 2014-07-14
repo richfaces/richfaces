@@ -412,13 +412,18 @@ public class CoreDeployment extends Deployment {
     }
 
     public CoreDeployment withWholeCore() {
-        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces.jar");
+        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-core.jar");
         coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());
         archive().addAsLibrary(coreArchive);
 
         return this;
+    }
+
+    public void withWholeFramework() {
+        addMavenDependency("org.richfaces:richfaces:4.5.0-SNAPSHOT");
+        addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
     }
 
     /**
