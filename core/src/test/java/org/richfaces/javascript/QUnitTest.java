@@ -158,4 +158,10 @@ public class QUnitTest {
         runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"),
             "?module=richfaces-base-component");
     }
+
+    @Test
+    public void testRemoveStaleEntries() throws Exception {
+        runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"),
+                "?module=richfaces-queue-remove-stale-entries");
+    }
 }
