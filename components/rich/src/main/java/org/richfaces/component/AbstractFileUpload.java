@@ -41,6 +41,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
@@ -60,7 +61,7 @@ import org.richfaces.view.facelets.FileUploadHandler;
 @JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps, CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, I18nProps {
 
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
@@ -82,12 +83,6 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
      */
     @Attribute(defaultValue = "-1")
     public abstract Integer getMaxFilesQuantity();
-
-    /**
-     * If "true", this component is disabled
-     */
-    @Attribute(defaultValue = "false")
-    public abstract boolean isDisabled();
 
     /**
      * <p>If "true" duplicate file uploads are prevented</p>

@@ -50,6 +50,11 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.EventsPopupsProps;
+import org.richfaces.component.attribute.PopupsProps;
+import org.richfaces.component.attribute.PositionProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.CurrentDateChangeEvent;
@@ -58,11 +63,6 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
-import org.richfaces.component.attribute.EventsPopupsProps;
-import org.richfaces.component.attribute.PopupsProps;
-import org.richfaces.component.attribute.PositionProps;
-import org.richfaces.component.attribute.StyleClassProps;
-import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.utils.CalendarHelper;
 import org.richfaces.view.facelets.CalendarHandler;
@@ -290,9 +290,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute
     public abstract String getBoundaryDatesMode();
-
-    @Attribute
-    public abstract int getZindex();
 
     /**
      * <p>
@@ -589,9 +586,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("complete"))
     public abstract String getOncomplete();
 
-    @Attribute(events = @EventName("hide"))
-    public abstract String getOnhide();
-
     /**
      * The client-side script method to be called when a pointer is moved away from the date cell
      */
@@ -603,9 +597,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute(events = @EventName("datemouseover"))
     public abstract String getOndatemouseover();
-
-    @Attribute(events = @EventName("show"))
-    public abstract String getOnshow();
 
     /**
      * The client-side script method to be called after time is selected

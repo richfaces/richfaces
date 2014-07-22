@@ -40,6 +40,7 @@ import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.LinkProps;
 import org.richfaces.view.facelets.html.MediaOutputHandler;
 
 /**
@@ -51,7 +52,7 @@ import org.richfaces.view.facelets.html.MediaOutputHandler;
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"))
-public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps {
+public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, LinkProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
 
@@ -71,9 +72,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
      */
     @Attribute
     public abstract String getElement();
-
-    @Attribute
-    public abstract String getAccesskey();
 
     /**
      * Deprecated. This attribute specifies the position of an IMG, OBJECT, or APPLET with respect to its context.
@@ -101,12 +99,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
      */
     @Attribute
     public abstract boolean isCacheable();
-
-    /**
-     * The character encoding of a resource designated by this hyperlink
-     */
-    @Attribute
-    public abstract String getCharset();
 
     /**
      * Identifies an implementation
@@ -152,19 +144,11 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
     @Attribute
     public abstract String getDeclare();
 
-    public abstract String getDir();
-
     /**
      * The attribute allows to manage caching and defines the period after which a resource is reloaded.
      */
     @Attribute
     public abstract Date getExpires();
-
-    /**
-     * Base language of a resource specified with the href attribute; hreflang may only be used with href
-     */
-    @Attribute
-    public abstract String getHreflang();
 
     /**
      * Deprecated. This attribute specifies the amount of white space to be inserted to the left and right of an
@@ -178,9 +162,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
      */
     @Attribute
     public abstract boolean isIsmap();
-
-    @Attribute
-    public abstract String getLang();
 
     /**
      * The attribute allows to manage caching. A browser can send request with the header "If-Modified-Since" for
@@ -206,50 +187,10 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
     public abstract void setCreateContent(MethodExpression createContent);
 
     /**
-     * The relationship from the current document to the anchor specified by this hyperlink.
-     * The value of this attribute is a space-separated list of link types
-     */
-    @Attribute
-    public abstract String getRel();
-
-    /**
-     * A reverse link from the anchor specified by this hyperlink to the current document.
-     * The value of this attribute is a space-separated list of link types
-     */
-    @Attribute
-    public abstract String getRev();
-
-    /**
-     * This attribute specifies the shape of a region. The possible values are "default", "rect", "circle" and "poly".
-     */
-    @Attribute
-    public abstract String getShape();
-
-    /**
      * Message to show while loading
      */
     @Attribute
     public abstract String getStandby();
-
-    /**
-     * This attribute specifies the position of the current element in the tabbing order for the current document.
-     * This value must be a number between 0 and 32767. User agents should ignore leading zeros
-     */
-    @Attribute
-    public abstract String getTabindex();
-
-    /**
-     * This attribute specifies the name of a frame where a document is to be opened. By assigning a name to a frame
-     * via the name attribute, authors can refer to it as the "target" of links defined by other elements
-     */
-    @Attribute
-    public abstract String getTarget();
-
-    /**
-     * The content type of the resource designated by this hyperlink
-     */
-    @Attribute
-    public abstract String getType();
 
     /**
      * Specifies an image as a client-side image-map
@@ -282,40 +223,4 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
      */
     @Attribute
     public abstract Object getValue();
-
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 }

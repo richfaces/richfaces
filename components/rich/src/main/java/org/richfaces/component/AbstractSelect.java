@@ -13,6 +13,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.SelectProps;
@@ -30,15 +31,9 @@ import org.richfaces.validator.SelectLabelValueValidator;
 @JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractSelect extends AbstractSelectComponent implements CoreProps, EventsKeyProps, EventsMouseProps, SelectProps {
+public abstract class AbstractSelect extends AbstractSelectComponent implements CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, SelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Select";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
-
-    /**
-     * If "true", this component is disabled
-     */
-    @Attribute
-    public abstract boolean isDisabled();
 
     /**
      * <p>

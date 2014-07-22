@@ -31,9 +31,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.AjaxOutputProps;
 import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.EventsKeyProps;
-import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.OutputFormatProps;
 
 /**
  * <p>The &lt;rich:notifyMessage&gt; component is built on top of &lt;rich:notify&gt;, the difference is in usage. The
@@ -49,18 +48,14 @@ import org.richfaces.component.attribute.I18nProps;
         generate = "org.richfaces.component.UINotifyMessage",
         type = "org.richfaces.NotifyMessage",
         tag = @Tag(name = "notifyMessage"),
-        attributes = { "output-format-props.xml" },
         renderer = @JsfRenderer(template = "notifyMessage.template.xml", type = "org.richfaces.NotifyMessageRenderer"))
-public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
-
-    @Attribute(defaultValue = "true")
-    public abstract boolean isAjaxRendered();
+public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes, AjaxOutputProps, CoreProps, I18nProps, OutputFormatProps {
 
     @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isEscape();
+    @Attribute(hidden = true)
+    public abstract boolean isDisabled();
 
     public void updateMessages(FacesContext context, String clientId) {
         // TODO: why this need to be implemented

@@ -31,8 +31,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.AjaxOutputProps;
 import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.EventsKeyProps;
-import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.OutputFormatProps;
 
@@ -48,13 +46,11 @@ import org.richfaces.component.attribute.OutputFormatProps;
         type = "org.richfaces.Message",
         tag = @Tag(name = "message"),
         renderer = @JsfRenderer(template = "message.template.xml", type = "org.richfaces.MessageRenderer"))
-public abstract class AbstractMessage extends UIMessage implements AjaxOutput, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, OutputFormatProps {
-    @Attribute(defaultValue = "true")
-    public abstract boolean isAjaxRendered();
+public abstract class AbstractMessage extends UIMessage implements AjaxOutput, AjaxOutputProps, CoreProps, I18nProps, OutputFormatProps {
 
     @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isEscape();
+    @Attribute(hidden = true)
+    public abstract boolean isDisabled();
 }

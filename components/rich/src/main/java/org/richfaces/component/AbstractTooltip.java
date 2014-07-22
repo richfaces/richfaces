@@ -169,25 +169,6 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
     @Attribute(hidden = true)
     public abstract Object getExecute();
 
-    // ------------------------------------------------ Html Attributes
-
-    @Attribute
-    public abstract int getZindex();
-
-    @Attribute(events = @EventName("hide"))
-    public abstract String getOnhide();
-
-    @Attribute(events = @EventName("show"))
-    public abstract String getOnshow();
-
-    @Attribute(events = @EventName("beforehide"))
-    public abstract String getOnbeforehide();
-
-    @Attribute(events = @EventName("beforeshow"))
-    public abstract String getOnbeforeshow();
-
-    // ------------------------------------------------ Html Attributes End
-
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (context instanceof ExtendedVisitContext) {

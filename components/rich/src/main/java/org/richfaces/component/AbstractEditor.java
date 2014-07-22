@@ -32,6 +32,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.renderkit.EditorRendererBase;
 
 /**
@@ -42,7 +43,7 @@ import org.richfaces.renderkit.EditorRendererBase;
 @JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), tag = @Tag(name = "editor"),
         facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")))
-public abstract class AbstractEditor extends UIInput implements CoreProps {
+public abstract class AbstractEditor extends UIInput implements CoreProps, FocusProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Editor";
     public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
 
@@ -98,18 +99,6 @@ public abstract class AbstractEditor extends UIInput implements CoreProps {
     public abstract String getOninit();
 
     /**
-     * The client-side script method to be called when the editor loses focus
-     */
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    /**
-     * The client-side script method to be called when the editor receives focus
-     */
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
-    /**
      * The client-side script method to be called on blur event when editor content has been changed after previous focus
      */
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
@@ -126,4 +115,7 @@ public abstract class AbstractEditor extends UIInput implements CoreProps {
      */
     @Attribute
     public abstract UIComponent getConfig();
+
+    @Attribute(hidden = true)
+    public abstract String getTabindex();
 }

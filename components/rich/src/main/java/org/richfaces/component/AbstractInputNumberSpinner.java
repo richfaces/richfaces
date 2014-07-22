@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.AccesskeyProps;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
@@ -52,12 +53,6 @@ public abstract class AbstractInputNumberSpinner extends UIInputNumber implement
 
     @Attribute(hidden = true)
     public abstract boolean isReadonly();
-
-    /**
-     * If "true", this component is disabled
-     */
-    @Attribute(defaultValue = "false")
-    public abstract boolean isDisabled();
 
     /**
      * If "true" after the current value reaches the border value it is reversed to another border value after next increasing/decreasing.
@@ -178,12 +173,6 @@ public abstract class AbstractInputNumberSpinner extends UIInputNumber implement
      */
     @Attribute(events = @EventName("inputmouseup"))
     public abstract String getOninputmouseup();
-
-    /**
-     * The client-side script method to be called when some text is selected in the text field. This attribute can be used with the INPUT and TEXTAREA elements.
-     */
-    @Attribute(events = @EventName("select"))
-    public abstract String getOnselect();
 
     /**
      * The client-side script method to be called when the 'Up' button is clicked

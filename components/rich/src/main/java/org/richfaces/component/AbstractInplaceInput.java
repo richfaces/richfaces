@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
@@ -44,15 +45,9 @@ import org.richfaces.component.attribute.FocusProps;
  */
 @JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"))
-public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps {
+public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, FocusProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
     public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
-
-    /**
-     * If "true", this component is disabled
-     */
-    @Attribute
-    public abstract boolean isDisabled();
 
     /**
      * Used to set the display text when value is undefined

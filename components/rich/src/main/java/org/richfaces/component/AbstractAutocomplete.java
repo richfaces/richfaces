@@ -38,6 +38,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.FocusProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
@@ -52,9 +56,8 @@ import org.richfaces.view.facelets.AutocompleteHandler;
  * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
-        attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
-public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, StyleClassProps, StyleProps {
+        renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
+public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, StyleClassProps, StyleProps {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
@@ -182,13 +185,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public abstract boolean isAutofill();
 
     /**
-     * Boolean value indicating whether this component is disabled
-     * <p>Default: false</p>
-     */
-    @Attribute
-    public abstract boolean isDisabled();
-
-    /**
      * <p>Boolean value indicating whether to display a button to expand the popup suggestion element</p>
      * <p>Default: false</p>
      */
@@ -213,10 +209,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
      */
     @Attribute
     public abstract String getClientFilterFunction();
-
-    // ----------- focus-props.xml
-
-    public abstract String getTabindex();
 
     // ----------- Event Attributes
 
@@ -294,48 +286,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    // ----------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    // ----------- events-key-props.xml
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    // ----------- focus-props.xml
-
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
     // ----------- selected ajax props
 
     /**
@@ -345,8 +295,8 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public abstract String getOnbegin();
 
     /**
-     * The client-side script method to be called when an error has occurred during Ajax communications
-     */
+      * The client-side script method to be called when an error has occurred during Ajax communications
+      */
     @Attribute(events = @EventName("error"))
     public abstract String getOnerror();
 

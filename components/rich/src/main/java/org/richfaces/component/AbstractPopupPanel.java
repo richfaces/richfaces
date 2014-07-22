@@ -252,23 +252,11 @@ public abstract class AbstractPopupPanel extends UIComponentBase implements Even
     @Attribute(events = @EventName("resize"))
     public abstract String getOnresize();
 
-    @Attribute(events = @EventName("show"))
-    public abstract String getOnshow();
-
-    @Attribute(events = @EventName("hide"))
-    public abstract String getOnhide();
-
     /**
      * The client-side script method to be called before the modal panel is moved
      */
     @Attribute(events = @EventName("move"))
     public abstract String getOnmove();
-
-    @Attribute(events = @EventName("beforeshow"))
-    public abstract String getOnbeforeshow();
-
-    @Attribute(events = @EventName("beforehide"))
-    public abstract String getOnbeforehide();
 
     @Override
     public String getFamily() {

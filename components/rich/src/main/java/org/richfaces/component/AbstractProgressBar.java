@@ -42,11 +42,12 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.component.attribute.EventsMouseProps;
-import org.richfaces.component.attribute.StyleProps;
-import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
@@ -56,7 +57,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author "Andrey Markavtsov"
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"))
-public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, EventsMouseProps, StyleClassProps, StyleProps {
+public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, AjaxProps, EventsMouseProps, StyleClassProps, StyleProps {
     /** Component type */
     public static final String COMPONENT_TYPE = "org.richfaces.ProgressBar";
     /** Component family */
@@ -64,23 +65,10 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public static final String STATE_META_COMPONENT_ID = "state";
 
     /**
-     * The client-side script method to be called before an ajax request.
-     */
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
-
-    /**
      * Defines a simple label instead of rendering children component
      */
     @Attribute
     public abstract String getLabel();
-
-    /**
-     * Serialized (on default with JSON) data passed on the client by a developer on AJAX request.
-     * It's accessible via "data.foo" syntax
-     */
-    @Attribute
-    public abstract Object getData();
 
     public abstract void setData(Object data);
 
@@ -97,18 +85,6 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
      */
     @Attribute
     public abstract boolean isEnabled();
-
-    /**
-     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
-     */
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
-    /**
-     * The client-side script method to be called after the DOM is updated
-     */
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
 
     /**
      * The client-side script method to be called when progress is finished
@@ -179,6 +155,18 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
 
     @Attribute(hidden = true)
     public abstract String getResource();
+
+    @Attribute(hidden = true)
+    public abstract Object getExecute();
+
+    @Attribute(hidden = true)
+    public abstract boolean isLimitRender();
+
+    @Attribute(hidden = true)
+    public abstract Object getRender();
+
+    @Attribute(hidden = true)
+    public abstract String getStatus();
 
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);

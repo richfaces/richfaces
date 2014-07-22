@@ -50,6 +50,8 @@ import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
+import org.richfaces.component.attribute.ColumnProps;
+import org.richfaces.component.attribute.EventsRowProps;
 import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
@@ -68,7 +70,7 @@ import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
-public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, StyleProps {
+public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, ColumnProps, EventsRowProps, StyleProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";
@@ -134,18 +136,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public abstract String getRowClass();
 
     /**
-     * Assigns one or more space-separated CSS class names to the table header
-     */
-    @Attribute
-    public abstract String getHeaderClass();
-
-    /**
-     * Assigns one or more space-separated CSS class names to the table footer
-     */
-    @Attribute
-    public abstract String getFooterClass();
-
-    /**
      * Assigns one or more space-separated CSS class names to the columns of the table. If the CSS class names are
      * comma-separated, each class will be assigned to a particular column in the order they follow in the attribute. If you
      * have less class names than columns, the class will be applied to every n-fold column where n is the order in which the
@@ -174,36 +164,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
      */
     @Attribute
     public abstract SortMode getSortMode();
-
-    @Attribute(events = @EventName("rowclick"))
-    public abstract String getOnrowclick();
-
-    @Attribute(events = @EventName("rowdblclick"))
-    public abstract String getOnrowdblclick();
-
-    @Attribute(events = @EventName("rowmousedown"))
-    public abstract String getOnrowmousedown();
-
-    @Attribute(events = @EventName("rowmouseup"))
-    public abstract String getOnrowmouseup();
-
-    @Attribute(events = @EventName("rowmouseover"))
-    public abstract String getOnrowmouseover();
-
-    @Attribute(events = @EventName("rowmousemove"))
-    public abstract String getOnrowmousemove();
-
-    @Attribute(events = @EventName("rowmouseout"))
-    public abstract String getOnrowmouseout();
-
-    @Attribute(events = @EventName("rowkeypress"))
-    public abstract String getOnrowkeypress();
-
-    @Attribute(events = @EventName("rowkeydown"))
-    public abstract String getOnrowkeydown();
-
-    @Attribute(events = @EventName("rowkeyup"))
-    public abstract String getOnrowkeyup();
 
     public Iterator<UIComponent> columns() {
         return new DataTableColumnsIterator(this);

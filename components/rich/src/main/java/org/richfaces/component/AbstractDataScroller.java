@@ -90,9 +90,6 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     @Attribute
     public abstract String getLastPageMode();
 
-    @Attribute
-    public abstract Object getRender();
-
     /**
      * Maximum quantity of pages. Default value is "10".
      */

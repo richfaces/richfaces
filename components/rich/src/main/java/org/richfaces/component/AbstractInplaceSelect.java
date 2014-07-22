@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
@@ -43,7 +44,7 @@ import org.richfaces.component.attribute.SelectProps;
  */
 @JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"))
-public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, SelectProps {
+public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent, CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, FocusProps, SelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
@@ -52,12 +53,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
      */
     @Attribute
     public abstract String getInputWidth();
-
-    /**
-     * If "true", this component is disabled
-     */
-    @Attribute
-    public abstract boolean isDisabled();
 
     /**
      * If "false" do not switch the component to the edit state on "click"
@@ -82,9 +77,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
      */
     @Attribute
     public abstract boolean isShowControls();
-
-    @Attribute
-    public abstract String getDefaultLabel();
 
     /**
      * <p>The event on which to switch the component to the edit state</p>

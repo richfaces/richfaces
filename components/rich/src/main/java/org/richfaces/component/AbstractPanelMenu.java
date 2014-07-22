@@ -37,6 +37,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.ImmediateProps;
 import org.richfaces.component.attribute.StyleClassProps;
@@ -56,7 +57,7 @@ import org.richfaces.view.facelets.html.PanelMenuTagHandler;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = PanelMenuTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"))
-public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource, EventsMouseProps, ImmediateProps, StyleProps, StyleClassProps {
+public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource, DisabledProps, EventsMouseProps, ImmediateProps, StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";
     private String submittedActiveItem;
@@ -184,12 +185,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     }
 
     // ------------------------------------------------ Component Attributes
-
-    /**
-     * Disables all panel menu items and groups.
-     */
-    @Attribute
-    public abstract boolean isDisabled();
 
     /**
      * The mouse event used for expansion.
@@ -533,27 +528,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void setTopGroupDisabledRightIcon(String topGroupDisabledRightIcon) {
         getStateHelper().put(Properties.topGroupDisabledRightIcon, topGroupDisabledRightIcon);
     }
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     public AbstractPanelMenuItem getItem(String itemName) {
         if (itemName == null) {

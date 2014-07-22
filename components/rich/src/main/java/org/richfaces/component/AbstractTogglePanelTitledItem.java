@@ -24,12 +24,13 @@ package org.richfaces.component;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.component.attribute.DisabledProps;
 
 /**
  * @author akolonitsky
  * @since 2010-08-05
  */
-public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemInterface {
+public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemInterface, DisabledProps {
     public enum HeaderStates {
         active("act"),
         inactive("inact"),
@@ -50,12 +51,6 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
     }
 
     // ------------------------------------------------ Component Attributes
-
-    /**
-     * Flag indicating whether toggling of this panel is disabled
-     */
-    @Attribute
-    boolean isDisabled();
 
     String getHeader();
 

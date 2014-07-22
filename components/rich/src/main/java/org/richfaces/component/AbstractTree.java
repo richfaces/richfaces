@@ -165,9 +165,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public abstract Object getValue();
 
     @Attribute
-    public abstract boolean isImmediate();
-
-    @Attribute
     public abstract String getNodeClass();
 
     @Attribute(events = @EventName("nodetoggle"))

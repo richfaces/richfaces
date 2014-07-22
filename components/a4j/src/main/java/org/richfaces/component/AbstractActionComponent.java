@@ -22,6 +22,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.component.attribute.BypassProps;
 
 import javax.faces.component.UICommand;
 import javax.faces.event.ActionEvent;
@@ -32,16 +33,7 @@ import javax.faces.event.PhaseId;
  * @author Nick Belaevski
  *
  */
-public abstract class AbstractActionComponent extends UICommand {
-
-    /**
-     * If "true", after process validations phase it skips updates of model beans on a force render response.
-     * It can be used for validating components input
-     */
-    @Attribute
-    public abstract boolean isBypassUpdates();
-
-    public abstract void setBypassUpdates(boolean bypassUpdates);
+public abstract class AbstractActionComponent extends UICommand implements BypassProps {
 
     @Override
     public void queueEvent(FacesEvent event) {

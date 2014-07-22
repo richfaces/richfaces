@@ -23,6 +23,8 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.component.attribute.EventsPopupsProps;
 import org.richfaces.component.attribute.PositionProps;
 
 import javax.faces.component.UIComponentBase;
@@ -30,7 +32,7 @@ import javax.faces.component.UIComponentBase;
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public abstract class AbstractMenuContainer extends UIComponentBase implements PositionProps {
+public abstract class AbstractMenuContainer extends UIComponentBase implements DisabledProps, EventsPopupsProps, PositionProps {
 
     /**
      * <p>Defines an event on the parent element to display the menu</p>
@@ -48,12 +50,6 @@ public abstract class AbstractMenuContainer extends UIComponentBase implements P
      */
     @Attribute()
     public abstract Mode getMode();
-
-    /**
-     * Disables the menu component, so it will not activate/expand
-     */
-    @Attribute
-    public abstract boolean isDisabled();
 
     /**
      * <p>Delay (in ms) between losing focus and menu closing</p>
@@ -86,18 +82,6 @@ public abstract class AbstractMenuContainer extends UIComponentBase implements P
      */
     @Attribute(events = @EventName("grouphide"))
     public abstract String getOngrouphide();
-
-    /**
-     * The client-side script method to be called when this menu component is shown
-     */
-    @Attribute(events = @EventName("show"))
-    public abstract String getOnshow();
-
-    /**
-     * The client-side script method to be called when this menu component is hidden
-     */
-    @Attribute(events = @EventName("hide"))
-    public abstract String getOnhide();
 
     /**
      * The client-side script method to be called when a menu item is clicked

@@ -384,33 +384,6 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
         getStateHelper().put(Properties.styleClass, styleClass);
     }
 
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
     /**
      * The client-side script method to be called after the menu group is unselected
      */

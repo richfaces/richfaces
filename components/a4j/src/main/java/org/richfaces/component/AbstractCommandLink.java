@@ -48,7 +48,7 @@ public abstract class AbstractCommandLink extends AbstractActionComponent implem
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
     @Attribute(hidden = true)
-    private String target;
+    public abstract String getTarget();
 
     /**
      * This attribute specifies the position of the current element in the tabbing order for the current document.

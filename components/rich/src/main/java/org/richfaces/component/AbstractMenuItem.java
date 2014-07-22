@@ -9,6 +9,7 @@ import org.richfaces.renderkit.html.MenuItemRendererBase;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.BypassProps;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
@@ -20,7 +21,7 @@ import org.richfaces.component.attribute.I18nProps;
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuItem.COMPONENT_TYPE,
         facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
         renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"))
-public abstract class AbstractMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+public abstract class AbstractMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
     public static final String CSS_ROOT_DEFAULT = "ddm";
 
@@ -56,12 +57,6 @@ public abstract class AbstractMenuItem extends AbstractActionComponent implement
      */
     @Attribute
     public abstract String getIconDisabled();
-
-    /**
-     * Disables the menu component, so it will not be clickable
-     */
-    @Attribute
-    public abstract boolean isDisabled();
 
     @Attribute(hidden = true)
     public abstract Object getValue();

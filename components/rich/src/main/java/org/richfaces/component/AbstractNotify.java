@@ -21,17 +21,16 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.attribute.EventsKeyProps;
-import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.OutputFormatProps;
 import org.richfaces.component.attribute.StyleClassProps;
-
-import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
@@ -48,14 +47,12 @@ import javax.faces.component.UIComponentBase;
         type = AbstractNotify.COMPONENT_TYPE,
         family = AbstractNotify.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"),
-        attributes = {
-                "styleClass-prop.xml", "events-mouse-props.xml", "events-key-props.xml", "output-format-props.xml" },
         facets = {
                 @Facet(name = "summary", description = @Description("Summary of the notification message")),
                 @Facet(name = "detail", description = @Description("Detail of the notification message"))
         }
 )
-public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {
+public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes, OutputFormatProps, StyleClassProps {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
     public static final String COMPONENT_TYPE = "org.richfaces.Notify";
@@ -65,13 +62,9 @@ public abstract class AbstractNotify extends UIComponentBase implements NotifyAt
     @Attribute(description = @Description("Summary of the notification message"))
     public abstract String getSummary();
 
-    public abstract void setSummary(String summary);
-
     @Attribute(description = @Description("Detail of the notification message"))
     public abstract String getDetail();
 
-    public abstract void setDetail(String text);
-
-    @Attribute(defaultValue = "true")
-    public abstract boolean isEscape();
+    @Attribute(hidden = true)
+    public abstract boolean isDisabled();
 }

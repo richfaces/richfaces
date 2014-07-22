@@ -64,7 +64,7 @@ import org.richfaces.view.facelets.TreeNodeHandler;
 @JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY,
         tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"))
-public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, TreeProps, TreeCommonProps {
+public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, TreeCommonProps {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
@@ -81,9 +81,6 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
-
-    @Attribute
-    public abstract boolean isImmediate();
 
     /**
      * The type of the this component. More treeNodes could be defined in tree with different types and it is decided about

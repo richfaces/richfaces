@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.AccesskeyProps;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
@@ -69,12 +70,6 @@ public abstract class AbstractInputNumberSlider extends UIInputNumber implements
      */
     @Attribute(passThrough = true, defaultValue = "200")
     public abstract int getDelay();
-
-    /**
-     * If "true", this component is disabled
-     */
-    @Attribute(defaultValue = "false")
-    public abstract boolean isDisabled();
 
     /**
      * If set to "false" this attribute makes the text field "read-only", so the value can be changed only from a handle. &lt;br /&gt;Default value is "true".
