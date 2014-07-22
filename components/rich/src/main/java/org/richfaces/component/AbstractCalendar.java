@@ -61,6 +61,8 @@ import org.richfaces.model.CalendarDataModelItem;
 import org.richfaces.component.attribute.EventsPopupsProps;
 import org.richfaces.component.attribute.PopupsProps;
 import org.richfaces.component.attribute.PositionProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.utils.CalendarHelper;
 import org.richfaces.view.facelets.CalendarHandler;
@@ -75,7 +77,7 @@ import org.richfaces.view.facelets.CalendarHandler;
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"),
         tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
-public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, EventsPopupsProps, PopupsProps, PositionProps {
+public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, EventsPopupsProps, PopupsProps, PositionProps, StyleClassProps, StyleProps {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
     public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
@@ -309,19 +311,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute
     public abstract String getDefaultLabel();
-
-    /**
-     * CSS style(s) to be applied when this component is rendered
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed
-     * through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    public abstract String getStyleClass();
 
     /**
      * CSS style(s) to be applied to the popup element

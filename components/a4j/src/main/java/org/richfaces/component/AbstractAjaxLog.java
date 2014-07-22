@@ -29,6 +29,8 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 
 /**
  * <p>
@@ -44,28 +46,15 @@ import org.richfaces.cdk.annotations.TagType;
         @ResourceDependency(library = "org.richfaces", name = "log.js"),
         @ResourceDependency(library = "org.richfaces", name = "log.ecss") })
 @JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer"))
-public abstract class AbstractAjaxLog extends UIComponentBase {
+public abstract class AbstractAjaxLog extends UIComponentBase implements StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.AjaxLog";
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
-
-    /**
-     * CSS style(s) to be applied when this component is rendered.
-     */
-    @Attribute
-    public abstract String getStyle();
 
     /**
      * Sets the logging level, can be one of 'debug', 'info', 'warn', 'error'.
      */
     @Attribute
     public abstract String getLevel();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    public abstract String getStyleClass();
 
     /**
      * Determines how the log appears on the page, can be one of: "inline", "popup". When set to "popup", the popup

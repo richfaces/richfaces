@@ -172,12 +172,6 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
     // ------------------------------------------------ Html Attributes
 
     @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
     public abstract int getZindex();
 
     @Attribute(events = @EventName("hide"))

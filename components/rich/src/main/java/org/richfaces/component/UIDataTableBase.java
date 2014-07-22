@@ -50,6 +50,7 @@ import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.FilteringEvent;
@@ -67,7 +68,7 @@ import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
-public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
+public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, StyleProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";
@@ -161,9 +162,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
      */
     @Attribute
     public abstract String getRowClasses();
-
-    @Attribute
-    public abstract String getStyle();
 
     /**
      * Comma-separated list of column names determining priority of row sorting.

@@ -32,6 +32,8 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
@@ -46,7 +48,7 @@ import org.richfaces.model.SortField;
 @JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
         @Facet(name = "header", description = @Description("Column header")),
         @Facet(name = "footer", description = @Description("Column footer")) }, tag = @Tag(name = "column"))
-public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
+public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column, StyleClassProps, StyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
     private static Boolean builtInSortControlsEnabled;
@@ -152,18 +154,6 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
      */
     @Attribute
     public abstract String getWidth();
-
-    /**
-     * CSS style rules to be applied to the component
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Assigns one or more CSS class names to the component. Corresponds to the HTML "class" attribute.
-     */
-    @Attribute
-    public abstract String getStyleClass();
 
     public FilterField getFilterField() {
         FilterField field = null;

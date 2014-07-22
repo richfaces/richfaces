@@ -35,6 +35,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.event.PreRenderParentListener;
 import org.richfaces.renderkit.PlaceholderRendererBase;
 
@@ -45,7 +46,7 @@ import org.richfaces.renderkit.PlaceholderRendererBase;
  */
 @JsfComponent(tag = @Tag(name = "placeholder", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractPlaceholder.COMPONENT_FAMILY, type = PlaceholderRendererBase.RENDERER_TYPE), attributes = { "javax.faces.component.ValueHolder.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractPlaceholder extends UIOutput {
+public abstract class AbstractPlaceholder extends UIOutput implements StyleClassProps {
     // ------------------------------ FIELDS ------------------------------
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Placeholder";
@@ -60,13 +61,6 @@ public abstract class AbstractPlaceholder extends UIOutput {
      */
     @Attribute
     public abstract String getSelector();
-
-    /**
-     * Space-separated list of CSS style class(es) which will be applied to the target input component when placeholder is
-     * active.
-     */
-    @Attribute
-    public abstract String getStyleClass();
 
     /**
      * Registers component for processing before its parent component when it has empty selector - this logic is used as

@@ -62,9 +62,6 @@ public abstract class AbstractDataTable extends UIDataTableBase implements Event
     @Attribute
     public abstract String getCaptionClass();
 
-    @Attribute
-    public abstract String getStyleClass();
-
     @Facet
     public abstract UIComponent getCaption();
 }

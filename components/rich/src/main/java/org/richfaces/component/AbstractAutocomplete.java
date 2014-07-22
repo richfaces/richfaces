@@ -38,6 +38,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -52,7 +54,7 @@ import org.richfaces.view.facelets.AutocompleteHandler;
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
         attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
-public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
+public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, StyleClassProps, StyleProps {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
@@ -211,22 +213,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
      */
     @Attribute
     public abstract String getClientFilterFunction();
-
-    // ----------- selected core-props.xml
-
-    /**
-     * CSS style(s) to be applied when this component is rendered.
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    public abstract String getStyleClass();
-
 
     // ----------- focus-props.xml
 

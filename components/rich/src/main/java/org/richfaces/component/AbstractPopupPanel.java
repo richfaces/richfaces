@@ -46,12 +46,6 @@ public abstract class AbstractPopupPanel extends UIComponentBase implements Even
     public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
 
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
     /**
      * Defines options that were specified on the client side
      */

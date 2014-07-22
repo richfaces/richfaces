@@ -41,28 +41,17 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.CoreProps;
 
 
 /**
  * @author Lukas Macko
  */
 @JsfComponent(type= AbstractChart.COMPONENT_TYPE,family = AbstractChart.COMPONENT_FAMILY,tag = @Tag(name="chart",handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets), renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
-public abstract class AbstractChart extends UIComponentBase {
+public abstract class AbstractChart extends UIComponentBase implements CoreProps {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Chart";
     public static final String COMPONENT_FAMILY = "org.richfaces.Chart";
-
-    /**
-     * Chart title shown above the chart.
-     */
-    @Attribute
-    public abstract String getTitle();
-
-    /**
-     * The attribute assign CSS class to component div.
-     */
-    @Attribute
-    public abstract String getStyleClass();
 
     /**
      * Attribute define whether zoom is enabled. To reset zoom you can use JS

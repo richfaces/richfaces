@@ -239,12 +239,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         itemRightIcon, itemDisabledLeftIcon, itemDisabledRightIcon, topItemLeftIcon, topItemRightIcon, topItemDisabledLeftIcon, topItemDisabledRightIcon, groupExpandedLeftIcon, groupExpandedRightIcon, groupCollapsedLeftIcon, groupCollapsedRightIcon, groupDisabledLeftIcon, groupDisabledRightIcon, topGroupExpandedLeftIcon, topGroupExpandedRightIcon, topGroupCollapsedLeftIcon, topGroupCollapsedRightIcon, topGroupDisabledLeftIcon, topGroupDisabledRightIcon, itemLeftIcon, value
     }
 
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
     /**
      * The width of the panel menu in pixels.
      */

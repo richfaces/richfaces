@@ -35,6 +35,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AccesskeyProps;
 import org.richfaces.resource.MediaOutputResource;
+import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
@@ -50,7 +51,7 @@ import org.richfaces.view.facelets.html.MediaOutputHandler;
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"))
-public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps {
+public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
 
@@ -231,18 +232,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
     public abstract String getStandby();
 
     /**
-     * CSS style rules to be applied to the component
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Assigns one or more CSS class names to the component. Corresponds to the HTML "class" attribute.
-     */
-    @Attribute
-    public abstract String getStyleClass();
-
-    /**
      * This attribute specifies the position of the current element in the tabbing order for the current document.
      * This value must be a number between 0 and 32767. User agents should ignore leading zeros
      */
@@ -255,12 +244,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
      */
     @Attribute
     public abstract String getTarget();
-
-    /**
-     * Advisory title information about markup elements generated for this component
-     */
-    @Attribute
-    public abstract String getTitle();
 
     /**
      * The content type of the resource designated by this hyperlink

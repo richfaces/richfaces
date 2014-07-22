@@ -45,6 +45,8 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
@@ -54,7 +56,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author "Andrey Markavtsov"
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"))
-public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, EventsMouseProps {
+public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, EventsMouseProps, StyleClassProps, StyleProps {
     /** Component type */
     public static final String COMPONENT_TYPE = "org.richfaces.ProgressBar";
     /** Component family */
@@ -177,19 +179,6 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
 
     @Attribute(hidden = true)
     public abstract String getResource();
-
-    /**
-     * CSS style(s) to be applied when this component is rendered.
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered.
-     * This value must be passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    public abstract String getStyleClass();
 
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);

@@ -94,15 +94,6 @@ public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput,
     public abstract String getOnmouseup();
 
     @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
     public abstract String getDir();
 
     @Attribute

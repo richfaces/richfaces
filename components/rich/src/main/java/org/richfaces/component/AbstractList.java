@@ -150,15 +150,6 @@ public abstract class AbstractList extends UISequence implements CoreProps, Even
     public abstract String getOnrowkeyup();
 
     @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
     public abstract String getDir();
 
     @Attribute
