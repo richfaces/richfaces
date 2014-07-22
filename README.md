@@ -53,7 +53,7 @@ In order to start with the project, you need just include the RichFaces JARs on 
     <dependency>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces</artifactId>
-        <version>4.5.0-SNAPSHOT</version>
+        <version>4.5.0.Alpha3</version>
     </dependency>
 
 or download the project ZIP distribution from [Downloads Page](http://www.jboss.org/richfaces/download.html).
