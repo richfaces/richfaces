@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.5.0.Alpha3</version>
+        <version>4.5.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -37,7 +37,7 @@
     <name>RichFaces Example: JPA Demo</name>
 
     <properties>
-        <version.richfaces>4.5.0.Alpha3</version.richfaces>
+        <version.richfaces>4.5.0-SNAPSHOT</version.richfaces>
     </properties>
 
     <dependencyManagement>
