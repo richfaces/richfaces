@@ -45,13 +45,4 @@ public interface ColumnProps {
             value = "Space-separated list of CSS style class(es) that will be applied to any footer generated for this column.",
             displayName = "Footer CSS Classes"))
     String getFooterClass();
-
-    /**
-     * Flag indicating that this column is a row header column and therefore cells in this column should be rendered
-     * with "th" instead of "td" and must have the 'scope="row"' attribute.
-     */
-    @Attribute(description = @Description(
-            value = "Flag indicating that this column is a row header column and therefore cells in this column should be rendered with \"th\" instead of \"td\" and must have the 'scope=\"row\"' attribute.",
-            displayName = "Column is Row Header"))
-    boolean isRowHeader();
 }

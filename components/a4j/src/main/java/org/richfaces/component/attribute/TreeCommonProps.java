@@ -23,10 +23,12 @@
 package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.SwitchType;
 
 import javax.el.MethodExpression;
+
 import java.util.Collection;
 
 /**
@@ -38,36 +40,36 @@ public interface TreeCommonProps {
     /**
      * The icon for component leaves
      */
-    @Attribute
+    @Attribute(description = @Description(value = "The icon for component leaves."))
     String getIconLeaf();
 
     /**
      * The icon for expanded node
      */
-    @Attribute
+    @Attribute(description = @Description(value = "The icon for expanded node."))
     String getIconExpanded();
 
     /**
      * The icon for collapsed node
      */
-    @Attribute
+    @Attribute(description = @Description(value = "The icon for collapsed node."))
     String getIconCollapsed();
 
     /**
      * Space-separated list of CSS style class(es) to be applied to the tree node handles.
      */
-    @Attribute
+    @Attribute(description = @Description(value = "Space-separated list of CSS style class(es) to be applied to the tree node handles."))
     String getHandleClass();
 
     /**
      * Space-separated list of CSS style class(es) to be applied to the tree node icons.
      */
-    @Attribute
+    @Attribute(description = @Description(value = "Space-separated list of CSS style class(es) to be applied to the tree node icons."))
     String getIconClass();
 
     /**
      * Space-separated list of CSS style class(es) to be applied to the tree node labels.
      */
-    @Attribute
+    @Attribute(description = @Description(value = "Space-separated list of CSS style class(es) to be applied to the tree node labels."))
     String getLabelClass();
 }

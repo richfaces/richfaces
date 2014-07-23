@@ -35,7 +35,8 @@ public interface DisabledProps {
      * Flag indicating that this element must never receive focus or be included in a subsequent submit.
      */
     @Attribute(description = @Description(
-            value = "Flag indicating that this element must never receive focus or be included in a subsequent submit.",
-            displayName = "Disabled Flag"))
+            value = "Flag indicating that this element must never receive focus or be included in a subsequent submit. Default value - \"false\"",
+            displayName = "Disabled Flag"),
+            defaultValue = "false")
     boolean isDisabled();
 }

@@ -33,9 +33,9 @@ public interface AjaxOutputProps {
     /**
      * Defines, whether the content of this component must be (or not) included in AJAX response created by parent AJAX
      * Container, even if it is not forced by reRender list of ajax action. Ignored if component marked to output by
-     * some Ajax action component.
+     * some Ajax action component. Default value - "true"
      */
-    @Attribute(description = @Description("Defines, whether the content of this component must be (or not) included in AJAX response created by parent AJAX Container, even if it is not forced by reRender list of ajax action. Ignored if component marked to output by some Ajax action component."))
+    @Attribute(description = @Description("Defines, whether the content of this component must be (or not) included in AJAX response created by parent AJAX Container, even if it is not forced by reRender list of ajax action. Ignored if component marked to output by some Ajax action component. Default value - \"true\""), defaultValue = "true")
     boolean isAjaxRendered();
 
     /**
