@@ -96,11 +96,11 @@ Changing RichFaces version
 
 You can change the version of RichFaces the test will run against by passing the following property to the Maven execution:
 
-    -Darquillian.richfaces.version=5.0.0.Alpha1
+    -Darquillian.richfaces.version=4.5.0.Alpha2
 
 or modifying the pom.xml:
 
-    <arquillian.richfaces.version>5.0.0.Alpha1</arquillian.richfaces.version>
+    <arquillian.richfaces.version>4.5.0.Alpha2</arquillian.richfaces.version>
 
 
 This will allow you to run newer tests against previous versions and verify that the issue is regression.
