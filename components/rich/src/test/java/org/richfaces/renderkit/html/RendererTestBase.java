@@ -68,7 +68,7 @@ public abstract class RendererTestBase {
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.start();
 
-        environment.getWebClient().setJavaScriptEnabled(false);
+        environment.getWebClient().getOptions().setJavaScriptEnabled(false);
     }
 
     @After
