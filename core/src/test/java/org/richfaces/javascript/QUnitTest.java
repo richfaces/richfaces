@@ -47,7 +47,7 @@ public class QUnitTest {
 
     @Before
     public void setUp() {
-        webClient_ = new WebClient(BrowserVersion.INTERNET_EXPLORER_8);
+        webClient_ = new WebClient(BrowserVersion.INTERNET_EXPLORER_11);
     }
 
     @After
@@ -65,8 +65,7 @@ public class QUnitTest {
     protected void runTest(URL url) throws Exception {
 
         HtmlPage page = loadPage(url);
-        HtmlElement doc = page.getDocumentElement();
-        HtmlElement tests = (HtmlElement) doc.getElementById("qunit-tests");
+        DomElement tests = page.getElementById("qunit-tests");
         Iterator<DomElement> iter = tests.getChildElements().iterator();
 
         if (!iter.hasNext()) {
@@ -98,7 +97,7 @@ public class QUnitTest {
         }
 
         if (sb.length() > 0) {
-            fail("Failures:\n" + sb + "User Agent: " + doc.getElementById("qunit-userAgent").getTextContent());
+            fail("Failures:\n" + sb + "User Agent: " + page.getElementById("qunit-userAgent").getTextContent());
         }
     }
 

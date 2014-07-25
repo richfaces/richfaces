@@ -30,7 +30,7 @@ public class SourceChecker {
 
     public void checkComponentSource(URL pageName, String xmlunitPage, By pageElementToTest) throws IOException, SAXException {
         WebClient client = new WebClient();
-        client.setJavaScriptEnabled(false);
+        client.getOptions().setJavaScriptEnabled(false);
 
         HtmlPage page = client.getPage(pageName);
         DomElement element;

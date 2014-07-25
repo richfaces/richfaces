@@ -107,7 +107,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         webClient = new LocalWebClient(this.facesServer);
 
         // quick fix for https://sourceforge.net/tracker/?func=detail&aid=2821888&group_id=47038&atid=448266
-        webClient.setRedirectEnabled(false);
+        webClient.getOptions().setRedirectEnabled(false);
 
         // disable built-in cache
         webClient.setCache(new DisabledCache());
