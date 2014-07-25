@@ -1,4 +1,4 @@
-package org.richfaces.integration.partialViewContext;
+package org.richfaces.integration.partialResponse;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
