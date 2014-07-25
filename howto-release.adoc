@@ -49,24 +49,12 @@ Using these settings you will use separated local repository which will be popul
 | MAVEN_OPTS | -Xmx1024m -XX:MaxPermSize=512m
 |===
 
-=== Update RichWidgets Tag
-
-RichFaces depends on RichWidgets bower dependency in a `core/src/main/js`.
-
-During development, it depends on `#dist` as a continous integration branch,
-but in a release, we need to switch to a tagged version (e.g. `#0.2`).
-
-1. update the tag
-1. follow instructions in `core/src/main/js/README` to update RichWidgets resources in the project
-1. commit the updated `bower.json` and copied resources
-
-
 === Notify Development Team
 
 Also the person performing any of the releases below should also post a message to the RichFaces developer forum stating:
 
 ____
-The release process for <5.0.0.Alpha1> is about to begin. Further commits into develop branch will not be considered in release.
+The release process for <4.5.0.Alpha3> is about to begin. Further commits into develop branch will not be considered in release.
 ____
 
 When the release is completed be sure to post to the forums again.
@@ -85,27 +73,35 @@ Before starting any release steps, make sure the CI tests pass and that all issu
 First, you need to diverge a release branch:
 
 ----
-git checkout master -b release/5.0.0.Alpha1
+git checkout master -b release/4.5.0.Alpha3
 ----
-
+Bump to release versions:
+ 
+----
+$ bash components/change_version.sh -r -o <4.5.0-SNAPSHOT> -n <4.5.0.Alpha3>
+$ git add -A
+$ git commit -m 'changing version to <4.5.0.Alpha3>'
+----
 In order to verify that build pass, you should execute dry run:
 
 ----
 mvn -s <release-settings.xml> -Prelease clean verify
 ----
 
-Once the build pass, you can start to prepare a release (prepare and tag a version):
+Once the build pass, you can tag the release commit (but do not push the tag):
 
 ----
-mvn -s <release-settings.xml> --batch-mode -Dtag=<5.0.0.Alpha1> -DreleaseVersion=<5.0.0.Alpha1> -DdevelopmentVersion=<5.0.0-SNAPSHOT> release:prepare 
+$ git tag -a <4.5.0.Alpha3> -m "Tagging release <4.5.0.Alpha3>"
 ----
 
-This will change a current snapshot version in all POMs and other regular files to a release version (`5.0.0.Alpha1`). The sources will be tagged (`5.0.0.Alpha1`) and then the version will be changed back to next development version (`5.0.0-SNAPSHOT`).
 
-You can push the release branch to the repository at this stage:
+Publish Release Branch and tag to repository
 
 ----
-git push origin release/5.0.0.Alpha1
+$ git push origin <release/4.5.0.Alpha3>
+
+$ git push origin <4.5.0.Alpha3>
+
 ----
 
 == Release Staging
@@ -113,7 +109,7 @@ git push origin release/5.0.0.Alpha1
 The release is now prepared for staging to the JBoss Maven repository:
 
 ---- 
-mvn -s <release-settings.xml> --batch-mode -Dtag=<5.0.0.Alpha1> -DreleaseVersion=<5.0.0.Alpha1> -DdevelopmentVersion=<5.0.0-SNAPSHOT> release:perform
+$ mvn -s <settings.xml> -P release clean deploy
 ----
 
 This will build from the tag, and perform the actual uploads to the JBoss staging repo.
@@ -121,14 +117,14 @@ For this step, you need to be properly authenticated (see `release-settings.xml`
 
 If there are issues with staging you need to "Drop" whatever was already staged in a JBoss Nexus administration interface (see https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] for details).
 
-If everything went fine, you can "Close" the release and make it available for release verification. Use comment "RichFaces 5.0.0.Alpha1" release in a message for closing a staging repository (see https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] for details).
+If everything went fine, you can "Close" the release and make it available for release verification. Use comment "RichFaces 4.5.0.Alpha3" release in a message for closing a staging repository (see https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] for details).
 
 If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the staging repository.
 
 
 === Do Not Forget to Stage Archetypes
 
-RichFaces 5 Archetypes have separated staging process (which ensures that archetypes can be corrected and released independently after framework release), but they follows pretty same release procedure as framework does.
+RichFaces 4.5 Archetypes have separated staging process (which ensures that archetypes can be corrected and released independently after framework release), but they follows pretty same release procedure as framework does.
 
 Archetypes needs to be released into a separated staging repository.
 
@@ -140,8 +136,8 @@ At this point the staged release is prepared for verification by QE.
 Update details about the release to the RFPL JIRA for this release:
 
 ----
-RichFaces version: {{5.0.0.Alpha1}}
-RichFaces tag: [{{5.0.0.Alpha1}}|https://github.com/richfaces/richfaces5/commits/5.0.0.Alpha1]
+RichFaces version: {{4.5.0.Alpha3}}
+RichFaces tag: [{{4.5.0.Alpha3}}|https://github.com/richfaces/richfaces/commits/4.5.0.Alpha3]
 Metamer tag: {{???}}
 Shared Stage: https://repository.jboss.org/nexus/content/groups/staging/
 Private stage: https://repository.jboss.org/nexus/content/repositories/jboss_releases_staging_profile-061/
@@ -157,16 +153,15 @@ https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310341&version=1232
 
 Once QE and development have verified and cleared the staged release following the release testing process, next step is to promote the staged bits to JBoss maven release repo.
  
-This is very easy.  Simply log into the nexus server following https://community.jboss.org/docs/DOC-15179[Maven Deploying a Release] and "promote" the release.
+This is very easy. Simply log into the nexus server following https://community.jboss.org/wiki/MavenDeployingARelease[Maven Deploying a Release] and "promote" the release.
  
 If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the stage.
 
-=== Push Tag
-
-Once the release verification is successfully performed, you can also push the tag to the repository:
+If the release was dropped the tag needs to be dropped as well:
 
 ----
-git push origin 5.0.0.Alpha1
+$ git tag -d <4.5.0.Alpha3>
+$ git push origin :refs/tags/<4.5.0.Alpha3>
 ----
 
 === Merging Release branch with Master branch
@@ -177,10 +172,10 @@ At this point, you can merge a release branch back to the master branch:
 git fetch origin
 git checkout master
 git rebase origin/master
-git merge release/5.0.0.Alpha1
+git merge release/4.5.0.Alpha3
 ----
 
-Since the version of `master` and `release/5.0.0.Alpha1` are now same, there should be rarely some merging conflicts.
+Since the version of `master` and `release/4.5.0.Alpha3` are now same, there should be rarely some merging conflicts.
 
 Resolve potential conflicts and verify a build:
 
@@ -192,7 +187,7 @@ Now you can push the merged release branch to master and then remove the release
 
 ----
 git push origin master
-git push origin :release/5.0.0.Alpha1
+git push origin :release/4.5.0.Alpha3
 ----
 
 Don't forget to perform same steps for Archetypes repository.
