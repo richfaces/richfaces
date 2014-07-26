@@ -144,29 +144,31 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
     }
 
     private UIViewRoot addSkinningResourcesToViewRoot(FacesContext context, UIViewRoot viewRoot) {
-        boolean skinningResourceFound = false;
-        List<UIComponent> resources = viewRoot.getComponentResources(context, HEAD);
-        for (UIComponent resource : resources) {
-            if (SKINNING_RESOURCE_ID.equals(resource.getId())) {
-                skinningResourceFound = true;
-                break;
+        if (viewRoot != null) {
+            boolean skinningResourceFound = false;
+            List<UIComponent> resources = viewRoot.getComponentResources(context, HEAD);
+            for (UIComponent resource : resources) {
+                if (SKINNING_RESOURCE_ID.equals(resource.getId())) {
+                    skinningResourceFound = true;
+                    break;
+                }
             }
-        }
 
-        if (!skinningResourceFound) {
-            // it's important for skinning resources to come *before* any users/components stylesheet,
-            // that's why they are *always* added here
-            UIComponent basic = createComponentResource(context);
-            basic.getAttributes().put("library", LIBRARY);
-            basic.setValueExpression("name", SkinningResourceNameExpression.INSTANCE);
-            basic.setValueExpression("rendered", SkinningResourceRenderedExpression.INSTANCE);
-            basic.setId(SKINNING_RESOURCE_ID);
+            if (!skinningResourceFound) {
+                // it's important for skinning resources to come *before* any users/components stylesheet,
+                // that's why they are *always* added here
+                UIComponent basic = createComponentResource(context);
+                basic.getAttributes().put("library", LIBRARY);
+                basic.setValueExpression("name", SkinningResourceNameExpression.INSTANCE);
+                basic.setValueExpression("rendered", SkinningResourceRenderedExpression.INSTANCE);
+                basic.setId(SKINNING_RESOURCE_ID);
 
-            // workaround for Mojarra: RF-8937
-            boolean initialProcessingEvents = context.isProcessingEvents();
-            context.setProcessingEvents(false);
-            viewRoot.addComponentResource(context, basic);
-            context.setProcessingEvents(initialProcessingEvents);
+                // workaround for Mojarra: RF-8937
+                boolean initialProcessingEvents = context.isProcessingEvents();
+                context.setProcessingEvents(false);
+                viewRoot.addComponentResource(context, basic);
+                context.setProcessingEvents(initialProcessingEvents);
+            }
         }
 
         return viewRoot;
