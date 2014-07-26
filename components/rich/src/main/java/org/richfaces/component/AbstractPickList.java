@@ -44,25 +44,25 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
     /**
      * The text to display in the add-all button
      */
-    @Attribute(defaultValue = "⇒ Add all")
+    @Attribute(defaultValue = "\u21D2 Add all")
     public abstract String getAddAllText();
 
     /**
      * The text to display in the add button
      */
-    @Attribute(defaultValue = "→ Add")
+    @Attribute(defaultValue = "\u2192 Add")
     public abstract String getAddText();
 
     /**
      * The text to display in the remove button
      */
-    @Attribute(defaultValue = "← Remove")
+    @Attribute(defaultValue = "\u2190 Remove")
     public abstract String getRemoveText();
 
     /**
      * The text to display in the remove-all button
      */
-    @Attribute(defaultValue = "⇐ Remove all")
+    @Attribute(defaultValue = "\u21D0 Remove all")
     public abstract String getRemoveAllText();
 
     /**
