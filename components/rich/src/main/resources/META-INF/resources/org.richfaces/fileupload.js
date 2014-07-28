@@ -368,11 +368,11 @@
                 var originalAction = this.fileUpload.form.attr("action"),
                     delimiter = originalAction.indexOf("?") == -1 ? "?" : "&",
                     newAction =  originalAction + delimiter + UID + "=" + this.uid + 
-                    "&javax.faces.partial.ajax=true" + 
-                    "&javax.faces.source="           + this.fileUpload.id +
-                    "&javax.faces.partial.execute="  + this.fileUpload.id +
-                    "&org.richfaces.ajax.component=" + this.fileUpload.id + 
-                    "&javax.faces.ViewState="        + this.fileUpload.form.find('input[name="javax.faces.ViewState"]').val();
+                        "&javax.faces.partial.ajax=true" + 
+                        "&javax.faces.source="           + this.fileUpload.id +
+                        "&javax.faces.partial.execute="  + this.fileUpload.id +
+                        "&org.richfaces.ajax.component=" + this.fileUpload.id + 
+                        "&" + jsf.getViewState(this.fileUpload.form[0]);
 
                 if (jsf.getClientWindow && jsf.getClientWindow()) {
                     newAction += "&javax.faces.ClientWindow=" + jsf.getClientWindow();
