@@ -16,7 +16,7 @@
             this.attachToDom(this.id);
             $(function() {
                 options.className = 'rf-plhdr ' + ((options.styleClass) ? options.styleClass : '');
-                var elements = (options.selector) ? $(options.selector) : $(document.getElementById(componentId)).parent();
+                var elements = (options.selector) ? $(options.selector) : $(document.getElementById(options.targetId));
                 // finds all inputs within the subtree of target elements
                 var inputs = elements.find('*').andSelf().filter(':editable');
                 inputs.watermark(options.text, options);

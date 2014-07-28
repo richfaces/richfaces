@@ -16,6 +16,7 @@
             <script id="#{clientId}Script" type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="styleClass" />
+                    <cdk:scriptOption name="targetId" value="#{empty component.selector ? component.parent.clientId : null}" />
                     <cdk:scriptOption name="selector" value="#{not empty component.selector ? component.selector : null}" />
                     <cdk:scriptOption name="text" value="#{getConvertedValue(facesContext, component)}" />
                 </cdk:scriptObject>
