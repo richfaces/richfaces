@@ -338,6 +338,11 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      * Detects whether current context's state indicates render=@all
      */
     private boolean detectRenderAll() {
+        // RF-13740, MyFaces doesn't call for renderIds in advance
+        if (renderIds == null) {
+            getRenderIds();
+        }
+
         return Boolean.TRUE.equals(renderAll) || renderIds.contains(ALL);
     }
 
