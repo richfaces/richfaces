@@ -100,10 +100,8 @@ public class DataGridRendererTest {
     @Test
     public final void testEncodeCaption() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
-        assertEquals("captionFacet",
-            ((HtmlElement) dataGrid.getFirstByXPath("caption[@class='rf-dg-cap']//*[@id='dataGrid:captionFacet']"))
-                .getTextContent());
+        HtmlElement dataGridCaption = (HtmlElement) page.getElementById("dataGrid:captionFacet");
+        assertEquals("captionFacet", dataGridCaption.getTextContent());
     }
 
     @Test
