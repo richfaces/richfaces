@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.CoreUIDeployment;
+import org.richfaces.integration.A4JDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -59,7 +59,7 @@ public class ITCollectionModel {
 
     @Deployment
     public static WebArchive deployment() {
-        CoreUIDeployment deployment = new CoreUIDeployment(ITCollectionModel.class);
+        A4JDeployment deployment = new A4JDeployment(ITCollectionModel.class);
 
         deployment.archive()
             .addClasses(CollectionModelBean.class)
@@ -81,7 +81,7 @@ public class ITCollectionModel {
         assertEquals("3", items.get(2).getText());
     }
 
-    private static void addIndexPage(CoreUIDeployment deployment) {
+    private static void addIndexPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<ul id='list'>");

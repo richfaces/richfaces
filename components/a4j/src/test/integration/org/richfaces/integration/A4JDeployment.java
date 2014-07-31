@@ -10,11 +10,11 @@ import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContex
 import org.richfaces.deployment.Deployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-public class CoreUIDeployment extends Deployment {
+public class A4JDeployment extends Deployment {
 
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 
-    public CoreUIDeployment(Class<?> testClass) {
+    public A4JDeployment(Class<?> testClass) {
         super(testClass);
 
         if (configuration.isCurrentRichFacesVersion()) {

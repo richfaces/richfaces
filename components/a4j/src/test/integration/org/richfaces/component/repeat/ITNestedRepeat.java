@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.CoreUIDeployment;
+import org.richfaces.integration.A4JDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -55,7 +55,7 @@ public class ITNestedRepeat {
 
     @Deployment
     public static WebArchive deployment() {
-        CoreUIDeployment deployment = new CoreUIDeployment(ITNestedRepeat.class);
+        A4JDeployment deployment = new A4JDeployment(ITNestedRepeat.class);
 
         deployment.archive()
             .addClasses(NestedDataBean.class)

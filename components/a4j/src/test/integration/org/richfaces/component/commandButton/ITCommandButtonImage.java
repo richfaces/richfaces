@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.CoreUIDeployment;
+import org.richfaces.integration.A4JDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -49,7 +49,7 @@ public class ITCommandButtonImage {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreUIDeployment deployment = new CoreUIDeployment(ITCommandButtonImage.class);
+        A4JDeployment deployment = new A4JDeployment(ITCommandButtonImage.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsWebResource(new File("src/test/resources/images/square.jpg"), "resources/square.jpg");
         addIndexPage(deployment);
@@ -115,7 +115,7 @@ public class ITCommandButtonImage {
         return str == null || str.length() == 0;
     }
 
-    private static void addIndexPage(CoreUIDeployment deployment) {
+    private static void addIndexPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form prependId='false'>");

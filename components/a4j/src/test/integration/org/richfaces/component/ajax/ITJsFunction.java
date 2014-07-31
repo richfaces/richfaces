@@ -29,7 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.CoreUIDeployment;
+import org.richfaces.integration.A4JDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
@@ -51,7 +51,7 @@ public class ITJsFunction {
     @Deployment
     public static WebArchive createDeployment() {
 //        CoreUIDeployment deployment = new CoreUIDeployment(ITJsFunction.class, "4.2.3.Final");
-        CoreUIDeployment deployment = new CoreUIDeployment(ITJsFunction.class);
+        A4JDeployment deployment = new A4JDeployment(ITJsFunction.class);
         deployment.archive().addClass(AjaxBean.class);
         addIndexPage(deployment);
         addParamPage(deployment);
@@ -75,7 +75,7 @@ public class ITJsFunction {
     }
 
     // from RF-12761
-    private static void addIndexPage(CoreUIDeployment deployment) {
+    private static void addIndexPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'> ");
@@ -120,7 +120,7 @@ public class ITJsFunction {
         }).execute();
     }
 
-    private static void addParamPage(CoreUIDeployment deployment) {
+    private static void addParamPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'> ");
