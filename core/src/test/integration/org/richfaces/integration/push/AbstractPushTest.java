@@ -50,7 +50,7 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.webapp.PushHandlerFilter;
 
@@ -63,10 +63,11 @@ public class AbstractPushTest {
     @ArquillianResource
     URL contextPath;
 
-    public static FrameworkDeployment createBasicDeployment(Class<?> testClass) {
+    public static CoreDeployment createBasicDeployment(Class<?> testClass) {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(testClass);
-
+        CoreDeployment deployment = new CoreDeployment(testClass);
+        deployment.withA4jComponents();
+        
         FaceletAsset p = new FaceletAsset();
         p.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
         p.body("<a4j:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");

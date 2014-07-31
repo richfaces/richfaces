@@ -32,12 +32,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.webapp.PushServlet;
 
 import category.Smoke;
 
 import com.google.common.base.Function;
+import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -47,7 +47,7 @@ public class ITPushServletMapping extends AbstractPushTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = createBasicDeployment(ITPushServletMapping.class);
+        CoreDeployment deployment = createBasicDeployment(ITPushServletMapping.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {

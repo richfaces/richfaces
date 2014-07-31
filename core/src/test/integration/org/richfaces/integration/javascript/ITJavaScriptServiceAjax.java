@@ -81,8 +81,7 @@ public class ITJavaScriptServiceAjax {
     @Deployment
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITJavaScriptServiceAjax.class);
-
-        deployment.withWholeCore();
+//        deployment.withWholeCore();
 
         addIndexPage(deployment);
 

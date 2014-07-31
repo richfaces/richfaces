@@ -30,7 +30,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -39,7 +39,7 @@ public class ITAutoRegisteredPushServlet extends AbstractPushTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = createBasicDeployment(ITAutoRegisteredPushServlet.class);
+        CoreDeployment deployment = createBasicDeployment(ITAutoRegisteredPushServlet.class);
         return deployment.getFinalArchive();
     }
 

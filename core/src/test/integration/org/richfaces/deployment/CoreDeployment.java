@@ -159,6 +159,8 @@ public class CoreDeployment extends Deployment {
     public CoreDeployment(Class<?> testClass) {
         super(testClass);
 
+        this.withWholeCore();
+        
         this.withBaseClasses().withUtilities().withLogging();
 
         this.withArquillianExtensions().withWaiting();
@@ -412,7 +414,7 @@ public class CoreDeployment extends Deployment {
     }
 
     public CoreDeployment withWholeCore() {
-        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-core.jar");
+        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "dynamic-richfaces-core.jar");
         coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());
@@ -420,10 +422,19 @@ public class CoreDeployment extends Deployment {
 
         return this;
     }
+    
+    public void withA4jComponents() {
+        addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
+        excludeMavenDependency("richfaces-core");
+    }
+    
+    public void withRichComponents() {
+        addMavenDependency("org.richfaces:richfaces:4.5.0-SNAPSHOT");
+        excludeMavenDependency("richfaces-core");
+    }
 
     public void withWholeFramework() {
-        addMavenDependency("org.richfaces:richfaces:4.5.0-SNAPSHOT");
-        addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
+        withRichComponents();
     }
 
     /**

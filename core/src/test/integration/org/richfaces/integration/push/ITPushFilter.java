@@ -33,10 +33,10 @@ import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.webapp.PushFilter;
 
 import com.google.common.base.Function;
+import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -45,7 +45,7 @@ public class ITPushFilter extends AbstractPushTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = createBasicDeployment(ITPushFilter.class);
+        CoreDeployment deployment = createBasicDeployment(ITPushFilter.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {

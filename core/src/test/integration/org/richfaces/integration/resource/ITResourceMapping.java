@@ -46,7 +46,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourceMapper;
@@ -56,6 +55,7 @@ import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import category.Smoke;
 
 import com.google.common.base.Function;
+import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -72,7 +72,8 @@ public class ITResourceMapping {
     @Deployment
     public static WebArchive createDeployment() {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(ITResourceMapping.class);
+        CoreDeployment deployment = new CoreDeployment(ITResourceMapping.class);
+//        deployment.withWholeCore();
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
                 .key(":original.css").value("relocated.css")

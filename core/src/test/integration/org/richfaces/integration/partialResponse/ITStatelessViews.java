@@ -47,7 +47,6 @@ public class ITStatelessViews {
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITStatelessViews.class);
 
-        deployment.withWholeCore();
         deployment.withWholeFramework();
 
         addIndexPage(deployment);
