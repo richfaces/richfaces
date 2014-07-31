@@ -76,7 +76,7 @@ public class ITAjaxValidation extends ValidationTestBase {
         guardAjax(body).click();
     }
 
-    private static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
+    private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

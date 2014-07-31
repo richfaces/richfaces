@@ -7,10 +7,10 @@ import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
 import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
-import org.richfaces.deployment.Deployment;
+import org.richfaces.deployment.BaseDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-public class A4JDeployment extends Deployment {
+public class A4JDeployment extends BaseDeployment {
 
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 

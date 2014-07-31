@@ -146,7 +146,7 @@ import com.google.common.base.Function;
  *
  * @author Lukas Fryc
  */
-public class CoreDeployment extends Deployment {
+public class CoreDeployment extends BaseDeployment {
 
     private static final String TESTING_MODULE = "META-INF/richfaces/testing-module.properties";
 

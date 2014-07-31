@@ -69,7 +69,7 @@ public class ITClientValidation extends ValidationTestBase {
         submitValueAndCheckMessage("ab", equalTo(""));
     }
 
-    private static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
+    private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
