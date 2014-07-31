@@ -43,7 +43,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.FailingOnFirefox;
@@ -75,13 +75,13 @@ public class ITChartBasic {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITChartBasic.class);
+        RichDeployment deployment = new RichDeployment(ITChartBasic.class);
         deployment.archive().addClasses(ChartBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         addIndexPage(deployment);
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.head("<style type='text/css'>");
         p.head(".richfaces-chart {");

@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.component.Bean;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -44,7 +44,7 @@ public class ITClientValidation extends ValidationTestBase {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        UIDeployment deployment = new UIDeployment(ITClientValidation.class);
+        RichDeployment deployment = new RichDeployment(ITClientValidation.class);
 
         deployment.archive().addClasses(Bean.class);
 

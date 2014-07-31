@@ -41,7 +41,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
@@ -70,7 +70,7 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITBlueSkySkin.class);
+        RichDeployment deployment = new RichDeployment(ITBlueSkySkin.class);
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
 
@@ -99,7 +99,7 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
         assertEquals("org.richfaces.images", parameters.get("ln"));
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");

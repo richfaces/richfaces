@@ -49,7 +49,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.arquillian.page.source.SourceChecker;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.component.ColorUtils;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 
 import category.Smoke;
 
@@ -107,7 +107,7 @@ public abstract class AbstractPlaceholderTest {
         return TESTED_VALUE;
     }
 
-    protected static FaceletAsset placeholderFacelet(String name, UIDeployment deployment) {
+    protected static FaceletAsset placeholderFacelet(String name, RichDeployment deployment) {
         FaceletAsset p;
         p = deployment.baseFacelet(name);
         p.head("<style> input, textarea { color: #000; } </style>");

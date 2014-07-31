@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -62,7 +62,7 @@ public class ITMultipleFormUpdate {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITMultipleFormUpdate.class);
+        RichDeployment deployment = new RichDeployment(ITMultipleFormUpdate.class);
 
         addIndexPage(deployment);
 
@@ -92,7 +92,7 @@ public class ITMultipleFormUpdate {
         assertEquals("second form input should be 2", "2", secondForm.getInput());
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");

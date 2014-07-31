@@ -17,7 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -46,7 +46,7 @@ public class ITAutocompleteEvents {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITAutocompleteEvents.class);
+        RichDeployment deployment = new RichDeployment(ITAutocompleteEvents.class);
 
         deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -74,7 +74,7 @@ public class ITAutocompleteEvents {
         waitGui().until().element(autocompleteInput).attribute("value").equalTo("TORONTO");
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

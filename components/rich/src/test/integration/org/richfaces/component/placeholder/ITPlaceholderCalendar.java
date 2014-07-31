@@ -26,7 +26,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
@@ -41,7 +41,7 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITPlaceholderCalendar.class);
+        RichDeployment deployment = new RichDeployment(ITPlaceholderCalendar.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 

@@ -20,7 +20,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -47,7 +47,7 @@ public class ITAutocompleteTokenizing {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITAutocompleteTokenizing.class);
+        RichDeployment deployment = new RichDeployment(ITAutocompleteTokenizing.class);
 
         deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -143,7 +143,7 @@ public class ITAutocompleteTokenizing {
         waitGui().until().element(suggestionList).is().not().visible();
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

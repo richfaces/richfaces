@@ -24,7 +24,7 @@ package org.richfaces.component.placeholder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -37,7 +37,7 @@ public class ITPlaceholderAutocomplete extends AbstractPlaceholderTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITPlaceholderAutocomplete.class);
+        RichDeployment deployment = new RichDeployment(ITPlaceholderAutocomplete.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 

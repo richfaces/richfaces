@@ -50,7 +50,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -75,7 +75,7 @@ public class ITRenderAll {
 
     @Deployment
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITRenderAll.class);
+        RichDeployment deployment = new RichDeployment(ITRenderAll.class);
         
         deployment.archive().addClasses(CounterBean.class);
 
@@ -174,7 +174,7 @@ public class ITRenderAll {
         assertEquals("title updated", "script executed", browser.getTitle());
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");

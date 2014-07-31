@@ -42,7 +42,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -57,7 +57,7 @@ public class ITDropDownMenuItem {
 
     @Deployment
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITDropDownMenuItem.class);
+        RichDeployment deployment = new RichDeployment(ITDropDownMenuItem.class);
         deployment.archive()
             .addClasses(DropDownMenuBean.class, VerifyMenuAction.class)
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")

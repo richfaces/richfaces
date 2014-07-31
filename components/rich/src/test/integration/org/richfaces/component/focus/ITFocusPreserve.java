@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -50,7 +50,7 @@ public class ITFocusPreserve {
 
     @Deployment
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITFocusPreserve.class);
+        RichDeployment deployment = new RichDeployment(ITFocusPreserve.class);
 
         addIndexPage(deployment);
 
@@ -103,7 +103,7 @@ public class ITFocusPreserve {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

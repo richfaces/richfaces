@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -36,7 +36,7 @@ public class ITTogglePanel {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITTogglePanel.class);
+        RichDeployment deployment = new RichDeployment(ITTogglePanel.class);
         addIndexPage(deployment);
 
         WebArchive archive = deployment.getFinalArchive();
@@ -49,7 +49,7 @@ public class ITTogglePanel {
         guardAjax(button).click();
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'>");

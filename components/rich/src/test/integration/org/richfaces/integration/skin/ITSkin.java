@@ -45,7 +45,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -74,7 +74,7 @@ public class ITSkin extends AbstractSkinTestBase {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITSkin.class);
+        RichDeployment deployment = new RichDeployment(ITSkin.class);
         deployment.archive().addClass(SkinTestBean.class);
         deployment.archive().addAsResource("bindedtest.skin.properties");
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
@@ -130,7 +130,7 @@ public class ITSkin extends AbstractSkinTestBase {
         Assert.assertEquals("plain button background-url is incorrect", "none", buttonSkin1.getCssValue("background-image"));
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");
