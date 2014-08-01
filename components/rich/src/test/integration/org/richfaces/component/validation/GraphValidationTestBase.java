@@ -64,7 +64,7 @@ public abstract class GraphValidationTestBase extends ValidationTestBase {
         submitValueAndCheckMessage("foobar", equalTo(""));
     }
 
-    protected static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
+    protected static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

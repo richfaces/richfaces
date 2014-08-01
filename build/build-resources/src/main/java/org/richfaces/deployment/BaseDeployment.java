@@ -51,9 +51,9 @@ import com.google.common.collect.Sets;
  *
  * @author Lukas Fryc
  */
-public class Deployment {
+public class BaseDeployment {
 
-    private final Logger log = Logger.getLogger(Deployment.class.getName());
+    private final Logger log = Logger.getLogger(BaseDeployment.class.getName());
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
     private final File cacheDir = new File("target/shrinkwrap-resolver-cache/");
 
@@ -77,7 +77,7 @@ public class Deployment {
      *
      * @param testClass
      */
-    protected Deployment(Class<?> testClass) {
+    protected BaseDeployment(Class<?> testClass) {
         if (testClass != null) {
             this.archive = ShrinkWrap.create(WebArchive.class, testClass.getSimpleName() + ".war");
         } else {
@@ -221,7 +221,7 @@ public class Deployment {
     /**
      * Adds maven artifact as library dependency
      */
-    public Deployment addMavenDependency(String... dependencies) {
+    public BaseDeployment addMavenDependency(String... dependencies) {
         mavenDependencies.addAll(Arrays.asList(dependencies));
         return this;
     }
@@ -229,7 +229,7 @@ public class Deployment {
     /**
      * Adds patters for Maven library dependency exclusion
      */
-    public Deployment excludeMavenDependency(String... dependencies) {
+    public BaseDeployment excludeMavenDependency(String... dependencies) {
         excludedMavenDependencies.addAll(Arrays.asList(dependencies));
         return this;
     }
@@ -237,7 +237,7 @@ public class Deployment {
     /**
      * Adds dependencies which are necessary to deploy onto Servlet containers (Tomcat, Jetty)
      */
-    private Deployment withServletContainerSetup() {
+    private BaseDeployment withServletContainerSetup() {
         addMavenDependency(configuration.getJsfImplementation());
 
         addMavenDependency("org.jboss.weld.servlet:weld-servlet");

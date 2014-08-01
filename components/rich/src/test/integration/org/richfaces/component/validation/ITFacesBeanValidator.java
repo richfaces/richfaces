@@ -30,7 +30,7 @@ import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.runner.RunWith;
 import org.richfaces.component.GraphBean;
 import org.richfaces.component.Group;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 
 import com.google.common.base.Function;
 
@@ -40,7 +40,7 @@ public class ITFacesBeanValidator extends GraphValidationTestBase {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        UIDeployment deployment = new UIDeployment(ITFacesBeanValidator.class);
+        RichDeployment deployment = new RichDeployment(ITFacesBeanValidator.class);
 
         deployment.archive().addClasses(GraphBean.class, Group.class);
 

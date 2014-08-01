@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -30,7 +30,7 @@ public class ITTestBase {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITTestBase.class);
+        CoreDeployment deployment = new CoreDeployment(ITTestBase.class);
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
@@ -46,7 +46,7 @@ public class ITTestBase {
         assertEquals("xyz", input.getAttribute("value"));
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<h:inputText id='input' value='xyz'><a4j:ajax /></h:inputText>");

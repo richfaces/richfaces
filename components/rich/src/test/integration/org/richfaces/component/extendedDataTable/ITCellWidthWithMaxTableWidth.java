@@ -15,7 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -33,7 +33,7 @@ public class ITCellWidthWithMaxTableWidth {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITCellWidthWithMaxTableWidth.class);
+        RichDeployment deployment = new RichDeployment(ITCellWidthWithMaxTableWidth.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -46,7 +46,7 @@ public class ITCellWidthWithMaxTableWidth {
         Assert.assertEquals("101px", firstRow.findElement(By.cssSelector("td")).getCssValue("width"));
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:outputStylesheet>  table { width: 100%; }  </h:outputStylesheet>");

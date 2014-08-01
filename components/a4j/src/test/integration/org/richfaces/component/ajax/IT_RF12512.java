@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.CoreUIDeployment;
+import org.richfaces.integration.A4JDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -32,7 +32,7 @@ public class IT_RF12512 {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreUIDeployment deployment = new CoreUIDeployment(IT_RF12512.class);
+        A4JDeployment deployment = new A4JDeployment(IT_RF12512.class);
         deployment.archive().addClass(A4JRepeatBean.class);
         deployment.archive().addClass(AjaxBean.class);
         deployment.archive().addAsWebResource(new File("src/test/resources/org/richfaces/view/facelets/html/a4jrepeatMatrix.xhtml"));
@@ -76,7 +76,7 @@ public class IT_RF12512 {
         Assert.assertEquals("0", input.getAttribute("value"));
     }
 
-    private static void addIndexPage(CoreUIDeployment deployment) {
+    private static void addIndexPage(A4JDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'> ");

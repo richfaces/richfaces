@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -64,7 +64,7 @@ public class ITAjaxRedirection {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITAjaxRedirection.class);
+        RichDeployment deployment = new RichDeployment(ITAjaxRedirection.class);
 
         addIndexPage(deployment);
         addRedirectedPage(deployment);
@@ -81,7 +81,7 @@ public class ITAjaxRedirection {
         waitAjax().until().element(body).text().contains("Redirected");
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
@@ -97,7 +97,7 @@ public class ITAjaxRedirection {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addRedirectedPage(UIDeployment deployment) {
+    private static void addRedirectedPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("Redirected");

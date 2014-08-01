@@ -29,7 +29,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.runner.RunWith;
 import org.richfaces.component.GraphBean;
 import org.richfaces.component.Group;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -37,7 +37,7 @@ public class ITGraphValidation extends GraphValidationTestBase {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        UIDeployment deployment = new UIDeployment(ITGraphValidation.class);
+        RichDeployment deployment = new RichDeployment(ITGraphValidation.class);
 
         deployment.archive().addClasses(GraphBean.class, Group.class);
 

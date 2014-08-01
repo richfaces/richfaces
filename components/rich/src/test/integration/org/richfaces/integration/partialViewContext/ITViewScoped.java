@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -58,7 +58,7 @@ public class ITViewScoped {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITViewScoped.class);
+        RichDeployment deployment = new RichDeployment(ITViewScoped.class);
 
         addIndexPage(deployment);
 
@@ -86,7 +86,7 @@ public class ITViewScoped {
 
 
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");

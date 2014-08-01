@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -42,7 +42,7 @@ public class ITFocusMultipleForms {
 
     @Deployment
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITFocusMultipleForms.class);
+        RichDeployment deployment = new RichDeployment(ITFocusMultipleForms.class);
 
         addIndexPage(deployment);
 
@@ -84,7 +84,7 @@ public class ITFocusMultipleForms {
         waitAjax().until(new ElementIsFocused(form3.getInput1()));
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form1'>");

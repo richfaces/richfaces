@@ -17,7 +17,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -44,8 +44,9 @@ public class ITPartialResponseEnding {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITPartialResponseEnding.class);
-
+        CoreDeployment deployment = new CoreDeployment(ITPartialResponseEnding.class);
+        deployment.withA4jComponents();
+        
         addIndexPage(deployment);
         deployment.addMavenDependency("org.omnifaces:omnifaces:1.3");
 
@@ -60,7 +61,7 @@ public class ITPartialResponseEnding {
         assertEquals("test value", outputPanel.getText());
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<h:inputText id='inputText' value='#{simpleBean.test}'></h:inputText>");

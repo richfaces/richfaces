@@ -17,7 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -47,7 +47,7 @@ public class ITPopupPanel {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITPopupPanel.class);
+        RichDeployment deployment = new RichDeployment(ITPopupPanel.class);
         addIndexPage(deployment);
 
         WebArchive archive = deployment.getFinalArchive();
@@ -90,7 +90,7 @@ public class ITPopupPanel {
         Assert.assertEquals("Shadow height", "200px", shadow.getCssValue("height"));
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'>");

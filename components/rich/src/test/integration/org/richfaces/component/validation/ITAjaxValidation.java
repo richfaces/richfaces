@@ -35,7 +35,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.component.Bean;
 import org.richfaces.component.CustomValidator;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -46,7 +46,7 @@ public class ITAjaxValidation extends ValidationTestBase {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        UIDeployment deployment = new UIDeployment(ITAjaxValidation.class);
+        RichDeployment deployment = new RichDeployment(ITAjaxValidation.class);
 
         deployment.archive().addClasses(Bean.class, CustomValidator.class);
 
@@ -76,7 +76,7 @@ public class ITAjaxValidation extends ValidationTestBase {
         guardAjax(body).click();
     }
 
-    private static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
+    private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

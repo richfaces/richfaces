@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.component.Bean;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -44,7 +44,7 @@ public class ITClientValidation extends ValidationTestBase {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        UIDeployment deployment = new UIDeployment(ITClientValidation.class);
+        RichDeployment deployment = new RichDeployment(ITClientValidation.class);
 
         deployment.archive().addClasses(Bean.class);
 
@@ -69,7 +69,7 @@ public class ITClientValidation extends ValidationTestBase {
         submitValueAndCheckMessage("ab", equalTo(""));
     }
 
-    private static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
+    private static void addIndexPage(org.richfaces.deployment.BaseDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

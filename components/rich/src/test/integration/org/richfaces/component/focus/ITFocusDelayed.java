@@ -20,7 +20,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -45,7 +45,7 @@ public class ITFocusDelayed {
 
     @Deployment
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITFocusDelayed.class);
+        RichDeployment deployment = new RichDeployment(ITFocusDelayed.class);
 
         addIndexPage(deployment);
 
@@ -86,7 +86,7 @@ public class ITFocusDelayed {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

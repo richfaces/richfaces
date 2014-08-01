@@ -42,7 +42,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 
@@ -59,7 +59,7 @@ public class ITPanelMenu {
 
     @Deployment
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITPanelMenu.class);
+        RichDeployment deployment = new RichDeployment(ITPanelMenu.class);
         deployment.archive()
             .addClasses(PanelMenuBean.class, VerifyMenuAction.DidNotOccur.class, VerifyMenuAction.DidNotOccur.class)
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -185,7 +185,7 @@ public class ITPanelMenu {
 
     }
 
-    private static void addDisabledMenuItemPage(UIDeployment deployment) {
+    private static void addDisabledMenuItemPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         //  Re-enable the disabled javascript with this custom javascript call
@@ -206,7 +206,7 @@ public class ITPanelMenu {
         deployment.archive().addAsWebResource(p, "disabled-menu-item.xhtml");
     }
 
-    private static void addDisabledMenuGroupPage(UIDeployment deployment) {
+    private static void addDisabledMenuGroupPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         //  Re-enable the disabled javascript with this custom javascript call
@@ -229,7 +229,7 @@ public class ITPanelMenu {
         deployment.archive().addAsWebResource(p, "disabled-menu-group.xhtml");
     }
 
-    private static void addDisabledMenuGroupPageClient(UIDeployment deployment) {
+    private static void addDisabledMenuGroupPageClient(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         //  Re-enable the disabled javascript with this custom javascript call
@@ -252,7 +252,7 @@ public class ITPanelMenu {
         deployment.archive().addAsWebResource(p, "disabled-menu-group-client.xhtml");
     }
 
-    private static void addDisabledMenuGroupPageExpanded(UIDeployment deployment) {
+    private static void addDisabledMenuGroupPageExpanded(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         //  Re-enable the disabled javascript with this custom javascript call
@@ -275,7 +275,7 @@ public class ITPanelMenu {
         deployment.archive().addAsWebResource(p, "disabled-menu-group-expanded.xhtml");
     }
 
-    private static void addDisabledMenuPage(UIDeployment deployment) {
+    private static void addDisabledMenuPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         //  Re-enable the disabled javascript with this custom javascript call

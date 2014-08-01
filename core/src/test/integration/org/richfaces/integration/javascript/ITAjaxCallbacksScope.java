@@ -17,7 +17,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -38,7 +38,8 @@ public class ITAjaxCallbacksScope {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITAjaxCallbacksScope.class);
+        CoreDeployment deployment = new CoreDeployment(ITAjaxCallbacksScope.class);
+//        deployment.withWholeCore();
 
         addIndexPage(deployment);
 
@@ -58,7 +59,7 @@ public class ITAjaxCallbacksScope {
             (Boolean) executor.executeScript("return window.oncompleteContext === document.getElementById('button')"));
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");

@@ -21,7 +21,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.autocomplete.AutocompleteBean;
-import org.richfaces.integration.UIDeployment;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -45,7 +45,7 @@ public class ITSelectKeyboardSelection {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        UIDeployment deployment = new UIDeployment(ITSelectKeyboardSelection.class);
+        RichDeployment deployment = new RichDeployment(ITSelectKeyboardSelection.class);
 
         deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -72,7 +72,7 @@ public class ITSelectKeyboardSelection {
         waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
     }
 
-    private static void addIndexPage(UIDeployment deployment) {
+    private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
