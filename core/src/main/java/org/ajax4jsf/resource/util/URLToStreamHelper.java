@@ -72,7 +72,7 @@ public final class URLToStreamHelper {
      * Variant of {@link #urlToStream(URL)} method that doesn't throw IOException, but silently ignores them
      *
      * @param url
-     * @return
+     * @return {@link InputStream} instance or <code>null</code>
      */
     public static InputStream urlToStreamSafe(URL url) {
         try {

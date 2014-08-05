@@ -62,7 +62,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.read()
+     * @see java.io.InputStream#read()
      */
     public int read() throws IOException {
         if (current == null) {
@@ -87,7 +87,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.read(byte b[])
+     * @see java.io.InputStream#read(byte b[])
      */
     @Override
     public int read(byte[] b) throws IOException {
@@ -128,7 +128,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.read(byte b[], int off, int len)
+     * @see java.io.InputStream#read(byte b[], int off, int len)
      */
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
@@ -171,7 +171,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.available()
+     * @see java.io.InputStream#available()
      */
     public int available() throws IOException {
         if (current == null) {
@@ -190,7 +190,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.mark()
+     * @see java.io.InputStream#mark()
      */
     public void mark(int readAheadLimit) {
         if (current == null) {
@@ -207,7 +207,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.reset()
+     * @see java.io.InputStream#reset()
      */
     public void reset() {
         if (current == null) {
@@ -227,7 +227,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream.skip()
+     * @see java.io.InputStream#skip()
      */
     public long skip(long n) throws IOException {
         long skipped = 0;

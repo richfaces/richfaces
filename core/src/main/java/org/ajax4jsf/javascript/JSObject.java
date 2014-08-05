@@ -31,7 +31,7 @@ import java.io.IOException;
 public class JSObject extends JSFunction {
     /**
      * @param name
-     * @param parameter
+     * @param parameters
      */
     public JSObject(String name, Object... parameters) {
         super(name, parameters);

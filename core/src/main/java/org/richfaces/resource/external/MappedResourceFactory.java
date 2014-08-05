@@ -49,7 +49,7 @@ public interface MappedResourceFactory {
      * Get all resources which maps to same location
      *
      * @param resourcePath
-     * @return
+     * @return all resources which maps to same location
      */
     Set<ResourceKey> getAggregatedResources(ResourcePath resourcePath);
 }

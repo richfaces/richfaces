@@ -35,7 +35,7 @@ public interface ResourceMapper {
     /**
      * Determines whether resource identified by given key is mapped to another resource.
      *
-     * @param key the key of the resource to be checked for existence of its mapping
+     * @param resourceKey the key of the resource to be checked for existence of its mapping
      * @return the mapping for a resource given by a key; or null if no mapping is specified by this
      */
     ResourceMapping mapResource(ResourceKey resourceKey);

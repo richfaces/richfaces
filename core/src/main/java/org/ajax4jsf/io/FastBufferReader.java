@@ -66,7 +66,7 @@ public class FastBufferReader extends Reader {
     }
 
     /**
-     * @see java.io.Reader.read()
+     * @see java.io.Reader#read()
      */
     public int read() throws IOException {
         if (current == null) {
@@ -91,7 +91,7 @@ public class FastBufferReader extends Reader {
     }
 
     /**
-     * @see java.io.Reader.read(char[] cbuf, int off, int len)
+     * @see java.io.Reader#read(char[] cbuf, int off, int len)
      */
     public int read(char[] cbuf, int off, int len) throws IOException {
         if ((off < 0) || (off > cbuf.length) || (len < 0) || ((off + len) > cbuf.length) || ((off + len) < 0)) {
@@ -133,7 +133,7 @@ public class FastBufferReader extends Reader {
     /**
      * Returns the number of chars that may be read from this storage.
      *
-     * @return
+     * @return the number of chars that may be read from this storag
      * @throws IOException
      */
     public int available() throws IOException {
@@ -155,7 +155,7 @@ public class FastBufferReader extends Reader {
     /**
      * Writes rest of data written up to the moment to out.
      *
-     * @param out
+     * @param writer
      * @throws IOException
      */
     public void writeTo(Writer writer) throws IOException {

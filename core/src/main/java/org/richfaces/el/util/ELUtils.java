@@ -44,9 +44,8 @@ public final class ELUtils {
     /**
      * Get EL-enabled value. Return same string, if not el-expression. Otherthise, return parsed and evaluated expression.
      *
-     * @param context - current Faces Context.
-     * @param value - string to parse.
-     * @return - interpreted el or unmodified value.
+     * @param value string to parse
+     * @return interpreted el or unmodified value
      */
     public static boolean isValueReference(String value) {
         if (value == null) {

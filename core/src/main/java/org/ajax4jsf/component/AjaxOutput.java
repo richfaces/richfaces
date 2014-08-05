@@ -33,7 +33,7 @@ public interface AjaxOutput {
     /**
      * getter for ajax-rendered flag property.
      *
-     * @return
+     * @return ajax-rendered flag
      */
     boolean isAjaxRendered();
 
@@ -45,14 +45,14 @@ public interface AjaxOutput {
     void setAjaxRendered(boolean ajaxRendered);
 
     /**
-     * getter for ajax-rendered flag property.
+     * getter for keep transient property.
      *
-     * @return
+     * @return keep transient property
      */
     boolean isKeepTransient();
 
     /**
-     * Setter for ajax rendered property.
+     * Setter for keep transient property.
      *
      * @param ajaxRendered
      */

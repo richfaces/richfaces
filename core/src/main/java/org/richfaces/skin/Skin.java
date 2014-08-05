@@ -243,7 +243,7 @@ public interface Skin {
      * @param context - {@link FacesContext } for current request.
      * @param name name of parameter.
      * @param defaultValue - default value if parameter not present in Skin
-     * @return
+     * @return value for configuration parameter
      * @since 4.0.M1
      */
     Integer getColorParameter(FacesContext context, String name, Object defaultValue);
@@ -263,7 +263,7 @@ public interface Skin {
      * resources
      *
      * @param context
-     * @return
+     * @return hash code
      */
     int hashCode(FacesContext context);
 

@@ -99,7 +99,7 @@ public abstract class AbstractSkinFactory extends SkinFactory {
      * package. for any place search order determined by {@link java.lang.ClassLoader } realisation.
      *
      * @param name name for builded skin.
-     * @param defaultProperties
+     * @param context
      * @return skin instance for current name
      * @throws SkinNotFoundException - if no skin properies found for name.
      */
@@ -113,7 +113,7 @@ public abstract class AbstractSkinFactory extends SkinFactory {
     /**
      * @param name
      * @param paths
-     * @return
+     * @return properties
      * @throws SkinNotFoundException
      */
     protected Properties loadProperties(String name, String[] paths) throws SkinNotFoundException {

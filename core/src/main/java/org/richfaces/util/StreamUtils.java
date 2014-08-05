@@ -34,7 +34,7 @@ public class StreamUtils {
     /**
      * Reads all bytes from an input stream to a byte array. Does not close the stream
      * @param is
-     * @return
+     * @return all bytes from an input stream
      * @throws IOException
      */
     public static byte[] toByteArray(InputStream is) throws IOException {

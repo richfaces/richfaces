@@ -96,7 +96,9 @@ public class ByteBuffer {
      * Appends segment of a byte array to array if there are unfilled positions in it. Otherwize creates next link in the chain,
      * and appends data to it.
      *
-     * @param c
+     * @param bs
+     * @param off
+     * @param len
      * @return instance of ByteBuffer to which byte array was appended.
      */
     public ByteBuffer append(byte[] bs, int off, int len) {
@@ -139,7 +141,7 @@ public class ByteBuffer {
      * Returns byte at index. No check is fulfilled to provide high speed.
      *
      * @param index
-     * @return
+     * @return byte at index
      */
     public byte getByteAt(int index) {
         return bytes[index];
@@ -148,7 +150,7 @@ public class ByteBuffer {
     /**
      * Returns actual number of byte stored in this link.
      *
-     * @return
+     * @return actual number of byte stored in this link
      */
     public int getUsedSize() {
         return usedSize;
@@ -157,7 +159,7 @@ public class ByteBuffer {
     /**
      * Returns capacity of this link.
      *
-     * @return
+     * @return capacity of this link
      */
     public int getCacheSize() {
         return cacheSize;
@@ -166,7 +168,7 @@ public class ByteBuffer {
     /**
      * Returns total number of bytes stored in this link and all its predecessors.
      *
-     * @return
+     * @return total number of bytes stored in this link and all its predecessors
      */
     public int getTotalSize() {
         return (prev == null) ? usedSize : prev.getTotalSize() + usedSize;
@@ -175,7 +177,7 @@ public class ByteBuffer {
     /**
      * Returns the previous link in the chain.
      *
-     * @return
+     * @return the previous link in the chain
      */
     public ByteBuffer getPrevious() {
         return prev;
@@ -184,7 +186,7 @@ public class ByteBuffer {
     /**
      * Returns the next link in the chain.
      *
-     * @return
+     * @return the next link in the chain
      */
     public ByteBuffer getNext() {
         return next;

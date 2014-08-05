@@ -230,7 +230,7 @@ public final class ScriptUtils {
      * Convert any Java Object to JavaScript representation ( as possible ).
      *
      * @param obj
-     * @return
+     * @return Java Object converted to JavaScript representation
      */
     public static String toScript(Object obj) {
         StringBuilder sb = new StringBuilder();

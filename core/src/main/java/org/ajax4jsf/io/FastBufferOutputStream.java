@@ -72,7 +72,7 @@ public class FastBufferOutputStream extends OutputStream {
     }
 
     /**
-     * @see java.io.OutputStream.write(int c)
+     * @see java.io.OutputStream#write(int c)
      */
     public void write(int c) throws IOException {
         lastBuffer = lastBuffer.append((byte) c);
@@ -80,7 +80,7 @@ public class FastBufferOutputStream extends OutputStream {
     }
 
     /**
-     * @see java.io.OutputStream.write(byte b[])
+     * @see java.io.OutputStream#write(byte b[])
      */
     public void write(byte[] b) throws IOException {
         if (b == null) {
@@ -94,7 +94,7 @@ public class FastBufferOutputStream extends OutputStream {
     }
 
     /**
-     * @see java.io.OutputStream.write(byte[] b, int off, int len)
+     * @see java.io.OutputStream#write(byte[] b, int off, int len)
      */
     public void write(byte[] b, int off, int len) throws IOException {
         if (b == null) {
@@ -112,7 +112,7 @@ public class FastBufferOutputStream extends OutputStream {
     /**
      * Returns the total number of written bytes.
      *
-     * @return
+     * @return the total number of written bytes
      */
     public int getLength() {
         return length;
@@ -121,7 +121,7 @@ public class FastBufferOutputStream extends OutputStream {
     /**
      * Returns the first link of the chain of byte arrays.
      *
-     * @return
+     * @return the first link of the chain of byte arrays
      */
     public ByteBuffer getFirstBuffer() {
         return firstBuffer;
@@ -190,7 +190,7 @@ public class FastBufferOutputStream extends OutputStream {
      * Returns instance of FastBufferWriter containing all data written to this output stream.
      *
      * @param encoding
-     * @return
+     * @return instance of FastBufferWriter containing all data written to this output stream
      * @throws UnsupportedEncodingException
      */
     public FastBufferWriter convertToWriter(String encoding) throws UnsupportedEncodingException {
@@ -217,7 +217,7 @@ public class FastBufferOutputStream extends OutputStream {
     /**
      * Returns instance of FastBufferWriter containing all data written to this output stream.
      *
-     * @return
+     * @return instance of FastBufferWriter containing all data written to this output stream
      */
     public FastBufferWriter convertToWriter() {
         ByteBuffer c = firstBuffer;

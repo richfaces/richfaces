@@ -66,7 +66,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 /**
- * A {@link TopicsContext} that allows Push to listen for messages on Java Messaging Service (JMS)
+ * A {@link org.richfaces.application.push.TopicsContext} that allows Push to listen for messages on Java Messaging Service (JMS)
  *
  * @author Nick Belaevski
  */

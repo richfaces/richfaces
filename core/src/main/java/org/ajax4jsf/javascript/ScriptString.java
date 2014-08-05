@@ -32,7 +32,7 @@ public interface ScriptString {
     /**
      * Return object content as JavaScript String.
      *
-     * @return
+     * @return object content as JavaScript String
      */
     String toScript();
 

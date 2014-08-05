@@ -32,7 +32,7 @@ public interface DataComponentState {
     /**
      * Build used data objects range for iteration.
      *
-     * @return
+     * @return used data objects range for iteration
      */
     Range getRange();
 }

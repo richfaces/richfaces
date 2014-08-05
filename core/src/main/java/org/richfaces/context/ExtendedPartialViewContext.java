@@ -122,7 +122,7 @@ import com.google.common.collect.Maps;
  *
  * <p>While extended {@link VisitContext} implementations ({@link ExtendedRenderVisitContext} and {@link ExtendedExecuteVisitContext}) allows to visit subtrees that are not normally visited (meta-components and implicitly renderer areas, aka {@link AjaxOutput}s),</p>
  *
- * <p>extended implementations of {@link VisitCallback} ({@link MetaComponentProcessingVisitCallback and {@link MetaComponentEncodingVisitCallback}) do the extended processing and rendering logic for meta-components.</p>
+ * <p>extended implementations of {@link VisitCallback} ({@link MetaComponentProcessingVisitCallback} and {@link MetaComponentEncodingVisitCallback}) do the extended processing and rendering logic for meta-components.</p>
  *
  * <p>{@link UIViewRoot} is a place where the tree processing starts to dive into subtrees, it is called by JSF implementation of {@link PartialViewContext#processPartial(PhaseId)}.</p>
  *

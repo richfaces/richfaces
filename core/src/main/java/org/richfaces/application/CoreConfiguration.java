@@ -46,7 +46,7 @@ public final class CoreConfiguration {
         /**
          * Name of web application init parameter for current skin . Can be simple String for non-modified name, or
          * EL-expression for calculate current skin. If EL evaluated to <code>String</code> - used as skin name, if to instance
-         * of {@link org.richfaces.Skin } - used this instance. by default - "org.richfaces.skin"
+         * of {@link org.richfaces.skin.Skin } - used this instance. by default - "org.richfaces.skin"
          */
         @ConfigurationItem(names = SKIN_PARAM_NAME)
         skin,

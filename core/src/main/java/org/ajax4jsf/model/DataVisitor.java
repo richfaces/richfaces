@@ -31,7 +31,7 @@ import javax.faces.context.FacesContext;
  */
 public interface DataVisitor {
     /**
-     * This method called back ( as visitor ) from {@link ExtendedDataModel#walk(FacesContext, DataVisitor, Range)} for each
+     * This method called back ( as visitor ) from {@link ExtendedDataModel#walk(FacesContext, DataVisitor, Range, Object)} for each
      * row.
      *
      * @param context current JSF context.

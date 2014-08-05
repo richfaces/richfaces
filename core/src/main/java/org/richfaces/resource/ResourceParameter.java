@@ -42,14 +42,14 @@ public @interface ResourceParameter {
     /**
      * Expression, which value is injected into the property.
      *
-     * @return
+     * @return expression, which value is injected into the property
      */
     String expression() default "";
 
     /**
      * Default value for injected property.
      *
-     * @return
+     * @return default value for injected propert
      */
     String defaultValue() default "";
 }

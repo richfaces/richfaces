@@ -35,7 +35,7 @@ public interface ResourceAggregator {
     /**
      * Returns a set of resources which can be found on common URL.
      *
-     * @param url an absolute URL under which resource can be found
+     * @param requestPath an absolute URL under which resource can be found
      * @return a set of resources which can be found on common URL.
      */
     Set<ResourceKey> getAggregatedResources(ResourcePath requestPath);

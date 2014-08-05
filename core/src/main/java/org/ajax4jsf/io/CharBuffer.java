@@ -49,7 +49,7 @@ public class CharBuffer {
     /**
      * Creates instance of CharBuffer already filled by chars.
      *
-     * @param bytes
+     * @param chars
      */
     public CharBuffer(char[] chars) {
         this.chars = chars;
@@ -102,7 +102,9 @@ public class CharBuffer {
      * Appends segment of a char array to array if there are unfilled positions in it. Otherwise creates next link in the chain,
      * and appends data to it.
      *
-     * @param c
+     * @param cs
+     * @param off
+     * @param len
      * @return instance of CharBuffer to which char array was appended.
      */
     public CharBuffer append(char[] cs, int off, int len) {
@@ -145,7 +147,7 @@ public class CharBuffer {
      * Returns character at index. No check is fulfilled to provide high speed.
      *
      * @param index
-     * @return
+     * @return character at index
      */
     public char getCharAt(int index) {
         return chars[index];
@@ -154,7 +156,7 @@ public class CharBuffer {
     /**
      * Returns actual number of characters stored in this link.
      *
-     * @return
+     * @return actual number of characters stored in this link
      */
     public int getUsedSize() {
         return usedSize;
@@ -163,7 +165,7 @@ public class CharBuffer {
     /**
      * Returns capacity of this link.
      *
-     * @return
+     * @return capacity of this link
      */
     public int getCacheSize() {
         return cacheSize;
@@ -172,7 +174,7 @@ public class CharBuffer {
     /**
      * Returns total number of characters stored in this link and all its predecessors.
      *
-     * @return
+     * @return total number of characters stored in this link and all its predecessors
      */
     public int getTotalSize() {
         return (prev == null) ? usedSize : prev.getTotalSize() + usedSize;
@@ -181,7 +183,7 @@ public class CharBuffer {
     /**
      * Returns the previous link in the chain.
      *
-     * @return
+     * @return the previous link in the chain
      */
     public CharBuffer getPrevious() {
         return prev;
@@ -190,7 +192,7 @@ public class CharBuffer {
     /**
      * Returns the next link in the chain.
      *
-     * @return
+     * @return the next link in the chain
      */
     public CharBuffer getNext() {
         return next;

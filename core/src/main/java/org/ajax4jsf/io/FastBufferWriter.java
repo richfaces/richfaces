@@ -73,7 +73,7 @@ public class FastBufferWriter extends Writer {
     }
 
     /**
-     * @see java.io.Writer.write(int c)
+     * @see java.io.Writer#write(int c)
      */
     public void write(int c) throws IOException {
         lastBuffer = lastBuffer.append((char) c);
@@ -81,7 +81,7 @@ public class FastBufferWriter extends Writer {
     }
 
     /**
-     * @see java.io.Writer.write(char cbuf[])
+     * @see java.io.Writer#write(char cbuf[])
      */
     public void write(char[] cbuf) throws IOException {
         if (cbuf == null) {
@@ -93,7 +93,7 @@ public class FastBufferWriter extends Writer {
     }
 
     /**
-     * @see java.io.Writer.write(char cbuf[], int off, int len)
+     * @see java.io.Writer#write(char cbuf[], int off, int len)
      */
     public void write(char[] cbuf, int off, int len) throws IOException {
         if (cbuf == null) {
@@ -113,7 +113,7 @@ public class FastBufferWriter extends Writer {
     /**
      * Returns the total number of written chars.
      *
-     * @return
+     * @return the total number of written char
      */
     public int getLength() {
         return length;
@@ -122,7 +122,7 @@ public class FastBufferWriter extends Writer {
     /**
      * Returns the first link of the chain of char arrays.
      *
-     * @return
+     * @return the first link of the chain of char arrays
      */
     public CharBuffer getFirstBuffer() {
         return firstBuffer;
@@ -139,7 +139,6 @@ public class FastBufferWriter extends Writer {
     /**
      * Writes all data written up to the moment to string buffer.
      *
-     * @param out
      * @throws IOException
      */
     public char[] toCharArray() {
@@ -172,7 +171,7 @@ public class FastBufferWriter extends Writer {
     /**
      * Writes all data written up to the moment to out.
      *
-     * @param out
+     * @param writer
      * @throws IOException
      */
     public void writeTo(Writer writer) throws IOException {
