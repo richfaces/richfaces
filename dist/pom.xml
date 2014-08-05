@@ -242,12 +242,13 @@
                         <artifactId>maven-assembly-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>richfaces-a4j-vdldoc-assembly</id>
+                                <id>richfaces-assembly</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
                                 <configuration>
+                                    <appendAssemblyId>false</appendAssemblyId>
                                     <descriptor>src/main/resources/xml/richfaces.xml</descriptor>
                                 </configuration>
                             </execution>
