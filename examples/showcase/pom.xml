@@ -30,7 +30,35 @@
         <version.gae.plugin>0.9.1</version.gae.plugin>
         <mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</mojarra.excluded.libraries>
         <myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</myfaces.excluded.libraries>
-        <jee6.excluded.libraries>${mojarra.excluded.libraries},${myfaces.excluded.libraries},WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
+        <jee6.excluded.libraries>
+            ${mojarra.excluded.libraries},
+            ${myfaces.excluded.libraries},
+            WEB-INF/lib/jboss-jsf-api_2.1_spec*,
+            WEB-INF/lib/jsf-impl*,
+            WEB-INF/lib/jta*,
+            WEB-INF/lib/jstl*,
+            WEB-INF/lib/validation-api*,
+            WEB-INF/lib/hibernate*,
+            WEB-INF/lib/classmate*,
+            WEB-INF/lib/jandex*,
+            WEB-INF/lib/jboss-logging*,
+            WEB-INF/lib/jboss-transaction-api*,
+            WEB-INF/lib/antlr*,
+            WEB-INF/lib/asm*,
+            WEB-INF/lib/cglib*,
+            WEB-INF/lib/commons-collections*,
+            WEB-INF/lib/dom4j*,
+            WEB-INF/lib/hsqldb*,
+            WEB-INF/lib/javassist*,
+            WEB-INF/lib/cdi-api*,
+            WEB-INF/lib/hornetq*,
+            WEB-INF/lib/javax.inject*,
+            WEB-INF/lib/jboss-interceptors*,
+            WEB-INF/lib/jms-api*,
+            WEB-INF/lib/jsr250-api*,
+            WEB-INF/lib/netty*,
+            WEB-INF/lib/weld-servlet*
+        </jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
     </properties>
