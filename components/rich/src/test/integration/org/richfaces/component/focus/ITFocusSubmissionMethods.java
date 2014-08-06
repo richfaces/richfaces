@@ -27,6 +27,7 @@ import org.richfaces.integration.RichDeployment;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.utils.focus.ElementIsFocused;
 
 import category.Failing;
 
