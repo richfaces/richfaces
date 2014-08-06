@@ -138,6 +138,7 @@
                                 <phase>prepare-package</phase>
                                 <configuration>
                                     <stripVersion>true</stripVersion>
+                                    <classifier>sources</classifier>
                                     <includeArtifactIds>richfaces,richfaces-a4j,richfaces-core</includeArtifactIds>
                                     <outputDirectory>${project.build.directory}/richfaces-sources</outputDirectory>
                                 </configuration>
@@ -173,7 +174,7 @@
                                 <id>generate-javadoc</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>aggregate</goal>
+                                    <goal>javadoc</goal>
                                 </goals>
                             </execution>
                         </executions>
