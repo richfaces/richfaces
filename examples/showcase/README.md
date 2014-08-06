@@ -68,12 +68,6 @@ When you see the `BUILD SUCCESSFUL` message you can deploy the application on th
 First, make sure the application server is running.  To start the server:
 launch the `standalone.sh` or `standalone.bat` script from ``JBOSS_HOME/bin/`` together with parameter ``--server-config=standalone-full.xml`` for both latest JBoss AS 7.1.x and for latest JBoss AS 7.0.x.
     
-As of `JBoss AS 7.1 / EAP 6` you must create the **JMS user account/password** to enable the JMS push sample.  Add a new user to the ApplicationRealm with the ``$JBOSS_HOME/bin/add-user.bat`` or ``add-user.sh`` script, with the:
-            
-            username: guest
-            password: p@ssw0rd (for JBoss AS 7.0.x, use "password")
-                role: guest
-    
 To **deploy** it on the application server, use either:
     
 1. Use the `jboss-as-maven-plugin` to deploy to a running application server:

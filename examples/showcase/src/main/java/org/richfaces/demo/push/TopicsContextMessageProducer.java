@@ -49,7 +49,7 @@ public class TopicsContextMessageProducer implements MessageProducer {
             topicsContext.publish(topicKey, "message");
         } catch (Exception e) {
             log.info("Sending push message using TopicContext failed (" + e.getMessage()
-                    + ") - the JMS subsystem might not be ready yet - operation will be repeated in few seconds");
+                    + ") - operation will be repeated in few seconds");
             if (log.isDebugEnabled()) {
                 log.debug(e);
             }

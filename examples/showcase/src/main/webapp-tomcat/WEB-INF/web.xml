@@ -101,14 +101,6 @@
         <param-value>false</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.push.jms.connectionUsername</param-name>
-        <param-value>guest</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.richfaces.push.jms.connectionPassword</param-name>
-        <param-value>password</param-value>
-    </context-param>
-    <context-param>
         <param-name>org.richfaces.push.session.maxInactiveInterval</param-name>
         <!-- interval in miliseconds; default value: 5 minutes -->
         <param-value>300000</param-value>

@@ -26,19 +26,16 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
- * Initializes JMS server and creates requested topics.
+ * Determines from the faces config whether or not Push is enabled.
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>,
- *         <a href="http://community.jboss.org/people/kenfinni">Ken Finnigan</a>
+ * @author <a href="http://community.jboss.org/people/kenfinni">Ken Finnigan</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
 @ApplicationScoped
 @ManagedBean
 public class PushConfiguration {
-
-    public boolean isJmsEnabled() {
-        return JMSInitializer.isJmsEnabled();
-    }
 
     public boolean isPushEnabled() {
         ExternalContext externalContext = (ExternalContext) FacesContext.getCurrentInstance().getExternalContext();

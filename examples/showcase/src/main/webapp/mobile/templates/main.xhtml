@@ -61,7 +61,7 @@
             </header>
             <h:form style="width:100%;height:100%;">
             <a4j:queue requestDelay="2000" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'attachQueue'}" />
-            <a4j:push id="pushJms" address="pushJms" ondataavailable="jQuery(#{rich:element('serverDate')}).text(event.rf.data)" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'push'}" />
+            <a4j:push id="pushTopics" address="pushTopics" ondataavailable="jQuery(#{rich:element('serverDate')}).text(event.rf.data)" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'push'}" />
             <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slidfast.core.slideTo('component-page')">
                 <f:param name="demo" value="param1"/>
                 <f:param name="sample" value="param2"/>

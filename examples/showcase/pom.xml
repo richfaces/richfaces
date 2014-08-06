@@ -51,12 +51,9 @@
             WEB-INF/lib/hsqldb*,
             WEB-INF/lib/javassist*,
             WEB-INF/lib/cdi-api*,
-            WEB-INF/lib/hornetq*,
             WEB-INF/lib/javax.inject*,
             WEB-INF/lib/jboss-interceptors*,
-            WEB-INF/lib/jms-api*,
             WEB-INF/lib/jsr250-api*,
-            WEB-INF/lib/netty*,
             WEB-INF/lib/weld-servlet*
         </jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
@@ -119,38 +116,13 @@
             <scope>${dependency.scope}</scope>
         </dependency>
 
-        <!-- Dependencies for Push and JMS -->
+        <!-- Dependencies for Push -->
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-push-depchain</artifactId>
             <type>pom</type>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.jms</groupId>
-            <artifactId>jboss-jms-api_1.1_spec</artifactId>
-            <scope>${dependency.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hornetq</groupId>
-            <artifactId>hornetq-core</artifactId>
-            <scope>${dependency.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hornetq</groupId>
-            <artifactId>hornetq-jms</artifactId>
-            <scope>${dependency.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hornetq</groupId>
-            <artifactId>hornetq-logging</artifactId>
-            <scope>${dependency.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.netty</groupId>
-            <artifactId>netty</artifactId>
-            <scope>${dependency.scope}</scope>
-        </dependency>
-        
+
         <!-- Dependencies for CDI -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -173,13 +145,6 @@
         <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
-        </dependency>
-        
-        <!-- JBoss AS7 management -->
-        <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-controller-client</artifactId>
-            <scope>provided</scope>
         </dependency>
         
         <!-- Jsoup used for validation of safe html input -->

@@ -69,15 +69,7 @@
         <param-name>org.richfaces.push.jms.enabled</param-name>
         <param-value>false</param-value>
     </context-param>
-    <context-param>
-        <param-name>org.richfaces.push.jms.connectionUsername</param-name>
-        <param-value>guest</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.richfaces.push.jms.connectionPassword</param-name>
-        <param-value>password</param-value>
-    </context-param>
-    
+
     <!-- Force this Servlet to use one Thread per connection
          instead of native API as workaround for (RF-11064)  -->
     <context-param>

@@ -74,10 +74,6 @@
                 <id>push</id>
                 <name>a4j:push</name>
                 <samples>
-                    <sample enabled="#{pushConfiguration.jmsEnabled}">
-                        <id>pushJms</id>
-                        <name>JMS Push</name>
-                    </sample>
                     <sample>
                         <id>pushTopicsContext</id>
                         <name>Topics Context Usage</name>
