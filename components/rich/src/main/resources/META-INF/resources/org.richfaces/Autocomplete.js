@@ -8,6 +8,7 @@
     rf.ui = rf.ui || {};
     // Constructor definition
     rf.ui.Autocomplete = function(componentId, fieldId, options) {
+        alert("initalizing autocomplete");
         this.namespace = "." + rf.Event.createNamespace(this.name, componentId);
         this.options = {};
         // call constructor of parent class
@@ -109,10 +110,10 @@
     var updateItemsList = function (value, fetchValues) {
         var itemsContainer = $(rf.getDomElement(this.id + ID.ITEMS));
         this.items = itemsContainer.find("." + this.options.itemClass);
-        var data = itemsContainer.data();
-        itemsContainer.removeData();
+        var componentData = itemsContainer.data("componentData");
+        itemsContainer.removeData("componentData");
         if (this.items.length > 0) {
-            this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.items, fetchValues || data.componentData || getData, !this.options.ajaxMode);
+            this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.items, fetchValues || componentData || getData, !this.options.ajaxMode);
         }
     };
 
@@ -479,7 +480,7 @@
 
     $.extend(rf.ui.Autocomplete, {
             setData: function (id, data) {
-                $(rf.getDomElement(id)).data({componentData:data});
+                $(rf.getDomElement(id)).data("componentData", data);
             },
             
             __getLastTokenIndex:  function (tokens, value) {
