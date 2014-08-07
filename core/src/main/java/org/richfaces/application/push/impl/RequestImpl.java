@@ -79,14 +79,16 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * (non-Javadoc)
      * @see org.richfaces.push.Request#suspend()
      */
+    @Override
     public void suspend() {
-        meteor.suspend(SUSPEND_TIMEOUT, isPolling());
+        meteor.suspend(SUSPEND_TIMEOUT);
     }
 
     /*
      * (non-Javadoc)
      * @see org.richfaces.push.Request#resume()
      */
+    @Override
     public void resume() {
         meteor.resume();
     }
@@ -140,11 +142,27 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         }
     }
 
+    @Override
+    public void onPreSuspend(AtmosphereResourceEvent atmosphereResourceEvent) {
+
+    }
+
+    @Override
+    public void onClose(AtmosphereResourceEvent atmosphereResourceEvent) {
+
+    }
+
+    @Override
+    public void onHeartbeat(AtmosphereResourceEvent atmosphereResourceEvent) {
+
+    }
+
     /*
-     * (non-Javadoc)
-     *
-     * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onSuspend(org.atmosphere.cpr.AtmosphereResourceEvent)
-     */
+         * (non-Javadoc)
+         *
+         * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onSuspend(org.atmosphere.cpr.AtmosphereResourceEvent)
+         */
+    @Override
     public void onSuspend(AtmosphereResourceEvent event) {
         try {
             getSession().connect(this);
@@ -167,6 +185,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * (non-Javadoc)
      * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onResume(org.atmosphere.cpr.AtmosphereResourceEvent)
      */
+    @Override
     public void onResume(AtmosphereResourceEvent event) {
         disconnect();
     }
@@ -175,6 +194,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * (non-Javadoc)
      * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onDisconnect(org.atmosphere.cpr.AtmosphereResourceEvent)
      */
+    @Override
     public void onDisconnect(AtmosphereResourceEvent event) {
         disconnect();
     }
@@ -201,6 +221,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * In another case - the request is done by websocket - it tries to send messages which could be posted when broadcasting.
      * </p>
      */
+    @Override
     public void onBroadcast(AtmosphereResourceEvent event) {
         MessageDataScriptString serializedMessages = (MessageDataScriptString) event.getMessage();
         getSession().clearBroadcastedMessages(serializedMessages.getLastSequenceNumber());
@@ -218,6 +239,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * (non-Javadoc)
      * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onThrowable(org.atmosphere.cpr.AtmosphereResourceEvent)
      */
+    @Override
     public void onThrowable(AtmosphereResourceEvent event) {
         // TODO Auto-generated method stub
         Throwable throwable = event.throwable();
