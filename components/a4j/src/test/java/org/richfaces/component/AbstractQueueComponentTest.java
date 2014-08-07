@@ -38,6 +38,7 @@ import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
 import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 import net.sourceforge.htmlunit.corejs.javascript.Undefined;
 
+import net.sourceforge.htmlunit.corejs.javascript.UniqueTag;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.jboss.test.faces.ApplicationServer;
@@ -218,8 +219,10 @@ public abstract class AbstractQueueComponentTest {
                 data = (String) dataObject;
             }
 
-            Double startTime = (Double) object.get("startTime", object);
-            Double endTime = (Double) object.get("endTime", object);
+            Object startTimeObject = object.get("startTime", object);
+            Double startTime =  startTimeObject instanceof Double ? (Double) startTimeObject : Double.NaN;
+            Object endTimeObject = object.get("endTime", object);
+            Double endTime =  endTimeObject instanceof Double ? (Double) endTimeObject : Double.NaN;
             Object aborted = object.get("aborted", object);
             boolean abortedBoolean = aborted instanceof Boolean && (Boolean) aborted;
 
