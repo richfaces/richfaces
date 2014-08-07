@@ -170,6 +170,7 @@
                             <execution>
                                 <configuration>
                                     <sourcepath>${project.build.directory}/richfaces-sources</sourcepath>
+                                    <reportOutputDirectory>${project.reporting.outputDirectory}/javadoc</reportOutputDirectory>
                                 </configuration>
                                 <id>generate-javadoc</id>
                                 <phase>package</phase>
