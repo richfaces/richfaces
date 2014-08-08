@@ -58,7 +58,7 @@
     <properties>
         <!-- Base Dependencies Versions -->
         <version.richfaces>4.5.0-SNAPSHOT</version.richfaces>
-        <version.cdk>4.5.0.Alpha2</version.cdk>
+        <version.cdk>4.5.0-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
