@@ -41,7 +41,7 @@
 			
 				if(settings.centerBrowser){
 						
-					if ($.browser.msie) {//hacked together for IE browsers
+					if (rf.browser.msie) {//hacked together for IE browsers
 						centeredY = (window.screenTop - 120) + ((((document.documentElement.clientHeight + 120)/2) - (settings.height/2)));
 						centeredX = window.screenLeft + ((((document.body.offsetWidth + 20)/2) - (settings.width/2)));
 					}else{

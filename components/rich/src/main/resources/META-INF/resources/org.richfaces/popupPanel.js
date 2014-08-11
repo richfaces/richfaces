@@ -102,7 +102,7 @@
             name: "PopupPanel",
             saveInputValues: function(element) {
                 /* Fix for RF-3856 - Checkboxes in modal panel does not hold their states after modal was closed and opened again */
-                if ($.browser.msie /* reproducible for checkbox/radio in IE6, radio in IE 7/8 beta 2 */) {
+                if (rf.browser.msie /* reproducible for checkbox/radio in IE6, radio in IE 7/8 beta 2 */) {
                     $('input[type=checkbox], input[type=radio]', element).each(function(index) {
                         $(this).defaultChecked = $(this).checked;
                     });
@@ -331,7 +331,7 @@
                     }
 
                     this.div.css('visibility', '');
-                    if ($.browser.msie) {
+                    if (rf.browser.msie) {
                         $(this.cdiv).find('input').each(function() {
                             // Force a CSS "touch" of all popupPanel children to ensure visibility in IE for RF-12850
                             var $this = $(this);

@@ -307,7 +307,7 @@
             });
             pnotify.opts = opts;
             // Create a drop shadow.
-            if (opts.pnotify_shadow && !$.browser.msie)
+            if (opts.pnotify_shadow && !rf.browser.msie)
                 pnotify.shadow_container = $("<div />", {"class": "rf-ntf-shdw"}).prependTo(pnotify);
             // Create a container for the notice contents.
             pnotify.container = $("<div />", {"class": "rf-ntf-cnt"})
@@ -326,7 +326,7 @@
                 pnotify.opts = opts;
                 // Update the shadow.
                 if (opts.pnotify_shadow != old_opts.pnotify_shadow) {
-                    if (opts.pnotify_shadow && !$.browser.msie)
+                    if (opts.pnotify_shadow && !rf.browser.msie)
                         pnotify.shadow_container = $("<div />", {"class": "rf-ntf-shdw"}).prependTo(pnotify);
                     else
                         pnotify.children(".rf-ntf-shdw").remove();

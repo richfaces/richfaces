@@ -214,7 +214,7 @@ sbjQuery.fn.SpinButton = function(cfg){
 			})
 			
 			.dblclick(function(e) {
-				if (sbjQuery.browser.msie)
+				if (RichFaces.browser.msie)
 					self.adjustValue(self.spinCfg.step);
 			})
 			.mouseout(function(e){
@@ -255,7 +255,7 @@ sbjQuery.fn.SpinButton = function(cfg){
 			})
 			
 			.dblclick(function(e) {
-				if (sbjQuery.browser.msie)
+				if (RichFaces.browser.msie)
 					self.adjustValue(-self.spinCfg.step);
 			})
 			.mouseout(function(e){
@@ -286,7 +286,7 @@ sbjQuery.fn.SpinButton = function(cfg){
 		var c = el[prop], b = document.body;
 		
 		while ((el = el.offsetParent) && (el != b)) {
-			if (!sbjQuery.browser.msie || (el.currentStyle.position != 'relative'))
+			if (!RichFaces.browser.msie || (el.currentStyle.position != 'relative'))
 				c += el[prop];
 		}
 		

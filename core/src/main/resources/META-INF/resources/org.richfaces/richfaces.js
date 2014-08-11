@@ -764,4 +764,29 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     } else {
         window.attachEvent("onunload", rf.cleanDom);
     }
+    
+    // browser detection, taken from atmosphere.js
+    rf.browser = {};
+    var ua = navigator.userAgent.toLowerCase(),
+        match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+            /(msie) ([\w.]+)/.exec(ua) ||
+            /(trident)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
+            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
+            [];
+
+    rf.browser[match[1] || ""] = true;
+    rf.browser.version = match[2] || "0";
+
+    // Trident is the layout engine of the Internet Explorer
+    // IE 11 has no "MSIE: 11.0" token
+    if (rf.browser.trident) {
+        rf.browser.msie = true;
+    }
+
+    // The storage event of Internet Explorer and Firefox 3 works strangely
+    if (rf.browser.msie || (rf.browser.mozilla && +rf.browser.version.split(".")[0] === 1)) {
+        rf.storage = false;
+    }
 }(RichFaces.jQuery, RichFaces));
