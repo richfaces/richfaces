@@ -34,7 +34,7 @@ public interface EventsKeyProps {
     /**
      * Javascript code executed when a key is pressed and released over this element.
      */
-    @Attribute(events = @EventName(value = "onkeypress"),
+    @Attribute(events = @EventName(value = "keypress"),
             passThrough = true,
             description = @Description(
                     value = "Javascript code executed when a key is pressed and released over this element.",
@@ -44,7 +44,7 @@ public interface EventsKeyProps {
     /**
      * Javascript code executed when a key is pressed down over this element.
      */
-    @Attribute(events = @EventName(value = "onkeydown"),
+    @Attribute(events = @EventName(value = "keydown"),
             passThrough = true,
             description = @Description(
                     value = "Javascript code executed when a key is pressed down over this element.",
@@ -54,7 +54,7 @@ public interface EventsKeyProps {
     /**
      * Javascript code executed when a key is released over this element.
      */
-    @Attribute(events = @EventName(value = "onkeyup"),
+    @Attribute(events = @EventName(value = "keyup"),
             passThrough = true,
             description = @Description(
                     value = "Javascript code executed when a key is released over this element.",
