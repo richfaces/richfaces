@@ -120,11 +120,11 @@
         <!-- Container Versions -->
         <version.wildfly80>8.0.0.Final</version.wildfly80>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
-        <version.jbossas71>7.1.1.Final</version.jbossas71>
-        <version.tomee16>1.6.0</version.tomee16>
+        <version.tomee16>1.6.0.2</version.tomee16>
         <version.glassfish40>4.0</version.glassfish40>
-        <version.tomcat6>6.0.35</version.tomcat6>
-        <version.tomcat7>7.0.26</version.tomcat7>
+        <version.tomcat6>6.0.36</version.tomcat6>
+        <version.tomcat7>7.0.55</version.tomcat7>
+        <version.tomcat8>8.0.9</version.tomcat8>
 
         <!-- Plugin Management: versions -->
         <version.compiler.plugin>2.3.2</version.compiler.plugin>
@@ -436,9 +436,10 @@
                 <arquillian.maven.settings />
 
                 <!-- Container Selection -->
-                <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
+                <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
                 <arquillian.launch.tomcat6>false</arquillian.launch.tomcat6>
                 <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
+                <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
                 <arquillian.launch.tomee16>false</arquillian.launch.tomee16>
                 <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
 
@@ -739,59 +740,17 @@
             </dependencies>
         </profile>
         <profile>
-            <id>jbossas-managed-7-1</id>
+            <id>jbosseap-managed-6-2</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>jbossas71</value>
+                    <value>jbosseap62</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
-                <arquillian.container.home>${project.build.directory}/jboss-as-${version.jbossas71}</arquillian.container.home>
-                <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jbossas71}</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbossas-remote-7-1</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbossas71-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jbosseap-managed-6-1</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>jbosseap61</value>
-                </property>
-            </activation>
-            <properties>
-                <version.jbosseap61>7.2.0.Alpha1-redhat-4</version.jbosseap61>
-                <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
-                <arquillian.container.home>${project.build.directory}/jboss-eap-6.1</arquillian.container.home>
-                <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jbosseap61}</arquillian.container.distribution>
+                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
+                <arquillian.container.home>${project.build.directory}/jboss-eap-6.2</arquillian.container.home>
+                <arquillian.container.distribution>file:///path/to/jboss-eap-6.2.4.zip</arquillian.container.distribution>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
@@ -810,11 +769,66 @@
             </dependencies>
         </profile>
         <profile>
-            <id>jbosseap-remote-6-1</id>
+            <id>jbosseap-remote-6-2</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>jbosseap61-remote</value>
+                    <value>jbosseap62-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jbosseap-managed-6-3</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap63</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
+                <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
+                <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jbosseap-remote-6-3</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap63-remote</value>
                 </property>
             </activation>
             <properties>
@@ -854,6 +868,7 @@
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
+                    <version>${version.tomee16}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -965,6 +980,26 @@
             </dependencies>
         </profile>
         <profile>
+            <id>tomcat-remote-7</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat7-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-remote-7</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>tomcat-managed-7</id>
             <activation>
                 <property>
@@ -977,7 +1012,31 @@
                 <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
-                <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-7</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomcat-managed-8</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat8</value>
+                </property>
+            </activation>
+            <properties>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat8}</catalinaHome>
+                <arquillian.launch.tomcat8>true</arquillian.launch.tomcat8>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat8}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat8}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
             </properties>
             <dependencies>

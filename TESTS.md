@@ -7,12 +7,13 @@ The supported container matrix is:
 
 * WildFly 8.0
 * WildFly 8.1
-* JBoss EAP 6.1
-* JBoss AS 7.1
-* TomEE 1.5
-* GlassFish 3.1
+* JBoss EAP 6.2
+* JBoss EAP 6.3
+* TomEE 1.6
+* GlassFish 4.0
 * Tomcat 6
 * Tomcat 7
+* Tomcat 8
 
 Note: for specific supported versions consult the pom.xml
 
@@ -32,15 +33,15 @@ Running a full build including smoke tests:
 
 Running particular framework test (on Chrome) from console:
 
-    // console 1: start JBoss AS 7 
-    ./wildfly-8.0.0.Final/bin/standalone.sh
+    // console 1: start WildFly 8.1 
+    ./wildfly-8.1.0.Final/bin/standalone.sh
 
     // console 2: start Selenium Server
     java -jar selenium-server-standalone-${VERSION}.jar -Dwebdriver.chrome.driver=/opt/google/chrome/chromedriver
     
     // console 3: run a test
     cd richfaces/core/
-    mvn verify -Dintegration=wildfly80-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
+    mvn verify -Dintegration=wildfly81-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
 You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
 
@@ -109,7 +110,7 @@ This will allow you to run newer tests against previous versions and verify that
 JSF version Notes
 -----------------
 
-Some containers (JBoss AS, GlassFish, TomEE) bundle the JSF version in their distribution, however for Tomcat 6 and Tomcat 7, the JSF implementation needs to be bundled (by default, the version specified in RichFaces BOM will be used).
+Some containers (JBoss AS, GlassFish, TomEE) bundle the JSF version in their distribution, however for Tomcat 6, 7, and 8, the JSF implementation needs to be bundled (by default, the version specified in RichFaces BOM will be used).
 
 You can influence the version used during the test on Tomcats using the following Maven property:
 
@@ -122,7 +123,7 @@ or modifying the pom.xml:
 Using MyFaces
 -------------
 
-In order to test RichFaces using MyFaces as JSF implementation, you need to either use the TomEE container or Tomcat 6 or 7 with enforced MyFaces dependency (in the first case using version specified in RichFaces BOM)
+In order to test RichFaces using MyFaces as JSF implementation, you need to either use the TomEE container or Tomcat 6/7/8 with enforced MyFaces dependency (in the first case using version specified in RichFaces BOM)
 
     -Darquillian.richfaces.jsfImplementation=org.apache.myfaces.core:myfaces-impl
 
@@ -248,13 +249,13 @@ Managed Containers
 
     mvn verify -Dintegration=wildfly81
 
-### JBoss EAP 6.1 - Managed
+### JBoss EAP 6.2 - Managed
 
-    mvn verify -Dintegration=jbosseap61
+    mvn verify -Dintegration=jbosseap62
 
-### JBoss AS 7.1 - Managed
+### JBoss EAP 6.3 - Managed
 
-    mvn verify -Dintegration=jbossas71
+    mvn verify -Dintegration=jbosseap63
 
 ### TomEE 1.6 - Managed
 
@@ -272,6 +273,10 @@ Managed Containers
 
     mvn verify -Dintegration=tomcat7
 
+### Tomcat 8 - Managed
+
+    mvn verify -Dintegration=tomcat8
+
 
 Providing container distribution
 --------------------------------
@@ -280,11 +285,11 @@ By default, all managed container are configured to obtain a distribution from s
 
 You can specify an URL that a container distribution should be downloaded from using the same property:
 
-    -Darquillian.container.distribution=file:///tmp/jboss-as-dist-7.1.1.Final.zip
+    -Darquillian.container.distribution=file:///tmp/wildfly-dist-8.1.0.Final.zip
 
 or
 
-    -Darquillian.container.distribution=http://some.repository/jboss-as-dist-7.1.1.Final.zip
+    -Darquillian.container.distribution=http://some.repository/wildfly-dist-8.1.0.Final.zip
 
 
 Remote Containers
@@ -323,21 +328,21 @@ Profile: `wildfly-remote-8-1`
 
     mvn verify -Dintegration=wildfly81-remote
 
-### JBoss EAP 6.1 - Remote
+### JBoss EAP 6.2 - Remote
 
-Start: `[jboss-eap-6.1]$ ./bin/standalone.sh`
+Start: `[jboss-eap-6.2]$ ./bin/standalone.sh`
 
-Profile: `jbosseap-remote-6-1`
+Profile: `jbosseap-remote-6-2`
 
-    mvn verify -Dintegration=jbosseap61-remote
+    mvn verify -Dintegration=jbosseap62-remote
 
-### JBoss AS 7.1 - Remote
+### JBoss EAP 6.3 - Remote
 
-Start: `[jboss-as-7.1.1.Final]$ ./bin/standalone.sh`
+Start: `[jboss-eap-6.3]$ ./bin/standalone.sh`
 
-Profile: `jbossas-remote-7-1`
+Profile: `jbosseap-remote-6-3`
 
-    mvn verify -Dintegration=jbossas71-remote
+    mvn verify -Dintegration=jbosseap63-remote
 
 ### GlassFish 4.0 - Remote
 
@@ -355,7 +360,7 @@ Profile: `tomee-remote-1-6`
 
     mvn verify -Dintegration=tomee16-remote
 
-### Tomcat 6 - Remote
+### Tomcat 6/7/8 - Remote
 
 You need to modify the `conf/tomcat-users.xml` file:
 
@@ -378,11 +383,11 @@ Start the container:
     ./bin/catalina.sh run
 
 
-Start: `[apache-tomcat-6.0.33]$ ./bin/catalina.run.sh`
+Start: `[apache-tomcat-8.0.9]$ ./bin/catalina.run.sh`
 
-Profile: `tomcat-remote-6`
+Profile: `tomcat-remote-8`
 
-    mvn verify -Dintegration=tomcat6-remote
+    mvn verify -Dintegration=tomcat8-remote
 
 
 Reusing Test Infrastructure Setup

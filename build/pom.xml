@@ -335,6 +335,11 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-remote-7</artifactId>
+                <version>${version.arquillian.tomcat}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-tomcat-managed-6</artifactId>
                 <version>${version.arquillian.tomcat}</version>
             </dependency>

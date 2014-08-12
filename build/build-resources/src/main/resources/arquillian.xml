@@ -27,7 +27,7 @@
 <!--         <property name="deploymentExportPath">target/</property>  -->
     </engine>
 
-    <container qualifier="jbossas71" default="${arquillian.launch.jbossas71}">
+    <container qualifier="jbosseap6" default="${arquillian.launch.jbosseap6}">
         <configuration>
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
             <property name="jbossHome">${arquillian.container.home}</property>
@@ -53,6 +53,17 @@
     </container>
 
     <container qualifier="tomcat7" default="${arquillian.launch.tomcat7}">
+        <configuration>
+            <property name="catalinaHome">${arquillian.container.home}</property>
+            <property name="javaVmArguments">
+                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+            </property>
+            <property name="user">admin</property>
+            <property name="pass">pass</property>
+        </configuration>
+    </container>
+    
+    <container qualifier="tomcat8" default="${arquillian.launch.tomcat8}">
         <configuration>
             <property name="catalinaHome">${arquillian.container.home}</property>
             <property name="javaVmArguments">
