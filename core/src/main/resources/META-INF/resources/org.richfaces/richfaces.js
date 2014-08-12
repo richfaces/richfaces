@@ -765,7 +765,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         window.attachEvent("onunload", rf.cleanDom);
     }
     
-    // browser detection, taken from atmosphere.js
+    // browser detection, taken jQuery Migrate plugin (https://github.com/jquery/jquery-migrate)
+    //     and atmosphere.js
     rf.browser = {};
     var ua = navigator.userAgent.toLowerCase(),
         match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
@@ -778,15 +779,17 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
     rf.browser[match[1] || ""] = true;
     rf.browser.version = match[2] || "0";
+    
+    // Chrome is Webkit, but Webkit is also Safari.
+	if ( rf.browser.chrome ) {
+		rf.browser.webkit = true;
+	} else if ( rf.browser.webkit ) {
+		rf.browser.safari = true;
+	}
 
     // Trident is the layout engine of the Internet Explorer
     // IE 11 has no "MSIE: 11.0" token
     if (rf.browser.trident) {
         rf.browser.msie = true;
-    }
-
-    // The storage event of Internet Explorer and Firefox 3 works strangely
-    if (rf.browser.msie || (rf.browser.mozilla && +rf.browser.version.split(".")[0] === 1)) {
-        rf.storage = false;
     }
 }(RichFaces.jQuery, RichFaces));
