@@ -60,6 +60,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
     private Set<String> RESOURCE_LIBRARIES_TO_MAP = new TreeSet<String>(Arrays.asList(
             "com.jqueryui",
+            "org.richfaces",
             "org.richfaces.ckeditor"
         ));
 

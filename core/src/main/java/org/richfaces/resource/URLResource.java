@@ -78,4 +78,15 @@ public class URLResource extends Resource {
     public boolean userAgentNeedsUpdate(FacesContext context) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public String getLibraryName() {
+        return "rfResource";
+    }
+
+    @Override
+    public String getResourceName() {
+        String p = path.toExternalForm();
+        return p.substring(p.lastIndexOf("/") + 1);
+    }
 }
