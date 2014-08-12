@@ -22,7 +22,9 @@
 package org.ajax4jsf.javascript;
 
 /**
- * @author shura Encode chars as JavaScript sequences
+ * Encode chars as JavaScript sequences
+ *
+ * @author shura
  */
 import java.nio.CharBuffer;
 

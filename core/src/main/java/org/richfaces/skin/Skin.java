@@ -226,7 +226,7 @@ public interface Skin {
     Object getParameter(FacesContext context, String name, Object defaultValue);
 
     /**
-     * Get value for configuration parameter & interpret it as color string. If parameter set as EL-expression, calculate it
+     * Get value for configuration parameter and interpret it as color string. If parameter set as EL-expression, calculate it
      * value.
      *
      * @param context - {@link FacesContext } for current request.
@@ -237,7 +237,7 @@ public interface Skin {
     Integer getColorParameter(FacesContext context, String name);
 
     /**
-     * Get value for configuration parameter & interpret it as color string. If parameter set as EL-expression, calculate it
+     * Get value for configuration parameter and interpret it as color string. If parameter set as EL-expression, calculate it
      * value.
      *
      * @param context - {@link FacesContext } for current request.

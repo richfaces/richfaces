@@ -190,7 +190,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream#mark()
+     * @see java.io.InputStream#mark(int)
      */
     public void mark(int readAheadLimit) {
         if (current == null) {
@@ -227,7 +227,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream#skip()
+     * @see java.io.InputStream#skip(long)
      */
     public long skip(long n) throws IOException {
         long skipped = 0;

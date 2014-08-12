@@ -21,34 +21,19 @@ import java.util.BitSet;
 /**
  * <p>
  * Implements the 'www-form-urlencoded' encoding scheme,
- * <p/>
  * also misleadingly known as URL encoding.
  * </p>
- * <p/>
- * <p/>
- * <p/>
  * <p>
  * For more detailed information please refer to
- * <p/>
  * <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.1">
- * <p/>
  * Chapter 17.13.4 'Form content types'</a> of the
- * <p/>
- * <a href="http://www.w3.org/TR/html4/">HTML 4.01 Specification<a>
+ * <a href="http://www.w3.org/TR/html4/">HTML 4.01 Specification</a>
  * </p>
- * <p/>
- * <p/>
- * <p/>
  * <p>
- * <p/>
  * This codec is meant to be a replacement for standard Java classes
- * <p/>
  * {@link java.net.URLEncoder} and {@link java.net.URLDecoder}
- * <p/>
  * on older Java platforms, as these classes in Java versions below
- * <p/>
  * 1.4 rely on the platform's default charset encoding.
- * <p/>
  * </p>
  *
  * @author Apache Software Foundation

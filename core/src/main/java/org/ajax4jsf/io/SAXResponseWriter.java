@@ -33,11 +33,11 @@ import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 /**
+ * Realization of Faces <code>ResponseWriter</code> for Cocoon Environment. Use ONLY Markup-specific calls , send it as
+ * SAX events to <code>XMLConsumer</code> Use "State" pattern for control of events flow. TODO - implement namespace
+ * capabilites
+ *
  * @author shura
- *         <p/>
- *         Realization of Faces <code>ResponseWriter</code> for Cocoon Environment. Use ONLY Markup-specific calls , send it as
- *         SAX events to <code>XMLConsumer</code> Use "State" pattern for control of events flow. TODO - implement namespace
- *         capabilites
  */
 public class SAXResponseWriter extends ResponseWriter {
     /**

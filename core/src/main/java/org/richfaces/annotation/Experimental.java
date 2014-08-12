@@ -29,7 +29,6 @@ import java.lang.annotation.Target;
 /**
  * A marker annotation to mark that a class, method or field is experimental and as such, should be used with extreme care as it
  * may not be completely implemented, may not work at all, and/or may be prone to incompatible changes in future releases.
- * <p/>
  *
  * @author Lukas Fryc
  */
