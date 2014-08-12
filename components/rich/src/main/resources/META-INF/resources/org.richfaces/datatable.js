@@ -5,8 +5,15 @@
     rf.ui.DataTable = function(id, options) {
         $super.constructor.call(this, id);
         this.options = $.extend(this.options, options || {});
-        this.attachToDom();
-
+        this.element = this.attachToDom();
+        var self = this;
+        var header = $(this.element).find('.rf-dt-thd');
+        header.find(".rf-dt-c-srt").each(function() {
+            $(this).bind("click", {sortHandle: this}, $.proxy(self.sortHandler, self));
+        });
+        header.find(".rf-dt-flt-i").each(function() {
+            $(this).bind("blur", {filterHandle: this}, $.proxy(self.filterHandler, self));
+        });
     };
 
     rf.BaseComponent.extend(rf.ui.DataTable);
@@ -51,12 +58,27 @@
                 this.sort("", "", true);
             },
 
+            sortHandler: function(event) {
+                var sortHandle = $(event.data.sortHandle);
+                var button = sortHandle.find('.rf-dt-srt-btn');
+                var columnId = button.data('columnid');
+                var sortOrder = button.hasClass('rf-dt-srt-asc') ? 'descending' : 'ascending';
+                this.sort(columnId, sortOrder, false);
+            },
+
             filter: function(columnId, filterValue, isClear) {
                 invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.FILTERING, columnId, filterValue, isClear));
             },
 
             clearFiltering: function() {
                 this.filter("", "", true);
+            },
+
+            filterHandler: function(event) {
+                var filterHandle = $(event.data.filterHandle);
+                var columnId = filterHandle.data('columnid');
+                var filterValue = filterHandle.val();
+                this.filter(columnId, filterValue, false);
             },
 
             expandAllSubTables: function() {
