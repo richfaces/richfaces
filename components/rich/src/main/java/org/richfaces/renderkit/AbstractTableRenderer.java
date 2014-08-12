@@ -426,6 +426,11 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 encodeColumnFacet(facesContext, writer, dataTable, UIDataTableBase.HEADER, columns, cellClass);
                 writer.endElement(HtmlConstants.TR_ELEMENT);
 
+                if (Boolean.TRUE.equals(dataTable.getAttributes().get("rf-filterRowRequired"))) {  // filter row
+                    Iterator<UIComponent> headers = dataTable.columns();  // reset the columns iterator
+                    this.renderFilterRow(facesContext, dataTable, headers, "rf-dt");
+                }
+
                 if (encodePartialUpdateForChildren) {
                     partialEnd(facesContext);
                 }
@@ -450,11 +455,16 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
         Iterator<UIComponent> headers = dataTableBase.columns();
 
+        boolean filterRowRequired = false;
         while (headers.hasNext()) {
             UIComponent column = headers.next();
 
             if (!column.isRendered() || (column instanceof Row)) {
                 continue;
+            }
+
+            if (!filterRowRequired && this.isFilterRowRequiredForColumn(facetName, column)) {
+                filterRowRequired = true;
             }
 
             Integer colspan = (Integer) column.getAttributes().get(HtmlConstants.COLSPAN_ATTRIBUTE);
@@ -470,7 +480,13 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
             writer.startElement(element, column);
 
-            encodeStyleClass(writer, context, column, facetName + "Class", cellClass);
+            String columnClass = cellClass;
+            boolean useBuiltInSort = this.isBuiltInSortRequiredFocColumn(facetName, column);
+            if (useBuiltInSort) {
+                columnClass = HtmlUtil.concatClasses( columnClass, "rf-dt-c-srt");
+            }
+
+            encodeStyleClass(writer, context, column, facetName + "Class", columnClass);
 
             if (HtmlConstants.TH_ELEM.equals(element)) { // HTML5 allows scope attr only on th elements
                 writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COL_ELEMENT, null);
@@ -487,8 +503,12 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 }
                 strategy.end(writer, context, column, new String[] { facetName });
             }
+            if (useBuiltInSort) {
+                this.renderSortButton(context, column, "rf-dt");
+            }
             writer.endElement(element);
         }
+        dataTableBase.getAttributes().put("rf-filterRowRequired", filterRowRequired);
     }
 
     protected void encodeTableFacet(FacesContext facesContext, ResponseWriter writer, String id, int columns,

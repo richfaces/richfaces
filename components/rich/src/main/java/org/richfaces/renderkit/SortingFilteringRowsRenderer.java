@@ -21,9 +21,11 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +36,7 @@ import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractColumn;
 import org.richfaces.component.SortOrder;
@@ -174,5 +177,65 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
                 component.getAttributes().put(attribute, value);
             }
         }
+    }
+
+    protected void renderFilterRow(FacesContext context, UIDataTableBase table, Iterator<UIComponent> columns, String cssPrefix) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        String clientId = table.getClientId(context);
+        writer.startElement(HtmlConstants.TR_ELEMENT, table);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%s-flt", cssPrefix), null);
+        while (columns.hasNext()) {
+            UIComponent column = columns.next();
+            if (column.isRendered()) {
+                writer.startElement(HtmlConstants.TD_ELEM, column);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%1$s-flt-c %1$s-c-%2$s", cssPrefix, column.getId()), null);
+                writer.startElement(HtmlConstants.DIV_ELEM, column);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%s-flt-cnt", cssPrefix), null);
+                if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterType"))) {
+                    writer.startElement(HtmlConstants.INPUT_ELEM, column);
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
+                    writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
+                    String inputClass = String.format("%s-flt-i", cssPrefix);
+                    List<FacesMessage> messages = context.getMessageList(column.getClientId());
+                    if (! messages.isEmpty()) {
+                        inputClass += String.format(" %s-flt-i-err", cssPrefix);
+                        writer.writeAttribute("value", column.getAttributes().get("submittedFilterValue"), null);
+                    } else {
+                        writer.writeAttribute("value", column.getAttributes().get("filterValue"), null);
+                    }
+                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, inputClass, null);
+                    writer.writeAttribute("data-columnid", column.getId(), null);
+                    writer.endElement(HtmlConstants.INPUT_ELEM);
+                }
+                writer.endElement(HtmlConstants.DIV_ELEM);
+                writer.endElement(HtmlConstants.TD_ELEM);
+            }
+        }
+        writer.endElement(HtmlConstants.TR_ELEMENT);
+    }
+
+    protected void renderSortButton(FacesContext context, UIComponent column, String cssPrefix) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        writer.startElement(HtmlConstants.SPAN_ELEM, column);
+        String classAttr = String.format("%1$s-srt %1$s-srt-btn ", cssPrefix);
+        SortOrder sortOrder = (SortOrder) column.getAttributes().get("sortOrder");
+        if (sortOrder == null || sortOrder == SortOrder.unsorted) {
+            classAttr = classAttr + String.format("%s-srt-uns", cssPrefix);
+        } else if (sortOrder == SortOrder.ascending) {
+            classAttr = classAttr + String.format("%s-srt-asc", cssPrefix);
+        } else if (sortOrder == SortOrder.descending) {
+            classAttr = classAttr + String.format("%s-srt-des", cssPrefix);
+        }
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, classAttr, null);
+        writer.writeAttribute("data-columnid", column.getId(), null);
+        writer.endElement(HtmlConstants.SPAN_ELEM);
+    }
+
+    protected boolean isFilterRowRequiredForColumn(String facetName, UIComponent column) {
+        return "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInFilter();
+    }
+
+    protected boolean isBuiltInSortRequiredFocColumn(String facetName, UIComponent column) {
+        return "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInSort();
     }
 }

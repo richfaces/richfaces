@@ -97,6 +97,23 @@
     text-align: center;
 }
 
+.rf-dt-flt-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableHeaderBackgroundColor}';
+    background-position: top left;
+    color: '#{richSkin.tableHeaderTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
 .rf-dt-sftr {
     
 }
@@ -158,4 +175,45 @@
 
 .rf-stt-col {
     background-image: url("#{resource['org.richfaces:down_icon.gif']}");
+}
+
+.rf-dt-c-srt {
+    cursor: pointer;
+    color:'#{richSkin.generalLinkColor}';
+}
+
+.rf-dt-c-srt:hover {
+    color:'#{richSkin.hoverLinkColor}';
+}
+
+.rf-dt-srt-btn {
+    height: 1em;
+    width: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rf-dt-srt-uns {
+    background: "url(#{resource['org.richfaces:sort_uns.gif']}) no-repeat center";
+}
+
+.rf-dt-srt-asc {
+    background: "url(#{resource['org.richfaces:sort_asc.gif']}) no-repeat center";
+}
+
+.rf-dt-srt-des {
+    background: "url(#{resource['org.richfaces:sort_des.gif']}) no-repeat center";
+}
+
+.rf-dt-flt-cnt {
+    text-align: center;
+    height: 27px;
+}
+
+.rf-dt-flt-i {
+    width: 80%
+}
+
+.rf-dt-flt-i-err {
+    background-color: '#{richSkin.warningBackgroundColor}';
 }

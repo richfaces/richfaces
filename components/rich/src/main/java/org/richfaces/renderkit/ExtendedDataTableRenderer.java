@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -257,7 +256,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (column.isRendered()) {
 
             String classAttribute = facetName + "Class";
-            boolean useBuiltInSort = "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInSort();
+            boolean useBuiltInSort = this.isBuiltInSortRequiredFocColumn(facetName, column);
             writer.startElement(HtmlConstants.TD_ELEM, column);
             if (!isLastColumn) {
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-td-" + column.getId(), null);
@@ -286,20 +285,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 facet.encodeAll(context);
             }
 
-            if ("header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInSort()) {
-                writer.startElement(HtmlConstants.SPAN_ELEM, column);
-                String classAttr = "rf-edt-srt rf-edt-srt-btn ";
-                SortOrder sortOrder = (SortOrder) column.getAttributes().get("sortOrder");
-                if (sortOrder == null || sortOrder == SortOrder.unsorted) {
-                    classAttr = classAttr + "rf-edt-srt-uns";
-                } else if (sortOrder == SortOrder.ascending) {
-                    classAttr = classAttr + "rf-edt-srt-asc";
-                } else if (sortOrder == SortOrder.descending) {
-                    classAttr = classAttr + "rf-edt-srt-des";
-                }
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, classAttr, null);
-                writer.writeAttribute("data-columnid", column.getId(), null);
-                writer.endElement(HtmlConstants.SPAN_ELEM);
+            if (useBuiltInSort) {
+                this.renderSortButton(context, column, "rf-edt");
             }
 
             writer.endElement(HtmlConstants.DIV_ELEM);
@@ -365,7 +352,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     int lastColumnNumber = part.getColumns().size() - 1;
                     while (columns.hasNext()) {
                         UIComponent column = columns.next();
-                        if (!filterRowRequired && "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInFilter()) {
+                        if (!filterRowRequired && this.isFilterRowRequiredForColumn(facetName, column)) {
                             filterRowRequired = true;
                         }
                         if (columnFacetPresent) {
@@ -377,38 +364,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     }
                     writer.endElement(HtmlConstants.TR_ELEMENT);
                     if (filterRowRequired) {  // filter row
-                        writer.startElement(HtmlConstants.TR_ELEMENT, table);
-                        columns = part.getColumns().iterator();
-                        while (columns.hasNext()) {
-                            UIComponent column = columns.next();
-                            if (column.isRendered()) {
-                                writer.startElement(HtmlConstants.TD_ELEM, column);
-                                writer.startElement(HtmlConstants.DIV_ELEM, column);
-                                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-c rf-edt-c-" + column.getId(), null);
-                                writer.startElement(HtmlConstants.DIV_ELEM, column);
-                                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-cnt", null);
-                                if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterType"))) {
-                                    writer.startElement(HtmlConstants.INPUT_ELEM, column);
-                                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
-                                    writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
-                                    String inputClass = "rf-edt-flt-i";
-                                    List<FacesMessage> messages = context.getMessageList(column.getClientId());
-                                    if (! messages.isEmpty()) {
-                                        inputClass += " rf-edt-flt-i-err";
-                                        writer.writeAttribute("value", column.getAttributes().get("submittedFilterValue"), null);
-                                    } else {
-                                        writer.writeAttribute("value", column.getAttributes().get("filterValue"), null);
-                                    }
-                                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, inputClass, null);
-                                    writer.writeAttribute("data-columnid", column.getId(), null);
-                                    writer.endElement(HtmlConstants.INPUT_ELEM);
-                                }
-                                writer.endElement(HtmlConstants.DIV_ELEM);
-                                writer.endElement(HtmlConstants.DIV_ELEM);
-                                writer.endElement(HtmlConstants.TD_ELEM);
-                            }
-                        }
-                        writer.endElement(HtmlConstants.TR_ELEMENT);
+                        columns = part.getColumns().iterator();  // reset the columns iterator
+                        this.renderFilterRow(context, table, columns, "rf-edt");
                     }
                     writer.endElement(HtmlConstants.TBODY_ELEMENT);
                     writer.endElement(HtmlConstants.TABLE_ELEMENT);
