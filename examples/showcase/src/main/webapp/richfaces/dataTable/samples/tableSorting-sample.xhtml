@@ -10,20 +10,20 @@
                 </f:facet>
                 <h:graphicImage value="#{cap.stateFlag}" alt="flag" />
             </rich:column>
-            <rich:column sortBy="#{cap.name}" id="name" sortOrder="#{capitalsSortingBean.capitalsOrder}">
+            <rich:column sortBy="#{cap.name}" id="name" sortOrder="#{capitalsSortingBean.capitalsOrder}" sortType="custom">
                 <f:facet name="header">
                     <a4j:commandLink value="Sort by Capital Name" render="table" action="#{capitalsSortingBean.sortByCapitals}" />
                 </f:facet>
                 <h:outputText value="#{cap.name}" />
             </rich:column>
-            <rich:column sortBy="#{cap.state}" id="state" sortOrder="#{capitalsSortingBean.statesOrder}">
+            <rich:column sortBy="#{cap.state}" id="state" sortOrder="#{capitalsSortingBean.statesOrder}" sortType="custom">
                 <f:facet name="header">
                     <a4j:commandLink value="Sort by State Name" render="table" action="#{capitalsSortingBean.sortByStates}" />
                 </f:facet>
                 <h:outputText value="#{cap.state}" />
             </rich:column>
             <rich:column sortBy="#{cap.timeZone}" id="timeZone" comparator="#{capitalsSortingBean.timeZoneComparator}"
-                sortOrder="#{capitalsSortingBean.timeZonesOrder}">
+                sortOrder="#{capitalsSortingBean.timeZonesOrder}" sortType="custom">
                 <f:facet name="header">
                     <a4j:commandLink value="Sort by Time Zone" render="table" action="#{capitalsSortingBean.sortByTimeZones}" />
                 </f:facet>

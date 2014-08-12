@@ -295,6 +295,10 @@
                                        of jQuery selector -->
                         </description>
                     </sample>
+                    <sample new="true">
+                        <id>builtin-sorting-and-filtering</id>
+                        <name>Built-in Sorting and Filtering</name>
+                    </sample>
                     <sample>
                         <id>tableSorting</id>
                         <name>Sorting</name>
