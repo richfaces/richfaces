@@ -159,6 +159,10 @@ public abstract class RendererBase extends Renderer {
         }
     }
 
+    public boolean isAlreadyRendered(UIComponent component) {
+        return false;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -170,7 +174,7 @@ public abstract class RendererBase extends Renderer {
         // Test for correct parameters.
         checkForCorrectParams(context, component, "encodeEnd");
 
-        if (component.isRendered()) {
+        if (component.isRendered() && !isAlreadyRendered(component)) {
             ResponseWriter writer = context.getResponseWriter();
 
             doEncodeEnd(writer, context, component);

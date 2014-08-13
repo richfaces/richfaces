@@ -25,12 +25,15 @@ public abstract class PlaceholderRendererBase extends RendererBase {
 
     @Override
     public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        // needed for compilation
+    }
+
+    @Override
+    public boolean isAlreadyRendered(UIComponent component) {
         AbstractPlaceholder placeholder = (AbstractPlaceholder) component;
 
         // skip direct rendering for nested usage (workaround for RF-12589)
-        if (placeholder.getSelector() == null || placeholder.getSelector().isEmpty()) {
-            return;
-        }
+        return placeholder.getSelector() == null || placeholder.getSelector().isEmpty();
     }
 
     public String getConvertedValue(FacesContext facesContext, AbstractPlaceholder placeholder) {
