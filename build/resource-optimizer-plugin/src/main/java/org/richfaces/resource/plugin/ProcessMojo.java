@@ -138,7 +138,7 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * Output directory for processed resources
      *
-     * @parameter expression="${resourcesOutputDir}"
+     * @parameter property="resourcesOutputDir"
      * @required
      */
     private String resourcesOutputDir;
@@ -146,14 +146,14 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      *
-     * @parameter expression="${staticResourcePrefix}" default-value=""
+     * @parameter property="staticResourcePrefix" default-value=""
      */
     private String staticResourcePrefix;
 
     /**
      * Output file for resource mapping configuration
      *
-     * @parameter expression="${staticResourceMappingFile}"
+     * @parameter property="staticResourceMappingFile"
      * @required
      */
     private String staticResourceMappingFile;
@@ -161,13 +161,13 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * The list of RichFaces skins to be processed
      *
-     * @parameter expression="${skins}"
+     * @parameter property="skins"
      * @required
      */
     // TODO handle base skins
     private String[] skins;
     /**
-     * @parameter expression="${project}"
+     * @parameter property="project"
      * @readonly
      */
     private MavenProject project;
@@ -198,13 +198,13 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
      *
-     * @parameter expression="${compress}"
+     * @parameter property="compress"
      */
     private boolean compress = true;
     /**
      * Turns on packing of JavaScript/CSS resources
      *
-     * @parameter expression="${pack}"
+     * @parameter property="pack"
      */
     private String pack;
     /**
@@ -227,7 +227,7 @@ public class ProcessMojo extends AbstractMojo {
     /**
      * The encoding used for resource processing
      *
-     * @parameter expression="${encoding}" default-value="${project.build.sourceEncoding}"
+     * @parameter property="encoding" default-value="${project.build.sourceEncoding}"
      */
     private String encoding;
     // TODO handle resource locales
