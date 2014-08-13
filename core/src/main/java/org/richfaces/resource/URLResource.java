@@ -86,7 +86,6 @@ public class URLResource extends Resource {
 
     @Override
     public String getResourceName() {
-        String p = path.toExternalForm();
-        return p.substring(p.lastIndexOf("/") + 1);
+        return path.toExternalForm();
     }
 }
