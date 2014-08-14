@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.page.Page;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.attachQueue.page.AttachQueuePage;
@@ -35,6 +36,7 @@ import org.richfaces.showcase.attachQueue.page.AttachQueuePage;
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @version $Revision$
  */
+@Ignore("Will be rewritten once XHRHalter lands in Graphene 2.0.4")
 public class ITestAttachQueue extends AbstractWebDriverTest {
 
     private static final int DELAY_IN_MILISECONDS = 2000;

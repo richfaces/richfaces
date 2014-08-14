@@ -39,6 +39,6 @@ public class AdvancedConfigurationPage {
     @FindByJQuery("input[type=radio]:eq(2)")
     public WebElement germanRadio;
 
-    @FindByJQuery(".cke_button_newpage")
+    @FindByJQuery(".cke_button__newpage")
     public WebElement newPageButton;
 }

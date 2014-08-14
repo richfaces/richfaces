@@ -22,8 +22,7 @@
 package org.richfaces.showcase.autocomplete.page;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.autocomplete.RichFacesAutocomplete;
 
 /**
  *
@@ -31,9 +30,11 @@ import org.openqa.selenium.support.FindBy;
  */
 public class ClientFilterPage {
 
-    @FindByJQuery("input[type='text']:eq(0)")
-    public WebElement input;
+    @FindByJQuery(".rf-au")
+    private RichFacesAutocomplete autocomplete;
 
-    @FindBy(css = "div[class='rf-au-itm']")
-    public WebElement selection;
+    public RichFacesAutocomplete getAutocomplete() {
+        return autocomplete;
+    }
+
 }

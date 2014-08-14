@@ -29,6 +29,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
+import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.autocomplete.page.ClientFilterPage;
 
@@ -46,11 +47,12 @@ public class ITestClientFilter extends AbstractWebDriverTest {
 
     @Test
     public void testClientFilterFunctionContains() {
-        page.input.sendKeys("ska");
-        waitAjax(webDriver).until("The selection should be visible, since there is correct sequence of chars!")
-            .element(page.selection).is().visible();
-        actions.sendKeys(page.input, Keys.ENTER).build().perform();
-        assertEquals("The content should be Alaska, since it contains string ska", "Alaska", page.input.getText());
+        page.getAutocomplete()
+            .type("ska")
+            .select(ChoicePickerHelper.byVisibleText().contains("ska"));
+        assertEquals("The content should be Alaska, since it contains string ska", 
+                "Alaska", 
+                page.getAutocomplete().advanced().getInput().getStringValue());
     }
 
 }

@@ -22,6 +22,7 @@
 package org.richfaces.showcase.focus;
 
 import org.jboss.arquillian.graphene.page.Page;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.focus.page.FocusDelayedPage;
@@ -45,7 +46,7 @@ public class ITestFocusDelayed extends AbstractWebDriverTest {
         }
     }
 
-    @Test
+    @Ignore(value = "RF-13785") @Test
     public void testDelayedFocusOnJobWhenItDoesNotPassValidation() {
         page.showPopup();
 

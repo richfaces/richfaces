@@ -29,7 +29,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class FileUploadPage {
 
-    @FindBy(className = ".rf-fu-btn-add")
+    @FindBy(className = "rf-fu-btn-add")
     public WebElement addButton;
 
     @FindBy(css = "div[id$='upload']")

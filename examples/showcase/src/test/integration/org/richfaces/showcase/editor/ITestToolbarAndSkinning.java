@@ -39,26 +39,26 @@ import org.richfaces.showcase.editor.page.ToolbarAndSkinningPage;
  */
 public class ITestToolbarAndSkinning extends AbstractWebDriverTest {
 
-    protected final int BASIC_NUMBERS = 28; // there are four skins therefore 4 * 7 buttons
-    protected final int FULL_NUMBERS = 83; // the same
-    protected final int CUSTOM_NUMBERS = 56; // the same
+    protected final int BASIC_ED_BUTTONS = 6;
+    protected final int FULL_ED_BUTTONS = 60;
+    protected final int CUSTOM_ED_BUTTONS = 35;
 
     @Page
     private ToolbarAndSkinningPage page;
 
     @Test
     public void testNumberOfButtonsBasicEditor() {
-        clickAndCheckButtonsSize(page.basicEditorCheckbox, BASIC_NUMBERS);
+        clickAndCheckButtonsSize(page.basicEditorCheckbox, BASIC_ED_BUTTONS);
     }
 
     @Test
     public void testNumberOfButtonsFullEditor() {
-        clickAndCheckButtonsSize(page.fullEditorCheckbox, FULL_NUMBERS);
+        clickAndCheckButtonsSize(page.fullEditorCheckbox, FULL_ED_BUTTONS);
     }
 
     @Test
     public void testNumberOfButtonsCustomEditor() {
-        clickAndCheckButtonsSize(page.customEditorCheckbox, CUSTOM_NUMBERS);
+        clickAndCheckButtonsSize(page.customEditorCheckbox, CUSTOM_ED_BUTTONS);
     }
 
     private void clickAndCheckButtonsSize(WebElement button, int size) {

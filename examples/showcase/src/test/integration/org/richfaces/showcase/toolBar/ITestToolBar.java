@@ -49,7 +49,7 @@ public class ITestToolBar extends AbstractWebDriverTest {
     private ToolbarPage page;
 
     @Test
-    public void testAllExpectedElementsPresention() {
+    public void testExpectedElementsArePresent() {
         for (WebElement image : page.toolbarImages) {
             assertTrue("Toolbar image should be present", image.isDisplayed());
             String src = image.getAttribute("src");
@@ -72,12 +72,21 @@ public class ITestToolBar extends AbstractWebDriverTest {
 
     /**
      * Checks whether particular set contains all expected values
-     * 
+     *
      * @param set
      */
     private void checkExpectedSrcs(Set<String> set) {
+        //must be done in this akward way, as the src attribute varies accross different JSF implementations
+        //this should be pretty robust
         for (int i = 0; i < EXPECTED_ELEMENTS.length; i++) {
-            assertTrue("There is missing element " + EXPECTED_ELEMENTS[i], set.contains(EXPECTED_ELEMENTS[i]));
+            boolean presented = false;
+            for(String actual : set) {
+                if (actual.contains(EXPECTED_ELEMENTS[i])) {
+                    presented = true;
+                    break;
+                }
+            }
+            assertTrue("There is missing element " + EXPECTED_ELEMENTS[i], presented);
         }
     }
 }

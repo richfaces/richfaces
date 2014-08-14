@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
@@ -87,7 +89,9 @@ public class ITestPushTopicsContext extends AbstractWebDriverTest {
      */
     private void checkTheUuid(String uuid) {
         assertEquals("The length of uuid is wrong!", 36, uuid.length());
-        System.out.println(uuid);
-        assertEquals("Wrong uuid, there should be 4 hyphens", true, uuid.matches("-{4}"));
+        final String patternStr = "(\\w+)-(\\w+)-(\\w+)-(\\w+)-(\\w+)";
+        final Pattern p = Pattern.compile(patternStr);
+        final Matcher m = p.matcher(uuid);
+        assertTrue("Wrong uuid, there should be 4 hyphens", m.matches());
     }
 }

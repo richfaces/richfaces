@@ -493,6 +493,11 @@
         </profile>
         <profile>
             <id>release</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                </property>
+            </activation>
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>

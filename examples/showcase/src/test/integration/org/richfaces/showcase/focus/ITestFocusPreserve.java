@@ -44,7 +44,7 @@ public class ITestFocusPreserve extends AbstractWebDriverTest {
     public void testFocusIsPreserved() {
         page.waitTillFirstInputIsFocused();
 
-        page.typeSomethingAndDoNotCareAboutFocus(EXPECTED_OUTCOME);
+        page.input.sendKeys(EXPECTED_OUTCOME);
 
         guardAjax(page.button).click();
 
