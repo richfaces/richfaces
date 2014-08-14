@@ -29,7 +29,7 @@ public class ScreenshotTaker {
 
     private final Logger log = Logger.getLogger(ScreenshotTaker.class.getName());
 
-    public void registerInterceptor(@Observes AfterDroneEnhanced event, DroneContext ctx) {
+    public void registerInterceptor(AfterDroneEnhanced event, DroneContext ctx) {
 
         FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 
@@ -40,6 +40,7 @@ public class ScreenshotTaker {
 
                 WebDriver proxy = GrapheneContext.getContextFor(Default.class).getWebDriver();
 
+		/* Graphene has its own screenshooter
                 Interceptor interceptor = new Interceptor() {
                     @Override
                     public Object intercept(InvocationContext ctx) throws Throwable {
@@ -58,7 +59,7 @@ public class ScreenshotTaker {
                     }
                 };
 
-                ((GrapheneProxyInstance) proxy).registerInterceptor(interceptor);
+                ((GrapheneProxyInstance) proxy).registerInterceptor(interceptor);*/
             }
         }
     }
