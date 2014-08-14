@@ -134,5 +134,9 @@
        <property name="waitModelInterval">10</property>
        <property name="waitGuardInterval">5</property>
     </extension>
+    
+    <extension qualifier="screenshooter">
+        <property name="takeWhenTestFailed">true</property>
+    </extension>
 
 </arquillian>
