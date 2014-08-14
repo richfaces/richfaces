@@ -81,7 +81,7 @@ public class SelectBean implements Serializable {
         this.person = person;
     }
 
-    public List<SelectItem> suggest(FacesContext facesContext, UIComponent component, final String prefix) {
+    public Collection<Person> suggest(FacesContext facesContext, UIComponent component, final String prefix) {
         Collection<Person> persons = Collections2.filter(AutocompleteBean.people, new Predicate<Person>() {
             @Override
             public boolean apply(Person input) {
@@ -91,10 +91,6 @@ public class SelectBean implements Serializable {
                 return input.getName().toLowerCase().startsWith(prefix.toLowerCase());
             }
         });
-        List<SelectItem> selectItems = new ArrayList<SelectItem>();
-        for (Person person: persons) {
-            selectItems.add(new SelectItem(person, person.getName()));
-        }
-        return selectItems;
+        return persons;
     }
 }

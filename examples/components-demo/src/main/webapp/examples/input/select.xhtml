@@ -49,8 +49,8 @@
                 <legend>An autocompleting select</legend>
                 <div style="width: 400px; height: 100px; overflow: auto;">
                     <rich:select id="select1a" openOnEdit="true" enableManualInput="true" defaultLabel="Select Value ..."
-                                 value="#{selectBean.person}" style="font-size: 2em;" styleClass="my-select-class"
-                                 title="Title" autocompleteMethod="${selectBean.suggest}">
+                                 value="#{selectBean.person}" style="font-size: 2em;" styleClass="my-select-class" title="Title"
+                                 autocompleteMethod="${selectBean.suggest}" var="person" itemLabel="${person.name}" itemValue="${person}">
                         <f:ajax event="change" execute="@form" render="out1a"/>
                     </rich:select>
                     <h:commandButton value="submit">

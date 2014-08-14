@@ -23,14 +23,9 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
-import javax.el.MethodNotFoundException;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -39,10 +34,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.SelectItem;
 
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptString;
@@ -56,8 +47,6 @@ import org.richfaces.component.attribute.AutocompleteProps;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.SelectLabelValueValidator;
@@ -82,7 +71,6 @@ import org.richfaces.validator.csv.AddCSVMessageScript;
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase implements MetaComponentRenderer {
     public static final String ITEM_CSS = "rf-sel-opt";
-    private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
     public JSReference getClientFilterFunction(UIComponent component) {
         AbstractSelect select = (AbstractSelect) component;
@@ -124,8 +112,6 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
             ResponseWriter responseWriter = context.getResponseWriter();
             responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
             responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId() + "Items", null);
-            AbstractSelect select = (AbstractSelect) component;
-            clientSelectItems = getItems(context, select);
             this.encodeItems(context, component, clientSelectItems);
             responseWriter.endElement(HtmlConstants.DIV_ELEM);
             partialWriter.endUpdate();
@@ -270,67 +256,6 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
             }
         }
         return value;
-    }
-
-    private List<ClientSelectItem> getItems(FacesContext facesContext, AbstractSelect select) {
-        Object itemsObject = null;
-
-        MethodExpression autocompleteMethod = select.getAutocompleteMethod();
-        if (autocompleteMethod != null) {
-            Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
-            String value = requestParameters.get(select.getClientId(facesContext) + "Input");
-            try {
-                try {
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
-                            select, value });
-                } catch (MethodNotFoundException e1) {
-                    try {
-                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
-                        itemsObject = select.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
-                    } catch (MethodNotFoundException e2) {
-                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
-                                autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
-                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
-                    }
-                }
-            } catch (ELException ee) {
-                LOGGER.error(ee.getMessage(), ee);
-            }
-        } else {
-            itemsObject = select.getAutocompleteList();
-        }
-
-        DataModel result;
-
-        if (itemsObject instanceof SelectItem[]) {
-            result = new ArrayDataModel((SelectItem[]) itemsObject);
-        } else if (itemsObject instanceof List) {
-            result = new ListDataModel((List<SelectItem>) itemsObject);
-        } else if (itemsObject != null) {
-            List<Object> temp = new ArrayList<Object>();
-            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
-            while (iterator.hasNext()) {
-                temp.add(iterator.next());
-            }
-            result = new ListDataModel(temp);
-        } else {
-            result = new ListDataModel(null);
-        }
-
-        List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
-        Iterator<SelectItem> itemsIterator = result.iterator();
-        if (itemsIterator.hasNext()) {
-            while (itemsIterator.hasNext()) {
-                Object selectItem = itemsIterator.next();
-                if (!(selectItem instanceof SelectItem)) {
-                    throw new IllegalArgumentException("The Select component autocompleteMethod must return a list of SelectItems");
-                }
-                clientSelectItems.add(SelectHelper.generateClientSelectItem(facesContext, select, (SelectItem) selectItem, 0, false));
-            }
-        }
-
-        return clientSelectItems;
     }
 
     private Object saveVar(FacesContext context, String var) {
