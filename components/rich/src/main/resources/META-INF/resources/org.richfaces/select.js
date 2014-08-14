@@ -16,7 +16,6 @@
         this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
         this.selValueInput = $(document.getElementById(id + "selValue"));
         this.container = this.selValueInput.parent();
-        this.clientSelectItems = mergedOptions.clientSelectItems;
         this.filterFunction = mergedOptions.filterFunction;
 
 
@@ -39,11 +38,10 @@
         listEventHandlers["change" + this.namespace] = $.proxy(this.__onInputChangeHandler, this);
         rf.Event.bind(this.input, listEventHandlers, this);
 
-        this.originalItems = this.list.__getItems();
         this.enableManualInput = mergedOptions.enableManualInput;
 
-        if (this.originalItems.length > 0 && this.enableManualInput) {
-            this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
+        if (this.enableManualInput && mergedOptions.clientSelectItems && mergedOptions.clientSelectItems.length > 0) {
+            updateItemsList.call(this, "", mergedOptions.clientSelectItems);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -61,15 +59,26 @@
         listCss: "rf-sel-lst-cord",
         changeDelay: 8,
         disabled: false,
-        filterFunction : undefined
+        filterFunction : undefined,
+        ajaxMode:true,
+        lazyClientMode:false,
+        isCachedAjax:true
     };
 
     var REGEXP_TRIM = /^[\n\s]*(.*)[\n\s]*$/;
 
+    var updateItemsList = function (value, clientSelectItems) {
+        this.clientSelectItems = clientSelectItems;
+        this.items = this.list.__updateItemsList();
+        this.list.__storeClientSelectItems(clientSelectItems);
+        if (this.items.length > 0) {
+            this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.list.__getItems(), getData, !this.options.ajaxMode);
+        }
+    };
+
     var getData = function (nodeList) {
         var data = [];
         nodeList.each(function () {
-            ;
             data.push($(this).text().replace(REGEXP_TRIM, "$1"));
         });
         return data;
@@ -171,7 +180,8 @@
             __onChangeValue: function(e) {
                 this.list.__selectByIndex();
                 var newValue = this.__getValue();
-                if (this.cache && this.cache.isCached(newValue)) {
+                // TODO bleathem
+                if ((this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
 
                     if (this.list.__getItems().length != 0) {
@@ -183,7 +193,53 @@
                     if (!this.popupList.isVisible()) {
                         this.__showPopup();
                     }
+                } else {
+                    if (newValue.length >= this.options.minChars) {
+                        if ((this.options.ajaxMode || this.options.lazyClientMode)) {
+                            this.callAjax(event);
+                        }
+                    } else {
+                        if (this.options.ajaxMode) {
+                            this.clearItems();
+                            this.__hidePopup();
+                        }
+                    }
                 }
+            },
+
+            clearItems: function() {
+                // TODO bleathem
+            },
+
+            callAjax: function(event) {
+                var _this = this;
+                var _event = event;
+                var ajaxSuccess = function (event) {
+                    updateItemsList.call(_this, _this.__getValue(), event.componentData && event.componentData[_this.id]);
+
+                    if (_this.options.lazyClientMode && _this.value.length != 0) {
+                        // TODO bleathem
+//                        updateItemsFromCache.call(_this, _this.value);
+                    }
+                    if (_this.clientSelectItems.length != 0) {
+                        _this.__updateItems();
+                        _this.__showPopup();
+                    } else {
+                        _this.__hidePopup();
+                    }
+                };
+
+                var ajaxError = function (event) {
+                    _this.__hidePopup();
+                    _this.clearItems();
+                };
+
+                this.isFirstAjax = false;
+                //caution: JSF submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
+                var params = {};
+                params[this.id + ".ajax"] = "1";
+                rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess});
+
             },
 
             __blurHandler: function(e) {
@@ -220,7 +276,7 @@
             },
 
             __updateItemsFromCache: function(value) {
-                if (this.originalItems.length > 0 && this.enableManualInput) {
+                if (this.list.__getItems().length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__setItems(items);

@@ -17,7 +17,9 @@ import com.google.common.collect.Collections2;
 @RequestScoped
 public class AutocompleteBean implements Serializable {
 
-    private List<Person> people = Arrays.asList(
+    private Person person;
+
+    public static List<Person> people = Arrays.asList(
             new Person("Aaron", 27),
             new Person("Adam", 27),
             new Person("Beatrice", 27),
@@ -66,7 +68,15 @@ public class AutocompleteBean implements Serializable {
             new Person("Zod", 27)
     );
 
-    public List<Person> getSuggestions() {
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public List<Person> getPeople() {
         return people;
     }
 

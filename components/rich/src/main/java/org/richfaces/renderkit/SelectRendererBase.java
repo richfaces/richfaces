@@ -22,13 +22,27 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.el.ELException;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+import javax.el.MethodNotFoundException;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptString;
@@ -36,7 +50,14 @@ import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.component.AutocompleteMode;
+import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.attribute.AutocompleteProps;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.SelectLabelValueValidator;
@@ -44,7 +65,7 @@ import org.richfaces.validator.csv.AddCSVMessageScript;
 
 /**
  * @author abelevich
- *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
@@ -59,8 +80,9 @@ import org.richfaces.validator.csv.AddCSVMessageScript;
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
-public class SelectRendererBase extends InputRendererBase {
+public class SelectRendererBase extends InputRendererBase implements MetaComponentRenderer {
     public static final String ITEM_CSS = "rf-sel-opt";
+    private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
     public JSReference getClientFilterFunction(UIComponent component) {
         AbstractSelect select = (AbstractSelect) component;
@@ -70,6 +92,55 @@ public class SelectRendererBase extends InputRendererBase {
         }
 
         return null;
+    }
+
+    @Override
+    protected void doDecode(FacesContext context, UIComponent component) {
+        AbstractSelect select = (AbstractSelect) component;
+        if (InputUtils.isDisabled(select)) {
+            return;
+        }
+        super.doDecode(context, component);
+        Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
+
+        if (requestParameters.get(component.getClientId(context) + ".ajax") != null) {
+            PartialViewContext pvc = context.getPartialViewContext();
+            pvc.getRenderIds().add(
+                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                            + AbstractSelect.ITEMS_META_COMPONENT_ID);
+
+            context.renderResponse();
+        }
+    }
+
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
+        if (AbstractSelect.ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
+
+            List<ClientSelectItem> clientSelectItems = getConvertedSelectItems(context, component);
+
+            PartialResponseWriter partialWriter = context.getPartialViewContext().getPartialResponseWriter();
+            String itemsClientId = component.getClientId() + "Items";
+            partialWriter.startUpdate(itemsClientId);
+            ResponseWriter responseWriter = context.getResponseWriter();
+            responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
+            responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId() + "Items", null);
+            AbstractSelect select = (AbstractSelect) component;
+            clientSelectItems = getItems(context, select);
+            this.encodeItems(context, component, clientSelectItems);
+            responseWriter.endElement(HtmlConstants.DIV_ELEM);
+            partialWriter.endUpdate();
+
+            if (!clientSelectItems.isEmpty()) {
+                Map<String, Object> dataMap = ExtendedPartialViewContext.getInstance(context).getResponseComponentDataMap();
+                dataMap.put(component.getClientId(context), clientSelectItems);
+            }
+        } else {
+            throw new IllegalArgumentException(metaComponentId);
+        }
+    }
+
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
     }
 
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
@@ -154,6 +225,18 @@ public class SelectRendererBase extends InputRendererBase {
         return label;
     }
 
+    public void encodeItemsContainer(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
+        ResponseWriter responseWriter = facesContext.getResponseWriter();
+        responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
+        responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId() + "Items", null);
+        AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
+        if (mode != null && mode == AutocompleteMode.client) {
+            List<Object> fetchValues = new ArrayList<Object>();
+            this.encodeItems(facesContext, component, clientSelectItems);
+        }
+        responseWriter.endElement(HtmlConstants.DIV_ELEM);
+    }
+
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
             throws IOException {
         SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.DIV_ELEM, ITEM_CSS);
@@ -176,5 +259,93 @@ public class SelectRendererBase extends InputRendererBase {
                 FacesMessages.UISELECTONE_INVALID, "{0}");
 
         return new AddCSVMessageScript(FacesMessages.UISELECTONE_INVALID.name(), message);
+    }
+
+    protected int getMinCharsOrDefault(UIComponent component) {
+        int value = 1;
+        if (component instanceof AutocompleteProps) {
+            value = ((AutocompleteProps) component).getMinChars();
+            if (value < 1) {
+                value = 1;
+            }
+        }
+        return value;
+    }
+
+    private List<ClientSelectItem> getItems(FacesContext facesContext, AbstractSelect select) {
+        Object itemsObject = null;
+
+        MethodExpression autocompleteMethod = select.getAutocompleteMethod();
+        if (autocompleteMethod != null) {
+            Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
+            String value = requestParameters.get(select.getClientId(facesContext) + "Input");
+            try {
+                try {
+                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
+                            select, value });
+                } catch (MethodNotFoundException e1) {
+                    try {
+                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
+                        itemsObject = select.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
+                    } catch (MethodNotFoundException e2) {
+                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
+                                autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
+                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
+                    }
+                }
+            } catch (ELException ee) {
+                LOGGER.error(ee.getMessage(), ee);
+            }
+        } else {
+            itemsObject = select.getAutocompleteList();
+        }
+
+        DataModel result;
+
+        if (itemsObject instanceof SelectItem[]) {
+            result = new ArrayDataModel((SelectItem[]) itemsObject);
+        } else if (itemsObject instanceof List) {
+            result = new ListDataModel((List<SelectItem>) itemsObject);
+        } else if (itemsObject != null) {
+            List<Object> temp = new ArrayList<Object>();
+            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
+            while (iterator.hasNext()) {
+                temp.add(iterator.next());
+            }
+            result = new ListDataModel(temp);
+        } else {
+            result = new ListDataModel(null);
+        }
+
+        List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
+        Iterator<SelectItem> itemsIterator = result.iterator();
+        if (itemsIterator.hasNext()) {
+            while (itemsIterator.hasNext()) {
+                Object selectItem = itemsIterator.next();
+                if (!(selectItem instanceof SelectItem)) {
+                    throw new IllegalArgumentException("The Select component autocompleteMethod must return a list of SelectItems");
+                }
+                clientSelectItems.add(SelectHelper.generateClientSelectItem(facesContext, select, (SelectItem) selectItem, 0, false));
+            }
+        }
+
+        return clientSelectItems;
+    }
+
+    private Object saveVar(FacesContext context, String var) {
+        if (var != null) {
+            Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+            return requestMap.get(var);
+        }
+
+        return null;
+    }
+
+    private void setVar(FacesContext context, String var, Object varObject) {
+        if (var != null) {
+            Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+            requestMap.put(var, varObject);
+        }
     }
 }

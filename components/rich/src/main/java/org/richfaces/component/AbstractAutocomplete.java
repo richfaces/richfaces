@@ -23,7 +23,6 @@ package org.richfaces.component;
 
 import java.io.IOException;
 
-import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.visit.VisitCallback;
@@ -35,9 +34,9 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AutocompleteProps;
 import org.richfaces.component.attribute.DisabledProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
@@ -54,42 +53,14 @@ import org.richfaces.view.facelets.AutocompleteHandler;
  * supports client-side suggestions, browser-like selection, and customization of the look and feel.</p>
  *
  * @author Nick Belaevski
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
-public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, StyleClassProps, StyleProps {
+public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, StyleClassProps, StyleProps, AutocompleteProps {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
-
-    /**
-     * A collection of suggestions that will be resented to the user
-     */
-    @Attribute()
-    public abstract Object getAutocompleteList();
-
-    /**
-     * A method which returns a list of suggestions according to a supplied prefix
-     */
-    @Attribute(signature = @Signature(returnType = Object.class, parameters = { FacesContext.class, UIComponent.class,
-            String.class }))
-    public abstract MethodExpression getAutocompleteMethod();
-    public abstract void setAutocompleteMethod(MethodExpression expression);
-
-    /**
-     * Workaround for RF-11469
-     */
-    @Attribute(hidden = true, signature = @Signature(returnType = Object.class, parameters = { String.class }))
-    public abstract MethodExpression getAutocompleteMethodWithOneParameter();
-    public abstract void setAutocompleteMethodWithOneParameter(MethodExpression expression);
-
-    /**
-     * A request-scope attribute via which the data object for the current row will be used when iterating
-     */
-    @Attribute(literal = true)
-    public abstract String getVar();
-
-    // TODO nick - el-only?
 
     /**
      * A value to set in the target input element on a choice suggestion that isn't shown in the suggestion table.
@@ -97,12 +68,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
      */
     @Attribute(literal = false)
     public abstract Object getFetchValue();
-
-    /**
-     * Minimal number of chars in input to activate suggestion popup
-     */
-    @Attribute
-    public abstract int getMinChars();
 
     /**
      * Assigns one or more space-separated CSS class names to the selected suggestion entry
@@ -121,30 +86,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
      */
     @Attribute()
     public abstract String getInputClass();
-
-    /**
-     *  <p>Determine how the suggestion list is requested:</p>
-     *  <dl>
-     *      <dt>client</dt>
-     *      <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
-     *      <dt>ajax</dt>
-     *      <dd>fetches suggestions with every input change using Ajax requests</dd>
-     *      <dt>lazyClient</dt>
-     *      <dd>
-     * pre-loads data to the client and uses the input to filter the possible suggestions. The filtering does not start
-     * until the input length matches a minimum value. Set the minimum value with the minChars attribute.
-     *      </dd>
-     *      <dt>cachedAjax</dt>
-     *      <dd>
-     * pre-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the
-     * minChars attribute. All suggestions are handled on the client until the input prefix is changed, at which point
-     * a new request is made based on the new input prefix
-     *      </dd>
-     *  </dl>
-     *  <p>Default: cachedAjax</p>
-     */
-    @Attribute
-    public abstract AutocompleteMode getMode();
 
     /**
      * <p>

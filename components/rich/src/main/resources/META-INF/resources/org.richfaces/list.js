@@ -34,11 +34,7 @@
 
         this.__updateItemsList(); // initialize this.items
         if (mergedOptions.clientSelectItems !== null) {
-            var clientSelectItemsMap = [];
-            $.each(mergedOptions.clientSelectItems, function(i) {
-                clientSelectItemsMap[this.id] = this;
-            });
-            this.__storeClientSelectItems(this.items, clientSelectItemsMap);
+            this.__storeClientSelectItems(mergedOptions.clientSelectItems);
         }
     };
 
@@ -296,8 +292,12 @@
                 return (this.items = this.list.find("." + this.itemCss));
             },
 
-            __storeClientSelectItems: function(items, clientSelectItemsMap) {
-                items.each(function (i)  {
+            __storeClientSelectItems: function(clientSelectItems) {
+                var clientSelectItemsMap = [];
+                $.each(clientSelectItems, function(i) {
+                    clientSelectItemsMap[this.id] = this;
+                });
+                this.items.each(function (i)  {
                     var item = $(this);
                     var id = item.attr("id");
                     var clientSelectItem = clientSelectItemsMap[id];
