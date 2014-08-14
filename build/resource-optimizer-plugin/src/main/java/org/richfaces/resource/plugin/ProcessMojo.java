@@ -52,6 +52,10 @@ import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.richfaces.application.Module;
 import org.richfaces.application.ServicesFactoryImpl;
@@ -96,13 +100,10 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 
 /**
- * Scans for resource dependencies (ResourceDependency annotations) on the class-path and collect them in order to pre-generate
+ * Scans for resource depe`ndencies (ResourceDependency annotations) on the class-path and collect them in order to pre-generate
  * resources them and optionally pack or compress them.
- *
- * @goal process
- * @requiresDependencyResolution compile
- * @phase process-classes
  */
+@Mojo(name="process", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class ProcessMojo extends AbstractMojo {
     private static final URL[] EMPTY_URL_ARRAY = new URL[0];
     private static final Function<String, Predicate<CharSequence>> REGEX_CONTAINS_BUILDER_FUNCTION = new Function<String, Predicate<CharSequence>>() {
@@ -137,98 +138,77 @@ public class ProcessMojo extends AbstractMojo {
     };
     /**
      * Output directory for processed resources
-     *
-     * @parameter property="resourcesOutputDir"
-     * @required
      */
+    @Parameter(property="resourcesOutputDir", required=true)
     private String resourcesOutputDir;
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
-     *
-     * @parameter property="staticResourcePrefix" default-value=""
      */
+    @Parameter(property="staticResourcePrefix", defaultValue="" )
     private String staticResourcePrefix;
 
     /**
      * Output file for resource mapping configuration
-     *
-     * @parameter property="staticResourceMappingFile"
-     * @required
      */
+    @Parameter(property="staticResourceMappingFile", required=true)
     private String staticResourceMappingFile;
 
     /**
      * The list of RichFaces skins to be processed
-     *
-     * @parameter property="skins"
-     * @required
      */
+    @Parameter(property="skins", required=true)
     // TODO handle base skins
     private String[] skins;
-    /**
-     * @parameter property="project"
-     * @readonly
-     */
+    @Parameter(property="project", readonly=true)
     private MavenProject project;
     /**
      * The list of mime-types to be included in processing
-     *
-     * @parameter
      */
+    @Parameter
     private List<String> includedContentTypes;
     /**
      * The list of mime-types to be excluded in processing
-     *
-     * @parameter
      */
+    @Parameter
     private List<String> excludedContentTypes;
     /**
      * List of included files.
-     *
-     * @parameter
      */
+    @Parameter
     private List<String> includedFiles;
     /**
      * List of excluded files
-     *
-     * @parameter
      */
+    @Parameter
     private List<String> excludedFiles;
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
-     *
-     * @parameter property="compress"
      */
+    @Parameter(property="compress")
     private boolean compress = true;
     /**
      * Turns on packing of JavaScript/CSS resources
-     *
-     * @parameter property="pack"
      */
+    @Parameter(property="pack")
     private String pack;
     /**
      * Mapping of file names to output file names
-     *
-     * @parameter
      */
+    @Parameter
     // TODO review usage of properties?
     private FileNameMapping[] fileNameMappings = new FileNameMapping[0];
-    /**
-     * @parameter
-     */
+    @Parameter
     private ProcessMode processMode = ProcessMode.embedded;
     /**
      * The expression determines the root of the webapp resources
-     *
-     * @parameter default-value="${basedir}/src/main/webapp"
      */
+    @Parameter(defaultValue="${basedir}/src/main/webapp")
     private String webRoot;
     /**
      * The encoding used for resource processing
-     *
-     * @parameter property="encoding" default-value="${project.build.sourceEncoding}"
      */
+    @Parameter(property="encoding", defaultValue="${project.build.sourceEncoding}")
     private String encoding;
     // TODO handle resource locales
     private Locale resourceLocales;
