@@ -69,10 +69,10 @@
 
     var updateItemsList = function (value, clientSelectItems) {
         this.clientSelectItems = clientSelectItems;
-        this.items = this.list.__updateItemsList();
+        this.originalItems = this.list.__updateItemsList();
         this.list.__storeClientSelectItems(clientSelectItems);
-        if (this.items.length > 0) {
-            this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.list.__getItems(), getData, !this.options.ajaxMode);
+        if (this.originalItems.length > 0) {
+            this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.originalItems, getData, !this.options.ajaxMode);
         }
     };
 
@@ -276,7 +276,7 @@
             },
 
             __updateItemsFromCache: function(value) {
-                if (this.list.__getItems().length > 0 && this.enableManualInput) {
+                if (this.originalItems.length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__setItems(items);
