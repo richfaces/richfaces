@@ -237,6 +237,15 @@ Test inclusion / exclusion intends to provide as extensive test coverage for all
 
 Note that those categories use keywords `*Only`, `No*` and `FailingOn*` in order to be sufficiently descriptive.
 
+Screenshots during testing
+==========================
+
+There is a possibility to take screenshots during executing tests. Its done via Graphene Screenshooter extension. Basic configuration is set in `arquillian.xml` under `screenshooter` qualifier (by default it takes screenshots when the test fails). For more configuration options see [Graphene screenshooter docs](https://github.com/arquillian/arquillian-graphene/tree/master/extension/screenshooter).
+
+To take screenshots one has to run the build with `take-screenshots` profile.
+
+    mvn verify -Dintegration=wildfly81 -Ptake-screenshots
+
     
 Managed Containers 
 ==================
