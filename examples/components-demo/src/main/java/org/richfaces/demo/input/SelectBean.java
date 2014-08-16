@@ -46,7 +46,7 @@ public class SelectBean implements Serializable {
     private List<SelectItem> values;
     private String value;
 
-    private Person person = Person.peopleMap.get("15");
+    private Person person;
 
     @PostConstruct
     public void init() {

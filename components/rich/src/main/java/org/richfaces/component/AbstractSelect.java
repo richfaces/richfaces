@@ -71,7 +71,7 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
     public Object getItemValues() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
-        String value = requestParameters.get(this.getClientId(facesContext) + "Input");
+        String value = AutocompleteMode.lazyClient == getMode() ? "" : requestParameters.get(this.getClientId(facesContext) + "Input");
         return AbstractAutocomplete.getItems(facesContext, this, value);
     }
 

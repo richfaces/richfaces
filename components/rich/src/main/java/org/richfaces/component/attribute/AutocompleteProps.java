@@ -17,20 +17,20 @@ public interface AutocompleteProps {
      *  <p>Determine how the suggestion list is requested:</p>
      *  <dl>
      *      <dt>client</dt>
-     *      <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
+     *        <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
      *      <dt>ajax</dt>
-     *      <dd>fetches suggestions with every input change using Ajax requests</dd>
+     *        <dd>fetches suggestions with every input change using Ajax requests</dd>
      *      <dt>lazyClient</dt>
-     *      <dd>
-     * pre-loads data to the client and uses the input to filter the possible suggestions. The filtering does not start
+     *        <dd>
+     * lazy-loads data to the client and uses the input to filter the possible suggestions. The filtering does not start
      * until the input length matches a minimum value. Set the minimum value with the minChars attribute.
-     *      </dd>
+     *        </dd>
      *      <dt>cachedAjax</dt>
-     *      <dd>
-     * pre-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the
+     *        <dd>
+     * lazy-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the
      * minChars attribute. All suggestions are handled on the client until the input prefix is changed, at which point
      * a new request is made based on the new input prefix
-     *      </dd>
+     *        </dd>
      *  </dl>
      *  <p>Default: cachedAjax</p>
      */

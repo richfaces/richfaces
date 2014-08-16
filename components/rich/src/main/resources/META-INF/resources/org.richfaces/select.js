@@ -4,6 +4,7 @@
 
     rf.ui.Select = function(id, options) {
         this.id = id;
+        this.element = this.attachToDom();
         var mergedOptions = $.extend({}, defaultOptions, options);
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
@@ -25,6 +26,8 @@
                 .bind("mouseup", $.proxy(this.__onMouseUp, this));
         }
 
+        this.isFirstAjax = true;
+        this.previousValue = this.__getValue();
         this.selectFirst = mergedOptions.selectFirst;
         this.popupList = new rf.ui.PopupList((id + "List"), this, mergedOptions);
         this.list = this.popupList.__getList();
@@ -37,12 +40,12 @@
         listEventHandlers["listshow" + this.namespace] = $.proxy(this.__listshowHandler, this);
         listEventHandlers["listhide" + this.namespace] = $.proxy(this.__listhideHandler, this);
         listEventHandlers["change" + this.namespace] = $.proxy(this.__onInputChangeHandler, this);
-        rf.Event.bind(this.input, listEventHandlers, this);
+        rf.Event.bind(this.element, listEventHandlers, this);
 
         this.originalItems = this.list.__getItems();  // initialize here for non-autocomplete use cases
-        this.enableManualInput = mergedOptions.enableManualInput;
+        this.enableManualInput = mergedOptions.enableManualInput || mergedOptions.isAutocomplete;
 
-        if (this.enableManualInput && this.clientSelectItems && this.clientSelectItems.length > 0) {
+        if (this.enableManualInput) {
             updateItemsList.call(this, "", this.clientSelectItems);
         }
         this.changeDelay = mergedOptions.changeDelay;
@@ -71,6 +74,9 @@
     var REGEXP_TRIM = /^[\n\s]*(.*)[\n\s]*$/;
 
     var updateItemsList = function (value, clientSelectItems) {
+        if (!clientSelectItems) {
+            clientSelectItems = [];
+        }
         this.clientSelectItems = clientSelectItems;
         this.originalItems = this.list.__updateItemsList();
         this.list.__storeClientSelectItems(clientSelectItems);
@@ -93,6 +99,9 @@
             defaultLabelClass : "rf-sel-dflt-lbl",
 
             __listshowHandler: function(e) {
+                if (this.originalItems.length == 0 && this.isFirstAjax) {
+                    this.callAjax(e);
+                }
             },
 
             __listhideHandler: function(e) {
@@ -186,7 +195,6 @@
                     return;
                 }
                 this.previousValue = newValue;
-                // TODO bleathem
                 if (!this.options.isAutocomplete ||
                     (this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
@@ -215,7 +223,7 @@
             },
 
             clearItems: function() {
-                // TODO bleathem
+                this.list.removeAllItems();
             },
 
             callAjax: function(event) {
@@ -224,10 +232,6 @@
                 var ajaxSuccess = function (event) {
                     updateItemsList.call(_this, _this.__getValue(), event.componentData && event.componentData[_this.id]);
 
-                    if (_this.options.lazyClientMode && _this.value.length != 0) {
-                        // TODO bleathem
-//                        updateItemsFromCache.call(_this, _this.value);
-                    }
                     if (_this.clientSelectItems.length != 0) {
                         _this.__updateItems();
                         _this.__showPopup();
@@ -332,7 +336,9 @@
             },
 
             __showPopup: function() {
-                this.popupList.show();
+                if (this.originalItems.length > 0) {
+                    this.popupList.show();
+                }
                 this.invokeEvent.call(this, "listshow", document.getElementById(this.id));
             },
 
