@@ -22,13 +22,28 @@
 package org.richfaces.component;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+import javax.el.ELException;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+import javax.el.MethodNotFoundException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.ResultDataModel;
+import javax.faces.model.ResultSetDataModel;
+import javax.servlet.jsp.jstl.sql.Result;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -45,6 +60,8 @@ import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.view.facelets.AutocompleteHandler;
 
@@ -61,6 +78,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
+    private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
 
     /**
      * A value to set in the target input element on a choice suggestion that isn't shown in the suggestion table.
@@ -252,6 +270,67 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
      */
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
+
+    public DataModel<Object> getItems(FacesContext facesContext, String value) {
+        return getItems(facesContext, this, value);
+    }
+
+    public static DataModel<Object> getItems(FacesContext facesContext, UIComponent component, String value) {
+        if (!(component instanceof AutocompleteProps)) {
+            return null;
+        }
+        AutocompleteProps autocomplete = (AutocompleteProps) component;
+        Object itemsObject = null;
+
+        MethodExpression autocompleteMethod = autocomplete.getAutocompleteMethod();
+        if (autocompleteMethod != null) {
+            try {
+                try {
+                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
+                            component, value });
+                } catch (MethodNotFoundException e1) {
+                    try {
+                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
+                        itemsObject = autocomplete.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
+                    } catch (MethodNotFoundException e2) {
+                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
+                                autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
+                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
+                    }
+                }
+            } catch (ELException ee) {
+                LOGGER.error(ee.getMessage(), ee);
+            }
+        } else {
+            itemsObject = autocomplete.getAutocompleteList();
+        }
+
+        DataModel result;
+
+        if (itemsObject instanceof Object[]) {
+            result = new ArrayDataModel((Object[]) itemsObject);
+        } else if (itemsObject instanceof List) {
+            result = new ListDataModel((List<Object>) itemsObject);
+        } else if (itemsObject instanceof Result) {
+            result = new ResultDataModel((Result) itemsObject);
+        } else if (itemsObject instanceof ResultSet) {
+            result = new ResultSetDataModel((ResultSet) itemsObject);
+        } else if (itemsObject != null) {
+            List<Object> temp = new ArrayList<Object>();
+            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
+            while (iterator.hasNext()) {
+                temp.add(iterator.next());
+            }
+            result = new ListDataModel(temp);
+        } else {
+            result = new ListDataModel(null);
+        }
+
+        return result;
+    }
+
+
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {

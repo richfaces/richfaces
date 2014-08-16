@@ -67,10 +67,12 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Select";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
-    private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
 
     public Object getItemValues() {
-        return getItems();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
+        String value = requestParameters.get(this.getClientId(facesContext) + "Input");
+        return AbstractAutocomplete.getItems(facesContext, this, value);
     }
 
     /**
@@ -134,55 +136,6 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
     @Attribute(hidden = true)
     public abstract String getDisabledClass();
 
-    private DataModel<Object> getItems() {
-        FacesContext facesContext = getFacesContext();
-        Object itemsObject = null;
-
-        MethodExpression autocompleteMethod = getAutocompleteMethod();
-        if (autocompleteMethod != null) {
-            Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
-            String value = requestParameters.get(getClientId(facesContext) + "Input");
-            try {
-                try {
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
-                            this, value });
-                } catch (MethodNotFoundException e1) {
-                    try {
-                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
-                        itemsObject = getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
-                    } catch (MethodNotFoundException e2) {
-                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
-                                autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
-                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
-                    }
-                }
-            } catch (ELException ee) {
-                LOGGER.error(ee.getMessage(), ee);
-            }
-        } else {
-            itemsObject = getAutocompleteList();
-        }
-
-        DataModel result;
-
-        if (itemsObject instanceof Object[]) {
-            result = new ArrayDataModel((Object[]) itemsObject);
-        } else if (itemsObject instanceof List) {
-            result = new ListDataModel((List<Object>) itemsObject);
-        } else if (itemsObject != null) {
-            List<Object> temp = new ArrayList<Object>();
-            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
-            while (iterator.hasNext()) {
-                temp.add(iterator.next());
-            }
-            result = new ListDataModel(temp);
-        } else {
-            result = new ListDataModel(null);
-        }
-
-        return result;
-    }
 
     /**
      * Override the validateValue method in cases where the component implements SelectItemsInterface
