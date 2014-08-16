@@ -16,6 +16,7 @@
         this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
         this.selValueInput = $(document.getElementById(id + "selValue"));
         this.container = this.selValueInput.parent();
+        this.clientSelectItems = mergedOptions.clientSelectItems;
         this.filterFunction = mergedOptions.filterFunction;
 
 
@@ -38,10 +39,11 @@
         listEventHandlers["change" + this.namespace] = $.proxy(this.__onInputChangeHandler, this);
         rf.Event.bind(this.input, listEventHandlers, this);
 
+        this.originalItems = this.list.__getItems();  // initialize here for non-autocomplete use cases
         this.enableManualInput = mergedOptions.enableManualInput;
 
-        if (this.enableManualInput && mergedOptions.clientSelectItems && mergedOptions.clientSelectItems.length > 0) {
-            updateItemsList.call(this, "", mergedOptions.clientSelectItems);
+        if (this.enableManualInput && this.clientSelectItems && this.clientSelectItems.length > 0) {
+            updateItemsList.call(this, "", this.clientSelectItems);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -60,6 +62,7 @@
         changeDelay: 8,
         disabled: false,
         filterFunction : undefined,
+        isAutocomplete: false,
         ajaxMode:true,
         lazyClientMode:false,
         isCachedAjax:true
@@ -184,7 +187,8 @@
                 }
                 this.previousValue = newValue;
                 // TODO bleathem
-                if ((this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
+                if (!this.options.isAutocomplete ||
+                    (this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
 
                     if (this.list.__getItems().length != 0) {

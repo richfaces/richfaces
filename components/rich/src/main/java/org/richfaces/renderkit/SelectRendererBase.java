@@ -211,12 +211,20 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
         return label;
     }
 
+    public boolean isAutcomplete(UIComponent component) {
+        if (! (component instanceof AbstractSelect)) {
+            return false;
+        }
+        AbstractSelect select = (AbstractSelect) component;
+        return select.getAutocompleteMethod() != null || select.getAutocompleteList() != null;
+    }
+
     public void encodeItemsContainer(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId() + "Items", null);
         AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
-        if (mode != null && mode == AutocompleteMode.client) {
+        if (!isAutcomplete(component) || (mode != null && mode == AutocompleteMode.client)) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, clientSelectItems);
         }

@@ -70,12 +70,10 @@
                     <cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst disabled" />
                     <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
                     <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
-                    <cdk:scriptOption name="isCachedAjax" value="#{ajax == mode ? false : true}"
-                                      defaultValue="true" />
-                    <cdk:scriptOption name="ajaxMode" value="#{client == mode || lazyClient == mode ? false : true}"
-                                      defaultValue="true" />
-                    <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}"
-                                      defaultValue="false" />
+                    <cdk:scriptOption name="isAutocomplete" value="#{isAutcomplete(component)}" defaultValue="false" />
+                    <cdk:scriptOption name="isCachedAjax" value="#{ajax == mode ? false : true}" defaultValue="true" />
+                    <cdk:scriptOption name="ajaxMode" value="#{client == mode || lazyClient == mode ? false : true}" defaultValue="true" />
+                    <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}" defaultValue="false" />
 
                 </cdk:scriptObject>
                 new RichFaces.ui.Select("#{clientId}", #{toScriptArgs(options)});
