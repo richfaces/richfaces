@@ -6,6 +6,7 @@ import javax.el.MethodExpression;
 import javax.el.MethodNotFoundException;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
@@ -37,6 +38,7 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.renderkit.SelectManyHelper;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.view.facelets.AutocompleteHandler;
 
@@ -180,6 +182,26 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
         }
 
         return result;
+    }
+
+    /**
+     * Override the validateValue method in cases where the component implements SelectItemsInterface
+     *
+     * @param facesContext
+     * @param value
+     */
+    @Override
+    protected void validateValue(FacesContext facesContext, Object value) {
+        if (this instanceof SelectItemsInterface) {
+            UISelectItems pseudoSelectItems = SelectManyHelper.getPseudoSelectItems((SelectItemsInterface) this);
+            if (pseudoSelectItems != null) {
+                this.getChildren().add(pseudoSelectItems);
+                super.validateValue(facesContext, value);
+                this.getChildren().remove(pseudoSelectItems);
+                return;
+            }
+        }
+        super.validateValue(facesContext, value);
     }
 
     @Override
