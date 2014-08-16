@@ -24,7 +24,6 @@ package org.richfaces.demo.input;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import org.richfaces.demo.input.autocomplete.AutocompleteBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import static org.richfaces.demo.input.autocomplete.AutocompleteBean.Person;
+import org.richfaces.demo.model.person.Person;
 
 @ManagedBean
 @ViewScoped
@@ -47,7 +46,7 @@ public class SelectBean implements Serializable {
     private List<SelectItem> values;
     private String value;
 
-    private AutocompleteBean.Person person;
+    private Person person = Person.peopleMap.get("15");
 
     @PostConstruct
     public void init() {
@@ -70,7 +69,7 @@ public class SelectBean implements Serializable {
     }
 
     public List<Person> getPeople() {
-        return AutocompleteBean.people;
+        return Person.people;
     }
 
     public Person getPerson() {
@@ -82,7 +81,7 @@ public class SelectBean implements Serializable {
     }
 
     public Collection<Person> suggest(FacesContext facesContext, UIComponent component, final String prefix) {
-        Collection<Person> persons = Collections2.filter(AutocompleteBean.people, new Predicate<Person>() {
+        Collection<Person> persons = Collections2.filter(Person.people, new Predicate<Person>() {
             @Override
             public boolean apply(Person input) {
                 if (prefix == null) {
