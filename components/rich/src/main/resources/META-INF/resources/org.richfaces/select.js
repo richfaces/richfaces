@@ -178,8 +178,11 @@
             },
 
             __onChangeValue: function(e) {
-                this.list.__selectByIndex();
                 var newValue = this.__getValue();
+                if (newValue === this.previousValue) {
+                    return;
+                }
+                this.previousValue = newValue;
                 // TODO bleathem
                 if ((this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
@@ -279,6 +282,7 @@
                 if (this.originalItems.length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
+                    this.list.__unselectPrevious();
                     this.list.__setItems(items);
                     $(document.getElementById(this.id + "Items")).empty().append(items);
                 }
