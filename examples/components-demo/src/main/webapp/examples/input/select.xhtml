@@ -52,6 +52,7 @@
                                  value="#{selectBean.person}" style="font-size: 2em;" styleClass="my-select-class" title="Title"
                                  autocompleteMethod="${selectBean.suggest}" var="person" itemLabel="${person.name}" itemValue="${person}">
                         <f:ajax event="change" execute="@form" render="out1a"/>
+                        <f:converter converterId="PersonConverter" />
                     </rich:select>
                     <h:commandButton value="submit">
                         <f:ajax execute="@form" render="select1a out1a"/>
