@@ -4,6 +4,7 @@
 
     rf.ui.Select = function(id, options) {
         this.id = id;
+        this.element = this.attachToDom();
         var mergedOptions = $.extend({}, defaultOptions, options);
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
@@ -25,6 +26,8 @@
                 .bind("mouseup", $.proxy(this.__onMouseUp, this));
         }
 
+        this.isFirstAjax = true;
+        this.previousValue = this.__getValue();
         this.selectFirst = mergedOptions.selectFirst;
         this.popupList = new rf.ui.PopupList((id + "List"), this, mergedOptions);
         this.list = this.popupList.__getList();
@@ -37,13 +40,13 @@
         listEventHandlers["listshow" + this.namespace] = $.proxy(this.__listshowHandler, this);
         listEventHandlers["listhide" + this.namespace] = $.proxy(this.__listhideHandler, this);
         listEventHandlers["change" + this.namespace] = $.proxy(this.__onInputChangeHandler, this);
-        rf.Event.bind(this.input, listEventHandlers, this);
+        rf.Event.bind(this.element, listEventHandlers, this);
 
-        this.originalItems = this.list.__getItems();
-        this.enableManualInput = mergedOptions.enableManualInput;
+        this.originalItems = this.list.__getItems();  // initialize here for non-autocomplete use cases
+        this.enableManualInput = mergedOptions.enableManualInput || mergedOptions.isAutocomplete;
 
-        if (this.originalItems.length > 0 && this.enableManualInput) {
-            this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
+        if (this.enableManualInput) {
+            updateItemsList.call(this, "", this.clientSelectItems);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -61,15 +64,30 @@
         listCss: "rf-sel-lst-cord",
         changeDelay: 8,
         disabled: false,
-        filterFunction : undefined
+        filterFunction : undefined,
+        isAutocomplete: false,
+        ajaxMode:true,
+        lazyClientMode:false,
+        isCachedAjax:true
     };
 
     var REGEXP_TRIM = /^[\n\s]*(.*)[\n\s]*$/;
 
+    var updateItemsList = function (value, clientSelectItems) {
+        if (!clientSelectItems) {
+            clientSelectItems = [];
+        }
+        this.clientSelectItems = clientSelectItems;
+        this.originalItems = this.list.__updateItemsList();
+        this.list.__storeClientSelectItems(clientSelectItems);
+        if (this.originalItems.length > 0) {
+            this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.originalItems, getData, !this.options.ajaxMode);
+        }
+    };
+
     var getData = function (nodeList) {
         var data = [];
         nodeList.each(function () {
-            ;
             data.push($(this).text().replace(REGEXP_TRIM, "$1"));
         });
         return data;
@@ -81,6 +99,9 @@
             defaultLabelClass : "rf-sel-dflt-lbl",
 
             __listshowHandler: function(e) {
+                if (this.originalItems.length == 0 && this.isFirstAjax) {
+                    this.callAjax(e);
+                }
             },
 
             __listhideHandler: function(e) {
@@ -169,9 +190,13 @@
             },
 
             __onChangeValue: function(e) {
-                this.list.__selectByIndex();
                 var newValue = this.__getValue();
-                if (this.cache && this.cache.isCached(newValue)) {
+                if (newValue === this.previousValue) {
+                    return;
+                }
+                this.previousValue = newValue;
+                if (!this.options.isAutocomplete ||
+                    (this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
 
                     if (this.list.__getItems().length != 0) {
@@ -183,7 +208,49 @@
                     if (!this.popupList.isVisible()) {
                         this.__showPopup();
                     }
+                } else {
+                    if (newValue.length >= this.options.minChars) {
+                        if ((this.options.ajaxMode || this.options.lazyClientMode)) {
+                            this.callAjax(event);
+                        }
+                    } else {
+                        if (this.options.ajaxMode) {
+                            this.clearItems();
+                            this.__hidePopup();
+                        }
+                    }
                 }
+            },
+
+            clearItems: function() {
+                this.list.removeAllItems();
+            },
+
+            callAjax: function(event) {
+                var _this = this;
+                var _event = event;
+                var ajaxSuccess = function (event) {
+                    updateItemsList.call(_this, _this.__getValue(), event.componentData && event.componentData[_this.id]);
+
+                    if (_this.clientSelectItems.length != 0) {
+                        _this.__updateItems();
+                        _this.__showPopup();
+                    } else {
+                        _this.__hidePopup();
+                    }
+                };
+
+                var ajaxError = function (event) {
+                    _this.__hidePopup();
+                    _this.clearItems();
+                };
+
+                this.isFirstAjax = false;
+                //caution: JSF submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
+                var params = {};
+                params[this.id + ".ajax"] = "1";
+                rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess});
+
             },
 
             __blurHandler: function(e) {
@@ -223,6 +290,7 @@
                 if (this.originalItems.length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
+                    this.list.__unselectPrevious();
                     this.list.__setItems(items);
                     $(document.getElementById(this.id + "Items")).empty().append(items);
                 }
@@ -268,7 +336,9 @@
             },
 
             __showPopup: function() {
-                this.popupList.show();
+                if (this.originalItems.length > 0) {
+                    this.popupList.show();
+                }
                 this.invokeEvent.call(this, "listshow", document.getElementById(this.id));
             },
 

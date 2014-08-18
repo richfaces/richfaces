@@ -46,6 +46,32 @@
         </script>
         <fieldset>
             <h:form>
+                <legend>An autocompleting select</legend>
+                <div style="width: 400px; height: 100px; overflow: auto;">
+                    <rich:select id="select1a" openOnEdit="true" enableManualInput="true" defaultLabel="Select Value ..."
+                                 value="#{selectBean.person}" style="font-size: 2em;" styleClass="my-select-class" title="Title"
+                                 autocompleteMethod="${selectBean.suggest}" var="person" itemLabel="${person.name}" itemValue="${person}">
+                        <f:ajax event="change" execute="@form" render="out1a"/>
+                        <f:converter converterId="PersonConverter" />
+                    </rich:select>
+                    <h:commandButton value="submit">
+                        <f:ajax execute="@form" render="select1a out1a"/>
+                    </h:commandButton>
+                </div>
+
+                <ul>
+                    <li><h:commandButton value="ShowPopup"
+                                         onclick="#{rich:component('select1a')}.showPopup(); return false;"/></li>
+                    <li><h:commandButton value="HidePopup"
+                                         onclick="#{rich:component('select1a')}.hidePopup(); return false;"/></li>
+                </ul>
+                <h:panelGroup id="out1a">
+                    <h:outputText value="Selected Value: #{selectBean.person.name}"/>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <h:form>
                 <legend>Select Test App| enableManualInput="true"</legend>
                 <div style="width: 400px; height: 100px; overflow: auto;">
                     <rich:select id="select1" openOnEdit="true" enableManualInput="true" defaultLabel="Select Value ..."

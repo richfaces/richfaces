@@ -92,59 +92,6 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     // TODO nick - handle parameter
 
     @SuppressWarnings("unchecked")
-    private DataModel<Object> getItems(FacesContext facesContext, AbstractAutocomplete component) {
-        Object itemsObject = null;
-
-        MethodExpression autocompleteMethod = component.getAutocompleteMethod();
-        if (autocompleteMethod != null) {
-            Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
-            String value = requestParameters.get(component.getClientId(facesContext) + "Value");
-            try {
-                try {
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
-                            component, value });
-                } catch (MethodNotFoundException e1) {
-                    try {
-                        // fall back to evaluating an expression assuming there is just one parameter (RF-11469)
-                        itemsObject = component.getAutocompleteMethodWithOneParameter().invoke(facesContext.getELContext(), new Object[] { value });
-                    } catch (MethodNotFoundException e2) {
-                        ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
-                        autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(),
-                            autocompleteMethod.getExpressionString(), Object.class, new Class[] { String.class });
-                        itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
-                    }
-                }
-            } catch (ELException ee) {
-                LOGGER.error(ee.getMessage(), ee);
-            }
-        } else {
-            itemsObject = component.getAutocompleteList();
-        }
-
-        DataModel result;
-
-        if (itemsObject instanceof Object[]) {
-            result = new ArrayDataModel((Object[]) itemsObject);
-        } else if (itemsObject instanceof List) {
-            result = new ListDataModel((List<Object>) itemsObject);
-        } else if (itemsObject instanceof Result) {
-            result = new ResultDataModel((Result) itemsObject);
-        } else if (itemsObject instanceof ResultSet) {
-            result = new ResultSetDataModel((ResultSet) itemsObject);
-        } else if (itemsObject != null) {
-            List<Object> temp = new ArrayList<Object>();
-            Iterator<Object> iterator = ((Iterable<Object>) itemsObject).iterator();
-            while (iterator.hasNext()) {
-                temp.add(iterator.next());
-            }
-            result = new ListDataModel(temp);
-        } else {
-            result = new ListDataModel(null);
-        }
-
-        return result;
-    }
-
     private Object saveVar(FacesContext context, String var) {
         if (var != null) {
             Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
@@ -167,7 +114,9 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         strategy.encodeItemsContainerBegin(facesContext, component);
 
         Object savedVar = saveVar(facesContext, comboBox.getVar());
-        Iterator<Object> itemsIterator = getItems(facesContext, comboBox).iterator();
+        Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
+        String value = requestParameters.get(component.getClientId(facesContext) + "Value");
+        Iterator<Object> itemsIterator = comboBox.getItems(facesContext, value).iterator();
 
         if (!itemsIterator.hasNext()) {
             strategy.encodeFakeItem(facesContext, component);

@@ -105,7 +105,7 @@ public final class ClientSelectItem implements ScriptString {
     }
 
     public String toScript() {
-        return "{ 'id' : " + ScriptUtils.toScript(clientId) + " , 'label' : " + ScriptUtils.toScript(label) + ", 'value' : "
+        return "{ \"id\" : " + ScriptUtils.toScript(clientId) + " , \"label\" : " + ScriptUtils.toScript(label) + ", \"value\" : "
             + ScriptUtils.toScript(convertedValue) + "}";
     }
 
