@@ -211,7 +211,7 @@
                 } else {
                     if (newValue.length >= this.options.minChars) {
                         if ((this.options.ajaxMode || this.options.lazyClientMode)) {
-                            this.callAjax(event);
+                            this.callAjax(e);
                         }
                     } else {
                         if (this.options.ajaxMode) {
