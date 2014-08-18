@@ -26,12 +26,15 @@ if (!window.RichFaces) {
     };
 
     var createEventHandlerFunction = function(opts) {
-        // $.live is deprecated in jQuery 1.9+
-        var attachType = (opts.attachType != "live") ? opts.attachType : "on";
+        var newFunction = new Function("event", opts.query);
         
         return function() {
             var selector = evaluateJQuery(null, opts.selector);
-            selector[attachType || "bind"](opts.event, null, new Function("event", opts.query));
+            if (opts.attachType != "live") {
+                selector[opts.attachType || "bind"](opts.event, null, newFunction);
+            } else { // $.live is deprecated in jQuery 1.9+
+                $(document).on(opts.event, selector.selector, null, newFunction);
+            }
         };
     };
 
