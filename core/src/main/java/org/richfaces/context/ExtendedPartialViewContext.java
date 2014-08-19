@@ -290,7 +290,8 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     @Override
     public Collection<String> getRenderIds() {
         assertNotReleased();
-        if (detectContextMode() == ContextMode.EXTENDED) {
+        PhaseId currentPhaseId = FacesContext.getCurrentInstance().getCurrentPhaseId();
+        if (detectContextMode() == ContextMode.EXTENDED && currentPhaseId == PhaseId.RENDER_RESPONSE) {
             if (renderIds == null) {
                 renderIds = new LinkedHashSet<String>();
                 visitActivatorAtRender();
