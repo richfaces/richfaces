@@ -48,7 +48,7 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
         FaceletAsset p;
         p = deployment.baseFacelet("index.xhtml");
         p.body("<rich:select id='input' enableManualInput='true'>");
-        p.form("    <f:selectItems value='#{placeHolderValue.items}' />");
+        p.body("    <f:selectItems value='#{placeHolderValue.items}' />");
         p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</rich:select>");
 
