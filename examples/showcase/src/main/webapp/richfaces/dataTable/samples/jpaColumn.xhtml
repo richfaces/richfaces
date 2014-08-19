@@ -5,7 +5,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
     <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
-        filterExpression="#{property}">
+                 filterExpression="#{property}" filterType="custom" sortType="custom">
 
         <f:facet name="header">
             <h:outputLabel value="Sorting:" />
