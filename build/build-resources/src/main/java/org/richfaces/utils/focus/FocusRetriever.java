@@ -1,6 +1,4 @@
-package org.richfaces.component.focus;
-
-
+package org.richfaces.utils.focus;
 
 import org.jboss.arquillian.drone.api.annotation.Default;
 import org.jboss.arquillian.graphene.context.GrapheneContext;

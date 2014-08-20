@@ -66,6 +66,18 @@
             <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-build-resources</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-page-fragments</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
             <scope>provided</scope>
@@ -202,6 +214,19 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <systemPropertyVariables>
+                        <container.classifier>${container.classifier}</container.classifier>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -311,6 +336,12 @@
         </profile>
         <profile>
             <id>jbas71</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly81</value>
+                </property>
+            </activation>
             <properties>
                 <container.classifier>jbas71</container.classifier>
                 <container.resources>src/main/resources-jbas71</container.resources>
@@ -461,6 +492,11 @@
         </profile>
         <profile>
             <id>release</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                </property>
+            </activation>
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>

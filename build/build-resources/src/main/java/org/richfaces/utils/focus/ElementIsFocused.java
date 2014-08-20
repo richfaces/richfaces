@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.utils.focus;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;

@@ -17,6 +17,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.utils.focus.ElementIsFocused;
+import org.richfaces.utils.focus.FocusRetriever;
 
 @RunAsClient
 @WarpTest

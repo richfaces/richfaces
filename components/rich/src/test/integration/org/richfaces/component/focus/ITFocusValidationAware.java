@@ -33,6 +33,8 @@ import org.richfaces.component.AbstractFocus;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.utils.focus.ElementIsFocused;
+import org.richfaces.utils.focus.FocusRetriever;
 
 @RunAsClient
 @WarpTest
