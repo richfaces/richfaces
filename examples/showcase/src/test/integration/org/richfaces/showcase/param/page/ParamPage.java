@@ -33,9 +33,11 @@ import org.openqa.selenium.support.FindBy;
 public class ParamPage {
 
     @FindBy(css = "span[id$='rep']")
-    public WebElement output;
+    private WebElement output;
+
     @FindByJQuery("input[type='submit']:eq(0)")
     private WebElement setAlex;
+
     @FindByJQuery("input[type='submit']:eq(1)")
     private WebElement setJohn;
 
@@ -51,6 +53,7 @@ public class ParamPage {
     }
 
     public static enum Name {
+
         ALEX("Alex"), JOHN("John");
         private String name;
 
@@ -59,13 +62,25 @@ public class ParamPage {
         }
 
         public static ParamPage.Name[] getAll() {
-            return new ParamPage.Name[] { ALEX, JOHN };
+            return new ParamPage.Name[]{ALEX, JOHN};
         }
 
         @Override
         public String toString() {
             return name;
         }
+    }
+
+    public WebElement getOutput() {
+        return output;
+    }
+
+    public WebElement getSetAlex() {
+        return setAlex;
+    }
+
+    public WebElement getSetJohn() {
+        return setJohn;
     }
 
 }

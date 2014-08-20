@@ -30,7 +30,16 @@ import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 public class SimplePage {
 
     @FindByJQuery(".rf-is:eq(0)")
-    public RichFacesInplaceSelect simpleSelect;
+    private RichFacesInplaceSelect simpleSelect;
+
     @FindByJQuery(".rf-is:eq(1)")
-    public RichFacesInplaceSelect customSelect;
+    private RichFacesInplaceSelect customSelect;
+
+    public RichFacesInplaceSelect getSimpleSelect() {
+        return simpleSelect;
+    }
+
+    public RichFacesInplaceSelect getCustomSelect() {
+        return customSelect;
+    }
 }

@@ -36,14 +36,38 @@ public class ImgUsagePage {
     public static final int INDEX_BLUE = 4;
 
     @FindBy(css = ".example-cnt img")
-    public WebElement image;
+    private WebElement image;
+
     @FindBy(xpath = "//*[@class='example-cnt']//td[contains(text(), 'Color 1')]/../td[position()=2]/select")
-    public WebElement selectLeftColor;
+    private WebElement selectLeftColor;
+
     @FindBy(xpath = "//*[@class='example-cnt']//td[contains(text(), 'Color 1')]/../td[position()=4]/select")
-    public WebElement selectRightColor;
+    private WebElement selectRightColor;
+
     @FindBy(xpath = "//*[@class='example-cnt']//td[contains(text(), 'Color 1')]/../td[position()=6]/select")
-    public WebElement selectTextColor;
+    private WebElement selectTextColor;
+
     @FindBy(css = ".example-cnt input[type='submit']")
-    public WebElement submitButton;
+    private WebElement submitButton;
+
+    public WebElement getImage() {
+        return image;
+    }
+
+    public WebElement getSelectLeftColor() {
+        return selectLeftColor;
+    }
+
+    public WebElement getSelectRightColor() {
+        return selectRightColor;
+    }
+
+    public WebElement getSelectTextColor() {
+        return selectTextColor;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
 
 }

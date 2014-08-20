@@ -42,10 +42,13 @@ public class EDTSelectionPage {
 
     @FindByJQuery("*.rf-edt-b td div *.rf-edt-tbl")
     private List<WebElement> tableParts;
+    
     @FindByJQuery("tbody[id$=tbf] tr")
     private List<WebElement> rows;
+    
     @FindBy(css = "ul.rf-ulst li")
     private List<WebElement> selected;
+    
     @FindBy(css = "input[type='radio']")
     private List<WebElement> radios;
 

@@ -31,39 +31,87 @@ import org.openqa.selenium.support.FindBy;
 public class WizardPage {
 
     @FindByJQuery("input[type='text']:eq(0)")
-    public WebElement firstNameInput;
+    private WebElement firstNameInput;
 
     @FindByJQuery("input[type='text']:eq(1)")
-    public WebElement lastNameInput;
+    private WebElement lastNameInput;
 
     @FindByJQuery("input[type='text']:eq(2)")
-    public WebElement companyInput;
+    private WebElement companyInput;
 
     @FindBy(tagName = "textarea")
-    public WebElement notesInput;
+    private WebElement notesInput;
 
     @FindByJQuery("div[class*='rf-p wizard'] div[class*='rf-tgp'] table:visible tbody:visible")
-    public WebElement summaryOfAllSteps;
+    private WebElement summaryOfAllSteps;
 
     @FindByJQuery("input[value*='Next']:visible")
-    public WebElement nextButton;
+    private WebElement nextButton;
 
     @FindByJQuery("input[value*='Previous']:visible")
-    public WebElement previousButton;
+    private WebElement previousButton;
 
     @FindByJQuery("span[class='rf-msg-det']:contains('First Name: Validation Error'):visible")
-    public WebElement errorMessageFirstName;
+    private WebElement errorMessageFirstName;
 
     @FindByJQuery("span[class='rf-msg-det']:contains('Last Name: Validation Error'):visible")
-    public WebElement errorMessageLastName;
+    private WebElement errorMessageLastName;
 
     @FindByJQuery("span[class='rf-msg-det']:contains('Company: Validation Error'):visible")
-    public WebElement errorMessageCompany;
+    private WebElement errorMessageCompany;
 
     @FindByJQuery("span[class='rf-msg-det']:contains('Notes: Validation Error: Value is required.'):visible")
-    public WebElement errorMessageNotes;
+    private WebElement errorMessageNotes;
 
     @FindByJQuery("span[class='rf-msg-det']:contains('Validation Error'):visible")
-    public WebElement errorMessage;
+    private WebElement errorMessage;
+
+    public WebElement getFirstNameInput() {
+        return firstNameInput;
+    }
+
+    public WebElement getLastNameInput() {
+        return lastNameInput;
+    }
+
+    public WebElement getCompanyInput() {
+        return companyInput;
+    }
+
+    public WebElement getNotesInput() {
+        return notesInput;
+    }
+
+    public WebElement getSummaryOfAllSteps() {
+        return summaryOfAllSteps;
+    }
+
+    public WebElement getNextButton() {
+        return nextButton;
+    }
+
+    public WebElement getPreviousButton() {
+        return previousButton;
+    }
+
+    public WebElement getErrorMessageFirstName() {
+        return errorMessageFirstName;
+    }
+
+    public WebElement getErrorMessageLastName() {
+        return errorMessageLastName;
+    }
+
+    public WebElement getErrorMessageCompany() {
+        return errorMessageCompany;
+    }
+
+    public WebElement getErrorMessageNotes() {
+        return errorMessageNotes;
+    }
+
+    public WebElement getErrorMessage() {
+        return errorMessage;
+    }
 
 }

@@ -38,15 +38,15 @@ public class ITestSimple extends AbstractPanelTest {
 
     @Test
     public void testAccordionAndContent() {
-        if (!page.firstPanelContent.isDisplayed()) {
-            page.firstPanel.click();
+        if (!page.getFirstPanelContent().isDisplayed()) {
+            page.getFirstPanel().click();
         }
-        checkContentOfPanel(page.firstPanelContent, RICH_FACES_INFO);
-        page.secondPanel.click();
-        assertFalse("The body of the first panel should not be visible, since the panel is hidden!", page.firstPanelContent.isDisplayed());
-        checkContentOfPanel(page.secondPanelContent, RICH_FACES_JSF_INFO);
-        page.firstPanel.click();
-        assertFalse("The body of the second panel should not be visible, since the panel is hidden!", page.secondPanelContent.isDisplayed());
+        checkContentOfPanel(page.getFirstPanelContent(), RICH_FACES_INFO);
+        page.getSecondPanel().click();
+        assertFalse("The body of the first panel should not be visible, since the panel is hidden!", page.getFirstPanelContent().isDisplayed());
+        checkContentOfPanel(page.getSecondPanelContent(), RICH_FACES_JSF_INFO);
+        page.getFirstPanel().click();
+        assertFalse("The body of the second panel should not be visible, since the panel is hidden!", page.getSecondPanelContent().isDisplayed());
 
     }
 

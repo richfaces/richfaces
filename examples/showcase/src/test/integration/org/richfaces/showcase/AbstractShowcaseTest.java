@@ -31,8 +31,6 @@ public class AbstractShowcaseTest {
         }
         WebArchive war = ShrinkWrap.createFromZipFile(WebArchive.class, warFile2deploy);
         return war;
-//        WebArchive war = ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/richfaces-showcase-" + System.getProperty("container.classifier") + ".war"));
-//        return war;
     }
     
     protected String getAdditionToContextRoot() {

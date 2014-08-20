@@ -51,39 +51,39 @@ public class ITestRegion extends AbstractWebDriverTest {
     @Test
     public void testFirstWrongSubmitUserName() {
 
-        typeSomethingToInputTestWhetherOutputIsEmpty(page.brokenNameInput, page.brokenNameOutput, page.brokenSubmit, true);
+        typeSomethingToInputTestWhetherOutputIsEmpty(page.getBrokenNameInput(), page.getBrokenNameOutput(), page.getBrokenSubmit(), true);
     }
 
     @Test
     public void testFirstWrongSubmitEmail() {
 
-        typeSomethingToInputTestWhetherOutputIsEmpty(page.brokenEmailInput, page.brokenEmailOutput, page.brokenSubmit, true);
+        typeSomethingToInputTestWhetherOutputIsEmpty(page.getBrokenEmailInput(), page.getBrokenEmailOutput(), page.getBrokenSubmit(), true);
     }
 
     @Test
     public void testFirstWrongSubmitUserNameAndEmail() {
 
-        typeSomethingToTwoInputsTestWhetherOuputIsEmpty(page.brokenNameInput, page.brokenEmailInput, page.brokenNameOutput,
-            page.brokenEmailOutput, page.brokenSubmit, true);
+        typeSomethingToTwoInputsTestWhetherOuputIsEmpty(page.getBrokenNameInput(), page.getBrokenEmailInput(), page.getBrokenNameOutput(),
+            page.getBrokenEmailOutput(), page.getBrokenSubmit(), true);
     }
 
     @Test
     public void testSecondRightSubmitUserName() {
 
-        typeSomethingToInputTestWhetherOutputIsEmpty(page.nameInput, page.nameOutput, page.submit, false);
+        typeSomethingToInputTestWhetherOutputIsEmpty(page.getNameInput(), page.getNameOutput(), page.getSubmit(), false);
     }
 
     @Test
     public void testSecondRightSubmitEmail() {
 
-        typeSomethingToInputTestWhetherOutputIsEmpty(page.emailInput, page.emailOutput, page.submit, false);
+        typeSomethingToInputTestWhetherOutputIsEmpty(page.getEmailInput(), page.getEmailOutput(), page.getSubmit(), false);
     }
 
     @Test
     public void testSecondRightSubmitUserNameAndEmail() {
 
-        typeSomethingToTwoInputsTestWhetherOuputIsEmpty(page.nameInput, page.emailInput, page.nameOutput, page.emailOutput,
-            page.submit, false);
+        typeSomethingToTwoInputsTestWhetherOuputIsEmpty(page.getNameInput(), page.getEmailInput(), page.getNameOutput(), page.getEmailOutput(),
+            page.getSubmit(), false);
     }
 
     /* ********************************************************************************************************

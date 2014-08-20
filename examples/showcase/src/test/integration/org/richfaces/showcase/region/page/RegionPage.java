@@ -30,33 +30,73 @@ import org.openqa.selenium.WebElement;
 public class RegionPage {
 
     @FindByJQuery("input[type='text']:nth(1)")
-    public WebElement brokenEmailInput;
+    private WebElement brokenEmailInput;
 
     @FindByJQuery("input[type='text']:nth(0)")
-    public WebElement brokenNameInput;
+    private WebElement brokenNameInput;
 
     @FindByJQuery("table[id$='echopanel1'] td:nth(3)")
-    public WebElement brokenEmailOutput;
+    private WebElement brokenEmailOutput;
 
     @FindByJQuery("table[id$='echopanel1'] td:nth(1)")
-    public WebElement brokenNameOutput;
+    private WebElement brokenNameOutput;
 
     @FindByJQuery("input[type='submit']:nth(0)")
-    public WebElement brokenSubmit;
+    private WebElement brokenSubmit;
 
     @FindByJQuery("input[type='text']:nth(3)")
-    public WebElement emailInput;
+    private WebElement emailInput;
 
     @FindByJQuery("input[type='text']:nth(2)")
-    public WebElement nameInput;
+    private WebElement nameInput;
 
     @FindByJQuery("table[id$='echopanel2'] td:nth(3)")
-    public WebElement emailOutput;
+    private WebElement emailOutput;
 
     @FindByJQuery("table[id$='echopanel2'] td:nth(1)")
-    public WebElement nameOutput;
+    private WebElement nameOutput;
 
     @FindByJQuery("input[type='submit']:nth(1)")
-    public WebElement submit;
+    private WebElement submit;
+
+    public WebElement getBrokenEmailInput() {
+        return brokenEmailInput;
+    }
+
+    public WebElement getBrokenNameInput() {
+        return brokenNameInput;
+    }
+
+    public WebElement getBrokenEmailOutput() {
+        return brokenEmailOutput;
+    }
+
+    public WebElement getBrokenNameOutput() {
+        return brokenNameOutput;
+    }
+
+    public WebElement getBrokenSubmit() {
+        return brokenSubmit;
+    }
+
+    public WebElement getEmailInput() {
+        return emailInput;
+    }
+
+    public WebElement getNameInput() {
+        return nameInput;
+    }
+
+    public WebElement getEmailOutput() {
+        return emailOutput;
+    }
+
+    public WebElement getNameOutput() {
+        return nameOutput;
+    }
+
+    public WebElement getSubmit() {
+        return submit;
+    }
 
 }

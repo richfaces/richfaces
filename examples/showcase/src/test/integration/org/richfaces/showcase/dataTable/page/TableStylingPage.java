@@ -30,12 +30,31 @@ import org.openqa.selenium.WebElement;
 public class TableStylingPage {
 
     @FindByJQuery("tbody.rf-dt-b tr:last")
-    public WebElement firstRow;
+    private WebElement firstRow;
+
     @FindByJQuery("tbody.rf-dt-b tr:last")
-    public WebElement tenthRow;
+    private WebElement tenthRow;
+
     @FindByJQuery("tbody.rf-dt-b tr:last")
-    public WebElement lastRow;
+    private WebElement lastRow;
+
     @FindByJQuery("tbody.rf-dt-b tr:last")
-    public WebElement tbody;
+    private WebElement tbody;
+
+    public WebElement getFirstRow() {
+        return firstRow;
+    }
+
+    public WebElement getTenthRow() {
+        return tenthRow;
+    }
+
+    public WebElement getLastRow() {
+        return lastRow;
+    }
+
+    public WebElement getTbody() {
+        return tbody;
+    }
 
 }

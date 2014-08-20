@@ -37,13 +37,13 @@ import org.openqa.selenium.support.FindBy;
 public class DynamicPage {
 
     @FindByJQuery("input:visible:eq(3)")
-    WebElement nextButton;
+    private WebElement nextButton;
 
     @FindByJQuery("input:visible:eq(1)")
-    WebElement skinSwitcher;
+    private WebElement skinSwitcher;
 
     @FindBy(className = "rf-p-hdr")
-    List<WebElement> panelHeaders;
+    private List<WebElement> panelHeaders;
 
     static final int NUMBER_OF_PANELS = 7;
 
@@ -57,4 +57,17 @@ public class DynamicPage {
             assertTrue("The dynamic panel was not switched correctly!", valueOfSwitcherButton.contains(valueOfPanelHeader));
         }
     }
+
+    public WebElement getNextButton() {
+        return nextButton;
+    }
+
+    public WebElement getSkinSwitcher() {
+        return skinSwitcher;
+    }
+
+    public List<WebElement> getPanelHeaders() {
+        return panelHeaders;
+    }
+
 }

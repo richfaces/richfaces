@@ -42,21 +42,21 @@ public class ITestSimple extends AbstractPanelTest {
 
     @Test
     public void testCollapseAndShowPanels() {
-        if (!page.firstPanelContent.isDisplayed()) {
-            page.firstPanel.click();
+        if (!page.getFirstPanelContent().isDisplayed()) {
+            page.getFirstPanel().click();
         }
-        checkContentOfPanel(page.firstPanelContent, RICH_FACES_INFO);
-        page.firstPanel.click();
-        page.secondPanel.click();
-        assertFalse("The content of the first panel should not be visible, since the panel is collapsed!", page.firstPanelContent.isDisplayed());
+        checkContentOfPanel(page.getFirstPanelContent(), RICH_FACES_INFO);
+        page.getFirstPanel().click();
+        page.getSecondPanel().click();
+        assertFalse("The content of the first panel should not be visible, since the panel is collapsed!", page.getFirstPanelContent().isDisplayed());
 
         Graphene.waitAjax(webDriver).until()
-                .element(page.secondPanel)
+                .element(page.getSecondPanel())
                 .is()
                 .visible();
-        checkContentOfPanel(page.secondPanelContent, RICH_FACES_JSF_INFO);
-        page.secondPanel.click();
-        page.firstPanel.click();
+        checkContentOfPanel(page.getSecondPanel(), RICH_FACES_JSF_INFO);
+        page.getSecondPanel().click();
+        page.getFirstPanel().click();
         /* This is workaround because page.secondPanelContent is not reachable at this time, there is only element with class rf-cp-b*/
         int size = webDriver.findElements(ByJQuery.selector("div[class='rf-cp-b']")).size();
         assertTrue("The content of the second panel should not be visible, since the panel is collapsed!", size == 1);

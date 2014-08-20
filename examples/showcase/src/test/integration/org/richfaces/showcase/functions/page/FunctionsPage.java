@@ -14,9 +14,17 @@ import org.openqa.selenium.support.FindBy;
 public class FunctionsPage {
 
     @FindBy(css = "input[id$='input']")
-    public WebElement input;
+    private WebElement input;
 
     @FindBy(css = "span[id$='out']")
-    public WebElement output;
+    private WebElement output;
+
+    public WebElement getInput() {
+        return input;
+    }
+
+    public WebElement getOutput() {
+        return output;
+    }
 
 }

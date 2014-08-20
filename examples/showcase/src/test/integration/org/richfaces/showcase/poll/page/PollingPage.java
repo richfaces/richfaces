@@ -31,8 +31,16 @@ import org.openqa.selenium.WebElement;
 public class PollingPage {
 
     @FindByJQuery("span[id$='serverDate']")
-    public WebElement serverDate;
+    private WebElement serverDate;
 
     @FindByJQuery("input[type='submit']:eq(0)")
-    public WebElement stopButton;
+    private WebElement stopButton;
+
+    public WebElement getServerDate() {
+        return serverDate;
+    }
+
+    public WebElement getStopButton() {
+        return stopButton;
+    }
 }

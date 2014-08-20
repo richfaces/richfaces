@@ -43,13 +43,13 @@ public class ITestFileUpload extends AbstractWebDriverTest {
 
     @Test
     public void testThereAreAllRequiredElements() {
-        waitModel().until().element(page.addButton).is().present();
-        assertTrue("The add button should be there!", page.addButton.isDisplayed());
-        assertTrue("The upload area should be there!", page.uploadArea.isDisplayed());
-        assertTrue("The upload files info should be there!", page.uploadFilesInfo.isDisplayed());
-        assertTrue("The div with uplad files messages should be there!", page.divWithUploadFilesMessage.isDisplayed());
+        waitModel().until().element(page.getAddButton()).is().present();
+        assertTrue("The add button should be there!", page.getAddButton().isDisplayed());
+        assertTrue("The upload area should be there!", page.getUploadArea().isDisplayed());
+        assertTrue("The upload files info should be there!", page.getUploadFilesInfo().isDisplayed());
+        assertTrue("The div with uplad files messages should be there!", page.getDivWithUploadFilesMessage().isDisplayed());
         assertEquals("The message that no files is currently uploaded should be there!", MSG_NO_FILES,
-            page.divWithUploadFilesMessage.getText());
+            page.getDivWithUploadFilesMessage().getText());
 
     }
 

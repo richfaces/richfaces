@@ -34,14 +34,31 @@ import org.openqa.selenium.support.FindBy;
 public class ToolbarAndSkinningPage {
 
     @FindBy(className = "cke_button")
-    public List<WebElement> buttonsOfEditor;
+    private List<WebElement> buttonsOfEditor;
 
     @FindByJQuery("input[id*='toolbarSelection:0']")
-    public WebElement basicEditorCheckbox;
+    private WebElement basicEditorCheckbox;
 
     @FindByJQuery("input[id*='toolbarSelection:1']")
-    public WebElement fullEditorCheckbox;
+    private WebElement fullEditorCheckbox;
 
     @FindByJQuery("input[id*='toolbarSelection:2']")
-    public WebElement customEditorCheckbox;
+    private WebElement customEditorCheckbox;
+
+    public List<WebElement> getButtonsOfEditor() {
+        return buttonsOfEditor;
+    }
+
+    public WebElement getBasicEditorCheckbox() {
+        return basicEditorCheckbox;
+    }
+
+    public WebElement getFullEditorCheckbox() {
+        return fullEditorCheckbox;
+    }
+
+    public WebElement getCustomEditorCheckbox() {
+        return customEditorCheckbox;
+    }
+
 }

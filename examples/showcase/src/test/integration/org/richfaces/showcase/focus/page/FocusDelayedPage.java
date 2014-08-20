@@ -39,16 +39,16 @@ import org.richfaces.utils.focus.ElementIsFocused;
 public class FocusDelayedPage extends FocusPage {
 
     @FindByJQuery("*[type=button]")
-    public WebElement showPopupButton;
+    private WebElement showPopupButton;
 
     @FindBy(className = ".rf-pp-cnt:visible")
-    public WebElement popupContent;
+    private WebElement popupContent;
 
     @FindByJQuery("*[value*=Save]")
-    public WebElement saveButton;
+    private WebElement saveButton;
 
     @FindByJQuery("*[value*=Cancel]")
-    public WebElement cancelButton;
+    private WebElement cancelButton;
 
     public void showPopup() {
         showPopupButton.click();
@@ -62,6 +62,22 @@ public class FocusDelayedPage extends FocusPage {
 
     public void waitForFocusIsGiven(WebElement input) {
         waitModel().withTimeout(ITestFocus.TIMEOUT_FOCUS, TimeUnit.SECONDS).until(new ElementIsFocused(input));
+    }
+
+    public WebElement getShowPopupButton() {
+        return showPopupButton;
+    }
+
+    public WebElement getPopupContent() {
+        return popupContent;
+    }
+
+    public WebElement getSaveButton() {
+        return saveButton;
+    }
+
+    public WebElement getCancelButton() {
+        return cancelButton;
     }
 
 }

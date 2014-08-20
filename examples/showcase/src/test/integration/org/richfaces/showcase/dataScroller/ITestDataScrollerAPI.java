@@ -64,13 +64,13 @@ public class ITestDataScrollerAPI extends AbstractWebDriverTest {
         int currentNumberOfThePage = page.getNumberOfCurrentPage();
 
         if (currentNumberOfThePage > 1) {
-            Graphene.guardAjax(page.previousButton).click();
-            Graphene.guardAjax(page.previousButton).click();
+            Graphene.guardAjax(page.getPreviousButton()).click();
+            Graphene.guardAjax(page.getPreviousButton()).click();
         }
 
         String srcBeforeClicking = getSrcOfFirstImage();
 
-        Graphene.guardAjax(page.nextButton).click();
+        Graphene.guardAjax(page.getNextButton()).click();
 
         String srcAfterClicking = getSrcOfFirstImage();
 
@@ -81,7 +81,7 @@ public class ITestDataScrollerAPI extends AbstractWebDriverTest {
         assertEquals("The current number of the page should be higher", currentNumberOfThePage + 1,
             numberOfThePageAfterClicking);
 
-        Graphene.guardAjax(page.previousButton).click();
+        Graphene.guardAjax(page.getPreviousButton()).click();
 
         numberOfThePageAfterClicking = page.getNumberOfCurrentPage();
 
@@ -126,7 +126,7 @@ public class ITestDataScrollerAPI extends AbstractWebDriverTest {
      * Gets the src attribute of the first image on the page
      */
     private String getSrcOfFirstImage() {
-        return page.firstImgOnThePage.getAttribute("src");
+        return page.getFirstImgOnThePage().getAttribute("src");
     }
 
 }

@@ -51,32 +51,32 @@ public class ITestTooltip extends AbstractWebDriverTest {
 
     @Test
     public void testClientTooltip() {
-        actions.moveToElement(page.clientTooltipActivatingArea).build().perform();
+        actions.moveToElement(page.getClientTooltipActivatingArea()).build().perform();
         waitForTooltipText(TOOLTIP_CLIENT_AJAX);
     }
 
     @Test
     public void testClientWithDelayTooltip() {
-        actions.moveToElement(page.clientWithDelayTooltipActivatingArea).build().perform();
+        actions.moveToElement(page.getClientWithDelayTooltipActivatingArea()).build().perform();
         waitForTooltipText(TOOLTIP_CLIENT_AJAX_DELAY);
     }
 
     @Test
     public void testAjaxTooltip() {
-        actions.moveToElement(page.ajaxTooltipActivatingArea).build().perform();
+        actions.moveToElement(page.getAjaxTooltipActivatingArea()).build().perform();
         waitForTooltipText(TOOLTIP_TEXT_AJAX);
     }
 
     @Test
     public void testAjaxClickTooltip() {
-        page.ajaxClickTooltipActivatingArea.click();
+        page.getAjaxClickTooltipActivatingArea().click();
         waitForTooltipText(TOOLTIP_TEXT_AJAX_CLICK);
     }
 
     private void waitForTooltipText(String message) {
         waitAjax(webDriver).withTimeout(5, TimeUnit.SECONDS)
                 .until("The tool tip text is different!")
-                .element(page.tooltip)
+                .element(page.getTooltip())
                 .text()
                 .equalTo(message);
     }

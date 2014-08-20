@@ -55,26 +55,26 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
     @Test
     public void testFirstNameFilter() {
 
-        filterAnColumn(page.firstNameFilterInput, "as", ByJQuery.selector("td:eq(0)"));
-        page.firstNameFilterInput.click();
-        page.firstNameFilterInput.clear();
-        fireEvent(page.firstNameFilterInput, "keyup");
+        filterAnColumn(page.getFirstNameFilterInput(), "as", ByJQuery.selector("td:eq(0)"));
+        page.getFirstNameFilterInput().click();
+        page.getFirstNameFilterInput().clear();
+        fireEvent(page.getFirstNameFilterInput(), "keyup");
     }
 
     @Test
     public void testSurnameFilter() {
-        filterAnColumn(page.secondNameFilterInput, "al", ByJQuery.selector("td:eq(1)"));
-        page.secondNameFilterInput.click();
-        page.secondNameFilterInput.clear();
-        fireEvent(page.secondNameFilterInput, "keyup");
+        filterAnColumn(page.getSecondNameFilterInput(), "al", ByJQuery.selector("td:eq(1)"));
+        page.getSecondNameFilterInput().click();
+        page.getSecondNameFilterInput().clear();
+        fireEvent(page.getSecondNameFilterInput(), "keyup");
     }
 
     @Test
     public void testEmailFilter() {
-        filterAnColumn(page.emailFilterInput, "ac", ByJQuery.selector("td:eq(2)"));
-        page.emailFilterInput.click();
-        page.emailFilterInput.clear();
-        fireEvent(page.emailFilterInput, "keyup");
+        filterAnColumn(page.getEmailFilterInput(), "ac", ByJQuery.selector("td:eq(2)"));
+        page.getEmailFilterInput().click();
+        page.getEmailFilterInput().clear();
+        fireEvent(page.getEmailFilterInput(), "keyup");
 
     }
 
@@ -102,7 +102,7 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
 
     private boolean doesColumnContainsOnlyRowsWithData(By column, String data) {
 
-        List<WebElement> table = page.table.findElements(By.tagName("tr"));
+        List<WebElement> table = page.getTable().findElements(By.tagName("tr"));
 
         for (Iterator<WebElement> i = table.iterator(); i.hasNext();) {
 
@@ -145,7 +145,7 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
             .valueOf(checkedValue.charAt(0)).equalsIgnoreCase("A"));
 
         // descending
-        Graphene.guardAjax(page.ascendingLink).click();
+        Graphene.guardAjax(page.getAscendingLink()).click();
 
         checkedValue = page.getFirstRowSomeColumn(column).getText();
 

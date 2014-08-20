@@ -52,63 +52,63 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
     public void testFirstPageButton() {
         // starting from the first page
         // click on the last page
-        Graphene.guardAjax(page.lastPageButton).click();
-        Car carBeforeClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Graphene.guardAjax(page.getLastPageButton()).click();
+        Car carBeforeClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         // click on the first page
-        Graphene.guardAjax(page.firstPageButton).click();
-        Car carAfterClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Graphene.guardAjax(page.getFirstRowOfTable()).click();
+        Car carAfterClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
 
         // check
         assertFalse("The data from table should be different, " + "when clicking on the on the the first page button",
             carBeforeClick.equals(carAfterClick));
 
-        assertTrue("The first page button should be disabled", isElementPresent(page.firstPageButtonDis));
+        assertTrue("The first page button should be disabled", isElementPresent(page.getFirstPageButtonDis()));
 
-        assertTrue("The fast previous page button should be disabled", isElementPresent(page.fastPrevButtonDis));
+        assertTrue("The fast previous page button should be disabled", isElementPresent(page.getFastPrevButtonDis()));
 
-        assertTrue("The previous button should be disabled", isElementPresent(page.previousButtonDis));
+        assertTrue("The previous button should be disabled", isElementPresent(page.getPreviousButtonDis()));
     }
 
     @Test
     public void testLastPageButton() {
         // starting from the last page
-        Graphene.guardAjax(page.lastPageButton).click();
+        Graphene.guardAjax(page.getLastPageButton()).click();
         // click on the first page
-        Graphene.guardAjax(page.firstPageButton).click();
-        Car carBeforeClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Graphene.guardAjax(page.getFirstPageButton()).click();
+        Car carBeforeClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         // click on the last page
-        Graphene.guardAjax(page.lastPageButton).click();
-        Car carAfterClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Graphene.guardAjax(page.getLastPageButton()).click();
+        Car carAfterClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
 
         // check
         assertFalse("The data from table should be different, " + "when clicking on the on the the last page button",
             carBeforeClick.equals(carAfterClick));
 
-        assertTrue("The last page button should be disabled", isElementPresent(page.lastPageButtonDis));
+        assertTrue("The last page button should be disabled", isElementPresent(page.getLastPageButtonDis()));
 
-        assertTrue("The fast next page button should be disabled", isElementPresent(page.fastNextButtonDis));
+        assertTrue("The fast next page button should be disabled", isElementPresent(page.getFastNextButtonDis()));
 
-        assertTrue("The next button should be disabled", isElementPresent(page.nextButtonDis));
+        assertTrue("The next button should be disabled", isElementPresent(page.getNextButtonDis()));
     }
 
     @Test
     public void testPreviousAndNextPageButton() {
-        testFastAndNormalButtons(page.nextButton, page.previousButton, false);
+        testFastAndNormalButtons(page.getNextButton(), page.getPreviousButton(), false);
     }
 
     // in this demo the fasts button have the same functionality as the next/previous buttons
     @Test
     public void testPreviousAndNextPageButtonFast() {
-        testFastAndNormalButtons(page.fastNextButton, page.fastPrevButton, true);
+        testFastAndNormalButtons(page.getFastNextButton(), page.getFastPrevButton(), true);
     }
 
     @Test
     public void testNumberOfPagesButtons() {
 
         try {
-            page.firstPageButtonDis.isDisplayed();
+            page.getFirstPageButtonDis().isDisplayed();
         } catch (NoSuchElementException ignored) {
-            Graphene.guardAjax(page.firstPageButton).click();
+            Graphene.guardAjax(page.getFirstPageButton()).click();
         }
 
         checkNumberOfPagesButtons(3);
@@ -133,11 +133,11 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         WebElement checkingButton = webDriver.findElement(ByJQuery.selector("a[class*='"
             + page.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "'):first"));
 
-        Car carBeforeClicking = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Car carBeforeClicking = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
 
         Graphene.guardAjax(checkingButton).click();
 
-        Car carAfterClicking = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Car carAfterClicking = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
 
         assertFalse("The data should be different on the different pages!", carBeforeClicking.equals(carAfterClicking));
 
@@ -155,10 +155,10 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
     private void testFastAndNormalButtons(WebElement nextButton, WebElement previousButton, boolean fast) {
         // starting on the first page
         int numberOfPageAtBeginning = page.getNumberOfCurrentPage();
-        Car carBeforeClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Car carBeforeClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         // click on the next button
         Graphene.guardAjax(nextButton).click();
-        Car carAfterClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        Car carAfterClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         // check
         // -- car
         assertNotEquals("The data from table should be different, " + "when clicking on the on the " + (fast ? "fast " : "")
@@ -171,7 +171,7 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         Graphene.guardAjax(previousButton).click();
         // check
         // -- car
-        carAfterClick = retrieveCarFromRow(page.firstRowOfTable, 0, 4);
+        carAfterClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         assertEquals("The data from table should be the same as in the beginning, " + "when clicking on the on "
             + (fast ? "fast " : "") + " the previous", carAfterClick, carBeforeClick);
         // -- page

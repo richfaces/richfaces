@@ -30,6 +30,9 @@ import org.openqa.selenium.WebElement;
 public class SimpleScrollingPage extends AbstractDataScrollerPage {
 
     @FindByJQuery("tbody[class=rf-dt-b] tr:first")
-    public WebElement firstRowOfTable;
+    private WebElement firstRowOfTable;
 
+    public WebElement getFirstRowOfTable() {
+        return firstRowOfTable;
+    }
 }

@@ -15,11 +15,24 @@ import org.openqa.selenium.support.FindBy;
 public class AttachQueuePage {
 
     @FindByJQuery("input[type='text']:visible")
-    public WebElement input;
+    private WebElement input;
 
     @FindByJQuery("input[type='submit']:eq(0)")
-    public WebElement submit;
+    private WebElement submit;
 
     @FindBy(css = "span[class*='rf-st-start']")
-    public WebElement ajaxRequestProcessing;
+    private WebElement ajaxRequestProcessing;
+
+    public WebElement getInput() {
+        return input;
+    }
+
+    public WebElement getSubmit() {
+        return submit;
+    }
+
+    public WebElement getAjaxRequestProcessing() {
+        return ajaxRequestProcessing;
+    }
+
 }

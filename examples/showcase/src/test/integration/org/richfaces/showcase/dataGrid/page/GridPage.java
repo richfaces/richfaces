@@ -31,8 +31,16 @@ import org.richfaces.showcase.dataScroller.page.AbstractDataScrollerPage;
 public class GridPage extends AbstractDataScrollerPage {
 
     @FindByJQuery("td.rf-dg-c:first")
-    public WebElement firstPanelGridOnThePage;
+    private WebElement firstPanelGridOnThePage;
+    
     @FindByJQuery("td.rf-dg-c:contains('Price'):last")
-    public WebElement lastPanelGridOnThePage;
+    private WebElement lastPanelGridOnThePage;
 
+    public WebElement getFirstPanelGridOnThePage() {
+        return firstPanelGridOnThePage;
+    }
+
+    public WebElement getLastPanelGridOnThePage() {
+        return lastPanelGridOnThePage;
+    }
 }

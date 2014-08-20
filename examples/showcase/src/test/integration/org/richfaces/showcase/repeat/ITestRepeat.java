@@ -71,50 +71,50 @@ public class ITestRepeat extends AbstractDataIterationWithStates {
     @Test
     public void testFirstStateFirstPage() {
 
-        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.firstStateHeader, page.firstStateBody);
+        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.getFirstStateHeader(), page.getFirstStateBody());
         assertEquals("The first state on first page is not correct", FIRST_STATE_FIRST_PAGE, actual);
     }
 
     @Test
     public void testLastStateFirstPage() {
 
-        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.lastStateHeader, page.lastStateBody);
+        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.getLastStateHeader(), page.getLastStateBody());
         assertEquals("The last state on first page is not correct", LAST_STATE_FIRST_PAGE, actual);
     }
 
     @Test
     public void testFirstStateSecondPage() {
 
-        Graphene.guardAjax(page.anchorForSecondPage).click();
+        Graphene.guardAjax(page.getAnchorForSecondPage()).click();
 
-        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.firstStateHeader, page.firstStateBody);
+        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.getFirstStateHeader(), page.getFirstStateBody());
         assertEquals("The first state on second page is not correct", FIRST_STATE_SECOND_PAGE, actual);
     }
 
     @Test
     public void testLastStateSecondPage() {
 
-        Graphene.guardAjax(page.anchorForSecondPage).click();
+        Graphene.guardAjax(page.getAnchorForSecondPage()).click();
 
-        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.lastStateHeader, page.lastStateBody);
+        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.getLastStateHeader(), page.getLastStateBody());
         assertEquals("The last state on second page is not correct", LAST_STATE_SECOND_PAGE, actual);
     }
 
     @Test
     public void testFirstStateThirdPage() {
 
-        Graphene.guardAjax(page.anchorForThirdPage).click();
+        Graphene.guardAjax(page.getAnchorForThirdPage()).click();
 
-        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.firstStateHeader, page.firstStateBody);
+        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.getFirstStateHeader(), page.getFirstStateBody());
         assertEquals("The first state on third page is not correct", FIRST_STATE_THIRD_PAGE, actual);
     }
 
     @Test
     public void testLastStateThirdPage() {
 
-        Graphene.guardAjax(page.anchorForThirdPage).click();
+        Graphene.guardAjax(page.getAnchorForThirdPage()).click();
 
-        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.lastStateHeader, page.lastStateBody);
+        StateWithCapitalAndTimeZone actual = retrieveDataAboutState(page.getLastStateHeader(), page.getLastStateBody());
         assertEquals("The last state on third page is not correct", LAST_STATE_THIRD_PAGE, actual);
     }
 

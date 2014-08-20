@@ -48,21 +48,21 @@ public class ITestToolbarAndSkinning extends AbstractWebDriverTest {
 
     @Test
     public void testNumberOfButtonsBasicEditor() {
-        clickAndCheckButtonsSize(page.basicEditorCheckbox, BASIC_ED_BUTTONS);
+        clickAndCheckButtonsSize(page.getBasicEditorCheckbox(), BASIC_ED_BUTTONS);
     }
 
     @Test
     public void testNumberOfButtonsFullEditor() {
-        clickAndCheckButtonsSize(page.fullEditorCheckbox, FULL_ED_BUTTONS);
+        clickAndCheckButtonsSize(page.getFullEditorCheckbox(), FULL_ED_BUTTONS);
     }
 
     @Test
     public void testNumberOfButtonsCustomEditor() {
-        clickAndCheckButtonsSize(page.customEditorCheckbox, CUSTOM_ED_BUTTONS);
+        clickAndCheckButtonsSize(page.getCustomEditorCheckbox(), CUSTOM_ED_BUTTONS);
     }
 
     private void clickAndCheckButtonsSize(WebElement button, int size) {
         guardAjax(button).click();
-        assertEquals("The number of buttons is incorrect!", size, page.buttonsOfEditor.size());
+        assertEquals("The number of buttons is incorrect!", size, page.getButtonsOfEditor().size());
     }
 }

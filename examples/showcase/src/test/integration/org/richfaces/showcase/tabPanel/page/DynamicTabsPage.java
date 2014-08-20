@@ -43,7 +43,7 @@ public class DynamicTabsPage {
     }
 
     @FindByJQuery("input[type='submit']:visible")
-    public WebElement submitButton;
+    private WebElement submitButton;
 
     public static final int NUM_OF_TABS = 8;
 
@@ -55,7 +55,15 @@ public class DynamicTabsPage {
 
             waitGui().until().element(submitButton).is().visible();
             waitGui().withTimeout(2, TimeUnit.SECONDS).withMessage("The tab was not switched correctly!").until()
-                .element(submitButton).attribute("value").contains(headerText);
+                    .element(submitButton).attribute("value").contains(headerText);
         }
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public void setSubmitButton(WebElement submitButton) {
+        this.submitButton = submitButton;
     }
 }

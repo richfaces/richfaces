@@ -50,7 +50,7 @@ public class ITestToolBar extends AbstractWebDriverTest {
 
     @Test
     public void testExpectedElementsArePresent() {
-        for (WebElement image : page.toolbarImages) {
+        for (WebElement image : page.getToolbarImages()) {
             assertTrue("Toolbar image should be present", image.isDisplayed());
             String src = image.getAttribute("src");
             if (!runInPortalEnv) {
@@ -65,9 +65,9 @@ public class ITestToolBar extends AbstractWebDriverTest {
         }
         checkExpectedSrcs(actualElements);
 
-        assertTrue("The separator element is missing", isElementPresent(page.separator));
-        assertTrue("The search input is missing", isElementPresent(page.searchInput));
-        assertTrue("The search input is missing", isElementPresent(page.searchButton));
+        assertTrue("The separator element is missing", isElementPresent(page.getSeparator()));
+        assertTrue("The search input is missing", isElementPresent(page.getSearchInput()));
+        assertTrue("The search input is missing", isElementPresent(page.getSearchButton()));
     }
 
     /**

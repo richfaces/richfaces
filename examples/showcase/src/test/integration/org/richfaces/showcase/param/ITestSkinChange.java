@@ -48,10 +48,10 @@ public class ITestSkinChange extends AbstractWebDriverTest {
 
     @Test
     public void testChangeSkin() {
-        page.deepMarineSkin.click();
-        assertEquals("Deep marine should be selected skin", "deepMarine", page.currentSkin.getText());
-        page.blueSky.click();
-        assertEquals("Blue Sky should be selected skin", "blueSky", page.currentSkin.getText());
+        page.getDeepMarineSkin().click();
+        assertEquals("Deep marine should be selected skin", "deepMarine", page.getCurrentSkin().getText());
+        page.getBlueSky().click();
+        assertEquals("Blue Sky should be selected skin", "blueSky", page.getCurrentSkin().getText());
     }
 
 }

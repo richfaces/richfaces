@@ -38,10 +38,14 @@ public class TableFilteringAPIPage {
     private WebDriver driver;
 
     @FindByJQuery("tbody.rf-dt-b tr[class*=rf-dt-r]")
-    public List<WebElement> tableRows;
+    private List<WebElement> tableRows;
 
     public WebElement getFilterValue(int index) {
         return driver.findElement(ByJQuery.selector(String.format("a[name*=form]:eq(%s)", index)));
+    }
+
+    public List<WebElement> getTableRows() {
+        return tableRows;
     }
 
 }

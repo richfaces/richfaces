@@ -36,10 +36,10 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 public class PlaceholderPage {
 
     @FindByJQuery("*[type='text']")
-    public List<TextInputComponentImpl> inputsWithPlaceHolders;
+    private List<TextInputComponentImpl> inputsWithPlaceHolders;
 
     @FindBy(tagName = "textarea")
-    public TextInputComponentImpl textarea;
+    private TextInputComponentImpl textarea;
 
     public static final String FIRST_PLACEHOLDER = "Type text here...";
     public static final String SECOND_PLACEHOLDER = "A space for long content...";
@@ -53,5 +53,13 @@ public class PlaceholderPage {
     public void assertTextAreaPlaceholder() {
         String placeholderValue = textarea.getStringValue();
         assertEquals(SECOND_PLACEHOLDER, placeholderValue);
+    }
+
+    public List<TextInputComponentImpl> getInputsWithPlaceHolders() {
+        return inputsWithPlaceHolders;
+    }
+
+    public TextInputComponentImpl getTextarea() {
+        return textarea;
     }
 }

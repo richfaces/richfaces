@@ -62,10 +62,13 @@ public class AbstractMessagePage {
 
     @FindByJQuery("input[id$=name]")
     private WebElement nameInput;
+    
     @FindByJQuery("input[id$=job]")
     private WebElement jobInput;
+    
     @FindByJQuery("input[id$=address]")
     private WebElement addressInput;
+    
     @FindByJQuery("input[id$=zip]")
     private WebElement zipInput;
 

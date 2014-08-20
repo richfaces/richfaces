@@ -51,92 +51,92 @@ public class ITestLog extends AbstractWebDriverTest {
     @Test
     public void testInitialStateNothingToInputAndCheckTheOutput() {
 
-        Graphene.guardAjax(page.submit).click();
+        Graphene.guardAjax(page.getSubmit()).click();
 
-        assertEquals("The ouput string should be empty!", "", page.output.getText().trim());
+        assertEquals("The ouput string should be empty!", "", page.getOutput().getText().trim());
     }
 
     @Test
     public void testLogAndClear() {
-        Select select = new Select(page.severitySelect);
+        Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.INFO.getIndex());
-        page.submit.click();
+        page.getSubmit().click();
         Graphene
             .waitAjax()
             .until(
                 "After setting severity to <info> and submitting, the logging area should contain a message with severity <info>.")
-            .element(page.loggingArea).text().contains("info");
-        page.clear.click();
+            .element(page.getLoggingArea()).text().contains("info");
+        page.getClear().click();
         Graphene
             .waitAjax()
             .until(
                 "After setting severity to <info>, submitting and clicking on the clear button, the logging area should be empty.")
-            .element(page.loggingArea).text().equalTo("");
+            .element(page.getLoggingArea()).text().equalTo("");
     }
 
     @Test
     public void testLogDebug() {
-        Select select = new Select(page.severitySelect);
+        Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.DEBUG.getIndex());
-        page.submit.click();
+        page.getSubmit().click();
         Graphene
             .waitAjax()
             .until(
                 "After setting severity to <debug> and submitting, the logging area should contain a message with severity <debug>.")
-            .element(page.loggingArea).text().contains("debug");
+            .element(page.getLoggingArea()).text().contains("debug");
         Graphene
             .waitAjax()
             .until(
                 "After setting severity to <debug> and submitting, the logging area should contain a message with severity <info>.")
-            .element(page.loggingArea).text().contains("info");
+            .element(page.getLoggingArea()).text().contains("info");
     }
 
     @Test
     public void testLogError() {
-        Select select = new Select(page.severitySelect);
+        Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.ERROR.getIndex());
-        page.submit.click();
+        page.getSubmit().click();
         Graphene.waitAjax()
             .until("After setting severity to <error> and submitting, the logging area should contain no message.")
-            .element(page.loggingArea).text().equalTo("");
+            .element(page.getLoggingArea()).text().equalTo("");
     }
 
     @Test
     public void testLogInfo() throws InterruptedException {
-        Select select = new Select(page.severitySelect);
+        Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.INFO.getIndex());
-        page.submit.click();
+        page.getSubmit().click();
         Thread.sleep(400); // workaround till ARQGRA-259 is resolved
         Graphene
             .waitAjax()
             .until(
                 "After setting severity to <info> and submitting, the logging area should contain a message with severity <info>.")
-            .element(page.loggingArea).text().contains("info");
+            .element(page.getLoggingArea()).text().contains("info");
     }
 
     @Test
     public void testLogWarn() {
-        Select select = new Select(page.severitySelect);
+        Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.WARN.getIndex());
-        page.submit.click();
+        page.getSubmit().click();
         Graphene.waitAjax()
             .until("After setting severity to <warn> and submitting, the logging area should contain no message.")
-            .element(page.loggingArea).text().equalTo("");
+            .element(page.getLoggingArea()).text().equalTo("");
     }
 
     @Test
     public void testSubmitEmpty() {
-        page.submit.click();
-        Graphene.waitAjax().until("After submitting empty input, the output should contain nothing.").element(page.output)
+        page.getSubmit().click();
+        Graphene.waitAjax().until("After submitting empty input, the output should contain nothing.").element(page.getOutput())
             .text().equalTo("");
     }
 
     @Test
     public void testSubmitSomething() {
-        page.input.click();
-        page.input.sendKeys("something");
-        page.submit.click();
-        Graphene.waitAjax().until("After submitting the input, the content of the output should match.").element(page.output)
+        page.getInput().click();
+        page.getInput().sendKeys("something");
+        page.getSubmit().click();
+        Graphene.waitAjax().until("After submitting the input, the content of the output should match.").element(page.getOutput())
             .text().equalTo("Hello something!");
     }
 

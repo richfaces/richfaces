@@ -44,13 +44,13 @@ public class ITestFocusPreserve extends AbstractWebDriverTest {
     public void testFocusIsPreserved() {
         page.waitTillFirstInputIsFocused();
 
-        page.input.sendKeys(EXPECTED_OUTCOME);
+        page.getInput().sendKeys(EXPECTED_OUTCOME);
 
-        guardAjax(page.button).click();
+        guardAjax(page.getButton()).click();
 
         page.waitTillFirstInputIsFocused();
 
-        String actual = page.output.getText();
+        String actual = page.getOutput().getText();
         assertEquals("The output was not updated correctly after form submission!", EXPECTED_OUTCOME, actual);
     }
 }

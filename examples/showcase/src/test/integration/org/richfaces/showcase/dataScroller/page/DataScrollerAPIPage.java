@@ -30,10 +30,25 @@ import org.openqa.selenium.WebElement;
 public class DataScrollerAPIPage extends AbstractDataScrollerPage {
 
     @FindByJQuery("table[id$=repeat] tbody tr:first td:eq(1) img:eq(0)")
-    public WebElement firstImgOnThePage;
-    @FindByJQuery("table[id$=repeat] tbody tr:first td:first img")
-    public WebElement previousButton;
-    @FindByJQuery("table[id$=repeat] tbody tr:first td:last img")
-    public WebElement nextButton;
+    private WebElement firstImgOnThePage;
 
+    @FindByJQuery("table[id$=repeat] tbody tr:first td:first img")
+    private WebElement previousButton;
+
+    @FindByJQuery("table[id$=repeat] tbody tr:first td:last img")
+    private WebElement nextButton;
+
+    public WebElement getFirstImgOnThePage() {
+        return firstImgOnThePage;
+    }
+    
+    @Override
+    public WebElement getPreviousButton() {
+        return previousButton;
+    }
+    
+    @Override
+    public WebElement getNextButton() {
+        return nextButton;
+    }
 }

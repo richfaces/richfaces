@@ -28,12 +28,32 @@ import org.openqa.selenium.WebElement;
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
  */
 public class TableSortingPage {
+
     @FindByJQuery("a:contains('Sort by Capital Name')")
-    public WebElement sortByCapitalName;
+    private WebElement sortByCapitalName;
+
     @FindByJQuery("a:contains('Sort by State Name')")
-    public WebElement sortByStateName;
+    private WebElement sortByStateName;
+
     @FindByJQuery("a:contains('Sort by Time Zone')")
-    public WebElement sortByTimeZone;
+    private WebElement sortByTimeZone;
+
     @FindByJQuery("tr[class='rf-dt-r rf-dt-fst-r']")
-    public WebElement firstRow;
+    private WebElement firstRow;
+
+    public WebElement getSortByCapitalName() {
+        return sortByCapitalName;
+    }
+
+    public WebElement getSortByStateName() {
+        return sortByStateName;
+    }
+
+    public WebElement getSortByTimeZone() {
+        return sortByTimeZone;
+    }
+
+    public WebElement getFirstRow() {
+        return firstRow;
+    }
 }

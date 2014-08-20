@@ -37,10 +37,13 @@ public class ListsPage {
 
     @FindBy(css = "[id$='list']")
     private RichFacesList list;
+    
     @FindByJQuery("a:contains('ordered')")
     private WebElement orderedList;
+    
     @FindByJQuery("a:contains('unordered')")
     private WebElement unordered;
+    
     @FindByJQuery("a:contains('definitions')")
     private WebElement definitions;
 

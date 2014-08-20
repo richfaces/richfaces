@@ -75,7 +75,7 @@ public class ITestTableSorting extends AbstractDataIterationWithStates {
     @Test
     public void testSortByCapitalName() {
 
-        clickOnParticularSortAnchorCheckFirstRow(page.sortByCapitalName, FIRST_STATE_SORTED_BY_CAPITAL_ASCENDING_ORDER,
+        clickOnParticularSortAnchorCheckFirstRow(page.getSortByCapitalName(), FIRST_STATE_SORTED_BY_CAPITAL_ASCENDING_ORDER,
             FIRST_STATE_SORTED_BY_CAPITAL_DESCENDING_ORDER, "The table should be ordered by capital name in ascending order",
             "The table should be ordered by capital name in descending order");
 
@@ -84,7 +84,7 @@ public class ITestTableSorting extends AbstractDataIterationWithStates {
     @Test
     public void testSortByStateName() {
 
-        clickOnParticularSortAnchorCheckFirstRow(page.sortByStateName, FIRST_STATE_SORTED_BY_STATE_ASCENDING_ORDER,
+        clickOnParticularSortAnchorCheckFirstRow(page.getSortByStateName(), FIRST_STATE_SORTED_BY_STATE_ASCENDING_ORDER,
             FIRST_STATE_SORTED_BY_STATE_DESCENDING_ORDER, "The table shoould be ordered by state name in ascending order",
             "The table should be ordered by state name in descending order");
 
@@ -93,7 +93,7 @@ public class ITestTableSorting extends AbstractDataIterationWithStates {
     @Test
     public void testSortByTimeZone() {
 
-        clickOnParticularSortAnchorCheckFirstRow(page.sortByTimeZone, FIRST_STATE_SORTED_BY_TIME_ZONE_ASCENDING_ORDER,
+        clickOnParticularSortAnchorCheckFirstRow(page.getSortByTimeZone(), FIRST_STATE_SORTED_BY_TIME_ZONE_ASCENDING_ORDER,
             FIRST_STATE_SORTED_BY_TIME_ZONE_DESCENDING_ORDER, "The table sould be ordered by time zone in ascending order",
             "The table should be ordered by time zone in descending order");
 
@@ -133,7 +133,7 @@ public class ITestTableSorting extends AbstractDataIterationWithStates {
      */
     private StateWithCapitalAndTimeZone initializeStateDataFromRow() {
 
-        List<WebElement> tds = page.firstRow.findElements(By.tagName("td"));
+        List<WebElement> tds = page.getFirstRow().findElements(By.tagName("td"));
 
         String capitalName = null;
         String stateName = null;

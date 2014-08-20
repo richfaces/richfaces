@@ -45,15 +45,15 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
     @Test
     public void testSimpleSelect() {
         for (int i = 1; i <= 5; i++) {
-            checkSelect(page.simpleSelect, "Option " + i, Event.CLICK);
+            checkSelect(page.getSimpleSelect(), "Option " + i, Event.CLICK);
         }
     }
 
     @Test
     public void testCustomizationSelect() {
-        checkSelect(page.customSelect, "Alabama", Event.DBLCLICK);
-        checkSelect(page.customSelect, "Florida", Event.DBLCLICK);
-        checkSelect(page.customSelect, "California", Event.DBLCLICK);
+        checkSelect(page.getCustomSelect(), "Alabama", Event.DBLCLICK);
+        checkSelect(page.getCustomSelect(), "Florida", Event.DBLCLICK);
+        checkSelect(page.getCustomSelect(), "California", Event.DBLCLICK);
     }
 
     /* *********************************************************************************************************

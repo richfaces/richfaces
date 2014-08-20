@@ -37,16 +37,30 @@ import org.richfaces.utils.focus.ElementIsFocused;
 public class FocusManagerPage {
 
     @FindByJQuery("*[type='text']:eq(1)")
-    public WebElement secondInput;
+    private WebElement secondInput;
 
     @FindByJQuery("*[value*='Form']")
-    public WebElement formSubmissionButton;
+    private WebElement formSubmissionButton;
 
     @FindByJQuery("*[value*='Ajax']")
-    public WebElement ajaxButton;
+    private WebElement ajaxButton;
 
     public void waitTillSecondInputIsFocused() {
         waitModel().withMessage("Second input should be focused!").withTimeout(ITestFocus.TIMEOUT_FOCUS, TimeUnit.SECONDS)
-            .until(new ElementIsFocused(secondInput));
+                .until(new ElementIsFocused(secondInput));
     }
+
+    public WebElement getSecondInput() {
+        return secondInput;
+    }
+
+    public WebElement getFormSubmissionButton() {
+        return formSubmissionButton;
+    }
+
+    public WebElement getAjaxButton() {
+        return ajaxButton;
+    }
+
+
 }

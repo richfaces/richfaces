@@ -33,13 +33,16 @@ import org.openqa.selenium.support.FindBy;
 public class JsFunctionPage {
 
     @FindBy(xpath = "//*[@class='example-cnt']//span[text()='Alex']")
-    public WebElement nameAlex;
+    private WebElement nameAlex;
+
     @FindBy(xpath = "//*[@class='example-cnt']//span[text()='John']")
-    public WebElement nameJohn;
+    private WebElement nameJohn;
+
     @FindBy(xpath = "//*[@class='example-cnt']//span[text()='Kate']")
-    public WebElement nameKate;
+    private WebElement nameKate;
+
     @FindBy(css = "span#showname")
-    public WebElement output;
+    private WebElement output;
 
     private Map<String, WebElement> names;
 
@@ -56,6 +59,30 @@ public class JsFunctionPage {
             names = Collections.unmodifiableMap(newNames);
         }
         return names;
+    }
+
+    public WebElement getNameAlex() {
+        return nameAlex;
+    }
+
+    public void setNameAlex(WebElement nameAlex) {
+        this.nameAlex = nameAlex;
+    }
+
+    public WebElement getNameJohn() {
+        return nameJohn;
+    }
+
+    public void setNameJohn(WebElement nameJohn) {
+        this.nameJohn = nameJohn;
+    }
+
+    public WebElement getNameKate() {
+        return nameKate;
+    }
+
+    public void setNameKate(WebElement nameKate) {
+        this.nameKate = nameKate;
     }
 
 }

@@ -49,11 +49,11 @@ public class ITestParam extends AbstractWebDriverTest {
 
     @Test
     public void testClickToButtonAndCheckTheSelectedName() {
-        assertEquals("There can not be anything selected at first after page first load!", "Selected Name:", page.output
+        assertEquals("There can not be anything selected at first after page first load!", "Selected Name:", page.getOutput()
             .getText().trim());
         for (ParamPage.Name name : ParamPage.Name.getAll()) {
             page.setName(name);
-            Graphene.waitGui().until("After selecting name, the output should contain the name.").element(page.output).text()
+            Graphene.waitGui().until("After selecting name, the output should contain the name.").element(page.getOutput()).text()
                 .equalTo("Selected Name:" + name);
         }
     }

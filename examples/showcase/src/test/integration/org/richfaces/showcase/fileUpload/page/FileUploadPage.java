@@ -30,14 +30,31 @@ import org.openqa.selenium.support.FindBy;
 public class FileUploadPage {
 
     @FindBy(className = "rf-fu-btn-add")
-    public WebElement addButton;
+    private WebElement addButton;
 
     @FindBy(css = "div[id$='upload']")
-    public WebElement uploadArea;
+    private WebElement uploadArea;
 
     @FindBy(css = "div[id$='info']")
-    public WebElement uploadFilesInfo;
+    private WebElement uploadFilesInfo;
 
     @FindBy(css = "div[class='rf-p-b info']")
-    public WebElement divWithUploadFilesMessage;
+    private WebElement divWithUploadFilesMessage;
+
+    public WebElement getAddButton() {
+        return addButton;
+    }
+
+    public WebElement getUploadArea() {
+        return uploadArea;
+    }
+
+    public WebElement getUploadFilesInfo() {
+        return uploadFilesInfo;
+    }
+
+    public WebElement getDivWithUploadFilesMessage() {
+        return divWithUploadFilesMessage;
+    }
+
 }

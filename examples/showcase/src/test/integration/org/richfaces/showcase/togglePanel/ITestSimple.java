@@ -44,16 +44,16 @@ public class ITestSimple extends AbstractWebDriverTest {
 
     @Test
     public void testTogglePanelItem1() {
-        checkToggleTab(page.toggleTab1, CONTENT_OF_TAB1);
+        checkToggleTab(page.getToggleTab1(), CONTENT_OF_TAB1);
     }
 
     @Test
     public void testTogglePanelItem2() {
-        checkToggleTab(page.toggleTab2, CONTENT_OF_TAB2);
+        checkToggleTab(page.getToggleTab2(), CONTENT_OF_TAB2);
     }
 
     private void checkToggleTab(WebElement button, String expectedContent) {
         guardAjax(button).click();
-        assertTrue("The content of panel is diferent!", page.panelContent.getText().contains(expectedContent));
+        assertTrue("The content of panel is diferent!", page.getPanelContent().getText().contains(expectedContent));
     }
 }

@@ -31,9 +31,17 @@ import org.openqa.selenium.support.FindBy;
 public class AjaxPage {
 
     @FindByJQuery("input[type='text']:eq(0)")
-    public WebElement input;
+    private WebElement input;
 
     @FindBy(css = "span[id$=out]")
-    public WebElement output;
+    private WebElement output;
+
+    public WebElement getInput() {
+        return input;
+    }
+
+    public WebElement getOutput() {
+        return output;
+    }
 
 }

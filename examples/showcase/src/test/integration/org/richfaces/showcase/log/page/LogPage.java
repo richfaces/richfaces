@@ -31,19 +31,25 @@ import org.openqa.selenium.support.FindBy;
 public class LogPage {
 
     @FindBy(css = "button[name='clear']")
-    public WebElement clear;
+    private WebElement clear;
+
     @FindByJQuery("input[type='text']:nth(0)")
-    public WebElement input;
+    private WebElement input;
+
     @FindBy(css = "div[class='rf-log-contents']")
-    public WebElement loggingArea;
+    private WebElement loggingArea;
+
     @FindBy(css = "span[id$='out']")
-    public WebElement output;
+    private WebElement output;
+
     @FindBy(css = "select[name='richfaces.log']")
-    public WebElement severitySelect;
+    private WebElement severitySelect;
+
     @FindByJQuery("input[type='submit']:nth(0)")
-    public WebElement submit;
+    private WebElement submit;
 
     public static enum Severity {
+
         DEBUG(0), INFO(1), WARN(2), ERROR(3);
         private int index;
 
@@ -59,6 +65,30 @@ public class LogPage {
         public String toString() {
             return super.toString().toLowerCase();
         }
+    }
+
+    public WebElement getClear() {
+        return clear;
+    }
+
+    public WebElement getInput() {
+        return input;
+    }
+
+    public WebElement getLoggingArea() {
+        return loggingArea;
+    }
+
+    public WebElement getOutput() {
+        return output;
+    }
+
+    public WebElement getSeveritySelect() {
+        return severitySelect;
+    }
+
+    public WebElement getSubmit() {
+        return submit;
     }
 
 }

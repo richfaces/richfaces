@@ -31,14 +31,31 @@ import org.openqa.selenium.WebElement;
 public class SimplePage {
 
     @FindByJQuery("div[class*='rf-ac-itm-hdr']:eq(0)")
-    public WebElement firstPanel;
+    private WebElement firstPanel;
 
     @FindByJQuery("div[class*='rf-ac-itm-hdr']:eq(1)")
-    public WebElement secondPanel;
+    private WebElement secondPanel;
 
     @FindByJQuery("div[class='rf-ac-itm-cnt']:eq(0)")
-    public WebElement firstPanelContent;
+    private WebElement firstPanelContent;
 
     @FindByJQuery("div[class='rf-ac-itm-cnt']:eq(1)")
-    public WebElement secondPanelContent;
+    private WebElement secondPanelContent;
+
+    public WebElement getFirstPanel() {
+        return firstPanel;
+    }
+
+    public WebElement getSecondPanel() {
+        return secondPanel;
+    }
+
+    public WebElement getFirstPanelContent() {
+        return firstPanelContent;
+    }
+
+    public WebElement getSecondPanelContent() {
+        return secondPanelContent;
+    }
+
 }

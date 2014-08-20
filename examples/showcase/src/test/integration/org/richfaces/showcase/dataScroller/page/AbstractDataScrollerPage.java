@@ -40,43 +40,94 @@ public abstract class AbstractDataScrollerPage {
     public final String CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER = "rf-ds-nmb-btn";
     public final String CLASS_OF_ACTIVE_BUTTON_WITH_NUMBER = CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + " rf-ds-act";
 
-
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_NEXT + "']")
-    public WebElement nextButton;
+    private WebElement nextButton;
     @FindByJQuery("span[class='" + CLASS_OF_BUTTON_NEXT + " " + CLASS_OF_BUTTON_DIS + "']")
-    public WebElement nextButtonDis;
+    private WebElement nextButtonDis;
 
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_PREV + "']")
-    public WebElement previousButton;
+    private WebElement previousButton;
     @FindByJQuery("span[class='" + CLASS_OF_BUTTON_PREV + " " + CLASS_OF_BUTTON_DIS + "']")
-    public WebElement previousButtonDis;
+    private WebElement previousButtonDis;
 
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_FIRST + "']")
-    public WebElement firstPageButton;
+    private WebElement firstPageButton;
     @FindByJQuery("span[class='" + CLASS_OF_BUTTON_FIRST + " " + CLASS_OF_BUTTON_DIS + "']")
-    public WebElement firstPageButtonDis;
+    private WebElement firstPageButtonDis;
 
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_LAST + "']")
-    public WebElement lastPageButton;
+    private WebElement lastPageButton;
     @FindByJQuery("span[class='" + CLASS_OF_BUTTON_LAST + " " + CLASS_OF_BUTTON_DIS + "']")
-    public WebElement lastPageButtonDis;
+    private WebElement lastPageButtonDis;
 
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_FAST_RWD + "']")
-    public WebElement fastPrevButton;
+    private WebElement fastPrevButton;
     @FindByJQuery("span[class='" + CLASS_OF_BUTTON_FAST_RWD + " " + CLASS_OF_BUTTON_DIS + "']")
-    public WebElement fastPrevButtonDis;
+    private WebElement fastPrevButtonDis;
 
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_FAST_FWD + "']")
-    public WebElement fastNextButton;
+    private WebElement fastNextButton;
     @FindByJQuery("span[class='" + CLASS_OF_BUTTON_FAST_FWD + " " + CLASS_OF_BUTTON_DIS + "']")
-    public WebElement fastNextButtonDis;
+    private WebElement fastNextButtonDis;
 
     @FindByJQuery("span[class*='" + CLASS_OF_ACTIVE_BUTTON_WITH_NUMBER + "']")
-    public WebElement buttonWithNumberOfPageActive;
+    private WebElement buttonWithNumberOfPageActive;
 
     public int getNumberOfCurrentPage() {
         String currentPage = buttonWithNumberOfPageActive.getText().trim();
         return Integer.valueOf(currentPage).intValue();
+    }
+
+    public WebElement getNextButton() {
+        return nextButton;
+    }
+
+    public WebElement getNextButtonDis() {
+        return nextButtonDis;
+    }
+
+    public WebElement getPreviousButton() {
+        return previousButton;
+    }
+
+    public WebElement getPreviousButtonDis() {
+        return previousButtonDis;
+    }
+
+    public WebElement getFirstPageButton() {
+        return firstPageButton;
+    }
+
+    public WebElement getFirstPageButtonDis() {
+        return firstPageButtonDis;
+    }
+
+    public WebElement getLastPageButton() {
+        return lastPageButton;
+    }
+
+    public WebElement getLastPageButtonDis() {
+        return lastPageButtonDis;
+    }
+
+    public WebElement getFastPrevButton() {
+        return fastPrevButton;
+    }
+
+    public WebElement getFastPrevButtonDis() {
+        return fastPrevButtonDis;
+    }
+
+    public WebElement getFastNextButton() {
+        return fastNextButton;
+    }
+
+    public WebElement getFastNextButtonDis() {
+        return fastNextButtonDis;
+    }
+
+    public WebElement getButtonWithNumberOfPageActive() {
+        return buttonWithNumberOfPageActive;
     }
 
 }

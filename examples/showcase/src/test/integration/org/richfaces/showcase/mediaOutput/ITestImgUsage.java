@@ -46,24 +46,22 @@ public class ITestImgUsage extends AbstractWebDriverTest {
     /* *******************************************************************************************************
      * Locators ****************************************************************** *************************************
      */
-
     @Page
     private ImgUsagePage page;
 
     /* ********************************************************************************************************
      * Tests ********************************************************************* ***********************************
      */
-
     @Test
     public void testStates() throws Exception {
-        Select leftColor = new Select(page.selectLeftColor);
-        Select rightColor = new Select(page.selectRightColor);
-        Select textColor = new Select(page.selectTextColor);
+        Select leftColor = new Select(page.getSelectLeftColor());
+        Select rightColor = new Select(page.getSelectRightColor());
+        Select textColor = new Select(page.getSelectTextColor());
         for (ImageState state : ImageState.values()) {
             leftColor.selectByIndex(state.getLeftColor().getIndex());
             rightColor.selectByIndex(state.getRightColor().getIndex());
             textColor.selectByIndex(state.getTextColor().getIndex());
-            page.submitButton.click();
+            page.getSubmitButton().click();
             testImage(
                     state.getLeftColor().getValue(),
                     state.getRightColor().getValue(),
@@ -75,20 +73,19 @@ public class ITestImgUsage extends AbstractWebDriverTest {
             throws Exception {
         Graphene.waitModel()
                 .until(new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver f) {
-                try {
-                    URL imageUrl = new URL(page.image.getAttribute("src"));
-                    BufferedImage image = ImageIO.read(imageUrl);
-                    int widthOfImage = image.getWidth();
-                    int heightOfImage = image.getHeight();
-                    return image.getRGB(0, 0) == expectedLeftTopCornerColor && image.getRGB(widthOfImage - 1, heightOfImage - 1) == expectedRightBottomCornerColor && image.getRGB(95, 45) == expectedTextColor;
-                } catch (Exception ignored) {
-                    return false;
-                }
-            }
-        });
+                    @Override
+                    public Boolean apply(WebDriver f) {
+                        try {
+                            URL imageUrl = new URL(page.getImage().getAttribute("src"));
+                            BufferedImage image = ImageIO.read(imageUrl);
+                            int widthOfImage = image.getWidth();
+                            int heightOfImage = image.getHeight();
+                            return image.getRGB(0, 0) == expectedLeftTopCornerColor && image.getRGB(widthOfImage - 1, heightOfImage - 1) == expectedRightBottomCornerColor && image.getRGB(95, 45) == expectedTextColor;
+                        } catch (Exception ignored) {
+                            return false;
+                        }
+                    }
+                });
     }
-
 
 }

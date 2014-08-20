@@ -38,21 +38,21 @@ public class ITestSimple extends TestUsage {
 
     @Test
     public void testUserNameAndAjaxRequestProgress() {
-        page.userNameInput.sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getUserNameInput().sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
     }
 
     @Test
     public void testAddressAndAjaxRequestProgress() {
-        page.addressInput.sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getAddressInput().sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
     }
 
     @Test
     public void testSubmitButtonAndAjaxRequestProgress() {
-        page.userNameInput.sendKeys("a");
-        page.submitButton.click();
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getUserNameInput().sendKeys("a");
+        page.getSubmitButton().click();
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -60,6 +60,6 @@ public class ITestSimple extends TestUsage {
             e.printStackTrace();
         }
         assertEquals("There should appear notification that user stored successfully!", "User a stored successfully",
-            page.output.getText());
+            page.getOutput().getText());
     }
 }

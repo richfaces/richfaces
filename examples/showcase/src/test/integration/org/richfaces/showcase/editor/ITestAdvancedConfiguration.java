@@ -43,25 +43,25 @@ public class ITestAdvancedConfiguration extends AbstractWebDriverTest {
     @Test
     public void testEnglishLanguage() {
 
-        guardAjax(page.englishRadio).click();
+        guardAjax(page.getEnglishRadio()).click();
 
-        String titleOfNewPageButton = page.newPageButton.getAttribute("title");
+        String titleOfNewPageButton = page.getNewPageButton().getAttribute("title");
         assertEquals("The language was not changed to english!", AdvancedConfigurationPage.NEW_PAGE_ENG, titleOfNewPageButton);
     }
 
     @Test
     public void testFrenchLanguage() {
-        guardAjax(page.frenchRadio).click();
+        guardAjax(page.getFrenchRadio()).click();
 
-        String titleOfNewPageButton = page.newPageButton.getAttribute("title");
+        String titleOfNewPageButton = page.getNewPageButton().getAttribute("title");
         assertEquals("The language was not changed to french!", AdvancedConfigurationPage.NEW_PAGE_FR, titleOfNewPageButton);
     }
 
     @Test
     public void testGermanLanguage() {
-        guardAjax(page.germanRadio).click();
+        guardAjax(page.getGermanRadio()).click();
 
-        String titleOfNewPageButton = page.newPageButton.getAttribute("title");
+        String titleOfNewPageButton = page.getNewPageButton().getAttribute("title");
         assertEquals("The language was not changed to german!", AdvancedConfigurationPage.NEW_PAGE_DE, titleOfNewPageButton);
     }
 

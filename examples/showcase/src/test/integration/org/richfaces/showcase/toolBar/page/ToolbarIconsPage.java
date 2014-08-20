@@ -33,44 +33,101 @@ import org.openqa.selenium.support.FindBy;
 public class ToolbarIconsPage {
 
     @FindByJQuery("a:contains('Line'):eq(0)")
-    public WebElement lineGroupSep;
+    private WebElement lineGroupSep;
 
     @FindByJQuery("a:contains('Grid'):eq(0)")
-    public WebElement gridGroupSep;
+    private WebElement gridGroupSep;
 
     @FindByJQuery("a:contains('Disc'):eq(0)")
-    public WebElement discGroupSep;
+    private WebElement discGroupSep;
 
     @FindByJQuery("a:contains('Square'):eq(0)")
-    public WebElement squareGroupSep;
+    private WebElement squareGroupSep;
 
     @FindByJQuery("a:contains('None'):eq(0)")
-    public WebElement noneGroupSep;
+    private WebElement noneGroupSep;
 
     @FindByJQuery("a:contains('Line'):eq(1)")
-    public WebElement lineItemSeparator;
+    private WebElement lineItemSeparator;
 
     @FindByJQuery("a:contains('Grid'):eq(1)")
-    public WebElement gridItemSep;
+    private WebElement gridItemSep;
 
     @FindByJQuery("a:contains('Disc'):eq(1)")
-    public WebElement discItemSep;
+    private WebElement discItemSep;
 
     @FindByJQuery("a:contains('Square'):eq(1)")
-    public WebElement squareItemSep;
+    private WebElement squareItemSep;
 
     @FindByJQuery("a:contains('None'):eq(1)")
-    public WebElement noneItemSep;
+    private WebElement noneItemSep;
 
     @FindBy(css = "div[class='rf-tb-sep-line']")
-    public List<WebElement> lineSep;
+    private List<WebElement> lineSep;
 
     @FindBy(css = "div[class='rf-tb-sep-grid']")
-    public List<WebElement> gridSep;
+    private List<WebElement> gridSep;
 
     @FindBy(css = "div[class='rf-tb-sep-disc']")
-    public List<WebElement> discSep;
+    private List<WebElement> discSep;
 
     @FindBy(css = "div[class='rf-tb-sep-square']")
-    public List<WebElement> squareSep;
+    private List<WebElement> squareSep;
+
+    public WebElement getLineGroupSep() {
+        return lineGroupSep;
+    }
+
+    public WebElement getGridGroupSep() {
+        return gridGroupSep;
+    }
+
+    public WebElement getDiscGroupSep() {
+        return discGroupSep;
+    }
+
+    public WebElement getSquareGroupSep() {
+        return squareGroupSep;
+    }
+
+    public WebElement getNoneGroupSep() {
+        return noneGroupSep;
+    }
+
+    public WebElement getLineItemSeparator() {
+        return lineItemSeparator;
+    }
+
+    public WebElement getGridItemSep() {
+        return gridItemSep;
+    }
+
+    public WebElement getDiscItemSep() {
+        return discItemSep;
+    }
+
+    public WebElement getSquareItemSep() {
+        return squareItemSep;
+    }
+
+    public WebElement getNoneItemSep() {
+        return noneItemSep;
+    }
+
+    public List<WebElement> getLineSep() {
+        return lineSep;
+    }
+
+    public List<WebElement> getGridSep() {
+        return gridSep;
+    }
+
+    public List<WebElement> getDiscSep() {
+        return discSep;
+    }
+
+    public List<WebElement> getSquareSep() {
+        return squareSep;
+    }
+
 }

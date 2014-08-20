@@ -38,15 +38,27 @@ import org.richfaces.utils.focus.ElementIsFocused;
 public class FocusPreservePage extends FocusPage {
 
     @FindByJQuery("*[type=text]")
-    public TextInputComponentImpl input;
+    private TextInputComponentImpl input;
 
     @FindByJQuery("*[type=submit]")
-    public WebElement button;
+    private WebElement button;
 
     @FindByJQuery("*[id*=output]")
-    public WebElement output;
+    private WebElement output;
 
     public void waitTillFirstInputIsFocused() {
         waitModel().withTimeout(ITestFocus.TIMEOUT_FOCUS, TimeUnit.SECONDS).until(new ElementIsFocused(input.advanced().getInputElement()));
+    }
+
+    public TextInputComponentImpl getInput() {
+        return input;
+    }
+
+    public WebElement getButton() {
+        return button;
+    }
+
+    public WebElement getOutput() {
+        return output;
     }
 }

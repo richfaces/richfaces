@@ -57,7 +57,7 @@ public class ITestJsFunction extends AbstractWebDriverTest {
 
     @Test
     public void testInitialState() {
-        assertEquals("The text in output should be empty", "", page.output.getText().trim());
+        assertEquals("The text in output should be empty", "", page.getOutput().getText().trim());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ITestJsFunction extends AbstractWebDriverTest {
             String name = entry.getKey();
             WebElement element = entry.getValue();
             activate(element);
-            Graphene.waitGui().until("The text in output should be same as in the active td!").element(page.output).text()
+            Graphene.waitGui().until("The text in output should be same as in the active td!").element(page.getOutput()).text()
                 .equalTo(name);
         }
     }

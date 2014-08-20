@@ -30,16 +30,45 @@ import org.openqa.selenium.WebElement;
 public class RepeatPage {
 
     @FindByJQuery("div.rf-p:first div[id$=header]")
-    public WebElement firstStateHeader;
+    private WebElement firstStateHeader;
+
     @FindByJQuery("div.rf-p:first div[id$=body]")
-    public WebElement firstStateBody;
+    private WebElement firstStateBody;
+
     @FindByJQuery("div.rf-p:last div[id$=header]")
-    public WebElement lastStateHeader;
+    private WebElement lastStateHeader;
+
     @FindByJQuery("div.rf-p:last div[id$=body]")
-    public WebElement lastStateBody;
+    private WebElement lastStateBody;
+
     @FindByJQuery("a.rf-ds-nmb-btn:first")
-    public WebElement anchorForSecondPage;
+    private WebElement anchorForSecondPage;
+
     @FindByJQuery("a.rf-ds-nmb-btn:last")
-    public WebElement anchorForThirdPage;
+    private WebElement anchorForThirdPage;
+
+    public WebElement getFirstStateHeader() {
+        return firstStateHeader;
+    }
+
+    public WebElement getFirstStateBody() {
+        return firstStateBody;
+    }
+
+    public WebElement getLastStateHeader() {
+        return lastStateHeader;
+    }
+
+    public WebElement getLastStateBody() {
+        return lastStateBody;
+    }
+
+    public WebElement getAnchorForSecondPage() {
+        return anchorForSecondPage;
+    }
+
+    public WebElement getAnchorForThirdPage() {
+        return anchorForThirdPage;
+    }
 
 }

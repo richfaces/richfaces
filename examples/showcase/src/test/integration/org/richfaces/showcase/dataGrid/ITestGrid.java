@@ -54,14 +54,14 @@ public class ITestGrid extends AbstractDataIterationWithCars {
     public void testDataGridIsNotEmpty() {
 
         @SuppressWarnings("unused")
-        Car pageFirstCar = retrieveCarFromThePanelGrid(page.firstPanelGridOnThePage);
+        Car pageFirstCar = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
         @SuppressWarnings("unused")
-        Car pageLastCar = retrieveCarFromThePanelGrid(page.lastPanelGridOnThePage);
+        Car pageLastCar = retrieveCarFromThePanelGrid(page.getLastPanelGridOnThePage());
 
-        Graphene.guardAjax(page.lastPageButton).click();
+        Graphene.guardAjax(page.getLastPageButton()).click();
 
-        pageFirstCar = retrieveCarFromThePanelGrid(page.firstPanelGridOnThePage);
-        pageLastCar = retrieveCarFromThePanelGrid(page.lastPanelGridOnThePage);
+        pageFirstCar = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
+        pageLastCar = retrieveCarFromThePanelGrid(page.getLastPanelGridOnThePage());
     }
 
     @Test
@@ -71,22 +71,22 @@ public class ITestGrid extends AbstractDataIterationWithCars {
         Car carBeforeClicking;
 
         try {
-            page.firstPageButton.isDisplayed();
-            Graphene.guardAjax(page.firstPageButton).click();
+            page.getFirstPageButton().isDisplayed();
+            Graphene.guardAjax(page.getFirstPageButton()).click();
 
             numberOfThePageBeforeClick = page.getNumberOfCurrentPage();
-            carBeforeClicking = retrieveCarFromThePanelGrid(page.firstPanelGridOnThePage);
+            carBeforeClicking = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
 
-            Graphene.guardAjax(page.nextButton).click();
+            Graphene.guardAjax(page.getNextButton()).click();
         } catch (NoSuchElementException ignored) {
             numberOfThePageBeforeClick = page.getNumberOfCurrentPage();
-            carBeforeClicking = retrieveCarFromThePanelGrid(page.firstPanelGridOnThePage);
+            carBeforeClicking = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
 
-            Graphene.guardAjax(page.nextButton).click();
+            Graphene.guardAjax(page.getNextButton()).click();
         }
 
         int numberOfThePageAfterClick = page.getNumberOfCurrentPage();
-        Car carAfterClicking = retrieveCarFromThePanelGrid(page.firstPanelGridOnThePage);
+        Car carAfterClicking = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
 
         assertEquals("The next button does not works!", numberOfThePageAfterClick - 1, numberOfThePageBeforeClick);
 

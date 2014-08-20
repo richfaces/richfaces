@@ -47,15 +47,15 @@ public class ITestModalPopup extends AbstractPanelTest {
 
     @Test
     public void testModalPopupPanel() {
-        page.callthePopupButton.click();
+        page.getCallthePopupButton().click();
         waitGui(webDriver).until("The popup panel should be visible now!")
-                .element(page.popupPanelContent)
+                .element(page.getPopupPanelContent())
                 .is()
                 .visible();
-        checkContentOfPanel(page.popupPanelContent, BODY_OF_POPUP);
+        checkContentOfPanel(page.getPopupPanelContent(), BODY_OF_POPUP);
         hidePopup.click();
         waitGui(webDriver).until("The popup panel should not be visible now!")
-                .element(page.popupPanelContent)
+                .element(page.getPopupPanelContent())
                 .is()
                 .not()
                 .visible();

@@ -54,7 +54,7 @@ public class ITestTableFilteringAPI extends AbstractDataIterationWithCars {
 
             Graphene.guardAjax(page.getFilterValue(i)).click();
 
-            for (WebElement row : page.tableRows) {
+            for (WebElement row : page.getTableRows()) {
 
                 Car carFromRow = retrieveCarFromRow(row, 0, 0);
 

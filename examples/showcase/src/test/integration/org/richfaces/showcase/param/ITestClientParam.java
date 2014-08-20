@@ -54,20 +54,20 @@ public class ITestClientParam extends AbstractWebDriverTest {
     @Test
     public void testShowScreenSizeAtInitialState() {
 
-        String actualString = page.widthValueLocator.getText().trim();
+        String actualString = page.getWidthValueLocator().getText().trim();
         assertEquals("The value of width should be empty string!", "", actualString);
 
-        actualString = page.heightValueLocator.getText().trim();
+        actualString = page.getHeightValueLocator().getText().trim();
         assertEquals("The value of height should be empty string!", "", actualString);
     }
 
     @Test
     public void testShowScreenSizeAfterClickingOnButton() {
 
-        Graphene.guardAjax(page.buttonShowScreenSize).click();
+        Graphene.guardAjax(page.getButtonShowScreenSize()).click();
 
-        long widthActual = Long.parseLong(page.widthValueLocator.getText().trim());
-        long heightActual = Long.parseLong(page.heightValueLocator.getText().trim());
+        long widthActual = Long.parseLong(page.getWidthValueLocator().getText().trim());
+        long heightActual = Long.parseLong(page.getHeightValueLocator().getText().trim());
 
         long widthExpected = screen.getWidth();
         long heightExpected = screen.getHeight();

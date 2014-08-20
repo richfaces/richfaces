@@ -65,15 +65,15 @@ public class ITestAttachQueue extends AbstractWebDriverTest {
      */
     private void typeToTheInputAndCheckTheDelay() {
         long timeBeforePressingKey = System.currentTimeMillis();
-        page.input.sendKeys("a");
-        waitGui(webDriver).withTimeout(3, TimeUnit.SECONDS).until().element(page.ajaxRequestProcessing).is().visible();
+        page.getInput().sendKeys("a");
+        waitGui(webDriver).withTimeout(3, TimeUnit.SECONDS).until().element(page.getAjaxRequestProcessing()).is().visible();
         long timeAfterAjaxRequestIsPresent = System.currentTimeMillis();
-        page.submit.click();
-        waitGui(webDriver).until().element(page.ajaxRequestProcessing).is().visible();
+        page.getSubmit().click();
+        waitGui(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long actualDelay = timeAfterAjaxRequestIsPresent - timeBeforePressingKey;
         assertTrue("The delay should be between " + DELAY_IN_MILISECONDS + "ms and " + (DELAY_IN_MILISECONDS + 1000)
-            + "ms but was:" + actualDelay, (actualDelay >= DELAY_IN_MILISECONDS)
-            && (actualDelay <= DELAY_IN_MILISECONDS + 1000));
+                + "ms but was:" + actualDelay, (actualDelay >= DELAY_IN_MILISECONDS)
+                && (actualDelay <= DELAY_IN_MILISECONDS + 1000));
     }
 
     /*
@@ -81,10 +81,10 @@ public class ITestAttachQueue extends AbstractWebDriverTest {
      */
     private void clickOnTheButtonAndCheckTheDelay() {
         long timeBeforePressingKey = System.currentTimeMillis();
-        page.submit.click();
-        waitGui(webDriver).until().element(page.ajaxRequestProcessing).is().visible();
+        page.getSubmit().click();
+        waitGui(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long actualDelay = System.currentTimeMillis() - timeBeforePressingKey;
         assertTrue("The delay should be between " + NO_DELAY + "ms and " + (NO_DELAY + 500) + "ms but was:!" + actualDelay,
-            (actualDelay >= NO_DELAY) && (actualDelay <= NO_DELAY + 500));
+                (actualDelay >= NO_DELAY) && (actualDelay <= NO_DELAY + 500));
     }
 }

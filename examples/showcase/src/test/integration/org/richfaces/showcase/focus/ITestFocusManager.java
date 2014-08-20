@@ -45,13 +45,13 @@ public class ITestFocusManager extends AbstractWebDriverTest {
 
     @Test
     public void testFocusOnSecInputAfterFormSubmission() {
-        guardHttp(page.formSubmissionButton).click();
+        guardHttp(page.getFormSubmissionButton()).click();
         page.waitTillSecondInputIsFocused();
     }
 
     @Test
     public void testFocusOnSecInputAfterAjaxRequest() {
-        guardAjax(page.ajaxButton).click();
+        guardAjax(page.getAjaxButton()).click();
         page.waitTillSecondInputIsFocused();
     }
 

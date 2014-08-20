@@ -39,7 +39,7 @@ import org.richfaces.showcase.dataTable.page.TableFilteringPage;
 public class EDTFilteringPage extends TableFilteringPage {
 
     @FindBy(css="*.rf-edt-b")
-    public WebElement tBody;
+    private WebElement tBody;
 
     @FindByJQuery("*.rf-edt-b td div *.rf-edt-tbl")
     private List<WebElement> tableParts;
@@ -78,4 +78,11 @@ public class EDTFilteringPage extends TableFilteringPage {
         return result;
     }
 
+    public List<WebElement> getTableParts() {
+        return tableParts;
+    }
+
+    public WebElement getTBody() {
+        return tBody;
+    }
 }

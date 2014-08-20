@@ -48,14 +48,17 @@ public class TableFilteringPage {
     protected WebDriver browser;
 
     @FindBy(css = "span.rf-msgs-sum")
-    public WebElement errorMessage;
+    private WebElement errorMessage;
 
     @FindBy(tagName = "select")
     private WebElement vendorSelect;
+
     @FindByJQuery("input[type=text]:first")
     private WebElement mileageInput;
+
     @FindByJQuery("input[type=text]:last")
     private WebElement vinInput;
+
     @FindBy(css = "*.rf-dt-b")
     private WebElement tBody;
 
@@ -96,7 +99,7 @@ public class TableFilteringPage {
         for (WebElement row : tBody.findElements(By.tagName("tr"))) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             result.add(new Car(cells.get(0).getText(), cells.get(1).getText(), cells.get(2).getText(), cells.get(3).getText(),
-                cells.get(4).getText(), null));
+                    cells.get(4).getText(), null));
         }
         return result;
     }
@@ -116,4 +119,61 @@ public class TableFilteringPage {
     protected Action fireEventAction(final WebElement element, final String event) {
         return new AbstractWebDriverTest.EventAction(browser, element, event);
     }
+
+    public WebDriver getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(WebDriver browser) {
+        this.browser = browser;
+    }
+
+    public WebElement getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(WebElement errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public WebElement getVendorSelect() {
+        return vendorSelect;
+    }
+
+    public void setVendorSelect(WebElement vendorSelect) {
+        this.vendorSelect = vendorSelect;
+    }
+
+    public WebElement getMileageInput() {
+        return mileageInput;
+    }
+
+    public void setMileageInput(WebElement mileageInput) {
+        this.mileageInput = mileageInput;
+    }
+
+    public WebElement getVinInput() {
+        return vinInput;
+    }
+
+    public void setVinInput(WebElement vinInput) {
+        this.vinInput = vinInput;
+    }
+
+    public WebElement gettBody() {
+        return tBody;
+    }
+
+    public void settBody(WebElement tBody) {
+        this.tBody = tBody;
+    }
+
+    public WebElement getToBlur() {
+        return toBlur;
+    }
+
+    public void setToBlur(WebElement toBlur) {
+        this.toBlur = toBlur;
+    }
+
 }

@@ -31,14 +31,31 @@ import org.openqa.selenium.WebElement;
 public class TestReferencedUsagePage {
 
     @FindByJQuery("input[type='text']:eq(0)")
-    public WebElement userNameInput;
+    private WebElement userNameInput;
 
     @FindByJQuery("input[type='text']:eq(1)")
-    public WebElement addressInput;
+    private WebElement addressInput;
 
     @FindByJQuery("span[class=rf-st-start] img:first")
-    public WebElement firstAjaxRequestProgressImage;
+    private WebElement firstAjaxRequestProgressImage;
 
     @FindByJQuery("span[class=rf-st-start] img:last")
-    public WebElement secondAjaxRequestProgressImage;
+    private WebElement secondAjaxRequestProgressImage;
+
+    public WebElement getUserNameInput() {
+        return userNameInput;
+    }
+
+    public WebElement getAddressInput() {
+        return addressInput;
+    }
+
+    public WebElement getFirstAjaxRequestProgressImage() {
+        return firstAjaxRequestProgressImage;
+    }
+
+    public WebElement getSecondAjaxRequestProgressImage() {
+        return secondAjaxRequestProgressImage;
+    }
+
 }

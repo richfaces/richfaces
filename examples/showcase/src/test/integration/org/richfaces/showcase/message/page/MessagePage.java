@@ -32,10 +32,13 @@ public class MessagePage extends AbstractMessagePage {
 
     @FindByJQuery("span[id$=name]")
     private RichFacesMessage nameMessage;
+    
     @FindByJQuery("span[id$=job]")
     private RichFacesMessage jobMessage;
+    
     @FindByJQuery("span[id$=address]")
     private RichFacesMessage addressMessage;
+    
     @FindByJQuery("span[id$=zip]")
     private RichFacesMessage zipMessage;
 

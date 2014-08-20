@@ -30,8 +30,17 @@ import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 public class SimplePage {
 
     @FindByJQuery(".rf-ii:eq(0)")
-    public RichFacesInplaceInput name;
+    private RichFacesInplaceInput name;
+
     @FindByJQuery(".rf-ii:eq(1)")
-    public RichFacesInplaceInput email;
+    private RichFacesInplaceInput email;
+
+    public RichFacesInplaceInput getName() {
+        return name;
+    }
+
+    public RichFacesInplaceInput getEmail() {
+        return email;
+    }
 
 }

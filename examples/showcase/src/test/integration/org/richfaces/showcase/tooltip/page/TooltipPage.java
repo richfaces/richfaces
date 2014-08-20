@@ -30,17 +30,57 @@ import org.openqa.selenium.WebElement;
 public class TooltipPage {
 
     @FindByJQuery("div[class*='rf-p tooltip-text']:eq(0)")
-    public WebElement clientTooltipActivatingArea;
+    private WebElement clientTooltipActivatingArea;
 
     @FindByJQuery("div[class*='rf-p tooltip-text']:eq(1)")
-    public WebElement clientWithDelayTooltipActivatingArea;
+    private WebElement clientWithDelayTooltipActivatingArea;
 
     @FindByJQuery("div[class*='rf-p tooltip-text']:eq(2)")
-    public WebElement ajaxTooltipActivatingArea;
+    private WebElement ajaxTooltipActivatingArea;
 
     @FindByJQuery("div[class*='rf-p tooltip-text']:eq(3)")
-    public WebElement ajaxClickTooltipActivatingArea;
+    private WebElement ajaxClickTooltipActivatingArea;
 
     @FindByJQuery("div[class*='rf-tt tooltip']:visible")
-    public WebElement tooltip;
+    private WebElement tooltip;
+
+    public WebElement getClientTooltipActivatingArea() {
+        return clientTooltipActivatingArea;
+    }
+
+    public void setClientTooltipActivatingArea(WebElement clientTooltipActivatingArea) {
+        this.clientTooltipActivatingArea = clientTooltipActivatingArea;
+    }
+
+    public WebElement getClientWithDelayTooltipActivatingArea() {
+        return clientWithDelayTooltipActivatingArea;
+    }
+
+    public void setClientWithDelayTooltipActivatingArea(WebElement clientWithDelayTooltipActivatingArea) {
+        this.clientWithDelayTooltipActivatingArea = clientWithDelayTooltipActivatingArea;
+    }
+
+    public WebElement getAjaxTooltipActivatingArea() {
+        return ajaxTooltipActivatingArea;
+    }
+
+    public void setAjaxTooltipActivatingArea(WebElement ajaxTooltipActivatingArea) {
+        this.ajaxTooltipActivatingArea = ajaxTooltipActivatingArea;
+    }
+
+    public WebElement getAjaxClickTooltipActivatingArea() {
+        return ajaxClickTooltipActivatingArea;
+    }
+
+    public void setAjaxClickTooltipActivatingArea(WebElement ajaxClickTooltipActivatingArea) {
+        this.ajaxClickTooltipActivatingArea = ajaxClickTooltipActivatingArea;
+    }
+
+    public WebElement getTooltip() {
+        return tooltip;
+    }
+
+    public void setTooltip(WebElement tooltip) {
+        this.tooltip = tooltip;
+    }
 }

@@ -82,9 +82,9 @@ public class ITestTableFiltering extends AbstractDataIterationWithCars {
     public void testErrorMessage() {
         getPage().filter(Field.MILEAGE, "foo", false);
 
-        Graphene.waitModel().until().element(getPage().errorMessage).is().present();
+        Graphene.waitModel().until().element(getPage().getErrorMessage()).is().present();
 
-        String actualErrorMessage = getPage().errorMessage.getText();
+        String actualErrorMessage = getPage().getErrorMessage().getText();
         assertTrue("There should be error message, since there is string in the mileage input!",
             actualErrorMessage.contains(ERROR_MESSAGE));
     }

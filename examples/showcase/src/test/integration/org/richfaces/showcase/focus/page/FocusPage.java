@@ -34,19 +34,19 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 public class FocusPage {
 
     @FindByJQuery("*[type=text]:eq(0)")
-    public TextInputComponentImpl nameInput;
+    private TextInputComponentImpl nameInput;
 
     @FindByJQuery("*[type=text]:eq(1)")
-    public TextInputComponentImpl jobInput;
+    private TextInputComponentImpl jobInput;
 
     @FindByJQuery("*[type=text]:eq(2)")
-    public TextInputComponentImpl addressnput;
+    private TextInputComponentImpl addressnput;
 
     @FindByJQuery("*[type=text]:eq(3)")
-    public TextInputComponentImpl zipInput;
+    private TextInputComponentImpl zipInput;
 
     @FindByJQuery("*[type=submit]")
-    public WebElement submitButton;
+    private WebElement submitButton;
 
     @ArquillianResource
     private Actions actions;
@@ -54,4 +54,29 @@ public class FocusPage {
     public void typeSomethingAndDoNotCareAboutFocus(String keys) {
         actions.sendKeys(keys).build().perform();
     }
+
+    public TextInputComponentImpl getNameInput() {
+        return nameInput;
+    }
+
+    public TextInputComponentImpl getJobInput() {
+        return jobInput;
+    }
+
+    public TextInputComponentImpl getAddressnput() {
+        return addressnput;
+    }
+
+    public TextInputComponentImpl getZipInput() {
+        return zipInput;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public Actions getActions() {
+        return actions;
+    }
+
 }

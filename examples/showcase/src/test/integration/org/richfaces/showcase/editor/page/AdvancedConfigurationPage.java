@@ -31,14 +31,31 @@ public class AdvancedConfigurationPage {
     public static final String NEW_PAGE_DE = "Neue Seite";
 
     @FindByJQuery("input[type=radio]:eq(0)")
-    public WebElement englishRadio;
+    private WebElement englishRadio;
 
     @FindByJQuery("input[type=radio]:eq(1)")
-    public WebElement frenchRadio;
+    private WebElement frenchRadio;
 
     @FindByJQuery("input[type=radio]:eq(2)")
-    public WebElement germanRadio;
+    private WebElement germanRadio;
 
     @FindByJQuery(".cke_button__newpage")
-    public WebElement newPageButton;
+    private WebElement newPageButton;
+
+    public WebElement getEnglishRadio() {
+        return englishRadio;
+    }
+
+    public WebElement getFrenchRadio() {
+        return frenchRadio;
+    }
+
+    public WebElement getGermanRadio() {
+        return germanRadio;
+    }
+
+    public WebElement getNewPageButton() {
+        return newPageButton;
+    }
+
 }

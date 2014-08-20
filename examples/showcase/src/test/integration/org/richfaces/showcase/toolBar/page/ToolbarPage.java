@@ -33,14 +33,30 @@ import org.openqa.selenium.support.FindBy;
 public class ToolbarPage {
 
     @FindBy(css = "div[class='rf-tb-sep-grid']")
-    public WebElement separator;
+    private WebElement separator;
 
     @FindBy(css = "input[class='barsearch']")
-    public WebElement searchInput;
+    private WebElement searchInput;
 
     @FindBy(css = "input[class='barsearchbutton']")
-    public WebElement searchButton;
+    private WebElement searchButton;
 
     @FindBy(css = "tr[class='rf-tb-cntr'] td img")
-    public List<WebElement> toolbarImages;
+    private List<WebElement> toolbarImages;
+
+    public WebElement getSeparator() {
+        return separator;
+    }
+
+    public WebElement getSearchInput() {
+        return searchInput;
+    }
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public List<WebElement> getToolbarImages() {
+        return toolbarImages;
+    }
 }

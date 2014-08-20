@@ -31,14 +31,31 @@ import org.openqa.selenium.WebElement;
 public class LoginPage {
 
     @FindByJQuery("td[id$='ll_itm'] a:contains('Login')")
-    public WebElement loginOnToolbar;
+    private WebElement loginOnToolbar;
 
     @FindByJQuery("div[id$='lp_content'] a:contains('Login')")
-    public WebElement loginOnPopup;
+    private WebElement loginOnPopup;
 
     @FindByJQuery("a:contains('Search'):eq(0)")
-    public WebElement searchOnToolbar;
+    private WebElement searchOnToolbar;
 
     @FindByJQuery("a:contains('Search'):eq(1)")
-    public WebElement searchOnPopup;
+    private WebElement searchOnPopup;
+
+    public WebElement getLoginOnToolbar() {
+        return loginOnToolbar;
+    }
+
+    public WebElement getLoginOnPopup() {
+        return loginOnPopup;
+    }
+
+    public WebElement getSearchOnToolbar() {
+        return searchOnToolbar;
+    }
+
+    public WebElement getSearchOnPopup() {
+        return searchOnPopup;
+    }
+
 }

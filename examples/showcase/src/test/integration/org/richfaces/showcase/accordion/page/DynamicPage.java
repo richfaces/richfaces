@@ -37,10 +37,10 @@ import org.openqa.selenium.support.FindBy;
 public class DynamicPage {
 
     @FindBy(css = ".rf-ac-itm-lbl")
-    List<WebElement> accordionExpanders;
+    private List<WebElement> accordionExpanders;
 
     @FindByJQuery("input:visible:eq(1)")
-    WebElement skinSwitcherButton;
+    private WebElement skinSwitcherButton;
 
     static final int NUMBER_OF_ACCORDION_PANELS = 7;
 
@@ -53,5 +53,13 @@ public class DynamicPage {
             String valueOfPanelHeader = accordionExpanders.get(i).getText().split(":")[1].trim();
             assertTrue("The accordion panel was not switched correctly!", valueOfSkinSwitcher.contains(valueOfPanelHeader));
         }
+    }
+
+    public List<WebElement> getAccordionExpanders() {
+        return accordionExpanders;
+    }
+
+    public WebElement getSkinSwitcherButton() {
+        return skinSwitcherButton;
     }
 }

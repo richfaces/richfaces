@@ -50,19 +50,19 @@ public class ITestSimplePopup extends AbstractPanelTest {
 
     @Test
     public void testCallTheNonModalPopupAndHideIt() {
-        page.callthePopupButton.click();
-        waitGui(webDriver).until("The popup panel should be visible now!").element(page.popupPanelContent).is().visible();
-        checkContentOfPanel(page.popupPanelContent, BODY_OF_THE_POPUP);
-        page.anchorOfSource.click();
+        page.getCallthePopupButton().click();
+        waitGui(webDriver).until("The popup panel should be visible now!").element(page.getPopupPanelContent()).is().visible();
+        checkContentOfPanel(page.getPopupPanelContent(), BODY_OF_THE_POPUP);
+        page.getAnchorOfSource().click();
         waitGui(webDriver)
             .until(
                 "The source of the page should be visible, since "
                     + "the poppup panel is not modal, and therefore clicking on the source should show the source")
-            .element(page.sourceOfPage).is().visible();
-        assertTrue("The panel should not disappear when clicking somewhere else!", page.popupPanelContent.isDisplayed());
+            .element(page.getSourceOfPage()).is().visible();
+        assertTrue("The panel should not disappear when clicking somewhere else!", page.getPopupPanelContent().isDisplayed());
         popupPanelHideAnchor.click();
         assertFalse("The poppup panel should not be visible, since there was a click " + "on the hide anchor!",
-            page.popupPanelContent.isDisplayed());
+            page.getPopupPanelContent().isDisplayed());
     }
 
 }

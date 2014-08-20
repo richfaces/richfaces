@@ -52,45 +52,45 @@ public class ITestWizard extends AbstractWebDriverTest {
 
     @Test
     public void testStep1ValidationEmptyInputs() {
-        guardAjax(page.nextButton).click();
+        guardAjax(page.getNextButton()).click();
         checkForAllErrorMessagesFromFirstStep(true);
         fillInputsWithText(" ");
-        guardAjax(page.nextButton).click();
+        guardAjax(page.getNextButton()).click();
         checkForAllErrorMessagesFromFirstStep(false);
     }
 
     @Test
     public void testStep1ValidationCorrectValues() {
         fillInputsWithText("xxxxx");
-        guardAjax(page.nextButton).click();
+        guardAjax(page.getNextButton()).click();
         checkForAllErrorMessagesFromFirstStep(false);
     }
 
     @Test
     public void testStep2ValidationEmptyInput() {
         fillInputsWithText("xxxxx");
-        guardAjax(page.nextButton).click();
-        guardAjax(page.nextButton).click();
-        checkForErrors(page.errorMessageNotes, ERROR_MSG_NOTES, true);
-        page.notesInput.sendKeys("blablabla");
-        guardAjax(page.nextButton).click();
-        checkForErrors(page.errorMessageNotes, ERROR_MSG_NOTES, false);
+        guardAjax(page.getNextButton()).click();
+        guardAjax(page.getNextButton()).click();
+        checkForErrors(page.getErrorMessageNotes(), ERROR_MSG_NOTES, true);
+        page.getNotesInput().sendKeys("blablabla");
+        guardAjax(page.getNextButton()).click();
+        checkForErrors(page.getErrorMessageNotes(), ERROR_MSG_NOTES, false);
     }
 
     @Test
     public void testStep2ValidationCorrectValue() {
         testStep1ValidationCorrectValues();
-        page.notesInput.sendKeys("notes");
-        guardAjax(page.nextButton).click();
-        checkForErrors(page.errorMessageNotes, ERROR_MSG_NOTES, false);
+        page.getNotesInput().sendKeys("notes");
+        guardAjax(page.getNextButton()).click();
+        checkForErrors(page.getErrorMessageNotes(), ERROR_MSG_NOTES, false);
     }
 
     @Test
     public void testStep3CheckSummaryOfPreviousSteps() {
         testStep1ValidationCorrectValues();
-        page.notesInput.sendKeys("notes");
-        guardAjax(page.nextButton).click();
-        assertTrue("Notes should be displayed in the summary", page.summaryOfAllSteps.getText().contains("Notes: notes"));
+        page.getNotesInput().sendKeys("notes");
+        guardAjax(page.getNextButton()).click();
+        assertTrue("Notes should be displayed in the summary", page.getSummaryOfAllSteps().getText().contains("Notes: notes"));
     }
 
     private void checkForErrors(WebElement element, String errorMessage, boolean shouldErrorBePresented) {
@@ -102,20 +102,20 @@ public class ITestWizard extends AbstractWebDriverTest {
     }
 
     private void fillInputsWithText(String text) {
-        page.firstNameInput.sendKeys(text);
-        page.lastNameInput.sendKeys(text);
-        page.companyInput.sendKeys(text);
+        page.getFirstNameInput().sendKeys(text);
+        page.getLastNameInput().sendKeys(text);
+        page.getCompanyInput().sendKeys(text);
     }
 
     private void checkForAllErrorMessagesFromFirstStep(boolean shouldErrorMessagePresented) {
         if (shouldErrorMessagePresented) {
-            assertEquals(ERROR_MSG_FIRST_NAME, page.errorMessageFirstName.getText());
-            assertEquals(ERROR_MSG_LAST_NAME, page.errorMessageLastName.getText());
-            assertEquals(ERROR_MSG_COMPANY, page.errorMessageCompany.getText());
+            assertEquals(ERROR_MSG_FIRST_NAME, page.getErrorMessageFirstName().getText());
+            assertEquals(ERROR_MSG_LAST_NAME, page.getErrorMessageLastName().getText());
+            assertEquals(ERROR_MSG_COMPANY, page.getErrorMessageCompany().getText());
         } else {
-            assertFalse(isElementPresent(page.errorMessageFirstName));
-            assertFalse(isElementPresent(page.errorMessageLastName));
-            assertFalse(isElementPresent(page.errorMessageCompany));
+            assertFalse(isElementPresent(page.getErrorMessageFirstName()));
+            assertFalse(isElementPresent(page.getErrorMessageLastName()));
+            assertFalse(isElementPresent(page.getErrorMessageCompany()));
         }
     }
 }

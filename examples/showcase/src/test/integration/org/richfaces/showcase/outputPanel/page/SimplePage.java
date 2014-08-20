@@ -31,21 +31,45 @@ import org.openqa.selenium.support.FindBy;
 public class SimplePage {
 
     @FindByJQuery("span:contains('text1')")
-    public WebElement firstError;
+    private WebElement firstError;
 
     @FindBy(css = "input[id$='text1']")
-    public WebElement firstInput;
+    private WebElement firstInput;
 
     @FindBy(css = "span[id$='out1']")
-    public WebElement firstOutput;
+    private WebElement firstOutput;
 
     @FindByJQuery("span:contains('text2')")
-    public WebElement secondError;
+    private WebElement secondError;
 
     @FindBy(css = "input[id$='text2']")
-    public WebElement secondInput;
+    private WebElement secondInput;
 
     @FindBy(css = "div[id$='out2']")
-    public WebElement secondOutput;
+    private WebElement secondOutput;
+
+    public WebElement getFirstError() {
+        return firstError;
+    }
+
+    public WebElement getFirstInput() {
+        return firstInput;
+    }
+
+    public WebElement getFirstOutput() {
+        return firstOutput;
+    }
+
+    public WebElement getSecondError() {
+        return secondError;
+    }
+
+    public WebElement getSecondInput() {
+        return secondInput;
+    }
+
+    public WebElement getSecondOutput() {
+        return secondOutput;
+    }
 
 }

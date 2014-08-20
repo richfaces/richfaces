@@ -44,21 +44,21 @@ public class ITestToolBarIcons extends AbstractWebDriverTest {
 
     @Test
     public void testGroupSeparators() {
-        page.noneGroupSep.click();
-        page.noneItemSep.click();
-        checkNumberOfAllGroupsOrItemsSeparators(0, page.lineGroupSep, page.gridGroupSep, page.discGroupSep, page.squareGroupSep);
-        checkNumberOfAllGroupsOrItemsSeparators(NUMBER_OF_GROUP_SEP, page.lineGroupSep, page.gridGroupSep, page.discGroupSep,
-            page.squareGroupSep);
+        page.getNoneGroupSep().click();
+        page.getNoneItemSep().click();
+        checkNumberOfAllGroupsOrItemsSeparators(0, page.getLineGroupSep(), page.getGridGroupSep(), page.getDiscGroupSep(), page.getSquareGroupSep());
+        checkNumberOfAllGroupsOrItemsSeparators(NUMBER_OF_GROUP_SEP, page.getLineGroupSep(), page.getGridGroupSep(), page.getDiscGroupSep(),
+            page.getSquareGroupSep());
     }
 
     @Test
     public void testItemSeparators() {
-        page.noneGroupSep.click();
-        page.noneItemSep.click();
-        checkNumberOfAllGroupsOrItemsSeparators(0, page.lineItemSeparator, page.gridItemSep, page.discItemSep,
-            page.squareItemSep);
-        checkNumberOfAllGroupsOrItemsSeparators(NUMBER_OF_ITEMS_SEP, page.lineItemSeparator, page.gridItemSep,
-            page.discItemSep, page.squareItemSep);
+        page.getNoneGroupSep().click();
+        page.getNoneItemSep().click();
+        checkNumberOfAllGroupsOrItemsSeparators(0, page.getLineItemSeparator(), page.getGridItemSep(), page.getDiscItemSep(),
+            page.getSquareItemSep());
+        checkNumberOfAllGroupsOrItemsSeparators(NUMBER_OF_ITEMS_SEP, page.getLineItemSeparator(), page.getGridItemSep(),
+            page.getDiscItemSep(), page.getSquareItemSep());
     }
 
     /**
@@ -71,18 +71,18 @@ public class ITestToolBarIcons extends AbstractWebDriverTest {
         if (numberOfSeparators != 0) {
             guardAjax(whichLineSep).click();
         }
-        assertEquals("Wrong number of line groups/items separators", numberOfSeparators, page.lineSep.size());
+        assertEquals("Wrong number of line groups/items separators", numberOfSeparators, page.getLineSep().size());
         if (numberOfSeparators != 0) {
             guardAjax(whichGridSep).click();
         }
-        assertEquals("Wrong number of grid groups/items separators", numberOfSeparators, page.gridSep.size());
+        assertEquals("Wrong number of grid groups/items separators", numberOfSeparators, page.getGridSep().size());
         if (numberOfSeparators != 0) {
             guardAjax(whichDicsSep).click();
         }
-        assertEquals("Wrong number of disc groups/items separators", numberOfSeparators, page.discSep.size());
+        assertEquals("Wrong number of disc groups/items separators", numberOfSeparators, page.getDiscSep().size());
         if (numberOfSeparators != 0) {
             guardAjax(whichSquareSep).click();
         }
-        assertEquals("Wrong number of square groups/items separators", numberOfSeparators, page.squareSep.size());
+        assertEquals("Wrong number of square groups/items separators", numberOfSeparators, page.getSquareSep().size());
     }
 }

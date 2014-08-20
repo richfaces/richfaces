@@ -46,12 +46,12 @@ public class ITestInplaceInput extends AbstractWebDriverTest {
      */
     @Test
     public void testEnterSomethingToNameInput() {
-        enterSomethingToInputAndCheck(page.name);
+        enterSomethingToInputAndCheck(page.getName());
     }
 
     @Test
     public void testEnterSomethingToEmail() {
-        enterSomethingToInputAndCheck(page.email);
+        enterSomethingToInputAndCheck(page.getEmail());
     }
 
     /* ***********************************************************************************

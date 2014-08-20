@@ -40,12 +40,12 @@ public class ITestLogin extends AbstractPanelTest {
 
     @Test
     public void testLoginPopup() {
-        checkPopupPanel(page.loginOnToolbar, page.loginOnPopup);
+        checkPopupPanel(page.getLoginOnToolbar(), page.getLoginOnPopup());
     }
 
     @Test
     public void testSearchPopup() {
-        checkPopupPanel(page.searchOnToolbar, page.searchOnPopup);
+        checkPopupPanel(page.getSearchOnToolbar(), page.getSearchOnPopup());
     }
 
     /**

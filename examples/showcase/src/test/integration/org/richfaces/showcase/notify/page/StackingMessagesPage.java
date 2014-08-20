@@ -37,6 +37,7 @@ public class StackingMessagesPage extends NotifyPage {
 
     @FindByJQuery("input[type=submit]:eq(0)")
     private WebElement renderFirstButtonTopLeft;
+    
     @FindByJQuery("input[type=submit]:eq(1)")
     private WebElement renderSecondBottomRight;
 

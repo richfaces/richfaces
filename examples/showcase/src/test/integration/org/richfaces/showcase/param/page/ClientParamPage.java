@@ -30,10 +30,24 @@ import org.openqa.selenium.WebElement;
 public class ClientParamPage {
 
     @FindByJQuery("input[type=submit]:first")
-    public WebElement buttonShowScreenSize;
+    private WebElement buttonShowScreenSize;
+
     @FindByJQuery("fieldset table:first tr:first td:last")
-    public WebElement widthValueLocator;
+    private WebElement widthValueLocator;
+
     @FindByJQuery("fieldset table:first tr:last td:last")
-    public WebElement heightValueLocator;
+    private WebElement heightValueLocator;
+
+    public WebElement getButtonShowScreenSize() {
+        return buttonShowScreenSize;
+    }
+
+    public WebElement getWidthValueLocator() {
+        return widthValueLocator;
+    }
+
+    public WebElement getHeightValueLocator() {
+        return heightValueLocator;
+    }
 
 }

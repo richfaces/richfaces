@@ -44,65 +44,65 @@ public class ITestSimple extends AbstractWebDriverTest {
 
     @Test
     public void testFirstCorrectInput() {
-        page.firstInput.click();
-        page.firstInput.clear();
-        page.firstInput.sendKeys(CORRECT);
+        page.getFirstInput().click();
+        page.getFirstInput().clear();
+        page.getFirstInput().sendKeys(CORRECT);
         Graphene.waitAjax().until("After typing a correct value into the first input field no output text should be present.")
-            .element(page.firstOutput).is().not().present();
+            .element(page.getFirstOutput()).is().not().present();
         Graphene.waitAjax()
             .until("After typing a correct value into the first input field no error message text should be present.")
-            .element(page.firstError).is().not().present();
-        page.firstInput.submit();
+            .element(page.getFirstError()).is().not().present();
+        page.getFirstInput().submit();
         Graphene
             .waitAjax()
             .until(
                 "After typing a correct value and into the first input field and submitting  the output text should be present.")
-            .element(page.firstOutput).is().present();
-        assertEquals("The output text doesn't match.", "Approved Text: " + CORRECT, page.firstOutput.getText());
+            .element(page.getFirstOutput()).is().present();
+        assertEquals("The output text doesn't match.", "Approved Text: " + CORRECT, page.getFirstOutput().getText());
     }
 
     @Test
     public void testFirstWrongInput() {
-        page.firstInput.click();
-        page.firstInput.clear();
-        page.firstInput.sendKeys(WRONG);
+        page.getFirstInput().click();
+        page.getFirstInput().clear();
+        page.getFirstInput().sendKeys(WRONG);
         Graphene.waitAjax().until("After typing a wrong value into the first input field no output text should be present.")
-            .element(page.firstOutput).is().not().present();
+            .element(page.getFirstOutput()).is().not().present();
         Graphene.waitAjax().until("After typing a wrong value into the first input field no error message should be present.")
-            .element(page.firstError).is().not().present();
-        page.firstInput.submit();
+            .element(page.getFirstError()).is().not().present();
+        page.getFirstInput().submit();
         Graphene
             .waitAjax()
             .until(
                 "After typing a wrong value and into the first input field and submitting the error message should be present.")
-            .element(page.firstError).is().present();
+            .element(page.getFirstError()).is().present();
         Graphene.waitAjax()
             .until("After typing a wrong value into the first input field and submitting no output text should be present.")
-            .element(page.firstOutput).is().not().present();
+            .element(page.getFirstOutput()).is().not().present();
     }
 
     @Test
     public void testSecondCorrectInput() {
-        page.secondInput.click();
-        page.secondInput.clear();
-        page.secondInput.sendKeys(CORRECT);
+        page.getSecondInput().click();
+        page.getSecondInput().clear();
+        page.getSecondInput().sendKeys(CORRECT);
         Graphene.waitAjax()
             .until("After typing a correct value into the second input field, the output text should be present.")
-            .element(page.secondOutput).is().present();
+            .element(page.getSecondOutput()).is().present();
         Graphene.waitAjax().until("After typing a wrong value into the second input field no error message should be present.")
-            .element(page.secondError).is().not().present();
-        assertEquals("The output text doesn't match.", "Approved Text: " + CORRECT, page.secondOutput.getText());
+            .element(page.getSecondError()).is().not().present();
+        assertEquals("The output text doesn't match.", "Approved Text: " + CORRECT, page.getSecondOutput().getText());
     }
 
     @Test
     public void testSecondWrongInput() throws InterruptedException {
-        page.secondInput.click();
-        page.secondInput.clear();
-        page.secondInput.sendKeys(WRONG);
+        page.getSecondInput().click();
+        page.getSecondInput().clear();
+        page.getSecondInput().sendKeys(WRONG);
         Graphene.waitAjax()
             .until("After typing a wrong value into the second input field, an error message should be present.")
-            .element(page.secondError).is().present();
+            .element(page.getSecondError()).is().present();
         Graphene.waitAjax().until("After typing a wrong value into the second input field no output text should be present.")
-            .element(page.secondOutput).text().equalTo("");
+            .element(page.getSecondOutput()).text().equalTo("");
     }
 }

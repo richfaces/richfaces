@@ -31,17 +31,38 @@ import org.openqa.selenium.support.FindBy;
 public class TestSimplePage {
 
     @FindByJQuery("input[type='text']:eq(0)")
-    public WebElement userNameInput;
+    private WebElement userNameInput;
 
     @FindByJQuery("input[type='text']:eq(1)")
-    public WebElement addressInput;
+    private WebElement addressInput;
 
     @FindByJQuery("input[type='button']:eq(0)")
-    public WebElement submitButton;
+    private WebElement submitButton;
 
     @FindBy(css = "span[id$='out']")
-    public WebElement output;
+    private WebElement output;
 
     @FindBy(css = "span.rf-st-start img")
-    public WebElement progressImage;
+    private WebElement progressImage;
+
+    public WebElement getUserNameInput() {
+        return userNameInput;
+    }
+
+    public WebElement getAddressInput() {
+        return addressInput;
+    }
+
+    public WebElement getSubmitButton() {
+        return submitButton;
+    }
+
+    public WebElement getOutput() {
+        return output;
+    }
+
+    public WebElement getProgressImage() {
+        return progressImage;
+    }
+
 }

@@ -46,37 +46,37 @@ public class ITestAjax extends AbstractWebDriverTest {
     @Test
     @Category(Smoke.class)
     public void testTypeSomeStringToTheInputAndCheckTheOutput() {
-        page.input.click();
-        page.input.clear();
+        page.getInput().click();
+        page.getInput().clear();
         String toWrite = "text";
         for (char ch: toWrite.toCharArray()) {
-            Graphene.guardAjax(page.input).sendKeys(Character.toString(ch));
+            Graphene.guardAjax(page.getInput()).sendKeys(Character.toString(ch));
         }
 
 
         Graphene.waitAjax()
                 .until()
-                .element(page.output)
+                .element(page.getOutput())
                 .text()
                 .equalTo(toWrite);
     }
 
     @Test
     public void testEraseStringFromInputAndCheckTheOutput() {
-        page.input.click();
-        page.input.clear();
+        page.getInput().click();
+        page.getInput().clear();
         String toWrite = "to erase";
 
         for (char ch: toWrite.toCharArray()) {
-            Graphene.guardAjax(page.input).sendKeys(Character.toString(ch));
+            Graphene.guardAjax(page.getInput()).sendKeys(Character.toString(ch));
         }
 
-        page.input.clear();
-        page.input.sendKeys("x");
+        page.getInput().clear();
+        page.getInput().sendKeys("x");
 
         Graphene.waitAjax()
                 .until()
-                .element(page.output)
+                .element(page.getOutput())
                 .text()
                 .equalTo("x");
     }

@@ -40,13 +40,13 @@ public class ITestSimple extends AbstractPanelTest {
 
     @Test
     public void testTabsAreNotEmpty() {
-        checkToogleTab(page.firstTabButton, RICH_FACES_INFO);
-        checkToogleTab(page.secondTabButton, RICH_FACES_JSF_INFO);
+        checkToogleTab(page.getFirstTabButton(), RICH_FACES_INFO);
+        checkToogleTab(page.getSecondTabButton(), RICH_FACES_JSF_INFO);
     }
 
     private void checkToogleTab(WebElement button, String expectedContent) {
         button.click();
-        assertTrue("Content of the panel is different!", page.panelBody.getText().contains(expectedContent));
+        assertTrue("Content of the panel is different!", page.getPanelBody().getText().contains(expectedContent));
     }
 
 }

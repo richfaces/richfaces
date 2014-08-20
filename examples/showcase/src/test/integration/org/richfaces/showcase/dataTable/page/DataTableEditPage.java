@@ -30,31 +30,87 @@ import org.openqa.selenium.WebElement;
 public class DataTableEditPage {
 
     @FindByJQuery("input[value=Delete]:visible")
-    public WebElement deleteButtonInpopup;
+    private WebElement deleteButtonInpopup;
+
     @FindByJQuery("input[value=Cancel]:visible")
-    public WebElement cancelButtonInpopup;
+    private WebElement cancelButtonInpopup;
+
     @FindByJQuery("input[value=Store]:visible")
-    public WebElement storeButtonInpopup;
+    private WebElement storeButtonInpopup;
 
     @FindByJQuery("table[id$=editGrid] tbody tr:eq(0) td:eq(1)")
-    public WebElement vendorpopup;
+    private WebElement vendorpopup;
+
     @FindByJQuery("table[id$=editGrid] tbody tr:eq(1) td:eq(1)")
-    public WebElement modelpopup;
+    private WebElement modelpopup;
+
     @FindByJQuery("input[id$=price]")
-    public WebElement priceInputpopup;
+    private WebElement priceInputpopup;
+
     @FindByJQuery("input[id$=mage]")
-    public WebElement mileageInputpopup;
+    private WebElement mileageInputpopup;
+
     @FindByJQuery("input[id$=vin]")
-    public WebElement vinInputpopup;
+    private WebElement vinInputpopup;
 
     @FindByJQuery("span[id$=price] span")
-    public WebElement errorMsgPrice;
+    private WebElement errorMsgPrice;
+
     @FindByJQuery("span[id$=mage] span")
-    public WebElement errorMsgMileage;
+    private WebElement errorMsgMileage;
+
     @FindByJQuery("span[id$=vin] span")
-    public WebElement errorMsgVin;
+    private WebElement errorMsgVin;
 
     @FindByJQuery("tbody[class=rf-dt-b]")
-    public WebElement table;
+    private WebElement table;
+
+    public WebElement getDeleteButtonInpopup() {
+        return deleteButtonInpopup;
+    }
+
+    public WebElement getCancelButtonInpopup() {
+        return cancelButtonInpopup;
+    }
+
+    public WebElement getStoreButtonInpopup() {
+        return storeButtonInpopup;
+    }
+
+    public WebElement getVendorpopup() {
+        return vendorpopup;
+    }
+
+    public WebElement getModelpopup() {
+        return modelpopup;
+    }
+
+    public WebElement getPriceInputpopup() {
+        return priceInputpopup;
+    }
+
+    public WebElement getMileageInputpopup() {
+        return mileageInputpopup;
+    }
+
+    public WebElement getVinInputpopup() {
+        return vinInputpopup;
+    }
+
+    public WebElement getErrorMsgPrice() {
+        return errorMsgPrice;
+    }
+
+    public WebElement getErrorMsgMileage() {
+        return errorMsgMileage;
+    }
+
+    public WebElement getErrorMsgVin() {
+        return errorMsgVin;
+    }
+
+    public WebElement getTable() {
+        return table;
+    }
 
 }

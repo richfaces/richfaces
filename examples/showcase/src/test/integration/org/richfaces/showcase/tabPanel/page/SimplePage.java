@@ -30,11 +30,24 @@ import org.openqa.selenium.WebElement;
 public class SimplePage {
 
     @FindByJQuery("div[class='rf-tab']:visible")
-    public WebElement panelBody;
+    private WebElement panelBody;
 
     @FindByJQuery("fieldset[class='example-cnt'] td[class*=rf-tab-hdr]:visible:eq(1)")
-    public WebElement firstTabButton;
+    private WebElement firstTabButton;
 
     @FindByJQuery("fieldset[class='example-cnt'] td[class*=rf-tab-hdr]:visible:eq(3)")
-    public WebElement secondTabButton;
+    private WebElement secondTabButton;
+
+    public WebElement getPanelBody() {
+        return panelBody;
+    }
+
+    public WebElement getFirstTabButton() {
+        return firstTabButton;
+    }
+
+    public WebElement getSecondTabButton() {
+        return secondTabButton;
+    }
+
 }

@@ -60,7 +60,7 @@ public class ITestTableStyling extends AbstractDataIterationWithCars {
 
     private boolean isAllRowsHighLightedWhenMouseIsOverThem() {
 
-        List<WebElement> trs = page.tbody.findElements(By.tagName("tr"));
+        List<WebElement> trs = page.getTbody().findElements(By.tagName("tr"));
 
         for (Iterator<WebElement> i = trs.iterator(); i.hasNext();) {
 

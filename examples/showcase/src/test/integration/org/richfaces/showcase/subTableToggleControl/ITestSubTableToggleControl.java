@@ -50,21 +50,21 @@ public class ITestSubTableToggleControl extends AbstractDataIterationWithCars {
     @Test
     public void testTogglers() {
 
-        checkTogglersFunctionality(page.chevroletToggler, page.bodyOfChevroletSubtable);
+        checkTogglersFunctionality(page.getChevroletToggler(), page.getBodyOfChevroletSubtable());
 
-        checkTogglersFunctionality(page.gMCToggler, page.bodyOfGMCSubtable);
+        checkTogglersFunctionality(page.getgMCToggler(), page.getBodyOfGMCSubtable());
 
-        checkTogglersFunctionality(page.nissanToggler, page.bodyOfNissanSubtable);
+        checkTogglersFunctionality(page.getNissanToggler(), page.getBodyOfNissanSubtable());
     }
 
     @Test
     public void testTotalCountOfCars() {
 
-        checksCountingOfRows(page.chevroletToggler, page.bodyOfChevroletSubtable);
+        checksCountingOfRows(page.getChevroletToggler(), page.getBodyOfChevroletSubtable());
 
-        checksCountingOfRows(page.gMCToggler, page.bodyOfGMCSubtable);
+        checksCountingOfRows(page.getgMCToggler(), page.getBodyOfGMCSubtable());
 
-        checksCountingOfRows(page.nissanToggler, page.bodyOfNissanSubtable);
+        checksCountingOfRows(page.getNissanToggler(), page.getBodyOfNissanSubtable());
     }
 
     /* *******************************************************************************************************************

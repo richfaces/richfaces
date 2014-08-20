@@ -42,13 +42,13 @@ public class ITestFunctions extends AbstractWebDriverTest {
     public void testFunctionFindComponentCall() {
         String testString = "test string";
         waitModel().until()
-                .element(page.input)
+                .element(page.getInput())
                 .is()
                 .visible();
-        page.input.sendKeys(testString);
-        page.input.sendKeys(Keys.ENTER);
+        page.getInput().sendKeys(testString);
+        page.getInput().sendKeys(Keys.ENTER);
         waitModel().until("The output should be test string")
-                .element(page.output)
+                .element(page.getOutput())
                 .text()
                 .equalTo(testString);
     }

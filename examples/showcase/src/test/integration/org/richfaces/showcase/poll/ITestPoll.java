@@ -45,7 +45,7 @@ public class ITestPoll extends AbstractPollTest {
         List<Integer> deviations = new ArrayList<Integer>();
         Integer deviation = null;
         for (int i = 0; i < 5; i++) {
-            deviation = waitForServerActionAndReturnDeviation(page.serverDate, "poll");
+            deviation = waitForServerActionAndReturnDeviation(page.getServerDate(), "poll");
             deviations.add(deviation);
         }
         Collections.sort(deviations);

@@ -30,11 +30,24 @@ import org.openqa.selenium.WebElement;
 public class SimplePage {
 
     @FindByJQuery("div[id$='tabs'] > div:eq(0)")
-    public WebElement toggleTab1;
+    private WebElement toggleTab1;
 
     @FindByJQuery("div[id$='tabs'] > div:eq(1)")
-    public WebElement toggleTab2;
+    private WebElement toggleTab2;
 
     @FindByJQuery("div[class='rf-tgp-itm']:visible")
-    public WebElement panelContent;
+    private WebElement panelContent;
+
+    public WebElement getToggleTab1() {
+        return toggleTab1;
+    }
+
+    public WebElement getToggleTab2() {
+        return toggleTab2;
+    }
+
+    public WebElement getPanelContent() {
+        return panelContent;
+    }
+
 }

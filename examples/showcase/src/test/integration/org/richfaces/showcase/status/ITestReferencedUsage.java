@@ -36,14 +36,14 @@ public class ITestReferencedUsage extends TestUsage {
 
     @Test
     public void testUserNameAndAjaxRequestProgressImage() {
-        page.userNameInput.sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.firstAjaxRequestProgressImage);
+        page.getUserNameInput().sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(page.getFirstAjaxRequestProgressImage());
     }
 
     @Test
     public void testAddressAndAjaxRequestProgressImage() {
-        page.addressInput.sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.secondAjaxRequestProgressImage);
+        page.getAddressInput().sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(page.getSecondAjaxRequestProgressImage());
     }
 
 }

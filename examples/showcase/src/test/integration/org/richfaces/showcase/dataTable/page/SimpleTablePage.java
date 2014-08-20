@@ -33,8 +33,10 @@ public class SimpleTablePage {
     // Subtables
     @FindBy(xpath = "//tbody[@class='rf-cst'][1]/tr[4]")
     private WebElement sanJoseSubtable;
+    
     @FindBy(xpath = "//tbody[@class='rf-cst'][2]/tr[4]")
     private WebElement seattleSubtable;
+    
     @FindBy(xpath = "//tfoot/tr")
     private WebElement footSubtable;
 

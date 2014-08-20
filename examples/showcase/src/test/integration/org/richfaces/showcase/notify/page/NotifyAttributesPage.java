@@ -44,14 +44,19 @@ public class NotifyAttributesPage extends NotifyPage {
 
     @FindByJQuery(".rf-insl-inp:eq(0)")
     private WebElement inputForStayTime;
+    
     @FindByJQuery("input[type=checkbox]:eq(0)")
     private WebElement stickyCheckBox;
+    
     @FindByJQuery("input[type=checkbox]:eq(1)")
     private WebElement nonBlockingCheckBox;
+    
     @FindByJQuery("input[type=checkbox]:eq(2)")
     private WebElement showShadowCheckBox;
+    
     @FindByJQuery("input[type=checkbox]:eq(3)")
     private WebElement showCloseButtonCheckBox;
+    
     @FindByJQuery(".rf-insl-inp:eq(1)")
     private WebElement nonBlockingOpacityInput;
 

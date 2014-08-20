@@ -30,10 +30,24 @@ import org.openqa.selenium.WebElement;
 public class SkinChangePage {
 
     @FindByJQuery("fieldset form a:first")
-    public WebElement deepMarineSkin;
+    private WebElement deepMarineSkin;
+
     @FindByJQuery("fieldset form a:last")
-    public WebElement blueSky;
+    private WebElement blueSky;
+
     @FindByJQuery("div[class$=right-controls] ul li[class$=current-skin]")
-    public WebElement currentSkin;
+    private WebElement currentSkin;
+
+    public WebElement getDeepMarineSkin() {
+        return deepMarineSkin;
+    }
+
+    public WebElement getBlueSky() {
+        return blueSky;
+    }
+
+    public WebElement getCurrentSkin() {
+        return currentSkin;
+    }
 
 }

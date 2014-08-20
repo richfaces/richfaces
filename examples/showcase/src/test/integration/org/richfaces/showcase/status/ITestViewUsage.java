@@ -36,26 +36,26 @@ public class ITestViewUsage extends TestUsage {
 
     @Test
     public void testUserNameAndImagePresentionOfAjaxProgress() {
-        page.userNameInput.sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getUserNameInput().sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
     }
 
     @Test
     public void testAddressAndImagePresentionOfAjaxProgress() {
-        page.addressInput.sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getAddressInput().sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
     }
 
     @Test
     public void testSumbitForUserDetailsAndImagePresentionOfAjaxProgress() {
-        page.submitButton.click();
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getSubmitButton().click();
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
     }
 
     @Test
     public void testSubmitForSearchPanelAndImagePresentionOfAjaxProgress() {
-        page.searchButton.click();
-        assertProgressPictureAppearsOnAjaxRequest(page.progressImage);
+        page.getSearchButton().click();
+        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
     }
 
 }

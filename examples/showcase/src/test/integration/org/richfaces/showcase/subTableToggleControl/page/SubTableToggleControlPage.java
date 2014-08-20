@@ -30,17 +30,45 @@ import org.openqa.selenium.WebElement;
 public class SubTableToggleControlPage {
 
     @FindByJQuery("span.rf-csttg:eq(0)")
-    public WebElement chevroletToggler;
+    private WebElement chevroletToggler;
+
     @FindByJQuery("span.rf-csttg:eq(2)")
-    public WebElement gMCToggler;
+    private WebElement gMCToggler;
+
     @FindByJQuery("span.rf-csttg:eq(4)")
-    public WebElement nissanToggler;
+    private WebElement nissanToggler;
 
     @FindByJQuery("tbody.rf-cst:eq(0)")
-    public WebElement bodyOfChevroletSubtable;
+    private WebElement bodyOfChevroletSubtable;
+
     @FindByJQuery("tbody.rf-cst:eq(2)")
-    public WebElement bodyOfGMCSubtable;
+    private WebElement bodyOfGMCSubtable;
+
     @FindByJQuery("tbody.rf-cst:eq(4)")
-    public WebElement bodyOfNissanSubtable;
+    private WebElement bodyOfNissanSubtable;
+
+    public WebElement getChevroletToggler() {
+        return chevroletToggler;
+    }
+
+    public WebElement getgMCToggler() {
+        return gMCToggler;
+    }
+
+    public WebElement getNissanToggler() {
+        return nissanToggler;
+    }
+
+    public WebElement getBodyOfChevroletSubtable() {
+        return bodyOfChevroletSubtable;
+    }
+
+    public WebElement getBodyOfGMCSubtable() {
+        return bodyOfGMCSubtable;
+    }
+
+    public WebElement getBodyOfNissanSubtable() {
+        return bodyOfNissanSubtable;
+    }
 
 }

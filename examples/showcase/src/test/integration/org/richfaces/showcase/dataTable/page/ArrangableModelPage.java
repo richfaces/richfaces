@@ -37,20 +37,25 @@ public class ArrangableModelPage {
     private WebDriver webDriver;
 
     @FindByJQuery("input[type=text]:eq(0)")
-    public WebElement firstNameFilterInput;
-    @FindByJQuery("input[type=text]:eq(1)")
-    public WebElement secondNameFilterInput;
-    @FindByJQuery("input[type=text]:eq(2)")
-    public WebElement emailFilterInput;
-    @FindBy(css="tbody.rf-dt-b")
-    public WebElement table;
-    @FindByJQuery("a:contains(ascending)")
-    public WebElement ascendingLink;
-    @FindByJQuery("a:contains(descending)")
-    public WebElement descendingLink;
+    private WebElement firstNameFilterInput;
 
-    @FindBy(id="footer")
-    public WebElement toBlur;
+    @FindByJQuery("input[type=text]:eq(1)")
+    private WebElement secondNameFilterInput;
+
+    @FindByJQuery("input[type=text]:eq(2)")
+    private WebElement emailFilterInput;
+
+    @FindBy(css = "tbody.rf-dt-b")
+    private WebElement table;
+
+    @FindByJQuery("a:contains(ascending)")
+    private WebElement ascendingLink;
+
+    @FindByJQuery("a:contains(descending)")
+    private WebElement descendingLink;
+
+    @FindBy(id = "footer")
+    private WebElement toBlur;
 
     public WebElement getFirstRowSomeColumn(int column) {
         return table.findElement(ByJQuery.selector(String.format("tr:eq(0) > td:eq(%s)", column)));
@@ -60,6 +65,38 @@ public class ArrangableModelPage {
         // these are links for filtering rows in a ascending, descending way
         // 0 is for first name column, 1 surname, 2 email
         return webDriver.findElement(ByJQuery.selector(String.format("a[onClick*='RichFaces']:eq(%s)", column)));
+    }
+
+    public WebDriver getWebDriver() {
+        return webDriver;
+    }
+
+    public WebElement getFirstNameFilterInput() {
+        return firstNameFilterInput;
+    }
+
+    public WebElement getSecondNameFilterInput() {
+        return secondNameFilterInput;
+    }
+
+    public WebElement getEmailFilterInput() {
+        return emailFilterInput;
+    }
+
+    public WebElement getTable() {
+        return table;
+    }
+
+    public WebElement getAscendingLink() {
+        return ascendingLink;
+    }
+
+    public WebElement getDescendingLink() {
+        return descendingLink;
+    }
+
+    public WebElement getToBlur() {
+        return toBlur;
     }
 
 }

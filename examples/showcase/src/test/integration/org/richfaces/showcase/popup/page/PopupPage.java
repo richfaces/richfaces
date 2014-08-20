@@ -31,14 +31,47 @@ import org.openqa.selenium.support.FindBy;
 public class PopupPage {
 
     @FindByJQuery("input[type='submit']:eq(0)")
-    public WebElement callthePopupButton;
+    private WebElement callthePopupButton;
 
     @FindByJQuery("td[class*='gutter']:visible")
-    public WebElement sourceOfPage;
+    private WebElement sourceOfPage;
 
     @FindBy(css = "a[class*='show']")
-    public WebElement anchorOfSource;
+    private WebElement anchorOfSource;
 
     @FindByJQuery("div[id$='popup_content']")
-    public WebElement popupPanelContent;
+    private WebElement popupPanelContent;
+
+    public WebElement getCallthePopupButton() {
+        return callthePopupButton;
+    }
+
+    public void setCallthePopupButton(WebElement callthePopupButton) {
+        this.callthePopupButton = callthePopupButton;
+    }
+
+    public WebElement getSourceOfPage() {
+        return sourceOfPage;
+    }
+
+    public void setSourceOfPage(WebElement sourceOfPage) {
+        this.sourceOfPage = sourceOfPage;
+    }
+
+    public WebElement getAnchorOfSource() {
+        return anchorOfSource;
+    }
+
+    public void setAnchorOfSource(WebElement anchorOfSource) {
+        this.anchorOfSource = anchorOfSource;
+    }
+
+    public WebElement getPopupPanelContent() {
+        return popupPanelContent;
+    }
+
+    public void setPopupPanelContent(WebElement popupPanelContent) {
+        this.popupPanelContent = popupPanelContent;
+    }
+
 }
