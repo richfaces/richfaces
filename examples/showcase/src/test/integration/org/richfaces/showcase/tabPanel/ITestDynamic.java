@@ -21,10 +21,13 @@
  *******************************************************************************/
 package org.richfaces.showcase.tabPanel;
 
+import category.Smoke;
+
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.tabPanel.page.DynamicTabsPage;
 
@@ -38,6 +41,7 @@ public class ITestDynamic extends AbstractWebDriverTest {
     private DynamicTabsPage page;
 
     @Test
+    @Category(Smoke.class)
     public void testTabs() {
         assertEquals("There is not enough tabs generated!", DynamicTabsPage.NUM_OF_TABS, page.getTabPanel().getNumberOfTabs());
         page.iterateOverTabsAndAssert();

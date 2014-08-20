@@ -21,9 +21,11 @@
  *******************************************************************************/
 package org.richfaces.showcase.ajax;
 
+import category.Smoke;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.ajax.page.AjaxPage;
 
@@ -42,6 +44,7 @@ public class ITestAjax extends AbstractWebDriverTest {
      */
 
     @Test
+    @Category(Smoke.class)
     public void testTypeSomeStringToTheInputAndCheckTheOutput() {
         page.input.click();
         page.input.clear();

@@ -21,11 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.message;
 
+import category.Smoke;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.message.page.MessagePage;
@@ -59,6 +62,7 @@ public class ITestMessage extends AbstractWebDriverTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testEmptyInputs() {
         page.eraseAll();
         page.validate();

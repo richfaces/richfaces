@@ -21,13 +21,14 @@
  *******************************************************************************/
 package org.richfaces.showcase.autocomplete;
 
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import category.Smoke;
+
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
-import org.openqa.selenium.Keys;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.showcase.AbstractWebDriverTest;
@@ -46,6 +47,7 @@ public class ITestClientFilter extends AbstractWebDriverTest {
     private Actions actions;
 
     @Test
+    @Category(Smoke.class)
     public void testClientFilterFunctionContains() {
         page.getAutocomplete()
             .type("ska")
