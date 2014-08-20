@@ -2,11 +2,11 @@ package org.richfaces.renderkit.html;
 
 import static org.easymock.EasyMock.expect;
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
-import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,7 +63,6 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
      *
      * @throws Exception
      */
-    @SuppressWarnings("unchecked")
     @Test
     public void testCreateValidatorScriptNoConverter() throws Exception {
         ClientValidatorRenderer renderer = createStubRenderer(null, createValidatorFunction());

@@ -1,8 +1,8 @@
 package org.richfaces.component;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.matchers.JUnitMatchers.containsString;
 
 import java.io.IOException;
 
