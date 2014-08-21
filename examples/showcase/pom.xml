@@ -75,7 +75,7 @@
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
