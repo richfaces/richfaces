@@ -11,7 +11,7 @@
  * Modified by: RichFaces team
  */
 
-(function($) {
+(function($, rf) {
     var history_handle_top, timer;
     var body;
     var jwindow;
@@ -745,4 +745,4 @@
         // The stack on which the notices will be placed. Also controls the direction the notices stack.
         pnotify_stack: {"dir1": "down", "dir2": "left", "push": "bottom"}
     };
-})(jQuery);
+})(jQuery, RichFaces);
