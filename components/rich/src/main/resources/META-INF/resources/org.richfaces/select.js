@@ -77,12 +77,17 @@
         if (!clientSelectItems) {
             clientSelectItems = [];
         }
-        this.clientSelectItems = clientSelectItems;
+        if (clientSelectItems.length || (!this.options.isAutocomplete && !this.options.isCachedAjax)) {
+            // do no empty if autocomplete/caching is on
+            this.clientSelectItems = clientSelectItems;
+        }
+        
         this.originalItems = this.list.__updateItemsList();
         this.list.__storeClientSelectItems(clientSelectItems);
         if (this.originalItems.length > 0) {
             this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.originalItems, getData, !this.options.ajaxMode);
         }
+        
     };
 
     var getData = function (nodeList) {
@@ -112,7 +117,7 @@
             },
 
             __onBtnMouseDown: function(e) {
-                if (!this.popupList.isVisible()) {
+                if (!this.popupList.isVisible() && !this.options.isAutocomplete) {
                     this.__updateItems();
                     this.__showPopup();
                 } else {
@@ -197,7 +202,8 @@
                 this.previousValue = newValue;
                 if (!this.options.isAutocomplete ||
                     (this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
-                    this.__updateItems();
+                    this.__updateItemsFromCache(newValue, true);
+                    this.originalItems = this.list.__getItems();
 
                     if (this.list.__getItems().length != 0) {
                         this.container.removeClass("rf-sel-fld-err");
@@ -286,8 +292,8 @@
                 }
             },
 
-            __updateItemsFromCache: function(value) {
-                if (this.originalItems.length > 0 && this.enableManualInput) {
+            __updateItemsFromCache: function(value, isAutocomplete) {
+                if (this.originalItems.length > 0 && this.enableManualInput || isAutocomplete) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__unselectPrevious();
