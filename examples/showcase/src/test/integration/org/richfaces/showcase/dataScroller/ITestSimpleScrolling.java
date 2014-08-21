@@ -55,7 +55,7 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         Graphene.guardAjax(page.getLastPageButton()).click();
         Car carBeforeClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
         // click on the first page
-        Graphene.guardAjax(page.getFirstRowOfTable()).click();
+        Graphene.guardAjax(page.getFirstPageButton()).click();
         Car carAfterClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
 
         // check

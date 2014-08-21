@@ -29,10 +29,13 @@ import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.jsFunction.page.JsFunctionPage;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -57,7 +60,8 @@ public class ITestJsFunction extends AbstractWebDriverTest {
 
     @Test
     public void testInitialState() {
-        assertEquals("The text in output should be empty", "", page.getOutput().getText().trim());
+        webDriver.findElement(By.tagName("body")).click();
+        Graphene.waitAjax().until().element(page.getOutput()).text().equalTo("");
     }
 
     @Test

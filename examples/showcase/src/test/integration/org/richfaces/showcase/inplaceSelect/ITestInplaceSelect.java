@@ -30,6 +30,9 @@ import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceSelect.page.SimplePage;
 
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
