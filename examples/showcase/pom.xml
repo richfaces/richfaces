@@ -220,6 +220,15 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <configuration>
+                            <!--  there are no unit tests -->
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
