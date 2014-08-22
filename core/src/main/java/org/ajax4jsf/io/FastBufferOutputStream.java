@@ -72,7 +72,7 @@ public class FastBufferOutputStream extends OutputStream {
     }
 
     /**
-     * @see java.io.OutputStream#write(int c)
+     * @see java.io.OutputStream#write(int)
      */
     public void write(int c) throws IOException {
         lastBuffer = lastBuffer.append((byte) c);
@@ -80,7 +80,7 @@ public class FastBufferOutputStream extends OutputStream {
     }
 
     /**
-     * @see java.io.OutputStream#write(byte b[])
+     * @see java.io.OutputStream#write(byte [])
      */
     public void write(byte[] b) throws IOException {
         if (b == null) {
@@ -94,7 +94,7 @@ public class FastBufferOutputStream extends OutputStream {
     }
 
     /**
-     * @see java.io.OutputStream#write(byte[] b, int off, int len)
+     * @see java.io.OutputStream#write(byte[], int, int)
      */
     public void write(byte[] b, int off, int len) throws IOException {
         if (b == null) {

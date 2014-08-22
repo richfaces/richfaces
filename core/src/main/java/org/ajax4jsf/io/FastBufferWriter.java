@@ -73,7 +73,7 @@ public class FastBufferWriter extends Writer {
     }
 
     /**
-     * @see java.io.Writer#write(int c)
+     * @see java.io.Writer#write(int)
      */
     public void write(int c) throws IOException {
         lastBuffer = lastBuffer.append((char) c);
@@ -81,7 +81,7 @@ public class FastBufferWriter extends Writer {
     }
 
     /**
-     * @see java.io.Writer#write(char cbuf[])
+     * @see java.io.Writer#write(char[])
      */
     public void write(char[] cbuf) throws IOException {
         if (cbuf == null) {
@@ -93,7 +93,7 @@ public class FastBufferWriter extends Writer {
     }
 
     /**
-     * @see java.io.Writer#write(char cbuf[], int off, int len)
+     * @see java.io.Writer#write(char[], int, int)
      */
     public void write(char[] cbuf, int off, int len) throws IOException {
         if (cbuf == null) {
@@ -196,7 +196,7 @@ public class FastBufferWriter extends Writer {
      * Returns instance of FastBufferOutputStream containing all data written to this writer.
      *
      * @param encoding
-     * @return
+     * @return instance of FastBufferOutputStream containing all data written to this writer
      * @throws UnsupportedEncodingException
      */
     public FastBufferOutputStream convertToOutputStream(String encoding) throws UnsupportedEncodingException {
@@ -223,7 +223,7 @@ public class FastBufferWriter extends Writer {
     /**
      * Returns instance of FastBufferOutputStream containing all data written to this writer.
      *
-     * @return
+     * @return instance of FastBufferOutputStream containing all data written to this writer
      */
     public FastBufferOutputStream convertToOutputStream() {
         CharBuffer c = firstBuffer;

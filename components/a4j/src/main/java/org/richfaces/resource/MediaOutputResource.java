@@ -93,10 +93,6 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
         fileName = (String) state[4];
     }
 
-    /**
-     * @param uiMediaOutput
-     */
-
     // TODO use ResourceComponent or exchange object as argument?
     @PostConstructResource
     public void initialize() {

@@ -63,8 +63,8 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
      *
      * @param defaultValue the defaultValue to set
      */
-    public void setDefaultValue(Object dafaultValue) {
-        this.defaultValue = dafaultValue;
+    public void setDefaultValue(Object defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     /**

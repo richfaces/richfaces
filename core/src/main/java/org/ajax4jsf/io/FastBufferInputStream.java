@@ -87,7 +87,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream#read(byte b[])
+     * @see java.io.InputStream#read(byte [])
      */
     @Override
     public int read(byte[] b) throws IOException {
@@ -128,7 +128,7 @@ public class FastBufferInputStream extends InputStream {
     }
 
     /**
-     * @see java.io.InputStream#read(byte b[], int off, int len)
+     * @see java.io.InputStream#read(byte [], int, int)
      */
     @Override
     public int read(byte[] b, int off, int len) throws IOException {

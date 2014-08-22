@@ -581,7 +581,6 @@ public class RendererUtils {
     /**
      * @param context
      * @param component
-     * @return
      * @throws IOException
      */
     public void encodeBeginFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
@@ -672,7 +671,7 @@ public class RendererUtils {
     }
 
     /**
-     * Simplified version of {@link encodeId}
+     * Simplified version of {@link encodeId(FacesContext, UIComponent)}
      *
      * @param context
      * @param component
