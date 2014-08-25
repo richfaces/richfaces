@@ -48,7 +48,7 @@ public class AbstractShowcaseTest {
 
     protected URL getContextRoot() {
 
-        String isHTTPTesting = System.getenv("HTTPStesting");
+        String isHTTPTesting = System.getenv("HTTPS_TESTING");
 
         if (isHTTPTesting != null && isHTTPTesting.equals("true")) {
             try {
