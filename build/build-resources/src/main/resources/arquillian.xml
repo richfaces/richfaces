@@ -91,6 +91,14 @@
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
         </configuration>
     </container>
+    
+    <extension qualifier="selenium-server">
+        <property name="port">8444</property>
+        <property name="firefoxProfileTemplate">${firefoxProfileTemplate}</property>
+        <property name="trustStore">${trustStore}</property>
+        <property name="trustStorePassword">abc123</property>
+	<property name="trustAllSSLCertificates">true</property>
+    </extension>
 
     <extension qualifier="webdriver">
         <property name="javascriptEnabled">true</property>

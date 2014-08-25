@@ -444,6 +444,10 @@
                 <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
                 <arquillian.launch.tomee16>false</arquillian.launch.tomee16>
                 <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
+                
+                <!-- HTTPS testing -->
+                <firefoxProfileTemplate />
+                <trustStore />
 
                 <!-- JUnit Categories Selection -->
                 <testCategory.included.default>NOT category.None</testCategory.included.default>
@@ -723,6 +727,41 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-managed-8-1-https</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly81-https</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-wildfly81-https:${version.richfaces}</arquillian.container.configuration>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>${version.wildfly81}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <environmentVariables>
+                                <HTTPS_TESTING>true</HTTPS_TESTING>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>wildfly-remote-8-1</id>
