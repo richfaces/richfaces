@@ -25,8 +25,6 @@
         <container.webapp>src/main/webapp-tomcat</container.webapp>
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
-        <version.gae>1.5.4</version.gae>
-        <version.gae.plugin>0.9.1</version.gae.plugin>
         <mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</mojarra.excluded.libraries>
         <myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</myfaces.excluded.libraries>
         <jee6.excluded.libraries>
@@ -392,113 +390,6 @@
             </properties>
         </profile>
         <profile>
-            <id>gae</id>
-            <properties>
-                <container.classifier>gae</container.classifier>
-                <container.resources>src/main/resources-gae</container.resources>
-                <container.webapp>src/main/webapp-gae</container.webapp>
-                <dependency.scope>provided</dependency.scope>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.atmosphere</groupId>
-                    <artifactId>atmosphere-runtime</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.web</groupId>
-                    <artifactId>el-impl</artifactId>
-                    <version>2.1.2-b04</version>
-                </dependency>
-                <dependency>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                    <version>2.1.2-b04</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.geronimo.specs</groupId>
-                    <artifactId>geronimo-jta_1.1_spec</artifactId>
-                    <version>1.1.1</version>
-                </dependency>
-                <dependency>
-                    <groupId>xalan</groupId>
-                    <artifactId>xalan</artifactId>
-                    <version>2.7.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>xerces</groupId>
-                    <artifactId>xercesImpl</artifactId>
-                    <version>2.9.1</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <version>2.0.3-b03</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <version>2.0.3-b03</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/push/**/*.*</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.kindleit</groupId>
-                        <artifactId>maven-gae-plugin</artifactId>
-                        <version>${version.gae.plugin}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>net.kindleit</groupId>
-                                <artifactId>gae-runtime</artifactId>
-                                <version>${version.gae}</version>
-                                <type>pom</type>
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>com.google.appengine.orm</groupId>
-                                        <artifactId>jdo2-api</artifactId>
-                                    </exclusion>
-                                </exclusions>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/main/java-gae</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>release</id>
             <activation>
                 <property>
@@ -782,33 +673,6 @@
                                     </classesDirectory>
                                     <classifier>sources</classifier>
                                 </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>unpack-gae-sdk</id>
-            <dependencies>
-                <dependency>
-                    <groupId>com.google.appengine</groupId>
-                    <artifactId>appengine-java-sdk</artifactId>
-                    <version>${gae.version}</version>
-                    <type>zip</type>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>net.kindleit</groupId>
-                        <artifactId>maven-gae-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

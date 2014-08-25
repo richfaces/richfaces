@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<cronentries>
-    <cron>
-        <url>/_ah/sessioncleanup?clear</url>
-        <description>Clean up sessions</description>
-        <schedule>every 5 minutes</schedule>
-    </cron>
-</cronentries>
