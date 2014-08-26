@@ -19,7 +19,7 @@
     <h:form id="form">
         <rich:dataTable value="#{carsBean.allInventoryItems}" var="car" id="table" rows="20" rowClasses="odd-row, even-row"
             styleClass="stable">
-            <rich:column accept="#{carsFiteringBean.acceptVendor}">
+            <rich:column filter="#{carsFilteringBean.filterVendorImpl}" filterValue="#{carsFilteringBean.vendorFilter}">
                 <f:facet name="header">
                     <h:outputText value="Vendor " />
                 </f:facet>
@@ -37,7 +37,7 @@
                 </f:facet>
                 <h:outputText value="#{car.price}" />
             </rich:column>
-            <rich:column filter="#{carsFilteringBean.mileageFilterImpl}">
+            <rich:column filter="#{carsFilteringBean.mileageFilterImpl}" filterValue="#{carsFilteringBean.mileageFilter}">
                 <f:facet name="header">
                     <h:outputText value="Mileage" />
                 </f:facet>
@@ -52,8 +52,6 @@
         </rich:dataTable>
     </h:form>
 
-    <rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
-    <rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
     <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
     <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
 

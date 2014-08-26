@@ -33,7 +33,7 @@ public class CarsFilteringBean implements Serializable {
         };
     }
 
-    public Filter<?> getFilterVendor() {
+    public Filter<?> getFilterVendorImpl() {
         return new Filter<InventoryItem>() {
             public boolean accept(InventoryItem t) {
                 String vendor = getVendorFilter();
