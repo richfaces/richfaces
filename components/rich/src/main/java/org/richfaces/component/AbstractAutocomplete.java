@@ -324,7 +324,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
             }
             result = new ListDataModel(temp);
         } else {
-            result = new ListDataModel(null);
+            result = new ListDataModel();
         }
 
         return result;
