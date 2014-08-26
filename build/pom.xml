@@ -70,7 +70,7 @@
         <version.org.glassfish.javax.faces>2.2.6</version.org.glassfish.javax.faces>
         <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>2.2.6</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>
         <version.org.jboss.javax.faces.jsf-impl>2.2.6-jbossorg-4</version.org.jboss.javax.faces.jsf-impl>
-        <version.myfaces>2.1.10</version.myfaces>
+        <version.myfaces>2.2.4</version.myfaces>
 
         <!-- Push Dependencies -->
         <version.atmosphere>2.2.0</version.atmosphere>
