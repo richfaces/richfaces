@@ -79,7 +79,7 @@ public class AjaxOutputTracker implements SystemEventListener {
      */
     static Collection<UIComponent> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
         final Collection<String> childrenIds = getDirectChildrenIds(component);
-        final Set<UIComponent> ajaxOutputs = new HashSet<>();
+        final Set<UIComponent> ajaxOutputs = new HashSet<UIComponent>();
 
         if (childrenIds != null) {
             for (String childId : childrenIds) {

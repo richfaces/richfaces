@@ -78,7 +78,7 @@ public class FileUploadRendererBase extends RendererBase {
 
     private Iterable<UploadedFile> initializeUploadedFiles(ExternalContext context, HttpServletRequest request, String uploadId) {
         try {
-            List<UploadedFile> files = new LinkedList<>();
+            List<UploadedFile> files = new LinkedList<UploadedFile>();
 
               // check if Servlet 3.0+ is being used
             if (request.getParts().size() > 0) {
