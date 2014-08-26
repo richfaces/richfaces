@@ -121,6 +121,7 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         if (inplaceComponent.isDisabled()) {
             style = concatClasses(style, getDisableStateCss(inplaceComponent));
         }
+        style = concatClasses(style, component.getAttributes().get("placeHolderStyleClass"));
         return style;
     }
 
