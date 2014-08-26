@@ -11,8 +11,8 @@
   rf.push = {
 
     options: {
-      transport: "long-polling",
-      fallbackTransport: undefined,
+      transport: "websocket",
+      fallbackTransport: "long-polling",
       logLevel: "info"
     },
 
