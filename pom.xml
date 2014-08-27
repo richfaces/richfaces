@@ -41,6 +41,7 @@
         <module>build/build-resources</module>
         <module>build/page-fragments</module>
         <module>build/push-depchain</module>
+        <module>build/push-native-depchain</module>
         <module>build/resource-optimizer-plugin</module>
 
         <module>core</module>
