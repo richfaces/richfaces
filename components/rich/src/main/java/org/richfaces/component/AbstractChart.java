@@ -49,7 +49,12 @@ import org.richfaces.component.attribute.CoreProps;
  *
  * @author Lukas Macko
  */
-@JsfComponent(type= AbstractChart.COMPONENT_TYPE,family = AbstractChart.COMPONENT_FAMILY,tag = @Tag(name="chart",handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets), renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
+@JsfComponent(
+        type= AbstractChart.COMPONENT_TYPE,
+        family = AbstractChart.COMPONENT_FAMILY,
+        tag = @Tag(name="chart",handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets),
+        renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE),
+        fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
 public abstract class AbstractChart extends UIComponentBase implements CoreProps {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Chart";
