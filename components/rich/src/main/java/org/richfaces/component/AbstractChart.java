@@ -45,6 +45,8 @@ import org.richfaces.component.attribute.CoreProps;
 
 
 /**
+ * A component used to generate visual charts.
+ *
  * @author Lukas Macko
  */
 @JsfComponent(type= AbstractChart.COMPONENT_TYPE,family = AbstractChart.COMPONENT_FAMILY,tag = @Tag(name="chart",handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets), renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
