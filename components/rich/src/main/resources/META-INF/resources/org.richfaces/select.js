@@ -202,7 +202,7 @@
                 this.previousValue = newValue;
                 if (!this.options.isAutocomplete ||
                     (this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
-                    this.__updateItemsFromCache(newValue, true);
+                    this.__updateItems();
                     this.originalItems = this.list.__getItems();
 
                     if (this.list.__getItems().length != 0) {
@@ -292,8 +292,8 @@
                 }
             },
 
-            __updateItemsFromCache: function(value, isAutocomplete) {
-                if (this.originalItems.length > 0 && this.enableManualInput || isAutocomplete) {
+            __updateItemsFromCache: function(value) {
+                if (this.originalItems.length > 0 && this.enableManualInput || this.isAutocomplete) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__unselectPrevious();
