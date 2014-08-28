@@ -58,7 +58,7 @@
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee16>1.5.1</version.tomee16>
+        <version.tomee17>1.7.0</version.tomee17>
         <version.glassfish40>3.1.2.2</version.glassfish40>
 
         <maven.min.version>3.0</maven.min.version>
@@ -502,7 +502,7 @@
                 
                 <!-- Container Selection -->
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
-                <arquillian.launch.tomee16>false</arquillian.launch.tomee16>
+                <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
                 <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
             </properties>
             <dependencies>
@@ -717,23 +717,23 @@
             </dependencies>
         </profile>
         <profile>
-            <id>tomee-managed-1-6</id>
+            <id>tomee-managed-1-7</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee16</value>
+                    <value>tomee17</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.tomee16>true</arquillian.launch.tomee16>
-                <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee16}</arquillian.container.home>
-                <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee16}</arquillian.container.distribution>
+                <arquillian.launch.tomee17>true</arquillian.launch.tomee17>
+                <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee17}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee17}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>${version.tomee16}</version>
+                    <version>${version.tomee17}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -754,7 +754,7 @@
                                         <artifactItem>
                                             <groupId>org.apache.openejb</groupId>
                                             <artifactId>apache-tomee</artifactId>
-                                            <version>${version.tomee16}</version>
+                                            <version>${version.tomee17}</version>
                                             <classifier>webprofile</classifier>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
@@ -769,21 +769,21 @@
             </build>
         </profile>
         <profile>
-            <id>tomee-remote-1-6</id>
+            <id>tomee-remote-1-7</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee16</value>
+                    <value>tomee17</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.tomee16>true</arquillian.launch.tomee16>
+                <arquillian.launch.tomee17>true</arquillian.launch.tomee17>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>${version.tomee16}</version>
+                    <version>${version.tomee17}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

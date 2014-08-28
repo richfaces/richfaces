@@ -74,11 +74,11 @@
         </configuration>
     </container>
 
-    <container qualifier="tomee16" default="${arquillian.launch.tomee16}">
+    <container qualifier="tomee17" default="${arquillian.launch.tomee17}">
         <configuration>
             <property name="httpPort">8080</property>
             <property name="stopPort">9005</property>
-            <property name="version">${version.tomee16}</property>
+            <property name="version">${version.tomee17}</property>
             <property name="dir">${arquillian.container.home}</property>
             <property name="appWorkingDir">target/arquillian-test-working-dir</property>
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
