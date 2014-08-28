@@ -133,7 +133,8 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
         // check what generated script contains ajax and client side scripts.
         assertThat(script,
                 allOf(containsString(JSF_AJAX_REQUEST), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
-        assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
+        Matcher<java.lang.Iterable<? super ResourceKey>> matcher = hasItem(CORE_LIBRARY_MATCHER);
+        assertThat(validatorScript.getResources(), matcher);
         assertThat(script, allOf(containsString("alert(1)"), containsString("alert(messages)")));
     }
 
@@ -170,7 +171,8 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
                 script,
                 allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR),
                         not(containsString(NUMBER_CONVERTER))));
-        assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
+        Matcher<java.lang.Iterable<? super ResourceKey>> matcher = hasItem(CORE_LIBRARY_MATCHER);
+        assertThat(validatorScript.getResources(), matcher);
     }
 
     /**
@@ -189,7 +191,8 @@ public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {
         // check what generated script contains ajax and client side scripts.
         assertThat(script,
                 allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
-        assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
+        Matcher<java.lang.Iterable<? super ResourceKey>> matcher = hasItem(CORE_LIBRARY_MATCHER);
+        assertThat(validatorScript.getResources(), matcher);
     }
 
     private LibraryScriptFunction createValidatorFunction() {

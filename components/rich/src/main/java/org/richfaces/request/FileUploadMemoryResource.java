@@ -23,8 +23,8 @@ package org.richfaces.request;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
+import com.google.common.io.Files;
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;
 
@@ -59,7 +59,7 @@ class FileUploadMemoryResource extends FileUploadResource {
     @Override
     public void write(String fileName) throws IOException {
         checkNotDeleted();
-        Files.copy(getInputStream(), getOutputFile(fileName).toPath());
+        Files.asByteSink(getOutputFile(fileName)).writeFrom(getInputStream());
     }
 
     @Override

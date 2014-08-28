@@ -22,8 +22,6 @@
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -35,6 +33,8 @@ import java.util.Set;
 import javax.faces.application.Resource;
 
 import com.google.common.io.ByteSource;
+import com.google.common.io.FileWriteMode;
+import com.google.common.io.Files;
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
@@ -121,8 +121,7 @@ public class ResourceWriterImpl implements ResourceWriter {
 
         log.debug("Opening output stream for " + outFile);
         matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource).openStream(),
-                Files.newOutputStream(outFile.toPath()), true);
-
+                Files.asByteSink(outFile).openStream(), true);
         processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
     }
 
@@ -156,7 +155,7 @@ public class ResourceWriterImpl implements ResourceWriter {
             if (!PACKED.containsKey(packagingCacheKey)) {
                 File outFile = createOutputFile(requestPathWithSkin);
                 log.debug("Opening shared output stream for " + outFile);
-                outputStream = Files.newOutputStream(outFile.toPath(), StandardOpenOption.APPEND);
+                outputStream = Files.asByteSink(outFile, FileWriteMode.APPEND).openStream();
                 PACKED.put(packagingCacheKey, outputStream);
             }
             outputStream = PACKED.get(packagingCacheKey);
