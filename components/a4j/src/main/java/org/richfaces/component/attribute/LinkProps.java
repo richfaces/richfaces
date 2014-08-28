@@ -33,6 +33,17 @@ import org.richfaces.cdk.annotations.EventName;
  */
 public interface LinkProps extends DisabledProps, EventsMouseProps, EventsKeyProps {
 
+
+    /**
+     * Javascript code executed when a pointer button is clicked over this element.
+     */
+    @Override
+    @Attribute(events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") },
+            description = @Description(
+                    value = "Javascript code executed when a pointer button is clicked over this element.",
+                    displayName = "Button Click Script"))
+    String getOnclick();
+
     /**
      * The character encoding of the resource designated by this hyperlink.
      */
