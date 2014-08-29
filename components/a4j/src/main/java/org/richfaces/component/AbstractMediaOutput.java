@@ -52,7 +52,7 @@ import org.richfaces.view.facelets.html.MediaOutputHandler;
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"))
-public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, LinkProps {
+public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, CoreProps, FocusProps, I18nProps, LinkProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
 
