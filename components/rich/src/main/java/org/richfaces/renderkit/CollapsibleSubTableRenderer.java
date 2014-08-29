@@ -196,6 +196,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         }
 
         int columnNumber = 0;
+        boolean rowEnded = false;
         while (components.hasNext()) {
             UIComponent component = components.next();
             if (component.isRendered()) {
@@ -205,6 +206,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
                     columnNumber++;
                 } else if (component instanceof AbstractCollapsibleSubTable) {
                     if (component.isRendered()) {
+                        rowEnded = true;
                         encodeRowEnd(writer);
                     }
 
@@ -214,7 +216,9 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             }
         }
 
-        encodeRowEnd(writer);
+        if (!rowEnded) {
+            encodeRowEnd(writer);
+        }
 
         if (rowHolder.isUpdatePartial()) {
             partialEnd(facesContext);
