@@ -62,7 +62,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
-        <version.google-guava>17.0</version.google-guava>
+        <version.google-guava>18.0</version.google-guava>
         <version.cssparser>0.9.14</version.cssparser>
 
         <!-- JSF Implementations Versions-->
