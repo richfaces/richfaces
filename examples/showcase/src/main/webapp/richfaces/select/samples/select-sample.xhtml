@@ -25,5 +25,12 @@
                 <f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
             </rich:select>
         </rich:panel>
+        <p>In the next example the items list is fetched dynamically as in the autocomplete component.</p>
+        <rich:panel style="width:220px;">
+            <h:form>
+                <rich:select mode="cachedAjax" minChars="1" autocompleteMethod="#{inplaceSelectBean.autocomplete}"
+                             var='capital' itemValue="${capital}" itemLabel="#{capital.state}"/>
+            </h:form>
+        </rich:panel>
     </h:form>
 </ui:composition>
