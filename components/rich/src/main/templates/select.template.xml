@@ -28,7 +28,7 @@
                 <input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur onfocus onlistshow onlisthide style"
                     id="#{clientId}Input" value="#{label}" disabled="#{disabled}" name="#{clientId}Input" type="text"
                     class="rf-sel-inp#{label == component.attributes['defaultLabel'] ? ' rf-sel-dflt-lbl' : ''}" autocomplete="off"
-                    readonly="#{component.attributes['enableManualInput'] ? '' : 'readonly'}" />
+                    readonly="#{component.attributes['enableManualInput'] || isAutocomplete(component) ? '' : 'readonly'}" />
                 <c:if test="#{component.attributes['showButton']}">
                     <c:if test="#{component.attributes['disabled']}">
                         <span id="#{clientId}Button" class="rf-sel-btn rf-sel-btn-dis">
@@ -70,7 +70,7 @@
                     <cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst disabled" />
                     <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
                     <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
-                    <cdk:scriptOption name="isAutocomplete" value="#{isAutcomplete(component)}" defaultValue="false" />
+                    <cdk:scriptOption name="isAutocomplete" value="#{isAutocomplete(component)}" defaultValue="false" />
                     <cdk:scriptOption name="isCachedAjax" value="#{ajax == mode ? false : true}" defaultValue="true" />
                     <cdk:scriptOption name="ajaxMode" value="#{client == mode || lazyClient == mode ? false : true}" defaultValue="true" />
                     <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}" defaultValue="false" />

@@ -81,7 +81,7 @@
             // do no empty if autocomplete/caching is on
             this.clientSelectItems = clientSelectItems;
         }
-        
+
         this.originalItems = this.list.__updateItemsList();
         this.list.__storeClientSelectItems(clientSelectItems);
         if (this.originalItems.length > 0) {
@@ -203,7 +203,9 @@
                 if (!this.options.isAutocomplete ||
                     (this.options.isCachedAjax || !this.options.ajaxMode) && this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
-                    this.originalItems = this.list.__getItems();
+                    if (this.isAutocomplete) {
+                        this.originalItems = this.list.__getItems();
+                    }
 
                     if (this.list.__getItems().length != 0) {
                         this.container.removeClass("rf-sel-fld-err");

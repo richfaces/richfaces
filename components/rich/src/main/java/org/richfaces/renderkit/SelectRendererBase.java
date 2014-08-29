@@ -211,7 +211,7 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
         return label;
     }
 
-    public boolean isAutcomplete(UIComponent component) {
+    public boolean isAutocomplete(UIComponent component) {
         if (! (component instanceof AbstractSelect)) {
             return false;
         }
@@ -224,7 +224,7 @@ public class SelectRendererBase extends InputRendererBase implements MetaCompone
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId() + "Items", null);
         AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
-        if (!isAutcomplete(component) || (mode != null && mode == AutocompleteMode.client)) {
+        if (!isAutocomplete(component) || (mode != null && mode == AutocompleteMode.client)) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, clientSelectItems);
         }
