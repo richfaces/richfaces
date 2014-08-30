@@ -9,6 +9,7 @@
         this.expandMode = options.expandMode || rf.ui.CollapsibleSubTable.MODE_CLNT;
         this.eventOptions = options.eventOptions;
         this.formId = f;
+        this.isNested = options.isNested;
 
         this.attachToDom();
     };
@@ -27,8 +28,15 @@
     $.extend(rf.ui.CollapsibleSubTable.prototype, (function () {
 
         var element = function() {
-            //use parent tbody as parent dom elem
-            return $(document.getElementById(this.id)).parent();
+            if (! this.isNested) {
+                //use parent tbody as parent dom elem
+                return $(document.getElementById(this.id)).parent();
+            } else {
+                var regex = new RegExp(this.id + "\\:\\d\\:b");
+                return $(document.getElementById(this.id)).parent().find("tr").filter(function() {
+                    return this.id.match(regex);
+                });
+            }
         };
 
         var stateInputElem = function() {
