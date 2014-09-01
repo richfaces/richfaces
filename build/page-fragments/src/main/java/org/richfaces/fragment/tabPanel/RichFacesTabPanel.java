@@ -62,7 +62,8 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
         return advancedInteractions;
     }
 
-    public class AdvancedTabPanelInteractions extends AbstractSwitchableComponent<RichFacesTab>.AdvancedSwitchableComponentInteractions {
+    public class AdvancedTabPanelInteractions extends
+        AbstractSwitchableComponent<RichFacesTab>.AdvancedSwitchableComponentInteractions {
 
         public WebElement getActiveHeaderElement() {
             return activeHeader;
@@ -93,20 +94,26 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
                 }
             };
         }
+
+        public WebElement getActiveVisibleTabHeader() {
+            if (activeHeader != null && activeHeader.isDisplayed())
+                return activeHeader;
+            return null;
+        }
     }
 
     @Override
     public int getNumberOfTabs() {
-        return switcherControllerElements.size();
+        return getSwitcherControllerElements().size();
     }
 
     @Override
-    protected List<WebElement> getSwitcherControllerElements() {
+    public List<WebElement> getSwitcherControllerElements() {
         return Collections.unmodifiableList(switcherControllerElements);
     }
 
     @Override
-    protected WebElement getRootOfContainerElement() {
+    public WebElement getRootOfContainerElement() {
         return rootOfContainerElement;
     }
 }
