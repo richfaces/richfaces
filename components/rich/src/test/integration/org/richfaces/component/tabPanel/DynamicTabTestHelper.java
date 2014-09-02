@@ -7,13 +7,12 @@ import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.richfaces.fragment.tabPanel.RichFacesTab;
 import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
-import org.richfaces.fragment.tabPanel.TabPanelShowcase.MyThridTab;
 
 public class DynamicTabTestHelper {
 
-    public void check_tab_switch(RichFacesTabPanel tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {
+    public void check_tab_switch(RichFacesTabPanel tabPanel, WebElement a4jCreateTabButton) {
+        List<WebElement> tabs = tabPanel.getSwitcherControllerElements();
         Assert.assertEquals(6, tabs.size());
         tabs.get(1).click();
         Assert.assertEquals("content of tab 0", tabPanel.getRootOfContainerElement().getText());
@@ -45,7 +44,8 @@ public class DynamicTabTestHelper {
     }
 
 
-    public void check_row_removal(RichFacesTabPanel tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {
+    public void check_row_removal(RichFacesTabPanel tabPanel, WebElement a4jCreateTabButton) {
+        List<WebElement> tabs = tabPanel.getSwitcherControllerElements();
         Assert.assertEquals(6, tabs.size());
 
         guardAjax(a4jCreateTabButton).click();

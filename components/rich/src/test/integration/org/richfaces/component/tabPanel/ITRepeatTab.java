@@ -56,13 +56,13 @@ public class ITRepeatTab {
     @Category(Smoke.class)
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
-        tabTestHelper.check_tab_switch(tabPanel, tabPanel.getSwitcherControllerElements(), a4jCreateTabButton);
+        tabTestHelper.check_tab_switch(tabPanel, a4jCreateTabButton);
     }
 
     @Test
     public void check_row_removal() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
-        tabTestHelper.check_row_removal(tabPanel, tabPanel.getSwitcherControllerElements(), a4jCreateTabButton);
+        tabTestHelper.check_row_removal(tabPanel, a4jCreateTabButton);
     }
 
     private static void addIndexPage(RichDeployment deployment) {
