@@ -46,7 +46,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <c:if test="#{controlsState.firstRendered}">
                     <cdk:object type="boolean" name="isEnabled" value="#{controlsState.firstEnabled}" />
-                    <cdk:object type="UIComponent" name="facet" value="#{component.getFacet('first')}" />
+                    <cdk:object type="UIComponent" name="facet" value="#{isEnabled ? component.getFacet('first') : component.getFacet('first_disabled')}" />
                     <cdk:object type="String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-first" />
                     <cdk:object type="String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-first rf-ds-dis" />
                     <cdk:object type="String" name="id" value="#{clientId}_ds_f" />
@@ -56,7 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <c:if test="#{controlsState.fastRewindRendered}">
                     <cdk:object type="boolean" name="isEnabled" value="#{controlsState.fastRewindEnabled}" />
-                    <cdk:object type="UIComponent" name="facet" value="#{component.getFacet('fastRewind')}" />
+                    <cdk:object type="UIComponent" name="facet" value="#{isEnabled ? component.getFacet('fastRewind') : component.getFacet('fastRewind_disabled')}" />
                     <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-fastrwd" />
                     <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-fastrwd rf-ds-dis" />
                     <cdk:object type="java.lang.String" name="id" value="#{clientId}_ds_fr" />
@@ -66,7 +66,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <c:if test="#{controlsState.previousRendered}">
                     <cdk:object name="isEnabled" value="#{controlsState.previousEnabled}" />
-                    <cdk:object name="facet" value="#{component.getFacet('previous')}" />
+                    <cdk:object name="facet" value="#{isEnabled ? component.getFacet('previous') : component.getFacet('previous_disabled')}" />
                     <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-prev" />
                     <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-prev rf-ds-dis" />
                     <cdk:object name="id" value="#{clientId}_ds_prev" />
@@ -78,7 +78,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <c:if test="#{controlsState.nextRendered}">
                     <cdk:object name="isEnabled" value="#{controlsState.nextEnabled}" />
-                    <cdk:object name="facet" value="#{component.getFacet('next')}" />
+                    <cdk:object name="facet" value="#{isEnabled ? component.getFacet('next') : component.getFacet('next_disabled')}" />
                     <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-next" />
                     <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-next rf-ds-dis" />
                     <cdk:object name="id" value="#{clientId}_ds_next" />
@@ -88,7 +88,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <c:if test="#{controlsState.fastForwardRendered}">
                     <cdk:object name="isEnabled" value="#{controlsState.fastForwardEnabled}" />
-                    <cdk:object name="facet" value="#{component.getFacet('fastForward')}" />
+                    <cdk:object name="facet" value="#{isEnabled ? component.getFacet('fastForward') : component.getFacet('fastForward_disabled')}" />
                     <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-fastfwd" />
                     <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-fastfwd rf-ds-dis" />
                     <cdk:object name="id" value="#{clientId}_ds_ff" />
@@ -98,7 +98,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
                 <c:if test="#{controlsState.lastRendered}">
                     <cdk:object name="isEnabled" value="#{controlsState.lastEnabled}" />
-                    <cdk:object name="facet" value="#{component.getFacet('last')}" />
+                    <cdk:object name="facet" value="#{isEnabled ? component.getFacet('last') : component.getFacet('last_disabled')}" />
                     <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-last" />
                     <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-last rf-ds-dis" />
                     <cdk:object name="id" value="#{clientId}_ds_l" />
