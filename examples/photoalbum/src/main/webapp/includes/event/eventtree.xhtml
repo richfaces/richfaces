@@ -24,8 +24,8 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
-    <rich:tree id="eventTree" var="treeNode" toggleType="client" styleClass="tree" binding="#{treeSelectionHelper.eventTree}">
-        <a4j:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('eventTree')}" render="PreDefinedTree, userTree" />
+    <rich:tree id="eventTree" var="treeNode" toggleType="client" styleClass="tree">
+        <a4j:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('overForm:eventTree')}" render="PreDefinedTree, userTree" />
         <rich:treeModelAdaptor nodes="#{eventManager.eventCategories}">
             <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                 iconCollapsed="resources/img/shell/tree_icon_shelf.png" iconExpanded="resources/img/shell/tree_icon_shelf.png">

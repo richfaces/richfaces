@@ -37,9 +37,8 @@
                 <ui:param name="page" value="tree_predefined.xhtml" />
             </ui:include>
         </h:panelGrid>
-        <rich:tree id="PreDefinedTree" var="treeNode" toggleType="client" styleClass="tree"
-            binding="#{treeSelectionHelper.predefinedTree}">
-            <a4j:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('PreDefinedTree')}"
+        <rich:tree id="PreDefinedTree" var="treeNode" toggleType="client" styleClass="tree">
+            <a4j:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('overForm:PreDefinedTree')}"
                 render="userTree, eventTree" />
             <rich:treeModelAdaptor nodes="#{shelfManager.predefinedShelves}">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
@@ -107,8 +106,8 @@
                 [Image]
             </rich:panel>
         </rich:dragIndicator>
-        <rich:tree id="userTree" var="treeNode" toggleType="client" styleClass="tree" binding="#{treeSelectionHelper.userTree}">
-            <a4j:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('userTree')}"
+        <rich:tree id="userTree" var="treeNode" toggleType="client" styleClass="tree">
+            <a4j:ajax event="selectionchange" listener="#{treeSelectionHelper.unselectOtherTrees('overForm:userTree')}"
                 render="PreDefinedTree, eventTree" />
             <rich:treeModelAdaptor nodes="#{userBean.user.shelves}">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"

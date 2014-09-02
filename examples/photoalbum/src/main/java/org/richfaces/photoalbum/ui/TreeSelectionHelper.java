@@ -22,11 +22,9 @@
 package org.richfaces.photoalbum.ui;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.richfaces.component.UITree;
@@ -40,51 +38,21 @@ public class TreeSelectionHelper implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private Map<String, UITree> treeMap = new HashMap<String, UITree>();
-
-    private static final String predefined = "PreDefinedTree";
-    private static final String user = "userTree";
-    private static final String event = "eventTree";
+    private static final String[] treeIds = {"overForm:PreDefinedTree", "overForm:userTree", "overForm:eventTree"};
 
     private String lastTreeId = "";
 
-    public TreeSelectionHelper() {
-        treeMap.put("PreDefinedTree", new UITree());
-        treeMap.put("userTree", new UITree());
-        treeMap.put("eventTree", new UITree());
-    }
-
-    public UITree getPredefinedTree() {
-        return treeMap.get(predefined);
-    }
-
-    public void setPredefinedTree(UITree predefinedTree) {
-        treeMap.put(predefined, predefinedTree);
-    }
-
-    public UITree getUserTree() {
-        return treeMap.get(user);
-    }
-
-    public void setUserTree(UITree userTree) {
-        treeMap.put(user, userTree);
-    }
-
-    public UITree getEventTree() {
-        return treeMap.get(event);
-    }
-
-    public void setEventTree(UITree eventTree) {
-        treeMap.put(event, eventTree);
+    private UITree getTree(String id) {
+        return (UITree) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
     }
 
     public void unselectOtherTrees(String id) {
         if (lastTreeId.equals(id)) {
             return;
         }
-        for (Entry<String, UITree> e : treeMap.entrySet()) {
-            if (e.getValue() != null && !e.getKey().equals(id)) {
-                e.getValue().setSelection(null);
+        for (String treeId : treeIds) {
+            if (!treeId.equals(id)) {
+                getTree(treeId).setSelection(null);
             }
         }
         lastTreeId = id;
