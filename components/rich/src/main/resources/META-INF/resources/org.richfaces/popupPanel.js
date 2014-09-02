@@ -90,7 +90,10 @@
             $(rf.getDomElement(id + "_header")).css('cursor', 'default');
         }
 
-        this.cdiv.resize($.proxy(this.resizeListener, this));
+        this.resizeProxy = $.proxy(this.resizeListener, this);
+
+        this.cdiv.resize(this.resizeProxy);
+        this.findForm(this.cdiv).on("ajaxcomplete", this.resizeProxy);
     };
 
     rf.BaseComponent.extend(rf.ui.PopupPanel);
@@ -159,6 +162,7 @@
             },
 
             destroy: function() {
+                this.findForm(this.cdiv).off("ajaxcomplete", this.resizeProxy);
 
                 this._contentElement = null;
                 this.firstOutside = null;
@@ -628,8 +632,8 @@
 
                 if (doResize) {
                     if (this.options.autosized) {
-                        this.resetWidth();
                         this.resetHeight();
+                        this.resetWidth();
                     }
 
                     newSize = this.getStyle(eContentElt, "width");
