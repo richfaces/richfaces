@@ -9,22 +9,6 @@ RichFaces 4.5 image:https://travis-ci.org/richfaces/richfaces.png?branch=master[
 > The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
 
 
-== Goal
-
-
-=== Version 4.5
-
-* Full JSF 2.2 Compatibility
-* Simplified Setup for Users
-
-=== Architecture Goals ===
-
-* Simplified Framework Build
-* Extensive Integration Testing
-* Fast Development (CDK) & Test Turnaround
-
-see https://community.jboss.org/thread/213160[Roadmap] for more information.
-
 == Project Info
 
 [NOTE]
@@ -34,22 +18,20 @@ License:: LGPL v2.1
 Build System::  Maven
 ====
 
+* http://richfaces.org[Project Site]
 * http://docs.jboss.org/richfaces/[Documentation]
-* http://planet.jboss.org/feed/richfacesall[News / RSS]
-** includes release announcements
 * https://issues.jboss.org/browse/RF[Issue Tracker]
-* (https://community.jboss.org/thread/213160[Roadmap]
-* (https://community.jboss.org/en/richfaces[User Forums]
-* IRC
-** `#richfaces` at `irc.freenode.net`
-* https://community.jboss.org/en/richfaces/dev[Developer Forums]
-* https://community.jboss.org/en/richfaces/dev/teammtgs[Team Meetings]
-* https://travis-ci.org/richfaces/richfaces/builds[Continuous Integration]
-** image:https://travis-ci.org/richfaces/richfaces.png?branch=master[alt="Build Status", link="https://travis-ci.org/richfaces/richfaces"]
+* http://planet.jboss.org/feed/richfacesall[News / RSS] (includes release announcements)
+* https://community.jboss.org/thread/213160[Roadmap]
+* https://developer.jboss.org/en/richfaces/content[User Forums]
+* https://developer.jboss.org/en/richfaces/dev/content[Developer Forums]
+* IRC: `#richfaces` at `irc.freenode.net`
+* https://developer.jboss.org/en/richfaces/dev/teammtgs[Team Meetings]
+* https://travis-ci.org/richfaces/richfaces/builds[Continuous Integration] image:https://travis-ci.org/richfaces/richfaces.png?branch=master[alt="Build Status", link="https://travis-ci.org/richfaces/richfaces"]
 
 == Getting Started
 
-In order to start with the project, you need just include the RichFaces JARs on the classpath using Maven dependency
+To use the RichFaces framework in your JSF maven application, simply add the following dependency to your `pom.xml` file (Replacing the version `4.5.0-SNAPSHOT` with the version of the library you wish to include):
 
 [source, xml]
 ----
@@ -60,9 +42,11 @@ In order to start with the project, you need just include the RichFaces JARs on 
 </dependency>
 ----
 
-or download the project ZIP distribution from http://www.jboss.org/richfaces/download.html[Downloads Page].
+NOTE: Prior releases of RichFaces required using a BOM to manage the project dependencies.  With RichFaces 4.5 all required dependencies are managed transitively, simplifying your project setup.
 
-Once you have the RichFaces JARs on the classpath, you can start developing by adding JSF page which includes RichFaces taglib from `http://richfaces.org` namespace:
+Alternatively, if you are not using maven, you can download the project ZIP distribution from the http://www.jboss.org/richfaces/download.html[Download Page] and manually include the dependencies in your classpath.
+
+Once you have included the RichFaces dependency in your application, you can start developing by adding a JSF page which includes the RichFaces taglib references:
 
 [source, xml]
 ----
@@ -70,45 +54,51 @@ Once you have the RichFaces JARs on the classpath, you can start developing by a
 <html lang="en"
     xmlns="http://www.w3.org/1999/xhtml"
     ...
-    xmlns:rich="http://richfaces.org/rich">
+    xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j">
 
 </html>
 ----
 
-For more information on how to get started with the project, see http://docs.jboss.org/richfaces/[Project Documentation].
+For more information on how to get started with the project, see the http://docs.jboss.org/richfaces/[project documentation].
 
-=== Cloning the Project
+== Building the Project
+
+=== Clone the Project
 
     $ git clone git@github.com:richfaces/richfaces.git
 
-=== Building the Project
-
-Prerequsities:
+=== Prerequsities:
 
 * JDK 1.6 +
 * Maven 3.0.4 +
 * https://community.jboss.org/wiki/MavenGettingStarted-Developers[JBoss Maven Repository]
 
-Building the project:
+=== Build the project
+
+Build the project on the command line:
 
     $ mvn clean install
 
-Maven will build the project and execute unit tests, but it won't build distribution or execute integration tests.
+Maven will build the project and execute the unit tests, but it won't build the distribution archive nor execute the integration tests.
 
-=== Building Project Distribution
+The freshly built RichFaces artifacts will now be available in your local maven repo, and can be included in your application (using a `-SNAPSHOT` dependency version).
+
+=== Building Project Distribution Archive
+
+If you are not using maven in your application, you can build the complete distribution archive using the command:
 
     $ mvn clean install -Prelease
 
-the ZIP distribution will be stored in `dist/target/`.
+The generated ZIP distribution file will be placed in the `dist/target/` folder.  This zip file contains both the required and optional libraries to be included in your RichFaces-based application.
 
 == Contributing to the project
 
-Read https://github.com/richfaces/richfaces/blob/master/CONTRIBUTING.md[How to Contribute].
+Details on contributing to the project are available in the link:CONTRIBUTING.md[Contributing guide].
 
 === How to Explore the Sources
 
-All the sources related to RichFaces framework and component library are located in `core` and `components` folders:
+All the sources related to RichFaces framework and component library are located in the `core` and `components` folders:
 
 * `src/main/java`
 ** framework sources
@@ -116,9 +106,9 @@ All the sources related to RichFaces framework and component library are located
 * `src/main/resources/META-INF/resources`
 ** JavaScript and CSS resources
 
-Examples such as *RichFaces Showcase* and *Components Demo* are stored in `examples` folder.
+Examples such as *RichFaces Showcase* and *Components Demo* are stored in the `examples` folder.
 
-=== Developing the Project in IDE
+=== Developing the Project in an IDE
 
 Once you have <<building-the-project, built the project>> you can import `core`, `components` and one of the `examples` to the IDE.
 
@@ -136,7 +126,8 @@ In order to effectively test the project with each code modification, you need t
 
     $ mvn clean install -Dintegration=wildfly81 -Dsmoke
 
-This will run the project tests against managed instance of WildFly 8.1 and test it on headless PhantomJS browser.
+This will download WildFly and run the project tests against a managed instance of WildFly 8.1 using a headless PhantomJS browser.
+For a detailed explanation of additional testing configurations and options, refer to the link:TESTS.md[Testing guide].
 
-This step is also executed in https://travis-ci.org/richfaces/richfaces/builds[the continuous integration job].
+These smoke tests are also executed in the https://travis-ci.org/richfaces/richfaces/builds[continuous integration job].
 
