@@ -123,3 +123,7 @@ a.rf-ds-btn {
     color: '#{richSkin.tableBorderColor}';
     cursor: default;
 }
+
+.rf-ds-pages {
+    display: inline-block;
+}

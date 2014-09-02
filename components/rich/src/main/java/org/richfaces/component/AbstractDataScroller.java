@@ -76,6 +76,8 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public static final String PREVIOUS_DISABLED_FACET_NAME = "previous_disabled";
     public static final String FAST_FORWARD_DISABLED_FACET_NAME = "fastForward_disabled";
     public static final String FAST_REWIND_DISABLED_FACET_NAME = "fastRewind_disabled";
+    public static final String CONTROLS_SEPARATOR_FACET_NAME = "controlsSeparator";
+    public static final String PAGES_FACET_NAME = "pages";
     public static final String PAGEMODE_FULL = "full";
     public static final String PAGEMODE_SHORT = "short";
     private Integer page;
