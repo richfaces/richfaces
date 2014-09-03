@@ -136,7 +136,13 @@
             <type>test-jar</type>
             <version>${version.richfaces}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-page-fragments</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
             <artifactId>jsf-test-stage</artifactId>
