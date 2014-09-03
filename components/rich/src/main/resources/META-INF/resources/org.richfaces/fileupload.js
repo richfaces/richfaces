@@ -91,7 +91,8 @@
         DONE: "done",
         SIZE_EXCEEDED: "sizeExceeded",
         STOPPED: "stopped",
-        SERVER_ERROR: "serverError"
+        SERVER_ERROR_PROCESS: "serverErrorProc",
+        SERVER_ERROR_UPLOAD: "serverErrorUp"
     };
 
     var pressButton = function(event) {
@@ -118,7 +119,8 @@
             doneLabel: "Done",
             sizeExceededLabel: "File size is exceeded",
             stoppedLabel: "",
-            serverErrorLabel: "Server error",
+            serverErrorProcLabel: "Server error: error in processing",
+            serverErrorUpLabel: "Server error: upload failed",
             clearLabel: "Clear",
             deleteLabel: "Delete",
 
@@ -393,7 +395,8 @@
                     }, this);
 
                 this.xhr.upload.onerror = $.proxy(function (e) {
-                        this.finishUploading(ITEM_STATE.SERVER_ERROR);
+                        this.fileUpload.loadableItem = null;
+                        this.finishUploading(ITEM_STATE.SERVER_ERROR_UPLOAD);
                     }, this);
                     
                 this.xhr.onload = $.proxy(function (e) {
@@ -405,7 +408,7 @@
                             responseStatus = ITEM_STATE.DONE;
                             break;
                         default: // 500 - error in processing parts
-                            responseStatus = ITEM_STATE.SERVER_ERROR;
+                            responseStatus = ITEM_STATE.SERVER_ERROR_PROCESS;
                     }
                     
                     var responseContext = {
