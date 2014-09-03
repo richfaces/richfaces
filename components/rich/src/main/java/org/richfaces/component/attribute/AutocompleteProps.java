@@ -50,13 +50,13 @@ public interface AutocompleteProps {
     String getVar();
 
     /**
-     * A collection of suggestions that will be resented to the user
+     * A collection of suggestions that will be provided to the user
      */
     @Attribute()
     Object getAutocompleteList();
 
     /**
-     * A method which returns a list of suggestions according to a supplied prefix
+     * A method which provides a list of suggestions according to a user-provided filtering value
      */
     @Attribute(signature = @Signature(returnType = Object.class, parameters = { FacesContext.class, UIComponent.class,
             String.class }))

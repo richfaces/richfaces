@@ -21,17 +21,13 @@
  **/
 package org.richfaces.component.util;
 
+import org.richfaces.component.attribute.SelectItemsProps;
+
 /**
  * Interface used by SelectManyHelper to build pseudo Select items for a select component
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface SelectItemsInterface {
+public interface SelectItemsInterface extends SelectItemsProps {
     Object getItemValues();
-
-    Object getItemValue();
-
-    Object getItemLabel();
-
-    String getVar();
 }

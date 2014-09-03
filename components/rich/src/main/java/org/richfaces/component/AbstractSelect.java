@@ -1,9 +1,5 @@
 package org.richfaces.component;
 
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
-import javax.el.MethodNotFoundException;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItems;
@@ -15,12 +11,10 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.validator.Validator;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -35,17 +29,12 @@ import org.richfaces.component.attribute.SelectProps;
 import org.richfaces.component.util.SelectItemsInterface;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.SelectManyHelper;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.view.facelets.AutocompleteHandler;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +42,12 @@ import java.util.Map;
  * The &lt;rich:select&gt; component provides a drop-down list box for selecting a single value from multiple options. The
  * &lt;rich:select&gt; component can be configured as a combo-box, where it will accept typed input. The component also supports
  * keyboard navigation. The &lt;rich:select&gt; component functions similarly to the JSF UISelectOne component.
+ * </p>
+ * <p>
+ * The &lt;rich:select&gt; can optionally be used in an auto-completing mode, where the values in the drop-down list are provided
+ * dynamically using either the autocompleteMethod or autocompleteList attributes.  If these attributes are omitted, the component
+ * operates in the traditional non-auto-completing mode.  Refer to the individual attribute documentation to see which attributes are
+ * applicable only with an auto-completing select list.
  * </p>
  *
  * @author abelevich
@@ -77,7 +72,7 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
 
     /**
      * <p>
-     * If "true" Allows the user to type into a text field to scroll through or filter the list
+     * If "true" Allows the user to type into a text field to scroll through or filter the list.  Implicitly true when using an auto-completing select list.
      * </p>
      * <p>
      * Default is "false"
@@ -136,6 +131,29 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
     @Attribute(hidden = true)
     public abstract String getDisabledClass();
 
+    /**
+     * Value to be returned to the server if the corresponding option is selected by the user.  Used only with an auto-completing select, where the list of items comes from either the
+     * autocompleteList or autocompleteMethod attributes.
+     */
+    @Override
+    @Attribute
+    public abstract Object getItemValue();
+
+    /**
+     * Label to be displayed to the user for the corresponding option.  Used only with an auto-completing select, where the list of items comes from either the
+     * autocompleteList or autocompleteMethod attributes.
+     */
+    @Override
+    @Attribute
+    public abstract Object getItemLabel();
+
+    /**
+     * Expose the values from either the autocompleteList or autocompleteMethod attributes under a request scoped key so that the values may be referred to in an EL expression while rendering this component.
+     * Used only in an auto-completing select component.
+     */
+    @Override
+    @Attribute
+    public abstract String getVar();
 
     /**
      * Override the validateValue method in cases where the component implements SelectItemsInterface
