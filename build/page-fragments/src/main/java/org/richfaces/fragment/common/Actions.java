@@ -25,7 +25,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jboss.arquillian.graphene.Graphene;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
@@ -37,8 +39,11 @@ import org.openqa.selenium.interactions.Action;
  */
 public class Actions extends org.openqa.selenium.interactions.Actions {
 
+    private final WebDriver driver;
+
     public Actions(WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     public Actions addAction(Action a) {
@@ -202,12 +207,11 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
             return clickAndHold(element);
         } else if (event.equals(Event.MOUSEMOVE)) {
             return moveToElement(element);
-        } else if (event.equals(Event.CONTEXTCLICK)) {
-            return contextClick(element);
-        } else if (event.equals(Event.CONTEXTMENU)) {
+        } else if (event.equals(Event.CONTEXTCLICK) || event.equals(Event.CONTEXTMENU)) {
             return contextClick(element);
         } else if (event.equals(Event.MOUSEOUT)) {
-            return moveToElement(element).moveByOffset(-1000, -1000);
+            Point coords = getPossibleCoordinationsForMouseOut(element);
+            return moveToElement(element).moveByOffset(coords.x, coords.y);
         } else if (event.equals(Event.MOUSEOVER)) {
             return moveToElement(element, 1, 1);
         } else if (event.equals(Event.MOUSEUP)) {
@@ -215,6 +219,40 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         } else {
             throw new IllegalArgumentException("Cannot trigger this event " + event + " with WebDriver. Try to use 'triggerEventByJS' instead.");
         }
+    }
+
+    private Point getPossibleCoordinationsForMouseOut(WebElement element) {
+        Locations l = Utils.getLocations(element);
+        Dimension size = driver.manage().window().getSize();
+        // the mouse will be in the middle of the element, these values will be used for counting the final distance
+        int halfWidth = l.getWidth() / 2;
+        int halfHeight = l.getHeight() / 2;
+        int movementDistance = 10;// distance from the element in pixels
+        // check whether position left from the Element is valid
+        Locations moved = l.moveAllBy(-movementDistance, 0);
+        Point point = moved.getTopLeft();
+        if (point.x > 0) {
+            return new Point(-halfWidth - movementDistance, 0);
+        }
+        // check whether position right from the Element is valid
+        moved = l.moveAllBy(movementDistance, 0);
+        point = moved.getTopRight();
+        if (point.x < size.getWidth()) {
+            return new Point(halfWidth + movementDistance, 0);
+        }
+        // check whether position up from the Element is valid
+        moved = l.moveAllBy(0, -movementDistance);
+        point = moved.getTopRight();
+        if (point.y > 0) {
+            return new Point(0, -halfHeight - movementDistance);
+        }
+        // check whether position down from the Element is valid
+        moved = l.moveAllBy(0, movementDistance);
+        point = moved.getBottomRight();
+        if (point.y > size.getHeight()) {
+            return new Point(0, halfHeight + movementDistance);
+        }
+        throw new RuntimeException("Cannot find any suitable position for mouseout event.");
     }
 
     public Actions waitAction(final long timeInMillis) {
