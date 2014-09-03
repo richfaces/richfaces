@@ -23,7 +23,7 @@
     <h:form id="form">
         <h:outputScript library="org.richfaces.showcase/js" name="picturesUtils.js"/>
 
-        <h:graphicImage library="org.richfaces.showcase/img" name="pic1.jpg" id="pic" style="border : 5px solid #E4EAEF"/>
+        <h:graphicImage library="org.richfaces.showcase" name="img/pic1.jpg" id="pic" style="border : 5px solid #E4EAEF"/>
 
         <rich:contextMenu target="pic" mode="client" showEvent="click">
             <rich:menuItem label="Zoom In" onclick="enlarge(#{rich:element('pic')});" id="zin"/>
