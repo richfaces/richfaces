@@ -52,7 +52,7 @@
         </rich:dataTable>
     </h:form>
 
-    <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
-    <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
+    <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" attachType="live" />
+    <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" attachType="live" />
 
 </ui:composition>
