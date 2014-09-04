@@ -52,11 +52,9 @@
                 </h:commandButton>
 
                 <!-- This is broken, see: https://issues.jboss.org/browse/RF-11922 -->
-                <ui:remove>
                 <rc:actionComposite render=":form:messages" value="Invoke listener method in composite component">
                     <a4j:actionListener for="button" listener="#{actionListenerBean.handleActionMethodComposite}" />
                 </rc:actionComposite>
-                </ui:remove>
             </h:panelGrid>
         </h:form>
     </ui:define>
