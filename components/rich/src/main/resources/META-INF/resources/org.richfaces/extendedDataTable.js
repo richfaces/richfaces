@@ -747,6 +747,9 @@
                     tr = tr.parentNode;
                 }
                 var index = tr.rowIndex;
+                if (typeof(index) === 'undefined') {
+                    return;
+                }
                 if (this.options.selectionMode == "single" || (this.options.selectionMode != "multipleKeyboardFree"
                     && !event.shiftKey && !event.ctrlKey)) {
                     changed = this.selectRows(index);
