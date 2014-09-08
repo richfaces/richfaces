@@ -182,11 +182,6 @@ public class JsfVersionInspector {
     }
 
     boolean isMojarra() {
-        try {
-            this.getClass().getClassLoader().loadClass("com.sun.faces.context.FacesContextImpl");
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-        return true;
+        return "com.sun.faces.context.FacesContextImpl".equals(FacesContext.getCurrentInstance().getClass().getName());
     }
 }
