@@ -52,8 +52,11 @@
             <rich:xaxis label="year"/>
             <rich:yaxis label="metric tons of CO2 per capita"/>
         </rich:chart>
+        <h3>Server-side chart event message:</h3>
         <h:outputText id="msg" value="#{chartEventBean.msg}"/>
     </h:form>
+    <h3>Client-side hover info:</h3>
     <span id='hoverInfo'/><br/>
+    <h3>Client-side click info:</h3>
     <span id='clickInfo'></span><br/>
 </ui:composition>
