@@ -42,6 +42,7 @@ import org.richfaces.component.attribute.InputProps;
  * </p>
  */
 @JsfComponent(
+        generate = "org.richfaces.component.html.HtmlInputNumberSlider",
         type = AbstractInputNumberSlider.COMPONENT_TYPE,
         family = AbstractInputNumberSlider.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InputNumberSliderRenderer"),

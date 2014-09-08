@@ -42,6 +42,7 @@ import org.richfaces.component.attribute.InputProps;
  * </p>
  */
 @JsfComponent(
+        generate = "org.richfaces.component.html.HtmlInputNumberSpinner",
         type = AbstractInputNumberSpinner.COMPONENT_TYPE,
         family = AbstractInputNumberSpinner.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InputNumberSpinnerRenderer"),
