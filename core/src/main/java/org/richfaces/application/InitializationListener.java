@@ -134,7 +134,7 @@ public class InitializationListener implements SystemEventListener {
     }
 
     /**
-     * Initializes {@link PushContext} on startup as it is a time when {@link FacesContext} is available
+     * Initializes {@link org.richfaces.application.push.PushContext} on startup as it is a time when {@link FacesContext} is available
      */
     private void initializePushContext() {
         try {
