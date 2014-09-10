@@ -1,3 +1,48 @@
+4.5.0-SNAPSHOT
+-----------
+
+    Bug
+    [RF-11090] - rich:collapsibleSubTable cannot be nested
+    [RF-11656] - Nested collapsibleSubTable always expanded
+    [RF-12399] - Showcase: rich:contextmenu cannot find image
+    [RF-13081] - Facets "disabled" not working for dataScroller
+    [RF-13645] - contextMenu for extendedDataTable breaks after ajax render of contextMenu
+    [RF-13655] - Popup Panel autosize does not work when its content is dynamically updated
+    [RF-13708] - Photoalbum: refresh over index page throws error
+    [RF-13722] - Document CDK Maven Changes for 4.5
+    [RF-13747] - a4j:commandLink does not have a default event name
+    [RF-13781] - Enable RichFaces to be built with the jdk6
+    [RF-13783] - Placeholder: attribute styleClass doesn't work inside inplace input and inplace select
+    [RF-13787] - Push with EAP 6.3 not using WebSockets
+    [RF-13790] - Showcase - dataTable Styling example - broken styling after built in sorting/filtering is enabled
+    [RF-13791] - Push in Showcase with EAP 6.2
+    [RF-13794] - FileUpload serverError on upload on Wildfly
+    [RF-13795] - RichFaces build is broken when running integration with release profile
+    [RF-13798] - Showcase: select sample is not working [myfaces]
+    [RF-13803] - Push on Tomcat 8: Unable to load current conversations from the associated request
+    [RF-13804] - rich:select selectFirst attribute not working
+    [RF-13814] - Photoalbum cannot be deployed to EAP
+    [RF-13817] - Both the Component Reference are missing the Revision History appendices
+
+    Component Upgrade
+    [RF-13774] - Upgrade MyFaces to 2.2.4
+    [RF-13805] - Upgrade jsf-test to 1.1.8
+
+    Enhancement
+    [RF-12674] - Write framework tests for Autocomplete tokenizing feature
+    [RF-13056] - Showcase - delete unused configuration for GAE
+    [RF-13796] - Chart component - documentation improvement
+
+    Feature Request
+    [RF-8701] - dataScroller: add facets support for customizations
+    [RF-13797] - Integration tests - enable HTTPS testing on Wildfly
+    [RF-13807] - Add a an autocomplete sample for the select component to the showcase
+
+    Task
+    [RF-13765] - EDT: meta-components @footer, @header and @body are not documented
+    [RF-13800] - docs: rich:select: add information about autocomplete functionality
+
+
 5.0.0.Alpha3
 ------------
 
