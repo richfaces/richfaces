@@ -203,10 +203,6 @@ public class RendererUtils {
             Collection<Parameter> parametersList = HandlersChain.createParametersList(createParametersMap(context, component));
 
             for (String behaviorEventName : eventNames) {
-                if (behaviorEventName.equals(defaultEventName)) {
-                    continue;
-                }
-
                 String htmlEventName = "on" + behaviorEventName;
 
                 if ((attributesExclusions == null) || (Arrays.binarySearch(attributesExclusions, htmlEventName) < 0)) {
