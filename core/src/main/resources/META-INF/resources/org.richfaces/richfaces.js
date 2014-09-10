@@ -85,6 +85,11 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         }
     };
 
+    rf.$ = function(source) {
+        rf.log.warn("The function `RichFaces.$` has been deprecated and renamed to `RichFaces.component`.  Please adjust your usage accordingly.");
+        return rf.component.call(this, source);
+    }
+
     /**
      * jQuery selector ":editable" which selects only input elements which can be edited, are visible and enabled
      */
