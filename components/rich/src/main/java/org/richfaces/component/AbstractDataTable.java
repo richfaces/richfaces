@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxActivatorProps;
 import org.richfaces.component.attribute.EventsRowProps;
 import org.richfaces.component.attribute.IterationProps;
 import org.richfaces.component.attribute.RowsProps;
@@ -50,8 +51,7 @@ import org.richfaces.taglib.DataTableHandler;
         family = AbstractDataTable.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"),
         tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets))
-public abstract class AbstractDataTable extends UIDataTableBase implements EventsRowProps, RowsProps, StyleProps,
-    StyleClassProps, SequenceProps, IterationProps, TableStyleProps {
+public abstract class AbstractDataTable extends UIDataTableBase implements EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps, TableStyleProps, AjaxActivatorProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String CAPTION_FACET_NAME = "caption";

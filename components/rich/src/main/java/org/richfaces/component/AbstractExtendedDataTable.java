@@ -38,6 +38,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxActivatorProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
@@ -62,7 +63,7 @@ import org.richfaces.component.attribute.StyleProps;
 @JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"),
         tag = @Tag(name = "extendedDataTable", handlerClass = ExtendedDataTableHandler.class, type = TagType.Facelets))
-public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder, EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps {
+public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder, EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps, AjaxActivatorProps {
     public static final String COMPONENT_TYPE = "org.richfaces.ExtendedDataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String SCROLL = "scroll";

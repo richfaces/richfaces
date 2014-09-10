@@ -26,11 +26,11 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 
 /**
- * Interface defining the methods for ajax-props.xml
+ * Interface defining the methods for ajax activator components
  *
  * @author Lukas Fryc
  */
-public interface AjaxProps {
+public interface AjaxProps extends AjaxActivatorProps {
 
     /**
      * IDs of components that will participate in the "execute" portion of the Request Processing Lifecycle. Can be a single ID,
@@ -42,49 +42,14 @@ public interface AjaxProps {
     Object getExecute();
 
     /**
-     * IDs of components that will participate in the "render" portion of the Request Processing Lifecycle. Can be a single ID,
-     * a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection. Any of the keywords
-     * "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list. Some components make use of
-     * additional keywords
-     */
-    @Attribute(description = @Description("IDs of components that will participate in the \"render\" portion of the Request Processing Lifecycle. Can be a single ID, a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection. Any of the keywords \"@this\", \"@form\", \"@all\", \"@none\", \"@region\" may be specified in the identifier list. Some components make use of additional keywords"))
-    Object getRender();
-
-    /**
-     * If "true", render only those ids specified in the "render" attribute, forgoing the render of the auto-rendered panels
-     */
-    @Attribute(defaultValue = "false", description = @Description("If \"true\", render only those ids specified in the \"render\" attribute, forgoing the render of the auto-rendered panels"))
-    boolean isLimitRender();
-
-    /**
      * Name of the request status component that will indicate the status of the Ajax request
      */
     @Attribute(description = @Description("Name of the request status component that will indicate the status of the Ajax request"))
     String getStatus();
 
     /**
-     * Serialized (on default with JSON) data passed to the client by a developer on an AJAX request. It's accessible via
-     * "event.data" syntax. Both primitive types and complex types such as arrays and collections can be serialized and used
-     * with data
-     */
-    @Attribute(description = @Description("Serialized (on default with JSON) data passed to the client by a developer on an AJAX request. It's accessible via \"event.data\" syntax. Both primitive types and complex types such as arrays and collections can be serialized and used with data"))
-    Object getData();
-
-    /**
      * The client-side script method to be called before an ajax request.
      */
     @Attribute(events = @EventName("begin"), description = @Description("The client-side script method to be called before an ajax request."))
     String getOnbegin();
-
-    /**
-     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
-     */
-    @Attribute(events = @EventName("beforedomupdate"), description = @Description("The client-side script method to be called after the ajax response comes back, but before the DOM is updated"))
-    String getOnbeforedomupdate();
-
-    /**
-     * The client-side script method to be called after the DOM is updated
-     */
-    @Attribute(events = @EventName("complete"), description = @Description("The client-side script method to be called after the DOM is updated"))
-    String getOncomplete();
 }
