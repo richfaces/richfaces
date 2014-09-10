@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   JBoss, Home of Professional Open Source
   Copyright 2013, Red Hat, Inc. and individual contributors
@@ -22,8 +20,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
-    updateCheck="true" monitoring="off" dynamicConfig="true">
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true" monitoring="autodetect" dynamicConfig="true">
 
     <diskStore path="java.io.tmpdir" />
 
@@ -33,7 +30,13 @@
         CacheManager.add(String cacheName). The defaultCache has an
         implicit name "default" which is a reserved cache name.
     -->
-    <defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
-        overflowToDisk="true" maxElementsOnDisk="10000000" diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
-        memoryStoreEvictionPolicy="LRU" />
+    <defaultCache maxEntriesLocalHeap="10000"
+                  eternal="false"
+                  timeToIdleSeconds="120"
+                  timeToLiveSeconds="120"
+                  maxEntriesLocalDisk="10000000"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
 </ehcache>

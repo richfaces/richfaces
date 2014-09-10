@@ -19,10 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-/**
- *
- */
 package org.richfaces.cache;
 
 import java.util.Date;
@@ -68,15 +64,13 @@ public class EhCacheCache implements Cache {
     }
 
     public void put(Object key, Object value, Date expired) {
-        Boolean eternal = null; // use cache defaults
         Integer ttl = null;
 
         if (expired != null) {
-            eternal = Boolean.FALSE;
             ttl = (int) (expired.getTime() - System.currentTimeMillis()) / 1000;
         }
 
-        Element element = new Element(key, value, eternal, null, ttl);
+        Element element = new Element(key, value, 0, ttl);
 
         cache.putQuiet(element);
     }

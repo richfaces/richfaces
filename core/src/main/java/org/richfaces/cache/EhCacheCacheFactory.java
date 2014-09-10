@@ -80,12 +80,13 @@ public class EhCacheCacheFactory implements CacheFactory {
         } else {
             preconfiguredCache = true;
 
-            if (ehcache.getCacheConfiguration().getMaxElementsInMemory() <= 0) {
+            if (ehcache.getCacheConfiguration().getMaxEntriesLocalHeap() <= 0) {
                 LOG.info(MessageFormat.format("Maximum cache size hasn''t been set, resetting to {0} max items", maxCacheSize));
 
-                ehcache.getCacheConfiguration().setMaxElementsInMemory(maxCacheSize);
+                ehcache.getCacheConfiguration().setMaxEntriesLocalHeap(maxCacheSize);
             }
         }
+        ehcache.setCacheManager(cacheManager);
 
         return new EhCacheCache(ehcache, preconfiguredCache);
     }
