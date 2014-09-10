@@ -78,7 +78,7 @@ git checkout master -b release/4.5.0.Alpha3
 Bump to release versions:
  
 ----
-$ bash components/change_version.sh -r -o <4.5.0.Beta2> -n <4.5.0.Alpha3>
+$ bash components/change_version.sh -r -o <4.5.0-SNAPSHOT> -n <4.5.0.Alpha3>
 $ git add -A
 $ git commit -m 'changing version to <4.5.0.Alpha3>'
 ----
