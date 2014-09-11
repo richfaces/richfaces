@@ -127,14 +127,16 @@
                         direction: this.options.direction
                     });
 
-                var handlers = {};
-                handlers[this.options.showEvent + this.namespace] = this.__showHandler;
-                handlers[this.options.hideEvent + this.namespace] = this.__hideHandler;
-
-                rf.Event.bindById(this.target, handlers, this);
-
-                if (this.options.hideEvent == 'mouseleave') {
-                    rf.Event.bindById(this.popupId, this.options.hideEvent + this.namespace, this.__hideHandler, this);
+                if (this.options.attached) {
+                    var handlers = {};
+                    handlers[this.options.showEvent + this.namespace] = this.__showHandler;
+                    handlers[this.options.hideEvent + this.namespace] = this.__hideHandler;
+    
+                    rf.Event.bindById(this.target, handlers, this);
+    
+                    if (this.options.hideEvent == 'mouseleave') {
+                        rf.Event.bindById(this.popupId, this.options.hideEvent + this.namespace, this.__hideHandler, this);
+                    }
                 }
             },
 
