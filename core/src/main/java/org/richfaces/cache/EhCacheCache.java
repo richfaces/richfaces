@@ -64,7 +64,7 @@ public class EhCacheCache implements Cache {
     }
 
     public void put(Object key, Object value, Date expired) {
-        Integer ttl = null;
+        int ttl = 0;
 
         if (expired != null) {
             ttl = (int) (expired.getTime() - System.currentTimeMillis()) / 1000;
