@@ -43,11 +43,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractChart;
-import org.richfaces.component.AbstractSeries;
-import org.richfaces.component.AbstractPoint;
-import org.richfaces.component.AbstractXAxis;
-import org.richfaces.component.AbstractYAxis;
-import org.richfaces.component.AbstractLegend;
+import org.richfaces.component.AbstractChartSeries;
+import org.richfaces.component.AbstractChartPoint;
+import org.richfaces.component.AbstractChartXAxis;
+import org.richfaces.component.AbstractChartYAxis;
+import org.richfaces.component.AbstractChartLegend;
 import org.richfaces.model.ChartDataModel;
 import org.richfaces.model.PlotClickEvent;
 import org.richfaces.model.RawJSONString;
@@ -336,10 +336,10 @@ public abstract class ChartRendererBase extends RendererBase {
         @Override
         public VisitResult visit(VisitContext context, UIComponent target) {
 
-            if (target instanceof AbstractLegend) {
+            if (target instanceof AbstractChartLegend) {
                 copyAttrs(target, chart, "", asList("position", "sorting"));
-            } else if (target instanceof AbstractSeries) {
-                AbstractSeries s = (AbstractSeries) target;
+            } else if (target instanceof AbstractChartSeries) {
+                AbstractChartSeries s = (AbstractChartSeries) target;
                 ChartDataModel model = s.getData();
                 particularSeriesListeners.add(s.getPlotClickListener());
 
@@ -428,10 +428,10 @@ public abstract class ChartRendererBase extends RendererBase {
                     throw new FacesException(ex);
                 }
 
-            } else if (target instanceof AbstractXAxis) {
+            } else if (target instanceof AbstractChartXAxis) {
                 copyAttrs(target, chart, "x",
                         asList("min", "max", "pad", "label", "format"));
-            } else if (target instanceof AbstractYAxis) {
+            } else if (target instanceof AbstractChartYAxis) {
                 copyAttrs(target, chart, "y",
                         asList("min", "max", "pad", "label", "format"));
             }
@@ -485,9 +485,9 @@ public abstract class ChartRendererBase extends RendererBase {
         @Override
         public VisitResult visit(VisitContext context, UIComponent target) {
 
-            if (target instanceof AbstractPoint) {
+            if (target instanceof AbstractChartPoint) {
 
-                AbstractPoint p = (AbstractPoint) target;
+                AbstractChartPoint p = (AbstractChartPoint) target;
 
                 Object x = p.getX();
                 Object y = p.getY();

@@ -36,7 +36,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * The &lt;r:series&lt; defines the data to be plotted in a chart. It represents
+ * The &lt;rich:chartSeries&gt; defines the data to be plotted in a chart. It represents
  * the set of values with a common label. Data can be passed using attribute
  * data. It expects ChartDataModel object. You can also use facelet iteration.
  *
@@ -44,9 +44,9 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(
         family = "org.richfaces.ui.output.ChartFamily",
-        tag = @Tag(name = "series", generate = false, handlerClass=SeriesHandler.class, type = TagType.Facelets),
+        tag = @Tag(name = "chartSeries", generate = false, handlerClass=SeriesHandler.class, type = TagType.Facelets),
         fires = {@Event(value = PlotClickEvent.class, listener = PlotClickListener.class)})
-public abstract class AbstractSeries extends UIComponentBase {
+public abstract class AbstractChartSeries extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Series";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";

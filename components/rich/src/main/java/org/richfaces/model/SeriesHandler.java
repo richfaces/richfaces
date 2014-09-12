@@ -31,7 +31,7 @@ import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
-import org.richfaces.component.AbstractSeries;
+import org.richfaces.component.AbstractChartSeries;
 
 public class SeriesHandler extends ComponentHandler {
 
@@ -45,13 +45,13 @@ public class SeriesHandler extends ComponentHandler {
 
         @Override
         public Metadata applyRule(String name, final TagAttribute attribute, MetadataTarget meta) {
-            if (meta.isTargetInstanceOf(AbstractSeries.class)) {
+            if (meta.isTargetInstanceOf(AbstractChartSeries.class)) {
                 if ("plotClickListener".equals(name)) {
                     return new Metadata() {
                         private final Class<?>[] SIGNATURE={PlotClickEvent.class};
                         @Override
                         public void applyMetadata(FaceletContext ctx, Object instance) {
-                            ((AbstractSeries) instance).setPlotClickListener(getValue(ctx));
+                            ((AbstractChartSeries) instance).setPlotClickListener(getValue(ctx));
                         }
                         private MethodExpression getValue(FaceletContext ctx){
                            return attribute.getMethodExpression(ctx, Void.class, SIGNATURE);

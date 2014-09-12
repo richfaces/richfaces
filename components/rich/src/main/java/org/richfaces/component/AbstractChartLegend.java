@@ -30,8 +30,8 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Lukas Macko
  */
-@JsfComponent(tag = @Tag(name = "legend"))
-public abstract class AbstractLegend extends UIComponentBase {
+@JsfComponent(tag = @Tag(name = "chartLegend"))
+public abstract class AbstractChartLegend extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Legend";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";

@@ -23,11 +23,11 @@ package org.richfaces.component;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 /**
- * The &lt;r:xaxis&lt; tag
+ * The &lt;rich:chartXAxis&gt; tag
  * @author Lukas Macko
  */
-@JsfComponent(tag = @Tag(name="xaxis"))
-public abstract class AbstractXAxis extends javax.faces.component.UIComponentBase implements AxisAttributes{
+@JsfComponent(tag = @Tag(name="chartXAxis"))
+public abstract class AbstractChartXAxis extends javax.faces.component.UIComponentBase implements AxisAttributes{
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.output.XAxis";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";
