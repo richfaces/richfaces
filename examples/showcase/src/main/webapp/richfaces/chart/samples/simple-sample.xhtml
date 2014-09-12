@@ -28,30 +28,30 @@
         
         <rich:chart title="Countries by carbon dioxide emissions per capita" styleClass="graf">
 	        <a4j:repeat value="#{chartBean.countries}" var="country" >
-	            <rich:series label="#{country.name}" type="line">
+	            <rich:chartSeries label="#{country.name}" type="line">
 	                <a4j:repeat value="#{country.data}" var="record">
-	                    <rich:point x="#{record.year}" y="#{record.tons}" />
+	                    <rich:chartPoint x="#{record.year}" y="#{record.tons}" />
 	                </a4j:repeat>
-	            </rich:series>
+	            </rich:chartSeries>
 	        </a4j:repeat>
-	        <rich:xaxis  label="year"/>
-	        <rich:yaxis label="metric tons of CO2 per capita"/>
+	        <rich:chartXAxis  label="year"/>
+	        <rich:chartYAxis label="metric tons of CO2 per capita"/>
     	</rich:chart> 
     	
     	<rich:chart id="bar" title="GDP sector composition">
-	        <rich:legend sorting="ascending"/>
+	        <rich:chartLegend sorting="ascending"/>
 	        <a4j:repeat value="#{chartBean.gdp}" var="country">
-	            <rich:series label="#{country.state}" type="bar">
-	                <rich:point x="Agricultural" y="#{country.agricult}"/>
-	                <rich:point x="Industrial" y="#{country.industry}"/>
-	                <rich:point x="Service" y="#{country.service}"/>
-	            </rich:series>
+	            <rich:chartSeries label="#{country.state}" type="bar">
+	                <rich:chartPoint x="Agricultural" y="#{country.agricult}"/>
+	                <rich:chartPoint x="Industrial" y="#{country.industry}"/>
+	                <rich:chartPoint x="Service" y="#{country.service}"/>
+	            </rich:chartSeries>
 	        </a4j:repeat>
 		</rich:chart>
 		
 		<rich:chart id="pie" title="USA GDP" >
-	        <rich:legend sorting="ascending"/>
-	        <rich:series data="#{chartBean.pie}" type="pie"/>
+	        <rich:chartLegend sorting="ascending"/>
+	        <rich:chartSeries data="#{chartBean.pie}" type="pie"/>
 		</rich:chart>
     	
 

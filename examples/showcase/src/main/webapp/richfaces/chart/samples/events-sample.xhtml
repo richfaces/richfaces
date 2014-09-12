@@ -42,15 +42,15 @@
     <h:form >
         <rich:chart onplotclick="log(event)" onplothover="hover(event)" onmouseout="clear()" plotClickListener="#{chartEventBean.handler}">
             <a4j:repeat value="#{chartEventBean.countries}" var="country" >
-                <rich:series label="#{country.name}" type="line">
+                <rich:chartSeries label="#{country.name}" type="line">
                     <a4j:repeat value="#{country.data}" var="record">
-                        <rich:point x="#{record.year}" y="#{record.tons}" />
+                        <rich:chartPoint x="#{record.year}" y="#{record.tons}" />
                     </a4j:repeat>
-                </rich:series>
+                </rich:chartSeries>
             </a4j:repeat>
             <a4j:ajax event="plotclick" render="msg" execute="msg"/>
-            <rich:xaxis label="year"/>
-            <rich:yaxis label="metric tons of CO2 per capita"/>
+            <rich:chartXAxis label="year"/>
+            <rich:chartYAxis label="metric tons of CO2 per capita"/>
         </rich:chart>
         <h3>Server-side chart event message:</h3>
         <h:outputText id="msg" value="#{chartEventBean.msg}"/>
