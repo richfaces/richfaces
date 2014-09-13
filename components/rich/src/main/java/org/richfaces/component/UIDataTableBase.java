@@ -413,4 +413,8 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public static Set<String> getSupportedMetaComponents() {
         return SUPPORTED_META_COMPONENTS;
     }
+
+    public String getSortingAndFilteringRenderTargetId(FacesContext facesContext) {
+        return getClientId(facesContext);
+    }
 }

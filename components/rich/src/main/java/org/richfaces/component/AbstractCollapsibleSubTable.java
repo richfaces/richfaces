@@ -166,4 +166,8 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
 
         return holderList;
     }
+
+    public String getSortingAndFilteringRenderTargetId(FacesContext facesContext) {
+        return getClientId(facesContext) + "@" + BODY;
+    }
 }

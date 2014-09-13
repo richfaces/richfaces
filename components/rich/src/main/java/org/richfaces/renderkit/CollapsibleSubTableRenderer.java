@@ -87,6 +87,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     ;
 
     protected void doDecode(FacesContext facesContext, UIComponent component) {
+        super.doDecode(facesContext, component);
         AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) component;
 
         String clientId = subTable.getClientId(facesContext);
@@ -110,6 +111,18 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
                 new CollapsibleSubTableToggleEvent(subTable, isExpanded, togglerId).queue();
             }
         }
+    }
+
+    @Override
+    protected void decodeFiltering(FacesContext context, UIDataTableBase dataTableBase, String value) {
+        super.decodeFiltering(context, dataTableBase, value);
+        dataTableBase.clearExtendedDataModel();
+    }
+
+    @Override
+    protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {
+        super.decodeSorting(context, dataTableBase, value);
+        dataTableBase.clearExtendedDataModel();
     }
 
     @Override
@@ -296,8 +309,10 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
 
         UIComponent nestingForm = getUtils().getNestingForm(subTable);
         String formId = nestingForm != null ? nestingForm.getClientId(facesContext) : "";
+        AjaxOptions ajaxOptions = AjaxRendererUtils.buildEventOptions(facesContext, subTable);
 
         Map<String, Object> options = new HashMap<String, Object>();
+        options.put("ajaxEventOptions", ajaxOptions.getParameters());
         options.put("stateInput", subTable.getClientId(facesContext) + STATE);
         options.put("optionsInput", subTable.getClientId(facesContext) + OPTIONS);
         boolean isNested = Boolean.TRUE.equals(subTable.getAttributes().get("isNested"));

@@ -99,8 +99,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
                 }
             }
         }
-        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); // TODO Use partial re-rendering
-                                                                                                // here.
+        context.getPartialViewContext().getRenderIds().add(dataTableBase.getSortingAndFilteringRenderTargetId(context)); // TODO Use partial re-rendering here
     }
 
     private void addFilterConverterErrorMessage(FacesContext context, AbstractColumn column, String submittedValue, Exception exception) {
@@ -145,7 +144,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
             sortPriority.add(columnId);
         }
         updateAttribute(context, dataTableBase, SORT_PRIORITY_STRING, sortPriority);
-        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context));
+        context.getPartialViewContext().getRenderIds().add(dataTableBase.getSortingAndFilteringRenderTargetId(context));
     }
 
     private void updateSortOrder(FacesContext context, UIComponent component, String value) {
