@@ -207,6 +207,14 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     }
 
     /**
+     * This method is present in the JSF 2.2 PartialViewContextWrapper, but not in the JSF 2.1.  Implementing it here so we are still compatible with JSF 2.1.
+     */
+    @Override
+    public void setPartialRequest(boolean isPartialRequest) {
+        getWrapped().setPartialRequest(isPartialRequest);
+    }
+
+    /**
      * Returns {@link FacesContext} for current partial view processing context
      */
     protected FacesContext getFacesContext() {
