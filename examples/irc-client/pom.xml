@@ -34,7 +34,7 @@
 
     <artifactId>irc-client</artifactId>
     <groupId>org.richfaces.examples</groupId>
-    <name>RichFaces Example: IRC Client</name>
+    <name>RichFaces Example - IRC Client</name>
     <packaging>war</packaging>
 
     <properties>

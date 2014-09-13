@@ -33,7 +33,7 @@
 
     <artifactId>components-demo</artifactId>
     <groupId>org.richfaces.examples</groupId>
-    <name>RichFaces Example: Component </name>
+    <name>RichFaces Example - Component </name>
     <version>4.5.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
