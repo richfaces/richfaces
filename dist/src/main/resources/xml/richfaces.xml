@@ -70,13 +70,14 @@
             </includes>
         </dependencySet>
 
-        <!-- Dpendency jars -->
+        <!-- Dependency jars -->
         <dependencySet>
             <outputDirectory>lib</outputDirectory>
             <includes>
                 <include>net.sourceforge.cssparser</include>
                 <include>org.w3c.css</include>
                 <include>com.google.guava</include>
+                <include>org.richfaces:richfaces-page-fragments</include>
             </includes>
         </dependencySet>
         <dependencySet>

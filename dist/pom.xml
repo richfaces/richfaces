@@ -85,6 +85,12 @@
                     <version>${project.version}</version>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-page-fragments</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+
                 <!-- Runtime Dependencies -->
                 <dependency>
                     <groupId>net.sourceforge.cssparser</groupId>
@@ -139,7 +145,7 @@
                                 <configuration>
                                     <stripVersion>true</stripVersion>
                                     <classifier>sources</classifier>
-                                    <includeArtifactIds>richfaces,richfaces-a4j,richfaces-core</includeArtifactIds>
+                                    <includeArtifactIds>richfaces,richfaces-a4j,richfaces-core,richfaces-page-fragments</includeArtifactIds>
                                     <outputDirectory>${project.build.directory}/richfaces-sources</outputDirectory>
                                 </configuration>
                             </execution>
