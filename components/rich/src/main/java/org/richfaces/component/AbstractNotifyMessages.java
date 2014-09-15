@@ -44,7 +44,7 @@ import org.richfaces.component.attribute.OutputFormatProps;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(
-        generate = "org.richfaces.component.UINotifyMessages",
+        generate = "org.richfaces.component.html.HtmlNotifyMessages",
         type = "org.richfaces.NotifyMessages",
         tag = @Tag(name = "notifyMessages"),
         renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.NotifyMessagesRenderer"))

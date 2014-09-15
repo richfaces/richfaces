@@ -42,7 +42,7 @@ import org.richfaces.component.attribute.OutputFormatProps;
  * @author asmirnov@exadel.com
  */
 @JsfComponent(
-        generate = "org.richfaces.component.UIRichMessages",
+        generate = "org.richfaces.component.html.HtmlMessages",
         type = "org.richfaces.Messages",
         tag = @Tag(name = "messages"),
         renderer = @JsfRenderer(template = "messages.template.xml", type = "org.richfaces.MessagesRenderer"))
