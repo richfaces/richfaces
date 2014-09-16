@@ -797,4 +797,30 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     if (rf.browser.trident) {
         rf.browser.msie = true;
     }
+    
+    
+    // MyFaces 2.2 workaround, skip input.rf-fu-inp (fileupload) when looking for a multipart candidate
+    if (window.myfaces && myfaces._impl._util._Dom.isMultipartCandidate) {
+        var oldIsMultipartCandidate = myfaces._impl._util._Dom.isMultipartCandidate,
+            that = myfaces._impl._util._Dom;
+        
+        
+        myfaces._impl._util._Dom.isMultipartCandidate = function (executes) {
+            if (that._Lang.isString(executes)) {
+                executes = that._Lang.strToArray(executes, /\s+/);
+            }
+    
+            for (var cnt = 0, len = executes.length; cnt < len ; cnt ++) {
+                var element = that.byId(executes[cnt]);
+                var inputs = that.findByTagName(element, "input", true);
+                for (var cnt2 = 0, len2 = inputs.length; cnt2 < len2 ; cnt2++) {
+                    if (that.getAttribute(inputs[cnt2], "type") == "file" &&
+                        (!that.getAttribute(inputs[cnt2], "class") ||
+                        that.getAttribute(inputs[cnt2], "class").search("rf-fu-inp") == -1)) 
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
 }(RichFaces.jQuery, RichFaces));
