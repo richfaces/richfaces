@@ -391,17 +391,18 @@
 
             processItem: function(item) {
                 var key = $(item).attr("id");
-                var label;
+                var label, value;
                 $.each(this.clientSelectItems, function() {
                     if (this.id == key) {
                         label = this.label;
+                        value = this.value;
                         return false;
                     }
                 });
                 this.__setValue(label);
+                this.selValueInput.val(value);
                 this.__hidePopup();
                 this.__setInputFocus();
-                this.__save();
 
                 this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
