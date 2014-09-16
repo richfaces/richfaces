@@ -800,7 +800,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     
     
     // MyFaces 2.2 workaround, skip input.rf-fu-inp (fileupload) when looking for a multipart candidate
-    if (window.myfaces && myfaces._impl._util._Dom.isMultipartCandidate) {
+    if (window.myfaces && myfaces._impl && myfaces._impl._util && myfaces._impl._util._Dom.isMultipartCandidate) {
         var oldIsMultipartCandidate = myfaces._impl._util._Dom.isMultipartCandidate,
             that = myfaces._impl._util._Dom;
         
