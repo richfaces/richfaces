@@ -21,6 +21,21 @@
  */
 package org.richfaces.integration.push;
 
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.webapp.PushServlet;
+
+import category.FailingOnPhantomJS;
+import category.Smoke;
+import com.google.common.base.Function;
+
 @RunWith(Arquillian.class)
 @Category({ Smoke.class, FailingOnPhantomJS.class })
 public class ITPushServletMappingWithoutWarp extends AbstractPushTestWithoutWarp {
