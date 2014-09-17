@@ -6,27 +6,27 @@
   2011-12-06
   ------
 
-${projectName}
+${project.name}
 
-  The ${projectName} is used during <<<process-classes>>> phase to extract
+  The ${project.name} is used during <<<process-classes>>> phase to extract
   defined component resources (defined by JSF <<<@ResourceDependency>>> annotation) and pre-render them.
   
-  The ${projectName} scans for all <<<@ResourceDependency>>> definitions in <<<compile>>> scope.
+  The ${project.name} scans for all <<<@ResourceDependency>>> definitions in <<<compile>>> scope.
   
   Pre-rendered component resources does not require runtime processing which saves processing time and
   avoid some classes otherwise necessary for runtime resource generation.
   
-  Additionally ${projectName} is able to pack resources into packages, one package per resource
+  Additionally ${project.name} is able to pack resources into packages, one package per resource
   mime-type. This feature can be used for aggregating all application resources to one package, optimizing
   the network transfers.
   
-  The ${projectName} also provides feature for minimization of JavaScript/CSS resources using YUI Compressor.
+  The ${project.name} also provides feature for minimization of JavaScript/CSS resources using YUI Compressor.
   
   The previous features can be enabled declaratively.
 
 * Goals Overview
 
-  The ${projectName} has only goal:
+  The ${project.name} has only goal:
 
   * {{{./process-mojo.html}richfaces-resources:process}} is used to extract resource dependencies and render them to static files
 
@@ -34,7 +34,7 @@ ${projectName}
 
 * Usage
 
-  General instructions on how to use the ${projectName} can be found on the {{{./usage.html}usage page}}. Some more
+  General instructions on how to use the ${project.name} can be found on the {{{./usage.html}usage page}}. Some more
   specific use cases are described in the examples given below..
 
   If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our
