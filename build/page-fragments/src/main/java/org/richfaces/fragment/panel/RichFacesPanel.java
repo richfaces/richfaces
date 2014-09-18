@@ -25,6 +25,9 @@ import org.jboss.arquillian.graphene.GrapheneElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 /**
  * Add to the final doc that there is example implementation in TextualRichFacesPanel, as the most used panel.
@@ -33,7 +36,7 @@ import org.richfaces.fragment.common.AdvancedInteractions;
  * @param <HEADER>
  * @param <BODY>
  */
-public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements AdvancedInteractions<RichFacesPanel<HEADER,BODY>.AdvancedPanelInteractions> {
+public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements AdvancedVisibleComponentIteractions<RichFacesPanel<HEADER,BODY>.AdvancedPanelInteractions> {
 
     @FindBy(css = "div.rf-p-hdr")
     private GrapheneElement header;
@@ -58,7 +61,7 @@ public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER,
         return header;
     }
 
-    public class AdvancedPanelInteractions {
+    public class AdvancedPanelInteractions implements VisibleComponentInteractions {
 
         public WebElement getRootElement() {
             return RichFacesPanel.this.getRootElement();
@@ -70,6 +73,11 @@ public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER,
 
         public WebElement getBodyElement() {
             return RichFacesPanel.this.getBodyElement();
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(RichFacesPanel.this.getRootElement());
         }
     }
 }
