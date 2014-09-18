@@ -36,9 +36,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -47,7 +49,7 @@ import org.richfaces.fragment.inplaceInput.AbstractConfirmOrCancel;
 import org.richfaces.fragment.inplaceInput.ConfirmOrCancel;
 import org.richfaces.fragment.inplaceInput.InplaceComponentState;
 
-public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractions<RichFacesInplaceSelect.AdvancedInplaceSelectInteractions> {
+public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleComponentIteractions<RichFacesInplaceSelect.AdvancedInplaceSelectInteractions> {
 
     @FindBy(css = "input[id$=Okbtn]")
     private WebElement confirmButton;
@@ -150,7 +152,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
         }
     }
 
-    public class AdvancedInplaceSelectInteractions {
+    public class AdvancedInplaceSelectInteractions implements VisibleComponentInteractions{
 
         private final Event DEFAULT_EDIT_EVENT = Event.CLICK;
         private Event editByEvent = DEFAULT_EDIT_EVENT;
@@ -273,6 +275,11 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
                     }
                 }.withMessage("Waiting for popup to show.")
                 .withTimeout(getTimeoutForPopupToShow(), TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 
