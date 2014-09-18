@@ -178,6 +178,8 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
         }
 
         public void switchToEditingState() {
+            // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
+            textInput.advanced().focus();
             Utils.triggerJQ(executor, editByEvent.getEventName(), root);
             waitForPopupToShow().perform();
         }
