@@ -35,7 +35,7 @@ import com.google.common.base.Predicate;
 public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAccordionItem> implements Accordion {
 
     @FindBy(className = "rf-ac-itm-hdr")
-    private List<WebElement> switcherControllerElements;
+    private List<WebElement> accordionHeaders;
 
     @FindBy(className = "rf-ac-itm")
     private List<RichFacesAccordionItem> accordionItems;
@@ -83,7 +83,11 @@ public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAcc
 
     @Override
     protected List<WebElement> getSwitcherControllerElements() {
-        return switcherControllerElements;
+        return accordionHeaders;
+    }
+
+    public List<WebElement> getAccordionHeaders(){
+        return accordionHeaders;
     }
 
     @Override
