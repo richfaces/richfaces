@@ -35,11 +35,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.Actions;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.ClearType;
 import org.richfaces.fragment.common.ScrollingType;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -51,7 +52,7 @@ import com.google.common.base.Predicate;
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions<RichFacesAutocomplete.AdvancedAutocompleteInteractions> {
+public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleComponentIteractions<RichFacesAutocomplete.AdvancedAutocompleteInteractions> {
 
     private static final String SUGGESTIONS_CSS_SELECTOR_TEMPLATE = ".rf-au-lst-cord[id='%sList'] .rf-au-itm";
     private static final String CSS_INPUT = "input[type='text']";
@@ -85,7 +86,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
         return new SelectOrConfirmImpl();
     }
 
-    public class AdvancedAutocompleteInteractions {
+    public class AdvancedAutocompleteInteractions implements VisibleComponentInteractions{
 
         private static final String DEFAULT_TOKEN = ",";
         private final ScrollingType DEFAULT_SCROLLING_TYPE = ScrollingType.BY_MOUSE;
@@ -200,6 +201,11 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
 
         public long getTimeoutForSuggestionsToBeVisible() {
             return (_timeoutForSuggestionsToBeVisible == -1L) ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForSuggestionsToBeVisible;
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 
