@@ -75,9 +75,9 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
     @FindBy(className = "rf-pick-lst-scrl")
     private WebElement listAreaElement;
     @FindBy(className = "rf-pick-src-cptn")
-    private WebElement captionElement;
+    private WebElement sourceCaptionElement;
     @FindBy(css = "thead.rf-pick-lst-hdr > tr.rf-pick-hdr")
-    private WebElement headerElement;
+    private WebElement sourceHeaderElement;
 
     private final AdvancedPickListInteractions interactions = new AdvancedPickListInteractions();
 
@@ -327,7 +327,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getSourceCaptionElement() {
-            return captionElement;
+            return sourceCaptionElement;
         }
 
         public WebElement getTargetCaptionElement() {
@@ -339,7 +339,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getSourceHeaderElement() {
-            return headerElement;
+            return sourceHeaderElement;
         }
 
         public WebElement getTargetHeaderElement() {
@@ -383,10 +383,10 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         /**
-         * Operations over the orderable target list.
+         * This method return element which has operations over the orderable target list.
          * If the list is not orderable than some Exception is thrown.
          */
-        public OrderingList orderTargetList() {
+        public OrderingList getOrderTargetList() {
             return targetList;
         }
     }
