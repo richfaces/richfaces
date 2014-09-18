@@ -232,7 +232,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         @FindBy(className = SELECTED_ITEM_CLASS)
         private List<WebElement> selectedItems;
         @FindBy(className = "rf-pick-lst-scrl")
-        private WebElement listAreaElement;
+        private WebElement contentAreaElements;
         @FindBy(css = "[id$='TargetItems']")
         private SelectableListImpl list;
 
@@ -272,8 +272,8 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         @Override
-        public WebElement getListAreaElement() {
-            return listAreaElement;
+        public WebElement getContentAreaElements() {
+            return contentAreaElements;
         }
 
         @Override
@@ -351,7 +351,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getTargetListAreaElement() {
-            return targetList.getListAreaElement();
+            return targetList.getContentAreaElements();
         }
 
         public WebElement getRemoveAllButtonElement() {

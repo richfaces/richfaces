@@ -239,8 +239,8 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
             return getBody().getList();
         }
 
-        public WebElement getListAreaElement() {
-            return getBody().getListAreaElement();
+        public WebElement getContentAreaElements() {
+            return getBody().getContentAreaElements();
         }
 
         public WebElement getRootElement() {
@@ -296,7 +296,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
 
         ListComponent<? extends SelectableListItem> getList();
 
-        WebElement getListAreaElement();
+        WebElement getContentAreaElements();
 
         WebElement getRootElement();
 
