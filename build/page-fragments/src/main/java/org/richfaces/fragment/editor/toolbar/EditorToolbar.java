@@ -24,7 +24,7 @@ package org.richfaces.fragment.editor.toolbar;
 import org.openqa.selenium.WebElement;
 
 public interface EditorToolbar {
-    int count();
+    int numberOfToolbarItems();
 
     WebElement getButton(EditorButton whichButton);
 

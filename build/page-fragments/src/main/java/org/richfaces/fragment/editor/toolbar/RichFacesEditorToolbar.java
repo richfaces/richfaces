@@ -43,14 +43,14 @@ public class RichFacesEditorToolbar implements EditorToolbar {
     }
 
     @Override
-    public int count() {
+    public int numberOfToolbarItems() {
         List<WebElement> toolbarItems= browser.findElements(By.className("cke_toolbar"));
         return toolbarItems.size();
     }
 
     @Override
     public boolean isBasic() {
-        if (count() == 1) {
+        if (numberOfToolbarItems() == 1) {
             return true;
         }else {
          return false;
@@ -59,7 +59,7 @@ public class RichFacesEditorToolbar implements EditorToolbar {
 
     @Override
     public boolean isAdvanced() {
-        if (count() == 11) {
+        if (numberOfToolbarItems() == 11) {
             return true;
         }else {
          return false;
