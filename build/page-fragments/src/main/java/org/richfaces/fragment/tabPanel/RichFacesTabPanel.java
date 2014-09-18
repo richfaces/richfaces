@@ -38,7 +38,7 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
     private List<WebElement> tabHeaders;
 
     @FindByJQuery(".rf-tab:visible")
-    private WebElement rootOfContainerElement;
+    private WebElement visibleContent;
 
     @FindByJQuery(".rf-tab-hdr-act")
     private WebElement activeHeader;
@@ -109,8 +109,12 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
         return tabHeaders;
     }
 
+    public WebElement getVisibleContent(){
+        return visibleContent;
+    }
+
     @Override
     protected WebElement getRootOfContainerElement() {
-        return rootOfContainerElement;
+        return visibleContent;
     }
 }
