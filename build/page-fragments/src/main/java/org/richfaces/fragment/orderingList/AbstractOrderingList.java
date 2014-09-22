@@ -80,7 +80,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
     public PuttingSelectedItem select(ChoicePicker picker) {
         unselectAll();
         selectItem(picker.pick(getBody().getItemsElements()));
-        return puttingSelectedItem;
+        return getPuttingSelectedItem();
     }
 
     protected void selectItem(final WebElement item) {
@@ -116,6 +116,14 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
         }
     }
 
+    protected OrderingInteraction getOrderingInteraction() {
+        return orderingInteraction;
+    }
+
+    protected PuttingSelectedItem getPuttingSelectedItem() {
+        return puttingSelectedItem;
+    }
+
     private class PuttingSelectedItemImpl implements PuttingSelectedItem {
 
         private OrderingList putAction(int positionSource, int positionTarget, int differenceToEnd) {
@@ -126,12 +134,12 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
                 if (min == absBetween) {
                     singleStepMove(differenceBetween);
                 } else if (min == positionTarget) {
-                    orderingInteraction.top();
+                    getOrderingInteraction().top();
                     if (positionTarget != 0) {
                         singleStepMove(positionTarget);
                     }
                 } else {
-                    orderingInteraction.bottom();
+                    getOrderingInteraction().bottom();
                     if (differenceToEnd != 0) {
                         singleStepMove(-differenceToEnd);
                     }
@@ -175,9 +183,9 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
         private void singleStepMove(int difference) {
             if (difference == 0) {// no operation
             } else if (difference > 0) {
-                orderingInteraction.down(Math.abs(difference));
+                getOrderingInteraction().down(Math.abs(difference));
             } else {
-                orderingInteraction.up(Math.abs(difference));
+                getOrderingInteraction().up(Math.abs(difference));
             }
         }
     }
@@ -260,6 +268,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
             return getBody().getUpButtonElement();
         }
 
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
@@ -283,7 +292,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
         public OrderingInteraction select(MultipleChoicePicker picker) {
             unselectAll();
             selectItems(picker.pickMultiple(getBody().getItemsElements()));
-            return orderingInteraction;
+            return getOrderingInteraction();
         }
     }
 

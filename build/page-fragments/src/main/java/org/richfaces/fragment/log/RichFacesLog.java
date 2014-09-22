@@ -52,7 +52,7 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
     private RichFacesLogEntries logEntries;
 
     @FindBy(tagName = "button")
-    private WebElement clearButton;
+    private GrapheneElement clearButton;
     @FindBy(tagName = "select")
     private Select levelSelect;
 
@@ -65,7 +65,7 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
 
     @Override
     public void clear() {
-        clearButton.click();
+        advanced().getClearButtonElement().click();
         Graphene.waitGui().until(new Predicate<WebDriver>() {
 
             @Override
@@ -77,7 +77,7 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
 
     @Override
     public void changeLevel(LogEntryLevel level) {
-        levelSelect.selectByVisibleText(level.toString().toLowerCase());
+        advanced().getLevelSelectElement().selectByVisibleText(level.toString().toLowerCase());
     }
 
     @Override
@@ -97,18 +97,18 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
 
         @Override
         public String getContent() {
-            return messageElement.getText();
+            return getMessageElement().getText();
         }
 
         @Override
         public LogEntryLevel getLevel() {
-            return RichFacesLogEntryLevel.getLevelFromLabel(labelElement);
+            return RichFacesLogEntryLevel.getLevelFromLabel(getLabelElement());
         }
 
         @Override
         public DateTime getTimeStamp() {
             DateTime dt = null;
-            String text = labelElement.getText();
+            String text = getLabelElement().getText();
             String timeStamp = text.substring(text.indexOf('[') + 1, text.indexOf(']'));
             DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:m:s.S");
             try {
@@ -117,6 +117,20 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
                 throw new RuntimeException("Something went wrong with parsing of log entry timestamp!", e);
             }
             return dt;
+        }
+
+        /**
+         * @return the labelElement
+         */
+        protected WebElement getLabelElement() {
+            return labelElement;
+        }
+
+        /**
+         * @return the messageElement
+         */
+        protected WebElement getMessageElement() {
+            return messageElement;
         }
     }
 
@@ -152,8 +166,17 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
             return root;
         }
 
+        public GrapheneElement getClearButtonElement() {
+            return clearButton;
+        }
+
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
+        }
+
+        protected Select getLevelSelectElement() {
+            return levelSelect;
         }
     }
 }

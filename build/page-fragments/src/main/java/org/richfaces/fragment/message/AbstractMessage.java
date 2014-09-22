@@ -25,7 +25,6 @@ import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.WaitingWrapper;
@@ -42,36 +41,21 @@ public abstract class AbstractMessage implements Message, AdvancedInteractions<M
     @Root
     private GrapheneElement root;
 
-    private final AdvancedMessageInteractions interactions = new AdvancedMessageInteractionsImpl();
-
-    @Override
-    public AdvancedMessageInteractions advanced() {
-        return interactions;
-    }
-
     protected abstract String getCssClass(MessageType type);
 
     @Override
     public String getDetail() {
-        return getMessageDetailElement().getText();
-    }
-
-    protected abstract WebElement getMessageDetailElement();
-
-    protected abstract WebElement getMessageSummaryElement();
-
-    protected GrapheneElement getRootElement() {
-        return root;
+        return advanced().getDetailElement().getText();
     }
 
     @Override
     public String getSummary() {
-        return getMessageSummaryElement().getText();
+        return advanced().getSummaryElement().getText();
     }
 
     @Override
     public MessageType getType() {
-        String attribute = getRootElement().getAttribute("class");
+        String attribute = advanced().getRootElement().getAttribute("class");
         for (MessageType type : MessageType.values()) {
             if (attribute.contains(getCssClass(type))) {
                 return type;
@@ -80,21 +64,11 @@ public abstract class AbstractMessage implements Message, AdvancedInteractions<M
         return null;
     }
 
-    public class AdvancedMessageInteractionsImpl implements AdvancedMessageInteractions {
+    public abstract class AdvancedMessageInteractionsImpl implements AdvancedMessageInteractions {
 
         @Override
-        public WebElement getDetailElement() {
-            return getMessageDetailElement();
-        }
-
-        @Override
-        public WebElement getRootElement() {
+        public GrapheneElement getRootElement() {
             return root;
-        }
-
-        @Override
-        public WebElement getSummaryElement() {
-            return getMessageSummaryElement();
         }
 
         @Override

@@ -88,12 +88,12 @@ public class YearAndMonthEditor {
     private long _timeoutForYearAndMonthEditorToBeVisible = -1;
 
     public void cancelDate() {
-        cancelButtonElement.click();
+        getCancelButtonElement().click();
         waitUntilIsNotVisible().perform();
     }
 
     public void confirmDate() {
-        okButtonElement.click();
+        getOkButtonElement().click();
         waitUntilIsNotVisible().perform();
     }
 
@@ -106,8 +106,8 @@ public class YearAndMonthEditor {
     }
 
     public List<Integer> getDisplayedYears() {
-        List<WebElement> inRightOrder = Lists.newArrayList(yearsEven);
-        inRightOrder.addAll(yearsOdd);
+        List<WebElement> inRightOrder = Lists.newArrayList(getYearsEven());
+        inRightOrder.addAll(getYearsOdd());
         List<Integer> result = new ArrayList<Integer>(10);
         for (WebElement webElement : inRightOrder) {
             result.add(Integer.parseInt(webElement.getText().trim()));
@@ -127,13 +127,17 @@ public class YearAndMonthEditor {
         return previousDecadeButtonElement;
     }
 
-    public WebElement getRoot() {
+    public WebElement getRootElement() {
         return root;
     }
 
+    protected String getSelectedClass() {
+        return SELECTED;
+    }
+
     public Integer getSelectedMonthNumber() {
-        if (Utils.isVisible(selectedMonth)) {
-            String id = selectedMonth.getAttribute("id");
+        if (Utils.isVisible(getSelectedMonth())) {
+            String id = getSelectedMonth().getAttribute("id");
             return Integer.parseInt(id.substring(id.lastIndexOf("M") + 1))
                 + 1;// indexed from 0
         }
@@ -141,16 +145,16 @@ public class YearAndMonthEditor {
     }
 
     public Integer getSelectedYearNumber() {
-        if (Utils.isVisible(selectedYear)) {
-            String year = selectedYear.getText();
+        if (Utils.isVisible(getSelectedYear())) {
+            String year = getSelectedYear().getText();
             return Integer.parseInt(year);
         }
         return null;
     }
 
     public List<String> getShortMonthsLabels() {
-        List<WebElement> inRightOrder = Lists.newArrayList(monthsEven);
-        inRightOrder.addAll(monthsOdd);
+        List<WebElement> inRightOrder = Lists.newArrayList(getMonthsEven());
+        inRightOrder.addAll(getMonthsOdd());
         List<String> result = new ArrayList<String>(12);
         for (WebElement webElement : inRightOrder) {
             result.add(webElement.getText().trim());
@@ -159,19 +163,19 @@ public class YearAndMonthEditor {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRootElement());
     }
 
     public void nextDecade() {
-        String firstBefore = firstYear.getText();
-        nextDecadeButtonElement.click();
-        Graphene.waitGui().withMessage("The decade was not changed.").until().element(firstYear).text().not().equalTo(firstBefore);
+        String firstBefore = getFirstYear().getText();
+        getNextDecadeButtonElement().click();
+        Graphene.waitGui().withMessage("The decade was not changed.").until().element(getFirstYear()).text().not().equalTo(firstBefore);
     }
 
     public void previousDecade() {
-        String firstBefore = firstYear.getText();
-        previousDecadeButtonElement.click();
-        Graphene.waitGui().withMessage("The decade was not changed.").until().element(firstYear).text().not().equalTo(firstBefore);
+        String firstBefore = getFirstYear().getText();
+        getPreviousDecadeButtonElement().click();
+        Graphene.waitGui().withMessage("The decade was not changed.").until().element(getFirstYear()).text().not().equalTo(firstBefore);
     }
 
     public YearAndMonthEditor selectDate(DateTime date) {
@@ -186,14 +190,14 @@ public class YearAndMonthEditor {
     }
 
     private void selectMonth(int month) {
-        WebElement monthElement = root.findElement(By.cssSelector("div[id*='DateEditorLayoutM" + (month - 1) + "']"));
+        WebElement monthElement = getRootElement().findElement(By.cssSelector("div[id*='DateEditorLayoutM" + (month - 1) + "']"));
         monthElement.click();
-        Graphene.waitGui().withMessage("The month was not selected.").until().element(monthElement).attribute("class").contains(SELECTED);
+        Graphene.waitGui().withMessage("The month was not selected.").until().element(monthElement).attribute("class").contains(getSelectedClass());
     }
 
     private void selectYear(int year) {
-        int yearsPickerSize = years.size();
-        int yearInTheFirstColumn = Integer.parseInt(firstYear.getText());
+        int yearsPickerSize = getYears().size();
+        int yearInTheFirstColumn = Integer.parseInt(getFirstYear().getText());
         int diff = year - yearInTheFirstColumn;
         // scroll to year
         if (diff > 0 && diff >= yearsPickerSize) {
@@ -208,9 +212,9 @@ public class YearAndMonthEditor {
             }
         }
         // select year
-        WebElement yearElement = root.findElement(ByJQuery.selector("div[id*='DateEditorLayoutY']:contains('" + year + "')"));
+        WebElement yearElement = getRootElement().findElement(ByJQuery.selector("div[id*='DateEditorLayoutY']:contains('" + year + "')"));
         yearElement.click();
-        Graphene.waitGui().withMessage("The year was not selected.").until().element(yearElement).attribute("class").contains(SELECTED);
+        Graphene.waitGui().withMessage("The year was not selected.").until().element(yearElement).attribute("class").contains(getSelectedClass());
     }
 
     public void setuptimeoutForYearAndMonthEditorToBeNotVisible(long timeoutInMilliseconds) {
@@ -233,19 +237,51 @@ public class YearAndMonthEditor {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().not().visible();
+                wait.until().element(getRootElement()).is().not().visible();
             }
         }.withMessage("Year and month editor to be not visible.")
-         .withTimeout(getTimeoutForYearAndMonthEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
+            .withTimeout(getTimeoutForYearAndMonthEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
 
     public WaitingWrapper waitUntilIsVisible() {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().visible();
+                wait.until().element(getRootElement()).is().visible();
             }
         }.withMessage("Year and month editor to be not visible.")
-         .withTimeout(getTimeoutForYearAndMonthEditorToBeVisible(), TimeUnit.MILLISECONDS);
+            .withTimeout(getTimeoutForYearAndMonthEditorToBeVisible(), TimeUnit.MILLISECONDS);
+    }
+
+    protected List<WebElement> getMonthsEven() {
+        return monthsEven;
+    }
+
+    protected List<WebElement> getMonthsOdd() {
+        return monthsOdd;
+    }
+
+    protected WebElement getSelectedMonth() {
+        return selectedMonth;
+    }
+
+    protected List<WebElement> getYears() {
+        return years;
+    }
+
+    protected List<WebElement> getYearsEven() {
+        return yearsEven;
+    }
+
+    protected List<WebElement> getYearsOdd() {
+        return yearsOdd;
+    }
+
+    protected WebElement getFirstYear() {
+        return firstYear;
+    }
+
+    protected WebElement getSelectedYear() {
+        return selectedYear;
     }
 }

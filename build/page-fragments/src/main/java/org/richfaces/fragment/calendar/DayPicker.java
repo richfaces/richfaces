@@ -58,15 +58,15 @@ public class DayPicker {
     @FindBy(css = "tr[id$=WeekDay]")
     private GrapheneElement weekDaysBarElement;
     @FindBy(css = "tr[id$=WeekDay] > td")
-    private List<WebElement> weekDaysLabels;
+    private List<WebElement> weekDaysLabelsElements;
     @FindBy(css = "tr[id*=WeekNum]")
     private List<CalendarWeek> weeks;
     @FindBy(css = "td[id*=DayCell]:not(.rf-cal-boundary-day):not(.rf-cal-day-lbl)")
-    private List<WebElement> monthDays;
+    private List<WebElement> monthDaysElements;
     @FindBy(css = "td[id*=DayCell].rf-cal-sel")
-    private GrapheneElement selectedDay;
+    private GrapheneElement selectedDayElement;
     @FindBy(css = "td[id*=DayCell].rf-cal-today")
-    private GrapheneElement todayDay;
+    private GrapheneElement todayDayElement;
     private CalendarDaysImpl days;
 
     public List<? extends CalendarDay> getBoundaryDays() {
@@ -80,7 +80,7 @@ public class DayPicker {
 
     public CalendarDaysImpl getDays() {
         if (days == null) {
-            days = Graphene.createPageFragment(CalendarDaysImpl.class, root);
+            days = Graphene.createPageFragment(CalendarDaysImpl.class, getRootElement());
         }
         return days;
     }
@@ -101,8 +101,8 @@ public class DayPicker {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
-        if (selectedDay.isPresent()) {
-            return Graphene.createPageFragment(CalendarDayImpl.class, selectedDay);
+        if (getSelectedDayElement().isPresent()) {
+            return Graphene.createPageFragment(CalendarDayImpl.class, getSelectedDayElement());
         }
         return null;
     }
@@ -131,8 +131,8 @@ public class DayPicker {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
-        if (todayDay.isPresent()) {
-            return Graphene.createPageFragment(CalendarDayImpl.class, todayDay);
+        if (getTodayDayElement().isPresent()) {
+            return Graphene.createPageFragment(CalendarDayImpl.class, getTodayDayElement());
         }
         return null;
     }
@@ -149,12 +149,12 @@ public class DayPicker {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
-        if (!weekDaysBarElement.isDisplayed()) {
+        if (!getWeekDaysBarElement().isDisplayed()) {
             throw new RuntimeException("Week days bar is not visible");
         }
         List<String> result = new ArrayList<String>(8);
 
-        for (WebElement label : weekDaysLabels) {
+        for (WebElement label : getWeekDaysLabelsElements()) {
             result.add(label.getText().trim());
         }
         result.remove(0);
@@ -185,7 +185,11 @@ public class DayPicker {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRootElement());
+    }
+
+    public WebElement getRootElement() {
+        return root;
     }
 
     public void selectDayInMonth(DateTime dateTime) {
@@ -197,17 +201,17 @@ public class DayPicker {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
         Validate.isTrue(day > 0 && day < 32, "day needs to be an integer between 0 and 32");
-        Validate.isTrue(monthDays.size() >= day, "given month has less days (%s) then provided day (%s)", monthDays.size(), day);
+        Validate.isTrue(getMonthDaysElements().size() >= day, "given month has less days (%s) then provided day (%s)", getMonthDaysElements().size(), day);
 
         String jq = "td[id*=DayCell]:not('.rf-cal-boundary-day'):not('.rf-cal-day-lbl'):contains('" + day + "')";
-        Graphene.createPageFragment(CalendarDayImpl.class, root.findElement(ByJQuery.selector(jq))).select();
+        Graphene.createPageFragment(CalendarDayImpl.class, getRootElement().findElement(ByJQuery.selector(jq))).select();
     }
 
     public WaitingWrapper waitUntilIsNotVisible() {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().not().visible();
+                wait.until().element(getRootElement()).is().not().visible();
             }
         }.withMessage("Day picker to be not visible.");
     }
@@ -216,9 +220,25 @@ public class DayPicker {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().visible();
+                wait.until().element(getRootElement()).is().visible();
             }
         }.withMessage("Day picker to be visible.");
+    }
+
+    public List<WebElement> getWeekDaysLabelsElements() {
+        return weekDaysLabelsElements;
+    }
+
+    public List<WebElement> getMonthDaysElements() {
+        return monthDaysElements;
+    }
+
+    public GrapheneElement getSelectedDayElement() {
+        return selectedDayElement;
+    }
+
+    public GrapheneElement getTodayDayElement() {
+        return todayDayElement;
     }
 
     public interface CalendarDay {
@@ -360,7 +380,7 @@ public class DayPicker {
             if (!weekNumberElement.isDisplayed()) {
                 throw new RuntimeException("Week numbers are not displayed");
             }
-            return Integer.parseInt(weekNumberElement.getText());
+            return Integer.parseInt(getWeekNumberElement().getText());
         }
 
         public WebElement getWeekNumberElement() {

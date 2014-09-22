@@ -42,9 +42,9 @@ public class RichFacesAdvancedPopupCalendar {
     @FindBy(css = "span[id$=Popup] > input[id$='InputDate']")
     private TextInputComponentImpl input;
     @FindBy(css = "span[id$=Popup] > .rf-cal-btn")
-    private GrapheneElement popupButton;
+    private GrapheneElement popupButtonElement;
     @FindBy(css = "table[id$=Content]")
-    private GrapheneElement popup;
+    private GrapheneElement popupElement;
 
     private PopupCalendar calendarPopup;
 
@@ -62,17 +62,17 @@ public class RichFacesAdvancedPopupCalendar {
         if (getPopup().isVisible()) {
             switch (by) {
                 case INPUT_CLICKING:
-                    input.advanced().getInputElement().click();
+                    getInput().advanced().getInputElement().click();
                     break;
                 case OPEN_BUTTON_CLICKING:
-                    popupButton.click();
+                    getPopupButtonElement().click();
                     break;
                 default:
                     throw new IllegalArgumentException();
             }
         }
         getPopup().waitUntilIsNotVisible()
-                  .perform();
+            .perform();
     }
 
     public TextInputComponentImpl getInput() {
@@ -80,18 +80,22 @@ public class RichFacesAdvancedPopupCalendar {
     }
 
     public Locations getLocations() {
-        return Utils.getLocations(root);
+        return Utils.getLocations(getRootElement());
     }
 
     public PopupCalendar getPopup() {
         if (calendarPopup == null) {
-            calendarPopup = Graphene.createPageFragment(PopupCalendar.class, root);
+            calendarPopup = Graphene.createPageFragment(PopupCalendar.class, getRootElement());
         }
         return calendarPopup;
     }
 
+    public WebElement getPopupElement() {
+        return popupElement;
+    }
+
     public WebElement getPopupButtonElement() {
-        return popupButton;
+        return popupButtonElement;
     }
 
     public WebElement getRootElement() {
@@ -99,31 +103,30 @@ public class RichFacesAdvancedPopupCalendar {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRootElement());
     }
 
     public PopupCalendar openPopup(OpenedBy by) {
-        if (Utils.isVisible(popup)) {
+        if (Utils.isVisible(getPopupElement())) {
             return getPopup();
         }
         switch (by) {
             case INPUT_CLICKING:
-                if (!Utils.isVisible(input.advanced().getInputElement())) {
-                throw new RuntimeException("input is not displayed");
-            }
-                input.advanced().getInputElement().click();
+                if (!Utils.isVisible(getInput().advanced().getInputElement())) {
+                    throw new RuntimeException("input is not displayed");
+                }
+                getInput().advanced().getInputElement().click();
                 break;
             case OPEN_BUTTON_CLICKING:
-                if (!popupButton.isDisplayed()) {
-                throw new RuntimeException("popup button is not displayed");
-            }
-                popupButton.click();
+                if (!getPopupButtonElement().isDisplayed()) {
+                    throw new RuntimeException("popup button is not displayed");
+                }
+                getPopupButtonElement().click();
                 break;
             default:
                 throw new IllegalArgumentException();
         }
-        getPopup().waitUntilIsVisible()
-                  .perform();
+        getPopup().waitUntilIsVisible().perform();
         return getPopup();
     }
 

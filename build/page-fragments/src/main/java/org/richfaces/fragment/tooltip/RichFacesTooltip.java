@@ -119,8 +119,8 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
         private long _timeoutForTooltipToBeVisible = -1;
 
         protected void acquireLastVisibleTooltipIDIfNotSet() {
-            if (idOfTooltip == null) {
-                this.idOfTooltip = driver.findElement(ByJQuery.selector(".rf-tt:last:visible")).getAttribute("id");
+            if (getIdOfTooltip() == null) {
+                setIdOfTooltip(driver.findElement(ByJQuery.selector(".rf-tt:last:visible")).getAttribute("id"));
             }
         }
 
@@ -136,19 +136,27 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
             return root;
         }
 
+        protected void setIdOfTooltip(String id) {
+            this.idOfTooltip = id;
+        }
+
         protected Event getShowEvent() {
             return showEvent;
         }
 
         protected WebElement getTarget() {
             if (target == null) {
-                return root;
+                return getRootElement();
             }
             return target;
         }
 
         protected int getTooltipsBefore() {
             return tooltipsBefore;
+        }
+
+        protected ByJQuery getTooltipsSelector() {
+            return tooltipsSelector;
         }
 
         /**
@@ -162,9 +170,10 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
         }
 
         protected void initiateTooltipsBefore() {
-            tooltipsBefore = driver.findElements(tooltipsSelector).size();
+            tooltipsBefore = driver.findElements(getTooltipsSelector()).size();
         }
 
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
@@ -186,7 +195,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
         }
 
         public void setupTarget() {
-            this.target = null;
+            setupTarget(null);
         }
 
         public void setupTarget(WebElement target) {
@@ -202,22 +211,22 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
                             @Override
                             public boolean apply(WebDriver input) {
                                 if (getTooltipsBefore() == 0) {
-                                    return driver.findElements(tooltipsSelector).isEmpty();
+                                    return driver.findElements(getTooltipsSelector()).isEmpty();
                                 } else {
-                                    return driver.findElements(tooltipsSelector).size() < getTooltipsBefore();
+                                    return driver.findElements(getTooltipsSelector()).size() < getTooltipsBefore();
                                 }
                             }
                         });
                     }
                 }.withTimeout(getTimoutForTooltipToBeNotVisible(), TimeUnit.MILLISECONDS)
-                 .withMessage("Waiting until some tooltip disappears. There were " + getTooltipsBefore() + " tooltips before, now there are: " + driver.findElements(tooltipsSelector).size())
+                .withMessage("Waiting until some tooltip disappears. There were " + getTooltipsBefore() + " tooltips before, now there are: " + driver.findElements(getTooltipsSelector()).size())
                 : new WaitingWrapperImpl() {
                     @Override
                     protected void performWait(FluentWait<WebDriver, Void> wait) {
                         wait.until().element(driver, By.id(getIdOfTooltip())).is().not().visible();
                     }
                 }.withTimeout(getTimoutForTooltipToBeNotVisible(), TimeUnit.MILLISECONDS)
-                 .withMessage("Waiting until tooltip is not visible.");
+                .withMessage("Waiting until tooltip is not visible.");
         }
 
         public WaitingWrapper waitUntilTooltipIsVisible() {
@@ -228,19 +237,19 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
                         wait.until(new Predicate<WebDriver>() {
                             @Override
                             public boolean apply(WebDriver input) {
-                                return driver.findElements(tooltipsSelector).size() > getTooltipsBefore();
+                                return driver.findElements(getTooltipsSelector()).size() > getTooltipsBefore();
                             }
                         });
                     }
                 }.withTimeout(getTimeoutForTooltipToBeVisible(), TimeUnit.MILLISECONDS)
-                 .withMessage("Waiting until a new tooltip appears. There were " + getTooltipsBefore() + " tooltips before, now there are: " + driver.findElements(tooltipsSelector).size())
+                .withMessage("Waiting until a new tooltip appears. There were " + getTooltipsBefore() + " tooltips before, now there are: " + driver.findElements(getTooltipsSelector()).size())
                 : new WaitingWrapperImpl() {
                     @Override
                     protected void performWait(FluentWait<WebDriver, Void> wait) {
                         wait.until().element(driver, By.id(getIdOfTooltip())).is().visible();
                     }
                 }.withTimeout(getTimeoutForTooltipToBeVisible(), TimeUnit.MILLISECONDS)
-                 .withMessage("Waiting until tooltip is visible.");
+                .withMessage("Waiting until tooltip is visible.");
         }
 
         public void setupTimoutForTooltipToBeNotVisible(long timeoutInMilliseconds) {

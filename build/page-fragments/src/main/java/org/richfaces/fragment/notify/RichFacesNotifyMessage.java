@@ -62,11 +62,11 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
 
     @Override
     public void close() {
-        new Actions(driver).moveToElement(getRootElement()).perform();
-        Graphene.waitModel().until().element(closeIconElement).is().visible();
+        new Actions(driver).moveToElement(advanced().getRootElement()).perform();
+        Graphene.waitModel().until().element(advanced().getCloseIconElement()).is().visible();
         final List<WebElement> messages = driver.findElements(By.cssSelector("div.rf-ntf-cnt"));
         final int sizeBefore = messages.size();
-        new Actions(driver).click(closeIconElement).perform();
+        new Actions(driver).click(advanced().getCloseIconElement()).perform();
         Graphene.waitModel().withMessage("The message did not disappear.").until(new ExpectedCondition<Boolean>() {
             @Override
             public Boolean apply(WebDriver input) {
@@ -78,16 +78,6 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
     @Override
     protected String getCssClass(MessageType type) {
         return getStyleClassForMessageType(type);
-    }
-
-    @Override
-    protected WebElement getMessageDetailElement() {
-        return messageDetailElement;
-    }
-
-    @Override
-    protected WebElement getMessageSummaryElement() {
-        return messageSummaryElement;
     }
 
     public static String getStyleClassForMessageType(MessageType type) {
@@ -108,6 +98,16 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
     }
 
     public class AdvancedNotifyMessageInteractionsImpl extends AdvancedMessageInteractionsImpl implements NotifyMessage.AdvancedNotifyMessageIteractions {
+
+        @Override
+        public WebElement getDetailElement() {
+            return messageDetailElement;
+        }
+
+        @Override
+        public WebElement getSummaryElement() {
+            return messageSummaryElement;
+        }
 
         @Override
         public WebElement getCloseElement() {

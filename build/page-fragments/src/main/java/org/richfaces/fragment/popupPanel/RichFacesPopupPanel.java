@@ -76,7 +76,7 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
 
     private final AdvancedPopupPanelInteractions interactions = new AdvancedPopupPanelInteractions();
 
-    private final Class<HEADERCONTROLS> headerClass = (Class<HEADERCONTROLS>) TypeResolver.resolveRawArguments(RichFacesPopupPanel.class, getClass())[1];
+    private final Class<HEADERCONTROLS> headerControlsClass = (Class<HEADERCONTROLS>) TypeResolver.resolveRawArguments(RichFacesPopupPanel.class, getClass())[1];
 
     @Override
     public AdvancedPopupPanelInteractions advanced() {
@@ -85,31 +85,25 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
 
     @Override
     public HEADERCONTROLS getHeaderControlsContent() {
-        return Graphene.createPageFragment(headerClass, getHeaderControlsElement());
+        return Graphene.createPageFragment(getHeaderControlsClass(), advanced().getHeaderControlsElement());
     }
 
-    @Override
-    protected GrapheneElement getBodyElement() {
-        return contentElement;
+    /**
+     * @return the headerClass
+     */
+    protected Class<HEADERCONTROLS> getHeaderControlsClass() {
+        return headerControlsClass;
     }
 
-    protected GrapheneElement getHeaderControlsElement() {
-        return headerControlsElement;
-    }
+    public class AdvancedPopupPanelInteractions extends AdvancedPanelInteractions implements VisibleComponentInteractions {
 
-    @Override
-    protected GrapheneElement getHeaderElement() {
-        return headerElement;
-    }
-
-    public class AdvancedPopupPanelInteractions implements VisibleComponentInteractions {
-
-        public WebElement getBodyElement() {
+        @Override
+        protected WebElement getBodyElement() {
             return contentElement;
         }
 
         public WebElement getContentElement() {
-            return contentElement;
+            return getBodyElement();
         }
 
         public WebElement getContentScrollerElement() {
@@ -124,12 +118,13 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
             return headerControlsElement;
         }
 
-        public WebElement getHeaderElement() {
+        @Override
+        public GrapheneElement getHeaderElement() {
             return headerElement;
         }
 
         public Locations getLocations() {
-            return Utils.getLocations(RichFacesPopupPanel.this.getRootElement());
+            return Utils.getLocations(getRootElement());
         }
 
         public WebElement getResizerElement(ResizerLocation resizerLocation) {
@@ -155,20 +150,17 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
             }
         }
 
-        public WebElement getRootElement() {
-            return RichFacesPopupPanel.this.getRootElement();
-        }
-
         public WebElement getShadowElement() {
             return shadowElement;
         }
 
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
 
         public AdvancedPopupPanelInteractions moveByOffset(int xOffset, int yOffset) {
-            new Actions(driver).dragAndDropBy(headerElement, xOffset, yOffset).perform();
+            new Actions(driver).dragAndDropBy(getHeaderElement(), xOffset, yOffset).perform();
             return this;
         }
 

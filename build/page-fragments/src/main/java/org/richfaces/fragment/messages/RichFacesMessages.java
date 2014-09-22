@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jboss.arquillian.graphene.GrapheneElement;
+import org.jboss.arquillian.graphene.GrapheneElementImpl;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -70,15 +71,15 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
     public List<? extends Message> getItems(MessageType type) {
         switch (type) {
             case OK:
-                return Collections.unmodifiableList(okMessages);
+                return advanced().getOkMessages();
             case INFORMATION:
-                return Collections.unmodifiableList(infoMessages);
+                return advanced().getInfoMessages();
             case WARNING:
-                return Collections.unmodifiableList(warnMessages);
+                return advanced().getWarnMessages();
             case ERROR:
-                return Collections.unmodifiableList(errorMessages);
+                return advanced().getErrorMessages();
             case FATAL:
-                return Collections.unmodifiableList(fatalMessages);
+                return advanced().getFatalMessages();
             default:
                 throw new UnsupportedOperationException("Unknown type " + type);
         }
@@ -90,6 +91,13 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
         private WebElement messageDetailElement;
         @FindBy(className = "rf-msgs-sum")
         private WebElement messageSummaryElement;
+
+        private final AdvancedMessageInMessagesInteractions interactions = new AdvancedMessageInMessagesInteractions();
+
+        @Override
+        public AdvancedMessageInteractions advanced() {
+            return interactions;
+        }
 
         @Override
         protected String getCssClass(MessageType type) {
@@ -114,23 +122,26 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
         }
 
         @Override
-        protected WebElement getMessageDetailElement() {
-            return messageDetailElement;
-        }
-
-        @Override
-        protected WebElement getMessageSummaryElement() {
-            return messageSummaryElement;
+        public String getText() {
+            return advanced().getRootElement().getText();
         }
 
         @Override
         public GrapheneElement getRootElement() {
-            return super.getRootElement();
+            return new GrapheneElementImpl(advanced().getRootElement());
         }
 
-        @Override
-        public String getText() {
-            return getRootElement().getText();
+        public class AdvancedMessageInMessagesInteractions extends AdvancedMessageInteractionsImpl {
+
+            @Override
+            public WebElement getDetailElement() {
+                return messageDetailElement;
+            }
+
+            @Override
+            public WebElement getSummaryElement() {
+                return messageSummaryElement;
+            }
         }
     }
 
@@ -177,6 +188,26 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
                     });
                 }
             }.withMessage("Waiting for message to be visible.");
+        }
+
+        public List<MessageImpl> getErrorMessages() {
+            return Collections.unmodifiableList(errorMessages);
+        }
+
+        public List<MessageImpl> getFatalMessages() {
+            return Collections.unmodifiableList(fatalMessages);
+        }
+
+        public List<MessageImpl> getInfoMessages() {
+            return Collections.unmodifiableList(infoMessages);
+        }
+
+        public List<MessageImpl> getOkMessages() {
+            return Collections.unmodifiableList(okMessages);
+        }
+
+        public List<MessageImpl> getWarnMessages() {
+            return Collections.unmodifiableList(warnMessages);
         }
     }
 }

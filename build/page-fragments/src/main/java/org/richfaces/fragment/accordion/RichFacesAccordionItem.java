@@ -29,25 +29,19 @@ import org.richfaces.fragment.switchable.AbstractComponentContainer;
 
 public class RichFacesAccordionItem extends AbstractComponentContainer implements AdvancedInteractions<RichFacesAccordionItem.AdvancedAccordionItemInteractions> {
 
-    private static final String ACTIVE_HEADER_CLASS = "rf-ac-itm-lbl-act";
-    private static final String DISABLED_HEADER_CLASS = "rf-ac-itm-lbl-dis";
-    private static final String INACTIVE_HEADER_CLASS = "rf-ac-itm-lbl-inact";
-    private static final String CONTENT_CLASS = "rf-ac-itm-cnt";
-    private static final String TO_ACTIVATE_CLASS = "rf-ac-itm-hdr";
-
-    @FindBy(className = ACTIVE_HEADER_CLASS)
+    @FindBy(className = "rf-ac-itm-lbl-act")
     private GrapheneElement activeHeader;
 
-    @FindBy(className = DISABLED_HEADER_CLASS)
+    @FindBy(className = "rf-ac-itm-lbl-dis")
     private GrapheneElement disabledHeader;
 
-    @FindBy(className = INACTIVE_HEADER_CLASS)
+    @FindBy(className = "rf-ac-itm-lbl-inact")
     private GrapheneElement inactiveHeader;
 
-    @FindBy(className = CONTENT_CLASS)
+    @FindBy(className = "rf-ac-itm-cnt")
     private GrapheneElement content;
 
-    @FindBy(className = TO_ACTIVATE_CLASS)
+    @FindBy(className = "rf-ac-itm-hdr")
     private GrapheneElement toActivate;
 
     private final AdvancedAccordionItemInteractions advancedInteractions = new AdvancedAccordionItemInteractions();
@@ -69,7 +63,7 @@ public class RichFacesAccordionItem extends AbstractComponentContainer implement
             }
         }
 
-        public final WebElement getHeaderElement() {
+        public WebElement getHeaderElement() {
             if (isActive()) {
                 return getActiveHeaderElement();
             } else if (isEnabled()) {
@@ -87,24 +81,24 @@ public class RichFacesAccordionItem extends AbstractComponentContainer implement
             return !getDisabledHeaderElement().isPresent();
         }
 
-        public final WebElement getContentElement() {
+        public WebElement getContentElement() {
             return content;
         }
 
-        public final WebElement getToActivateElement() {
+        public WebElement getToActivateElement() {
             return toActivate;
         }
-    }
 
-    protected final GrapheneElement getActiveHeaderElement() {
-        return activeHeader;
-    }
+        protected GrapheneElement getActiveHeaderElement() {
+            return activeHeader;
+        }
 
-    protected final GrapheneElement getDisabledHeaderElement() {
-        return disabledHeader;
-    }
+        protected GrapheneElement getDisabledHeaderElement() {
+            return disabledHeader;
+        }
 
-    protected final WebElement getInactiveHeaderElement() {
-        return inactiveHeader;
+        protected WebElement getInactiveHeaderElement() {
+            return inactiveHeader;
+        }
     }
 }

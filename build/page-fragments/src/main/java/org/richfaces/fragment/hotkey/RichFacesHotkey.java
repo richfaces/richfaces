@@ -32,7 +32,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfiguration;
@@ -54,9 +53,6 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
 
     @ArquillianResource
     private Actions actions;
-
-    @FindBy(tagName = "script")
-    private WebElement script;
 
     private final RichFacesPageFragmentsConfiguration configuration = RichFacesPageFragmentsConfigurationContext.getProxy();
 
@@ -85,6 +81,10 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         return interactions;
     }
 
+    protected Actions getActions() {
+        return actions;
+    }
+
     @Override
     public void invoke() {
         invoke(driver.findElement(advanced().getSelector().or(Utils.BY_HTML)));
@@ -94,12 +94,12 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
     public void invoke(WebElement element) {
         Preconditions.checkNotNull(element);
 
-        String hotkey = advanced().getHotkey();
-        if (hotkey == null || hotkey.trim().isEmpty()) {
+        String key = advanced().getHotkey();
+        if (key == null || key.trim().isEmpty()) {
             throw new IllegalArgumentException(
                 "The hotkey can not be null nor empty! Set it up correctly with #setUp(String) method.");
         }
-        actions.sendKeys(element, hotkey).perform();
+        getActions().sendKeys(element, key).perform();
     }
 
     @Override
@@ -145,10 +145,14 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
 
     public class AdvancedHotkeyInteractions {
 
-        private String previousKeyText = "";
+        private final String previousKeyText = "";
+
+        protected RichFacesPageFragmentsConfiguration getConfiguration() {
+            return configuration;
+        }
 
         public String getHotkey() {
-            if (configuration.isUseJSInteractionStrategy()) {
+            if (getConfiguration().isUseJSInteractionStrategy()) {
                 setupFromWidget();
             }
             return hotkey;
@@ -169,7 +173,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         }
 
         public void setupHotkeyFromWidget() {
-            Optional<String> hotkeyText = Utils.getComponentOption(rootElement, "key");
+            Optional<String> hotkeyText = Utils.getComponentOption(getRootElement(), "key");
             if (!hotkeyText.isPresent()) {
                 throw new NullPointerException("The hotkey value is null.");
             }
@@ -182,7 +186,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         }
 
         public void setupSelectorFromWidget() {
-            selector = Utils.getComponentOptionDocumentObjectSafe(rootElement, "selector").orNull();
+            selector = Utils.getComponentOptionDocumentObjectSafe(getRootElement(), "selector").orNull();
         }
     }
 }

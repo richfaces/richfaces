@@ -76,8 +76,28 @@ public class TimeEditor {
     private long _timeoutForTimeEditorToBeNotVisible = -1;
     private long _timeoutForTimeEditorToBeVisible = -1;
 
-    public WebElement getRoot() {
+    public WebElement getRootElement() {
         return root;
+    }
+
+    protected int getDefaultHours() {
+        return defaultHours;
+    }
+
+    protected int getDefaultMinutes() {
+        return defaultMinutes;
+    }
+
+    protected int getDefaultSeconds() {
+        return defaultSeconds;
+    }
+
+    protected TimeSpinner12 getHoursSpinner12() {
+        return hoursSpinner12;
+    }
+
+    protected TimeSpinner24 getHoursSpinner24() {
+        return hoursSpinner24;
     }
 
     public enum SetValueBy {
@@ -90,10 +110,10 @@ public class TimeEditor {
             throw new RuntimeException("Cannot interact with TimePicker. "
                 + "Ensure that it it is opened.");
         }
-        if (!cancelButtonElement.isDisplayed()) {
+        if (!getCancelButtonElement().isDisplayed()) {
             throw new RuntimeException("Cancel button is not visible.");
         }
-        cancelButtonElement.click();
+        getCancelButtonElement().click();
         waitUntilIsNotVisible().perform();
     }
 
@@ -102,10 +122,10 @@ public class TimeEditor {
             throw new RuntimeException("Cannot interact with TimePicker. "
                 + "Ensure that it it is opened.");
         }
-        if (!okButtonElement.isDisplayed()) {
+        if (!getOkButtonElement().isDisplayed()) {
             throw new RuntimeException("Ok button is not visible.");
         }
-        okButtonElement.click();
+        getOkButtonElement().click();
         waitUntilIsNotVisible().perform();
     }
 
@@ -115,12 +135,12 @@ public class TimeEditor {
 
     private TimeSpinner<Integer> getHoursSpinner() {
         if (getTimeSignSpinner() == null) {
-            if (hoursSpinner24.isVisible()) {
-                return hoursSpinner24;
+            if (getHoursSpinner24().isVisible()) {
+                return getHoursSpinner24();
             }
         } else {
-            if (hoursSpinner12.isVisible()) {
-                return hoursSpinner12;
+            if (getHoursSpinner12().isVisible()) {
+                return getHoursSpinner12();
             }
         }
         return null;
@@ -145,9 +165,9 @@ public class TimeEditor {
     }
 
     public DateTime getTime() {
-        int seconds = (getSecondsSpinner() != null ? getSecondsSpinner().getValue() : defaultSeconds);
-        int minutes = (getMinutesSpinner() != null ? getMinutesSpinner().getValue() : defaultMinutes);
-        int hours = (getHoursSpinner() != null ? getHoursSpinner().getValue() : defaultHours);
+        int seconds = (getSecondsSpinner() != null ? getSecondsSpinner().getValue() : getDefaultSeconds());
+        int minutes = (getMinutesSpinner() != null ? getMinutesSpinner().getValue() : getDefaultMinutes());
+        int hours = (getHoursSpinner() != null ? getHoursSpinner().getValue() : getDefaultHours());
         DateTime result = new DateTime()
             .withHourOfDay(hours)
             .withMinuteOfHour(minutes)
@@ -157,13 +177,13 @@ public class TimeEditor {
             switch (tss.getValue()) {
                 case AM:
                     if (result.getHourOfDay() == 12) {//12:xx am -> 00:xx
-                    result = result.minusHours(12);
-                }
+                        result = result.minusHours(12);
+                    }
                     break;
                 case PM:
                     if (result.getHourOfDay() != 12) {
-                    result = result.plusHours(12);
-                }
+                        result = result.plusHours(12);
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown switch");
@@ -180,7 +200,7 @@ public class TimeEditor {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRootElement());
     }
 
     private TimeEditor setTime(int hours, int minutes, int seconds, SetValueBy by) {
@@ -234,7 +254,7 @@ public class TimeEditor {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().not().visible();
+                wait.until().element(getRootElement()).is().not().visible();
             }
         }.withMessage("Time editor to be not visible.").withTimeout(getTimeoutForTimeEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
@@ -243,7 +263,7 @@ public class TimeEditor {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().visible();
+                wait.until().element(getRootElement()).is().visible();
             }
         }.withMessage("Time editor to be visible.").withTimeout(getTimeoutForTimeEditorToBeVisible(), TimeUnit.MILLISECONDS);
     }

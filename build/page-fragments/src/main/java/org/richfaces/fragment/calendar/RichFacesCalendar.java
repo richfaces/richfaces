@@ -99,12 +99,12 @@ public class RichFacesCalendar implements Calendar, AdvancedInteractions<RichFac
 
         @Override
         public DateTime getDate() {
-            return DateTime.parse(Utils.<String>invokeRichFacesJSAPIFunction(root, "getValueAsString()"), advanced().getDatePattern());
+            return DateTime.parse(Utils.<String>invokeRichFacesJSAPIFunction(advanced().getRootElement(), "getValueAsString()"), advanced().getDatePattern());
         }
 
         @Override
         public void setDate(DateTime d) {
-            Utils.invokeRichFacesJSAPIFunction(root, "setValue(new Date(" + d.getMillis()+ "))");
+            Utils.invokeRichFacesJSAPIFunction(advanced().getRootElement(), "setValue(new Date(" + d.getMillis() + "))");
         }
     }
 
@@ -113,26 +113,30 @@ public class RichFacesCalendar implements Calendar, AdvancedInteractions<RichFac
         private static final String DATE_PATTERN_DEFAULT = "MMM d , yyyy";
         private String datePattern;
 
+        public WebElement getRootElement() {
+            return root;
+        }
+
         private DateTimeFormatter getDatePattern() {
             return DateTimeFormat.forPattern(Optional.fromNullable(datePattern).or(DATE_PATTERN_DEFAULT));
         }
 
         public RichFacesAdvancedInlineCalendar getInlineCalendar() {
             if (!isPopup()) {
-                return Graphene.createPageFragment(RichFacesAdvancedInlineCalendar.class, root);
+                return Graphene.createPageFragment(RichFacesAdvancedInlineCalendar.class, advanced().getRootElement());
             }
             throw new RuntimeException("This is a popup calendar. Cannot get its inline version.");
         }
 
         public RichFacesAdvancedPopupCalendar getPopupCalendar() {
             if (isPopup()) {
-                return Graphene.createPageFragment(RichFacesAdvancedPopupCalendar.class, root);
+                return Graphene.createPageFragment(RichFacesAdvancedPopupCalendar.class, advanced().getRootElement());
             }
             throw new RuntimeException("This is an inline calendar. Cannot get its popup version.");
         }
 
         private boolean isPopup() {
-            return Utils.isVisible(root, ByJQuery.selector("span[id$='Popup']"));
+            return Utils.isVisible(advanced().getRootElement(), ByJQuery.selector("span[id$='Popup']"));
         }
 
         public void setupDatePattern(String datePattern) {

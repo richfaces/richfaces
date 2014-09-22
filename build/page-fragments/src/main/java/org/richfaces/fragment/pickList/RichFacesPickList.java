@@ -42,10 +42,10 @@ import org.richfaces.fragment.common.picker.MultipleChoicePicker;
 import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListComponent;
 import org.richfaces.fragment.orderingList.AbstractOrderingList;
+import org.richfaces.fragment.orderingList.AbstractOrderingList.OrderingListBodyElements;
 import org.richfaces.fragment.orderingList.AbstractSelectableListItem;
 import org.richfaces.fragment.orderingList.OrderingList;
 import org.richfaces.fragment.orderingList.SelectableListItem;
-import org.richfaces.fragment.orderingList.AbstractOrderingList.OrderingListBodyElements;
 
 public class RichFacesPickList implements PickList, AdvancedInteractions<RichFacesPickList.AdvancedPickListInteractions> {
 
@@ -89,19 +89,19 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
     }
 
     private void clickAddAllButton() {
-        addAllButtonElement.click();
+        advanced().getAddAllButtonElement().click();
     }
 
     private void clickAddButton() {
-        addButtonElement.click();
+        advanced().getAddButtonElement().click();
     }
 
     private void clickRemoveAllButton() {
-        removeAllButtonElement.click();
+        advanced().getRemoveAllButtonElement().click();
     }
 
     private void clickRemoveButton() {
-        removeButtonElement.click();
+        advanced().getRemoveButtonElement().click();
     }
 
     @Override
@@ -161,28 +161,28 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
     }
 
     private void selectAndAdd(ChoicePicker picker) {
-        unselectAll(selectedSourceListItems);
-        selectItem(picker.pick(sourceListItems));
+        unselectAll(advanced().getSelectedSourceListItemsElements());
+        selectItem(picker.pick(advanced().getSourceListItemsElements()));
         clickAddButton();
     }
 
     private void selectAndAddMultiple(MultipleChoicePicker picker) {
-        unselectAll(selectedSourceListItems);
-        for (WebElement item : picker.pickMultiple(sourceListItems)) {
+        unselectAll(advanced().getSelectedSourceListItemsElements());
+        for (WebElement item : picker.pickMultiple(advanced().getSourceListItemsElements())) {
             selectItem(item);
         }
         clickAddButton();
     }
 
     private void selectAndRemove(ChoicePicker picker) {
-        unselectAll(selectedTargetListItems);
-        selectItem(picker.pick(targetListItems));
+        unselectAll(advanced().getSelectedTargetListItemsElements());
+        selectItem(picker.pick(advanced().getTargetListItemsElements()));
         clickRemoveButton();
     }
 
     private void selectAndRemoveMultiple(MultipleChoicePicker picker) {
-        unselectAll(selectedTargetListItems);
-        for (WebElement item : picker.pickMultiple(targetListItems)) {
+        unselectAll(advanced().getSelectedTargetListItemsElements());
+        for (WebElement item : picker.pickMultiple(advanced().getTargetListItemsElements())) {
             selectItem(item);
         }
         clickRemoveButton();
@@ -325,7 +325,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getBottomButtonElement() {
-            return targetList.getBottomButtonElement();
+            return _getOrderTargetList().getBottomButtonElement();
         }
 
         public WebElement getSourceCaptionElement() {
@@ -333,11 +333,11 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getTargetCaptionElement() {
-            return targetList.getCaptionElement();
+            return _getOrderTargetList().getCaptionElement();
         }
 
         public WebElement getDownButtonElement() {
-            return targetList.getDownButtonElement();
+            return _getOrderTargetList().getDownButtonElement();
         }
 
         public WebElement getSourceHeaderElement() {
@@ -345,7 +345,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getTargetHeaderElement() {
-            return targetList.getHeaderElement();
+            return _getOrderTargetList().getHeaderElement();
         }
 
         public WebElement getSourceListAreaElement() {
@@ -353,7 +353,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getTargetListAreaElement() {
-            return targetList.getContentAreaElements();
+            return _getOrderTargetList().getContentAreaElements();
         }
 
         public WebElement getRemoveAllButtonElement() {
@@ -362,6 +362,22 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
         public WebElement getRemoveButtonElement() {
             return removeButtonElement;
+        }
+
+        public List<WebElement> getSelectedSourceListItemsElements() {
+            return selectedSourceListItems;
+        }
+
+        public List<WebElement> getSourceListItemsElements() {
+            return sourceListItems;
+        }
+
+        public List<WebElement> getSelectedTargetListItemsElements() {
+            return selectedTargetListItems;
+        }
+
+        public List<WebElement> getTargetListItemsElements() {
+            return targetListItems;
         }
 
         public WebElement getRootElement() {
@@ -373,15 +389,19 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public ListComponent<? extends SelectableListItem> getTargetList() {
-            return targetList.getList();
+            return _getOrderTargetList().getList();
         }
 
         public WebElement getTopButtonElement() {
-            return targetList.getTopButtonElement();
+            return _getOrderTargetList().getTopButtonElement();
         }
 
         public WebElement getUpButtonElement() {
-            return targetList.getUpButtonElement();
+            return _getOrderTargetList().getUpButtonElement();
+        }
+
+        protected OrderingListInPickList _getOrderTargetList() {
+            return targetList;
         }
 
         /**
@@ -389,7 +409,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
          * If the list is not orderable than some Exception is thrown.
          */
         public OrderingList getOrderTargetList() {
-            return targetList;
+            return _getOrderTargetList();
         }
 
         public boolean isVisible() {

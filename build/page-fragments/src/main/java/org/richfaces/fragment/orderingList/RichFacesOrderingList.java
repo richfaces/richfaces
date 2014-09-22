@@ -23,8 +23,7 @@ package org.richfaces.fragment.orderingList;
 
 import java.util.List;
 
-import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.openqa.selenium.WebDriver;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.list.AbstractListComponent;
@@ -36,8 +35,8 @@ import org.richfaces.fragment.list.ListComponent;
  */
 public class RichFacesOrderingList extends AbstractOrderingList {
 
-    @Drone
-    private WebDriver driver;
+    @Root
+    private WebElement rootElement;
 
     @FindBy(css = "button.rf-ord-dn")
     private WebElement downButtonElement;
@@ -111,7 +110,7 @@ public class RichFacesOrderingList extends AbstractOrderingList {
 
         @Override
         public WebElement getRootElement() {
-            return getRootElement();
+            return RichFacesOrderingList.this.getRootElement();
         }
 
         @Override

@@ -68,6 +68,14 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
             return activeHeader;
         }
 
+        public List<WebElement> getTabHeaders() {
+            return getSwitcherControllerElements();
+        }
+
+        public WebElement getVisibleContent() {
+            return getRootOfContainerElement();
+        }
+
         public List<WebElement> getAllInactiveHeadersElements() {
             return Collections.unmodifiableList(allInactiveHeaders);
         }
@@ -85,6 +93,16 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
         }
 
         @Override
+        protected List<WebElement> getSwitcherControllerElements() {
+            return Collections.unmodifiableList(tabHeaders);
+        }
+
+        @Override
+        protected WebElement getRootOfContainerElement() {
+            return visibleContent;
+        }
+
+        @Override
         protected Predicate<WebDriver> getConditionForContentSwitched(final String textToContain) {
             return new Predicate<WebDriver>() {
                 @Override
@@ -97,24 +115,6 @@ public class RichFacesTabPanel extends AbstractSwitchableComponent<RichFacesTab>
 
     @Override
     public int getNumberOfTabs() {
-        return tabHeaders.size();
-    }
-
-    @Override
-    protected List<WebElement> getSwitcherControllerElements() {
-        return Collections.unmodifiableList(tabHeaders);
-    }
-
-    public List<WebElement> getTabHeaders(){
-        return tabHeaders;
-    }
-
-    public WebElement getVisibleContent(){
-        return visibleContent;
-    }
-
-    @Override
-    protected WebElement getRootOfContainerElement() {
-        return visibleContent;
+        return advanced().getSwitcherControllerElements().size();
     }
 }

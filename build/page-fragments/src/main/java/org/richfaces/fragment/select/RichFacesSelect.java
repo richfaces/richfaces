@@ -21,7 +21,6 @@
  */
 package org.richfaces.fragment.select;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -79,25 +78,17 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
         return selectSuggestions;
     }
 
-    private List<WebElement> getSuggestionsElements() {
-        return driver.findElement(GLOBAL_POPUP).findElements(By.className("rf-sel-opt"));
-    }
-
-    private boolean isPopupPresent() {
-        return !driver.findElements(GLOBAL_POPUP).isEmpty() && !localPopup.isPresent();
-    }
-
     @Override
     public SelectSuggestions openSelect() {
-        if (!Utils.isVisible(driver, GLOBAL_POPUP) && !Utils.isVisible(localPopup)) {
-            (advanced().getOpenByInputClick() ? input.advanced().getInputElement() : showButton).click();
+        if (!Utils.isVisible(driver, advanced().getGlobalPopup()) && !Utils.isVisible(advanced().getLocalPopup())) {
+            (advanced().getOpenByInputClick() ? advanced().getInput().advanced().getInputElement() : advanced().getShowButtonElement()).click();
         }
         return getSuggestions();
     }
 
     @Override
     public SelectSuggestions type(String text) {
-        input.advanced().clear(ClearType.DELETE).sendKeys(text);
+        advanced().getInput().advanced().clear(ClearType.DELETE).sendKeys(text);
         return getSuggestions();
     }
 
@@ -105,7 +96,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
 
         @Override
         public void select(ChoicePicker picker) {
-            WebElement foundValue = picker.pick(getSuggestionsElements());
+            WebElement foundValue = picker.pick(advanced().getSuggestionsElements());
             if (foundValue == null) {
                 throw new RuntimeException("The value was not found by " + picker.toString());
             }
@@ -116,7 +107,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
                 foundValue.click();
             }
             advanced().waitUntilSuggestionsAreNotVisible().perform();
-            input.advanced().trigger("blur");
+            advanced().getInput().advanced().trigger("blur");
         }
 
         @Override
@@ -131,7 +122,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
 
         private void selectWithKeys(WebElement foundValue) {
             // if selectFirst attribute is set, we don't have to press arrow down key for first item
-            boolean skip = getSuggestionsElements().get(0).getAttribute("class").contains("rf-sel-sel");
+            boolean skip = advanced().getSuggestionsElements().get(0).getAttribute("class").contains("rf-sel-sel");
             int index = Utils.getIndexOfElement(foundValue);
             int steps = index + (skip ? 0 : 1);
             Actions actions = new Actions(driver);
@@ -161,6 +152,14 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
             return openByInputClick;
         }
 
+        protected GrapheneElement getLocalPopup() {
+            return localPopup;
+        }
+
+        protected ByJQuery getGlobalPopup() {
+            return GLOBAL_POPUP;
+        }
+
         public WebElement getRootElement() {
             return root;
         }
@@ -174,13 +173,14 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
         }
 
         public List<WebElement> getSuggestionsElements() {
-            return Collections.unmodifiableList(RichFacesSelect.this.getSuggestionsElements());
+            return driver.findElement(advanced().getGlobalPopup()).findElements(By.className("rf-sel-opt"));
         }
 
         public boolean isPopupPresent() {
-            return RichFacesSelect.this.isPopupPresent();
+            return !driver.findElements(getGlobalPopup()).isEmpty() && !advanced().getLocalPopup().isPresent();
         }
 
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
@@ -219,10 +219,10 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until().element(localPopup).is().present();
+                    wait.until().element(getLocalPopup()).is().present();
                 }
             }.withMessage("Waiting for popup to be not visible")
-             .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilSuggestionsAreVisible() {
@@ -239,7 +239,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
                     });
                 }
             }.withMessage("Waiting for popup to be visible")
-             .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
         public void setupTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {

@@ -35,6 +35,13 @@ public class RichFacesMessage extends AbstractMessage {
     @FindBy(className = "rf-msg-sum")
     private WebElement messageSummaryElement;
 
+    private final AdvancedRichMessageInteractions interactions = new AdvancedRichMessageInteractions();
+
+    @Override
+    public AdvancedMessageInteractions advanced() {
+        return interactions;
+    }
+
     @Override
     protected String getCssClass(MessageType type) {
         return getCssClassForMessageType(type);
@@ -57,13 +64,16 @@ public class RichFacesMessage extends AbstractMessage {
         }
     }
 
-    @Override
-    protected WebElement getMessageDetailElement() {
-        return messageDetailElement;
-    }
+    public class AdvancedRichMessageInteractions extends AdvancedMessageInteractionsImpl {
 
-    @Override
-    protected WebElement getMessageSummaryElement() {
-        return messageSummaryElement;
+        @Override
+        public WebElement getDetailElement() {
+            return messageDetailElement;
+        }
+
+        @Override
+        public WebElement getSummaryElement() {
+            return messageSummaryElement;
+        }
     }
 }

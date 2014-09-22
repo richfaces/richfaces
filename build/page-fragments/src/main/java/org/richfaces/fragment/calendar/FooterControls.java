@@ -21,7 +21,6 @@
  */
 package org.richfaces.fragment.calendar;
 
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -55,31 +54,28 @@ public class FooterControls {
     @FindByJQuery("div.rf-cal-tl-btn:contains('Today')")
     private GrapheneElement todayButtonElement;
 
-    @Drone
-    private WebDriver browser;
-
     private void _openTimeEditor() {
         if (!isVisible()) {
             throw new RuntimeException("Cannot open time editor. "
                 + "Ensure that calendar popup and footer controls are displayed.");
         }
-        if (!timeEditorOpenerElement.isDisplayed()) {
+        if (!getTimeEditorOpenerElement().isDisplayed()) {
             throw new RuntimeException("Cannot open time editor. "
                 + "Ensure that the date is set before setting time.");
         }
-        timeEditorOpenerElement.click();
-        calendarEditor.getTimeEditor().waitUntilIsVisible().perform();
+        getTimeEditorOpenerElement().click();
+        getCalendarEditor().getTimeEditor().waitUntilIsVisible().perform();
     }
 
     public void cleanDate() {
         if (!isVisible()) {
             throw new RuntimeException("Footer controls are not displayed, cannot interact with  clean button");
         }
-        if (!cleanButtonElement.isDisplayed()) {
+        if (!getCleanButtonElement().isDisplayed()) {
             throw new RuntimeException("Clean button is not displayed.");
         }
-        cleanButtonElement.click();
-        Graphene.waitGui().until().element(cleanButtonElement).is().not().visible();
+        getCleanButtonElement().click();
+        Graphene.waitGui().until().element(getCleanButtonElement()).is().not().visible();
     }
 
     public WebElement getCleanButtonElement() {
@@ -87,7 +83,7 @@ public class FooterControls {
     }
 
     public TimeEditor getTimeEditor() {
-        return calendarEditor.getTimeEditor();
+        return getCalendarEditor().getTimeEditor();
     }
 
     public WebElement getTimeEditorOpenerElement() {
@@ -103,15 +99,15 @@ public class FooterControls {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRoot());
     }
 
     public TimeEditor openTimeEditor() {
-        if (Utils.isVisible(calendarEditor.getTimeEditor().getRoot())) {
-            return calendarEditor.getTimeEditor();
+        if (Utils.isVisible(getCalendarEditor().getTimeEditor().getRootElement())) {
+            return getCalendarEditor().getTimeEditor();
         } else {
             _openTimeEditor();
-            return calendarEditor.getTimeEditor();
+            return getCalendarEditor().getTimeEditor();
         }
     }
 
@@ -127,17 +123,17 @@ public class FooterControls {
         if (!isVisible()) {
             throw new RuntimeException("Footer controls are not displayed, cannot interact with today button");
         }
-        if (!todayButtonElement.isDisplayed()) {
+        if (!getTodayButtonElement().isDisplayed()) {
             throw new RuntimeException("Today button is not displayed.");
         }
-        todayButtonElement.click();
+        getTodayButtonElement().click();
     }
 
     public WaitingWrapper waitUntilIsNotVisible() {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().not().visible();
+                wait.until().element(getRoot()).is().not().visible();
             }
         }.withMessage("Footer controls to be not visible.");
     }
@@ -146,8 +142,16 @@ public class FooterControls {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().visible();
+                wait.until().element(getRoot()).is().visible();
             }
         }.withMessage("Footer controls to be visible.");
+    }
+
+    public WebElement getRoot() {
+        return root;
+    }
+
+    protected CalendarEditor getCalendarEditor() {
+        return calendarEditor;
     }
 }

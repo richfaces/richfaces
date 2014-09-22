@@ -35,26 +35,39 @@ public abstract class AbstractPanel<HEADER, BODY> implements Panel<HEADER, BODY>
     private final Class<BODY> bodyClass = (Class<BODY>) TypeResolver.resolveRawArguments(Panel.class, getClass())[1];
     private final Class<HEADER> headerClass = (Class<HEADER>) TypeResolver.resolveRawArguments(Panel.class, getClass())[0];
 
+    public abstract AdvancedPanelInteractions advanced();
+
     @Override
     @SuppressWarnings(value = "unchecked")
     public BODY getBodyContent() {
-        return Graphene.createPageFragment(bodyClass, getBodyElement());
+        return Graphene.createPageFragment(getBodyClass(), advanced().getBodyElement());
     }
-
-    protected abstract WebElement getBodyElement();
 
     @Override
     @SuppressWarnings(value = "unchecked")
     public HEADER getHeaderContent() {
-        if (!getHeaderElement().isPresent()) {
+        if (!advanced().getHeaderElement().isPresent()) {
             throw new IllegalStateException("You are trying to get header content of the panel which does not have header!");
         }
-        return Graphene.createPageFragment(headerClass, getHeaderElement());
+        return Graphene.createPageFragment(getHeaderClass(), advanced().getHeaderElement());
     }
 
-    protected abstract GrapheneElement getHeaderElement();
+    protected Class<BODY> getBodyClass() {
+        return bodyClass;
+    }
 
-    protected WebElement getRootElement() {
-        return root;
+    protected Class<HEADER> getHeaderClass() {
+        return headerClass;
+    }
+
+    public abstract class AdvancedPanelInteractions {
+
+        public WebElement getRootElement() {
+            return root;
+        }
+
+        protected abstract WebElement getBodyElement();
+
+        protected abstract GrapheneElement getHeaderElement();
     }
 }

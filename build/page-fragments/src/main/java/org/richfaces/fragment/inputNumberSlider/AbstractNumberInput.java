@@ -22,26 +22,32 @@
 package org.richfaces.fragment.inputNumberSlider;
 
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 
 public abstract class AbstractNumberInput implements NumberInput {
 
+    @ArquillianResource
+    private WebDriver browser;
+
+    public abstract AdvancedNumberInputInteractions advanced();
+
     @Override
     public void increase() {
-        if (!new WebElementConditionFactory(getArrowIncreaseElement()).isVisible().apply(getBrowser())) {
+        if (!new WebElementConditionFactory(advanced().getArrowIncreaseElement()).isVisible().apply(browser)) {
             throw new RuntimeException("Arrow for increasing value is not visible.");
         }
-        getArrowIncreaseElement().click();
+        advanced().getArrowIncreaseElement().click();
     }
 
     @Override
     public void decrease() {
-        if (!new WebElementConditionFactory(getArrowDecreaseElement()).isVisible().apply(getBrowser())) {
+        if (!new WebElementConditionFactory(advanced().getArrowDecreaseElement()).isVisible().apply(browser)) {
             throw new RuntimeException("arrow for decreasing value is not visible.");
         }
-        getArrowDecreaseElement().click();
+        advanced().getArrowDecreaseElement().click();
     }
 
     @Override
@@ -60,34 +66,20 @@ public abstract class AbstractNumberInput implements NumberInput {
 
     @Override
     public void setValue(double value) {
-        getInput().sendKeys(String.valueOf(value));
+        advanced().getInput().sendKeys(String.valueOf(value));
     }
 
     @Override
     public double getValue() {
-        return Double.valueOf(getInput().getStringValue());
+        return Double.valueOf(advanced().getInput().getStringValue());
     }
 
-    protected abstract WebElement getArrowIncreaseElement();
+    public abstract class AdvancedNumberInputInteractions {
 
-    protected abstract WebDriver getBrowser();
+        public abstract WebElement getArrowIncreaseElement();
 
-    protected abstract WebElement getArrowDecreaseElement();
+        public abstract WebElement getArrowDecreaseElement();
 
-    protected abstract TextInputComponentImpl getInput();
-
-    public class AdvancedNumberInputInteractions {
-
-        public TextInputComponentImpl getInput() {
-            return AbstractNumberInput.this.getInput();
-        }
-
-        public WebElement getArrowIncreaseElement() {
-            return AbstractNumberInput.this.getArrowIncreaseElement();
-        }
-
-        public WebElement getArrowDecreaseElement() {
-            return AbstractNumberInput.this.getArrowDecreaseElement();
-        }
+        public abstract TextInputComponentImpl getInput();
     }
 }

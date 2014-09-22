@@ -105,9 +105,9 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         optionToBeSelected.click();
         if (advanced().isSaveOnSelect() && !isShowControlls()) {
             // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
-            textInput.advanced().focus();
+            getTextInput().advanced().focus();
 
-            textInput.advanced().trigger("blur");
+            getTextInput().advanced().trigger("blur");
             advanced().waitForPopupToHide().perform();
         }
         return new ConfirmOrCancelImpl();
@@ -123,6 +123,14 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         return select(ChoicePickerHelper.byVisibleText().match(text));
     }
 
+    protected WebElement getLocalList() {
+        return localList;
+    }
+
+    protected WebElement getGlobalList() {
+        return globalList;
+    }
+
     public class ConfirmOrCancelImpl extends AbstractConfirmOrCancel {
 
         @Override
@@ -132,17 +140,17 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
         @Override
         public WebElement getConfirmButton() {
-            return confirmButton;
+            return advanced().getConfirmButtonElement();
         }
 
         @Override
         public WebElement getInput() {
-            return textInput.advanced().getInputElement();
+            return getTextInput().advanced().getInputElement();
         }
 
         @Override
         public WebElement getCancelButton() {
-            return cancelButton;
+            return advanced().getCancelButtonElement();
         }
 
         @Override
@@ -151,7 +159,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         }
     }
 
-    public class AdvancedInplaceSelectInteractions implements VisibleComponentInteractions{
+    public class AdvancedInplaceSelectInteractions implements VisibleComponentInteractions {
 
         private final Event DEFAULT_EDIT_EVENT = Event.CLICK;
         private Event editByEvent = DEFAULT_EDIT_EVENT;
@@ -161,6 +169,18 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         private static final String RF_IS_ACT_CLASS = "rf-is-act";
         private long _timeoutForPopupToHide = -1;
         private long _timeoutForPopupToShow = -1;
+
+        protected String getChangedClass() {
+            return RF_IS_CHNG_CLASS;
+        }
+
+        protected String getActiveClass() {
+            return RF_IS_ACT_CLASS;
+        }
+
+        protected String getOptionsClass() {
+            return OPTIONS_CLASS;
+        }
 
         public void setupEditByEvent() {
             editByEvent = DEFAULT_EDIT_EVENT;
@@ -180,7 +200,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
         public void switchToEditingState() {
             // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
-            textInput.advanced().focus();
+            getTextInput().advanced().focus();
             Utils.triggerJQ(executor, editByEvent.getEventName(), root);
             waitForPopupToShow().perform();
         }
@@ -194,7 +214,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         }
 
         public List<WebElement> getOptions() {
-            return Collections.unmodifiableList(browser.findElements(By.className(OPTIONS_CLASS)));
+            return Collections.unmodifiableList(browser.findElements(By.className(advanced().getOptionsClass())));
         }
 
         public boolean isInState(InplaceComponentState state) {
@@ -204,16 +224,16 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         public String getClassForState(InplaceComponentState state) {
             switch (state) {
                 case ACTIVE:
-                    return RF_IS_ACT_CLASS;
+                    return getActiveClass();
                 case CHANGED:
-                    return RF_IS_CHNG_CLASS;
+                    return getChangedClass();
                 default:
                     throw new UnsupportedOperationException();
             }
         }
 
         public String getLabelValue() {
-            return label.getText().trim();
+            return getLabelInputElement().getText().trim();
         }
 
         public WebElement getEditInputElement() {
@@ -258,11 +278,11 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until().element(localList).is().present();
-                    wait.until().element(globalList).is().not().visible();
+                    wait.until().element(getLocalList()).is().present();
+                    wait.until().element(getGlobalList()).is().not().visible();
                 }
             }.withMessage("Waiting for popup to hide.")
-            .withTimeout(getTimeoutForPopupToHide(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForPopupToHide(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitForPopupToShow() {
@@ -270,9 +290,9 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until().element(globalList).is().visible();
-                    }
-                }.withMessage("Waiting for popup to show.")
+                    wait.until().element(getGlobalList()).is().visible();
+                }
+            }.withMessage("Waiting for popup to show.")
                 .withTimeout(getTimeoutForPopupToShow(), TimeUnit.MILLISECONDS);
         }
 
@@ -283,6 +303,6 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
     }
 
     private boolean isShowControlls() {
-        return new WebElementConditionFactory(cancelButton).isPresent().apply(browser);
+        return new WebElementConditionFactory(advanced().getCancelButtonElement()).isPresent().apply(browser);
     }
 }

@@ -47,17 +47,13 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
  */
 public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInteractions<RichFacesDataGrid.AdvancedDataGridInteractions> {
 
-    private static final String CSS_SEL_ROW = ".rf-dg-r";
-    private static final String JQUERY_SEL_RECORD = ".rf-dg-c:not(:empty)";
-    private static final String JQUERY_SEL_COLUMN = ".rf-dg-c";
-
     @Root
     private WebElement root;
 
-    @FindBy(css = CSS_SEL_ROW)
+    @FindBy(css = ".rf-dg-r")
     private List<WebElement> rowElements;
 
-    @FindByJQuery(JQUERY_SEL_RECORD)
+    @FindByJQuery(".rf-dg-c:not(:empty)")
     private List<WebElement> recordsElements;
 
     @FindBy(css = ".rf-dg-nd")
@@ -66,7 +62,7 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInte
     @SuppressWarnings("unchecked")
     private final Class<RECORD> recordClass = (Class<RECORD>) TypeResolver.resolveRawArguments(DataGrid.class, getClass())[0];
 
-    private AdvancedDataGridInteractions advancedInteractions = new AdvancedDataGridInteractions();
+    private final AdvancedDataGridInteractions advancedInteractions = new AdvancedDataGridInteractions();
 
     @Override
     public List<RECORD> getRecordsInRow(int rowIndex) {
@@ -74,41 +70,41 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInte
         if (getNumberOfRows() - 1 > rowIndex) {
             throw new IllegalArgumentException("There is not so many rows! Requesting: " + rowIndex + ", but there is only: " + getNumberOfRows());
         }
-        List<WebElement> recordsInParticularRow = rowElements.get(rowIndex).findElements(ByJQuery.selector(JQUERY_SEL_RECORD));
+        List<WebElement> recordsInParticularRow = getRowElements().get(rowIndex).findElements(ByJQuery.selector(advanced().getJQSelectorForRecord()));
         for (WebElement recordRoot : recordsInParticularRow) {
-            result.add(Graphene.createPageFragment(recordClass, recordRoot));
+            result.add(Graphene.createPageFragment(getRecordClass(), recordRoot));
         }
         return result;
     }
 
     @Override
     public RECORD getRecord(int n) {
-        return Graphene.createPageFragment(recordClass, recordsElements.get(n));
+        return Graphene.createPageFragment(getRecordClass(), getRecordsElements().get(n));
     }
 
     @Override
     public int getNumberOfRows() {
-        return rowElements.size();
+        return getRowElements().size();
     }
 
     @Override
     public int getNumberOfColumns() {
-        if(rowElements.isEmpty()) {
+        if (getRowElements().isEmpty()) {
             return 0;
         }
-        return rowElements.get(0).findElements(ByJQuery.selector(JQUERY_SEL_COLUMN)).size();
+        return getRowElements().get(0).findElements(ByJQuery.selector(advanced().getJQSelectorForColumn())).size();
     }
 
     @Override
     public int getNumberOfRecords() {
-        return recordsElements.size();
+        return getRecordsElements().size();
     }
 
     @Override
     public List<RECORD> getAllVisibleRecords() {
         List<RECORD> result = new ArrayList<RECORD>();
-        for(WebElement recordRoot : recordsElements) {
-            result.add(Graphene.createPageFragment(recordClass, recordRoot));
+        for (WebElement recordRoot : getRecordsElements()) {
+            result.add(Graphene.createPageFragment(getRecordClass(), recordRoot));
         }
         return result;
     }
@@ -118,14 +114,46 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInte
         return advancedInteractions;
     }
 
+    protected List<WebElement> getRowElements() {
+        return rowElements;
+    }
+
+    protected List<WebElement> getRecordsElements() {
+        return recordsElements;
+    }
+
+    protected WebElement getNoDataElement() {
+        return noDataElement;
+    }
+
+    protected Class<RECORD> getRecordClass() {
+        return recordClass;
+    }
+
     public class AdvancedDataGridInteractions implements VisibleComponentInteractions {
+
+        private static final String CSS_SEL_ROW = ".rf-dg-r";
+        private static final String JQUERY_SEL_RECORD = ".rf-dg-c:not(:empty)";
+        private static final String JQUERY_SEL_COLUMN = ".rf-dg-c";
+
+        protected String getCssSelectorForRow() {
+            return CSS_SEL_ROW;
+        }
+
+        protected String getJQSelectorForRecord() {
+            return JQUERY_SEL_RECORD;
+        }
+
+        protected String getJQSelectorForColumn() {
+            return JQUERY_SEL_COLUMN;
+        }
 
         public WebElement getRootElement() {
             return root;
         }
 
         public boolean isNoData() {
-            return Utils.isVisible(noDataElement);
+            return Utils.isVisible(getNoDataElement());
         }
 
         @Override

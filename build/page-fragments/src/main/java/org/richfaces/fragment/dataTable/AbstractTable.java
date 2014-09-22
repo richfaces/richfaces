@@ -60,7 +60,7 @@ public abstract class AbstractTable<HEADER, ROW, FOOTER> implements DataTable<HE
     public ROW getRow(int n) {
         if (advanced().getNumberOfVisibleRows() - 1 < n) {
             throw new IllegalArgumentException("There is not so many rows! Requesting: "
-                    + n + "but there is only: " + advanced().getNumberOfVisibleRows());
+                + n + "but there is only: " + advanced().getNumberOfVisibleRows());
         }
         return Graphene.createPageFragment(rowClass, advanced().getTableRowsElements().get(n));
     }
@@ -99,6 +99,10 @@ public abstract class AbstractTable<HEADER, ROW, FOOTER> implements DataTable<HE
 
     public abstract class AdvancedTableInteractions {
 
+        public WebElement getRootElement() {
+            return root;
+        }
+
         public int getNumberOfColumns() {
             if (!isVisible()) {
                 return 0;
@@ -116,7 +120,7 @@ public abstract class AbstractTable<HEADER, ROW, FOOTER> implements DataTable<HE
         }
 
         public boolean isVisible() {
-            return Utils.isVisible(root);
+            return Utils.isVisible(getRootElement());
         }
 
         public boolean isNoData() {

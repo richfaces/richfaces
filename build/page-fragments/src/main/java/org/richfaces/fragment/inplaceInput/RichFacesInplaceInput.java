@@ -24,8 +24,6 @@ package org.richfaces.fragment.inplaceInput;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -49,9 +47,6 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
     @FindBy(css = "span[id$=Label]")
     private WebElement label;
 
-    @FindBy(css = "span[id$=Edit] span[id$=Btn]")
-    private WebElement controls;
-
     @FindBy(css = "span[id$=Edit] > input[id$=Input]")
     private WebElement editInputElement;
 
@@ -60,9 +55,6 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
 
     @Drone
     private WebDriver browser;
-
-    @ArquillianResource
-    private JavascriptExecutor executor;
 
     private final AdvancedInplaceInputInteractions advancedInteractions = new AdvancedInplaceInputInteractions();
 
@@ -78,12 +70,12 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
 
     @Override
     public ConfirmOrCancel type(String text) {
-        Utils.triggerJQ(executor, advanced().getEditByEvent().getEventName(), root);
+        Utils.triggerJQ(advanced().getEditByEvent().getEventName(), advanced().getRootElement());
         if (!advanced().isInState(InplaceComponentState.ACTIVE)) {
             throw new IllegalStateException("You should set correct editBy event. Current: " + advanced().getEditByEvent()
                 + " did not changed the inplace input for editing!");
         }
-        textInput.clear().sendKeys(text);
+        getTextInput().clear().sendKeys(text);
         return new ConfirmOrCancelImpl();
     }
 
@@ -96,17 +88,17 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
 
         @Override
         public WebElement getConfirmButton() {
-            return confirmButton;
+            return advanced().getConfirmButtonElement();
         }
 
         @Override
         public WebElement getInput() {
-            return editInputElement;
+            return advanced().getEditInputElement();
         }
 
         @Override
         public WebElement getCancelButton() {
-            return cancelButton;
+            return advanced().getCancelButtonElement();
         }
 
         @Override
@@ -120,6 +112,14 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
         private static final String RF_II_ACT_CLASS = "rf-ii-act";
         private final Event DEFAULT_EDIT_EVENT = Event.CLICK;
         private Event editByEvent = DEFAULT_EDIT_EVENT;
+
+        protected String getChangedClass() {
+            return RF_II_CHNG_CLASS;
+        }
+
+        protected String geActiveClass() {
+            return RF_II_ACT_CLASS;
+        }
 
         protected Event getEditByEvent() {
             return editByEvent;
@@ -138,22 +138,22 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
         }
 
         public boolean isInState(InplaceComponentState state) {
-            return root.getAttribute("class").contains(getClassForState(state));
+            return getRootElement().getAttribute("class").contains(getClassForState(state));
         }
 
         public String getClassForState(InplaceComponentState state) {
             switch (state) {
                 case ACTIVE:
-                    return RF_II_ACT_CLASS;
+                    return geActiveClass();
                 case CHANGED:
-                    return RF_II_CHNG_CLASS;
+                    return getChangedClass();
                 default:
                     throw new UnsupportedOperationException();
             }
         }
 
         public String getLabelValue() {
-            return label.getText().trim();
+            return getLabelInputElement().getText().trim();
         }
 
         public WebElement getCancelButtonElement() {

@@ -21,9 +21,7 @@
  */
 package org.richfaces.fragment.inputNumberSpinner;
 
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
@@ -45,9 +43,6 @@ public class RichFacesInputNumberSpinner extends AbstractNumberInput implements 
     @FindBy(css = "span.rf-insp-btns > span.rf-insp-dec")
     private WebElement arrowDecrease;
 
-    @Drone
-    private WebDriver browser;
-
     @Root
     private WebElement root;
 
@@ -58,28 +53,23 @@ public class RichFacesInputNumberSpinner extends AbstractNumberInput implements 
         return advancedInteractions;
     }
 
-    @Override
-    protected WebElement getArrowDecreaseElement() {
-        return arrowDecrease;
-    }
-
-    @Override
-    protected WebElement getArrowIncreaseElement() {
-        return arrowIncrease;
-    }
-
-    @Override
-    protected WebDriver getBrowser() {
-        return browser;
-    }
-
-    @Override
-    protected TextInputComponentImpl getInput() {
-        return input;
-    }
-
     public class AdvancedInputNumberSpinnerInteractions extends AbstractNumberInput.AdvancedNumberInputInteractions
         implements VisibleComponentInteractions {
+
+        @Override
+        public WebElement getArrowDecreaseElement() {
+            return arrowDecrease;
+        }
+
+        @Override
+        public WebElement getArrowIncreaseElement() {
+            return arrowIncrease;
+        }
+
+        @Override
+        public TextInputComponentImpl getInput() {
+            return input;
+        }
 
         public WebElement getRootElement() {
             return root;

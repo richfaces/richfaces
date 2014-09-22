@@ -58,20 +58,17 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
     @FindBy(className = "rf-ds-act")
     private GrapheneElement activePage;
 
-    private static final String CSS_PAGE_SELECTOR = "[id$='ds_%d'].rf-ds-nmb-btn";
-    private static final String CLASS_DISABLED = "rf-ds-dis";
-
     private final AdvancedDataScrollerInteractions advancedInteractions = new AdvancedDataScrollerInteractions();
 
     @Override
     public int getActivePageNumber() {
-        return Integer.valueOf(activePage.getText());
+        return Integer.valueOf(advanced().getActivePageElement().getText());
     }
 
     private void switchTo(By by) {
-        WebElement element = root.findElement(by);
+        WebElement element = advanced().getRootElement().findElement(by);
         element.click();
-        Graphene.waitModel().until().element(element).attribute("class").contains("rf-ds-act");
+        Graphene.waitModel().until().element(element).attribute("class").contains(advanced().getActiveClass());
     }
 
     private boolean checkIfScrollingByFastButtonIsQuickerThanScrollingByPages(int pageNumberBefore) {
@@ -125,11 +122,12 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
 
     @Override
     public void switchTo(DataScrollerSwitchButton btn) {
-        String prevPageText = activePage.getText();
+        String prevPageText = advanced().getActivePageElement().getText();
         advanced().getButtonElement(btn).click();
-        Graphene.waitModel().until().element(activePage).text().not().equalTo(prevPageText);
+        Graphene.waitModel().until().element(advanced().getActivePageElement()).text().not().equalTo(prevPageText);
     }
 
+    @Override
     public boolean hasPages() {
         return advanced().getCountOfVisiblePages() > 0;
     }
@@ -140,6 +138,10 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
     }
 
     public class AdvancedDataScrollerInteractions implements VisibleComponentInteractions {
+
+        private static final String CSS_PAGE_SELECTOR_TEMPLATE = "[id$='ds_%d'].rf-ds-nmb-btn";
+        private static final String CLASS_DISABLED = "rf-ds-dis";
+        private static final String CLASS_ACTIVE = "rf-ds-act";
 
         public WebElement getRootElement() {
             return root;
@@ -168,8 +170,20 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
             }
         }
 
+        protected String getActiveClass() {
+            return CLASS_ACTIVE;
+        }
+
+        protected String getCssPageSelectorTemplate() {
+            return CSS_PAGE_SELECTOR_TEMPLATE;
+        }
+
+        protected String getDisabledClass() {
+            return CLASS_DISABLED;
+        }
+
         private By getCssSelectorForPageNumber(int pageNumber) {
-            return By.cssSelector(String.format(CSS_PAGE_SELECTOR, pageNumber));
+            return By.cssSelector(String.format(getCssPageSelectorTemplate(), pageNumber));
         }
 
         public List<? extends WebElement> getAllPagesElements() {
@@ -177,7 +191,7 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         }
 
         public WebElement getFirstVisiblePageElement() {
-            return numberedPages.get(0);
+            return getAllPagesElements().get(0);
         }
 
         public int getFirstVisiblePageNumber() {
@@ -185,7 +199,7 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         }
 
         public WebElement getLastVisiblePageElement() {
-            return numberedPages.get(numberedPages.size() - 1);
+            return getAllPagesElements().get(getCountOfVisiblePages() - 1);
         }
 
         public int getLastVisiblePageNumber() {
@@ -197,11 +211,11 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         }
 
         public int getCountOfVisiblePages() {
-            return numberedPages.size();
+            return getAllPagesElements().size();
         }
 
         public boolean isButtonDisabled(DataScrollerSwitchButton btn) {
-            return getButtonElement(btn).getAttribute("class").contains(CLASS_DISABLED);
+            return getButtonElement(btn).getAttribute("class").contains(getDisabledClass());
         }
 
         public boolean isButtonPresent(DataScrollerSwitchButton btn) {
@@ -209,11 +223,11 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         }
 
         public boolean isFirstPage() {
-            return Integer.valueOf(activePage.getText()).equals(1);
+            return Integer.valueOf(getActivePageElement().getText()).equals(1);
         }
 
         public boolean isLastPage() {
-            return activePage.getText().equals(advanced().getLastVisiblePageElement().getText());
+            return getActivePageElement().getText().equals(advanced().getLastVisiblePageElement().getText());
         }
 
         @Override

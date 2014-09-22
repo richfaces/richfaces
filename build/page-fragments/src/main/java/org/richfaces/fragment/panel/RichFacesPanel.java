@@ -24,7 +24,6 @@ package org.richfaces.fragment.panel;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -36,7 +35,7 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
  * @param <HEADER>
  * @param <BODY>
  */
-public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements AdvancedVisibleComponentIteractions<RichFacesPanel<HEADER,BODY>.AdvancedPanelInteractions> {
+public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements AdvancedVisibleComponentIteractions<RichFacesPanel<HEADER, BODY>.AdvancedRichPanelInteractions> {
 
     @FindBy(css = "div.rf-p-hdr")
     private GrapheneElement header;
@@ -44,40 +43,28 @@ public abstract class RichFacesPanel<HEADER, BODY> extends AbstractPanel<HEADER,
     @FindBy(css = "div.rf-p-b")
     private GrapheneElement body;
 
-    private AdvancedPanelInteractions advancedInteractions = new AdvancedPanelInteractions();
+    private final AdvancedRichPanelInteractions advancedInteractions = new AdvancedRichPanelInteractions();
 
     @Override
-    public AdvancedPanelInteractions advanced() {
+    public AdvancedRichPanelInteractions advanced() {
         return advancedInteractions;
     }
 
-    @Override
-    protected WebElement getBodyElement() {
-        return body;
-    }
+    public class AdvancedRichPanelInteractions extends AdvancedPanelInteractions implements VisibleComponentInteractions {
 
-    @Override
-    protected GrapheneElement getHeaderElement() {
-        return header;
-    }
-
-    public class AdvancedPanelInteractions implements VisibleComponentInteractions {
-
-        public WebElement getRootElement() {
-            return RichFacesPanel.this.getRootElement();
+        @Override
+        public GrapheneElement getHeaderElement() {
+            return header;
         }
 
-        public WebElement getHeaderElement() {
-            return RichFacesPanel.this.getHeaderElement();
-        }
-
+        @Override
         public WebElement getBodyElement() {
-            return RichFacesPanel.this.getBodyElement();
+            return body;
         }
 
         @Override
         public boolean isVisible() {
-            return Utils.isVisible(RichFacesPanel.this.getRootElement());
+            return Utils.isVisible(getRootElement());
         }
     }
 }

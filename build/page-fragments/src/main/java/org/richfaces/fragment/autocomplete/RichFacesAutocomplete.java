@@ -54,16 +54,13 @@ import com.google.common.base.Predicate;
  */
 public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleComponentIteractions<RichFacesAutocomplete.AdvancedAutocompleteInteractions> {
 
-    private static final String SUGGESTIONS_CSS_SELECTOR_TEMPLATE = ".rf-au-lst-cord[id='%sList'] .rf-au-itm";
-    private static final String CSS_INPUT = "input[type='text']";
-
     @Drone
     private WebDriver driver;
 
     @Root
     private WebElement root;
 
-    @FindBy(css = CSS_INPUT)
+    @FindBy(css = "input[type='text']")
     private TextInputComponentImpl input;
 
     private final AdvancedAutocompleteInteractions advancedInteractions = new AdvancedAutocompleteInteractions();
@@ -79,15 +76,16 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
 
     @Override
     public SelectOrConfirm type(String str) {
-        if (!input.getStringValue().isEmpty()) {
-            input.sendKeys(advanced().getToken() + " ");
+        if (!advanced().getInput().getStringValue().isEmpty()) {
+            advanced().getInput().sendKeys(advanced().getToken() + " ");
         }
-        input.sendKeys(str);
+        advanced().getInput().sendKeys(str);
         return new SelectOrConfirmImpl();
     }
 
-    public class AdvancedAutocompleteInteractions implements VisibleComponentInteractions{
+    public class AdvancedAutocompleteInteractions implements VisibleComponentInteractions {
 
+        private static final String SUGGESTIONS_CSS_SELECTOR_TEMPLATE = ".rf-au-lst-cord[id='%sList'] .rf-au-itm";
         private static final String DEFAULT_TOKEN = ",";
         private final ScrollingType DEFAULT_SCROLLING_TYPE = ScrollingType.BY_MOUSE;
         private ScrollingType scrollingType = DEFAULT_SCROLLING_TYPE;
@@ -119,16 +117,16 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
             return scrollingType;
         }
 
+        protected String getSuggestionsSelectorTemplate() {
+            return SUGGESTIONS_CSS_SELECTOR_TEMPLATE;
+        }
+
         public List<WebElement> getSuggestionsElements() {
-            String id = root.getAttribute("id");
-            String selectorOfRoot = String.format(SUGGESTIONS_CSS_SELECTOR_TEMPLATE, id);
+            String id = getRootElement().getAttribute("id");
+            String selectorOfRoot = String.format(getSuggestionsSelectorTemplate(), id);
             List<WebElement> foundElements = driver.findElements(By.cssSelector(selectorOfRoot));
-            if (!foundElements.isEmpty() && foundElements.get(0).isDisplayed()) { // prevent
-                                                                                  // returning
-                                                                                  // of
-                                                                                  // not
-                                                                                  // visible
-                // elements
+            if (!foundElements.isEmpty() && foundElements.get(0).isDisplayed()) {
+                // prevent returning of not visible elements
                 return Collections.unmodifiableList(foundElements);
             } else {
                 return Collections.emptyList();
@@ -168,7 +166,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
                     });
                 }
             }.withMessage("Waiting for suggestions to be not visible")
-             .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForSuggestionsToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitForSuggestionsToBeVisible() {
@@ -184,7 +182,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
                     });
                 }
             }.withMessage("Waiting for suggestions to be visible")
-             .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
         public void setupTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {

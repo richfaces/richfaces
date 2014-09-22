@@ -103,6 +103,7 @@ public class RichFacesPanelMenu extends AbstractPanelMenu {
             return root;
         }
 
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }

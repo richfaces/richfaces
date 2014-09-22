@@ -52,7 +52,7 @@ public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAcc
 
     @Override
     public int getNumberOfAccordionItems() {
-        return accordionItems.size();
+        return advanced().getAccordionItems().size();
     }
 
     public class AdvancedAccordionInteractions extends AbstractSwitchableComponent<RichFacesAccordionItem>.AdvancedSwitchableComponentInteractions {
@@ -62,7 +62,7 @@ public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAcc
         }
 
         public RichFacesAccordionItem getActiveItem() {
-            for (RichFacesAccordionItem item : accordionItems) {
+            for (RichFacesAccordionItem item : getAccordionItems()) {
                 if (item.advanced().isActive()) {
                     return item;
                 }
@@ -75,23 +75,23 @@ public class RichFacesAccordion extends AbstractSwitchableComponent<RichFacesAcc
             return new Predicate<WebDriver>() {
                 @Override
                 public boolean apply(WebDriver input) {
-                    return getActiveItem().getActiveHeaderElement().getText().contains(textToContain);
+                    return getActiveItem().advanced().getActiveHeaderElement().getText().contains(textToContain);
                 }
             };
         }
-    }
 
-    @Override
-    protected List<WebElement> getSwitcherControllerElements() {
-        return accordionHeaders;
-    }
+        public List<WebElement> getAccordionHeaders() {
+            return accordionHeaders;
+        }
 
-    public List<WebElement> getAccordionHeaders(){
-        return accordionHeaders;
-    }
+        @Override
+        protected List<WebElement> getSwitcherControllerElements() {
+            return getAccordionHeaders();
+        }
 
-    @Override
-    protected WebElement getRootOfContainerElement() {
-        return visibleContent;
+        @Override
+        protected WebElement getRootOfContainerElement() {
+            return visibleContent;
+        }
     }
 }

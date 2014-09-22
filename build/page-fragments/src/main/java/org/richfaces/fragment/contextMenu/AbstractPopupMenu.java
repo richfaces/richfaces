@@ -55,25 +55,6 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
     @Root
     private WebElement root;
 
-    private final AdvancedPopupMenuInteractions advancedInteractions = new AdvancedPopupMenuInteractions();
-
-    /* ************************************************************************************************
-     * Abstract methods
-     */
-    /**
-     * Returns the popup element of the menu
-     *
-     * @return
-     */
-    protected abstract WebElement getMenuPopupInternal();
-
-    /**
-     * Returns all elements of this menu
-     *
-     * @return
-     */
-    protected abstract List<WebElement> getMenuItemElementsInternal();
-
     /**
      * Returns the name of the actual page fragment.
      *
@@ -87,21 +68,18 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         return root;
     }
 
-    protected abstract WebElement getScriptElement();
 
     /* ************************************************************************************************
      * API
      */
     @Override
-    public AdvancedPopupMenuInteractions advanced() {
-        return advancedInteractions;
-    }
+    public abstract AdvancedPopupMenuInteractions advanced();
 
     @Override
     public void selectItem(ChoicePicker picker) {
         advanced().show();
-        WebElement item = picker.pick(getMenuItemElementsInternal());
-        if(item == null) {
+        WebElement item = picker.pick(advanced().getMenuItemElements());
+        if (item == null) {
             throw new IllegalArgumentException("There is no such option to be selected, which satisfied the given rules!");
         }
         item.click();
@@ -138,7 +116,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
     /* ****************************************************************************************************
      * Nested classes
      */
-    public class AdvancedPopupMenuInteractions implements VisibleComponentInteractions {
+    public abstract class AdvancedPopupMenuInteractions implements VisibleComponentInteractions {
 
         private final Event DEFAULT_INVOKE_EVENT = Event.CONTEXTCLICK;
         private Event invokeEvent = DEFAULT_INVOKE_EVENT;
@@ -160,7 +138,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
          * @throws IllegalStateException when no popup menu is displayed in the time of invoking
          */
         public void hide() {
-            if (!getMenuPopupInternal().isDisplayed()) {
+            if (!getMenuPopup().isDisplayed()) {
                 throw new IllegalStateException("You are attemting to dismiss the " + getNameOfFragment() + ", however, no "
                     + getNameOfFragment() + " is displayed at the moment!");
             }
@@ -183,13 +161,11 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
          *
          * @return
          */
-        public List<WebElement> getMenuItemElements() {
-            return Collections.unmodifiableList(getMenuItemElementsInternal());
-        }
+        public abstract List<WebElement> getMenuItemElements();
 
-        public WebElement getMenuPopup() {
-            return getMenuPopupInternal();
-        }
+        protected abstract WebElement getScriptElement();
+
+        public abstract WebElement getMenuPopup();
 
         protected int getShowDelay() {
             return showDelay;
@@ -277,7 +253,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         }
 
         public void setupShowEventFromWidget() {
-            Optional<String> event = Utils.getComponentOption(root, "showEvent");
+            Optional<String> event = Utils.getComponentOption(getRootElement(), "showEvent");
             invokeEvent = new Event(event.or(DEFAULT_INVOKE_EVENT.getEventName()));
         }
 
@@ -298,7 +274,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         }
 
         public void setupTarget() {
-            target = root;
+            target = getRootElement();
         }
 
         public void setupTarget(WebElement target) {
@@ -306,11 +282,11 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         }
 
         public void setupTargetFromWidget() {
-            String targetId = Utils.getComponentOption(root, "target").orNull();
+            String targetId = Utils.getComponentOption(getRootElement(), "target").orNull();
             if (targetId != null) {
                 target = browser.findElement(By.id(targetId));
             } else {
-                target = root;
+                target = getRootElement();
             }
         }
 
@@ -340,10 +316,10 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
 
                 @Override
                 protected void performWait(FluentWait<WebDriver, Void> wait) {
-                    wait.until().element(getMenuPopupInternal()).is().not().visible();
+                    wait.until().element(getMenuPopup()).is().not().visible();
                 }
             }.withMessage("Waiting for menu to hide.")
-             .withTimeout(hideDelay + getTimeoutForPopupMenuToBeNotVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(hideDelay + getTimeoutForPopupMenuToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilIsVisible() {
@@ -354,7 +330,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
                     wait.until().element(getMenuPopup()).is().visible();
                 }
             }.withMessage("The " + getNameOfFragment() + " did not show in the given timeout!")
-             .withTimeout(showDelay + getTimeoutForPopupMenuToBeVisible(), TimeUnit.MILLISECONDS);
+                .withTimeout(showDelay + getTimeoutForPopupMenuToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
         @Override

@@ -51,18 +51,14 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
         this.containerClass = (Class<T>) TypeResolver.resolveRawArgument(SwitchableComponent.class, getClass());
     }
 
-    protected abstract WebElement getRootOfContainerElement();
-
-    protected abstract List<WebElement> getSwitcherControllerElements();
-
     @Override
     public T switchTo(ChoicePicker picker) {
-        WebElement switcher = picker.pick(getSwitcherControllerElements());
+        WebElement switcher = picker.pick(advanced().getSwitcherControllerElements());
         if (switcher == null) {
             throw new IllegalArgumentException("No such item which fulfill the conditions from picker: " + picker);
         }
         switchTo(switcher);
-        return Graphene.createPageFragment(containerClass, getRootOfContainerElement());
+        return Graphene.createPageFragment(containerClass, advanced().getRootOfContainerElement());
     }
 
     @Override
@@ -112,14 +108,18 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
             return root;
         }
 
+        protected abstract WebElement getRootOfContainerElement();
+
+        protected abstract List<WebElement> getSwitcherControllerElements();
+
         protected abstract Predicate<WebDriver> getConditionForContentSwitched(String textToContain);
 
         protected void waitUntilContentSwitched(String textToContain) {
             (switchType.equals(SwitchType.CLIENT)
                 ? Graphene.waitGui()
                 : switchType.equals(SwitchType.AJAX)
-                ? Graphene.waitAjax()
-                : Graphene.waitModel())
+                    ? Graphene.waitAjax()
+                    : Graphene.waitModel())
                 .withMessage("Waiting for content to be switched")
                 .until(getConditionForContentSwitched(textToContain));
         }

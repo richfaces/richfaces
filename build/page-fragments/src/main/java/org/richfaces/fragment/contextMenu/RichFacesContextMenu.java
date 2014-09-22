@@ -42,29 +42,29 @@ public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu
     @FindByJQuery("script:last")
     private WebElement script;
 
-    private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions ();
+    private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions();
 
     @Override
     public AdvancedContextMenuInteractions advanced() {
         return advancedInteractions;
     }
 
-    @Override
-    protected List<WebElement> getMenuItemElementsInternal() {
-        return menuItemsElements;
-    }
-
-    @Override
-    protected WebElement getMenuPopupInternal() {
-        return contextMenuPopup;
-    }
-
-    @Override
-    protected WebElement getScriptElement() {
-        return script;
-    }
-
     public class AdvancedContextMenuInteractions extends AbstractPopupMenu.AdvancedPopupMenuInteractions {
+
+        @Override
+        public List<WebElement> getMenuItemElements() {
+            return menuItemsElements;
+        }
+
+        @Override
+        public WebElement getMenuPopup() {
+            return contextMenuPopup;
+        }
+
+        @Override
+        protected WebElement getScriptElement() {
+            return script;
+        }
 
         public String getLangAttribute() {
             return getRootElement().getAttribute("lang");

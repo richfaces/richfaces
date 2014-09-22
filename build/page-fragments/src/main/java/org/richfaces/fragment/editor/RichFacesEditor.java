@@ -92,6 +92,13 @@ public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEd
         }
     }
 
+    /**
+     * @return the executor
+     */
+    protected JavascriptExecutor getExecutor() {
+        return executor;
+    }
+
     public class AdvancedEditorInteractions implements VisibleComponentInteractions {
 
         public WebElement getRootElement() {
@@ -109,7 +116,7 @@ public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEd
                     case ESCAPE_SQ:
                         throw new UnsupportedOperationException("Unsupported Op.");
                     case JS:
-                        executor.executeScript("arguments[0].innerHTML = '';", activeArea);
+                        getExecutor().executeScript("arguments[0].innerHTML = '';", activeArea);
                         break;
                     case WD:
                         throw new UnsupportedOperationException("Unsupported Op.");

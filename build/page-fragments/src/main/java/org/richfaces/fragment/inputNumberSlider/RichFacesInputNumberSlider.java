@@ -22,7 +22,6 @@
 package org.richfaces.fragment.inputNumberSlider;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -89,23 +88,42 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
         advanced().dragHandleToPointInTrace((int) (n * advanced().getWidth()));
     }
 
+    protected void scrollToView() {
+        new Actions(browser).moveToElement(advanced().getRootElement()).perform();
+    }
+
     public class AdvancedInputNumberSliderInteractions extends AbstractNumberInput.AdvancedNumberInputInteractions
         implements VisibleComponentInteractions {
 
         public void dragHandleToPointInTrace(int pixelInTrace) {
             Preconditions.checkArgument(pixelInTrace >= 0 && pixelInTrace <= getWidth(),
                 "Cannot slide outside the trace.");
-            if (!new WebElementConditionFactory(root).isVisible().apply(browser)) {
+            if (Utils.isVisible(advanced().getRootElement())) {
                 throw new RuntimeException("Trace is not visible.");
             }
             scrollToView();
-            Actions actions = new Actions(browser).clickAndHold(handle);
-            actions.moveToElement(root, pixelInTrace, 0);
-            actions.release(handle).build().perform();
+            Actions actions = new Actions(browser).clickAndHold(advanced().getHandleElement());
+            actions.moveToElement(advanced().getRootElement(), pixelInTrace, 0);
+            actions.release(advanced().getHandleElement()).build().perform();
         }
 
         public int getWidth() {
-            return Utils.getLocations(handleContainer).getWidth();
+            return Utils.getLocations(getHandleContainer()).getWidth();
+        }
+
+        @Override
+        public WebElement getArrowIncreaseElement() {
+            return arrowIncrease;
+        }
+
+        @Override
+        public WebElement getArrowDecreaseElement() {
+            return arrowDecrease;
+        }
+
+        @Override
+        public TextInputComponentImpl getInput() {
+            return input;
         }
 
         public WebElement getRootElement() {
@@ -114,6 +132,10 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
 
         public WebElement getDisabledHandleElement() {
             return disabledHandle;
+        }
+
+        protected WebElement getHandleContainer() {
+            return handleContainer;
         }
 
         public WebElement getHandleElement() {
@@ -144,29 +166,5 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }
-    }
-
-    private void scrollToView() {
-        new Actions(browser).moveToElement(root).perform();
-    }
-
-    @Override
-    protected WebElement getArrowIncreaseElement() {
-        return arrowIncrease;
-    }
-
-    @Override
-    protected WebDriver getBrowser() {
-        return browser;
-    }
-
-    @Override
-    protected WebElement getArrowDecreaseElement() {
-        return arrowDecrease;
-    }
-
-    @Override
-    protected TextInputComponentImpl getInput() {
-        return input;
     }
 }

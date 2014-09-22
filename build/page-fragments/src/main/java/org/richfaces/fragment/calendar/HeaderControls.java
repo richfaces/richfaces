@@ -69,13 +69,13 @@ public class HeaderControls {
     private long _timeoutForPopupToBeNotVisible = -1;
 
     private void _openYearAndMonthEditor() {
-        if (!isVisible() || !yearAndMonthEditorOpenerElement.isDisplayed()) {
+        if (!isVisible() || !getYearAndMonthEditorOpenerElement().isDisplayed()) {
             throw new RuntimeException("Cannot open date editor. "
                 + "Ensure that calendar popup and header controls are displayed and some date is set.");
         }
-        yearAndMonthEditorOpenerElement.click();
+        getYearAndMonthEditorOpenerElement().click();
         calendarEditor.getDateEditor().waitUntilIsVisible()
-                                      .perform();
+            .perform();
     }
 
     public WebElement getNextMonthElement() {
@@ -95,7 +95,7 @@ public class HeaderControls {
     }
 
     public DateTime getYearAndMonth() {
-        return formatter.parseDateTime(yearAndMonthEditorOpenerElement.getText());
+        return getFormatter().parseDateTime(getYearAndMonthEditorOpenerElement().getText());
     }
 
     public YearAndMonthEditor getYearAndMonthEditor() {
@@ -107,31 +107,31 @@ public class HeaderControls {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRoot());
     }
 
     public void nextMonth() {
-        if (!isVisible() || !nextMonthElement.isDisplayed()) {
+        if (!isVisible() || !getNextMonthElement().isDisplayed()) {
             throw new RuntimeException("Cannot interact with nextMonth button. "
                 + "Ensure that calendar popup and header controls are displayed.");
         }
-        String before = yearAndMonthEditorOpenerElement.getText();
-        nextMonthElement.click();
-        Graphene.waitAjax().until().element(yearAndMonthEditorOpenerElement).text().not().equalTo(before);
+        String before = getYearAndMonthEditorOpenerElement().getText();
+        getNextMonthElement().click();
+        Graphene.waitAjax().until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public void nextYear() {
-        if (!isVisible() || !nextYearElement.isDisplayed()) {
+        if (!isVisible() || !getNextYearElement().isDisplayed()) {
             throw new RuntimeException("Cannot interact with nextYear button. "
                 + "Ensure that calendar popup and header controls are displayed.");
         }
-        String before = yearAndMonthEditorOpenerElement.getText();
-        nextYearElement.click();
-        Graphene.waitAjax().until().element(yearAndMonthEditorOpenerElement).text().not().equalTo(before);
+        String before = getYearAndMonthEditorOpenerElement().getText();
+        getNextYearElement().click();
+        Graphene.waitAjax().until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public YearAndMonthEditor openYearAndMonthEditor() {
-        if (Utils.isVisible(calendarEditor.getDateEditor().getRoot())) {
+        if (Utils.isVisible(calendarEditor.getDateEditor().getRootElement())) {
             return calendarEditor.getDateEditor();
         } else {
             _openYearAndMonthEditor();
@@ -140,23 +140,23 @@ public class HeaderControls {
     }
 
     public void previousYear() {
-        if (!isVisible() || !previousYearElement.isDisplayed()) {
+        if (!isVisible() || !getPreviousYearElement().isDisplayed()) {
             throw new RuntimeException("Cannot interact with previousYear button. "
                 + "Ensure that calendar popup and header controls are displayed.");
         }
-        String before = yearAndMonthEditorOpenerElement.getText();
-        previousYearElement.click();
-        Graphene.waitAjax().until().element(yearAndMonthEditorOpenerElement).text().not().equalTo(before);
+        String before = getYearAndMonthEditorOpenerElement().getText();
+        getPreviousYearElement().click();
+        Graphene.waitAjax().until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public void previousMonth() {
-        if (!isVisible() || !previousMonthElement.isDisplayed()) {
+        if (!isVisible() || !getPreviousMonthElement().isDisplayed()) {
             throw new RuntimeException("Cannot interact with previousMonth button. "
                 + "Ensure that calendar popup and header controls are displayed.");
         }
-        String before = yearAndMonthEditorOpenerElement.getText();
-        previousMonthElement.click();
-        Graphene.waitAjax().until().element(yearAndMonthEditorOpenerElement).text().not().equalTo(before);
+        String before = getYearAndMonthEditorOpenerElement().getText();
+        getPreviousMonthElement().click();
+        Graphene.waitAjax().until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public void setCalendarEditor(CalendarEditor calendarEditor) {
@@ -175,18 +175,26 @@ public class HeaderControls {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().not().visible();
+                wait.until().element(getRoot()).is().not().visible();
             }
         }.withMessage("Header controls to be not visible.")
-         .withTimeout(getTimeoutForPopupToBeNotVisible(), TimeUnit.MILLISECONDS);
+            .withTimeout(getTimeoutForPopupToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
 
     public WaitingWrapper waitUntilIsVisible() {
         return new WaitingWrapperImpl() {
             @Override
             protected void performWait(FluentWait<WebDriver, Void> wait) {
-                wait.until().element(root).is().visible();
+                wait.until().element(getRoot()).is().visible();
             }
         }.withMessage("Header controls to be visible.");
+    }
+
+    public WebElement getRoot() {
+        return root;
+    }
+
+    protected DateTimeFormatter getFormatter() {
+        return formatter;
     }
 }

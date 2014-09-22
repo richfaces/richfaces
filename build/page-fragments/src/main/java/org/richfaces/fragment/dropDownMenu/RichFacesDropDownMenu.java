@@ -53,25 +53,25 @@ public class RichFacesDropDownMenu extends AbstractPopupMenu implements PopupMen
         return advancedInteractions;
     }
 
-    @Override
-    protected WebElement getMenuPopupInternal() {
-        return dropDownMenuPopup;
-    }
-
-    @Override
-    protected List<WebElement> getMenuItemElementsInternal() {
-        return menuItemsElements;
-    }
-
-    @Override
-    protected WebElement getScriptElement() {
-        return script;
-    }
-
     public class AdvancedDropDownMenuInteractions extends AbstractPopupMenu.AdvancedPopupMenuInteractions {
 
+        @Override
+        public WebElement getMenuPopup() {
+            return dropDownMenuPopup;
+        }
+
+        @Override
+        public List<WebElement> getMenuItemElements() {
+            return menuItemsElements;
+        }
+
+        @Override
+        protected WebElement getScriptElement() {
+            return script;
+        }
+
         public String getLangAttribute() {
-            return topLvlElement.getAttribute("lang");
+            return getTopLevelElement().getAttribute("lang");
         }
 
         public WebElement getTopLevelElement() {

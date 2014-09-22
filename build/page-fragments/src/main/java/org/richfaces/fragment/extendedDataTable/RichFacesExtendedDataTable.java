@@ -22,6 +22,7 @@
 package org.richfaces.fragment.extendedDataTable;
 
 import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -58,22 +59,22 @@ public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends Ab
     @FindBy(className = "rf-edt-ftr-c")
     private List<WebElement> columnFootersElements;
 
-    private final AbstractTable.AdvancedTableInteractions advancedInteractions = new AdvancedExtendedDataTableInteractions();
+    private final AdvancedExtendedDataTableInteractions advancedInteractions = new AdvancedExtendedDataTableInteractions();
 
     @Override
     public void selectRow(int rowIndex, Keys... keys) {
         clickOnRow(rowIndex, keys);
         Graphene.waitAjax().until()
-                .element(tableRowsElements.get(rowIndex))
-                .attribute("class").contains("rf-edt-r-sel");
+            .element(advanced().getTableRowsElements().get(rowIndex))
+            .attribute("class").contains(advanced().getStyleClassForSelectedRow());
     }
 
     @Override
     public void deselectRow(int rowIndex, Keys... keys) {
         clickOnRow(rowIndex, keys);
         Graphene.waitAjax().until()
-                .element(tableRowsElements.get(rowIndex))
-                .attribute("class").not().contains("rf-edt-r-sel");
+            .element(advanced().getTableRowsElements().get(rowIndex))
+            .attribute("class").not().contains(advanced().getStyleClassForSelectedRow());
     }
 
     private void clickOnRow(int rowIndex, Keys... keys) {
@@ -92,9 +93,9 @@ public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends Ab
         if (rowIndex < 0) {
             throw new IllegalArgumentException("rowIndex must not be negative");
         }
-        if(advanced().getNumberOfVisibleRows() < rowIndex) {
+        if (advanced().getNumberOfVisibleRows() < rowIndex) {
             throw new IllegalArgumentException("There is not so many rows! Requesting: "
-                    + rowIndex + "but there is only: " + advanced().getNumberOfVisibleRows());
+                + rowIndex + "but there is only: " + advanced().getNumberOfVisibleRows());
         }
         if (keys.length > 2) {
             throw new IllegalArgumentException("Only one of: SHIFT, CTRL or their combination can be passed!");
@@ -102,11 +103,17 @@ public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends Ab
     }
 
     @Override
-    public AdvancedTableInteractions advanced() {
+    public AdvancedExtendedDataTableInteractions advanced() {
         return advancedInteractions;
     }
 
     public class AdvancedExtendedDataTableInteractions extends AbstractTable<HEADER, ROW, FOOTER>.AdvancedTableInteractions {
+
+        private static final String SELECTED_CLASS = "rf-edt-r-sel";
+
+        protected String getStyleClassForSelectedRow() {
+            return SELECTED_CLASS;
+        }
 
         @Override
         public WebElement getNoDataElement() {
@@ -157,6 +164,5 @@ public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends Ab
         public List<WebElement> getColumnFooterElements() {
             return columnFootersElements;
         }
-
     }
 }

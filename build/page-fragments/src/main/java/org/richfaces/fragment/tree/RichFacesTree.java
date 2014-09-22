@@ -60,7 +60,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
     @Override
     public TreeNode collapseNode(ChoicePicker picker) {
-        return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().collapse();
+        return advanced().getChildNodes().get(getIndexOfPickedElement(picker)).advanced().collapse();
     }
 
     @Override
@@ -70,22 +70,14 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
     @Override
     public TreeNode expandNode(ChoicePicker picker) {
-        return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().expand();
-    }
-
-    protected List<? extends TreeNode> getChildNodes() {
-        return Collections.unmodifiableList(childNodes);
-    }
-
-    protected List<WebElement> getChildNodesElements() {
-        return Collections.unmodifiableList(childNodesElements);
+        return advanced().getChildNodes().get(getIndexOfPickedElement(picker)).advanced().expand();
     }
 
     protected int getIndexOfPickedElement(ChoicePicker picker) {
-        if (getChildNodesElements().isEmpty()) {
+        if (advanced().getChildNodesElements().isEmpty()) {
             throw new RuntimeException("Cannot find child node, because there are no child nodes.");
         }
-        return Utils.getIndexOfElement(picker.pick(getChildNodesElements()));
+        return Utils.getIndexOfElement(picker.pick(advanced().getChildNodesElements()));
     }
 
     @Override
@@ -95,7 +87,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
     @Override
     public TreeNode selectNode(ChoicePicker picker) {
-        return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().select();
+        return advanced().getChildNodes().get(getIndexOfPickedElement(picker)).advanced().select();
     }
 
     public class AdvancedTreeInteractionsImpl implements Tree.AdvancedTreeInteractions, VisibleComponentInteractions {
@@ -108,6 +100,14 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
         @Override
         public TreeNode getFirstNode() {
             return getNodes().get(0);
+        }
+
+        protected List<? extends TreeNode> getChildNodes() {
+            return Collections.unmodifiableList(childNodes);
+        }
+
+        protected List<WebElement> getChildNodesElements() {
+            return Collections.unmodifiableList(childNodesElements);
         }
 
         @Override

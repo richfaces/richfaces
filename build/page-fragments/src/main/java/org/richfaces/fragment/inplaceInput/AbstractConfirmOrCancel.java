@@ -39,7 +39,7 @@ public abstract class AbstractConfirmOrCancel implements ConfirmOrCancel {
     @Override
     public void confirmByControlls() {
         checkControllsAreAvailable();
-        Utils.triggerJQ("mousedown",getConfirmButton() );
+        Utils.triggerJQ("mousedown", getConfirmButton());
         waitAfterConfirmOrCancel();
     }
 

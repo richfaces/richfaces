@@ -31,8 +31,6 @@ import java.util.concurrent.TimeUnit;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,9 +51,6 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
 
     @Root
     private WebElement rootElement;
-
-    @ArquillianResource
-    private JavascriptExecutor executor;
 
     @FindBy(className = "rf-fu-lst")
     private RichFacesFileUploadList items;
@@ -79,16 +74,16 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
 
     @Override
     public boolean addFile(File file) {
-        final int expectedSize = fileInputElements.size() + 1;
-        String containerStyleClassBefore = inputContainer.getAttribute("class");
-        Utils.jQ("attr('class', '')", inputContainer);
-        fileInputElement.sendKeys(file.getAbsolutePath());
-        Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", inputContainer);
+        final int expectedSize = getFileInputElements().size() + 1;
+        String containerStyleClassBefore = getInputContainer().getAttribute("class");
+        Utils.jQ("attr('class', '')", getInputContainer());
+        advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
+        Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", getInputContainer());
         try {
             Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
                 @Override
                 public boolean apply(WebDriver input) {
-                    return fileInputElements.size() == expectedSize;
+                    return getFileInputElements().size() == expectedSize;
                 }
             });
         } catch (TimeoutException ignored) {
@@ -104,11 +99,11 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
 
     @Override
     public FileUpload clearAll() {
-        clearAllButtonElement.click();
+        advanced().getClearAllButtonElement().click();
         Graphene.waitGui().until(new Predicate<WebDriver>() {
             @Override
             public boolean apply(WebDriver input) {
-                return items.isEmpty();
+                return advanced().getItems().isEmpty();
             }
         });
         return this;
@@ -116,8 +111,19 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
 
     @Override
     public FileUpload upload() {
-        uploadButtonElement.click();
+        advanced().getUploadButtonElement().click();
         return this;
+    }
+
+    protected List<WebElement> getFileInputElements() {
+        return fileInputElements;
+    }
+
+    /**
+     * @return the inputContainer
+     */
+    protected WebElement getInputContainer() {
+        return inputContainer;
     }
 
     public class FileUploadItemImpl extends RichFacesListItem implements FileUploadItem {

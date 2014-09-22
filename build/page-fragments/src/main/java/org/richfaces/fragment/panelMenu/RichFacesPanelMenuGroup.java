@@ -61,6 +61,7 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
         return Collections.unmodifiableList(menuGroups);
     }
 
+    @Override
     public AdvancedPanelMenuGroupInteractions advanced() {
         return advancedInteractions;
     }
@@ -77,7 +78,7 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
         }
 
         public boolean isExpanded() {
-            return super.isGroupExpanded(root);
+            return super.isGroupExpanded(getRootElement());
         }
 
         public WebElement getLabelElement() {
@@ -89,7 +90,7 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
         }
 
         public boolean isTransparent(WebElement icon) {
-            return icon.getAttribute("class").contains("-transparent");
+            return icon.getAttribute("class").contains(getCssTransparentSuffix());
         }
 
         public WebElement getLeftIconElement() {
@@ -105,13 +106,14 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
         }
 
         public boolean isDisabled() {
-            return root.getAttribute("class").contains("-dis");
+            return getRootElement().getAttribute("class").contains(getCssDisabledSuffix());
         }
 
         public boolean isSelected() {
-            return getHeaderElement().getAttribute("class").contains("-sel");
+            return getHeaderElement().getAttribute("class").contains(getCssSelectedSuffix());
         }
 
+        @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
         }

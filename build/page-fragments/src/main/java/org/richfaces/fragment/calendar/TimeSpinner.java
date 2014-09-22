@@ -69,7 +69,7 @@ public abstract class TimeSpinner<T> {
     }
 
     public boolean isVisible() {
-        return Utils.isVisible(root);
+        return Utils.isVisible(getRootElement());
     }
 
     public void setValueBy(T value, SetValueBy by) {
@@ -97,12 +97,19 @@ public abstract class TimeSpinner<T> {
      */
     public void setValueByTyping(T value) {
         if (!isSameValueAreadySet(value)) {
-            input.clear().sendKeys(value.toString());
+            getInput().clear().sendKeys(value.toString());
         }
     }
 
     public void waitUntilIsVisible() {
-        Graphene.waitModel().until().element(root).is().visible();
+        Graphene.waitModel().until().element(getRootElement()).is().visible();
+    }
+
+    /**
+     * @return the root
+     */
+    protected WebElement getRootElement() {
+        return root;
     }
 
     public static class TimeSpinner60 extends TimeSpinner<Integer> {

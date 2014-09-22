@@ -53,18 +53,14 @@ public class RichFacesStatus implements Status, AdvancedInteractions<AdvancedSta
         return interactions;
     }
 
-    public AdvancedStatusInteractions getInteractions() {
-        return interactions;
-    }
-
     @Override
     public StatusState getStatusState() {
-        return Utils.isVisible(startElement) ? StatusState.START : Utils.isVisible(stopElement) ? StatusState.STOP : StatusState.ERROR;
+        return Utils.isVisible(advanced().getStartElement()) ? StatusState.START : Utils.isVisible(advanced().getStopElement()) ? StatusState.STOP : StatusState.ERROR;
     }
 
     @Override
     public String getStatusText() {
-        return rootElement.getText();
+        return advanced().getRootElement().getText();
         // return Utils.isVisible(start) ? start.getText() : Utils.isVisible(stop) ? stop.getText() : error.getText();
     }
 
