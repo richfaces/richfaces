@@ -81,7 +81,7 @@ public interface ListComponent<T extends ListItem> {
      *
      * @return the root element of this component
      */
-    WebElement getRoot();
+    WebElement getRootElement();
 
     /**
      * Founds out whether the list is empty or not.

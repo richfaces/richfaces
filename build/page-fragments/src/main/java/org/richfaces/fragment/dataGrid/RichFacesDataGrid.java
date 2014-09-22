@@ -23,14 +23,17 @@ package org.richfaces.fragment.dataGrid;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 /**
  * Class representing a page fragment for RichFaces DataGrid.
@@ -47,6 +50,9 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInte
     private static final String CSS_SEL_ROW = ".rf-dg-r";
     private static final String JQUERY_SEL_RECORD = ".rf-dg-c:not(:empty)";
     private static final String JQUERY_SEL_COLUMN = ".rf-dg-c";
+
+    @Root
+    private WebElement root;
 
     @FindBy(css = CSS_SEL_ROW)
     private List<WebElement> rowElements;
@@ -112,10 +118,19 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInte
         return advancedInteractions;
     }
 
-    public class AdvancedDataGridInteractions {
+    public class AdvancedDataGridInteractions implements VisibleComponentInteractions {
+
+        public WebElement getRootElement() {
+            return root;
+        }
 
         public boolean isNoData() {
             return Utils.isVisible(noDataElement);
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

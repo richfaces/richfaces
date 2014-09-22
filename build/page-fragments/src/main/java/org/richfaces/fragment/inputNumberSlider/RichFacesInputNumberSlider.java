@@ -31,10 +31,12 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 import com.google.common.base.Preconditions;
 
-public class RichFacesInputNumberSlider extends AbstractNumberInput implements InputNumberSlider, AdvancedInteractions<RichFacesInputNumberSlider.AdvancedInputNumberSliderInteractions> {
+public class RichFacesInputNumberSlider extends AbstractNumberInput implements InputNumberSlider,
+    AdvancedInteractions<RichFacesInputNumberSlider.AdvancedInputNumberSliderInteractions> {
 
     @FindBy(className = "rf-insl-inc")
     private WebElement arrowIncrease;
@@ -87,10 +89,12 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
         advanced().dragHandleToPointInTrace((int) (n * advanced().getWidth()));
     }
 
-    public class AdvancedInputNumberSliderInteractions extends AbstractNumberInput.AdvancedNumberInputInteractions {
+    public class AdvancedInputNumberSliderInteractions extends AbstractNumberInput.AdvancedNumberInputInteractions
+        implements VisibleComponentInteractions {
 
         public void dragHandleToPointInTrace(int pixelInTrace) {
-            Preconditions.checkArgument(pixelInTrace >= 0 && pixelInTrace <= getWidth(), "Cannot slide outside the trace.");
+            Preconditions.checkArgument(pixelInTrace >= 0 && pixelInTrace <= getWidth(),
+                "Cannot slide outside the trace.");
             if (!new WebElementConditionFactory(root).isVisible().apply(browser)) {
                 throw new RuntimeException("Trace is not visible.");
             }
@@ -134,6 +138,11 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
 
         public WebElement getSliderElement() {
             return sliderElement;
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 

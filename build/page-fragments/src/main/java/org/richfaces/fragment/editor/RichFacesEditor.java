@@ -31,6 +31,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.ClearType;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.editor.toolbar.RichFacesEditorToolbar;
 
 /**
@@ -90,7 +92,11 @@ public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEd
         }
     }
 
-    public class AdvancedEditorInteractions {
+    public class AdvancedEditorInteractions implements VisibleComponentInteractions {
+
+        public WebElement getRootElement() {
+            return root;
+        }
 
         public void clear(ClearType clearType) {
             try {
@@ -117,6 +123,11 @@ public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEd
 
         public RichFacesEditorToolbar getToolbar() {
             return toolbar;
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

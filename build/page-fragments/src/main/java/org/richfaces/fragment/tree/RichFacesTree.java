@@ -30,6 +30,7 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
@@ -97,7 +98,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
         return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().select();
     }
 
-    public class AdvancedTreeInteractionsImpl implements Tree.AdvancedTreeInteractions {
+    public class AdvancedTreeInteractionsImpl implements Tree.AdvancedTreeInteractions, VisibleComponentInteractions {
 
         private final Event DEFAULT_TOGGLE_NODE_EVENT = Event.CLICK;
         private final boolean DEFAULT_TOGGLE_BY_HANDLE = Boolean.TRUE;
@@ -174,6 +175,11 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
         protected boolean isToggleByHandle() {
             return toggleByHandle;
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
 
         @Override

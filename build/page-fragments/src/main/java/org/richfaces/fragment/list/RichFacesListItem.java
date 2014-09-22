@@ -23,6 +23,7 @@ package org.richfaces.fragment.list;
 
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
+import org.richfaces.fragment.common.Utils;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -45,5 +46,9 @@ public class RichFacesListItem implements ListItem {
     @Override
     public String toString() {
         return getText();
+    }
+
+    public boolean isVisible() {
+        return Utils.isVisible(getRootElement());
     }
 }

@@ -29,6 +29,7 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.TypeResolver;
+import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
@@ -98,7 +99,7 @@ public abstract class AbstractListComponent<T extends ListItem> implements ListC
     }
 
     @Override
-    public WebElement getRoot() {
+    public WebElement getRootElement() {
         return root;
     }
 
@@ -127,5 +128,9 @@ public abstract class AbstractListComponent<T extends ListItem> implements ListC
     @Override
     public int size() {
         return getItems().size();
+    }
+
+    public boolean isVisible() {
+        return Utils.isVisible(getRootElement());
     }
 }

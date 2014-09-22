@@ -24,6 +24,8 @@ package org.richfaces.fragment.panelMenu;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 public class RichFacesPanelMenuItem implements PanelMenuItem {
 
@@ -52,7 +54,7 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
         return advancedInteractions;
     }
 
-    public class AdvancedPanelMenuItemInteractions {
+    public class AdvancedPanelMenuItemInteractions implements VisibleComponentInteractions {
 
         public WebElement getLeftIconElement() {
             return leftIcon;
@@ -84,6 +86,10 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
 
         public boolean isTransparent(WebElement icon) {
             return icon.getAttribute("class").contains("-transparent");
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

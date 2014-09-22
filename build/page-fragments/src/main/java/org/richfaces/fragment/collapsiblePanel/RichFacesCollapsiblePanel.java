@@ -33,6 +33,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Icon;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.panel.AbstractPanel;
@@ -98,7 +99,7 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
         return this;
     }
 
-    public class AdvancedCollapsiblePanelInteractions {
+    public class AdvancedCollapsiblePanelInteractions implements VisibleComponentInteractions {
 
         private static final String COLLAPSED_HEADER_CLASS = "rf-cp-hdr-colps";
 
@@ -173,6 +174,10 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
                 }
             }.withMessage("Waiting for panel to expand.")
                 .withTimeout(getTimeoutForPanelIsSwitched(), TimeUnit.MILLISECONDS);
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

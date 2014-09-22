@@ -33,6 +33,7 @@ import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions<RichFacesInplaceInput.AdvancedInplaceInputInteractions> {
 
@@ -113,7 +114,7 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
         }
     }
 
-    public class AdvancedInplaceInputInteractions {
+    public class AdvancedInplaceInputInteractions implements VisibleComponentInteractions {
 
         private static final String RF_II_CHNG_CLASS = "rf-ii-chng";
         private static final String RF_II_ACT_CLASS = "rf-ii-act";
@@ -169,6 +170,11 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
 
         public WebElement getLabelInputElement() {
             return label;
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

@@ -36,6 +36,7 @@ import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -137,7 +138,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
     /* ****************************************************************************************************
      * Nested classes
      */
-    public class AdvancedPopupMenuInteractions {
+    public class AdvancedPopupMenuInteractions implements VisibleComponentInteractions {
 
         private final Event DEFAULT_INVOKE_EVENT = Event.CONTEXTCLICK;
         private Event invokeEvent = DEFAULT_INVOKE_EVENT;
@@ -354,6 +355,11 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
                 }
             }.withMessage("The " + getNameOfFragment() + " did not show in the given timeout!")
              .withTimeout(showDelay + getTimeoutForPopupMenuToBeVisible(), TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

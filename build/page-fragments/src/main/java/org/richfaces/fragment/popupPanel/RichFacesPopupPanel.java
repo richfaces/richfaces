@@ -33,6 +33,7 @@ import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Locations;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.panel.AbstractPanel;
@@ -101,7 +102,7 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
         return headerElement;
     }
 
-    public class AdvancedPopupPanelInteractions {
+    public class AdvancedPopupPanelInteractions implements VisibleComponentInteractions {
 
         public WebElement getBodyElement() {
             return contentElement;
@@ -160,6 +161,10 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
 
         public WebElement getShadowElement() {
             return shadowElement;
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
 
         public AdvancedPopupPanelInteractions moveByOffset(int xOffset, int yOffset) {

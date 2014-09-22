@@ -31,6 +31,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 /**
  * @author <a href="https://community.jboss.org/people/ppitonak">Pavol Pitonak</a>
@@ -137,7 +139,7 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         return advancedInteractions;
     }
 
-    public class AdvancedDataScrollerInteractions {
+    public class AdvancedDataScrollerInteractions implements VisibleComponentInteractions {
 
         public WebElement getRootElement() {
             return root;
@@ -212,6 +214,11 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
 
         public boolean isLastPage() {
             return activePage.getText().equals(advanced().getLastVisiblePageElement().getText());
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

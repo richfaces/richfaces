@@ -137,7 +137,7 @@ public class RichFacesMessages extends AbstractListComponent<MessageImpl> implem
     public class AdvancedMessagesInteractionsImpl implements AdvancedMessagesInteractions {
 
         public WebElement getRootElement() {
-            return RichFacesMessages.this.getRoot();
+            return RichFacesMessages.this.getRootElement();
         }
 
         @Override

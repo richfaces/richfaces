@@ -32,6 +32,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.TypeResolver;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
@@ -89,7 +91,7 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
         advanced().waitUntilContentSwitched(textToContain);
     }
 
-    public abstract class AdvancedSwitchableComponentInteractions {
+    public abstract class AdvancedSwitchableComponentInteractions implements VisibleComponentInteractions {
 
         private final SwitchType DEFAULT_SWITCH_TYPE = SwitchType.AJAX;
         private SwitchType switchType = SwitchType.AJAX;
@@ -120,6 +122,11 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
                 : Graphene.waitModel())
                 .withMessage("Waiting for content to be switched")
                 .until(getConditionForContentSwitched(textToContain));
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

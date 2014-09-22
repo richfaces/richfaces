@@ -36,6 +36,7 @@ import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 
@@ -103,7 +104,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
         return show();
     }
 
-    public class AdvancedTooltipInteractions {
+    public class AdvancedTooltipInteractions implements VisibleComponentInteractions {
 
         private final ByJQuery tooltipsSelector = ByJQuery.selector(".rf-tt:visible");
         private final Event DEFAULT_SHOW_EVENT = Event.MOUSEOVER;
@@ -129,6 +130,10 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
 
         protected String getIdOfTooltip() {
             return idOfTooltip;
+        }
+
+        public WebElement getRootElement() {
+            return root;
         }
 
         protected Event getShowEvent() {
@@ -158,6 +163,10 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
 
         protected void initiateTooltipsBefore() {
             tooltipsBefore = driver.findElements(tooltipsSelector).size();
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
 
         public void setupHideEvent() {

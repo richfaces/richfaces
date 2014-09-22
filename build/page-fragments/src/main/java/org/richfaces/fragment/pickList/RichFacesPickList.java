@@ -34,6 +34,8 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
@@ -278,7 +280,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
         @Override
         public WebElement getRootElement() {
-            return getRoot();
+            return getRootElement();
         }
 
         @Override
@@ -312,7 +314,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
     }
 
-    public class AdvancedPickListInteractions {
+    public class AdvancedPickListInteractions implements VisibleComponentInteractions {
 
         public WebElement getAddAllButtonElement() {
             return addAllButtonElement;
@@ -388,6 +390,10 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
          */
         public OrderingList getOrderTargetList() {
             return targetList;
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 

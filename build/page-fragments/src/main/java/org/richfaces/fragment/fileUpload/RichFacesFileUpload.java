@@ -39,6 +39,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.list.AbstractListComponent;
@@ -170,7 +171,7 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
     public static class RichFacesFileUploadList extends AbstractListComponent<FileUploadItemImpl> {
     }
 
-    public class AdvancedFileUploadInteractions {
+    public class AdvancedFileUploadInteractions implements VisibleComponentInteractions {
 
         private static final String DEFAULT_DONE_LABEL = "Done";
         private String doneLabel;
@@ -225,6 +226,11 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
 
         public void setupDoneLabel(String doneLabel) {
             this.doneLabel = doneLabel;
+        }
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

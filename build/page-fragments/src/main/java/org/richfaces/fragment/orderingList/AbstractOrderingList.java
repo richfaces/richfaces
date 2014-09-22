@@ -33,6 +33,7 @@ import org.openqa.selenium.interactions.Action;
 import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
@@ -61,7 +62,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
 
     protected abstract OrderingListBodyElements getBody();
 
-    protected WebElement getRoot() {
+    protected WebElement getRootElement() {
         return root;
     }
 
@@ -213,7 +214,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
         }
     }
 
-    public class AdvancedOrderingListInteractions {
+    public class AdvancedOrderingListInteractions implements VisibleComponentInteractions {
 
         public WebElement getBottomButtonElement() {
             return getBody().getBottomButtonElement();
@@ -257,6 +258,10 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedInte
 
         public WebElement getUpButtonElement() {
             return getBody().getUpButtonElement();
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
 
         public OrderingInteraction select(String visibleText, String... otherTexts) {

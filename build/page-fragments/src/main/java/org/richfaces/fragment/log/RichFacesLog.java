@@ -32,6 +32,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListComponent;
 import org.richfaces.fragment.list.RichFacesListItem;
@@ -144,10 +146,14 @@ public class RichFacesLog implements Log, AdvancedInteractions<RichFacesLog.Adva
         }
     }
 
-    public class AdvancedLogInteractions {
+    public class AdvancedLogInteractions implements VisibleComponentInteractions {
 
         public GrapheneElement getRootElement() {
             return root;
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

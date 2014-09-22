@@ -27,6 +27,8 @@ import java.util.List;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 
 public class RichFacesPanelMenu extends AbstractPanelMenu {
 
@@ -66,7 +68,8 @@ public class RichFacesPanelMenu extends AbstractPanelMenu {
         return advancedInteractions;
     }
 
-    public class AdvancedPanelMenuInteractions extends AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions {
+    public class AdvancedPanelMenuInteractions extends AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions
+        implements VisibleComponentInteractions {
 
         public List<WebElement> getMenuGroupElements() {
             return getMenuGroups();
@@ -98,6 +101,10 @@ public class RichFacesPanelMenu extends AbstractPanelMenu {
 
         public WebElement getRootElement() {
             return root;
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 }

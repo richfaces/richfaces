@@ -41,6 +41,7 @@ import org.richfaces.fragment.common.ClearType;
 import org.richfaces.fragment.common.ScrollingType;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -142,7 +143,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
 
     }
 
-    public class AdvancedSelectInteractions {
+    public class AdvancedSelectInteractions implements VisibleComponentInteractions {
 
         private final ScrollingType DEFAULT_SCROLLING_TYPE = ScrollingType.BY_MOUSE;
         private static final boolean DEFAULT_OPEN_BY_INPUT_CLICK = true;
@@ -178,6 +179,10 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
 
         public boolean isPopupPresent() {
             return RichFacesSelect.this.isPopupPresent();
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
 
         public void setupOpenByInputClick() {

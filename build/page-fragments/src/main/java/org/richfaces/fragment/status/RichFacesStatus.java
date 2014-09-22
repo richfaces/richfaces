@@ -28,6 +28,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.status.RichFacesStatus.AdvancedStatusInteractions;
@@ -67,7 +68,7 @@ public class RichFacesStatus implements Status, AdvancedInteractions<AdvancedSta
         // return Utils.isVisible(start) ? start.getText() : Utils.isVisible(stop) ? stop.getText() : error.getText();
     }
 
-    public class AdvancedStatusInteractions {
+    public class AdvancedStatusInteractions implements VisibleComponentInteractions {
 
         public WebElement getErrorElement() {
             return errorElement;
@@ -83,6 +84,10 @@ public class RichFacesStatus implements Status, AdvancedInteractions<AdvancedSta
 
         public WebElement getStopElement() {
             return stopElement;
+        }
+
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
 
         public WaitingWrapper waitUntilStatusStateChanges(final StatusState state) {
