@@ -20,7 +20,8 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -229,19 +230,21 @@
 
                     <!-- JSDoc -->
                     <plugin>
-                        <groupId>gr.abiss.mvn.plugins</groupId>
-                        <artifactId>maven-jstools-plugin</artifactId>
-                        <version>0.7</version>
+                        <groupId>com.phasebash.jsdoc</groupId>
+                        <artifactId>jsdoc3-maven-plugin</artifactId>
+                        <version>1.1.0</version>
                         <executions>
                             <execution>
                                 <id>jsdoc</id>
                                 <configuration>
-                                    <jsDir>${project.build.directory}/richfaces-sources/META-INF/resources/org.richfaces</jsDir>
-                                    <includes>**/*.js</includes>
-                                    <caseSensitive>true</caseSensitive>
+                                    <recursive>true</recursive>
+                                    <directoryRoots>
+                                        <directoryRoot>${project.build.directory}/richfaces-sources/META-INF/resources/org.richfaces</directoryRoot>
+                                    </directoryRoots>
+                                    <lenient>true</lenient>
                                 </configuration>
                                 <goals>
-                                    <goal>jsdoc</goal>
+                                    <goal>jsdoc3</goal>
                                 </goals>
                                 <phase>package</phase>
                             </execution>

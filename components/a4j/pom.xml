@@ -147,26 +147,6 @@
                         </executions>
                     </plugin>
 
-                    <!-- JSDoc -->
-                    <plugin>
-                        <groupId>gr.abiss.mvn.plugins</groupId>
-                        <artifactId>maven-jstools-plugin</artifactId>
-                        <version>0.7</version>
-                        <executions>
-                            <execution>
-                                <id>jsdoc</id>
-                                <configuration>
-                                    <jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
-                                    <includes>**/*.js</includes>
-                                    <caseSensitive>true</caseSensitive>
-                                </configuration>
-                                <goals>
-                                    <goal>jsdoc</goal>
-                                </goals>
-                                <phase>process-sources</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <artifactId>maven-jar-plugin</artifactId>
                         <executions>
