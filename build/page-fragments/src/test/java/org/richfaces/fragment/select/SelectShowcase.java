@@ -22,7 +22,6 @@
 package org.richfaces.fragment.select;
 
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.select.RichFacesSelect;
 
 public class SelectShowcase {
 
