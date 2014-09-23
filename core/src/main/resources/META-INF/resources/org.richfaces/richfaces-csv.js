@@ -31,10 +31,11 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
     var RE_MESSAGE_PATTERN = /\'?\{(\d+)\}\'?/g;
 
-    var interpolateMessage = function (message, values) {
+    var interpolateMessage = function (message, originalValue, values) {
         if (message) {
             var msgObject = message.replace(RE_MESSAGE_PATTERN, "\n$1\n").split("\n");
             var value;
+            values[9] = originalValue;
             for (var i = 1; i < msgObject.length; i += 2) {
                 value = values[msgObject[i]];
                 msgObject[i] = typeof value == "undefined" ? "" : value;
@@ -170,12 +171,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             addMessage: function (messagesObject) {
                 $.extend(_messages, messagesObject);
             },
-            getMessage: function(customMessage, messageId, values) {
+            getMessage: function(customMessage, originalValue, values, messageId) {
                 var message = customMessage ? customMessage : _messages[messageId] || {detail:"",summary:"",severity:0};
-                return {detail:interpolateMessage(message.detail, values),summary:interpolateMessage(message.summary, values),severity:message.severity};
-            },
-            interpolateMessage: function(message, values) {
-                return {detail:interpolateMessage(message.detail, values),summary:interpolateMessage(message.summary, values),severity:message.severity};
+                return {detail:interpolateMessage(message.detail, originalValue, values),summary:interpolateMessage(message.summary, originalValue, values),severity:message.severity};
             },
             sendMessage: function (componentId, message) {
                 rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId, 'message':message});
@@ -241,23 +239,25 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
      *
      */
     var _convertNatural = function(value, label, msg, min, max, sample) {
-        var result = null;
+        var result = null,
+            originalValue = value;
         if (value) {
             value = $.trim(value);
             if (!rf.csv.RE_DIGITS.test(value) || (result = parseInt(value, 10)) < min || result > max) {
-                throw rf.csv.interpolateMessage(msg, sample ? [value, sample, label] : [value,label]);
+                throw rf.csv.getMessage(msg, originalValue, sample ? [value, sample, label] : [value,label]);
             }
         }
         return result;
     }
 
     var _convertReal = function(value, label, msg, sample) {
-        var result = null;
+        var result = null,
+            originalValue = value;
         if (value) {
             value = $.trim(value);
             if (!rf.csv.RE_FLOAT.test(value) || isNaN(result = parseFloat(value))) {
                 // TODO - check Float limits.
-                throw rf.csv.interpolateMessage(msg, sample ? [value, sample, label] : [value,label]);
+                throw rf.csv.getMessage(msg, originalValue, sample ? [value, sample, label] : [value,label]);
             }
         }
         return result;
@@ -288,11 +288,12 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 return _convertNatural(value, label, msg, -128, 127, 254);
             },
             "convertNumber": function (value, label, params, msg) {
-                var result;
+                var result,
+                    originalValue = value;
                 value = $.trim(value);
                 result = parseFloat(value);
                 if (isNaN(result)) {
-                    throw rf.csv.interpolateMessage(msg, [value, 99, label]);
+                    throw rf.csv.getMessage(msg, originalValue, [value, 99, label]);
                 }
                 return result;
             },
@@ -316,21 +317,21 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
         });
 
-    var validateRange = function(value, label, params, msg) {
+    var validateRange = function(originalValue, value, label, params, msg) {
         var isMinSet = typeof params.min === "number";// && params.min >0;
         var isMaxSet = typeof params.max === "number";// && params.max >0;
 
         if (isMaxSet && value > params.max) {
-            throw rf.csv.interpolateMessage(msg, isMinSet ? [params.min,params.max,label] : [params.max,label]);
+            throw rf.csv.getMessage(msg, originalValue, isMinSet ? [params.min,params.max,label] : [params.max,label]);
         }
         if (isMinSet && value < params.min) {
-            throw rf.csv.interpolateMessage(msg, isMaxSet ? [params.min,params.max,label] : [params.min,label]);
+            throw rf.csv.getMessage(msg, originalValue, isMaxSet ? [params.min,params.max,label] : [params.min,label]);
         }
     };
 
     var validateRegex = function(value, label, pattern, msg) {
         if (typeof pattern != "string" || pattern.length == 0) {
-            throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_PATTERN_NOT_SET', []);
+            throw rf.csv.getMessage(msg, value, [], 'REGEX_VALIDATOR_PATTERN_NOT_SET');
         }
 
         var matchPattern = makePatternAMatch(pattern);
@@ -338,10 +339,10 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         try {
             re = new RegExp(matchPattern);
         } catch (e) {
-            throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_MATCH_EXCEPTION', []);
+            throw rf.csv.getMessage(msg, value, [], 'REGEX_VALIDATOR_MATCH_EXCEPTION');
         }
         if (!re.test(value)) {
-            throw rf.csv.interpolateMessage(msg, [pattern,label]);
+            throw rf.csv.getMessage(msg, value, [pattern,label]);
         }
 
     };
@@ -360,42 +361,44 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
      */
     $.extend(rf.csv, {
             "validateLongRange": function (value, label, params, msg) {
-                var type = typeof value;
+                var type = typeof value,
+                    originalValue = value;
                 if (type !== "number") {
                     if (type != "string") {
-                        throw rf.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                        throw rf.csv.getMessage(msg, value, [componentId, ""], 'LONG_RANGE_VALIDATOR_TYPE');
                     } else {
                         value = $.trim(value);
                         if (!rf.csv.RE_DIGITS.test(value) || (value = parseInt(value, 10)) == NaN) {
-                            throw rf.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                            throw rf.csv.getMessage(msg, value, [componentId, ""], 'LONG_RANGE_VALIDATOR_TYPE');
                         }
                     }
                 }
 
-                validateRange(value, label, params, msg);
+                validateRange(originalValue, value, label, params, msg);
             },
             "validateDoubleRange": function (value, label, params, msg) {
-                var type = typeof value;
+                var type = typeof value,
+                    originalValue = value;
                 if (type !== "number") {
                     if (type !== "string") {
-                        throw rf.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                        throw rf.csv.getMessage(msg, value, [componentId, ""], 'DOUBLE_RANGE_VALIDATOR_TYPE');
                     } else {
                         value = $.trim(value);
                         if (!rf.csv.RE_FLOAT.test(value) || (value = parseFloat(value)) == NaN) {
-                            throw rf.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                            throw rf.csv.getMessage(msg, value, [componentId, ""], 'DOUBLE_RANGE_VALIDATOR_TYPE');
                         }
                     }
                 }
 
-                validateRange(value, label, params, msg);
+                validateRange(originalValue, value, label, params, msg);
             },
             "validateLength": function (value, label, params, msg) {
                 var length = value ? value.length : 0;
-                validateRange(length, label, params, msg);
+                validateRange(value, length, label, params, msg);
             },
             "validateSize": function (value, label, params, msg) {
                 var length = value ? value.length : 0;
-                validateRange(length, label, params, msg);
+                validateRange(value, length, label, params, msg);
             },
             "validateRegex": function (value, label, params, msg) {
                 validateRegex(value, label, params.pattern, msg);
@@ -405,7 +408,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             },
             "validateRequired": function (value, label, params, msg) {
                 if (undefined === value || null === value || "" === value) {
-                    throw rf.csv.interpolateMessage(msg, [label]);
+                    throw rf.csv.getMessage(msg, value, [label]);
                 }
             },
             "validateTrue": function (value, label, params, msg) {

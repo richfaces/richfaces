@@ -81,7 +81,7 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
             String interpolatedMessage;
             interpolatedMessage = validatorFactory.getMessageInterpolator().interpolate(object.toString(), new Context() {
                 public Object getValidatedValue() {
-                    return "{0}";
+                    return "{9}";
                 }
 
                 public ConstraintDescriptor<?> getConstraintDescriptor() {
