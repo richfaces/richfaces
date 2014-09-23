@@ -189,11 +189,11 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
             return collapseEvent;
         }
 
-        public void setupExpandEvent(Event event) {
+        public void setExpandEvent(Event event) {
             expandEvent = event;
         }
 
-        public void setupCollapseEvent(Event event) {
+        public void setCollapseEvent(Event event) {
             collapseEvent = event;
         }
 
@@ -235,7 +235,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
                 .withTimeout(getTimeoutForMenuGroupToBeCollapsed(), TimeUnit.MILLISECONDS);
         }
 
-        public void setupTimoutForMenuGroupToBeExpanded(long timeoutInMilliseconds) {
+        public void setTimoutForMenuGroupToBeExpanded(long timeoutInMilliseconds) {
             _timoutForMenuGroupToBeExpanded = timeoutInMilliseconds;
         }
 
@@ -243,7 +243,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
             return _timoutForMenuGroupToBeExpanded == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timoutForMenuGroupToBeExpanded;
         }
 
-        public void setupTimeoutForMenuGroupToBeCollapsed(long timeoutInMilliseconds) {
+        public void setTimeoutForMenuGroupToBeCollapsed(long timeoutInMilliseconds) {
             _timeoutForMenuGroupToBeCollapsed = timeoutInMilliseconds;
         }
 
