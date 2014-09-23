@@ -125,11 +125,11 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions
             return editByEvent;
         }
 
-        public void setupEditByEvent() {
+        public void setEditByEvent() {
             editByEvent = DEFAULT_EDIT_EVENT;
         }
 
-        public void setupEditByEvent(Event event) {
+        public void setEditByEvent(Event event) {
             editByEvent = event;
         }
 
