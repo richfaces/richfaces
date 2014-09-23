@@ -62,7 +62,7 @@ public class ITestLists extends AbstractWebDriverTest {
 
     private void checkList(ListType type) {
         page.setType(type);
-        String tag = page.getList().getRoot().getTagName();
+        String tag = page.getList().getRootElement().getTagName();
         ListType actual = null;
         if (tag.equals("dl")) {
             actual = ListType.definitions;
