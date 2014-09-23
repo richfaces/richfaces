@@ -226,11 +226,11 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
             getItems().getItem(picker).remove();
         }
 
-        public void setupDoneLabel() {
+        public void setDoneLabel() {
             this.doneLabel = DEFAULT_DONE_LABEL;
         }
 
-        public void setupDoneLabel(String doneLabel) {
+        public void setDoneLabel(String doneLabel) {
             this.doneLabel = doneLabel;
         }
 
