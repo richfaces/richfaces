@@ -96,11 +96,11 @@ public abstract class AbstractSwitchableComponent<T extends ComponentContainer> 
             return switchType;
         }
 
-        public void setupSwitchType() {
+        public void setSwitchType() {
             switchType = DEFAULT_SWITCH_TYPE;
         }
 
-        public void setupSwitchType(SwitchType newSwitchType) {
+        public void setSwitchType(SwitchType newSwitchType) {
             switchType = newSwitchType;
         }
 
