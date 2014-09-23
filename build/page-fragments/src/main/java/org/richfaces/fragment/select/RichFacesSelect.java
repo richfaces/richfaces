@@ -190,27 +190,27 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
         }
 
         /**
-         * Setups opening of select. Default open method is by clicking on the input.
+         * Sets opening of select. Default open method is by clicking on the input.
          *
          * @param openByClickOnInput
          *            if true, select will be opened by input clicking (default). If false, the select will be opened by
          *            'show' button of the select.
          */
-        public void setupOpenByInputClick(boolean openByClickOnInput) {
+        public void setOpenByInputClick(boolean openByClickOnInput) {
             openByInputClick = openByClickOnInput;
         }
 
-        public void setupScrollingType() {
+        public void setScrollingType() {
             scrollingType = DEFAULT_SCROLLING_TYPE;
         }
 
         /**
-         * Setups scrolling type. Default value is By_MOUSE.
+         * Sets scrolling type. Default value is By_MOUSE.
          *
          * @param type
          *            type of scrolling through the list of options and selecting on of them.
          */
-        public void setupScrollingType(ScrollingType type) {
+        public void setScrollingType(ScrollingType type) {
             scrollingType = type;
         }
 
@@ -242,7 +242,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
                 .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
-        public void setupTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
+        public void setTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
             _timeoutForSuggestionsToBeNotVisible = timeoutInMilliseconds;
         }
 
@@ -251,7 +251,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
                 : _timeoutForSuggestionsToBeNotVisible;
         }
 
-        public void setupTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
+        public void setTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
             _timeoutForSuggestionsToBeVisible = timeoutInMilliseconds;
         }
 
