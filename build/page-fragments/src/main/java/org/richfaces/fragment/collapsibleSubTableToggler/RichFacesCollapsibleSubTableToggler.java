@@ -74,23 +74,23 @@ public class RichFacesCollapsibleSubTableToggler {
         return Utils.isVisible(getElementWithStyleClass());
     }
 
-    public void setupToggleBy() {
+    public void setToggleBy() {
         isToggleByImage = DEFAULT_TOGGLE_BY;
     }
 
-    public void setupToggleByImage() {
+    public void setToggleByImage() {
         isToggleByImage = true;
     }
 
-    public void setupToggleByLabel() {
+    public void setToggleByLabel() {
         isToggleByImage = false;
     }
 
-    public void setupToggleEvent() {
+    public void setToggleEvent() {
         toggleEvent = DEFAULT_EVENT;
     }
 
-    public void setupToggleEvent(Event e) {
+    public void setToggleEvent(Event e) {
         toggleEvent = e;
     }
 
