@@ -29,7 +29,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Icon;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -42,7 +42,7 @@ import com.google.common.base.Predicate;
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements CollapsiblePanel<HEADER, BODY>, AdvancedInteractions<RichFacesCollapsiblePanel<HEADER, BODY>.AdvancedCollapsiblePanelInteractions> {
+public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPanel<HEADER, BODY> implements CollapsiblePanel<HEADER, BODY>, AdvancedVisibleComponentIteractions<RichFacesCollapsiblePanel<HEADER, BODY>.AdvancedCollapsiblePanelInteractions> {
 
     @ArquillianResource
     private WebDriver browser;

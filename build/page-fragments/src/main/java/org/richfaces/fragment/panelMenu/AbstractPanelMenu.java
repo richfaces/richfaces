@@ -33,9 +33,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
 import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -43,14 +44,12 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
 import com.google.common.base.Predicate;
 
-public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, AdvancedInteractions<AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions> {
+public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, AdvancedVisibleComponentIteractions<AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions> {
 
     @ArquillianResource
     private JavascriptExecutor executor;
     @Drone
     private WebDriver browser;
-
-    private final AdvancedAbstractPanelMenuInteractions advancedInteractions = new AdvancedAbstractPanelMenuInteractions();
 
     @Override
     public PanelMenuItem selectItem(ChoicePicker picker) {
@@ -133,12 +132,9 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
 
     public abstract List<WebElement> getMenuGroups();
 
-    @Override
-    public AdvancedAbstractPanelMenuInteractions advanced() {
-        return advancedInteractions;
-    }
+    public abstract AdvancedAbstractPanelMenuInteractions advanced();
 
-    public class AdvancedAbstractPanelMenuInteractions {
+    public abstract class AdvancedAbstractPanelMenuInteractions implements VisibleComponentInteractions {
 
         private static final String CSS_EXPANDED_SUFFIX = "-exp";
         private static final String CSS_TRANSPARENT_SUFFIX = "-transparent";
@@ -249,6 +245,13 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
 
         public long getTimeoutForMenuGroupToBeCollapsed() {
             return _timeoutForMenuGroupToBeCollapsed == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForMenuGroupToBeCollapsed;
+        }
+
+        protected abstract WebElement getRootElement();
+
+        @Override
+        public boolean isVisible() {
+            return Utils.isVisible(getRootElement());
         }
     }
 

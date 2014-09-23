@@ -35,7 +35,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -47,7 +47,7 @@ import org.richfaces.fragment.list.RichFacesListItem;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 
-public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<RichFacesFileUpload.AdvancedFileUploadInteractions> {
+public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponentIteractions<RichFacesFileUpload.AdvancedFileUploadInteractions> {
 
     @Root
     private WebElement rootElement;

@@ -30,7 +30,7 @@ import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -39,7 +39,7 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
 import com.google.common.base.Predicate;
 
-public abstract class AbstractSwitchableComponent<T extends ComponentContainer> implements SwitchableComponent<T>, AdvancedInteractions<AbstractSwitchableComponent<T>.AdvancedSwitchableComponentInteractions> {
+public abstract class AbstractSwitchableComponent<T extends ComponentContainer> implements SwitchableComponent<T>, AdvancedVisibleComponentIteractions<AbstractSwitchableComponent<T>.AdvancedSwitchableComponentInteractions> {
 
     @Root
     private WebElement root;

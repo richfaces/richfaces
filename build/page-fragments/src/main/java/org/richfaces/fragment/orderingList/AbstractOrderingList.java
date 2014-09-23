@@ -31,7 +31,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.richfaces.fragment.common.Actions;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -43,7 +43,7 @@ import org.richfaces.fragment.list.ListComponent;
  *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public abstract class AbstractOrderingList implements OrderingList, AdvancedInteractions<AbstractOrderingList.AdvancedOrderingListInteractions> {
+public abstract class AbstractOrderingList implements OrderingList, AdvancedVisibleComponentIteractions<AbstractOrderingList.AdvancedOrderingListInteractions> {
 
     @Root
     private WebElement root;

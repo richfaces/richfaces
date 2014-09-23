@@ -29,7 +29,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Locations;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
@@ -41,7 +41,7 @@ import org.richfaces.fragment.panel.AbstractPanel;
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends AbstractPanel<HEADER, BODY> implements PopupPanel<HEADER, HEADERCONTROLS, BODY>, AdvancedInteractions<RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY>.AdvancedPopupPanelInteractions> {
+public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends AbstractPanel<HEADER, BODY> implements PopupPanel<HEADER, HEADERCONTROLS, BODY>, AdvancedVisibleComponentIteractions<RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY>.AdvancedPopupPanelInteractions> {
 
     @Drone
     private WebDriver driver;

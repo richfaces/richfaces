@@ -24,10 +24,12 @@ package org.richfaces.fragment.panelMenu;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
+import org.richfaces.fragment.panelMenu.RichFacesPanelMenuItem.AdvancedPanelMenuItemInteractions;
 
-public class RichFacesPanelMenuItem implements PanelMenuItem {
+public class RichFacesPanelMenuItem implements PanelMenuItem, AdvancedVisibleComponentIteractions<RichFacesPanelMenuItem.AdvancedPanelMenuItemInteractions> {
 
     @FindBy(css = "td[class*=rf-][class*=-itm-ico]")
     private WebElement leftIcon;
@@ -48,6 +50,7 @@ public class RichFacesPanelMenuItem implements PanelMenuItem {
         advanced().getRootElement().click();
     }
 
+    @Override
     public AdvancedPanelMenuItemInteractions advanced() {
         return advancedInteractions;
     }

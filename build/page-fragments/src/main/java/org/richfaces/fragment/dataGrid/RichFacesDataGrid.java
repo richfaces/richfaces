@@ -30,7 +30,7 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -45,7 +45,7 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @param <RECORD>
  */
-public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedInteractions<RichFacesDataGrid.AdvancedDataGridInteractions> {
+public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisibleComponentIteractions<RichFacesDataGrid.AdvancedDataGridInteractions> {
 
     @Root
     private WebElement root;

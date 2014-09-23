@@ -29,7 +29,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.ClearType;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -38,7 +38,7 @@ import org.richfaces.fragment.editor.toolbar.RichFacesEditorToolbar;
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
-public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEditor.AdvancedEditorInteractions> {
+public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteractions<RichFacesEditor.AdvancedEditorInteractions> {
 
     @Root
     private WebElement root;

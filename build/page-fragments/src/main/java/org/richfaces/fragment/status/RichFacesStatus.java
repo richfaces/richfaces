@@ -26,7 +26,7 @@ import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.WaitingWrapper;
@@ -35,7 +35,7 @@ import org.richfaces.fragment.status.RichFacesStatus.AdvancedStatusInteractions;
 
 import com.google.common.base.Predicate;
 
-public class RichFacesStatus implements Status, AdvancedInteractions<AdvancedStatusInteractions> {
+public class RichFacesStatus implements Status, AdvancedVisibleComponentIteractions<AdvancedStatusInteractions> {
 
     @Root
     private WebElement rootElement;

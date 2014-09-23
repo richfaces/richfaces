@@ -35,7 +35,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.Actions;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.ClearType;
 import org.richfaces.fragment.common.ScrollingType;
 import org.richfaces.fragment.common.TextInputComponentImpl;
@@ -48,7 +48,7 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
 import com.google.common.base.Predicate;
 
-public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSelect.AdvancedSelectInteractions> {
+public class RichFacesSelect implements Select, AdvancedVisibleComponentIteractions<RichFacesSelect.AdvancedSelectInteractions> {
 
     @Drone
     private WebDriver driver;

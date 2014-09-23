@@ -27,7 +27,7 @@ import java.util.List;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -36,7 +36,7 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
 import com.google.common.collect.Lists;
 
-public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.AdvancedTreeInteractionsImpl> {
+public class RichFacesTree implements Tree, AdvancedVisibleComponentIteractions<RichFacesTree.AdvancedTreeInteractionsImpl> {
 
     @Root
     private WebElement root;

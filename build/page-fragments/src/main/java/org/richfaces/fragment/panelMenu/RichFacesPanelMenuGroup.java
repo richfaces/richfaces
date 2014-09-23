@@ -28,8 +28,8 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
+import org.richfaces.fragment.panelMenu.RichFacesPanelMenuGroup.AdvancedPanelMenuGroupInteractions;
 
 public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
 
@@ -85,6 +85,7 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
             return label;
         }
 
+        @Override
         public WebElement getRootElement() {
             return root;
         }
@@ -111,11 +112,6 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
 
         public boolean isSelected() {
             return getHeaderElement().getAttribute("class").contains(getCssSelectedSuffix());
-        }
-
-        @Override
-        public boolean isVisible() {
-            return Utils.isVisible(getRootElement());
         }
     }
 }

@@ -32,7 +32,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Actions;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TypeResolver;
 import org.richfaces.fragment.common.Utils;
@@ -49,7 +49,7 @@ import com.google.common.base.Predicate;
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  * @param <CONTENT>
  */
-public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, AdvancedInteractions<RichFacesTooltip<CONTENT>.AdvancedTooltipInteractions> {
+public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, AdvancedVisibleComponentIteractions<RichFacesTooltip<CONTENT>.AdvancedTooltipInteractions> {
 
     @Root
     private WebElement root;

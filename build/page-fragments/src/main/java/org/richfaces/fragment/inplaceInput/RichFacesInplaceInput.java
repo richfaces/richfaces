@@ -27,13 +27,13 @@ import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 
-public class RichFacesInplaceInput implements InplaceInput, AdvancedInteractions<RichFacesInplaceInput.AdvancedInplaceInputInteractions> {
+public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleComponentIteractions<RichFacesInplaceInput.AdvancedInplaceInputInteractions> {
 
     @FindBy(className = "rf-ii-fld")
     private TextInputComponentImpl textInput;

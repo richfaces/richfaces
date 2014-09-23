@@ -24,7 +24,7 @@ package org.richfaces.fragment.inputNumberSpinner;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -32,7 +32,7 @@ import org.richfaces.fragment.inputNumberSlider.AbstractNumberInput;
 import org.richfaces.fragment.inputNumberSlider.NumberInput;
 
 public class RichFacesInputNumberSpinner extends AbstractNumberInput implements NumberInput,
-    AdvancedInteractions<RichFacesInputNumberSpinner.AdvancedInputNumberSpinnerInteractions> {
+    AdvancedVisibleComponentIteractions<RichFacesInputNumberSpinner.AdvancedInputNumberSpinnerInteractions> {
 
     @FindBy(css = "input.rf-insp-inp")
     private TextInputComponentImpl input;

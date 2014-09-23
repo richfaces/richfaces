@@ -27,7 +27,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -35,7 +35,7 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 import com.google.common.base.Preconditions;
 
 public class RichFacesInputNumberSlider extends AbstractNumberInput implements InputNumberSlider,
-    AdvancedInteractions<RichFacesInputNumberSlider.AdvancedInputNumberSliderInteractions> {
+    AdvancedVisibleComponentIteractions<RichFacesInputNumberSlider.AdvancedInputNumberSliderInteractions> {
 
     @FindBy(className = "rf-insl-inc")
     private WebElement arrowIncrease;

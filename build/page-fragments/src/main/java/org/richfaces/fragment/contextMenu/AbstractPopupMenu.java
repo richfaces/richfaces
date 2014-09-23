@@ -33,7 +33,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Actions;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
@@ -47,7 +47,7 @@ import com.google.common.base.Optional;
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
-public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractions<AbstractPopupMenu.AdvancedPopupMenuInteractions> {
+public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleComponentIteractions<AbstractPopupMenu.AdvancedPopupMenuInteractions> {
 
     @Drone
     private WebDriver browser;

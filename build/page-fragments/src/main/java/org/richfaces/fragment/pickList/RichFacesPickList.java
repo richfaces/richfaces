@@ -33,7 +33,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.Actions;
-import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
@@ -47,7 +47,7 @@ import org.richfaces.fragment.orderingList.AbstractSelectableListItem;
 import org.richfaces.fragment.orderingList.OrderingList;
 import org.richfaces.fragment.orderingList.SelectableListItem;
 
-public class RichFacesPickList implements PickList, AdvancedInteractions<RichFacesPickList.AdvancedPickListInteractions> {
+public class RichFacesPickList implements PickList, AdvancedVisibleComponentIteractions<RichFacesPickList.AdvancedPickListInteractions> {
 
     @Root
     private WebElement root;
