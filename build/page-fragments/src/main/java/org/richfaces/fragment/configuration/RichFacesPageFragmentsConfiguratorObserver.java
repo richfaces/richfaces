@@ -41,7 +41,7 @@ public class RichFacesPageFragmentsConfiguratorObserver {
         RichFacesPageFragmentsConfigurationContext.set(c);
     }
 
-    public void setupConfigurationContext(@Observes(precedence = 500) BeforeSuite event) {
+    public void setConfigurationContext(@Observes(precedence = 500) BeforeSuite event) {
         RichFacesPageFragmentsConfiguration c = RichFacesPageFragmentsConfigurationContext.get();
         this.configuration.set(c);
     }
