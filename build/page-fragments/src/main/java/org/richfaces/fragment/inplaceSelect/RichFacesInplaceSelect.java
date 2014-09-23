@@ -182,15 +182,15 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
             return OPTIONS_CLASS;
         }
 
-        public void setupEditByEvent() {
+        public void setEditByEvent() {
             editByEvent = DEFAULT_EDIT_EVENT;
         }
 
-        public void setupEditByEvent(Event event) {
+        public void setEditByEvent(Event event) {
             editByEvent = event;
         }
 
-        public void setupSaveOnSelect(boolean saveOnSelect) {
+        public void setSaveOnSelect(boolean saveOnSelect) {
             this.saveOnSelect = saveOnSelect;
         }
 
@@ -205,11 +205,11 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
             waitForPopupToShow().perform();
         }
 
-        public void setupTimeoutForPopupToHide(long timeoutInMilliseconds) {
+        public void setTimeoutForPopupToHide(long timeoutInMilliseconds) {
             _timeoutForPopupToHide = timeoutInMilliseconds;
         }
 
-        public void setupTimeoutForPopupToShow(long timeoutInMilliseconds) {
+        public void setTimeoutForPopupToShow(long timeoutInMilliseconds) {
             _timeoutForPopupToShow = timeoutInMilliseconds;
         }
 
