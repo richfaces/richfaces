@@ -106,7 +106,7 @@ public class RichFacesAdvancedInlineCalendar {
         }
     }
 
-    public void setupTimeoutForPopupToBeNotVisible(long timeoutInMilliseconds) {
+    public void setTimeoutForPopupToBeNotVisible(long timeoutInMilliseconds) {
         this._timeoutForPopupToBeNotVisible = timeoutInMilliseconds;
     }
 
@@ -114,7 +114,7 @@ public class RichFacesAdvancedInlineCalendar {
         return _timeoutForPopupToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupToBeNotVisible;
     }
 
-    public void setupTimeoutForPopupToBeVisible(long timeoutInMilliseconds) {
+    public void setTimeoutForPopupToBeVisible(long timeoutInMilliseconds) {
         this._timeoutPopupToBeVisible = timeoutInMilliseconds;
     }
 

@@ -217,7 +217,7 @@ public class YearAndMonthEditor {
         Graphene.waitGui().withMessage("The year was not selected.").until().element(yearElement).attribute("class").contains(getSelectedClass());
     }
 
-    public void setuptimeoutForYearAndMonthEditorToBeNotVisible(long timeoutInMilliseconds) {
+    public void settimeoutForYearAndMonthEditorToBeNotVisible(long timeoutInMilliseconds) {
         _timeoutForYearAndMonthEditorToBeNotVisible = timeoutInMilliseconds;
     }
 
@@ -225,7 +225,7 @@ public class YearAndMonthEditor {
         return _timeoutForYearAndMonthEditorToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForYearAndMonthEditorToBeNotVisible;
     }
 
-    public void setupTimeoutForYearAndMonthEditorToBeVisible(long timeoutInMilliseconds) {
+    public void setTimeoutForYearAndMonthEditorToBeVisible(long timeoutInMilliseconds) {
         _timeoutForYearAndMonthEditorToBeVisible = timeoutInMilliseconds;
     }
 

@@ -139,23 +139,23 @@ public class RichFacesCalendar implements Calendar, AdvancedInteractions<RichFac
             return Utils.isVisible(advanced().getRootElement(), ByJQuery.selector("span[id$='Popup']"));
         }
 
-        public void setupDatePattern(String datePattern) {
+        public void setDatePattern(String datePattern) {
             this.datePattern = datePattern;
         }
 
         /**
-         * Setups the interactive strategy for setting of date. The getting of date uses JS API of component. The strategy uses
+         * Set the interactive strategy for setting of date. The getting of date uses JS API of component. The strategy uses
          * advanced API of this fragment.
          */
-        public void setupInteractiveStrategy() {
+        public void setInteractiveStrategy() {
             strategy = new CalendarInteractiveStrategy();
         }
 
         /**
-         * Setups the much faster strategy for setting and getting of date. Default value. The strategy uses JS API of the
+         * Sets the much faster strategy for setting and getting of date. Default value. The strategy uses JS API of the
          * component.
          */
-        public void setupJavaScriptStrategy() {
+        public void setJavaScriptStrategy() {
             strategy = new CalendarJavaScriptStrategy();
         }
     }

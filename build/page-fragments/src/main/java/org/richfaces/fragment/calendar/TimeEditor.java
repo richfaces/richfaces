@@ -234,7 +234,7 @@ public class TimeEditor {
         return setTime(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute(), inputType);
     }
 
-    public void setupTimeouFortTimeEditorIsNotVisible(long timeoutInMilliseconds) {
+    public void setTimeouFortTimeEditorIsNotVisible(long timeoutInMilliseconds) {
         this._timeoutForTimeEditorToBeNotVisible = timeoutInMilliseconds;
     }
 
@@ -242,7 +242,7 @@ public class TimeEditor {
         return _timeoutForTimeEditorToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForTimeEditorToBeNotVisible;
     }
 
-    public void setupTimeoutForTimeEditorToBeVisible(long timeoutInMilliseconds) {
+    public void setTimeoutForTimeEditorToBeVisible(long timeoutInMilliseconds) {
         this._timeoutForTimeEditorToBeVisible = timeoutInMilliseconds;
     }
 

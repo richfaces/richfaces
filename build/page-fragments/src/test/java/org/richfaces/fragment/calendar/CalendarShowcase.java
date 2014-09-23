@@ -35,7 +35,7 @@ public class CalendarShowcase {
         DateTime selectedDate = calendar.getDate();
 
         // will use interactive way of setting of date (clicking on calendar elements via WebDriver - much slower)
-        calendar.advanced().setupInteractiveStrategy();
+        calendar.advanced().setInteractiveStrategy();
         calendar.setDate(new DateTime());
     }
 }

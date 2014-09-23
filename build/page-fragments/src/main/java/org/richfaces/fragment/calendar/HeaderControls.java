@@ -163,7 +163,7 @@ public class HeaderControls {
         this.calendarEditor = calendarEditor;
     }
 
-    public void setupTimeoutForPopupToBeNotVisible(long timeoutInMilliseconds) {
+    public void setTimeoutForPopupToBeNotVisible(long timeoutInMilliseconds) {
         this._timeoutForPopupToBeNotVisible = timeoutInMilliseconds;
     }
 
