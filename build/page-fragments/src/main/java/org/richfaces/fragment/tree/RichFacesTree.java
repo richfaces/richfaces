@@ -183,22 +183,22 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
         }
 
         @Override
-        public void setupToggleByHandle() {
+        public void setToggleByHandle() {
             this.toggleByHandle = DEFAULT_TOGGLE_BY_HANDLE;
         }
 
         @Override
-        public void setupToggleByHandle(boolean toggleByHandle) {
+        public void setToggleByHandle(boolean toggleByHandle) {
             this.toggleByHandle = toggleByHandle;
         }
 
         @Override
-        public void setupToggleNodeEvent() {
+        public void setToggleNodeEvent() {
             this.toggleNodeEvent = DEFAULT_TOGGLE_NODE_EVENT;
         }
 
         @Override
-        public void setupToggleNodeEvent(Event toggleNodeEvent) {
+        public void setToggleNodeEvent(Event toggleNodeEvent) {
             this.toggleNodeEvent = toggleNodeEvent;
         }
     }

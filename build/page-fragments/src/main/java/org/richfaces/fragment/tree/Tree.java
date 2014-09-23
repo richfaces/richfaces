@@ -117,13 +117,13 @@ public interface Tree {
          */
         List<? extends TreeNode> getSelectedNodes();
 
-        void setupToggleByHandle();
+        void setToggleByHandle();
 
-        void setupToggleByHandle(boolean toggleByHandle);
+        void setToggleByHandle(boolean toggleByHandle);
 
-        void setupToggleNodeEvent();
+        void setToggleNodeEvent();
 
-        void setupToggleNodeEvent(Event toggleNodeEvent);
+        void setToggleNodeEvent(Event toggleNodeEvent);
 
     }
 

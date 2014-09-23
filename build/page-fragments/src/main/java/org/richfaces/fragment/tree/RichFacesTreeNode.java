@@ -179,7 +179,7 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
             return RichFacesTreeNode.this;
         }
 
-        public void setuptimeoutForNodeToBeExpanded(long timeoutInMilliseconds) {
+        public void settimeoutForNodeToBeExpanded(long timeoutInMilliseconds) {
             _timeoutForNodeToBeExpanded = timeoutInMilliseconds;
         }
 
@@ -187,7 +187,7 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
             return _timeoutForNodeToBeExpanded == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeExpanded;
         }
 
-        public void setupTimeoutForNodeToBeCollapsed(long timeoutInMilliseconds) {
+        public void setTimeoutForNodeToBeCollapsed(long timeoutInMilliseconds) {
             _timeoutForNodeToBeCollapsed = timeoutInMilliseconds;
         }
 
@@ -195,7 +195,7 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
             return _timeoutForNodeToBeCollapsed == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timeoutForNodeToBeCollapsed;
         }
 
-        public void setupTimeoutForNodeToBeSelected(long timeoutInMilliseconds) {
+        public void setTimeoutForNodeToBeSelected(long timeoutInMilliseconds) {
             _timeoutForNodeToBeSelected = timeoutInMilliseconds;
         }
 
