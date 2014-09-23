@@ -192,19 +192,19 @@ public abstract class RichFacesCollapsibleSubTable<HEADER, ROW, FOOTER> extends 
             return (timeoutForTableToExpand == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : timeoutForTableToExpand;
         }
 
-        public void setupTimeoutForTableToCollapse() {
+        public void setTimeoutForTableToCollapse() {
             this.timeoutForTableToCollapse = -1;
         }
 
-        public void setupTimeoutForTableToCollapse(long timeoutInMilliseconds) {
+        public void setTimeoutForTableToCollapse(long timeoutInMilliseconds) {
             this.timeoutForTableToCollapse = timeoutInMilliseconds;
         }
 
-        public void setupTimeoutForTableToExpand() {
+        public void setTimeoutForTableToExpand() {
             this.timeoutForTableToExpand = -1;
         }
 
-        public void setupTimeoutForTableToExpand(long timeoutInMilliseconds) {
+        public void setTimeoutForTableToExpand(long timeoutInMilliseconds) {
             this.timeoutForTableToExpand = timeoutInMilliseconds;
         }
 
