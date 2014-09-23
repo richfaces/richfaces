@@ -137,19 +137,19 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
             return token;
         }
 
-        public void setupToken() {
+        public void setToken() {
             token = DEFAULT_TOKEN;
         }
 
-        public void setupToken(String value) {
+        public void setToken(String value) {
             token = value;
         }
 
-        public void setupScrollingType() {
+        public void setScrollingType() {
             scrollingType = DEFAULT_SCROLLING_TYPE;
         }
 
-        public void setupScrollingType(ScrollingType type) {
+        public void setScrollingType(ScrollingType type) {
             scrollingType = type;
         }
 
@@ -185,11 +185,11 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
                 .withTimeout(getTimeoutForSuggestionsToBeVisible(), TimeUnit.MILLISECONDS);
         }
 
-        public void setupTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
+        public void setTimeoutForSuggestionsToBeNotVisible(long timeoutInMilliseconds) {
             _timeoutForSuggestionsToBeNotVisible = timeoutInMilliseconds;
         }
 
-        public void setupTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
+        public void setTimeoutForSuggestionsToBeVisible(long timeoutInMilliseconds) {
             _timeoutForSuggestionsToBeVisible = timeoutInMilliseconds;
         }
 
