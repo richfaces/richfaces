@@ -1,14 +1,13 @@
 package org.richfaces.component.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.guardNoRequest;
 
 import java.net.URL;
-import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -21,6 +20,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.tabPanel.model.SimpleBean;
+import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
@@ -29,6 +29,9 @@ import category.Smoke;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITStaticTab {
+    
+    @FindByJQuery("[id$='tabPanel']")
+    private RichFacesTabPanel tabPanel;
 
     @Drone
     private WebDriver browser;
@@ -37,13 +40,7 @@ public class ITStaticTab {
     private URL contextPath;
 
     @FindBy(tagName = "body")
-    private WebElement body;
-
-    @FindBy(id = "myForm:tabPanel")
-    private WebElement tabPanel;
-
-    @FindBy(className = "rf-tab-hdr")
-    private List<WebElement> headers;
+    private WebElement body;    
 
     @FindBy(id = "out")
     private WebElement out;
@@ -56,8 +53,6 @@ public class ITStaticTab {
 
     @FindBy(id = "myForm:outputText")
     private WebElement outputText;
-
-    private DynamicTabTestHelper tabTestHelper = new DynamicTabTestHelper();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -80,7 +75,7 @@ public class ITStaticTab {
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        guardAjax(headers.get(1)).click();
+        guardAjax(tabPanel.getSwitcherControllerElements().get(1)).click();
         Assert.assertTrue(out.getText().contains("begin"));
 //        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
 //        Assert.assertTrue(out.getText().contains("beforedomupdate"));
@@ -96,7 +91,7 @@ public class ITStaticTab {
     @Test
     public void check_click_active_tab() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
-        WebElement activeTab = tabTestHelper.getActiveTab(tabPanel);
+        WebElement activeTab = tabPanel.advanced().getActiveVisibleTabHeader();
         guardAjax(activeTab).click();
         Assert.assertEquals(null, body.getAttribute("JSError"));
     }
@@ -106,7 +101,7 @@ public class ITStaticTab {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         inputText.sendKeys("abcd");
-        guardAjax(headers.get(1)).click();
+        guardAjax(tabPanel.getSwitcherControllerElements().get(1)).click();
         Assert.assertEquals("abcd", outputText.getText());
     }
 
@@ -117,17 +112,17 @@ public class ITStaticTab {
     @Test
     public void check_header_render() {
         browser.get(contextPath.toExternalForm() + "header.jsf");
-        Assert.assertEquals("0 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        Assert.assertEquals("0 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
 
-        guardAjax(headers.get(1)).click();
-        guardAjax(headers.get(0)).click();
-        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(tabPanel.getSwitcherControllerElements().get(1)).click();
+        guardAjax(tabPanel.getSwitcherControllerElements().get(0)).click();
+        Assert.assertEquals("1 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
 
-        guardAjax(headers.get(1)).click();
-        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(tabPanel.getSwitcherControllerElements().get(1)).click();
+        Assert.assertEquals("1 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
 
-        guardAjax(headers.get(0)).click();
-        Assert.assertEquals("2 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(tabPanel.getSwitcherControllerElements().get(0)).click();
+        Assert.assertEquals("2 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
     /**
@@ -136,17 +131,17 @@ public class ITStaticTab {
     @Test
     public void check_header_button_render() {
         browser.get(contextPath.toExternalForm() + "headerButton.jsf");
-        Assert.assertEquals("0 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        Assert.assertEquals("0 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
         
-        guardAjax(headers.get(0).findElement(By.className("button"))).click();
-        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(tabPanel.getSwitcherControllerElements().get(0).findElement(By.className("button"))).click();
+        Assert.assertEquals("1 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
 
-        guardAjax(headers.get(1)).click();
-        guardAjax(headers.get(0).findElement(By.className("myText"))).click();
-        Assert.assertEquals("1 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(tabPanel.getSwitcherControllerElements().get(1)).click();
+        guardAjax(tabPanel.getSwitcherControllerElements().get(0).findElement(By.className("myText"))).click();
+        Assert.assertEquals("1 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
         
-        guardAjax(headers.get(0).findElement(By.className("button"))).click();
-        Assert.assertEquals("2 clicks", headers.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(tabPanel.getSwitcherControllerElements().get(0).findElement(By.className("button"))).click();
+        Assert.assertEquals("2 clicks", tabPanel.getSwitcherControllerElements().get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
 
