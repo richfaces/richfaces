@@ -185,7 +185,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
             return Utils.isVisible(getRootElement());
         }
 
-        public void setupOpenByInputClick() {
+        public void setOpenByInputClick() {
             openByInputClick = DEFAULT_OPEN_BY_INPUT_CLICK;
         }
 
