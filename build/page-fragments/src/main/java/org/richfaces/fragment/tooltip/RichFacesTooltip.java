@@ -82,7 +82,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
 
     @Override
     public RichFacesTooltip<CONTENT> hide(WebElement target) {
-        advanced().setupTarget(target);
+        advanced().setTarget(target);
         return hide();
     }
 
@@ -100,7 +100,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
 
     @Override
     public RichFacesTooltip<CONTENT> show(WebElement target) {
-        advanced().setupTarget(target);
+        advanced().setTarget(target);
         return show();
     }
 
@@ -178,27 +178,27 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
             return Utils.isVisible(getRootElement());
         }
 
-        public void setupHideEvent() {
+        public void setHideEvent() {
             this.hideEvent = DEFAULT_HIDE_EVENT;
         }
 
-        public void setupHideEvent(Event event) {
+        public void setHideEvent(Event event) {
             this.hideEvent = event;
         }
 
-        public void setupShowEvent() {
+        public void setShowEvent() {
             this.showEvent = DEFAULT_SHOW_EVENT;
         }
 
-        public void setupShowEvent(Event event) {
+        public void setShowEvent(Event event) {
             this.showEvent = event;
         }
 
-        public void setupTarget() {
-            setupTarget(null);
+        public void setTarget() {
+            setTarget(null);
         }
 
-        public void setupTarget(WebElement target) {
+        public void setTarget(WebElement target) {
             this.target = target;
         }
 
@@ -252,7 +252,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
                 .withMessage("Waiting until tooltip is visible.");
         }
 
-        public void setupTimoutForTooltipToBeNotVisible(long timeoutInMilliseconds) {
+        public void setTimoutForTooltipToBeNotVisible(long timeoutInMilliseconds) {
             _timoutForTooltipToBeNotVisible = timeoutInMilliseconds;
         }
 
@@ -260,7 +260,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
             return _timoutForTooltipToBeNotVisible == -1 ? Utils.getWaitAjaxDefaultTimeout(driver) : _timoutForTooltipToBeNotVisible;
         }
 
-        public void setupTimeoutForTooltipToBeVisible(long timeoutInMilliseconds) {
+        public void setTimeoutForTooltipToBeVisible(long timeoutInMilliseconds) {
             _timeoutForTooltipToBeVisible = timeoutInMilliseconds;
         }
 
