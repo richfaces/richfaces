@@ -32,8 +32,8 @@ public interface Hotkey {
      * Invokes the hotkey on an element which is specified by selector attribute of hotkey, when the selector is empty, then the
      * hotkey will be invoked on <code>html</code> element.
      *
-     * @see setupHotkey
-     * @see setupSelector
+     * @see #setHotkey
+     * @see #setSelector
      */
     void invoke();
 
@@ -41,8 +41,8 @@ public interface Hotkey {
      * Invokes the hotkey on a specified element.
      *
      * @param element element on which the hotkey will be invoked. Element cannot be null.
-     * @throws IllegalArgumentException if you have not setup hotkey correctly
-     * @see #setupHotkey
+     * @throws IllegalArgumentException if you have not set hotkey correctly
+     * @see #setHotkey
      */
     void invoke(WebElement element);
 
@@ -52,7 +52,7 @@ public interface Hotkey {
      * @param hotkey key sequence which will be invoked, keys are separated with '+' sign and are in lowercase. For example: 'alt+x'.
      * @throws IllegalArgumentException if the given <code>hotkey</code> is null, or empty
      */
-    void setupHotkey(String hotkey);
+    void setHotkey(String hotkey);
 
     /**
      * Sets the JQuery selector, by which the element on which the hotkey will be invoked, will be found.
@@ -60,5 +60,5 @@ public interface Hotkey {
      * @param selector JQuery selector to locate element on which the hotkey will be applied
      * @throws IllegalArgumentException if the given <code>selector</code> is null, or empty
      */
-    void setupSelector(String selector);
+    void setSelector(String selector);
 }

@@ -41,7 +41,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
 /**
- * Automatically setups hotkey from widget, if no hotkey from user is set.
+ * Automatically set hotkey from widget, if no hotkey from user is set.
  */
 public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHotkey.AdvancedHotkeyInteractions> {
 
@@ -103,7 +103,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
     }
 
     @Override
-    public void setupHotkey(String hotkey) {
+    public void setHotkey(String hotkey) {
         if (hotkey == null || hotkey.isEmpty()) {
             throw new IllegalArgumentException(
                 "Hotkey cannot be empty or null. Set up hotkey from widget if you want to reset it.");
@@ -112,7 +112,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
     }
 
     @Override
-    public void setupSelector(String selector) {
+    public void setSelector(String selector) {
         if (selector == null || selector.isEmpty()) {
             throw new IllegalArgumentException("Selector cannot be empty or null.");
         }
@@ -153,7 +153,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
 
         public String getHotkey() {
             if (getConfiguration().isUseJSInteractionStrategy()) {
-                setupFromWidget();
+                setFromWidget();
             }
             return hotkey;
         }
@@ -167,12 +167,12 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
                 .selector(selector)));
         }
 
-        public void setupFromWidget() {
-            setupHotkeyFromWidget();
-            setupSelectorFromWidget();
+        public void setFromWidget() {
+            setHotkeyFromWidget();
+            setSelectorFromWidget();
         }
 
-        public void setupHotkeyFromWidget() {
+        public void setHotkeyFromWidget() {
             Optional<String> hotkeyText = Utils.getComponentOption(getRootElement(), "key");
             if (!hotkeyText.isPresent()) {
                 throw new NullPointerException("The hotkey value is null.");
@@ -182,10 +182,10 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
             if (previousKeyText.equals(hotkeyText.get())) {
                 return;
             }
-            setupHotkey(hotkeyText.get());
+            setHotkey(hotkeyText.get());
         }
 
-        public void setupSelectorFromWidget() {
+        public void setSelectorFromWidget() {
             selector = Utils.getComponentOptionDocumentObjectSafe(getRootElement(), "selector").orNull();
         }
     }
