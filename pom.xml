@@ -31,7 +31,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.0-SNAPSHOT</version>
+    <version>4.5.0.CR1</version>
     <name>RichFaces Parent</name>
 
     <modules>
@@ -114,8 +114,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Base Dependencies Versions -->
-        <version.richfaces>4.5.0-SNAPSHOT</version.richfaces>
-        <version.cdk>4.5.0-SNAPSHOT</version.cdk>
+        <version.richfaces>4.5.0.CR1</version.richfaces>
+        <version.cdk>4.5.0.CR1</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Container Versions -->
