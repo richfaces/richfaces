@@ -18,8 +18,8 @@ public class SimpleContextMenuPage {
     }
 
     public RichFacesContextMenu getContextMenu() {
-        contextMenu.advanced().setupShowEvent(Event.CLICK);
-        contextMenu.advanced().setupTargetFromWidget();
+        contextMenu.advanced().setShowEvent(Event.CLICK);
+        contextMenu.advanced().setTargetFromWidget();
         return contextMenu;
     }
 }

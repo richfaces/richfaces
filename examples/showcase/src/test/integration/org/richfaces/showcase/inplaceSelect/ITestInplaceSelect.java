@@ -21,7 +21,7 @@
  *******************************************************************************/
 package org.richfaces.showcase.inplaceSelect;
 
-import static org.junit.Assert.assertEquals;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
@@ -29,10 +29,6 @@ import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceSelect.page.SimplePage;
-
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -69,7 +65,7 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
      */
     private void checkSelect(RichFacesInplaceSelect select, String option, Event event) {
         if (event == Event.DBLCLICK) {
-            select.advanced().setupEditByEvent(event);
+            select.advanced().setEditByEvent(event);
             select.select(option).confirmByControlls();
         } else {
             select.select(option);
