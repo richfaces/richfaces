@@ -348,11 +348,11 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
             return _getOrderTargetList().getHeaderElement();
         }
 
-        public WebElement getSourceListAreaElement() {
+        public WebElement getSourceListContentAreaElement() {
             return contentAreaElement;
         }
 
-        public WebElement getTargetListAreaElement() {
+        public WebElement getTargetListContentAreaElement() {
             return _getOrderTargetList().getContentAreaElement();
         }
 
