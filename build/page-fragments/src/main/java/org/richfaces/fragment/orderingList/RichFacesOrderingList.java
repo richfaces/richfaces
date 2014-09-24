@@ -52,7 +52,7 @@ public class RichFacesOrderingList extends AbstractOrderingList {
     @FindBy(css = "thead.rf-ord-lst-hdr > tr.rf-ord-hdr")
     private WebElement headerElement;
     @FindBy(className = "rf-ord-lst-scrl")
-    private WebElement contentAreaElements;
+    private WebElement contentAreaElement;
 
     @FindBy(className = "rf-ord-opt")
     private List<WebElement> items;
@@ -104,8 +104,8 @@ public class RichFacesOrderingList extends AbstractOrderingList {
         }
 
         @Override
-        public WebElement getContentAreaElements() {
-            return contentAreaElements;
+        public WebElement getContentAreaElement() {
+            return contentAreaElement;
         }
 
         @Override

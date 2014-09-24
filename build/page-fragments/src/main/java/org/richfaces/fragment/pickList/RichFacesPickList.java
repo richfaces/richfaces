@@ -75,7 +75,7 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
     @FindBy(css = "[id$='Target']")
     private OrderingListInPickList targetList;
     @FindBy(className = "rf-pick-lst-scrl")
-    private WebElement listAreaElement;
+    private WebElement contentAreaElement;
     @FindBy(className = "rf-pick-src-cptn")
     private WebElement sourceCaptionElement;
     @FindBy(css = "thead.rf-pick-lst-hdr > tr.rf-pick-hdr")
@@ -234,7 +234,7 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         @FindBy(className = SELECTED_ITEM_CLASS)
         private List<WebElement> selectedItems;
         @FindBy(className = "rf-pick-lst-scrl")
-        private WebElement contentAreaElements;
+        private WebElement contentAreaElement;
         @FindBy(css = "[id$='TargetItems']")
         private SelectableListImpl list;
 
@@ -274,8 +274,8 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         }
 
         @Override
-        public WebElement getContentAreaElements() {
-            return contentAreaElements;
+        public WebElement getContentAreaElement() {
+            return contentAreaElement;
         }
 
         @Override
@@ -349,11 +349,11 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
         }
 
         public WebElement getSourceListAreaElement() {
-            return listAreaElement;
+            return contentAreaElement;
         }
 
         public WebElement getTargetListAreaElement() {
-            return _getOrderTargetList().getContentAreaElements();
+            return _getOrderTargetList().getContentAreaElement();
         }
 
         public WebElement getRemoveAllButtonElement() {

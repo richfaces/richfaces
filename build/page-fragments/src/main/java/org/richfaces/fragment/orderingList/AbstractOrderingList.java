@@ -248,8 +248,8 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedVisi
             return getBody().getList();
         }
 
-        public WebElement getContentAreaElements() {
-            return getBody().getContentAreaElements();
+        public WebElement getContentAreaElement() {
+            return getBody().getContentAreaElement();
         }
 
         public WebElement getRootElement() {
@@ -310,7 +310,7 @@ public abstract class AbstractOrderingList implements OrderingList, AdvancedVisi
 
         ListComponent<? extends SelectableListItem> getList();
 
-        WebElement getContentAreaElements();
+        WebElement getContentAreaElement();
 
         WebElement getRootElement();
 
