@@ -450,7 +450,7 @@
                 <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
                 <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
                 <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
-                
+
                 <!-- HTTPS testing -->
                 <firefoxProfileTemplate />
                 <trustStore />
@@ -1094,7 +1094,7 @@
                 </dependency>
             </dependencies>
         </profile>
-        
+
         <profile>
             <id>take-screenshots</id>
             <dependencies>

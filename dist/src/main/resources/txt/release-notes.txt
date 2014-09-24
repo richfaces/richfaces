@@ -1,4 +1,42 @@
-4.5.0-SNAPSHOT
+4.5.0.CR1
+-----------
+
+    Bug
+    [RF-8904] - Update project build to integrate jsDoc
+    [RF-12312] - rich:select - duplicate labels
+    [RF-13290] - Push framework tests fail after upgrade to 1.0.17 (probably Warp issue)
+    [RF-13504] - Test that the ExtendedPartialViewContext writes the ClientWindow ID updates to the partial response
+    [RF-13522] - Component reference - text for links to figures doesn't contain "Figure" prefix
+    [RF-13788] - ExtendedDataTable supports the undocumented attribute "render"
+    [RF-13812] - rich:validator misunderstands EL expressions inside Bean Validation 1.1
+    [RF-13816] - Include Page Fragments in the RichFaces distribution and javadoc
+    [RF-13818] - JSF server vs application Please upgrade to at least Mojarra 2.1.28 or 2.2.6
+    [RF-13821] - InputNumber* component class changes cause backward compatibility problems
+    [RF-13822] - Mobile showcase: fileupload sample is not working [myfaces]
+    [RF-13823] - showcase: contextMenu: missing picturesUtils.js resource [myfaces]
+    [RF-13826] - Media output: onclick doesn't work
+    [RF-13827] - Selection mode simple and multiple in ExtendedDataTable throws JS error in Chrome 36
+    [RF-13830] - Tooltip not attached must specify target=""
+    [RF-13838] - ExtendedPartialViewContext.java is missing method setPartialRequest
+    [RF-13840] - a4j:jsFunction - oncomplete is called twice
+    [RF-13843] - rich:fileUpload should use feature detection for File API
+
+    Component Upgrade
+    [RF-13475] - NullPointException when using Richfaces with ehcache
+    [RF-13841] - Upgrade Selenium to 2.43.1
+
+    Enhancement
+    [RF-13414] - The showcase chart demo of event handling renders seemingly redundant info
+    [RF-13831] - Review page fragments
+    [RF-13832] - Built-in filtering and sorting inside richcollapsibleSubTable
+    [RF-13833] - Doc for r:tree selectionChangeListener attribute is misplaced with toggleListener attribute doc
+
+    Task
+    [RF-13834] - Alias the javascript method RichFaces.component to RichFaces.$
+    [RF-13835] - Revert package and class names changes in 4.5
+    [RF-13837] - Add "chart" prefix to chart components
+
+4.5.0.Beta2
 -----------
 
     Bug
