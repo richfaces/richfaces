@@ -23,7 +23,6 @@ package org.richfaces.fragment.orderingList;
 
 import java.util.List;
 
-import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.list.AbstractListComponent;
@@ -34,9 +33,6 @@ import org.richfaces.fragment.list.ListComponent;
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class RichFacesOrderingList extends AbstractOrderingList {
-
-    @Root
-    private WebElement rootElement;
 
     @FindBy(css = "button.rf-ord-dn")
     private WebElement downButtonElement;
