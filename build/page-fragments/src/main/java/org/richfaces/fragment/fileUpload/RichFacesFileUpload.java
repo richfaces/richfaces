@@ -74,16 +74,16 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
 
     @Override
     public boolean addFile(File file) {
-        final int expectedSize = getFileInputElements().size() + 1;
-        String containerStyleClassBefore = getInputContainer().getAttribute("class");
-        Utils.jQ("attr('class', '')", getInputContainer());
+        final int expectedSize = advanced().getFileInputElements().size() + 1;
+        String containerStyleClassBefore = advanced().getInputContainer().getAttribute("class");
+        Utils.jQ("attr('class', '')", advanced().getInputContainer());
         advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
-        Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", getInputContainer());
+        Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", advanced().getInputContainer());
         try {
             Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
                 @Override
                 public boolean apply(WebDriver input) {
-                    return getFileInputElements().size() == expectedSize;
+                    return advanced().getFileInputElements().size() == expectedSize;
                 }
             });
         } catch (TimeoutException ignored) {
@@ -113,17 +113,6 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
     public FileUpload upload() {
         advanced().getUploadButtonElement().click();
         return this;
-    }
-
-    protected List<WebElement> getFileInputElements() {
-        return fileInputElements;
-    }
-
-    /**
-     * @return the inputContainer
-     */
-    protected WebElement getInputContainer() {
-        return inputContainer;
     }
 
     public class FileUploadItemImpl extends RichFacesListItem implements FileUploadItem {
@@ -200,6 +189,14 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
 
         public WebElement getFileInputElement() {
             return fileInputElement;
+        }
+
+        protected List<WebElement> getFileInputElements() {
+            return fileInputElements;
+        }
+
+        protected WebElement getInputContainer() {
+            return inputContainer;
         }
 
         public WebElement getUploadButtonElement() {

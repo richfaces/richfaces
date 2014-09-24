@@ -123,14 +123,6 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         return select(ChoicePickerHelper.byVisibleText().match(text));
     }
 
-    protected WebElement getLocalList() {
-        return localList;
-    }
-
-    protected WebElement getGlobalList() {
-        return globalList;
-    }
-
     public class ConfirmOrCancelImpl extends AbstractConfirmOrCancel {
 
         @Override
@@ -192,6 +184,14 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
         public void setSaveOnSelect(boolean saveOnSelect) {
             this.saveOnSelect = saveOnSelect;
+        }
+
+        protected WebElement getGlobalList() {
+            return globalList;
+        }
+
+        protected WebElement getLocalList() {
+            return localList;
         }
 
         public WebElement getRootElement() {

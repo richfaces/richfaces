@@ -86,15 +86,15 @@ public abstract class RichFacesCollapsiblePanel<HEADER, BODY> extends AbstractPa
         return this;
     }
 
-    protected GrapheneElement getEmptyBodyElement() {
-        return emptyBodyElement;
-    }
-
     public class AdvancedCollapsiblePanelInteractions extends AdvancedPanelInteractions implements VisibleComponentInteractions {
 
         private static final String COLLAPSED_HEADER_CLASS = "rf-cp-hdr-colps";
 
         private long _timeoutForPanelIsSwitched = -1;
+
+        protected GrapheneElement getEmptyBodyElement() {
+            return emptyBodyElement;
+        }
 
         @Override
         public WebElement getBodyElement() {

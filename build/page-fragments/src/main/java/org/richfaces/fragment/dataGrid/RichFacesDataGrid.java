@@ -70,7 +70,7 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisi
         if (getNumberOfRows() - 1 > rowIndex) {
             throw new IllegalArgumentException("There is not so many rows! Requesting: " + rowIndex + ", but there is only: " + getNumberOfRows());
         }
-        List<WebElement> recordsInParticularRow = getRowElements().get(rowIndex).findElements(ByJQuery.selector(advanced().getJQSelectorForRecord()));
+        List<WebElement> recordsInParticularRow = advanced().getRowElements().get(rowIndex).findElements(ByJQuery.selector(advanced().getJQSelectorForRecord()));
         for (WebElement recordRoot : recordsInParticularRow) {
             result.add(Graphene.createPageFragment(getRecordClass(), recordRoot));
         }
@@ -79,31 +79,31 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisi
 
     @Override
     public RECORD getRecord(int n) {
-        return Graphene.createPageFragment(getRecordClass(), getRecordsElements().get(n));
+        return Graphene.createPageFragment(getRecordClass(), advanced().getRecordsElements().get(n));
     }
 
     @Override
     public int getNumberOfRows() {
-        return getRowElements().size();
+        return advanced().getRowElements().size();
     }
 
     @Override
     public int getNumberOfColumns() {
-        if (getRowElements().isEmpty()) {
+        if (advanced().getRowElements().isEmpty()) {
             return 0;
         }
-        return getRowElements().get(0).findElements(ByJQuery.selector(advanced().getJQSelectorForColumn())).size();
+        return advanced().getRowElements().get(0).findElements(ByJQuery.selector(advanced().getJQSelectorForColumn())).size();
     }
 
     @Override
     public int getNumberOfRecords() {
-        return getRecordsElements().size();
+        return advanced().getRecordsElements().size();
     }
 
     @Override
     public List<RECORD> getAllVisibleRecords() {
         List<RECORD> result = new ArrayList<RECORD>();
-        for (WebElement recordRoot : getRecordsElements()) {
+        for (WebElement recordRoot : advanced().getRecordsElements()) {
             result.add(Graphene.createPageFragment(getRecordClass(), recordRoot));
         }
         return result;
@@ -112,18 +112,6 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisi
     @Override
     public AdvancedDataGridInteractions advanced() {
         return advancedInteractions;
-    }
-
-    protected List<WebElement> getRowElements() {
-        return rowElements;
-    }
-
-    protected List<WebElement> getRecordsElements() {
-        return recordsElements;
-    }
-
-    protected WebElement getNoDataElement() {
-        return noDataElement;
     }
 
     protected Class<RECORD> getRecordClass() {
@@ -150,6 +138,18 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisi
 
         public WebElement getRootElement() {
             return root;
+        }
+
+        protected List<WebElement> getRowElements() {
+            return rowElements;
+        }
+
+        protected List<WebElement> getRecordsElements() {
+            return recordsElements;
+        }
+
+        protected WebElement getNoDataElement() {
+            return noDataElement;
         }
 
         public boolean isNoData() {
