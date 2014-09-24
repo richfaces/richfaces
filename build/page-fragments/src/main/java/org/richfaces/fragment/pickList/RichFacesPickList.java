@@ -280,7 +280,7 @@ public class RichFacesPickList implements PickList, AdvancedVisibleComponentIter
 
         @Override
         public WebElement getRootElement() {
-            return getRootElement();
+            return super.getRootElement();
         }
 
         @Override
