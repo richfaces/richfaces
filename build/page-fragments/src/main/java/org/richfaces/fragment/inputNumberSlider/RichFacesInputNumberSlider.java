@@ -98,7 +98,7 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
         public void dragHandleToPointInTrace(int pixelInTrace) {
             Preconditions.checkArgument(pixelInTrace >= 0 && pixelInTrace <= getWidth(),
                 "Cannot slide outside the trace.");
-            if (Utils.isVisible(advanced().getRootElement())) {
+            if (!Utils.isVisible(advanced().getRootElement())) {
                 throw new RuntimeException("Trace is not visible.");
             }
             scrollToView();
