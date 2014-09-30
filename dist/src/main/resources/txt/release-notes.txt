@@ -20,6 +20,9 @@
     [RF-13838] - ExtendedPartialViewContext.java is missing method setPartialRequest
     [RF-13840] - a4j:jsFunction - oncomplete is called twice
     [RF-13843] - rich:fileUpload should use feature detection for File API
+    [RF-13846] - page-fragments: orderingList, pickList: rename method getContentAreaElements to getContentAreaElement
+    [RF-13848] - page-fragments: orderingList: remove duplicated field
+    [RF-13849] - page-fragments: pickList: stackoverflow in orderingList part
 
     Component Upgrade
     [RF-13475] - NullPointException when using Richfaces with ehcache
@@ -30,6 +33,8 @@
     [RF-13831] - Review page fragments
     [RF-13832] - Built-in filtering and sorting inside richcollapsibleSubTable
     [RF-13833] - Doc for r:tree selectionChangeListener attribute is misplaced with toggleListener attribute doc
+    [RF-13847] - page-fragments: pickList: rename methods for returning contentAreaElement
+    [RF-13850] - page-fragments: refactor implementation part of collapsiblePanel, dataGrid, fileUpload, inplaceSelect, orderingList, pickList
 
     Task
     [RF-13834] - Alias the javascript method RichFaces.component to RichFaces.$
