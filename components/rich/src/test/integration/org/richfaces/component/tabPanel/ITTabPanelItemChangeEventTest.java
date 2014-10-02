@@ -3,7 +3,6 @@ package org.richfaces.component.tabPanel;
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 import java.net.URL;
-import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -18,23 +17,23 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.richfaces.component.tabPanel.model.TabPanelItemChangeEventBean;
+import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 @RunWith(Arquillian.class)
 @WarpTest
 public class ITTabPanelItemChangeEventTest {
+    
+    @FindByJQuery("[id$='tabPanel']")
+    private RichFacesTabPanel tabPanel;
 
     @Drone
     private WebDriver browser;
 
     @ArquillianResource
     private URL contextPath;
-
-    @FindByJQuery(".rf-tab-hdr:visible")
-    private List<WebElement> tabs;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -54,15 +53,15 @@ public class ITTabPanelItemChangeEventTest {
 
         Warp.initiate(new Activity() {
             public void perform() {
-                tabs.get(1).click();
-                waitModel().until().element(tabs.get(1)).attribute("class").contains("rf-tab-hdr-act");
+                tabPanel.advanced().getAllVisibleHeadersElements().get(1).click();
+                waitModel().until().element(tabPanel.advanced().getAllVisibleHeadersElements().get(1)).attribute("class").contains("rf-tab-hdr-act");
             }
         }).inspect(new ItemChangeEventInspection());
 
         Warp.initiate(new Activity() {
             public void perform() {
-                tabs.get(0).click();
-                waitModel().until().element(tabs.get(0)).attribute("class").contains("rf-tab-hdr-act");
+                tabPanel.advanced().getAllVisibleHeadersElements().get(0).click();
+                waitModel().until().element(tabPanel.advanced().getAllVisibleHeadersElements().get(0)).attribute("class").contains("rf-tab-hdr-act");
             }
         }).inspect(new ItemChangeEventInspection());
     }
