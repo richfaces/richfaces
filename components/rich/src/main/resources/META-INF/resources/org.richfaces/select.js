@@ -151,6 +151,7 @@
                 switch (code) {
                     case rf.KEYS.DOWN:
                         e.preventDefault();
+                        e.stopPropagation();
                         if (!visible) {
                             this.__updateItems();
                             this.__showPopup();
@@ -161,20 +162,19 @@
 
                     case rf.KEYS.UP:
                         e.preventDefault();
+                        e.stopPropagation();
                         if (visible) {
                             this.list.__selectPrev();
                         }
                         break;
 
+                    case rf.KEYS.TAB:
                     case rf.KEYS.RETURN:
                         e.preventDefault();
                         if (visible) {
                             this.list.__selectCurrent();
                         }
                         return false;
-                        break;
-
-                    case rf.KEYS.TAB:
                         break;
 
                     case rf.KEYS.ESC:
@@ -289,7 +289,7 @@
                 newValue = (newValue != this.defaultLabel) ? newValue : "";
                 this.__updateItemsFromCache(newValue);
 
-                if (this.selectFirst) {
+                if (this.selectFirst && this.enabledManualInput) {
                     this.list.__selectByIndex(0);
                 }
             },
