@@ -53,19 +53,19 @@ public class RichFacesOrderingList extends AbstractOrderingList {
     @FindBy(className = "rf-ord-opt")
     private List<WebElement> items;
     @FindBy(className = "rf-ord-sel")
-    private List<WebElement> selectedItems;
+    private List<WebElement> selectedItemsElements;
 
     @FindBy(css = "div.rf-ord-lst-scrl [id$=Items]")
     private SelectableListImpl list;
 
-    private final OrderingListBodyElements elements = new OrderingListBodyElementsImpl();
+    private final AdvancedRichOrderingListInteractions interactions = new AdvancedRichOrderingListInteractions();
 
     @Override
-    protected OrderingListBodyElements getBody() {
-        return elements;
+    public AdvancedRichOrderingListInteractions advanced() {
+        return interactions;
     }
 
-    private class OrderingListBodyElementsImpl implements OrderingListBodyElements {
+    public class AdvancedRichOrderingListInteractions extends AdvancedOrderingListInteractions {
 
         private static final String SELECTED_ITEM_CLASS = "rf-ord-sel";
 
@@ -105,17 +105,12 @@ public class RichFacesOrderingList extends AbstractOrderingList {
         }
 
         @Override
-        public WebElement getRootElement() {
-            return RichFacesOrderingList.this.getRootElement();
+        public List<WebElement> getSelectedItemsElements() {
+            return selectedItemsElements;
         }
 
         @Override
-        public List<WebElement> getSelectedItems() {
-            return selectedItems;
-        }
-
-        @Override
-        public String getStyleForSelectedItem() {
+        protected String getStyleForSelectedItem() {
             return SELECTED_ITEM_CLASS;
         }
 
