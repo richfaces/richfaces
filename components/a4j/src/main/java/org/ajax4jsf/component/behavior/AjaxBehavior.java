@@ -190,7 +190,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
      * Some components make use of additional keywords
      */
     @Attribute
-    public Collection<String> getExecute() {
+    public Object getExecute() {
         return getCollectionValue(PropertyKeys.execute, execute);
     }
 
@@ -278,7 +278,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
      * Some components make use of additional keywords
      */
     @Attribute
-    public Collection<String> getRender() {
+    public Object getRender() {
         return getCollectionValue(PropertyKeys.render, render);
     }
 
