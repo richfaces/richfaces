@@ -194,8 +194,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
         return getCollectionValue(PropertyKeys.execute, execute);
     }
 
-    public void setExecute(Collection<String> execute) {
-        this.execute = copyToSet(execute);
+    public void setExecute(Object execute) {
+        this.execute = copyToSet((Collection<String>) execute);
         clearInitialState();
     }
 
@@ -282,8 +282,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
         return getCollectionValue(PropertyKeys.render, render);
     }
 
-    public void setRender(Collection<String> render) {
-        this.render = copyToSet(render);
+    public void setRender(Object render) {
+        this.render = copyToSet((Collection<String>) render);
         clearInitialState();
     }
 

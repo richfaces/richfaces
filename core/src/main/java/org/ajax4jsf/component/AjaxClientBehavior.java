@@ -35,13 +35,13 @@ public interface AjaxClientBehavior extends ClientBehavior {
 
     void setLimitRender(boolean limitRender);
 
-    void setExecute(Collection<String> execute);
+    void setExecute(Object execute);
 
-    Collection<String> getExecute();
+    Object getExecute();
 
-    void setRender(Collection<String> render);
+    void setRender(Object render);
 
-    Collection<String> getRender();
+    Object getRender();
 
     boolean isDisabled();
 
