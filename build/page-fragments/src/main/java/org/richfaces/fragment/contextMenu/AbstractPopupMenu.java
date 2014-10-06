@@ -202,7 +202,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
         public void show(WebElement givenTarget) {
             new Actions(browser)
                 .moveToElement(givenTarget)
-                .triggerEventByWD(invokeEvent, givenTarget).perform();
+                .triggerEventByWD(getShowEvent(), givenTarget).perform();
 
             advanced().waitUntilIsVisible().perform();
         }
@@ -241,20 +241,28 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
             hideDelay = newHideDelayInMillis;
         }
 
-        public void setShowEvent() {
-            invokeEvent = DEFAULT_INVOKE_EVENT;
+        protected Event getDefaultShowEvent() {
+            return DEFAULT_INVOKE_EVENT;
         }
 
-        public void setShowEvent(Event newShowEvent) {
+        protected Event getShowEvent() {
+            return invokeEvent;
+        }
+
+        public void setShowEvent() {
+            setShowEvent(getDefaultShowEvent());
+        }
+
+        protected void setShowEvent(Event newShowEvent) {
             if (newShowEvent == null) {
                 throw new IllegalArgumentException("Parameter newInvokeEvent can not be null!");
             }
             invokeEvent = newShowEvent;
         }
 
-        public void setShowEventFromWidget() {
-            Optional<String> event = Utils.getComponentOption(getRootElement(), "showEvent");
-            invokeEvent = new Event(event.or(DEFAULT_INVOKE_EVENT.getEventName()));
+        public void setupShowEventFromWidget() {
+            Optional<String> event = Utils.getComponentOption(root, "showEvent");
+            setShowEvent(new Event(event.or(getDefaultShowEvent().getEventName())));
         }
 
         public void setShowDelay() {
