@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.webapp.FacesServlet;
@@ -63,8 +62,8 @@ public class BaseDeployment {
     private WebFacesConfigDescriptor facesConfig;
     private WebAppDescriptor webXml;
 
-    private final Set<String> mavenDependencies = Sets.newHashSet();
-    private final Set<String> excludedMavenDependencies = Sets.newHashSet();
+    private Set<String> mavenDependencies = Sets.newHashSet();
+    private Set<String> excludedMavenDependencies = Sets.newHashSet();
 
     /**
      * Constructs base deployment with:
@@ -79,12 +78,8 @@ public class BaseDeployment {
      * @param testClass
      */
     protected BaseDeployment(Class<?> testClass) {
-        this(testClass == null ? null : testClass.getSimpleName());
-    }
-
-    protected BaseDeployment(String archiveName) {
-        if (archiveName != null && !archiveName.isEmpty()) {
-            this.archive = ShrinkWrap.create(WebArchive.class, archiveName + ".war");
+        if (testClass != null) {
+            this.archive = ShrinkWrap.create(WebArchive.class, testClass.getSimpleName() + ".war");
         } else {
             this.archive = ShrinkWrap.create(WebArchive.class);
         }
@@ -124,11 +119,11 @@ public class BaseDeployment {
         if (configuration.isCurrentRichFacesVersion()) {
             addRequiredMavenDependencies();
         } else {
-            log.log(Level.INFO, "Running test against RichFaces version: {0}", configuration.getRichFacesVersion());
+            log.info("Running test against RichFaces version: " + configuration.getRichFacesVersion());
         }
 
         if (configuration.getMavenSettings() != null && !configuration.getMavenSettings().isEmpty()) {
-            log.log(Level.INFO, "Use Maven Settings: {0}", configuration.getMavenSettings());
+            log.info("Use Maven Settings: " + configuration.getMavenSettings());
         }
     }
 

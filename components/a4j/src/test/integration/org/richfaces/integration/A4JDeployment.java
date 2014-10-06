@@ -15,11 +15,7 @@ public class A4JDeployment extends BaseDeployment {
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 
     public A4JDeployment(Class<?> testClass) {
-        this(testClass == null ? null : testClass.getSimpleName());
-    }
-
-    public A4JDeployment(String archiveName) {
-        super(archiveName);
+        super(testClass);
 
         if (configuration.isCurrentRichFacesVersion()) {
 

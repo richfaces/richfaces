@@ -17,11 +17,7 @@ public class RichDeployment extends BaseDeployment {
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 
     public RichDeployment(Class<?> testClass) {
-        this(testClass == null ? null : testClass.getSimpleName());
-    }
-
-    public RichDeployment(String archiveName) {
-        super(archiveName);
+        super(testClass);
 
         if (configuration.isCurrentRichFacesVersion()) {
 
