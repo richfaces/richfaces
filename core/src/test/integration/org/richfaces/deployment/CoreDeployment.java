@@ -50,7 +50,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.richfaces.VersionBean;
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.DependencyInjectorImpl;
 import org.richfaces.application.Initializable;
@@ -59,7 +58,6 @@ import org.richfaces.application.MessageFactory;
 import org.richfaces.application.Module;
 import org.richfaces.application.ServiceException;
 import org.richfaces.application.ServiceLoader;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.application.Uptime;
@@ -102,6 +100,7 @@ import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.component.UIResource;
 import org.richfaces.component.UITransient;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.l10n.BundleLoader;
@@ -122,10 +121,11 @@ import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
 import org.richfaces.resource.StaticResourceLibrary;
-import org.richfaces.resource.external.MappedResourceFactory;
-import org.richfaces.resource.external.MappedResourceFactoryImpl;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.external.ResourceTrackerImpl;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.MappedResourceFactoryImpl;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
@@ -157,14 +157,10 @@ public class CoreDeployment extends BaseDeployment {
      * Constructs base Core deployment with dependencies, base classes and utilities.
      */
     public CoreDeployment(Class<?> testClass) {
-        this(testClass == null ? null : testClass.getSimpleName());
-    }
-
-    public CoreDeployment(String archiveName) {
-        super(archiveName);
+        super(testClass);
 
         this.withWholeCore();
-
+        
         this.withBaseClasses().withUtilities().withLogging();
 
         this.withArquillianExtensions().withWaiting();
