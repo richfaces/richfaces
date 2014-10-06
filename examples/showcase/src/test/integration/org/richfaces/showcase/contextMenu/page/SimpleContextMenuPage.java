@@ -2,7 +2,6 @@ package org.richfaces.showcase.contextMenu.page;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 
 public class SimpleContextMenuPage {
@@ -18,7 +17,7 @@ public class SimpleContextMenuPage {
     }
 
     public RichFacesContextMenu getContextMenu() {
-        contextMenu.advanced().setShowEvent(Event.CLICK);
+        contextMenu.advanced().setupShowEventFromWidget();
         contextMenu.advanced().setTargetFromWidget();
         return contextMenu;
     }
