@@ -141,6 +141,18 @@
                 this.resizeEventName = "resize.rf.edt." + this.id;
                 $(document).ready($.proxy(this.initialize, this));
                 this.activateResizeListener();
+                var body = $(this.element).find(".rf-edt-b .rf-edt-cnt");
+                var delayedScroll = function(table, body) {
+                    return function () {
+                        // let browser scroll the element
+                        setTimeout(function() {
+                            table.scrollElement.scrollLeft = body.scrollLeft();
+                            table.updateScrollPosition();
+                        }, 0);
+                    };
+                };
+                
+                body.bind("scroll", delayedScroll(this, body));
                 $(this.scrollElement).bind("scroll", $.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
                 $(this.element).bind("rich:onajaxcomplete", $.proxy(this.ajaxComplete, this));
