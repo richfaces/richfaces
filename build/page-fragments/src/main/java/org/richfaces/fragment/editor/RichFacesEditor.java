@@ -46,11 +46,14 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
     @Drone
     private WebDriver browser;
 
-    @FindBy(css = ".cke_toolbox")
-    private RichFacesEditorToolbar toolbar;
-
     @ArquillianResource
     private JavascriptExecutor executor;
+
+    @FindBy(tagName = "iframe")
+    private WebElement frameElement;
+
+    @FindBy(css = ".cke_toolbox")
+    private RichFacesEditorToolbar toolbar;
 
     private final AdvancedEditorInteractions advancedInteractions = new AdvancedEditorInteractions();
 
@@ -73,8 +76,8 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         }
     }
 
-    private WebElement switchToEditorActiveArea() {
-        browser.switchTo().frame(0);
+    protected WebElement switchToEditorActiveArea() {
+        browser.switchTo().frame(advanced().getFrameElement());
         WebElement activeArea = browser.findElement(By.tagName("body"));
         activeArea.click();
         return activeArea;
@@ -85,8 +88,7 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         try {
             switchToEditorActiveArea().sendKeys("");
             // needs to do both ways, various JS events then do not work otherwise
-            ((JavascriptExecutor) browser).executeScript("document.body.textContent= document.body.textContent + '" + text
-                + "'");
+            executor.executeScript(String.format("document.body.textContent= document.body.textContent + '%s'", text));
         } finally {
             browser.switchTo().defaultContent();
         }
@@ -100,6 +102,10 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
     }
 
     public class AdvancedEditorInteractions implements VisibleComponentInteractions {
+
+        protected WebElement getFrameElement() {
+            return frameElement;
+        }
 
         public WebElement getRootElement() {
             return root;
