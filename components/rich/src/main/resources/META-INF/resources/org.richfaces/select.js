@@ -185,6 +185,9 @@
                         break;
 
                     default:
+                        if (this.__selectItemByLabel(code)) {
+                            break;
+                        }
                         var _this = this;
                         window.clearTimeout(this.changeTimerId);
                         this.changeTimerId = window.setTimeout(function() {
@@ -341,6 +344,24 @@
                 if (label && value) {
                     return {'label': label, 'value': value};
                 }
+            },
+            
+            __selectItemByLabel: function(code) {
+                // only a-z
+                if (this.enableManualInput || code < 65 || code > 90) {
+                    return false;
+                }
+                
+                var firstLetter;
+                for (var i = 0; i < this.clientSelectItems.length; i++) {
+                     firstLetter = this.clientSelectItems[i].label.charCodeAt(0);
+                     if (firstLetter == code || (firstLetter - 32) == code) {
+                         this.list.__selectByIndex(i);
+                         return true;
+                     }
+                }
+                
+                return false;
             },
 
             __showPopup: function() {
