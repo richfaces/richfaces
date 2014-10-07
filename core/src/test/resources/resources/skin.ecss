@@ -2,5 +2,5 @@ body {
     padding: 10px !important;
     border: 1px solid green;
     background-image: url(image.png);
-    color: "#{richSkin.generalLinkColor}"
+    color: "#{a4jSkin.generalLinkColor}"
 }

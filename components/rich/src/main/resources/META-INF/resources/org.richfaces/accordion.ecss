@@ -1,28 +1,28 @@
 .rf-ac {
     border-width: 0px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     border-bottom: 0px;
-    border-radius: '#{richSkin.panelBorderRadius}';
-    background: '#{richSkin.generalBackgroundColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+    background: '#{a4jSkin.generalBackgroundColor}';
 }
 
 .rf-ac-itm-hdr {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    border-top-left-radius: '#{richSkin.panelBorderRadius}';
-    border-top-right-radius: '#{richSkin.panelBorderRadius}';
-    background-image: "#{richSkin.imageUrl('gradientA.png')}";
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-top-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-top-right-radius: '#{a4jSkin.panelBorderRadius}';
+    background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
     background-repeat: repeat-x;
     background-position: top left;
-    background-color: '#{richSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     position: relative;
     padding: 8px 10px 7px 10px;
-    font-weight: '#{richSkin.headerWeightFont}';
-    color: '#{richSkin.headerTextColor}';
-    font-family: '#{richSkin.headerFamilyFont}';
-    font-size: '#{richSkin.headerSizeFont}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
+    color: '#{a4jSkin.headerTextColor}';
+    font-family: '#{a4jSkin.headerFamilyFont}';
+    font-size: '#{a4jSkin.headerSizeFont}';
     cursor: pointer;
     /* gain layout trigger for IE7 */
     min-height: 0px;
@@ -31,16 +31,16 @@
 .rf-ac-itm-cnt {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
-    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-bottom-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{a4jSkin.panelBorderRadius}';
     position: relative;
     overflow: auto;
     overflow-x: hidden;
     padding: 10px;
-    font-size: '#{richSkin.generalSizeFont}';
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
 }
 
 .rf-ac-itm-hdr-act {
@@ -48,11 +48,11 @@
 }
 
 .rf-ac-itm-hdr-inact {
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
 }
 
 .rf-ac-itm-hdr-dis {
-    color: '#{richSkin.tabDisabledTextColor}';
+    color: '#{a4jSkin.tabDisabledTextColor}';
 }
 
 .rf-ac-itm-gr {

@@ -13,8 +13,8 @@
 # 9. copy contents of created org.richfas.ckeditor JSF resources: org.richfaces.ckeditor
 # 10. rename and fix compiled ckeditor.js and skins/richfaces/editor.css to editor.ecss
 #     - fix ckeditor.js and skins/richfaces/skin.js to point to editor.ecss
-#     - fix editor.ecss (ECSS compiler complains) - contains invalid #{richSkin....;} and #{url...;} instructions - remove semi-colon
-#              $ sed -ri 's/#\{richSkin([^;]+);/#{richSkin\1/g' editor.ecss
+#     - fix editor.ecss (ECSS compiler complains) - contains invalid #{a4jSkin....;} and #{url...;} instructions - remove semi-colon
+#              $ sed -ri 's/#\{a4jSkin([^;]+);/#{a4jSkin\1/g' editor.ecss
 #              $ sed -ri 's/#\{resource([^;]+);/#{resource\1/g' editor.ecss
 #     - fix editor.ecss - some wrong line-endings (the line ends after ' sign)
 # 

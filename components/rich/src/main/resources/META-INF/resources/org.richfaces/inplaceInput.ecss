@@ -1,18 +1,18 @@
 input.rf-ii-fld {
     background-image: none;
-    background-color: '#{richSkin.editBackgroundColor}';
+    background-color: '#{a4jSkin.editBackgroundColor}';
     /*TODO: seems these styles are incorrect*/
     border-bottom-width: 10px;
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.editBackgroundColor}';
+    border-bottom-color: '#{a4jSkin.editBackgroundColor}';
     padding: 0px 0px 0px 0px;
     border: 0px;
     margin: 0px;
     width: 100%;
     height: 100%;
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }
 
 .rf-ii-fld-cntr {
@@ -29,18 +29,18 @@ input.rf-ii-fld {
 
 .rf-ii-lbl {
     white-space: nowrap;
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }
 
 .rf-ii {
     display: inline-block;
     white-space: nowrap;
-    background-color: '#{richSkin.editorBackgroundColor}';
+    background-color: '#{a4jSkin.editorBackgroundColor}';
     border-bottom-width: 1px;
     border-bottom-style: dashed;
-    border-bottom-color: '#{richSkin.generalTextColor}';
+    border-bottom-color: '#{a4jSkin.generalTextColor}';
     padding-left: 3px;
     padding-right: 3px;
     display: inline-block;
@@ -59,26 +59,26 @@ input.rf-ii-fld {
 }
 
 .rf-ii-btn {
-    background-image: "#{richSkin.imageUrl('inplaceBtnGrad.png')}";
+    background-image: "#{a4jSkin.imageUrl('inplaceBtnGrad.png')}";
     background-attachment: scroll;
     background-position: center top;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.tabBackgroundColor}';
+    background-color: '#{a4jSkin.tabBackgroundColor}';
     border-width: 1px;
     border-style: outset;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     padding: 3px;
     margin: 0px;
 }
 
 .rf-ii-btn-p {
-    background-image: "#{richSkin.imageUrl('inplaceBtnPressGrad.png')}";
+    background-image: "#{a4jSkin.imageUrl('inplaceBtnPressGrad.png')}";
     background-position: top;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.tabBackgroundColor}';
+    background-color: '#{a4jSkin.tabBackgroundColor}';
     border-width: 1px;
     border-style: inset;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     padding: 0px;
     margin: 0px;
 }

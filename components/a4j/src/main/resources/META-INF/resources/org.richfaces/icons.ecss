@@ -5,61 +5,61 @@
 }
 
 .rf-ico-chevron-hdr {
-    background-image: "#{richSkin.imageUrl('chevron.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevron.png')}";}
 
 .rf-ico-chevron,.rf-ico-chevron-dis,.rf-ico-chevron-hdr-dis {
-    background-image: "#{richSkin.imageUrl('chevronDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronDisabled.png')}";}
 
 .rf-ico-chevron-down-hdr {
-    background-image: "#{richSkin.imageUrl('chevronDown.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronDown.png')}";}
 
 .rf-ico-chevron-down,.rf-ico-chevron-down-dis,.rf-ico-chevron-down-hdr-dis {
-    background-image: "#{richSkin.imageUrl('chevronDownDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronDownDisabled.png')}";}
 
 .rf-ico-chevron-left-hdr {
-    background-image: "#{richSkin.imageUrl('chevronLeft.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronLeft.png')}";}
 
 .rf-ico-chevron-left,.rf-ico-chevron-left-dis,.rf-ico-chevron-left-hdr-dis {
-    background-image: "#{richSkin.imageUrl('chevronLeftDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronLeftDisabled.png')}";}
 
 .rf-ico-chevron-up-hdr {
-    background-image: "#{richSkin.imageUrl('chevronUp.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronUp.png')}";}
 
 .rf-ico-chevron-up,.rf-ico-chevron-up-dis,.rf-ico-chevron-up-hdr-dis {
-    background-image: "#{richSkin.imageUrl('chevronUpDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('chevronUpDisabled.png')}";}
 
 .rf-ico-disc-hdr {
-    background-image: "#{richSkin.imageUrl('disc.png')}";}
+    background-image: "#{a4jSkin.imageUrl('disc.png')}";}
 
 .rf-ico-disc,.rf-ico-disc-dis,.rf-ico-disc-hdr-dis {
-    background-image: "#{richSkin.imageUrl('discDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('discDisabled.png')}";}
 
 .rf-ico-grid-hdr {
-    background-image: "#{richSkin.imageUrl('grid.png')}";}
+    background-image: "#{a4jSkin.imageUrl('grid.png')}";}
 
 .rf-ico-grid,.rf-ico-grid-dis,.rf-ico-grid-hdr-dis {
-    background-image: "#{richSkin.imageUrl('gridDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('gridDisabled.png')}";}
 
 .rf-ico-triangle-hdr {
-    background-image: "#{richSkin.imageUrl('triangle.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangle.png')}";}
 
 .rf-ico-triangle,.rf-ico-triangle-dis,.rf-ico-triangle-hdr-dis {
-    background-image: "#{richSkin.imageUrl('triangleDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleDisabled.png')}";}
 
 .rf-ico-triangle-down-hdr {
-    background-image: "#{richSkin.imageUrl('triangleDown.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleDown.png')}";}
 
 .rf-ico-triangle-down,.rf-ico-triangle-down-dis,.rf-ico-triangle-down-hdr-dis {
-    background-image: "#{richSkin.imageUrl('triangleDownDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleDownDisabled.png')}";}
 
 .rf-ico-triangle-left-hdr {
-    background-image: "#{richSkin.imageUrl('triangleLeft.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleLeft.png')}";}
 
 .rf-ico-triangle-left,.rf-ico-triangle-left-dis,.rf-ico-triangle-left-hdr-dis {
-    background-image: "#{richSkin.imageUrl('triangleLeftDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleLeftDisabled.png')}";}
 
 .rf-ico-triangle-up-hdr {
-    background-image: "#{richSkin.imageUrl('triangleUp.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleUp.png')}";}
 
 .rf-ico-triangle-up,.rf-ico-triangle-up-dis,.rf-ico-triangle-up-hdr-dis {
-    background-image: "#{richSkin.imageUrl('triangleUpDisabled.png')}";}
+    background-image: "#{a4jSkin.imageUrl('triangleUpDisabled.png')}";}

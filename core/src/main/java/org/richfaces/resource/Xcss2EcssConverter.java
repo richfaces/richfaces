@@ -110,7 +110,7 @@ public final class Xcss2EcssConverter {
                 verbatim = true;
                 String skin = atts.getValue("skin");
                 if (null != skin) {
-                    ecssContent.append(" " + cssValue("#{richSkin." + skin + "}") + " ");
+                    ecssContent.append(" " + cssValue("#{a4jSkin." + skin + "}") + " ");
                 }
             }
             if (SELECTOR.equals(localName)) {
@@ -132,14 +132,14 @@ public final class Xcss2EcssConverter {
                     ecssContent.append(":");
                     if (null != defaultAttr) {
                         if (skin != null) {
-                            conditions.add("#{not empty richSkin." + skin + "}");
-                            ecssContent.append(cssValue("#{richSkin." + skin + "}", defaultAttr));
+                            conditions.add("#{not empty a4jSkin." + skin + "}");
+                            ecssContent.append(cssValue("#{a4jSkin." + skin + "}", defaultAttr));
                             conditions.remove(conditions.size() - 1);
                         } else {
                             ecssContent.append(cssValue(defaultAttr, null));
                         }
                     } else if (skin != null) {
-                        ecssContent.append(cssValue("#{richSkin." + skin + "}", null));
+                        ecssContent.append(cssValue("#{a4jSkin." + skin + "}", null));
                     } else if (value != null) {
                         ecssContent.append(cssValue(value, null));
                     }
@@ -153,7 +153,7 @@ public final class Xcss2EcssConverter {
                 }
                 String skin = atts.getValue("f:skin");
                 if (skin != null) {
-                    currentCssValue.append("url(#{resource[richSkin.");
+                    currentCssValue.append("url(#{resource[a4jSkin.");
                     currentCssValue.append(skin);
                 }
             }
@@ -190,7 +190,7 @@ public final class Xcss2EcssConverter {
             if (IF.equals(localName)) {
                 String condition = atts.getValue("when");
                 if (condition == null) {
-                    condition = "#{not empty richSkin." + atts.getValue("skin") + "}";
+                    condition = "#{not empty a4jSkin." + atts.getValue("skin") + "}";
                 }
                 conditions.add(condition);
             }

@@ -7,19 +7,19 @@
 }
 
 .rf-ntf-inf {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-ntf-wrn {
-    color: '#{richSkin.warningColor}';
+    color: '#{a4jSkin.warningColor}';
 }
 
 .rf-ntf-err {
-    color: '#{richSkin.errorColor}';
+    color: '#{a4jSkin.errorColor}';
 }
 
 .rf-ntf-ftl {
-    color: '#{richSkin.errorColor}';
+    color: '#{a4jSkin.errorColor}';
 }
 
 html > body .rf-ntf {
@@ -30,15 +30,15 @@ html > body .rf-ntf {
     margin: 0;
     padding: 8px;
     opacity: .3;
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     position: absolute;
     z-index: -1;
     top: .1em;
     left: .1em;
     bottom: -.2em;
     right: -.2em;
-    background-color: '#{richSkin.headerBackgroundColor}';
-    color: '#{richSkin.headerTextColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    color: '#{a4jSkin.headerTextColor}';
 }
 
 .rf-ntf-cnt {
@@ -47,9 +47,9 @@ html > body .rf-ntf {
     border-width: 1px;
     border-style: solid;
     border-radius: 4px;
-    border-color: '#{richSkin.panelBorderColor}';
-    background-color: '#{richSkin.generalBackgroundColor}';
-    color: '#{richSkin.panelTextColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    background-color: '#{a4jSkin.generalBackgroundColor}';
+    color: '#{a4jSkin.panelTextColor}';
 }
 
 .rf-ntf-cnt-hov {
@@ -90,11 +90,11 @@ html > body .rf-ntf {
 }
 
 .rf-ntf-hstr {
-    background-color: '#{richSkin.headerBackgroundColor}';
-    border-color: '#{richSkin.headerBackgroundColor}';
-    font-size: '#{richSkin.headerSizeFont}';
-    color: '#{richSkin.headerTextColor}';
-    font-family: '#{richSkin.headerFamilyFont}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    border-color: '#{a4jSkin.headerBackgroundColor}';
+    font-size: '#{a4jSkin.headerSizeFont}';
+    color: '#{a4jSkin.headerTextColor}';
+    font-family: '#{a4jSkin.headerFamilyFont}';
     /**
     TODO uncomment this
         background-image:"url(#{resource['org.richfaces.renderkit.html.GradientA']})";
@@ -107,7 +107,7 @@ html > body .rf-ntf {
     right: 18px;
     width: 70px;
     z-index: 10000;
-    color: '#{richSkin.panelTextColor}';
+    color: '#{a4jSkin.panelTextColor}';
 }
 
 .rf-ntf-hstr-hdr {
@@ -125,8 +125,8 @@ html > body .rf-ntf {
     margin: 0 auto;
     width: 16px;
     height: 16px;
-    background-color: '#{richSkin.panelTextColor}';
-    background-image: "#{richSkin.imageUrl('triangleDown.png')}";
+    background-color: '#{a4jSkin.panelTextColor}';
+    background-image: "#{a4jSkin.imageUrl('triangleDown.png')}";
 }
 
 .rf-ntf-inf .rf-ntf-ico {

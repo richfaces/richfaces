@@ -21,8 +21,8 @@
  */
 .rf-edt {
     overflow: hidden;
-    background-color: '#{richSkin.tableBackgroundColor}';
-    border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableBackgroundColor}';
+    border: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
 }
 
 .rf-edt-tbl {
@@ -35,11 +35,11 @@
 }
 
 .rf-edt-hdr,.rf-edt-tbl-hdr {
-    background-image: "#{richSkin.imageUrl('colHdrGrad.png')}";
+    background-image: "#{a4jSkin.imageUrl('colHdrGrad.png')}";
 }
 
 .rf-edt-tbl-hdr {
-    border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    border-bottom: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
 }
 
 .rf-edt-b {
@@ -54,8 +54,8 @@
 }
 
 .rf-edt-ftr,.rf-edt-tbl-ftr {
-    border-top: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
-    background-color: '#{richSkin.tableFooterBackgroundColor}';
+    border-top: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableFooterBackgroundColor}';
 }
 
 .rf-edt-ftr-fzn {
@@ -100,7 +100,7 @@ div.rf-edt-ftr-cnt {
 .rf-edt-rsz-mkr {
     cursor: e-resize;
     position: absolute;
-    border-left: '1px dotted #{richSkin.generalTextColor}';
+    border-left: '1px dotted #{a4jSkin.generalTextColor}';
     /*background-color: #848089;*/
     width: 1px;
     display: none;
@@ -116,22 +116,22 @@ div.rf-edt-ftr-cnt {
     width: 20px;
     height: 5px;
     font-size: 1px;
-    background-color: '#{richSkin.tableHeaderBackgroundColor}';
-    border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableHeaderBackgroundColor}';
+    border: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
 }
 
 .rf-edt-rord td {
     width: 20px;
     height: 5px;
     font-size: 1px;
-    background-color: '#{richSkin.tableBackgroundColor}';
-    border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableBackgroundColor}';
+    border: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
 }
 
 .rf-edt-c,.rf-edt-hdr-c,.rf-edt-ftr-c,.rf-edt-flt-c {
     overflow-x: hidden;
-    border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
-    border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    border-bottom: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
+    border-right: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
 }
 
 .rf-edt-c {
@@ -140,7 +140,7 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-ftr-c-emp {
-    border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    border-right: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
     height: 1px;
 }
 
@@ -150,8 +150,8 @@ div.rf-edt-ftr-cnt {
 
 .rf-edt-c-cnt,.rf-edt-hdr-c-cnt,.rf-edt-ftr-c-cnt,.rf-edt-tbl-hdr,.rf-edt-tbl-ftr {
     padding: 3px 7px;
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }
 
 .rf-edt-hdr-c-cnt,.rf-edt-tbl-hdr,.rf-edt-ftr-c-cnt,.rf-edt-tbl-ftr {
@@ -160,11 +160,11 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-hdr-c-cnt,.rf-edt-tbl-hdr {
-    color: '#{richSkin.tableHeaderTextColor}';
+    color: '#{a4jSkin.tableHeaderTextColor}';
 }
 
 .rf-edt-c-cnt,.rf-edt-ftr-c-cnt,.rf-edt-tbl-ftr {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-edt-rord-mkr {
@@ -177,7 +177,7 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-r-sel {
-    background-color: '#{richSkin.additionalBackgroundColor}'; /*TODO Probably use other skin property.*/
+    background-color: '#{a4jSkin.additionalBackgroundColor}'; /*TODO Probably use other skin property.*/
 }
 
 .rf-edt-r-act {
@@ -186,11 +186,11 @@ div.rf-edt-ftr-cnt {
 
 .rf-edt-c-srt {
     cursor: pointer;
-    color:'#{richSkin.generalLinkColor}';
+    color:'#{a4jSkin.generalLinkColor}';
 }
 
 .rf-edt-c-srt:hover {
-    color:'#{richSkin.hoverLinkColor}';
+    color:'#{a4jSkin.hoverLinkColor}';
 }
 
 .rf-edt-srt-btn {
@@ -222,6 +222,6 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-flt-i-err {
-    background-color: '#{richSkin.warningBackgroundColor}';
+    background-color: '#{a4jSkin.warningBackgroundColor}';
 }
 

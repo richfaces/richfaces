@@ -55,7 +55,7 @@ public class Xcss2EcssConverterTest {
         String xcss = "\t<u:selector name=\"html\">\n"
                 + "\t\t<u:style name=\"border\" skin=\"myProperty\" />\n"
                 + "\t</u:selector>";
-        assertEcssEquals("html{border:'#{richSkin.myProperty}';}", convertFragment(xcss));
+        assertEcssEquals("html{border:'#{a4jSkin.myProperty}';}", convertFragment(xcss));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class Xcss2EcssConverterTest {
         String xcss = "\t<u:selector name=\"html\">\n"
                 + "\t\t<u:style name=\"border\" skin=\"myProperty\" default=\"0\"/>\n"
                 + "\t</u:selector>";
-        assertEcssEquals("html{border:\"#{notemptyrichSkin.myProperty?richSkin.myProperty:'0'}\";}", convertFragment(xcss));
+        assertEcssEquals("html{border:\"#{notemptyrichSkin.myProperty?a4jSkin.myProperty:'0'}\";}", convertFragment(xcss));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class Xcss2EcssConverterTest {
                 + "<u:style name=\"background-position\" skin=\"menu2\"/>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{background-position:\"#{notemptyrichSkin.menu1?richSkin.menu2:''}\";}",
+        assertEcssEquals(".menu{background-position:\"#{notemptyrichSkin.menu1?a4jSkin.menu2:''}\";}",
                 convertFragment(xcss));
     }
 
@@ -132,7 +132,7 @@ public class Xcss2EcssConverterTest {
                 + "<u:style name=\"background-position\" skin=\"menu1\" default=\"0 0\"/>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{background-position:\"#{(notemptyrichSkin.menu1)and(notemptyrichSkin.menu1)?richSkin.menu1:'00'}\";}",
+        assertEcssEquals(".menu{background-position:\"#{(notemptyrichSkin.menu1)and(notemptyrichSkin.menu1)?a4jSkin.menu1:'00'}\";}",
                 convertFragment(xcss));
     }
 
@@ -146,7 +146,7 @@ public class Xcss2EcssConverterTest {
                 + "</f:if>"
                 + "</u:selector>";
         assertEcssEquals(".menu{background-image:\"#{notemptyrichSkin.menu1?'url(':''}" +
-                "#{notemptyrichSkin.menu1?resource[richSkin.menu1]:''}#{notemptyrichSkin.menu1?')':''}\";}",
+                "#{notemptyrichSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptyrichSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 
@@ -186,7 +186,7 @@ public class Xcss2EcssConverterTest {
                 + "<f:verbatim skin=\"prop2\" />"
                 + "</u:style>"
                 + "</u:selector>";
-        assertEcssEquals("th{border-bottom:solid'#{richSkin.prop1}''#{richSkin.prop2}';}",
+        assertEcssEquals("th{border-bottom:solid'#{a4jSkin.prop1}''#{a4jSkin.prop2}';}",
                 convertFragment(xcss));
     }
 

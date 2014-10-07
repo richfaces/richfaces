@@ -26,8 +26,8 @@
 .rf-pm-itm {
     border-top-width: 1px;
     border-top-style: solid;
-    border-top-color: '#{richSkin.panelBorderColor}';
-    color: '#{richSkin.generalTextColor}';
+    border-top-color: '#{a4jSkin.panelBorderColor}';
+    color: '#{a4jSkin.generalTextColor}';
     padding: 2px 1px 2px 2px;
     cursor: pointer;
     white-space: nowrap;
@@ -47,8 +47,8 @@
 
 .rf-pm-itm-lbl {
     padding: 2px 0px 3px 0px;
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
     white-space: normal !important;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .rf-pm-itm:hover {
-    background-color: '#{richSkin.additionalBackgroundColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
 }
 
 .rf-pm-itm-sel {
@@ -71,11 +71,11 @@
 .rf-pm-gr {
     border-top-width: 1px;
     border-top-style: solid;
-    border-top-color: '#{richSkin.panelBorderColor}';
+    border-top-color: '#{a4jSkin.panelBorderColor}';
 }
 
 .rf-pm-gr-hdr:hover {
-    background: '#{richSkin.additionalBackgroundColor}';
+    background: '#{a4jSkin.additionalBackgroundColor}';
     color: white; /*TODO skin?*/
 }
 
@@ -85,7 +85,7 @@
 
 .rf-pm-gr-hdr {
     font-weight: bold;
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
     padding: 2px 1px 2px 2px;
     cursor: pointer;
     white-space: nowrap;
@@ -110,8 +110,8 @@
 .rf-pm-gr-lbl {
     display: inline-block;
     padding: 2px 0px 3px 0px;
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
     white-space: normal !important;
 }
 
@@ -124,12 +124,12 @@
 }
 
 .rf-pm-top-itm {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
     cursor: pointer;
     white-space: nowrap;
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     margin-bottom: 3px;
     padding: 1px;
 }
@@ -149,8 +149,8 @@
 .rf-pm-top-itm-lbl {
     display: inline-block;
     padding: 2px 0px 3px 0px;
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
     white-space: normal !important;
 }
 
@@ -163,8 +163,8 @@
 }
 
 .rf-pm-top-itm:hover {
-    color: '#{richSkin.headerTextColor}';
-    background-color: '#{richSkin.additionalBackgroundColor}';
+    color: '#{a4jSkin.headerTextColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
 }
 
 .rf-pm-top-itm-sel {
@@ -174,8 +174,8 @@
 .rf-pm-top-gr {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     margin-bottom: 3px;
 }
 
@@ -184,35 +184,35 @@
 }
 
 .rf-pm-top-gr-hdr {
-    color: '#{richSkin.headerTextColor}';
+    color: '#{a4jSkin.headerTextColor}';
     padding: 2px 1px 2px 2px;
     cursor: pointer;
     padding-top: 2px;
     cursor: pointer;
     white-space: nowrap;
-    background-image: "#{richSkin.imageUrl('pmenu_bg.png')}";
+    background-image: "#{a4jSkin.imageUrl('pmenu_bg.png')}";
     background-position: top left;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     font-weight: bold;
 }
 
 .rf-pm-top-gr-hdr-dis {
-    color: '#{richSkin.tabDisabledTextColor}';
+    color: '#{a4jSkin.tabDisabledTextColor}';
     padding: 2px 1px 2px 2px;
     cursor: default;
     padding-top: 2px;
     cursor: pointer;
     white-space: nowrap;
-    background-image: "#{richSkin.imageUrl('pmenu_bg_dis.png')}";
+    background-image: "#{a4jSkin.imageUrl('pmenu_bg_dis.png')}";
     background-position: top left;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.additionalBackgroundColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
     font-weight: bold;
 }
 
 .rf-pm-gr-hdr-dis,.rf-pm-itm-dis,.rf-pm-top-itm-dis {
-    color: '#{richSkin.tabDisabledTextColor}';
+    color: '#{a4jSkin.tabDisabledTextColor}';
     cursor: default;
 }
 
@@ -222,7 +222,7 @@
 
 .rf-pm-top-itm-dis:hover {
     background-color: inherit;
-    color: '#{richSkin.tabDisabledTextColor}';
+    color: '#{a4jSkin.tabDisabledTextColor}';
 }
 
 .rf-pm-top-gr-cnt {
@@ -244,8 +244,8 @@
 .rf-pm-top-gr-lbl {
     display: inline-block;
     padding: 2px 0px 3px 0px;
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
     white-space: normal !important;
 }
 
@@ -286,8 +286,8 @@
 }
 
 .rf-pm-hdr-exp {
-    border-top-left-radius: '#{richSkin.panelBorderRadius}';
-    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+    border-top-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-top-right-radius: '#{a4jSkin.panelBorderRadius}';
 }
 
 .rf-pm-hdr-exp .rf-pm-ico-exp {
@@ -299,7 +299,7 @@
 }
 
 .rf-pm-hdr-colps {
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
 }
 
 .rf-pm-hdr-colps .rf-pm-ico-exp {

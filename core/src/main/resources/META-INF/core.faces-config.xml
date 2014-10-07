@@ -65,7 +65,7 @@
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>richSkin</managed-bean-name>
+        <managed-bean-name>a4jSkin</managed-bean-name>
         <managed-bean-class>org.richfaces.skin.SkinBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>

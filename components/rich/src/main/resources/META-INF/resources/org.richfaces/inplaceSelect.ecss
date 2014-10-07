@@ -1,11 +1,11 @@
 .rf-is-fld,.rf-is-opt,.rf-is-lbl {
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }
 
 input.rf-is-fld {
-    background: '#{richSkin.editBackgroundColor}';
+    background: '#{a4jSkin.editBackgroundColor}';
     padding: 0px 0px 0px 0px;
     border: 0px;
     margin: 0px;
@@ -13,9 +13,9 @@ input.rf-is-fld {
     background-image: "url(#{resource['org.richfaces:mark_list.gif']})";
     background-position: center right;
     background-repeat: no-repeat;
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }
 
 .rf-is-none {
@@ -35,7 +35,7 @@ input.rf-is-fld {
     top: 0px;
     left: 0px;
     width: 100px;
-    background-color: '#{richSkin.editBackgroundColor}';
+    background-color: '#{a4jSkin.editBackgroundColor}';
 }
 
 .rf-is-fnt {
@@ -46,10 +46,10 @@ input.rf-is-fld {
     display: inline-block;
     position: relative;
     white-space: nowrap;
-    background-color: '#{richSkin.editorBackgroundColor}';
+    background-color: '#{a4jSkin.editorBackgroundColor}';
     border-bottom-width: 1px;
     border-bottom-style: dashed;
-    border-bottom-color: '#{richSkin.generalTextColor}';
+    border-bottom-color: '#{a4jSkin.generalTextColor}';
     padding-left: 3px;
     padding-right: 3px;
 }
@@ -66,25 +66,25 @@ input.rf-is-fld {
 }
 
 .rf-is-btn {
-    background-image: "#{richSkin.imageUrl('inplaceBtnGrad.png')}";
+    background-image: "#{a4jSkin.imageUrl('inplaceBtnGrad.png')}";
     background-position: top;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.tabBackgroundColor}';
+    background-color: '#{a4jSkin.tabBackgroundColor}';
     border-width: 1px;
     border-style: outset;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     padding: 3px;
     margin: 0px;
 }
 
 .rf-is-btn-p {
-    background-image: "#{richSkin.imageUrl('inplaceBtnPressGrad.png')}";
+    background-image: "#{a4jSkin.imageUrl('inplaceBtnPressGrad.png')}";
     background-position: top;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.tabBackgroundColor}';
+    background-color: '#{a4jSkin.tabBackgroundColor}';
     border-width: 1px;
     border-style: inset;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     padding: 3px;
     margin: 0px;
 }
@@ -99,9 +99,9 @@ input.rf-is-fld {
 .rf-is-lst-cord {
     display: block;
     position: absolute;
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     z-index: 10000;
 }
 
@@ -116,10 +116,10 @@ input.rf-is-fld {
     display: block;
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     padding: 0px;
     /*width: 100%;*/
-    background-color: '#{richSkin.editBackgroundColor}';
+    background-color: '#{a4jSkin.editBackgroundColor}';
 }
 
 .rf-is-lst-scrl {
@@ -133,7 +133,7 @@ input.rf-is-fld {
     display: block;
     padding: 2px;
     white-space: nowrap;
-    background-color: '#{richSkin.editBackgroundColor}';
+    background-color: '#{a4jSkin.editBackgroundColor}';
     cursor: default;
 }
 
@@ -143,7 +143,7 @@ input.rf-is-fld {
     background-color: #DFE8F6; /*get from skin???*/
     border-width: 1px;
     border-style: dotted;
-    border-color: '#{richSkin.generalTextColor}';
+    border-color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-is-btn-prepos {

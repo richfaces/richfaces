@@ -1,16 +1,16 @@
 .rf-tb {
     border: 1px solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    color: '#{richSkin.headerTextColor}';
-    font-family: '#{richSkin.headerFamilyFont}';
-    font-size: '#{richSkin.headerSizeFont}';
-    font-weight: '#{richSkin.headerWeightFont}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    color: '#{a4jSkin.headerTextColor}';
+    font-family: '#{a4jSkin.headerFamilyFont}';
+    font-size: '#{a4jSkin.headerSizeFont}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
     padding: 0px;
-    background-color: '#{richSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     background-position: left top;
     background-repeat: repeat-x;
     /*check gradient  from headerGradientColor to headerBackgroundColor*/
-    background-image: "#{richSkin.imageUrl('gradientA.png')}";
+    background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
     border-collapse: collapse;
     border-spacing : 0;
 }
@@ -43,25 +43,25 @@
 }
 
 .rf-tb-sep-grid {
-    background-image: "#{richSkin.imageUrl('gridSeparatorImage.gif')}";
+    background-image: "#{a4jSkin.imageUrl('gridSeparatorImage.gif')}";
     width: 9px;
     background-repeat: repeat-y;
 }
 
 .rf-tb-sep-line {
     width: 2px;
-    background-image: "#{richSkin.imageUrl('lineSeparatorImage.gif')}";
+    background-image: "#{a4jSkin.imageUrl('lineSeparatorImage.gif')}";
     background-repeat: repeat-y;
 }
 
 .rf-tb-sep-disc {
     width: 9px;
-    background-image: "#{richSkin.imageUrl('dotSeparatorImage.gif')}";
+    background-image: "#{a4jSkin.imageUrl('dotSeparatorImage.gif')}";
     background-repeat: no-repeat;
 }
 
 .rf-tb-sep-square {
     width: 9px;
-    background-image: "#{richSkin.imageUrl('squareSeparatorImage.gif')}";
+    background-image: "#{a4jSkin.imageUrl('squareSeparatorImage.gif')}";
     background-repeat: no-repeat;
 }

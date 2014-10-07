@@ -22,34 +22,34 @@
 .rf-insp {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     display: inline-block;
     font-size: 1px;
     white-space: nowrap;
 }
 
 input.rf-insp-inp[type="text"] {
-    background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('inputBackgroundImage.png')}";
+    background-color: '#{a4jSkin.controlBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('inputBackgroundImage.png')}";
     background-position: 1px 1px;
     background-repeat: no-repeat;
     border: 0px;
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     margin: 0px;
     padding: 0px;
     vertical-align: top;
 }
 
 .rf-insp-btns {
-    background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('buttonBackgroundImage.png')}";
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('buttonBackgroundImage.png')}";
     background-position: top left;
     background-repeat: repeat-x;
     border-left-width: 1px;
     border-left-style: solid;
-    border-left-color: '#{richSkin.panelBorderColor}';
+    border-left-color: '#{a4jSkin.panelBorderColor}';
     display: inline-block;
     vertical-align: top;
 }
@@ -63,17 +63,17 @@ input.rf-insp-inp[type="text"] {
 }
 
 .rf-insp-dec {
-    background-image: "#{richSkin.imageUrl('spinnerArrowBottom.png')}";
+    background-image: "#{a4jSkin.imageUrl('spinnerArrowBottom.png')}";
 }
 
 .rf-insp-inc {
-    background-image: "#{richSkin.imageUrl('spinnerArrowTop.png')}";
+    background-image: "#{a4jSkin.imageUrl('spinnerArrowTop.png')}";
 }
 
 .rf-insp-dec-dis {
-    background-image: "#{richSkin.imageUrl('spinnerDisabledArrowBottom.png')}";
+    background-image: "#{a4jSkin.imageUrl('spinnerDisabledArrowBottom.png')}";
 }
 
 .rf-insp-inc-dis {
-    background-image: "#{richSkin.imageUrl('spinnerDisabledArrowTop.png')}";
+    background-image: "#{a4jSkin.imageUrl('spinnerDisabledArrowTop.png')}";
 }

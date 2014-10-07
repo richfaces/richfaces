@@ -1,12 +1,12 @@
 .rf-au-fnt {
-    color: '#{richSkin.generalTextColor}';
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
 }
 
 input.rf-au-inp {
-    background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('inputBackgroundImage.png')}";
+    background-color: '#{a4jSkin.controlBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('inputBackgroundImage.png')}";
     background-position: 1px 1px;
     background-repeat: no-repeat;
     border: 0px;
@@ -19,12 +19,12 @@ input.rf-au-inp {
 .rf-au {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     display: inline-block;
-    background-image: "#{richSkin.imageUrl('autocompleteFieldGradient.png')}";
+    background-image: "#{a4jSkin.imageUrl('autocompleteFieldGradient.png')}";
     background-repeat: repeat-x;
     background-position: top left;
-    background-color: '#{richSkin.controlBackgroundColor}';
+    background-color: '#{a4jSkin.controlBackgroundColor}';
     font-size: 1px;
 }
 
@@ -36,13 +36,13 @@ input.rf-au-inp {
 }
 
 .rf-au-btn {
-    background-image: "#{richSkin.imageUrl('autocompleteButtonGradient.png')}";
+    background-image: "#{a4jSkin.imageUrl('autocompleteButtonGradient.png')}";
     background-repeat: repeat-x;
     background-position: top left;
-    background-color: '#{richSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     border-left-width: 1px;
     border-left-style: solid;
-    border-left-color: '#{richSkin.panelBorderColor}';
+    border-left-color: '#{a4jSkin.panelBorderColor}';
     display: inline-block;
     vertical-align: top;
 }
@@ -50,7 +50,7 @@ input.rf-au-inp {
 .rf-au-btn-arrow,.rf-au-btn-arrow-dis {
     background-position: center;
     background-repeat: no-repeat;
-    background-image: "#{richSkin.imageUrl('comboDownButton.png')}";
+    background-image: "#{a4jSkin.imageUrl('comboDownButton.png')}";
     cursor: pointer;
     width: 15px;
     height: 16px;
@@ -58,7 +58,7 @@ input.rf-au-inp {
 }
 
 .rf-au-btn-arrow-dis {
-    background-image: "#{richSkin.imageUrl('comboDisabledDownButton.png')}";
+    background-image: "#{a4jSkin.imageUrl('comboDisabledDownButton.png')}";
     cursor: default;
 }
 
@@ -72,9 +72,9 @@ input.rf-au-inp {
 .rf-au-lst-dcrtn {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     padding: 0px;
-    background-color: '#{richSkin.tableBackgroundColor}';
+    background-color: '#{a4jSkin.tableBackgroundColor}';
 }
 
 .rf-au-lst-scrl {
@@ -91,10 +91,10 @@ input.rf-au-inp {
 }
 
 .rf-au-itm-sel {
-    background-color: '#{richSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     border-width: 1px;
     border-style: dotted;
-    border-color: '#{richSkin.generalTextColor}';
+    border-color: '#{a4jSkin.generalTextColor}';
     padding: 1px;
 }
 

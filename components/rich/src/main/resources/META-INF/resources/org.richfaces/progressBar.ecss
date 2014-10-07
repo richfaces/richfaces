@@ -5,26 +5,26 @@
     position: relative;
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     overflow: hidden;
-    color: '#{richSkin.controlTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.controlTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     font-weight: bold;
-    background-color: '#{richSkin.controlBackgroundColor}';
+    background-color: '#{a4jSkin.controlBackgroundColor}';
     padding: 0px;
 }
 
 .rf-pb-prgs {
     overflow: hidden;
-    border-color: '#{richSkin.panelBorderColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     background-repeat: repeat-x;
-    background-color: '#{richSkin.selectControlColor}';
+    background-color: '#{a4jSkin.selectControlColor}';
     height: 100%;
     padding: 0px;
-    background-image: "#{richSkin.imageUrl('pbAniBg.gif')}";
+    background-image: "#{a4jSkin.imageUrl('pbAniBg.gif')}";
 }
 
 .rf-pb-lbl {
@@ -34,11 +34,11 @@
     padding: 0px;
     text-align: center;
     width: 100%;
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
 }
 
 .rf-pb-init,.rf-pb-fin {
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }

@@ -22,9 +22,9 @@
 }
 
 .rf-cst,.rf-cst-nd {
-    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
 }
 
 .rf-cst-r {
@@ -44,46 +44,46 @@
 }
 
 .rf-cst-c,.rf-cst-nd-c {
-    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
-    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
     border-right-style: solid;
-    border-right-color: '#{richSkin.tableBorderColor}';
-    color: '#{richSkin.generalTextColor}';
-    background-color: '#{richSkin.tableBackgroundColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    background-color: '#{a4jSkin.tableBackgroundColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     padding: 4px;
 }
 
 .rf-cst-hdr-c {
-    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
-    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
     border-right-style: solid;
-    border-right-color: '#{richSkin.tableBorderColor}';
-    color: '#{richSkin.generalTextColor}';
-    background-color: '#{richSkin.tableSubHeaderBackgroundColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    background-color: '#{a4jSkin.tableSubHeaderBackgroundColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     font-weight: bold;
     padding: 4px;
     text-align: left;
 }
 
 .rf-cst-shdr-c {
-    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
-    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
     border-right-style: solid;
-    border-right-color: '#{richSkin.tableBorderColor}';
-    background-color: '#{richSkin.tableSubHeaderBackgroundColor}';
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableSubHeaderBackgroundColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     font-weight: bold;
     padding: 4px;
 }
@@ -99,30 +99,30 @@
 .rf-cst-ftr-c {
     border-bottom-width: 3px;
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
-    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
     border-right-style: solid;
-    border-right-color: '#{richSkin.tableBorderColor}';
-    background-color: '#{richSkin.tableSubfooterBackgroundColor}';
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableSubfooterBackgroundColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     font-weight: bold;
     padding: 4px;
     text-align: left;
 }
 
 .rf-cst-sftr-c {
-    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-width: '#{a4jSkin.tableBorderWidth}';
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
-    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
+    border-right-width: '#{a4jSkin.tableBorderWidth}';
     border-right-style: solid;
-    border-right-color: '#{richSkin.tableBorderColor}';
-    background-color: '#{richSkin.tableSubfooterBackgroundColor}';
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    border-right-color: '#{a4jSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableSubfooterBackgroundColor}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     padding: 4px;
 }
 

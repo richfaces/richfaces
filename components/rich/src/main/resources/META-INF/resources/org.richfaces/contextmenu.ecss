@@ -1,7 +1,7 @@
 .rf-ctx-lbl,.rf-ctx-lbl-dis {
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
-    font-weight: '#{richSkin.headerWeightFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
     position: relative;
     white-space: nowrap;
 }
@@ -16,13 +16,13 @@
 }
 
 .rf-ctx-sel {
-    background-image: "#{richSkin.imageUrl('menu_item_bg.png')}";
+    background-image: "#{a4jSkin.imageUrl('menu_item_bg.png')}";
     background-repeat: repeat-x;
     background-position: bottom left;
-    background-color: '#{richSkin.additionalBackgroundColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
     /*from additionalBackgroundColor (top) to tabBackgroundColor (bottom) additionalBackgroundColor*/
     border: 1px solid; /*headerBackgroundColor*/
-    border-color: '#{richSkin.headerBackgroundColor}';
+    border-color: '#{a4jSkin.headerBackgroundColor}';
     cursor: pointer;
 }
 
@@ -33,19 +33,19 @@
 }
 
 .rf-ctx-dis {
-    color: '#{richSkin.tabDisabledTextColor}'; /* #8DB7F3*/
+    color: '#{a4jSkin.tabDisabledTextColor}'; /* #8DB7F3*/
     cursor: default;
 }
 
 .rf-ctx-lbl-dec {
-    font-weight: '#{richSkin.headerWeightFont}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
     cursor: pointer;
 }
 
 .rf-ctx-lst {
     border: 1px solid; /*#bfbfc0*/ /*panelBorderColor*/
-    border-color: '#{richSkin.panelBorderColor}';
-    background-color: '#{richSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
+    border-color: '#{a4jSkin.panelBorderColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
     min-width: 250px;
     position: absolute;
     z-index: 10;
@@ -60,18 +60,18 @@
 
 .rf-ctx-lst-bg {
     border: 1px solid; /* #e7f2fb;*/ /*additionalBackgroundColor*/
-    border-color: '#{richSkin.additionalBackgroundColor}';
+    border-color: '#{a4jSkin.additionalBackgroundColor}';
     background-repeat: repeat-y;
     background-position: left;
-    background-image: "#{richSkin.imageUrl('menu_list_bg.png')}";
+    background-image: "#{a4jSkin.imageUrl('menu_list_bg.png')}";
     /*from additionalBackgroundColor (left) to tabBackgroundColor (right)*/
 }
 
 .rf-ctx-itm {
     padding: 1px 35px 1px 1px;
     white-space: nowrap;
-    font-family: '#{richSkin.generalFamilyFont}'; /*verdana;*/ /*generalFamilyFont*/
-    font-size: '#{richSkin.generalSizeFont}'; /*12px;*/ /*generalSizeFont*/
+    font-family: '#{a4jSkin.generalFamilyFont}'; /*verdana;*/ /*generalFamilyFont*/
+    font-size: '#{a4jSkin.generalSizeFont}'; /*12px;*/ /*generalSizeFont*/
     position: relative;
 }
 
@@ -82,20 +82,20 @@
 
 .rf-ctx-itm-sel {
     border: 1px solid; /* #4a70ab;*/ /*headerBackgroundColor*/
-    border-color: '#{richSkin.headerBackgroundColor}';
+    border-color: '#{a4jSkin.headerBackgroundColor}';
     cursor: pointer;
     padding: 1px 36px 2px 2px;
-    background-color: '#{richSkin.additionalBackgroundColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
     background-repeat: repeat-x;
     background-position: bottom left;
-    background-image: "#{richSkin.imageUrl('menu_item_bg.png')}";
+    background-image: "#{a4jSkin.imageUrl('menu_item_bg.png')}";
     z-index: 10;
 }
 
 .rf-ctx-itm-dis {
     border: 1px solid transparent;
     cursor: default;
-    color: '#{richSkin.tabDisabledTextColor}'; /*#839eca;*/ /*tabDisabledTextColor*/
+    color: '#{a4jSkin.tabDisabledTextColor}'; /*#839eca;*/ /*tabDisabledTextColor*/
 }
 
 .rf-ctx-itm-ic {
@@ -105,7 +105,7 @@
 }
 
 .rf-ctx-itm-lbl {
-    color: '#{richSkin.generalTextColor}'; /*#000000;*/ /*generalTextColor*/
+    color: '#{a4jSkin.generalTextColor}'; /*#000000;*/ /*generalTextColor*/
     display: inline-block;
     text-decoration: none;
     vertical-align: middle;
@@ -115,12 +115,12 @@
 .rf-ctx-sep {
     font-size: 0px;
     border-top: 1px solid; /*  #BED6F8;*/ /*panelBorderColor*/
-    border-top-color: '#{richSkin.panelBorderColor}';
+    border-top-color: '#{a4jSkin.panelBorderColor}';
     margin: 2px 0px 2px 24px;
 }
 
 .rf-ctx-nd {
-    background-image: "#{richSkin.imageUrl('menuNodeImage.png')}";
+    background-image: "#{a4jSkin.imageUrl('menuNodeImage.png')}";
     background-repeat: no-repeat;
     background-position: top;
     font-size: 1px;

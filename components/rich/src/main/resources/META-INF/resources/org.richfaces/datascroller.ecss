@@ -1,33 +1,33 @@
 .rf-ds {
     white-space: nowrap;
     display: inline-block;
-    font-size: '#{richSkin.generalSizeFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     padding: 1px;
-    font-family: '#{richSkin.generalFamilyFont}';
-    background: '#{richSkin.tableBackgroundColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    background: '#{a4jSkin.tableBackgroundColor}';
 }
 
 a.rf-ds-nmb-btn {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 a.rf-ds-btn {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-ds-cont {
     white-space: nowrap;
     display: inline-block;
-    font-size: '#{richSkin.generalSizeFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     padding: 1px;
-    font-family: '#{richSkin.generalFamilyFont}';
-    background: '#{richSkin.tableBackgroundColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    background: '#{a4jSkin.tableBackgroundColor}';
 }
 
 .rf-ds-cont-dec {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.tableBorderColor}';
+    border-color: '#{a4jSkin.tableBorderColor}';
 }
 
 .rf-ds-btn {
@@ -35,15 +35,15 @@ a.rf-ds-btn {
     padding: 2px 10px 3px 10px;
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.tableBorderColor}';
+    border-color: '#{a4jSkin.tableBorderColor}';
     display: inline-block;
     background-position: top left;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('dsBtnGrad.png')}";
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    color: '#{richSkin.generalTextColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('dsBtnGrad.png')}";
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    color: '#{a4jSkin.generalTextColor}';
     text-decoration: none;
     font-weight: normal;
 }
@@ -53,7 +53,7 @@ a.rf-ds-btn {
 }
 
 .rf-ds-dis:hover {
-    color: '#{richSkin.tableBorderColor}';
+    color: '#{a4jSkin.tableBorderColor}';
     cursor: default;
 }
 
@@ -77,34 +77,34 @@ a.rf-ds-btn {
     border-color: transparent;
     border-top-width: 1px;
     border-top-style: solid;
-    border-top-color: '#{richSkin.tableBorderColor}';
-    background-color: '#{richSkin.tableBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('dsDigGrad.png')}";
+    border-top-color: '#{a4jSkin.tableBorderColor}';
+    background-color: '#{a4jSkin.tableBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('dsDigGrad.png')}";
     background-position: top left;
     background-repeat: repeat-x;
     display: inline-block;
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
     text-decoration: none;
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
     font-weight: normal;
 }
 
 .rf-ds-nmb-btn:hover {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.tableBorderColor}';
+    border-color: '#{a4jSkin.tableBorderColor}';
     background-position: top left;
     background-repeat: repeat-x;
-    background-color: '#{richSkin.tableBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('dsBtnGradOver.png')}";
+    background-color: '#{a4jSkin.tableBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('dsBtnGradOver.png')}";
 }
 
 .rf-ds-press {
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.tableBorderColor}';
-    background: '#{richSkin.additionalBackgroundColor}';
+    border-color: '#{a4jSkin.tableBorderColor}';
+    background: '#{a4jSkin.additionalBackgroundColor}';
 }
 
 .rf-ds-act,.rf-ds-act:hover {
@@ -115,12 +115,12 @@ a.rf-ds-btn {
     border-color: transparent;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-bottom-color: '#{a4jSkin.tableBorderColor}';
     background: none;
 }
 
 .rf-ds-dis {
-    color: '#{richSkin.tableBorderColor}';
+    color: '#{a4jSkin.tableBorderColor}';
     cursor: default;
 }
 

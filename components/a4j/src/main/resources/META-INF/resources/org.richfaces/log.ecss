@@ -1,5 +1,5 @@
 .rf-log {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-log-popup {

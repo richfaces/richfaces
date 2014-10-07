@@ -1,7 +1,7 @@
 /*--- RF Message styles ---*/
 .rf-msg,.rf-msgs {
-    font-family: '#{richSkin.generalFamilyFont}'; /*generalFamilyFont*/
-    font-size: '#{richSkin.generalSizeFont}'; /*generalSizeFont*/
+    font-family: '#{a4jSkin.generalFamilyFont}'; /*generalFamilyFont*/
+    font-size: '#{a4jSkin.generalSizeFont}'; /*generalSizeFont*/
 }
 /* all messages */
 .rf-msg-err,.rf-msgs-err,.rf-msg-ftl,.rf-msgs-ftl,.rf-msg-inf,.rf-msgs-inf,.rf-msg-wrn,.rf-msgs-wrn,.rf-msg-ok,.rf-msgs-ok {
@@ -15,27 +15,27 @@
 
 .rf-msg-err,.rf-msgs-err {
     background-image: "url(#{resource['org.richfaces:error.png']})";
-    color: '#{richSkin.errorColor}';
+    color: '#{a4jSkin.errorColor}';
 }
 
 .rf-msg-ftl,.rf-msgs-ftl {
     background-image: "url(#{resource['org.richfaces:fatal.png']})";
-    color: '#{richSkin.errorColor}';
+    color: '#{a4jSkin.errorColor}';
 }
 
 .rf-msg-inf,.rf-msgs-inf {
     background-image: "url(#{resource['org.richfaces:info.png']})";
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-msg-wrn,.rf-msgs-wrn {
     background-image: "url(#{resource['org.richfaces:warning.png']})";
-    color: '#{richSkin.warningColor}';
+    color: '#{a4jSkin.warningColor}';
 }
 
 .rf-msg-ok,.rf-msgs-ok {
     background-image: "url(#{resource['org.richfaces:ok.png']})";
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-msg-sum,.rf-msgs-sum { /*Summary*/

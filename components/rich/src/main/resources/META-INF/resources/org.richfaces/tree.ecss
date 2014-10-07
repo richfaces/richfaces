@@ -21,11 +21,11 @@
  */
 
 .rf-trn {
-    background: "#{richSkin.imageUrl('last.png')} no-repeat center left";
+    background: "#{a4jSkin.imageUrl('last.png')} no-repeat center left";
     cursor: default;
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    color: '#{richSkin.generalTextColor}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    color: '#{a4jSkin.generalTextColor}';
     padding: 1px 0px 1px 0px;
     overflow: hidden;
     width: 100%;
@@ -44,11 +44,11 @@
 }
 
 .rf-trn-sel {
-    background: '#{richSkin.additionalBackgroundColor}';
+    background: '#{a4jSkin.additionalBackgroundColor}';
 }
 
 .rf-tr-nd {
-    background: "#{richSkin.imageUrl('line.png')} repeat-y";
+    background: "#{a4jSkin.imageUrl('line.png')} repeat-y";
     min-height: 0px;
 }
 
@@ -74,19 +74,19 @@
 }
 
 .rf-trn-hnd-colps {
-    background: "#{richSkin.imageUrl('plus.png')} no-repeat center";
+    background: "#{a4jSkin.imageUrl('plus.png')} no-repeat center";
 }
 
 .rf-trn-hnd-exp {
-    background: "#{richSkin.imageUrl('minus.png')} no-repeat center";
+    background: "#{a4jSkin.imageUrl('minus.png')} no-repeat center";
 }
 
 .rf-trn-ico-exp,.rf-trn-ico-colps {
-    background: "#{richSkin.imageUrl('node_icon.gif')} no-repeat center";
+    background: "#{a4jSkin.imageUrl('node_icon.gif')} no-repeat center";
 }
 
 .rf-trn-ico-lf {
-    background: "#{richSkin.imageUrl('leaf_icon.gif')} no-repeat center";
+    background: "#{a4jSkin.imageUrl('leaf_icon.gif')} no-repeat center";
 }
 
 .rf-trn-ico-cst {

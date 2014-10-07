@@ -20,23 +20,23 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 .rf-fu {
-    background: '#{richSkin.generalBackgroundColor}';
-    border-color: '#{richSkin.panelBorderColor}';
+    background: '#{a4jSkin.generalBackgroundColor}';
+    border-color: '#{a4jSkin.panelBorderColor}';
     border-style: solid;
     border-width: 1px;
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     width: 400px; /*TODO Remove it*/
     outline: none;
 }
 
 .rf-fu-hdr {
-    background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('gradientA.png')}";
-    border-color: '#{richSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
+    border-color: '#{a4jSkin.headerBackgroundColor}';
     border-style: solid;
     border-width: 1px;
-    border-top-left-radius: '#{richSkin.panelBorderRadius}';
-    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+    border-top-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-top-right-radius: '#{a4jSkin.panelBorderRadius}';
     margin-left: 1px;
     margin-top: 1px;
     white-space: nowrap;
@@ -77,15 +77,15 @@
 }
 
 .rf-fu-btn-add,.rf-fu-btn-upl,.rf-fu-btn-clr {
-    background-color: '#{richSkin.trimColor}';
-    background-image: "#{richSkin.imageUrl('fuBtnGrad.png')}";
-    border-color: '#{richSkin.panelBorderColor}';
+    background-color: '#{a4jSkin.trimColor}';
+    background-image: "#{a4jSkin.imageUrl('fuBtnGrad.png')}";
+    border-color: '#{a4jSkin.panelBorderColor}';
 }
 
 .rf-fu-btn-add-dis {
-    background-color: '#{richSkin.tableFooterBackgroundColor}';
-    background-image: "#{richSkin.imageUrl('fuBtnDisGrad.png')}";
-    border-color: '#{richSkin.tableFooterBackgroundColor}';
+    background-color: '#{a4jSkin.tableFooterBackgroundColor}';
+    background-image: "#{a4jSkin.imageUrl('fuBtnDisGrad.png')}";
+    border-color: '#{a4jSkin.tableFooterBackgroundColor}';
 }
 
 .rf-fu-btn-upl,.rf-fu-btn-clr {
@@ -93,12 +93,12 @@
 }
 
 .rf-fu-btn-cnt-add,.rf-fu-btn-cnt-add-dis,.rf-fu-btn-cnt-upl,.rf-fu-btn-cnt-clr,.rf-fu-itm-lbl,.rf-fu-itm-st,.rf-fu-itm-lnk {
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
 }
 
 .rf-fu-btn-cnt-add,.rf-fu-btn-cnt-upl,.rf-fu-btn-cnt-clr,.rf-fu-itm-lbl,.rf-fu-itm-st {
-    color: '#{richSkin.generalTextColor}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-fu-btn-cnt-add,.rf-fu-btn-cnt-add-dis,.rf-fu-btn-cnt-upl,.rf-fu-btn-cnt-clr {
@@ -116,7 +116,7 @@
 
 .rf-fu-btn-cnt-add-dis {
     background-image: url("#{resource['org.richfaces:fu-add-dis.gif']}");
-    color: '#{richSkin.tabDisabledTextColor}';
+    color: '#{a4jSkin.tabDisabledTextColor}';
 }
 
 .rf-fu-btn-cnt-upl,.rf-fu-itm-st {
@@ -150,7 +150,7 @@
 }
 
 .rf-fu-itm {
-    border-bottom-color: '#{richSkin.panelBorderColor}';
+    border-bottom-color: '#{a4jSkin.panelBorderColor}';
     border-bottom-style: solid;
     border-bottom-width: 1px;
     padding: 12px;
@@ -170,7 +170,7 @@
 }
 
 .rf-fu-itm-lnk {
-    color: '#{richSkin.generalLinkColor}';
+    color: '#{a4jSkin.generalLinkColor}';
 }
 
 .rf-fu-itm-st {

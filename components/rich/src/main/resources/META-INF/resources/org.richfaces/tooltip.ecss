@@ -37,9 +37,9 @@
     padding: 7px;
     border: 1px solid;
     /*  color: generalFontColor; */
-    border-color: '#{richSkin.tipBorderColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    font-size: '#{richSkin.generalSizeFont}';
+    border-color: '#{a4jSkin.tipBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
     display: inline-block;
 }

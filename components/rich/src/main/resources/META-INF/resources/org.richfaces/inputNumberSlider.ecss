@@ -33,9 +33,9 @@
 }
 
 .rf-insl-mn,.rf-insl-mx,input.rf-insl-inp,.rf-insl-tt {
-    font-size: '#{richSkin.generalSizeFont}';
-    font-family: '#{richSkin.generalFamilyFont}';
-    color: '#{richSkin.generalTextColor}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    color: '#{a4jSkin.generalTextColor}';
 }
 
 .rf-insl-mn,.rf-insl-mx {
@@ -46,7 +46,7 @@
 .rf-insl-mn {
     border-left-width: 1px;
     border-left-style: solid;
-    border-left-color: '#{richSkin.panelBorderColor}';
+    border-left-color: '#{a4jSkin.panelBorderColor}';
     padding-left: 3px;
     float: left;
 }
@@ -54,7 +54,7 @@
 .rf-insl-mx {
     border-right-width: 1px;
     border-right-style: solid;
-    border-right-color: '#{richSkin.panelBorderColor}';
+    border-right-color: '#{a4jSkin.panelBorderColor}';
     padding-right: 3px;
     float: right;
     text-align: right;
@@ -74,17 +74,17 @@ input.rf-insl-inp {
     position: absolute;
     display: none;
     padding: 2px;
-    border: 1px solid '#{richSkin.tipBorderColor}';
-    background-color: '#{richSkin.tipBackgroundColor}';
+    border: 1px solid '#{a4jSkin.tipBorderColor}';
+    background-color: '#{a4jSkin.tipBackgroundColor}';
 }
 
 .rf-insl-trc {
-    background: "#{richSkin.imageUrl('insldrTrackGrad.png')} 1px 1px repeat-x";
-    background-color: '#{richSkin.controlBackgroundColor}';
+    background: "#{a4jSkin.imageUrl('insldrTrackGrad.png')} 1px 1px repeat-x";
+    background-color: '#{a4jSkin.controlBackgroundColor}';
     border-width: 1px;
     border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-color: '#{a4jSkin.panelBorderColor}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     display: block;
     height: 6px;
     clear: both;
@@ -101,7 +101,7 @@ input.rf-insl-inp {
 
 .rf-insl-bar .rf-insl-hnd-cntr {
     text-align: right;
-    background-image: "#{richSkin.imageUrl('inputNumberSliderBarHandleBg.gif')}";
+    background-image: "#{a4jSkin.imageUrl('inputNumberSliderBarHandleBg.gif')}";
 }
 
 .rf-insl-bar .rf-insl-trc, .rf-insl-bar .rf-insl-hnd-cntr, .rf-insl-bar .rf-insl-hnd  {
@@ -127,37 +127,37 @@ input.rf-insl-inp {
 }
 
 .rf-insl-hnd {
-    background-image: "#{richSkin.imageUrl('sliderArrowBottom.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderArrowBottom.png')}";
 }
 
 .rf-insl-hnd-sel {
-    background-image: "#{richSkin.imageUrl('sliderSelectedArrowBottom.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderSelectedArrowBottom.png')}";
 }
 
 .rf-insl-hnd-dis {
-    background-image: "#{richSkin.imageUrl('sliderDisabledArrowBottom.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderDisabledArrowBottom.png')}";
 }
 
 .rf-insl-dec {
-    background-image: "#{richSkin.imageUrl('sliderArrowLeft.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderArrowLeft.png')}";
 }
 
 .rf-insl-dec-sel {
-    background-image: "#{richSkin.imageUrl('sliderSelectedArrowLeft.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderSelectedArrowLeft.png')}";
 }
 
 .rf-insl-dec-dis {
-    background-image: "#{richSkin.imageUrl('sliderDisabledArrowLeft.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderDisabledArrowLeft.png')}";
 }
 
 .rf-insl-inc {
-    background-image: "#{richSkin.imageUrl('sliderArrowRight.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderArrowRight.png')}";
 }
 
 .rf-insl-inc-sel {
-    background-image: "#{richSkin.imageUrl('sliderSelectedArrowRight.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderSelectedArrowRight.png')}";
 }
 
 .rf-insl-inc-dis {
-    background-image: "#{richSkin.imageUrl('sliderDisabledArrowRight.png')}";
+    background-image: "#{a4jSkin.imageUrl('sliderDisabledArrowRight.png')}";
 }

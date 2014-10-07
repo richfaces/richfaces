@@ -1,32 +1,32 @@
 .rf-p {
-    background-color: '#{richSkin.generalBackgroundColor}';
-    color: '#{richSkin.panelBorderColor}';
+    background-color: '#{a4jSkin.generalBackgroundColor}';
+    color: '#{a4jSkin.panelBorderColor}';
     border-width: 1px;
     border-style: solid;
-    border-radius: '#{richSkin.panelBorderRadius}';
+    border-radius: '#{a4jSkin.panelBorderRadius}';
     padding: 1px;
 }
 
 .rf-p-hdr {
-    background-color: '#{richSkin.headerBackgroundColor}';
-    border-color: '#{richSkin.headerBackgroundColor}';
-    border-top-left-radius: '#{richSkin.panelBorderRadius}';
-    border-top-right-radius: '#{richSkin.panelBorderRadius}';
-    font-size: '#{richSkin.headerSizeFont}';
-    color: '#{richSkin.headerTextColor}';
-    font-weight: '#{richSkin.headerWeightFont}';
-    font-family: '#{richSkin.headerFamilyFont}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
+    border-color: '#{a4jSkin.headerBackgroundColor}';
+    border-top-left-radius: '#{a4jSkin.panelBorderRadius}';
+    border-top-right-radius: '#{a4jSkin.panelBorderRadius}';
+    font-size: '#{a4jSkin.headerSizeFont}';
+    color: '#{a4jSkin.headerTextColor}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
+    font-family: '#{a4jSkin.headerFamilyFont}';
     padding: 2px;
     border-width: 1px;
     border-style: solid;
     background-position: top left;
     background-repeat: repeat-x;
-    background-image: "#{richSkin.imageUrl('gradientA.png')}";
+    background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
 }
 
 .rf-p-b {
-    font-size: '#{richSkin.generalSizeFont}';
-    color: '#{richSkin.generalTextColor}';
-    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    color: '#{a4jSkin.generalTextColor}';
+    font-family: '#{a4jSkin.generalFamilyFont}';
     padding: 10px;
 }
