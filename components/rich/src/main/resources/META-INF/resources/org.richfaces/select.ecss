@@ -11,6 +11,7 @@
     display: inline-block;
     font-size: 1px;
     white-space: nowrap;
+    width: 100%;
 }
 
 input.rf-sel-inp {
@@ -22,7 +23,7 @@ input.rf-sel-inp {
     margin: 0px;
     padding: 0px;
     vertical-align: top;
-    width: 182px;
+    width: 100%;
 }
 
 .rf-sel {
