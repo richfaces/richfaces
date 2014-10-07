@@ -253,14 +253,14 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
             setShowEvent(getDefaultShowEvent());
         }
 
-        protected void setShowEvent(Event newShowEvent) {
+        public void setShowEvent(Event newShowEvent) {
             if (newShowEvent == null) {
                 throw new IllegalArgumentException("Parameter newInvokeEvent can not be null!");
             }
             invokeEvent = newShowEvent;
         }
 
-        public void setupShowEventFromWidget() {
+        public void setShowEventFromWidget() {
             Optional<String> event = Utils.getComponentOption(root, "showEvent");
             setShowEvent(new Event(event.or(getDefaultShowEvent().getEventName())));
         }

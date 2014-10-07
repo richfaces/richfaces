@@ -88,7 +88,7 @@ public class RichFacesDropDownMenu extends AbstractPopupMenu implements PopupMen
         }
 
         @Override
-        protected void setShowEvent(Event showEvent) {
+        public void setShowEvent(Event showEvent) {
             this.invokeEvent = showEvent;
         }
 
