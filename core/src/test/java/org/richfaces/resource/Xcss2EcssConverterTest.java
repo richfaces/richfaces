@@ -63,7 +63,7 @@ public class Xcss2EcssConverterTest {
         String xcss = "\t<u:selector name=\"html\">\n"
                 + "\t\t<u:style name=\"border\" skin=\"myProperty\" default=\"0\"/>\n"
                 + "\t</u:selector>";
-        assertEcssEquals("html{border:\"#{notemptyrichSkin.myProperty?a4jSkin.myProperty:'0'}\";}", convertFragment(xcss));
+        assertEcssEquals("html{border:\"#{notemptya4jSkin.myProperty?a4jSkin.myProperty:'0'}\";}", convertFragment(xcss));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class Xcss2EcssConverterTest {
                 + "<u:style name=\"left\" value=\"10px\"/>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{left:\"#{notemptyrichSkin.menu1?'10px':''}\";}",
+        assertEcssEquals(".menu{left:\"#{notemptya4jSkin.menu1?'10px':''}\";}",
                 convertFragment(xcss));
     }
 
@@ -121,7 +121,7 @@ public class Xcss2EcssConverterTest {
                 + "<u:style name=\"background-position\" skin=\"menu2\"/>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{background-position:\"#{notemptyrichSkin.menu1?a4jSkin.menu2:''}\";}",
+        assertEcssEquals(".menu{background-position:\"#{notemptya4jSkin.menu1?a4jSkin.menu2:''}\";}",
                 convertFragment(xcss));
     }
 
@@ -132,7 +132,7 @@ public class Xcss2EcssConverterTest {
                 + "<u:style name=\"background-position\" skin=\"menu1\" default=\"0 0\"/>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{background-position:\"#{(notemptyrichSkin.menu1)and(notemptyrichSkin.menu1)?a4jSkin.menu1:'00'}\";}",
+        assertEcssEquals(".menu{background-position:\"#{(notemptya4jSkin.menu1)and(notemptya4jSkin.menu1)?a4jSkin.menu1:'00'}\";}",
                 convertFragment(xcss));
     }
 
@@ -145,8 +145,8 @@ public class Xcss2EcssConverterTest {
                 + "</u:style>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{background-image:\"#{notemptyrichSkin.menu1?'url(':''}" +
-                "#{notemptyrichSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptyrichSkin.menu1?')':''}\";}",
+        assertEcssEquals(".menu{background-image:\"#{notemptya4jSkin.menu1?'url(':''}" +
+                "#{notemptya4jSkin.menu1?resource[a4jSkin.menu1]:''}#{notemptya4jSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 
@@ -159,8 +159,8 @@ public class Xcss2EcssConverterTest {
                 + "</u:style>"
                 + "</f:if>"
                 + "</u:selector>";
-        assertEcssEquals(".menu{background-image:\"#{notemptyrichSkin.menu1?'url(':''}" +
-                "#{notemptyrichSkin.menu1?resource['META-INF/lien.gif']:''}#{notemptyrichSkin.menu1?')':''}\";}",
+        assertEcssEquals(".menu{background-image:\"#{notemptya4jSkin.menu1?'url(':''}" +
+                "#{notemptya4jSkin.menu1?resource['META-INF/lien.gif']:''}#{notemptya4jSkin.menu1?')':''}\";}",
                 convertFragment(xcss));
     }
 
