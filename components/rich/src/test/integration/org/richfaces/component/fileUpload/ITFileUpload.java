@@ -27,11 +27,11 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import category.Failing;
 import category.Smoke;
 
 @RunWith(Arquillian.class)
@@ -68,14 +68,22 @@ public class ITFileUpload {
     private JavascriptExecutor executor;
 
     @Test
-    @Category({Smoke.class, Failing.class})
+    @Category({Smoke.class})
     public void test_file_upload() throws InterruptedException, URISyntaxException {
         browser.get(contextPath.toExternalForm());
 
         File file = new File(ITFileUpload.class.getResource("ITFileUpload.class").toURI());
 
         executor.executeScript("$(arguments[0]).css({ position: 'absolute', top: '100px', left: '100px', display: 'block', visibility: 'visible', width: '100px', height: '100px' })", fileInputField);
-        fileInputField.sendKeys(file.getAbsolutePath());
+        String pathToFile = file.getAbsolutePath();
+
+        if (browser instanceof PhantomJSDriver) {
+            // workaround for PhantomJS where usual upload does not work
+            ((PhantomJSDriver)browser).executePhantomJS("var page = this; page.uploadFile('input[type=file]', '" + pathToFile + "');");
+        } else {
+            // for all other browsers
+            fileInputField.sendKeys(pathToFile);
+        }
 
         Warp
             .initiate(new Activity() {
