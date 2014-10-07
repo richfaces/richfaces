@@ -289,7 +289,7 @@
                 newValue = (newValue != this.defaultLabel) ? newValue : "";
                 this.__updateItemsFromCache(newValue);
 
-                if (this.selectFirst && this.enabledManualInput) {
+                if (this.selectFirst && this.enableManualInput) {
                     this.list.__selectByIndex(0);
                 }
             },
