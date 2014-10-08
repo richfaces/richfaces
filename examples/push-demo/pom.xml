@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>push-demo</artifactId>
-    <name>RichFaces Example: Push Demo</name>
+    <name>RichFaces Example - Push Demo</name>
     <packaging>war</packaging>
 
     <properties>

@@ -34,7 +34,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>jpa-demo</artifactId>
     <packaging>war</packaging>
-    <name>RichFaces Example: JPA Demo</name>
+    <name>RichFaces Example - JPA Demo</name>
 
     <properties>
         <version.richfaces>4.5.0-SNAPSHOT</version.richfaces>
