@@ -38,8 +38,8 @@ Also optional Additional Software would make it easy for you to work with the so
 * *Eclipse IDE* + *JBoss Tools* (to explore and run the application in IDE). You're obviously free to use any other IDE you wish, but JBoss Tools is recommended. Check <http://www.jboss.org/tools/download> out for tools downloading.
 * Another option is to use *JBoss Developer Studio*, where you can find all required plugins pre installed for better convenience. Check <https://devstudio.jboss.com/download/6.x.html> out for developer studio downloading. 
     
-Build / Deploy
---------------
+Build / Deploy / Test
+---------------------
 
 ### Deploying on Tomcat
 
@@ -59,7 +59,7 @@ for JBoss AS 7.0.x:
     
     mvn clean package -Pjbas7
     
-or for JBoss AS 7.1.x / EAP 6
+or for JBoss AS 7.1.x / EAP 6 / WildFly 8
     
     mvn clean package -Pjbas71
     
@@ -81,7 +81,25 @@ To **deploy** it on the application server, use either:
 After deploying the examples to your server open a browser and type 
 <http://localhost:8080/showcase> to view the examples. Note that the URL depends on the context on which your application server deployed the showcase application.
 
-    
+### How to Test the Project
+
+The tests work quite the same as framework test. For more information see [Framework Tests](https://github.com/richfaces/richfaces5/blob/master/TESTS.md) document.
+
+#### Some examples
+
+For testing on managed WildFly 8.1 on Firefox use:
+
+   ``mvn clean verify -Dintegration=wildfly81 -Dbrowser=firefox``
+
+For testing on managed Tomcat 7:
+
+   ``mvn clean verify -Dintegration=tomcat7``
+
+For testing on managed Tomcat 7 on Firefox using MyFaces use:
+
+   ``mvn clean verify -Dintegration=tomcat7 -Dbrowser=firefox -Pmyfaces``
+
+
 Setting up Eclipse to work with the showcase
 --------------------------------------------
     

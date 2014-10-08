@@ -19,7 +19,6 @@
     <properties>
         <version.rf4.ui>4.5.0-SNAPSHOT</version.rf4.ui>
         <dependency.scope>compile</dependency.scope>
-        <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
         <container.resources.exclude />
         <container.webapp>src/main/webapp-tomcat</container.webapp>
@@ -192,7 +191,7 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <classifier>${container.classifier}</classifier>
+                    <classifier>${showcase.war.classifier}</classifier>
                     <outputFileNameMapping>${war.outputFileNameMapping}</outputFileNameMapping>
                     <webResources>
                         <resource>
@@ -229,7 +228,7 @@
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
-                        <container.classifier>${container.classifier}</container.classifier>
+                        <container.classifier>${showcase.war.classifier}</container.classifier>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -286,6 +285,9 @@
                     <value>myfaces</value>
                 </property>
             </activation>
+            <properties>
+                <showcase.war.classifier>myfaces</showcase.war.classifier>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
@@ -302,7 +304,7 @@
         <profile>
             <id>jee6</id>
             <properties>
-                <container.classifier>jee6</container.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
                 <container.resources>src/main/resources-jee6</container.resources>
                 <container.webapp>src/main/webapp-jee6</container.webapp>
                 <dependency.scope>provided</dependency.scope>
@@ -311,7 +313,7 @@
         <profile>
             <id>jbas7</id>
             <properties>
-                <container.classifier>jbas7</container.classifier>
+                <showcase.war.classifier>jbas7</showcase.war.classifier>
                 <container.resources>src/main/resources-jbas7</container.resources>
                 <container.webapp>src/main/webapp-jbas7</container.webapp>
                 <dependency.scope>provided</dependency.scope>
@@ -342,14 +344,8 @@
         </profile>
         <profile>
             <id>jbas71</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>wildfly81</value>
-                </property>
-            </activation>
             <properties>
-                <container.classifier>jbas71</container.classifier>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
                 <container.resources>src/main/resources-jbas71</container.resources>
                 <container.webapp>src/main/webapp-jbas71</container.webapp>
                 <dependency.scope>provided</dependency.scope>
@@ -382,7 +378,7 @@
         <profile>
             <id>openshift</id>
             <properties>
-                <container.classifier>openshift</container.classifier>
+                <showcase.war.classifier>openshift</showcase.war.classifier>
                 <container.resources>src/main/resources-jbas7</container.resources>
                 <container.webapp>src/main/webapp-openshift</container.webapp>
                 <dependency.scope>provided</dependency.scope>

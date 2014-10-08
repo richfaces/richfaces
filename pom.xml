@@ -144,6 +144,10 @@
 
         <!-- Release -->
         <regular.files.which.contains.version>core/src/main/java/org/richfaces/VersionBean.java,dist/src/main/resources/txt/readme.txt,dist/src/main/resources/txt/readme-examples.txt,build/build-resources/src/main/java/org/richfaces/arquillian/configuration/FundamentalTestConfiguration.java,build/resources-plugin/src/site/apt/usage.apt,examples/showcase/src/main/webapp/META-INF/MANIFEST.MF,examples/showcase/README.md,examples/irc-client/readme.txt</regular.files.which.contains.version>
+
+        <!-- Showcase -->
+        <!-- default classifier -->
+        <showcase.war.classifier>tomcat6</showcase.war.classifier>
     </properties>
 
     <prerequisites>
@@ -687,6 +691,7 @@
                 <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly80}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly80}</arquillian.container.distribution>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -704,6 +709,9 @@
                     <value>wildfly80-remote</value>
                 </property>
             </activation>
+            <properties>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
@@ -724,6 +732,7 @@
                 <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -747,6 +756,7 @@
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-wildfly81-https:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -777,6 +787,9 @@
                     <value>wildfly81-remote</value>
                 </property>
             </activation>
+            <properties>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
@@ -799,6 +812,7 @@
                 <arquillian.container.home>${project.build.directory}/jboss-eap-6.2</arquillian.container.home>
                 <arquillian.container.distribution>file:///path/to/jboss-eap-6.2.4.zip</arquillian.container.distribution>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -825,6 +839,7 @@
             </activation>
             <properties>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -854,6 +869,7 @@
                 <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
                 <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -880,6 +896,7 @@
             </activation>
             <properties>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -994,6 +1011,7 @@
             <properties>
                 <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <showcase.war.classifier>tomcat6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1017,6 +1035,7 @@
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat6}</arquillian.container.home>
                 <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat6}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>tomcat6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1037,6 +1056,7 @@
             <properties>
                 <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <showcase.war.classifier>tomcat6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1061,6 +1081,7 @@
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
                 <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>tomcat6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1085,6 +1106,7 @@
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat8}</arquillian.container.home>
                 <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat8}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>tomcat6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
