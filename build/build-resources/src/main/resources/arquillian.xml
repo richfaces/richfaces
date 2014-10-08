@@ -56,7 +56,7 @@
         <configuration>
             <property name="catalinaHome">${arquillian.container.home}</property>
             <property name="javaVmArguments">
-                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=127.0.0.1
             </property>
             <property name="user">admin</property>
             <property name="pass">pass</property>
@@ -67,7 +67,7 @@
         <configuration>
             <property name="catalinaHome">${arquillian.container.home}</property>
             <property name="javaVmArguments">
-                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
+                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=127.0.0.1
             </property>
             <property name="user">admin</property>
             <property name="pass">pass</property>
