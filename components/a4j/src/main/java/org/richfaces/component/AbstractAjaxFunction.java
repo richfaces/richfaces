@@ -36,7 +36,7 @@ import org.richfaces.component.attribute.AjaxProps;
  * @author asmirnov@exadel.com
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets))
-public abstract class AbstractAjaxFunction extends AbstractActionComponent implements AjaxProps {
+public abstract class AbstractAjaxFunction extends BasicActionComponent implements AjaxProps {
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 

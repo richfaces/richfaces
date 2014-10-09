@@ -195,7 +195,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     }
 
     public void setExecute(Object execute) {
-        this.execute = copyToSet((Collection<String>) execute);
+        this.execute = copyToSet(Sets.asSet(execute));
         clearInitialState();
     }
 
@@ -283,7 +283,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     }
 
     public void setRender(Object render) {
-        this.render = copyToSet((Collection<String>) render);
+        this.render = copyToSet(Sets.asSet(render));
         clearInitialState();
     }
 

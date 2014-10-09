@@ -43,7 +43,7 @@ import javax.faces.context.FacesContext;
  * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets))
-public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps, CommandButtonProps, CoreProps {
+public abstract class AbstractCommandButton extends BasicActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps, CommandButtonProps, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CommandButton";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 

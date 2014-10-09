@@ -37,7 +37,7 @@ import com.google.common.base.Strings;
 public final class Sets {
 
     private static final Pattern ID_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
-
+    private static final String BRACKETS = "\\[.*\\]";
     private Sets() {
     }
 
@@ -54,6 +54,10 @@ public final class Sets {
                 return new LinkedHashSet<String>(Arrays.asList((String[]) valueToSet));
             } else if (valueToSet instanceof String) { // Tokenize string.
                 String areasString = ((String) valueToSet).trim();
+
+                if (Pattern.matches(BRACKETS, areasString)) {
+                    areasString = areasString.substring(1, areasString.length() - 1);
+                }
 
                 if (areasString.contains(",") || areasString.contains(" ")) {
                     String[] values = ID_SPLIT_PATTERN.split(areasString);
