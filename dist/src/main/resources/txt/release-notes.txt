@@ -1,3 +1,29 @@
+4.5.0.CR2
+-----------
+
+    Bug
+    [RF-13217] - ITFileUpload framework test freezes on PhantomJS
+    [RF-13839] - Drop-down menu page fragment should have show event aligned with the component
+    [RF-13845] - Showcase select sample - new autocomplete like sample has wrong color or typed text
+    [RF-13851] - Selected item in rich:select is not highlighted.
+    [RF-13852] - When rich:select is included in EDT, navigation with up/down keys in the select list is not possible.
+    [RF-13854] - The width option of the style attribute in rich:select does not work
+    [RF-13860] - Richfaces Photoalbum example - tree navigation doesn't work after deployment into EAP-6.3.1 with JRE-1.6
+    [RF-13862] - Headers are stationary in rich:extendedTable with tabbed rich:column movement
+    [RF-13864] - The tab key does not render the value when entered manually in rich:select
+    [RF-13865] - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
+    [RF-13869] - page-fragments: editor: switching to correct frame
+    [RF-13872] - Ajax doesn't accept array in execute/render anymore
+    [RF-13874] - integration tests: tests with Category FailingOnPhantomJS are skipped on Chrome
+
+    Enhancement
+    [RF-13301] - Favor use of Page Fragments in Framework Tests
+    [RF-13853] - page-fragments: refactor implementation part of orderingList, pickList
+    [RF-13870] - showcase tests: select correct war classifier for activated integration profile
+
+    Feature Request
+    [RF-13859] - Selecting an item while typing in rich:select does not work when enableManualInput=false.
+
 4.5.0.CR1
 -----------
 

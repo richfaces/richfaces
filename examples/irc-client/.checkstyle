@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
-  <local-check-config name="maven-checkstyle-plugin" location="jar:file:/home/mpetrov/.m2/repository/org/richfaces/richfaces-build-resources/4.5.0-SNAPSHOT/richfaces-build-resources-4.5.0-SNAPSHOT.jar!/richfaces-checkstyle/richfaces-checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration">
+  <local-check-config name="maven-checkstyle-plugin" location="jar:file:/home/mpetrov/.m2/repository/org/richfaces/richfaces-build-resources/4.5.0.CR2/richfaces-build-resources-4.5.0.CR2.jar!/richfaces-checkstyle/richfaces-checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration">
     <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
     <property name="checkstyle.header.file" value="/home/mpetrov/workspace/rf4-5/richfaces/examples/irc-client/target/checkstyle-header.txt"/>
   </local-check-config>
