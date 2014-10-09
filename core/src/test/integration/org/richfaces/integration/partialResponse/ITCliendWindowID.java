@@ -21,14 +21,18 @@
  */
 package org.richfaces.integration.partialResponse;
 
-import com.google.common.base.Function;
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+import static org.junit.Assert.assertFalse;
+import static org.richfaces.integration.push.AbstractPushTest.createBasicDeployment;
+
 import java.net.URL;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
@@ -47,10 +51,8 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.integration.push.AbstractPushTest.createBasicDeployment;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 
 /**
  *
@@ -69,7 +71,7 @@ public class ITCliendWindowID {
     @FindBy
     private WebElement inputText;
 
-    @FindByJQuery("input[name='javax.faces.ClientWindow']")
+    @FindBy(css = "input[name='javax.faces.ClientWindow']")
     private WebElement hiddenFieldWithClientWindowID;
 
     @Deployment
@@ -79,10 +81,10 @@ public class ITCliendWindowID {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
-                        .createContextParam()
-                        .paramName("javax.faces.CLIENT_WINDOW_MODE")
-                        .paramValue("url")
-                        .up();
+                    .createContextParam()
+                    .paramName("javax.faces.CLIENT_WINDOW_MODE")
+                    .paramValue("url")
+                    .up();
             }
         });
 
@@ -93,24 +95,37 @@ public class ITCliendWindowID {
     @Test
     @RunAsClient
     public void should_include_hidden_field_with_client_window_id() {
-        browser.get(contextPath + "index.jsf");
-        assertTrue(!hiddenFieldWithClientWindowID.getAttribute("value").trim().isEmpty());
+        browser.navigate().to(contextPath);
+        Graphene.waitModel().until(new Predicate<WebDriver>() {
+            private String value;
+
+            @Override
+            public boolean apply(WebDriver t) {
+                value = hiddenFieldWithClientWindowID.getAttribute("value").trim();
+                return !value.isEmpty();
+            }
+
+            @Override
+            public String toString() {
+                return "value to be not empty.";
+            }
+        });
     }
 
     @Test
     @RunAsClient
     public void should_include_client_window_id_into_request_header() {
+        browser.navigate().to(contextPath);
         Warp
-                .initiate(new Activity() {
+            .initiate(new Activity() {
 
-                    @Override
-                    public void perform() {
-                        browser.navigate().to(contextPath);
-                        Graphene.guardAjax(inputText).sendKeys("RichFaces");
-                    }
-                })
-                .observe(request().parameter().containsParameter("jfwid"))
-                .inspect(new ClientWindowIDAssertion());
+                @Override
+                public void perform() {
+                    Graphene.guardAjax(inputText).sendKeys("RichFaces");
+                }
+            })
+            .observe(request().parameter().containsParameter("jfwid"))
+            .inspect(new ClientWindowIDAssertion());
     }
 
     public static class ClientWindowIDAssertion extends Inspection {
@@ -122,12 +137,12 @@ public class ITCliendWindowID {
 
         @BeforeServlet
         public void beforeServlet() throws Exception {
-            assertTrue(!request.getParameter("jfwid").trim().isEmpty());
+            assertFalse(request.getParameter("jfwid").trim().isEmpty());
         }
 
         @AfterServlet
         public void afterServlet() throws InterruptedException {
-            assertTrue(!request.getParameter("jfwid").trim().isEmpty());
+            assertFalse(request.getParameter("jfwid").trim().isEmpty());
         }
     }
 
