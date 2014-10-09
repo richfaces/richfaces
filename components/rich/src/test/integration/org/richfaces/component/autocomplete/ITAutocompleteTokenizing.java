@@ -59,8 +59,14 @@ public class ITAutocompleteTokenizing {
     @Test
     public void testAutofillDisabledSelectionByMouse() {
         browser.get(contextPath.toExternalForm() + "?autofill=false");
+        actions.moveToElement(autocompleteInput).perform();
 
-        autocompleteInput.sendKeys("t,");
+        // selenium workaround
+        // cannot send these keys together, selenium will trigger keyup event after 't' letter
+        // and there will be only 2 suggestions (beggining with 't') instead of 4 suggestions
+        autocompleteInput.sendKeys("t");
+        autocompleteInput.sendKeys(",");
+
         waitGui().until().element(suggestionList).is().visible();
         assertEquals(4, autocompleteItems.size());
         assertEquals("t,", autocompleteInput.getAttribute("value"));
@@ -98,8 +104,14 @@ public class ITAutocompleteTokenizing {
     @Test
     public void testAutofillEnabledSelectionByMouse() {
         browser.get(contextPath.toExternalForm() + "?autofill=true");
+        actions.moveToElement(autocompleteInput).perform();
 
-        autocompleteInput.sendKeys("t,");
+        // selenium workaround
+        // cannot send these keys together, selenium will trigger keyup event after 't' letter
+        // and there will be only 2 suggestions (beggining with 't') instead of 4 suggestions
+        autocompleteInput.sendKeys("t");
+        autocompleteInput.sendKeys(",");
+
         waitGui().until().element(suggestionList).is().visible();
         assertEquals(4, autocompleteItems.size());
         assertEquals("t,Toronto", autocompleteInput.getAttribute("value"));
@@ -115,6 +127,7 @@ public class ITAutocompleteTokenizing {
         waitGui().until().element(suggestionList).is().not().visible();
         assertEquals("t,New York", autocompleteInput.getAttribute("value"));
 
+        actions.moveToElement(autocompleteInput).perform();
         autocompleteInput.sendKeys(", ");
         waitGui().until().element(suggestionList).is().visible();
         assertEquals(4, autocompleteItems.size());
