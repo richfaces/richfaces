@@ -650,6 +650,7 @@
                 </property>
             </activation>
             <properties>
+                <testCategory.excluded.browser/>
                 <arquillian.drone.browser>chrome</arquillian.drone.browser>
             </properties>
         </profile>
