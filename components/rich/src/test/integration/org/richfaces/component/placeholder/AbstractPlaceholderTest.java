@@ -47,12 +47,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.arquillian.page.source.SourceChecker;
-import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.component.ColorUtils;
 import org.richfaces.integration.RichDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
-
 import com.google.common.base.Predicate;
 
 /**
@@ -90,6 +89,8 @@ public abstract class AbstractPlaceholderTest {
     WebElement output;
     @FindBy(tagName = "body")
     WebElement body;
+    @FindBy(css = "input[id$=blurButton]")
+    WebElement blurButton;
     @FindBy(id = PLACEHOLDER_ID)
     GrapheneElement placeholderElement;
 
@@ -111,6 +112,8 @@ public abstract class AbstractPlaceholderTest {
         FaceletAsset p;
         p = deployment.baseFacelet(name);
         p.head("<style> input, textarea { color: #000; } </style>");
+        p.body("<input type='button' value='blur' id='blurButton'/>");
+        p.body("<br />");
         return p;
     }
 
@@ -133,7 +136,7 @@ public abstract class AbstractPlaceholderTest {
         assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
         assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
         assertTrue("placeholder does not contain default class",
-                input().getStyleClass().contains(PLACEHOLDER_CLASS));
+            input().getStyleClass().contains(PLACEHOLDER_CLASS));
     }
 
     @Test
@@ -203,7 +206,7 @@ public abstract class AbstractPlaceholderTest {
         // when
         input().setTestedValue(getTestedValue());
         input().clear();
-        input().blur();
+        blur();
         waitGui().until(new Predicate<WebDriver>() {
             @Override
             public boolean apply(WebDriver input) {
@@ -223,7 +226,7 @@ public abstract class AbstractPlaceholderTest {
 
         // when
         input().setTestedValue(getTestedValue());
-        input().blur();
+        blur();
         waitGui().until(new Predicate<WebDriver>() {
             @Override
             public boolean apply(WebDriver input) {
@@ -240,7 +243,7 @@ public abstract class AbstractPlaceholderTest {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         input().setTestedValue(getTestedValue());
-        input().blur();
+        blur();
 
         guardAjax(a4jSubmitBtn).click();
 
@@ -292,13 +295,14 @@ public abstract class AbstractPlaceholderTest {
         assertEquals(getTestedValueResponse(), output.getText());
     }
 
+    protected void blur() {
+        blurButton.click();
+    }
+
     public static class Input {
 
         @Root
         private WebElement input;
-
-        @Drone
-        private WebDriver browser;
 
         public Input() {
         }
@@ -339,10 +343,6 @@ public abstract class AbstractPlaceholderTest {
 
         public String getStyleClass() {
             return input.getAttribute("class");
-        }
-
-        public void blur() {
-            getInputElement().sendKeys(Keys.TAB);
         }
     }
 

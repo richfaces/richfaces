@@ -1,6 +1,8 @@
 <body>
+  <input type='button' value='blur' id='blurButton'/>
+  <br />
   <span id="panel">
-  <input id="input" type="text" name="input"/>
+      <input id="input" type="text" name="input"/>
   <span id="placeholderID">
     <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[

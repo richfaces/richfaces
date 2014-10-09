@@ -46,31 +46,32 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 
         FaceletAsset p;
-        p = deployment.baseFacelet("index.xhtml");
+        p = placeholderFacelet("index.xhtml", deployment);
         p.body("<rich:select id='input' enableManualInput='true'>");
         p.body("    <f:selectItems value='#{placeHolderValue.items}' />");
         p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</rich:select>");
 
-        p = deployment.baseFacelet("selector.xhtml");
+        p = placeholderFacelet("selector.xhtml", deployment);
         p.body("<rich:select id='input' />");
         p.body("<rich:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
-        p = deployment.baseFacelet("rendered.xhtml");
+        p = placeholderFacelet("rendered.xhtml", deployment);
         p.body("<rich:select id='input'>");
         p.body("    <rich:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
         p.body("</rich:select>");
 
-        p = deployment.baseFacelet("converter.xhtml");
+        p = placeholderFacelet("converter.xhtml", deployment);
         p.body("<rich:select id='input' >");
         p.body("    <rich:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
         p.body("</rich:select>");
 
-        p = deployment.baseFacelet("submit.xhtml");
+        p = placeholderFacelet("submit.xhtml", deployment);
         p.form("<rich:select id='input' value='#{placeHolderValue.value2}' enableManualInput='true' >");
         p.form("    <f:selectItems value='#{placeHolderValue.items}' />");
         p.form("    <rich:placeholder id='placeholderID' value='Placeholder Text' />");
         p.form("</rich:select>");
+        p.form("<br />");
         p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");
         p.form("<br />");
@@ -78,6 +79,7 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
 
         return deployment.getFinalArchive();
     }
+
     @Override
     Input input() {
         return firstInput;
