@@ -38,7 +38,7 @@ import org.richfaces.fragment.dataTable.AbstractTable;
  */
 public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends AbstractTable<HEADER, ROW, FOOTER> implements ExtendedDataTable {
 
-    @FindBy(css = ".rf-edt-b .rf-edt-cnt tr")
+    @FindByJQuery(".rf-edt-b .rf-edt-cnt tr")
     private List<WebElement> tableRowsElements;
 
     @FindByJQuery(".rf-edt-b .rf-edt-cnt tr:eq(0) td")
