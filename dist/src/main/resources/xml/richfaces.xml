@@ -52,21 +52,21 @@
         <dependencySet>
             <includes>
                 <include>org.richfaces:richfaces:jar:${project.version}</include>
-                <include>org.richfaces:richfaces:jar:sources:4.5.0.CR2</include>
+                <include>org.richfaces:richfaces:jar:sources:4.5.0-SNAPSHOT</include>
             </includes>
             <outputFileNameMapping>richfaces-components-rich-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
         <dependencySet>
             <includes>
                 <include>org.richfaces:richfaces-a4j:jar:${project.version}</include>
-                <include>org.richfaces:richfaces-a4j:jar:sources:4.5.0.CR2</include>
+                <include>org.richfaces:richfaces-a4j:jar:sources:4.5.0-SNAPSHOT</include>
             </includes>
             <outputFileNameMapping>richfaces-components-a4j-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
         <dependencySet>
             <includes>
                 <include>org.richfaces:richfaces-core:jar:${project.version}</include>
-                <include>org.richfaces:richfaces-core:jar:sources:4.5.0.CR2</include>
+                <include>org.richfaces:richfaces-core:jar:sources:4.5.0-SNAPSHOT</include>
             </includes>
         </dependencySet>
 
