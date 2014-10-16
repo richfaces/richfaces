@@ -31,6 +31,7 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,6 +58,7 @@ public class AbstractPushTestWithoutWarp {
 
         CoreDeployment deployment = new CoreDeployment(testClass);
         deployment.withA4jComponents();
+        deployment.archive().addClass(AbstractPushTestWithoutWarp.class);
 
         FaceletAsset p = new FaceletAsset();
         p.body("<script>document.title = 'waiting-for-message';</script>");
@@ -76,9 +78,25 @@ public class AbstractPushTestWithoutWarp {
         driver.navigate().to(contextPath);
         int numberOfTestedRequests = 5;
         Assert.assertEquals("waiting-for-message", driver.getTitle());
-        for (int i = 1; i <= numberOfTestedRequests; i++) {
+        waitForPushIsInitialized();
+        for (int i = 2; i <= numberOfTestedRequests; i++) {
             sendButton.click();
             waitAjax().withTimeout(5, TimeUnit.SECONDS).until(titleIs(String.format("message-received: %d", i)));
+        }
+    }
+
+    protected void waitForPushIsInitialized() {
+        int numberOfTries = 5;
+        for (int i = 1; i <= numberOfTries; i++) {
+            try {
+                sendButton.click();
+                waitAjax().until(titleIs("message-received: 1"));
+                return;
+            } catch (TimeoutException exception) {
+                if (i == numberOfTries) {
+                    throw exception;
+                }
+            }
         }
     }
 }
