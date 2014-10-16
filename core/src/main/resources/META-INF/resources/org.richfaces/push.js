@@ -166,7 +166,7 @@
      * Handles errors during Atmosphere initialization and transport
      */
     _errorCallback: function(response) {
-      for (var address in newlySubcribed) {
+      for (var address in this.newlySubcribed) {
         this._subscribedTopics[address] = true;
         $(document).trigger('error.push.RICH.' + address, response);
       }
@@ -176,13 +176,13 @@
      * Initializes Atmosphere connection
      */
     _connect: function() {
-      var newlySubcribed = {};
+      this.newlySubcribed = {};
 
       var topics = [];
       for (var address in this._handlersCounter) {
         topics.push(address);
         if (!this._subscribedTopics[address]) {
-          newlySubcribed[address] = true;
+          this.newlySubcribed[address] = true;
         }
       }
 
@@ -226,7 +226,7 @@
             });
 
             // fire subscribed events
-            for (var address in newlySubcribed) {
+            for (var address in this.newlySubcribed) {
               this._subscribedTopics[address] = true;
               $(document).trigger('subscribed.push.RICH.' + address);
             }

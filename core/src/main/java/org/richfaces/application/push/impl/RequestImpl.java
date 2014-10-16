@@ -53,7 +53,7 @@ import org.richfaces.log.RichfacesLogger;
 public class RequestImpl implements Request, AtmosphereResourceEventListener {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    private static final int SUSPEND_TIMEOUT = 30 * 1000;
+    private static final int SUSPEND_TIMEOUT = -1; // leave up forever
 
     private Session session;
     private final Meteor meteor;
