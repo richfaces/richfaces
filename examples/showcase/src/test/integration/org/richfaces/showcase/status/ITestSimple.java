@@ -25,7 +25,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.showcase.status.page.TestSimplePage;
+
+import category.FailingOnPhantomJS;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -49,6 +52,7 @@ public class ITestSimple extends TestUsage {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testSubmitButtonAndAjaxRequestProgress() {
         page.getUserNameInput().sendKeys("a");
         page.getSubmitButton().click();
