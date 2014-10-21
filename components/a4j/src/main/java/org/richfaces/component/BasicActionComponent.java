@@ -24,7 +24,6 @@ package org.richfaces.component;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.el.ValueExpression;
@@ -41,9 +40,6 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
         render,
         execute
     }
-
-    private Set<String> execute;
-    private Set<String> render;
 
     private Set<String> copyToSet(Object collection) {
         return Collections.unmodifiableSet(Sets.asSet(collection));
@@ -64,27 +60,20 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
         return result;
     }
 
-    private Collection<String> getCollectionValue(Serializable propertyName, Collection<String> collection) {
-        if (collection != null) {
-            return collection;
-        }
-
+    private Collection<String> getCollectionValue(Serializable propertyName) {
         Collection<String> result = null;
 
-        ValueExpression expression = getValueExpression(propertyName.toString());
-        if (expression != null) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            Object value = expression.getValue(facesContext.getELContext());
+        Object value = getStateHelper().get(propertyName);
 
-            if (value != null) {
+        if (value != null) {
 
-                if (value instanceof Collection) {
-                    return (Collection<String>) value;
-                }
-
-                result = toSet(propertyName, value);
+            if (value instanceof Collection) {
+                return (Collection<String>) value;
             }
+
+            result = toSet(propertyName, value);
         }
+
         return result == null ? Collections.<String>emptyList() : result;
     }
 
@@ -96,11 +85,11 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
      */
     @Attribute
     public Object getExecute() {
-        return getCollectionValue(PropertyKeys.execute, execute);
+        return getCollectionValue(PropertyKeys.execute);
     }
 
     public void setExecute(Object execute) {
-        this.execute = copyToSet(execute);
+        getStateHelper().put(PropertyKeys.execute, copyToSet(execute));
         clearInitialState();
     }
 
@@ -112,11 +101,11 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
      */
     @Attribute
     public Object getRender() {
-        return getCollectionValue(PropertyKeys.render, render);
+        return getCollectionValue(PropertyKeys.render);
     }
 
     public void setRender(Object render) {
-        this.render = copyToSet(render);
+        getStateHelper().put(PropertyKeys.render, copyToSet(render));
         clearInitialState();
     }
 
