@@ -22,6 +22,8 @@
 package org.richfaces.model;
 
 import java.io.IOException;
+
+import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONObject;
 import org.richfaces.renderkit.ChartRendererBase;
 
@@ -37,9 +39,25 @@ public class BarStrategy implements ChartStrategy {
 
         JSONObject bars = new JSONObject();
         ChartRendererBase.addAttribute(bars, "show", true);
+        ChartRendererBase.addAttribute(bars, "barWidth", calculateBarWidth(obj));
         ChartRendererBase.addAttribute(obj, "bars", bars);
 
         return obj;
+    }
+
+    private double calculateBarWidth(JSONObject o) {
+        JSONArray data = o.optJSONArray("data");
+
+        if (data != null) {
+            JSONArray last = data.optJSONArray(data.length() - 1);
+            if (last != null) {
+                // x value of last element ~ number of ticks
+                // barWidth = 1 / (points-per-tick + 1)
+                return 1 / (data.length() / last.optDouble(0) + 1);
+            }
+        }
+
+        return 1.0;
     }
 
 }
