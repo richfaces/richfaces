@@ -25,6 +25,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -34,6 +35,7 @@ import category.FailingOnPhantomJS;
 
 @RunWith(Arquillian.class)
 @Category(FailingOnPhantomJS.class)
+@Ignore("The test is unstable, https://issues.jboss.org/browse/RF-13888")
 public class ITAutoRegisteredPushServletWithoutWarp extends AbstractPushTestWithoutWarp {
 
     @Deployment
