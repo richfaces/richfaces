@@ -258,6 +258,31 @@
                     
                   }
                   else if (options.charttype === 'line') {
+                    if (this.options.xtype === 'string') {
+                        /*
+                         * data transformation:
+                         * data: [["label1", value1], ["label2", value2"], …]
+                         * 
+                         * =>
+                         * 
+                         * data: [[1, value1], [2, value2], …] 
+                         * ticks: [[1, "label1"], [2, "label2"], …]
+                         *
+                         */
+                        this.options.xaxis.tickLength = 0;
+                        
+                        var seriesLength = this.options.data[0].data.length,
+                            seriesTotal = this.options.data.length,
+                            ticks = [];
+                        for (var i = 0; i < seriesLength; i++) {
+                            ticks.push( [i, this.options.data[0].data[i][0]] );
+                            for (var j = 0; j < seriesTotal; j++) {
+                                this.options.data[j].data[i][0] = i;
+                            }
+                        }
+                        
+                        this.options.xaxis.ticks = ticks;
+                    }
                     if (options.zoom) {
                       this.options.selection = {mode: 'xy'};
                     }
