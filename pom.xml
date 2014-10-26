@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   JBoss, Home of Professional Open Source
   Copyright 2013, Red Hat, Inc. and individual contributors
@@ -19,7 +20,8 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -55,7 +57,7 @@
         <module>examples/jpa-demo</module>
         <module>examples/push-demo</module>
         <module>examples/irc-client</module>
-	    <module>examples/components-demo</module>
+        <module>examples/components-demo</module>
     </modules>
 
     <description>
@@ -171,6 +173,12 @@
                 <version>${version.jboss-javaee}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>xalan</artifactId>
+                        <groupId>xalan</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- RichFaces -->
@@ -291,7 +299,7 @@
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
                     <configuration>
-                        <wtpversion>2.0</wtpversion>
+                        <wtpversion>2.9</wtpversion>
                         <downloadSources>true</downloadSources>
                     </configuration>
                 </plugin>
@@ -333,7 +341,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>
                                         <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                                        <versionRange>[4.3.0.Final,)</versionRange>
+                                        <versionRange>[4.3.1.Final,)</versionRange>
                                         <goals>
                                             <goal>generate</goal>
                                         </goals>
@@ -348,7 +356,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>
                                         <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                                        <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
+                                        <versionRange>[4.3.1-SNAPSHOT,)</versionRange>
                                         <goals>
                                             <goal>process</goal>
                                         </goals>
@@ -361,7 +369,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.apache.maven.plugins</groupId>
                                         <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.6,)</versionRange>
+                                        <versionRange>[2.9,)</versionRange>
                                         <goals>
                                             <goal>unpack</goal>
                                         </goals>
@@ -374,7 +382,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.codehaus.mojo</groupId>
                                         <artifactId>exec-maven-plugin</artifactId>
-                                        <versionRange>[1.2.1,)</versionRange>
+                                        <versionRange>[1.3.2,)</versionRange>
                                         <goals>
                                             <goal>java</goal>
                                         </goals>
@@ -521,7 +529,7 @@
             <build>
                 <testResources>
                     <testResource>
-                        <directory>src/test/resources</directory>
+                        <directory>${project.basedir}/src/test/resources</directory>
                         <filtering>false</filtering>
                     </testResource>
                     <testResource>
@@ -532,7 +540,7 @@
                         </excludes>
                     </testResource>
                     <testResource>
-                        <directory>src/test/arquillian-settings/</directory>
+                        <directory>${project.basedir}/src/test/arquillian-settings/</directory>
                         <filtering>true</filtering>
                     </testResource>
                 </testResources>

@@ -59,6 +59,12 @@
             <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xalan</artifactId>
+                    <groupId>xalan</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

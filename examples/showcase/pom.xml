@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces.examples</groupId>
@@ -47,9 +67,9 @@
         <version.tomcat8>8.0.15</version.tomcat8>
 
         <dependency.scope>compile</dependency.scope>
-        <container.resources>src/main/resources-tomcat</container.resources>
+        <container.resources>${project.basedir}/src/main/resources-tomcat</container.resources>
         <container.resources.exclude />
-        <container.webapp>src/main/webapp-tomcat</container.webapp>
+        <container.webapp>${project.basedir}/src/main/webapp-tomcat</container.webapp>
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
         <mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</mojarra.excluded.libraries>
@@ -131,6 +151,12 @@
             <scope>test</scope>
             <optional>true</optional>
             <version>${version.richfaces}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xalan</artifactId>
+                    <groupId>xalan</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec</groupId>
@@ -227,7 +253,7 @@
 
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
             </resource>
             <resource>
                 <directory>${container.resources}</directory>
@@ -252,7 +278,7 @@
                             <filtering>true</filtering>
                         </resource>
                         <resource>
-                            <directory>src/main/java</directory>
+                            <directory>${project.basedir}/src/main/java</directory>
                             <targetPath>WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
@@ -392,8 +418,8 @@
             <id>jee6</id>
             <properties>
                 <showcase.war.classifier>jee6</showcase.war.classifier>
-                <container.resources>src/main/resources-jee6</container.resources>
-                <container.webapp>src/main/webapp-jee6</container.webapp>
+                <container.resources>${project.basedir}/src/main/resources-jee6</container.resources>
+                <container.webapp>${project.basedir}/src/main/webapp-jee6</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
         </profile>
@@ -401,8 +427,8 @@
             <id>jbas7</id>
             <properties>
                 <showcase.war.classifier>jbas7</showcase.war.classifier>
-                <container.resources>src/main/resources-jbas7</container.resources>
-                <container.webapp>src/main/webapp-jbas7</container.webapp>
+                <container.resources>${project.basedir}/src/main/resources-jbas7</container.resources>
+                <container.webapp>${project.basedir}/src/main/webapp-jbas7</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <build>
@@ -433,8 +459,8 @@
             <id>jbas71</id>
             <properties>
                 <showcase.war.classifier>jbas71</showcase.war.classifier>
-                <container.resources>src/main/resources-jbas71</container.resources>
-                <container.webapp>src/main/webapp-jbas71</container.webapp>
+                <container.resources>${project.basedir}/src/main/resources-jbas71</container.resources>
+                <container.webapp>${project.basedir}/src/main/webapp-jbas71</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <build>
@@ -466,8 +492,8 @@
             <id>openshift</id>
             <properties>
                 <showcase.war.classifier>openshift</showcase.war.classifier>
-                <container.resources>src/main/resources-jbas7</container.resources>
-                <container.webapp>src/main/webapp-openshift</container.webapp>
+                <container.resources>${project.basedir}/src/main/resources-jbas7</container.resources>
+                <container.webapp>${project.basedir}/src/main/webapp-openshift</container.webapp>
                 <dependency.scope>provided</dependency.scope>
                 <war.outputFileNameMapping>@{artifactId}@.@{extension}@</war.outputFileNameMapping>
             </properties>
@@ -627,16 +653,16 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/resources-tomcat</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/java</directory>
+                                            <directory>${project.basedir}/src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -660,16 +686,16 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/resources-tomcat</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/java</directory>
+                                            <directory>${project.basedir}/src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -694,25 +720,25 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
-                                            <directory>src/main/webapp</directory>
+                                            <directory>${project.basedir}/src/main/webapp</directory>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
                                             </excludes>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-jee6</directory>
+                                            <directory>${project.basedir}/src/main/webapp-jee6</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-jee6</directory>
+                                            <directory>${project.basedir}/src/main/resources-jee6</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/java</directory>
+                                            <directory>${project.basedir}/src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -733,25 +759,25 @@
                                     <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
                                     <webResources>
                                         <resource>
-                                            <directory>src/main/webapp</directory>
+                                            <directory>${project.basedir}/src/main/webapp</directory>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
                                             </excludes>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-jbas7</directory>
+                                            <directory>${project.basedir}/src/main/webapp-jbas7</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-jbas7</directory>
+                                            <directory>${project.basedir}/src/main/resources-jbas7</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/java</directory>
+                                            <directory>${project.basedir}/src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -772,25 +798,25 @@
                                     <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
                                     <webResources>
                                         <resource>
-                                            <directory>src/main/webapp</directory>
+                                            <directory>${project.basedir}/src/main/webapp</directory>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
                                             </excludes>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-jbas71</directory>
+                                            <directory>${project.basedir}/src/main/webapp-jbas71</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-jbas71</directory>
+                                            <directory>${project.basedir}/src/main/resources-jbas71</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/java</directory>
+                                            <directory>${project.basedir}/src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -811,25 +837,25 @@
                                     <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                                     <webResources>
                                         <resource>
-                                            <directory>src/main/webapp</directory>
+                                            <directory>${project.basedir}/src/main/webapp</directory>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
+                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
                                             </excludes>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-openshift</directory>
+                                            <directory>${project.basedir}/src/main/webapp-openshift</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-jbas7</directory>
+                                            <directory>${project.basedir}/src/main/resources-jbas7</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/java</directory>
+                                            <directory>${project.basedir}/src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -865,7 +891,7 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <classesDirectory>${basedir}/target/sources/sources
+                                    <classesDirectory>${project.basedir}/target/sources/sources
                                     </classesDirectory>
                                     <classifier>sources</classifier>
                                 </configuration>
