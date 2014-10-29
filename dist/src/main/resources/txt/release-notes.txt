@@ -1,3 +1,12 @@
+4.5.0.Final
+-----------
+
+    Bug
+    [RF-13881] - page-fragments: extended data table: change locator for row elements
+
+    Task
+    [RF-13873] - Stabilize failing integration tests
+
 4.5.0.CR2
 -----------
 
@@ -15,6 +24,8 @@
     [RF-13869] - page-fragments: editor: switching to correct frame
     [RF-13872] - Ajax doesn't accept array in execute/render anymore
     [RF-13874] - integration tests: tests with Category FailingOnPhantomJS are skipped on Chrome
+    [RF-13875] - RF 4.5 : a4j:push component fails on reconnect in push-demo
+    [RF-13876] - Command button/link, jsFunction and poll missing parameter bypassUpdates
 
     Enhancement
     [RF-13301] - Favor use of Page Fragments in Framework Tests
