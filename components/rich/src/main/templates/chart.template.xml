@@ -6,7 +6,7 @@
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-    	<cdk:class>org.richfaces.renderkit.ChartRenderer</cdk:class>
+        <cdk:class>org.richfaces.renderkit.ChartRenderer</cdk:class>
         <cdk:superclass>org.richfaces.renderkit.ChartRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.Chart</cdk:component-family>
         <cdk:renderer-type>org.richfaces.ChartRenderer</cdk:renderer-type>
@@ -38,24 +38,33 @@
            <cdk:scriptOption attributes="onplotclick onplothover onmouseout" wrapper="eventHandler"/>
         </cdk:scriptObject>
 
+        <cdk:object name="hooks" value="#{component.attributes['hooks']}" />
+        <cdk:object name="hooksFacet" value="#{component.facets['hooks']}" type="javax.faces.component.UIComponent" />
         <div id="#{clientId}" class="#{component.styleClass} chart-container">
-        	<div class="chart-title">#{component.title}</div>
-        	<div id="#{clientId}Chart" class="chart"></div>
-	        <script type="text/javascript">
-	            //<![CDATA[
-	                    
-	                      new RichFaces.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
-		                                    handlers: RichFaces.jQuery.extend(#{toScriptArgs(events)}),
-		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
-		                                    data: #{getChartData(facesContext,component)},
-	                                    },
-	                                    #{getOpts(facesContext,component)}
-	                                   ));
-	            //]]>
-	        </script>
+            <div class="chart-title">#{component.title}</div>
+            <div id="#{clientId}Chart" class="chart"></div>
+            <script type="text/javascript">
+            new RichFaces.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
+                                    handlers: RichFaces.jQuery.extend(#{toScriptArgs(events)}),
+                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
+                                    data: #{getChartData(facesContext,component)},
+                                    },
+                                    #{getOpts(facesContext,component)}
+                                    <c:choose>
+                                        <c:when test="#{hooksFacet != null and hooksFacet.isRendered()}">
+                                            , {hooks: #{hooksFacet}}
+                                        </c:when>
+                                        <c:when test="#{not empty hooks}">
+                                            , {hooks: #{hooks}}
+                                        </c:when>
+                                        <c:otherwise>
+
+                                        </c:otherwise>
+                                    </c:choose>
+                                    ));
+
+            </script>
         </div>
-
-
     </cc:implementation>
 
 </cdk:root>

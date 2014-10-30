@@ -30,18 +30,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
-import org.richfaces.model.PlotClickEvent;
-import org.richfaces.model.PlotClickListener;
-import org.richfaces.renderkit.ChartRendererBase;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.model.PlotClickEvent;
+import org.richfaces.model.PlotClickListener;
+import org.richfaces.renderkit.ChartRendererBase;
 
 
 /**
@@ -53,6 +55,7 @@ import org.richfaces.component.attribute.CoreProps;
         type= AbstractChart.COMPONENT_TYPE,
         family = AbstractChart.COMPONENT_FAMILY,
         tag = @Tag(name="chart",handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets),
+        facets = @Facet(name = "hooks", description = @Description("A set of JavaScript functions to modify the plotting process.")),
         renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE),
         fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
 public abstract class AbstractChart extends UIComponentBase implements CoreProps {
@@ -67,6 +70,12 @@ public abstract class AbstractChart extends UIComponentBase implements CoreProps
      */
     @Attribute
     public abstract boolean isZoom();
+
+    /**
+     * A set of JavaScript functions to modify the plotting process.
+     */
+    @Attribute
+    public abstract String getHooks();
 
     /**
      * Javascript handler function for plotclick event called for each series.
