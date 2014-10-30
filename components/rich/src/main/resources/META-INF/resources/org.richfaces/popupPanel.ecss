@@ -42,7 +42,7 @@
 }
 
 .rf-pp-hdr {
-    background: '#{a4jSkin.headerBackgroundColor} url(#{resource["org.richfaces.images:gradientA.png"]}) repeat-x scroll top left';
+    background: '#{a4jSkin.headerBackgroundColor} #{a4jSkin.imageUrl("gradientA.png")} repeat-x scroll top left';
     position: relative;
     padding-left: 10px;
     cursor: move;
@@ -95,7 +95,7 @@
 }
 
 .rf-pp-hndlr {
-    background-image: url("#{resource['org.richfaces.images:spacer.gif']}");
+    background-image: "#{a4jSkin.imageUrl('spacer.gif')}";
     position: absolute;
     margin: -4px;
 }

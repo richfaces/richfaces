@@ -88,7 +88,7 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-rsz {
-    background-image: url("#{resource['org.richfaces.images:spacer.gif']}");
+    background-image: "#{a4jSkin.imageUrl('spacer.gif')}";
     cursor: e-resize;
     height: 20px; /*TODO*/
     position: absolute;
