@@ -34,6 +34,9 @@ public class StringChartDataModel extends ChartDataModel<String, Number> {
         case pie:
             strategy = new PieStrategy();
             break;
+        case line:
+            strategy = new LineStrategy();
+            break;
         default:
             throw new IllegalArgumentException(type
                     + "not supported by StringChartDataModel");

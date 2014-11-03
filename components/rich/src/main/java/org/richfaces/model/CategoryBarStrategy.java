@@ -40,18 +40,12 @@ class CategoryBarStrategy implements ChartStrategy {
 
     @Override
     public Object export(ChartDataModel model) throws IOException {
-        JSONObject obj = new JSONObject();
-        JSONObject data = new JSONObject();
-
-        for (Iterator it = model.getData().entrySet().iterator(); it.hasNext();) {
-            Map.Entry entry = (Map.Entry) it.next();
-            ChartRendererBase.addAttribute(data, entry.getKey().toString(),
-                    entry.getValue());
-        }
-        ChartRendererBase.addAttribute(obj, "data", data);
+        JSONObject obj = model.defaultExport();
 
         JSONObject bars = new JSONObject();
         ChartRendererBase.addAttribute(bars, "show", true);
+        ChartRendererBase.addAttribute(bars, "barWidth", (double) 1 / (model.getData().size() + 1));
+        ChartRendererBase.addAttribute(bars, "align", "center");
         ChartRendererBase.addAttribute(obj, "bars", bars);
 
         // label

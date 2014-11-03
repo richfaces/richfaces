@@ -20,9 +20,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 package org.richfaces.model;
-import org.richfaces.renderkit.ChartRendererBase;
 import java.io.IOException;
+
 import org.richfaces.json.JSONObject;
+import org.richfaces.renderkit.ChartRendererBase;
 
 
 /**
@@ -42,13 +43,13 @@ public class LineStrategy implements ChartStrategy {
                     .getAttributes().get("symbol"));
             ChartRendererBase.addAttribute(points, "show", true);
             ChartRendererBase.addAttribute(output, "points", points);
-
-            // connect symblos with line
-            JSONObject lines = new JSONObject();
-            ChartRendererBase.addAttribute(lines, "show", true);
-            ChartRendererBase.addAttribute(output, "lines", lines);
-
         }
+
+        // connect symblos with line
+        JSONObject lines = new JSONObject();
+        ChartRendererBase.addAttribute(lines, "show", true);
+        ChartRendererBase.addAttribute(output, "lines", lines);
+
         return output;
     }
 
