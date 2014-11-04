@@ -170,6 +170,9 @@
 
                     case rf.KEYS.TAB:
                     case rf.KEYS.RETURN:
+                        if (code == rf.KEYS.TAB && !visible) {
+                            break;
+                        }
                         e.preventDefault();
                         if (visible) {
                             this.list.__selectCurrent();
