@@ -370,6 +370,7 @@
             __showPopup: function() {
                 if (this.originalItems.length > 0) {
                     this.popupList.show();
+                    this.list.__selectItemByValue(this.getValue());
                 }
                 this.invokeEvent.call(this, "listshow", document.getElementById(this.id));
             },
