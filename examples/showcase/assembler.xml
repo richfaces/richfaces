@@ -12,6 +12,9 @@
         <file>
             <source>README.md</source>
         </file>
+        <file>
+            <source>assembler.xml</source>
+        </file>
     </files>
 
     <fileSets>
