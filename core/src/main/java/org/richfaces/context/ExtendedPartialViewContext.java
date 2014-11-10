@@ -553,7 +553,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
             ActivatorComponentExecuteCallback callback = new ActivatorComponentExecuteCallback(getFacesContext(), behaviorEvent);
 
-            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
+            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
                 executeIds.addAll(callback.getExecuteIds());
 
                 setupRenderCallbackData(callback);
@@ -583,7 +583,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         if (detectContextMode() == ContextMode.EXTENDED) {
             ActivatorComponentRenderCallback callback = new ActivatorComponentRenderCallback(getFacesContext(), behaviorEvent);
 
-            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
+            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
                 setupRenderCallbackData(callback);
             } else {
                 // TODO - the same as for "execute"
