@@ -144,5 +144,10 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
         return null;
     }
 
+    @Override
+    public boolean isResetValues() {
+        return false;
+    }
+
 
 }

@@ -32,4 +32,5 @@ public interface AjaxConstants {
     String NONE = "@none";
     String BEHAVIOR_EVENT_PARAMETER = "javax.faces.behavior.event";
     String AJAX_COMPONENT_ID_PARAMETER = "org.richfaces.ajax.component";
+    String RESET_VALUES_PARAMETER = "javax.faces.partial.resetValues";
 }

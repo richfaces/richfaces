@@ -24,7 +24,6 @@ package org.ajax4jsf.component;
 
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.event.AjaxBehaviorListener;
-import java.util.Collection;
 
 /**
  * @author Anton Belevich interface for our ajax behaviors
@@ -78,6 +77,10 @@ public interface AjaxClientBehavior extends ClientBehavior {
     Object getData();
 
     void setData(Object data);
+
+    boolean isResetValues();
+
+    void setResetValues(boolean resetValues);
 
     void addAjaxBehaviorListener(AjaxBehaviorListener listener);
 

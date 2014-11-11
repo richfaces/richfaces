@@ -79,7 +79,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
         listener,
         immediate,
         bypassUpdates,
-        onbeforesubmit
+        onbeforesubmit,
+        resetValues
     }
 
     private Set<String> execute;
@@ -125,6 +126,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
             setBypassUpdates((Boolean) value);
         } else if (compare(PropertyKeys.onbeforesubmit, name)) {
             setOnbeforesubmit((String) value);
+        } else if (compare(PropertyKeys.resetValues, name)) {
+            value = expFactory.coerceToType(value, Boolean.class);
+            setResetValues((Boolean) value);
         }
     }
 
@@ -348,6 +352,18 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
 
     public void setBypassUpdates(boolean bypassUpdates) {
         getStateHelper().put(PropertyKeys.bypassUpdates, bypassUpdates);
+    }
+
+    /**
+     * If true, indicate that this particular Ajax transaction is a value reset transaction. This will cause resetValue() to be called on any EditableValueHolder instances encountered as a result of this ajax transaction. If not specified, or the value is false, no such indication is made.
+     */
+    @Attribute
+    public boolean isResetValues() {
+        return (Boolean) getStateHelper().eval(PropertyKeys.resetValues, false);
+    }
+
+    public void setResetValues(boolean resetValues) {
+        getStateHelper().put(PropertyKeys.resetValues, resetValues);
     }
 
     @Override

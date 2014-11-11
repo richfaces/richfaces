@@ -156,6 +156,10 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
             options.set("sourceId", source);
         }
 
+        if (behavior.isResetValues()) {
+            options.setParameter(AjaxConstants.RESET_VALUES_PARAMETER, true);
+        }
+
         return new AjaxFunction(source, options);
     }
 
