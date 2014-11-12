@@ -547,6 +547,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             'beforedomupdate': serverEventHandler
         }
     }());
+    
+    rf.requestParams = null;
 
     rf.ajax = function(source, event, options) {
         var options = options || {};
@@ -578,6 +580,35 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
         if (rf.queue) {
             parameters.queueId = options.queueId;
+        }
+
+        var form = getFormElement(sourceElement);
+        if (window.mojarra && form.enctype == "multipart/form-data") {
+            var input, name, value;
+                rf.requestParams = [];
+            // RF-13828: when inside multipart/form-data create hidden inputs for request parameters
+            //   Mojarra is going to submit the form instead of sending a XmlHttpRequest
+            for (var i in parameters) {
+                if (parameters.hasOwnProperty(i)) {
+                    value = parameters[i];
+                    
+                    if (i !== "javax.faces.source" &&
+                        i !== "javax.faces.partial.event" &&
+                        i !== "javax.faces.partial.execute" &&
+                        i !== "javax.faces.partial.render" &&
+                        i !== "javax.faces.partial.ajax" &&
+                        i !== "javax.faces.behavior.event" &&
+                        i !== "queueId") {                             
+                            input = document.createElement("input");
+                            input.setAttribute("type", "hidden");
+                            input.setAttribute("id", i);
+                            input.setAttribute("name", i);
+                            input.setAttribute("value", value);
+                            form.appendChild(input);
+                            rf.requestParams.push(i);
+                        }
+                }
+            }
         }
 
         // propagates some options to process it in jsf.ajax.request
@@ -656,7 +687,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
 
             return jsfAjaxRequest(source, event, parameters);
-        }
+        };
 
         jsf.ajax.response = function(request, context) {
             // for all RichFaces.ajax requests
@@ -665,8 +696,24 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 context.render = $("extension[id='org.richfaces.extension'] render", request.responseXML).text();
             }
 
+            // remove hidden inputs if they were created before submission
+            if (window.mojarra && rf.requestParams.length) {
+                for (var i=0; i<rf.requestParams.length; i++) {
+                    var elements = context.form.childNodes;
+                    for (var j=0; j<elements.length; j++) {
+                        if (!elements[j].type === "hidden") {
+                            continue;
+                        }
+                        if (elements[j].name === rf.requestParams[i]) {
+                            var node = context.form.removeChild(elements[j]);
+                            node = null;                           
+                            break;
+                        }
+                    }   
+                }
+            }
             return jsfAjaxResponse(request, context);
-        }
+        };
     }
 
     /**
