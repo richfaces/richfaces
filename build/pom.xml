@@ -102,7 +102,7 @@
 
         <version.htmlunit>2.15</version.htmlunit>
         <version.xml-apis>1.4.01</version.xml-apis>
-        <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
+        <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
 
         <!-- Enforcing Dependency Management -->
         <version.commons-codec>1.6</version.commons-codec>
