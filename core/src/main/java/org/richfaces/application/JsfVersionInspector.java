@@ -22,13 +22,14 @@
 
 package org.richfaces.application;
 
-import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.faces.context.FacesContext;
 
 /**
  * In RichFaces 4.5.0 a new EPVC was intorduced that exposed a bug in Mojarra (MyFaces is Ok).
@@ -153,8 +154,9 @@ public class JsfVersionInspector {
         Matcher matcher = pattern.matcher(string);
         if (matcher.find()) {
             return matcher.group();
+        } else {
+            return "no match";
         }
-        else return "no match";
     }
 
     Version parseVersion(String versionString) {
@@ -182,6 +184,8 @@ public class JsfVersionInspector {
     }
 
     boolean isMojarra() {
-        return "com.sun.faces.context.FacesContextImpl".equals(FacesContext.getCurrentInstance().getClass().getName());
+        String contextClassName = FacesContext.getCurrentInstance().getClass().getName();
+        return ("com.sun.faces.context.FacesContextImpl".equals(contextClassName) ||
+                "com.sun.faces.config.InitFacesContext".equals(contextClassName));
     }
 }
