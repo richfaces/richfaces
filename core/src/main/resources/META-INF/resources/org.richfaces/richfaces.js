@@ -697,7 +697,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
 
             // remove hidden inputs if they were created before submission
-            if (window.mojarra && rf.requestParams.length) {
+            if (window.mojarra && rf.requestParams && rf.requestParams.length) {
                 for (var i=0; i<rf.requestParams.length; i++) {
                     var elements = context.form.childNodes;
                     for (var j=0; j<elements.length; j++) {
