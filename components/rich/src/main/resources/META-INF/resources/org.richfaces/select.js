@@ -352,18 +352,40 @@
             },
             
             __selectItemByLabel: function(code) {
-                // only a-z
-                if (this.enableManualInput || code < 65 || code > 90) {
+                // only 0-9 and a-z
+                if (this.enableManualInput || code < 48 || (code > 57 && code < 65) || code > 90) {
                     return false;
                 }
                 
-                var firstLetter;
-                for (var i = 0; i < this.clientSelectItems.length; i++) {
-                     firstLetter = this.clientSelectItems[i].label.charCodeAt(0);
-                     if (firstLetter == code || (firstLetter - 32) == code) {
-                         this.list.__selectByIndex(i);
-                         return true;
-                     }
+                if (!this.popupList.isVisible()) {
+                    this.__updateItems();
+                    this.__showPopup();
+                }
+                
+                var matchingItemIndexes = new Array();
+                
+                $.each(this.clientSelectItems, function(index) {
+                    if(this.label[0].toUpperCase().charCodeAt(0) == code) {
+                        matchingItemIndexes.push( index );
+                    }
+                });
+                
+                if (matchingItemIndexes.length)
+                {
+                    var keyCodeCount = 0;
+                    if (this.lastKeyCode && this.lastKeyCode == code)
+                    {
+                        keyCodeCount = this.lastKeyCodeCount + 1;
+                        if (keyCodeCount >= matchingItemIndexes.length)
+                        {
+                            keyCodeCount = 0;
+                        }
+                    }
+                    this.lastKeyCode = code;
+                    this.lastKeyCodeCount = keyCodeCount;
+                            
+                    this.list.__selectByIndex( matchingItemIndexes[keyCodeCount] );
+                    
                 }
                 
                 return false;
