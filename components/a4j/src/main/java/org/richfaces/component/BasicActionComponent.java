@@ -61,19 +61,27 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     }
 
     private Collection<String> getCollectionValue(Serializable propertyName) {
-        Collection<String> result = null;
-
         Object value = getStateHelper().get(propertyName);
-
         if (value != null) {
-
-            if (value instanceof Collection) {
-                return (Collection<String>) value;
-            }
-
-            result = toSet(propertyName, value);
+            return (Collection<String>) value;
         }
 
+        Collection<String> result = null;
+
+        ValueExpression expression = getValueExpression(propertyName.toString());
+        if (expression != null) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            value = expression.getValue(facesContext.getELContext());
+
+            if (value != null) {
+
+                if (value instanceof Collection) {
+                    return (Collection<String>) value;
+                }
+
+                result = toSet(propertyName, value);
+            }
+        }
         return result == null ? Collections.<String>emptyList() : result;
     }
 
