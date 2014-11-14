@@ -295,18 +295,20 @@
                 newValue = (newValue != this.defaultLabel) ? newValue : "";
                 this.__updateItemsFromCache(newValue);
 
-                if (this.selectFirst && this.enableManualInput) {
+                if (this.selectFirst && this.enableManualInput && this.getValue() != newValue) {
                     this.list.__selectByIndex(0);
                 }
             },
 
             __updateItemsFromCache: function(value) {
-                if (this.originalItems.length > 0 && this.enableManualInput || this.isAutocomplete) {
+                if (this.originalItems.length > 0 && (this.enableManualInput || this.isAutocomplete)
+                    && this.getValue() != value) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__unselectPrevious();
                     this.list.__setItems(items);
-                    $(document.getElementById(this.id + "Items")).empty().append(items);
+                    $(document.getElementById(this.id + "Items")).children().detach();
+                    $(document.getElementById(this.id + "Items")).append(items);
                 }
             },
 
@@ -370,9 +372,15 @@
             __showPopup: function() {
                 if (this.originalItems.length > 0) {
                     this.popupList.show();
-                    if (!this.options.enableManualInput) {
+                    if (!this.options.enableManualInput || this.getValue() == this.__getValue()) {
+                        if (this.originalItems.length > this.popupList.list.items.length) {
+                            this.popupList.list.__unselectPrevious();
+                            this.popupList.list.__setItems(this.originalItems);
+                            $(document.getElementById(this.id + "Items")).children().detach();
+                            $(document.getElementById(this.id + "Items")).append(this.originalItems);
+                        }
                         this.list.__selectItemByValue(this.getValue());
-                    }
+                    } 
                 }
                 this.invokeEvent.call(this, "listshow", document.getElementById(this.id));
             },
