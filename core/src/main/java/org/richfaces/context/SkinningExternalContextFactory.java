@@ -59,6 +59,11 @@ public class SkinningExternalContextFactory extends ExternalContextFactory imple
         public ExternalContext getWrapped() {
             return externalContext;
         }
+
+        @Override
+        public boolean isSecure() {
+            return getWrapped().isSecure();
+        }
     }
 
     public SkinningExternalContextFactory(ExternalContextFactory factory) {
