@@ -17,7 +17,7 @@ import org.richfaces.renderkit.focus.ViewFocusRenderStrategy;
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "core.js"),
         @ResourceDependency(library = "org.richfaces", name = "focus.js") })
 public class FocusRendererBase extends RendererBase implements FocusRendererInterface {
 
