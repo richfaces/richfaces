@@ -241,9 +241,12 @@
                             seriesTotal = this.options.data.length,
                             ticks = [],
                             ordered = false;
+                            
+                        this.options.bars = this.options.bars || {};
+                        this.options.bars.barWidth = 1 / (seriesTotal + 1);
                         for (var i = 0; i < seriesLength; i++) {
                             ticks.push( [i, this.options.data[0].data[i][0]] );
-                            for (var j = 0; j < seriesTotal; j++) {
+                            for (var j = 0; j < seriesTotal; j++) { 
                                 this.options.data[j].data[i][0] = i;
                                 if (!ordered) {
                                     this.options.data[j].bars.order = j;

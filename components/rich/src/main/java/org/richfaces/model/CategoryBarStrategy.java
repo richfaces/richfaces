@@ -44,7 +44,6 @@ class CategoryBarStrategy implements ChartStrategy {
 
         JSONObject bars = new JSONObject();
         ChartRendererBase.addAttribute(bars, "show", true);
-        ChartRendererBase.addAttribute(bars, "barWidth", (double) 1 / (model.getData().size() + 1));
         ChartRendererBase.addAttribute(bars, "align", "center");
         ChartRendererBase.addAttribute(obj, "bars", bars);
 
