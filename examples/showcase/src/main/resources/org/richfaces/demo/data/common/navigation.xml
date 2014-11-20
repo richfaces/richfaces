@@ -419,7 +419,7 @@
         <demos>
             <demo mobileExclude="true">
                 <id>chart</id>
-                <name>r:chart</name>
+                <name>rich:chart</name>
                 <samples>
                     <sample new="true">
                         <id>simple</id>
