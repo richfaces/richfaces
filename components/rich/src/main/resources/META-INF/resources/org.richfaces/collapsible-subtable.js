@@ -65,7 +65,7 @@
                 //use parent tbody as parent dom elem
                 return $(document.getElementById(this.id)).parent();
             } else {
-                var regex = new RegExp(this.id + "\\:\\d\\:b");
+                var regex = new RegExp(this.id + "\\:\\d+\\:b");
                 return $(document.getElementById(this.id)).parent().find("tr").filter(function() {
                     return this.id.match(regex);
                 });
