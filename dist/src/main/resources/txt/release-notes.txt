@@ -1,3 +1,41 @@
+4.5.1.Final
+-----------
+
+    Bug
+    [RF-12166] - richfaces distribution - missing assembler.xml in showcase sources
+    [RF-12654] - PartialViewRender skips check for whether column is rendered before checking if children can be rendered
+    [RF-13828] - a4j jsFunction does not work inside a form with enctype="multipart/form-data"
+    [RF-13883] - render-attribute of a4j:commandLink is ignored
+    [RF-13892] - rich:contextMenu with rich:dataTable - after ajax re-render of table contextMenu no longer works
+    [RF-13893] - Resource optimization - Invalid reference for gradientA.png
+    [RF-13898] - Not able to tab out from rich:select field in a table.
+    [RF-13899] - selected item in rich:select not highlighted after refresh
+    [RF-13904] - RF can be deployed to Mojarra < 2.1.28
+    [RF-13905] - Select: attribute onlistshow doesn't work when enableManualInput=true
+    [RF-13906] - Calendar - Show selected date JS error
+    [RF-13908] - Validation quickstart: UnsupportedOperationException after confirmation of the registration
+    [RF-13909] - Attribute render doesn't work in command button/link, jsFunction
+    [RF-13912] - rich:select inside panelGrid
+    [RF-13916] - Nested collapsibleSubTable only collapse ten row BUG
+    [RF-13917] - Showcase: update the version of RF in readme
+    [RF-13922] - Ajax requests fail if triggered outside of form
+    [RF-13923] - Editor toolbar configuration cannot be changed
+
+    Component Upgrade
+    [RF-13902] - Upgrade dependencies in jsf-test
+    [RF-13915] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-11088] - rich:select modify manualInput behavior to avoid single item scoped item list popup when editing value
+    [RF-13232] - Enable flexible changing of the deployed archive name for general deployments, e.g. CoreDeployment
+    [RF-13867] - Provide a way to access FlotCharts options
+
+    Feature Request
+    [RF-13532] - Support JSF 2.2 resetValues attribute for a4j:ajax
+    [RF-13855] - Rich line chart string value on one of axis
+    [RF-13861] - rich:chart doesn't preserve ordering of data
+    [RF-13900] - rich:select should support selection by first character if enableManualInput is not used
+
 4.5.0.Final
 -----------
 
