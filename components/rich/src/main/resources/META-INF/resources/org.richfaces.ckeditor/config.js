@@ -4,8 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-
-  // makes Basic toolbar the default
+	// makes Basic toolbar the default
   config['toolbar'] = 'Basic';
 
   // overrides default Basic toolbar button set
