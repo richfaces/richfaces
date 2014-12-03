@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-    <version>4.5.1.Final</version>
+    <version>4.5.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>RichFaces Photoalbum</name>
@@ -52,7 +52,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.1.Final</version.richfaces>
+        <version.richfaces>4.5.2-SNAPSHOT</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
