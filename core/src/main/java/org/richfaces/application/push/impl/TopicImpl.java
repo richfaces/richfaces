@@ -57,12 +57,29 @@ public class TopicImpl extends AbstractTopic {
      */
     @Override
     public void publish(Object messageData) throws MessageException {
+        publish(messageData, null);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.application.push.AbstractTopic#publish(java.lang.Object, java.lang.String)
+     */
+    @Override
+    public void publish(Object messageData, String subtopicName) throws MessageException {
         String serializedData = getMessageDataSerializer().serialize(messageData);
 
         if (serializedData != null) {
             PublishingContext topicContext = getPublishingContext(getKey());
             if (topicContext != null) {
                 topicContext.addMessage(serializedData);
+            }
+            // support publishing to contexts that are only interested in specific subtopics
+            if (subtopicName != null && getKey().getSubtopicName() == null) {
+                topicContext = getPublishingContext(new TopicKey(getKey().getTopicName(), subtopicName));
+                if (topicContext != null) {
+                    topicContext.addMessage(serializedData);
+                }
             }
         }
     }
