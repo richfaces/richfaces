@@ -53,6 +53,16 @@ public class TopicImpl extends AbstractTopic {
     /*
      * (non-Javadoc)
      *
+     * @see org.richfaces.application.push.AbstractTopic#publish(java.lang.Object)
+     */
+    @Override
+    public void publish(Object messageData) throws MessageException {
+        publish(messageData, null);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.application.push.AbstractTopic#publish(java.lang.Object, java.lang.String)
      */
     @Override
