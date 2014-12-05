@@ -210,7 +210,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                                 if (pushTopic != null) {
                                     try {
                                         Object messageData = getMessageData(message);
-                                        pushTopic.publish(messageData);
+                                        pushTopic.publish(messageData, subtopicName);
                                     } catch (Exception e) {
                                         LOGGER.error(e.getMessage(), e);
                                     }

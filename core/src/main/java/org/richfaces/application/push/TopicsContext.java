@@ -112,7 +112,7 @@ public abstract class TopicsContext {
 
         Topic topic = getOrCreateTopic(resolvedKey);
 
-        topic.publish(data);
+        topic.publish(data, resolvedKey.getSubtopicName());
     }
 
     /**

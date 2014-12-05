@@ -164,8 +164,8 @@ public abstract class AbstractTopic implements Topic {
 
     /*
      * (non-Javadoc)
-     * @see org.richfaces.application.push.Topic#publish(java.lang.Object)
+     * @see org.richfaces.application.push.Topic#publish(java.lang.Object, java.lang.String)
      */
     @Override
-    public abstract void publish(Object messageData) throws MessageException;
+    public abstract void publish(Object messageData, String subtopicName) throws MessageException;
 }
