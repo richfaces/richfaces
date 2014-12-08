@@ -24,13 +24,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>4.5.2-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>
-
     <artifactId>components-demo</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - Component </name>
@@ -39,6 +32,9 @@
 
     <properties>
         <version.richfaces>4.5.2-SNAPSHOT</version.richfaces>
+        <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
+        <version.jboss-spec>3.0.2.Final</version.jboss-spec>
+        <version.junit>4.11</version.junit>
     </properties>
 
     <dependencies>
@@ -47,11 +43,13 @@
             <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
+            <version>${version.jboss-spec}</version>
         </dependency>
 
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
+            <version>${version.richfaces}</version>
         </dependency>
 
         <dependency>
@@ -59,6 +57,7 @@
             <artifactId>template</artifactId>
             <type>war</type>
             <scope>runtime</scope>
+            <version>${version.richfaces}</version>
         </dependency>
 
         <!-- Support of additional constrains, e.g. @NotEmpty - won't work on MyFaces -->
@@ -66,6 +65,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <scope>provided</scope>
+            <version>${version.hibernate-validator}</version>
         </dependency>
 
         <!-- Test dependencies -->
@@ -73,6 +73,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+            <version>${version.junit}</version>
         </dependency>
 
     </dependencies>

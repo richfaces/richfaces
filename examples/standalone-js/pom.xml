@@ -24,13 +24,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>4.5.2-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>
-
     <artifactId>standalone-js</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - Component </name>
@@ -43,14 +36,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- RichFaces BOM Import -->
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${version.richfaces}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>

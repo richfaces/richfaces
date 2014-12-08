@@ -25,16 +25,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>4.5.2-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>
-
     <artifactId>irc-client</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - IRC Client</name>
+    <version>4.5.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
