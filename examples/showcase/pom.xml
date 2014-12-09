@@ -87,20 +87,18 @@
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
-            <version>${version.richfaces}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
             <scope>test</scope>
-            <version>${version.richfaces}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
             <scope>test</scope>
             <optional>true</optional>
-            <version>${project.version}</version>
+            <version>${version.richfaces}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec</groupId>
