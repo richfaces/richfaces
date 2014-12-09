@@ -246,7 +246,7 @@
                 var ajaxSuccess = function (event) {
                     updateItemsList.call(_this, _this.__getValue(), event.componentData && event.componentData[_this.id]);
 
-                    if (_this.clientSelectItems.length != 0) {
+                    if (_this.clientSelectItems && _this.clientSelectItems.length) {
                         _this.__updateItems();
                         _this.__showPopup();
                     } else {
