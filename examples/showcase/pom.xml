@@ -58,6 +58,9 @@
         </jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
+        
+        <testCategory.included.default>NOT category.None</testCategory.included.default>
+        <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
     </properties>
 
     <dependencyManagement>
@@ -394,6 +397,17 @@
             </properties>
         </profile>
         <profile>
+            <id>smoke-tests</id>
+            <activation>
+                <property>
+                    <name>smoke</name>
+                </property>
+            </activation>
+            <properties>
+                <testCategory.included.default>category.Smoke</testCategory.included.default>
+            </properties>
+        </profile>
+        <profile>
             <id>release</id>
             <activation>
                 <property>
@@ -435,8 +449,6 @@
                 <trustStore />
 
                 <!-- JUnit Categories Selection -->
-                <testCategory.included.default>NOT category.None</testCategory.included.default>
-                <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
                 <testCategory.excluded.container />
                 <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
                 <testCategory.excluded.jsf />
