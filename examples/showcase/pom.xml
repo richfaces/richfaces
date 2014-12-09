@@ -61,6 +61,10 @@
         
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
+        
+        <!-- Release repositories -->
+        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
+        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
     </properties>
    
     <prerequisites>
@@ -1434,4 +1438,24 @@
             </dependencies>
         </profile>
     </profiles>
+
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
+        <url>https://github.com/richfaces/richfaces</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Releases Repository</name>
+            <url>${jboss.releases.repo.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>${jboss.snapshots.repo.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
