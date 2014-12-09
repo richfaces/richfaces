@@ -13,6 +13,9 @@
     <properties>
         <version.richfaces>4.5.2-SNAPSHOT</version.richfaces>
         
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <!-- Container Versions -->
         <version.wildfly80>8.0.0.Final</version.wildfly80>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
