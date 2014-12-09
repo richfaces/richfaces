@@ -141,8 +141,9 @@ public final class Utils {
      * @param option
      * @return
      */
-    public static Optional<String> getComponentOption(WebElement rootOfComponent, String option) {
-        return Optional.of((String) invokeRichFacesJSAPIFunction(rootOfComponent, "options." + option));
+    @SuppressWarnings("unchecked")
+    public static <T> Optional<T> getComponentOption(WebElement rootOfComponent, String option) {
+        return Optional.of((T) invokeRichFacesJSAPIFunction(rootOfComponent, "options." + option));
     }
 
     /**
@@ -154,7 +155,7 @@ public final class Utils {
      * @param option
      * @return actual component option value, or null if it is equal to document object
      */
-    public static Optional<String> getComponentOptionDocumentObjectSafe(WebElement rootOfComponent, String option) {
+    public static <T> Optional<T> getComponentOptionDocumentObjectSafe(WebElement rootOfComponent, String option) {
         if (!(Boolean) invokeRichFacesJSAPIFunction(rootOfComponent, "options." + option + " == document")) {
             return getComponentOption(rootOfComponent, option);
         } else {

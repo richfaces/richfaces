@@ -290,7 +290,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
         }
 
         public void setTargetFromWidget() {
-            String targetId = Utils.getComponentOption(getRootElement(), "target").orNull();
+            String targetId = Utils.<String>getComponentOption(getRootElement(), "target").orNull();
             if (targetId != null) {
                 target = browser.findElement(By.id(targetId));
             } else {

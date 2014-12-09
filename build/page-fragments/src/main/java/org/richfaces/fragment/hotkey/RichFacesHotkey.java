@@ -186,7 +186,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         }
 
         public void setSelectorFromWidget() {
-            selector = Utils.getComponentOptionDocumentObjectSafe(getRootElement(), "selector").orNull();
+            selector = Utils.<String>getComponentOptionDocumentObjectSafe(getRootElement(), "selector").orNull();
         }
     }
 }
