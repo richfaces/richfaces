@@ -87,8 +87,6 @@
          * */
         execClient : function (tooltip, event) {
             tooltip.__show(event);
-
-            return tooltip.__fireShow();
         }
     };
 
@@ -228,8 +226,6 @@
             onCompleteHandler : function () {
                 this.__content().show();
                 this.__loading().hide();
-
-                return this.__fireShow();
             },
 
             /**
@@ -248,6 +244,7 @@
                     }
                     //for showing tooltip in followMouse mode
                     tooltip.shown = true;
+                    tooltip.__fireShow();
                 });
             },
 
