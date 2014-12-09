@@ -65,7 +65,7 @@
                 //use parent tbody as parent dom elem
                 return $(document.getElementById(this.id)).parent();
             } else {
-                var regex = new RegExp(this.id + "\\:\\d+\\:b");
+                var regex = new RegExp("^" + this.id + "\\:\\d+\\:b$");
                 return $(document.getElementById(this.id)).parent().find("tr").filter(function() {
                     return this.id.match(regex);
                 });
@@ -145,6 +145,30 @@
             },
 
             collapse: function(options) {
+                if (this.isNested) {
+                    var expandedTogglerRegex = new RegExp("^" + this.id + "\\:\\d+\\:\\w+\\:expanded$");
+                    var collapseTogglerRegex = new RegExp("^" + this.id + "\\:\\d+\\:\\w+\\:collapsed$");
+                    var subtableRegex = new RegExp("^" + this.id + "\\:\\d+\\:\\w+$");
+                    $(document.getElementById(this.id)).parent().find("tr[style='display: none;']").filter(function () {
+                        return this.id.match(subtableRegex);
+                    }).each(function () {
+                        if (this.rf) {
+                            if (this.rf.component.isExpanded) {
+                                $(document.getElementById(this.id)).parent().find(".rf-csttg-exp").filter(function () {
+                                    return this.id.match(expandedTogglerRegex);
+                                }).each(function () {
+                                    $(this).hide();
+                                });
+                                $(document.getElementById(this.id)).parent().find(".rf-csttg-colps").filter(function () {
+                                    return this.id.match(collapseTogglerRegex);
+                                }).each(function () {
+                                    $(this).show();
+                                });
+                                this.rf.component.collapse();
+                            }
+                        }
+                    });
+                }
                 this.setState(rf.ui.CollapsibleSubTable.collapse);
                 element.call(this).hide();
             },
