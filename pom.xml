@@ -103,9 +103,9 @@
 
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
-        <url>https://github.com/richfaces/richfaces5</url>
+        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
+        <url>https://github.com/richfaces/richfaces</url>
         <tag>HEAD</tag>
     </scm>
 
