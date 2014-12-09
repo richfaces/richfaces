@@ -883,7 +883,8 @@
                             <execution>
                                 <id>default-test</id>
                                 <configuration>
-                                    <skipTests>${skipTests}</skipTests>
+                                    <!--  there are no unit tests -->
+                   	                <skipTests>true</skipTests>
                                     <test>${test}</test>
                                     <excludes>
                                         <exclude>${integration.test.pattern}</exclude>
