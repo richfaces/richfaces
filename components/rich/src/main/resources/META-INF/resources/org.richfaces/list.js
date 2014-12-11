@@ -430,21 +430,19 @@
 
             __scrollToSelectedItem : function() {
                 if (this.scrollContainer) {
-                    var offset = 0;
-
-                    this.items.slice(0, this.index).each(function() {
-                        offset += this.offsetHeight;
-                    });
-
-                    var parentContainer = this.scrollContainer;
-                    if (offset < parentContainer.scrollTop()) {
-                        parentContainer.scrollTop(offset);
-                    } else {
-                        offset += this.items.get(this.index).offsetHeight;
-                        if (offset - parentContainer.scrollTop() > parentContainer.get(0).clientHeight) {
-                            parentContainer.scrollTop(offset - parentContainer.innerHeight());
-                        }
+                    var contClientRect = this.scrollContainer[0].getBoundingClientRect(),
+                        itemClientRect = this.items.get(this.index).getBoundingClientRect();
+                    
+                    if (contClientRect.top < itemClientRect.top && 
+                        itemClientRect.bottom < contClientRect.bottom) {
+                        // the item is within the visible area, do not scroll
+                        return;
                     }
+                    
+                    var iTop = itemClientRect.top, cTop = contClientRect.top,
+                        scrollTop = this.scrollContainer.scrollTop() + iTop - cTop;
+                    
+                    this.scrollContainer.scrollTop(scrollTop);
                 }
             },
 

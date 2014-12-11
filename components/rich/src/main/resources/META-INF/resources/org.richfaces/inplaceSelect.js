@@ -57,6 +57,7 @@
                 $super.onshow.call(this);
                 if (this.openOnEdit) {
                     this.__showPopup();
+                    this.list.__scrollToSelectedItem();
                 }
             },
             onhide: function() {
