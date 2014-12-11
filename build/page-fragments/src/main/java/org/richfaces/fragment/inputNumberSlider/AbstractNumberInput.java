@@ -25,6 +25,7 @@ import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactor
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.richfaces.fragment.common.ClearType;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 
 public abstract class AbstractNumberInput implements NumberInput {
@@ -66,7 +67,7 @@ public abstract class AbstractNumberInput implements NumberInput {
 
     @Override
     public void setValue(double value) {
-        advanced().getInput().sendKeys(String.valueOf(value));
+        advanced().getInput().advanced().clear(ClearType.BACKSPACE).sendKeys(String.valueOf(value));
     }
 
     @Override
