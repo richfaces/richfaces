@@ -238,6 +238,23 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" }),
             new ComponentAttribute("onready").setEventNames(new String[] { "ready" })));
 
+    /**
+     * Clear the extendedDataModel before the component encode begins.  This is to force the extendedDataModel to be
+     * re-initialized taking into account any model changes that were applied since the model was created in the
+     * RESTORE_VIEW phase.
+     *
+     * @param context
+     * @param component
+     * @throws IOException
+     */
+    @Override
+    protected void preEncodeBegin(FacesContext context, UIComponent component) throws IOException {
+        super.preEncodeBegin(context, component);
+        if (component instanceof UIDataTableBase) {
+            ((UIDataTableBase) component).clearExtendedDataModel();
+        }
+    }
+
     private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column, boolean isLastColumn) throws IOException {
         if (column.isRendered()) {
             writer.startElement(HtmlConstants.TD_ELEM, column);
