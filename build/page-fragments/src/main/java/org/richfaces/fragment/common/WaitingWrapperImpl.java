@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.wait.FluentWait;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -51,6 +52,7 @@ public abstract class WaitingWrapperImpl implements WaitingWrapper {
         if (message != null) {
             wait = wait.withMessage(message);
         }
+        wait.ignoring(StaleElementReferenceException.class);
         performWait(wait);
     }
 
