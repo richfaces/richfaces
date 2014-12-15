@@ -34,26 +34,26 @@ import org.richfaces.component.Positioning;
 public interface PositionProps {
     /**
      * <p>Set the corner attachment point with which the popup should be connected. Possible values are:<br />
-     * AA (auto), LT (topLeft), RT (topRight), LB (bottomLeft), RB (bottomRight, LA (autoLeft),
-     * RA (autoRight), AT (topAuto), AB (bottomAuto)</p>
+     * auto, topLeft, topRight, bottomLeft, bottomRight, autoLeft,
+     * autoRight, topAuto, bottomAuto</p>
      * <p/>
      * <p>Default value is auto</p>
      */
     @Attribute(description = @Description(
-            value = "<p>Set the corner attachment point with which the popup should be connected. Possible values are:<br />AA (auto), LT (topLeft), RT (topRight), LB (bottomLeft), RB (bottomRight, LA (autoLeft),RA (autoRight), AT (topAuto), AB (bottomAuto)</p><p>Default value is auto</p>",
+            value = "<p>Set the corner attachment point with which the popup should be connected. Possible values are:<br />auto, topLeft, topRight, bottomLeft, bottomRight, autoLeft, autoRight, topAuto, bottomAuto</p><p>Default value is auto</p>",
             displayName = "Joint Point"),
             defaultValue = "Positioning.auto")
     Positioning getJointPoint();
 
     /**
      * <p>Set the direction of the popup.  Possible values are:<br />
-     * AA (auto), LT (topLeft), RT (topRight), LB (bottomLeft), RB (bottomRight, LA (autoLeft),
-     * RA (autoRight), AT (topAuto), AB (bottomAuto)</p>
+     * auto, topLeft, topRight, bottomLeft, bottomRight, autoLeft,
+     * autoRight, topAuto, bottomAuto</p>
      * <p/>
      * <p>Default value is auto</p>
      */
     @Attribute(description = @Description(
-            value = "<p>Set the direction of the popup.  Possible values are:<br />AA (auto), LT (topLeft), RT (topRight), LB (bottomLeft), RB (bottomRight, LA (autoLeft),RA (autoRight), AT (topAuto), AB (bottomAuto)</p><p>Default value is auto</p>",
+            value = "<p>Set the direction of the popup.  Possible values are:<br />auto, topLeft, topRight, bottomLeft, bottomRight, autoLeft, autoRight, topAuto, bottomAuto</p><p>Default value is auto</p>",
             displayName = "Direction"),
             defaultValue = "Positioning.auto")
     Positioning getDirection();
