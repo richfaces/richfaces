@@ -781,7 +781,7 @@
             selectionKeyDownListener: function(event) {
                 if (event.ctrlKey && this.options.selectionMode != "single" && (event.keyCode == 65 || event.keyCode == 97) //Ctrl-A
                     && this.onbeforeselectionchange(event)) {
-                    this.selectRows([0, rows]);
+                    this.selectRows([0, this.rows]);
                     this.selectionFlag = "a";
                     this.onselectionchange(event, this.activeIndex, true); //TODO Is there a way to know that selection haven't changed?
                     event.preventDefault();
