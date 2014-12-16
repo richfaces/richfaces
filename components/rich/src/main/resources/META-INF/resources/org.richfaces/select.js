@@ -295,14 +295,14 @@
                 newValue = (newValue != this.defaultLabel) ? newValue : "";
                 this.__updateItemsFromCache(newValue);
 
-                if (this.selectFirst && this.enableManualInput && this.getValue() != newValue) {
+                if (this.selectFirst && this.enableManualInput && !this.__isValueSelected(newValue)) {
                     this.list.__selectByIndex(0);
                 }
             },
 
             __updateItemsFromCache: function(value) {
                 if (this.originalItems.length > 0 && (this.enableManualInput || this.isAutocomplete)
-                    && this.getValue() != value) {
+                    && !this.__isValueSelected(value)) {
                     var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__unselectPrevious();
@@ -351,6 +351,11 @@
                 }
             },
             
+            __isValueSelected: function(label) {
+                var item = this.__getClientItemFromCache(label);
+                return item.label === label && item.value == this.getValue();
+            },
+            
             __selectItemByLabel: function(code) {
                 // only 0-9 and a-z
                 if (this.enableManualInput || code < 48 || (code > 57 && code < 65) || code > 90) {
@@ -394,7 +399,7 @@
             __showPopup: function() {
                 if (this.originalItems.length > 0) {
                     this.popupList.show();
-                    if (!this.options.enableManualInput || this.getValue() == this.__getValue()) {
+                    if (!this.options.enableManualInput || this.__isValueSelected(this.getLabel())) {
                         if (this.originalItems.length > this.popupList.list.items.length) {
                             this.popupList.list.__unselectPrevious();
                             this.popupList.list.__setItems(this.originalItems);
