@@ -22,8 +22,8 @@
         <version.tomee17>1.7.0</version.tomee17>
         <version.glassfish40>4.0</version.glassfish40>
         <version.tomcat6>6.0.36</version.tomcat6>
-        <version.tomcat7>7.0.55</version.tomcat7>
-        <version.tomcat8>8.0.9</version.tomcat8>
+        <version.tomcat7>7.0.57</version.tomcat7>
+        <version.tomcat8>8.0.15</version.tomcat8>
 
         <dependency.scope>compile</dependency.scope>
         <container.resources>src/main/resources-tomcat</container.resources>
