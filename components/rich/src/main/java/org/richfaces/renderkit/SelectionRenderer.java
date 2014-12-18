@@ -216,6 +216,9 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         Object rowKey = attributes.get("shiftRowKey");
         if (rowKey == null) {
             rowKey = attributes.get("activeRowKey");
+            if (rowKey == null) {
+                rowKey = range.getFirstRow();
+            }
             attributes.put("shiftRowKey", rowKey);
         }
         table.setRowKey(rowKey);
