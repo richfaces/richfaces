@@ -55,4 +55,9 @@ public interface ExtendedDataTable {
     * used ones are SHIFT and CONTROL.
     */
     void deselectRow(int rowIndex, Keys... keys);
+
+    /**
+     * Selects all rows using CTRL + A.
+     */
+    void selectAllRowsWithKeyShortcut();
 }
