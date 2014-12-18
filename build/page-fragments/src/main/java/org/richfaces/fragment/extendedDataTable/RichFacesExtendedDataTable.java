@@ -81,7 +81,7 @@ public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends Ab
 
     @Override
     public void selectAllRowsWithKeyShortcut() {
-        tableBodyElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        advanced().getTableBodyElement().sendKeys(Keys.chord(Keys.CONTROL, "a"));
         if (advanced().getTableRowsElements().size() >= 1) {
             Graphene.waitAjax().until().element(advanced().getTableRowsElements().get(0)).attribute("class")
                 .contains(advanced().getStyleClassForSelectedRow());
@@ -177,6 +177,10 @@ public abstract class RichFacesExtendedDataTable<HEADER, ROW, FOOTER> extends Ab
         @Override
         public List<WebElement> getColumnFooterElements() {
             return columnFootersElements;
+        }
+
+        public WebElement getTableBodyElement() {
+            return tableBodyElement;
         }
     }
 }
