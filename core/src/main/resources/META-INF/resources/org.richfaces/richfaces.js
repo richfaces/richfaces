@@ -583,7 +583,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         }
 
         var form = getFormElement(sourceElement);
-        if (window.mojarra && form && form.enctype == "multipart/form-data") {
+        if (window.mojarra && form && form.enctype == "multipart/form-data"
+            && jsf.specversion > 20000) {
             var input, name, value;
                 rf.requestParams = [];
             // RF-13828: when inside multipart/form-data create hidden inputs for request parameters
