@@ -2,4 +2,5 @@
 
 <jboss-web>
     <context-root>/</context-root>
+    <enable-websockets>true</enable-websockets>
 </jboss-web>
