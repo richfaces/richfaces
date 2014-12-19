@@ -22,6 +22,7 @@
 package org.richfaces.component;
 
 import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -70,6 +71,10 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
         }
     }
 
+    public enum Properties {
+        expanded
+    }
+
     protected AbstractCollapsiblePanel() {
         setRendererType("org.richfaces.CollapsiblePanelRenderer");
     }
@@ -102,9 +107,35 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
      * When true, the panel is expanded, when false, the panel is collapsed
      */
     @Attribute(defaultValue = "true")
-    public abstract boolean isExpanded();
+    public boolean isExpanded() {
+        Object exp = getStateHelper().get(Properties.expanded);
+        if (exp != null && exp instanceof Boolean) {
+            return (Boolean) exp;
+        }
 
-    public abstract void setExpanded(boolean expanded);
+        ValueExpression ve = getValueExpression(Properties.expanded.toString());
+        if (ve != null) {
+            exp = ve.getValue(FacesContext.getCurrentInstance().getELContext());
+            if (exp != null && exp instanceof Boolean) {
+                return (Boolean) exp;
+            }
+        }
+        return true;
+    }
+
+    public void setExpanded(boolean expanded) {
+        ValueExpression ve = getValueExpression(Properties.expanded.toString());
+        if (ve != null) {
+            if (ve.isReadOnly(FacesContext.getCurrentInstance().getELContext())) {
+                getStateHelper().put(Properties.expanded, expanded);
+                return;
+            }
+            ve.setValue(FacesContext.getCurrentInstance().getELContext(), expanded);
+            return;
+        }
+
+        getStateHelper().put(Properties.expanded, expanded);
+    }
 
     @Attribute(hidden = true)
     public abstract boolean isCycledSwitching();
