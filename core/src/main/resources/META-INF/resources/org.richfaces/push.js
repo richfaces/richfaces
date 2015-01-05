@@ -128,6 +128,10 @@
      * Handles messages transported using Atmosphere
      */
     _messageCallback: function(response) {
+      if (response.state && response.state === "opening") {
+          this._lastMessageNumber = -1;
+          return;
+      }
       var suspendMessageEndMarker = /^(<!--[^>]+-->\s*)+/;
       var messageTokenExpr = /<msg topic="([^"]+)" number="([^"]+)">([^<]*)<\/msg>/g;
 
