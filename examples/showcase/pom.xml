@@ -19,6 +19,7 @@
         <!-- Container Versions -->
         <version.wildfly80>8.0.0.Final</version.wildfly80>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
+        <version.wildfly82>8.2.0.Final</version.wildfly82>
         <version.tomee17>1.7.0</version.tomee17>
         <version.glassfish40>4.0</version.glassfish40>
         <version.tomcat6>6.0.36</version.tomcat6>
@@ -1068,25 +1069,48 @@
             </dependencies>
         </profile>
         <profile>
-            <id>wildfly-managed-8-1-https</id>
+            <id>wildfly-managed-8-2</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly81-https</value>
+                    <value>wildfly82</value>
                 </property>
             </activation>
             <properties>
                 <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-wildfly81-https:${version.richfaces}</arquillian.container.configuration>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
                 <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>${version.wildfly81}</version>
+                    <version>${version.wildfly82}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-managed-8-2-https</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly82-https</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-wildfly82-https:${version.richfaces}</arquillian.container.configuration>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>${version.wildfly82}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -1119,6 +1143,26 @@
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-remote</artifactId>
                     <version>${version.wildfly81}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-remote-8-2</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly82-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <version>${version.wildfly82}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

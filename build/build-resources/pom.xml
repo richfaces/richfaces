@@ -128,14 +128,14 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>package-configuration-wildfly81-https</id>
+                        <id>package-configuration-wildfly82-https</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>assembly-configuration-wildfly81-https.xml</descriptor>
+                                <descriptor>assembly-configuration-wildfly82-https.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>

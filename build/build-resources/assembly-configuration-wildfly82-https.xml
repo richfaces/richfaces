@@ -1,12 +1,12 @@
 <assembly>
-    <id>configuration-wildfly81-https</id>
+    <id>configuration-wildfly82-https</id>
     <formats>
         <format>zip</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>${basedir}/src/container-configuration/wildfly81-https</directory>
+            <directory>${basedir}/src/container-configuration/wildfly82-https</directory>
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>**/*.*</include>
