@@ -46,7 +46,6 @@
             <div id="#{clientId}List" class="#{getListCss(component)}">
                 <cdk:call expression="renderListHandlers(facesContext, component);" />
                 <div class="rf-sel-shdw">
-                    <div class="rf-sel-shdw-t"></div>
                     <div class="rf-sel-shdw-l"></div>
                     <div class="rf-sel-shdw-r"></div>
                     <div class="rf-sel-shdw-b"></div>

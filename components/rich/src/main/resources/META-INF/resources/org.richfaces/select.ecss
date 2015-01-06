@@ -107,47 +107,36 @@ input.rf-sel-inp {
     display: inline-block;
     position: absolute;
     float: left;
-    padding: 6px 6px 6px 6px;
-    top: -6px;
+    padding: 0px 6px 6px 6px;
     left: -7px;
-}
-
-.rf-sel-shdw-t {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
-    background-position: top left;
-    position: absolute;
-    width: 6px;
-    top: 0px;
-    bottom: 6px;
-    left: 0px;
 }
 
 .rf-sel-shdw-l {
     background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
     background-position: bottom left;
     position: absolute;
-    height: 6px;
+    width: 6px;
+    top: 0px;
     bottom: 0px;
     left: 0px;
-    right: 6px;
 }
 
-.rf-sel-u-shdw-r {
+.rf-sel-shdw-r {
     background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
     background-position: bottom right;
     position: absolute;
     width: 6px;
-    top: 6px;
+    top: 0px;
     bottom: 0px;
     right: 0px;
 }
 
 .rf-sel-shdw-b {
     background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
-    background-position: right top;
+    background-position: right bottom;
     position: absolute;
     height: 6px;
-    top: 0px;
+    bottom: 0px;
     left: 6px;
     right: 0px;
 }
