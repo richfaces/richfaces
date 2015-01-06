@@ -20,8 +20,9 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
+  
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces.examples</groupId>
@@ -56,6 +57,9 @@
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
+
+        <version.testng>6.8.8</version.testng>
+        <version.jboss.arq.testng></version.jboss.arq.testng>
 
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee17>1.7.0</version.tomee17>
@@ -171,6 +175,34 @@
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${version.testng}</version>
+        </dependency>
+        <!-- TestNG listeners for better console output -->
+        <dependency>
+            <groupId>org.richfaces.tests</groupId>
+            <artifactId>testng-listeners</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- This is because of TestNG listeners -->
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-selenium</artifactId>
+            <version>2.0.0.Alpha5</version>
+            <type>pom</type>
+        </dependency>
+<!--         Page Fragments -->
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-page-fragments</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+            <version>${version.richfaces}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -274,7 +306,7 @@
                             <value>org.richfaces.css/$1</value>
                         </property>
                     </fileNameMappings>
-                    <excludedFiles>                        
+                    <excludedFiles>
                         <exclude>^javax.faces</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
