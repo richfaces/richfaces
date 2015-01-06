@@ -10,9 +10,29 @@
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
+    <description>
+        RichFaces showcase is an application created to show RichFaces components in action. It contains a set of small use-cases implemented using RichFaces components.
+    </description>
+
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
+
     <properties>
         <version.richfaces>4.5.2.Final</version.richfaces>
-        
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -62,15 +82,15 @@
         </jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
-        
+
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
-        
+
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
     </properties>
-   
+
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
@@ -170,7 +190,7 @@
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
         </dependency>
-        
+
         <!-- Jsoup used for validation of safe html input -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -254,7 +274,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -1002,7 +1022,7 @@
                 <arquillian.drone.reusable>true</arquillian.drone.reusable>
             </properties>
         </profile>
-        
+
         <!-- Containers -->
         <profile>
             <id>wildfly-managed-8-0</id>

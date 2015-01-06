@@ -31,6 +31,26 @@
     <version>4.5.2.Final</version>
     <packaging>war</packaging>
 
+    <description>
+        IRC Client - simple IRC client implemented with RichFaces
+    </description>
+
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
+
     <properties>
         <version.richfaces>4.5.2.Final</version.richfaces>
 
