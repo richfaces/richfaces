@@ -146,8 +146,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <!-- API and Impl bundled in weld-servlet -->
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -162,6 +160,20 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <scope>${dependency.scope}</scope>
+        </dependency>
+
+        <!-- Dependencies for Tomcat -->
+        <dependency>
+            <groupId>org.jboss</groupId>
+            <artifactId>jandex</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
         </dependency>
 
         <!-- Dependencies for Push -->
@@ -912,7 +924,7 @@
                                 <id>default-test</id>
                                 <configuration>
                                     <!--  there are no unit tests -->
-                   	                <skipTests>true</skipTests>
+                                    <skipTests>true</skipTests>
                                     <test>${test}</test>
                                     <excludes>
                                         <exclude>${integration.test.pattern}</exclude>
