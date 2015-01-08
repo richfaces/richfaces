@@ -2688,14 +2688,16 @@
                             async: _request.closeAsync,
                             timeout: _request.connectTimeout,
                             cache: false,
-                            crossDomain: _request.enableXDR
+                            crossDomain: _request.enableXDR,
+                            mimeType: "text/plain"
                         });
                     } else {
                         jQuery.ajax({
                             url: url,
                             async: _request.closeAsync,
                             cache: false,
-                            crossDomain: _request.enableXDR
+                            crossDomain: _request.enableXDR,
+                            mimeType: "text/plain"
                         });
                     }
                 }
