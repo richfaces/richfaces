@@ -74,6 +74,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.mousewheel.js"),
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js"),
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {

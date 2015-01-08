@@ -153,6 +153,7 @@
                 };
                 
                 body.bind("scroll", delayedScroll(this, body));
+                body.bind("mousewheel", $.proxy(this.horizontalScrollHandler, this));
                 $(this.scrollElement).bind("scroll", $.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
                 $(this.element).bind("rich:onajaxcomplete", $.proxy(this.ajaxComplete, this));
@@ -401,6 +402,16 @@
                     });
                 }
                 this.adjustResizers();
+            },
+            
+            horizontalScrollHandler: function(event) {
+                var scrollDelta = event.deltaFactor * event.deltaX;
+                
+                // ignore vertical scroll (deltaX = 0)
+                if (scrollDelta && this.scrollElement) {
+                    this.scrollElement.scrollLeft += scrollDelta;
+                    this.updateScrollPosition();
+                }  
             },
 
             initialize: function() {
