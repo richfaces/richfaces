@@ -17,6 +17,8 @@
     [RF-13942] - rich:select single item list still present
     [RF-13945] - ajax requests in multipart forms cause error in < 2.2.0
     [RF-13946] - The "onclick"event is not triggered when clicking on the bottom part of "rich:select" component.
+    [RF-13952] - richfaces-core defines finalName conflicted with components/rich/pom.xml
+    [RF-13954] - showcase: cannot be deployed on tomcat
 
     Component Upgrade
     [RF-13926] - Update weld-servlet dependency to 2.2+
