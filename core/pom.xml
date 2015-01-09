@@ -205,9 +205,6 @@
     </dependencies>
 
     <build>
-
-        <finalName>richfaces</finalName>
-
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -335,7 +332,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>jsf_ri</id>
             <activation>
