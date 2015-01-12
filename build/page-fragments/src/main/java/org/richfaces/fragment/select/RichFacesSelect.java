@@ -88,7 +88,7 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
 
     @Override
     public SelectSuggestions type(String text) {
-        advanced().getInput().advanced().clear(ClearType.DELETE).sendKeys(text);
+        advanced().getInput().advanced().clear(ClearType.DEFAULT_CLEAR_TYPE).sendKeys(text);
         return getSuggestions();
     }
 
