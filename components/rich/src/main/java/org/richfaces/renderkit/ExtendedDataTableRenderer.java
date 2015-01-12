@@ -894,6 +894,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getContainerClientId(facesContext), null);
                 String columnClass = "";
                 if (columnNumber != lastColumnNumber) {
                     columnClass = "rf-edt-td-" + column.getId();
