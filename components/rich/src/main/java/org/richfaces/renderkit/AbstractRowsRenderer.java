@@ -160,8 +160,8 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
     protected String getColumnClass(RowHolderBase rowHolder, int columnNumber) {
         String styleClass = "";
         String[] columnClasses = getColumnClasses(rowHolder);
-        if (columnClasses.length > columnNumber) {
-            styleClass = columnClasses[columnNumber];
+        if (columnClasses.length > 0) {
+            styleClass = columnClasses[columnNumber % columnClasses.length];
         }
 
         return styleClass;
