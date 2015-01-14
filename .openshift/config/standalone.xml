@@ -33,7 +33,7 @@
 		<extension module="org.jboss.as.webservices" />
 		<extension module="org.jboss.as.weld" />
 	</extensions>
-	
+
 	<system-properties>
        <property name="org.apache.coyote.http11.Http11Protocol.COMPRESSION" value="on"/>
     </system-properties>
@@ -51,7 +51,7 @@
 
 	<profile>
 		<subsystem xmlns="urn:jboss:domain:logging:1.3">
-			<!--console-handler name="CONSOLE"> <level name="INFO"/> <formatter> <pattern-formatter 
+			<!--console-handler name="CONSOLE"> <level name="INFO"/> <formatter> <pattern-formatter
 				pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/> </formatter> </console-handler -->
 			<size-rotating-file-handler name="FILE">
 				<formatter>
@@ -61,7 +61,7 @@
 				<file relative-to="jboss.server.log.dir" path="server.log" />
 				<append value="true" />
 				<rotate-size value="10m" />
-				<max-backup-index value="10" />				
+				<max-backup-index value="10" />
 			</size-rotating-file-handler>
 			<logger category="com.arjuna">
 				<level name="WARN" />
@@ -247,7 +247,7 @@
 					<eviction strategy="LRU" max-entries="10000" />
 					<file-store />
 				</replicated-cache>
-				<!-- ~ Clustered cache used internally by EJB subsytem for managing the 
+				<!-- ~ Clustered cache used internally by EJB subsytem for managing the
 					client-mapping(s) of ~ the socketbinding referenced by the EJB remoting connector -->
 				<replicated-cache name="remote-connector-client-mappings"
 					mode="SYNC" batching="true" />
@@ -361,10 +361,10 @@
 				<security-enabled>false</security-enabled>
 				<journal-file-size>102400</journal-file-size>
 				<journal-min-files>2</journal-min-files>
-				
+
 				<thread-pool-max-size>${messaging.thread.pool.max.size}</thread-pool-max-size>
  	            <scheduled-thread-pool-max-size>${messaging.scheduled.thread.pool.max.size}</scheduled-thread-pool-max-size>
- 	            
+
 				<connectors>
 					<netty-connector name="netty" socket-binding="messaging" />
 					<in-vm-connector name="in-vm" server-id="0" />
@@ -373,7 +373,7 @@
 					<netty-acceptor name="netty" socket-binding="messaging" />
 					<in-vm-acceptor name="in-vm" server-id="0" />
 				</acceptors>
-				
+
 				<address-settings>
 					<!--default for catch all -->
 					<address-setting match="#">
@@ -480,7 +480,7 @@
 		</subsystem>
 		<subsystem xmlns="urn:jboss:domain:web:1.5"
 			default-virtual-server="default-host" native="false">
-			<connector name="http" protocol="HTTP/1.1" scheme="http"
+			<connector name="http" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="http"
 				socket-binding="http" />
 			<virtual-server name="default-host"
 				enable-welcome-root="false">
@@ -511,7 +511,7 @@
 			<loopback-address value="${env.OPENSHIFT_JBOSSEAP_IP}" />
 		</interface>
 		<interface name="unsecure">
-			<!-- Used for IIOP sockets in the standarad configuration. To secure JacORB 
+			<!-- Used for IIOP sockets in the standarad configuration. To secure JacORB
 				you need to setup SSL -->
 			<loopback-address value="${env.OPENSHIFT_JBOSSEAP_IP}" />
 		</interface>
