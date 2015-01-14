@@ -24,6 +24,7 @@ input.rf-sel-inp {
     padding: 0px;
     vertical-align: top;
     width: 100%;
+    height: 16px;
 }
 
 .rf-sel {
