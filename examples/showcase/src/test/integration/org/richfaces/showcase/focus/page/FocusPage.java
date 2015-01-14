@@ -26,6 +26,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.fragment.common.TextInputComponentImpl;
+import org.richfaces.fragment.message.RichFacesMessage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -47,6 +48,9 @@ public class FocusPage {
 
     @FindByJQuery("*[type=submit]")
     private WebElement submitButton;
+
+    @FindByJQuery(".rf-msg-err:eq(0)")
+    private RichFacesMessage validationMessage;
 
     @ArquillianResource
     private Actions actions;
@@ -73,6 +77,10 @@ public class FocusPage {
 
     public WebElement getSubmitButton() {
         return submitButton;
+    }
+
+    public RichFacesMessage getValidationMessage() {
+        return validationMessage;
     }
 
     public Actions getActions() {

@@ -70,6 +70,7 @@ public class ITestNotifyMessages extends AbstractWebDriverTest {
         if (submitActivation) {
             page.waitUntilThereIsNoNotify();
             page.validate();
+            page.getNotify().advanced().waitUntilMessagesAreVisible().perform();
         }
 
         int numberOfNotifyMessages = page.getNotify().size();

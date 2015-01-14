@@ -25,9 +25,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.contextMenu.page.TableContextMenuPage;
 
@@ -38,6 +41,9 @@ public class ITestTable extends AbstractContextMenuTest {
 
     @Page
     private TableContextMenuPage page;
+
+    @Drone
+    protected WebDriver webDriver;
 
     public static final int NUMBER_OF_LINES_TO_TEST_ON = 3;
 
@@ -73,6 +79,10 @@ public class ITestTable extends AbstractContextMenuTest {
 
     @Test
     public void testContextMenuRenderedOnTheCorrectPosition() {
+        // resize browser window to enforce same conditions on all machines
+        // this is a workaround for Jenkins where this test was failing
+        webDriver.manage().window().setSize(new Dimension(1280, 720));
+
         WebElement elementToTryOn = page.getPrices().get(5);
 
         checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu().advanced().getMenuPopup(),

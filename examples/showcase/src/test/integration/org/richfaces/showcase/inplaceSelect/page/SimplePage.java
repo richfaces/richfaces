@@ -22,6 +22,7 @@
 package org.richfaces.showcase.inplaceSelect.page;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 
 /**
@@ -35,11 +36,18 @@ public class SimplePage {
     @FindByJQuery(".rf-is:eq(1)")
     private RichFacesInplaceSelect customSelect;
 
+    @FindByJQuery(".rf-p:eq(1)")
+    private WebElement dummyBlurElement;
+
     public RichFacesInplaceSelect getSimpleSelect() {
         return simpleSelect;
     }
 
     public RichFacesInplaceSelect getCustomSelect() {
         return customSelect;
+    }
+
+    public WebElement getDummyBlurElement() {
+        return dummyBlurElement;
     }
 }

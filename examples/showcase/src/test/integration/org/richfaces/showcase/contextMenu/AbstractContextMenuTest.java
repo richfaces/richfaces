@@ -65,10 +65,10 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
         // clicks in the middle of the target
         switch (type) {
             case LEFT_CLICK:
-                actions.click(target);
+                actions.moveToElement(target).click();
                 break;
             case RIGHT_CLICK:
-                actions.contextClick(target);
+                actions.moveToElement(target).contextClick();
                 break;
             default:
                 throw new IllegalArgumentException("Wrong type of context menu invocation!");

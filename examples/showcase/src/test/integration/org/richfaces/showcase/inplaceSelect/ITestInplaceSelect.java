@@ -46,6 +46,9 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
     public void testSimpleSelect() {
         for (int i = 1; i <= 5; i++) {
             checkSelect(page.getSimpleSelect(), "Option " + i, Event.CLICK);
+            // blur & wait for popul to hide
+            page.getDummyBlurElement().click();
+            page.getSimpleSelect().advanced().waitForPopupToHide().perform();
         }
     }
 
@@ -69,6 +72,8 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
             select.select(option).confirmByControlls();
         } else {
             select.select(option);
+         // manual blur as workaround for problems with fast selection
+            page.getCustomSelect().advanced().getRootElement().click();
         }
         waitModel().until().element(select.advanced().getLabelInputElement()).text().equalTo(option);
     }

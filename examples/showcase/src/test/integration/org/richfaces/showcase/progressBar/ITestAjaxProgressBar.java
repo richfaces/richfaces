@@ -56,7 +56,10 @@ public class ITestAjaxProgressBar extends AbstractProgressBarTest {
                     .value()
                     .not()
                     .equalTo(value);
-            getTheNumberFromValueAndSaveToList(value);
+            if (value.length() >= 3) {
+                // this ensures that a correct value was read since ajax request timing can be tricky
+                getTheNumberFromValueAndSaveToList(value);
+            }            
         }
         checkTheDeviationInList(MAX_DEVIATION);
     }

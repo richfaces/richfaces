@@ -22,7 +22,7 @@
 package org.richfaces.showcase.message;
 
 import category.Smoke;
-
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -46,6 +46,7 @@ public class ITestMessage extends AbstractWebDriverTest {
     public void testCorrectValues() {
         page.fillCorrectValues();
         page.validate();
+        page.getMessageForJob().advanced().waitUntilMessageIsNotVisible().perform();
         assertFalse("Unexpected message is present.", page.isAnyMessagePresent());
     }
 
@@ -53,6 +54,7 @@ public class ITestMessage extends AbstractWebDriverTest {
     public void testLessThanMinimum() {
         page.fillShorterValues();
         page.validate();
+        page.getMessageForJob().advanced().waitUntilMessageIsVisible().perform();
         assertTrue("All message should be present.", page.areAllMessagesPresent());
 
         assertMessageDetail("Name", page.getMessageForName(), MessagePage.NAME_ERROR_LESS_THAN_MINIMUM);
@@ -66,6 +68,7 @@ public class ITestMessage extends AbstractWebDriverTest {
     public void testEmptyInputs() {
         page.eraseAll();
         page.validate();
+        page.getMessageForJob().advanced().waitUntilMessageIsVisible().perform();
         assertTrue("All message should be present.", page.areAllMessagesPresent());
 
         assertMessageDetail("Name", page.getMessageForName(), MessagePage.NAME_ERROR_VALUE_REQUIRED);
@@ -80,7 +83,7 @@ public class ITestMessage extends AbstractWebDriverTest {
         page.fillCorrectValues();
         page.fillLongerJob();
         page.validate();
-
+        page.getMessageForJob().advanced().waitUntilMessageIsVisible().perform();
         assertTrue("The message for the Job input should be present.", page.getMessageForJob().advanced().isVisible());
         assertMessageDetail("Job", page.getMessageForJob(), MessagePage.JOB_ERROR_GREATER_THAN_MAXIMUM);
 
@@ -90,7 +93,7 @@ public class ITestMessage extends AbstractWebDriverTest {
 
         page.fillLongerZip();
         page.validate();
-
+        page.getMessageForZip().advanced().waitUntilMessageIsVisible().perform();
         assertTrue("A message for the Job input should be present.", page.getMessageForJob().advanced().isVisible());
         assertMessageDetail("Job", page.getMessageForJob(), MessagePage.JOB_ERROR_GREATER_THAN_MAXIMUM);
 

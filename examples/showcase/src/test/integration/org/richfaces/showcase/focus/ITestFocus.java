@@ -53,6 +53,7 @@ public class ITestFocus extends AbstractWebDriverTest {
         page.getJobInput().sendKeys("1");
 
         page.getSubmitButton().click();
+        page.getValidationMessage().advanced().waitUntilMessageIsVisible().perform();
         waitModel().withTimeout(TIMEOUT_FOCUS, TimeUnit.SECONDS).until(new ElementIsFocused(page.getJobInput().advanced().getInputElement()));
     }
 

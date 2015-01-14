@@ -46,6 +46,7 @@ public class ITestMessages extends AbstractWebDriverTest {
     public void testCorrectValues() {
         page.fillCorrectValues();
         page.validate();
+        page.getMessages().advanced().waitUntilMessagesAreNotVisible().perform();
         assertTrue("No message should be present.", page.getMessages().getItems(MessageType.ERROR).isEmpty());
     }
 
@@ -53,7 +54,7 @@ public class ITestMessages extends AbstractWebDriverTest {
     public void testLessThanMinimum() {
         page.fillShorterValues();
         page.validate();
-
+        page.getMessages().advanced().waitUntilMessagesAreVisible().perform();
         assertEquals("4 messages should be present.", 4, page.getMessages().getItems(MessageType.ERROR).size());
 
         assertErrorIsPresent("Name", MessagesPage.NAME_ERROR_LESS_THAN_MINIMUM);
@@ -66,7 +67,7 @@ public class ITestMessages extends AbstractWebDriverTest {
     public void testEmptyInputs() {
         page.eraseAll();
         page.validate();
-
+        page.getMessages().advanced().waitUntilMessagesAreVisible().perform();
         assertEquals("4 messages should be present.", 4, page.getMessages().getItems(MessageType.ERROR).size());
 
         assertErrorIsPresent("Name", MessagesPage.NAME_ERROR_VALUE_REQUIRED);
@@ -79,15 +80,17 @@ public class ITestMessages extends AbstractWebDriverTest {
     public void testGreaterThanMaximum() {
         page.fillCorrectValues();
         page.validate();
-
+        page.getMessages().advanced().waitUntilMessagesAreNotVisible().perform();
         assertTrue("No message should be present.", page.getMessages().getItems(MessageType.ERROR).isEmpty());
 
         page.fillLongerJob();
         page.validate();
+        page.getMessages().advanced().waitUntilMessagesAreVisible().perform();
         assertErrorIsPresent("Job", MessagesPage.JOB_ERROR_GREATER_THAN_MAXIMUM);
 
         page.fillLongerZip();
         page.validate();
+        page.getMessages().advanced().waitUntilMessagesAreVisible().perform();
         assertErrorIsPresent("Zip", MessagesPage.ZIP_ERROR_GREATER_THAN_MAXIMUM);
     }
 
