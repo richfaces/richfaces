@@ -1,3 +1,39 @@
+4.5.2.Final
+-----------
+
+    Bug
+    [RF-12695] - rich:select incorrect behavior on IE with many selectItems
+    [RF-13913] - Problem with rich:collapsiblePanel state/PartialViewState
+    [RF-13925] - tooltip: the @onshow is called before the tooltip is displayed
+    [RF-13927] - Nested collapsibleSubTable not collapse All Sub Level SubTable
+    [RF-13928] - a4j:push events (dataavailable) do not trigger a4j:ajax listener
+    [RF-13929] - a4j:push does not work with subtopics and JMS
+    [RF-13930] - rich:select broken with empty list
+    [RF-13931] - Showcase: remove reference to richfaces-parent
+    [RF-13933] - ExtendedDataTable duplicates inside ui:repeat
+    [RF-13935] - JMS Push long delay between eneable and disable after upgrade atmosphere
+    [RF-13938] - page-fragments: inputNumber*: the setValue does not clean the input
+    [RF-13941] - ExtendedDataTable - selecting all rows not working
+    [RF-13942] - rich:select single item list still present
+    [RF-13945] - ajax requests in multipart forms cause error in < 2.2.0
+    [RF-13946] - The "onclick"event is not triggered when clicking on the bottom part of "rich:select" component.
+    [RF-13952] - richfaces-core defines finalName conflicted with components/rich/pom.xml
+    [RF-13954] - showcase: cannot be deployed on tomcat
+
+    Component Upgrade
+    [RF-13926] - Update weld-servlet dependency to 2.2+
+
+    Enhancement
+    [RF-13907] - Positioning attributes - JointPoint and Direction Doc is confusing
+    [RF-13914] - Showcase online: websockets don't work
+    [RF-13937] - page-fragments: ignore StaleElementReference exceptions in all waiting methods
+
+    Feature Request
+    [RF-13932] - page-fragments: autocomplete: reimplement confirm and select methods so they will not submit the form with HTTP unnecessarily
+
+    Task
+    [RF-13934] - Create Arquillian profile for WildFly 8.2
+
 4.5.1.Final
 -----------
 

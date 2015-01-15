@@ -27,11 +27,31 @@
     <artifactId>template</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Examples Template</name>
-    <version>4.5.2-SNAPSHOT</version>
+    <version>4.5.3-SNAPSHOT</version>
     <packaging>war</packaging>
 
+    <description>
+        A project template used by other examples.
+    </description>
+
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
+
     <properties>
-        <version.richfaces>4.5.2-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.3-SNAPSHOT</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
