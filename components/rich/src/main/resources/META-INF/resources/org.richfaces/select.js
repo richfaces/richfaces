@@ -462,6 +462,7 @@
                     }
                 });
                 this.__setValue(label);
+                this.previousValue = label;
                 this.selValueInput.val(value);
                 this.__hidePopup();
                 this.__setInputFocus();
