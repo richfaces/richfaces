@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -30,8 +30,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.panel.TextualFragmentPart;
 import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.ConfirmationPanel.Body;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel.Body;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
 
 /**
  *
@@ -45,9 +45,9 @@ public class ConfirmationPanel extends RichFacesPopupPanel<TextualFragmentPart, 
     }
 
     public void check(String msg) {
-        assertEquals(getBodyContent().getConfirmMessage().getText(), msg);
+        assertEquals(msg, getBodyContent().getConfirmMessage().getText());
         assertTrue(getBodyContent().getImage().getAttribute("src").endsWith("ico_warning.png"));
-        assertEquals(getHeaderContent().getText(), "Confirmation:");
+        assertEquals("Confirmation:", getHeaderContent().getText());
     }
 
     public void close() {

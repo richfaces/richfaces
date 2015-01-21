@@ -19,13 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.richfaces.fragment.common.Utils;
-import org.testng.annotations.Test;
 
 /**
  *
@@ -35,6 +36,6 @@ public class TestInitialPage extends AbstractPhotoalbumTest {
 
     @Test
     public void testTitle() {
-        assertEquals(Utils.getTextFromHiddenElement(browser.findElement(By.tagName("title"))), "RichFaces PhotoAlbum demo");
+        assertEquals("RichFaces PhotoAlbum demo", Utils.getTextFromHiddenElement(browser.findElement(By.tagName("title"))));
     }
 }

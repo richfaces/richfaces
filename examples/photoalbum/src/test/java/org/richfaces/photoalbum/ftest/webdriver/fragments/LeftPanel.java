@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -28,11 +28,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.tree.RichFacesTree;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
+import org.richfaces.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;

@@ -19,14 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.Graphene;
+import org.junit.Test;
 import org.richfaces.fragment.message.Message;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.LoginPanel;
-import org.testng.annotations.Test;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -39,9 +39,9 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
         LoginPanel loginPanel = page.getLoginPanel();
         loginPanel.advanced().waitUntilPopupIsVisible();
         loginPanel.loginWithoutWait("amarkhel", "bad password");
-        assertEquals(loginPanel.getBodyContent().getMessages().size(), 1);
-        assertEquals(loginPanel.getBodyContent().getMessages().getItem(0).getSummary(), "Invalid login or password");
-        assertEquals(loginPanel.getBodyContent().getMessages().getItem(0).getType(), Message.MessageType.ERROR);
+        assertEquals(1, loginPanel.getBodyContent().getMessages().size());
+        assertEquals("Invalid login or password", loginPanel.getBodyContent().getMessages().getItem(0).getSummary());
+        assertEquals(Message.MessageType.ERROR, loginPanel.getBodyContent().getMessages().getItem(0).getType());
         loginPanel.getHeaderControlsContent().close();
         loginPanel.advanced().waitUntilPopupIsNotVisible().perform();
         page.checkNotLogged();

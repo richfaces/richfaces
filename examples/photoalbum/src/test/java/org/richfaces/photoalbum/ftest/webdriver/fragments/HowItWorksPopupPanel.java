@@ -19,16 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.panel.TextualFragmentPart;
 import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
 
 /**
  *

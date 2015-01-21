@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,12 +33,12 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.messages.RichFacesMessages;
 import org.richfaces.fragment.panel.TextualFragmentPart;
 import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.LoginPanel.Body;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.FBLoginPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.SocialLoginPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel.Body;
+import org.richfaces.photoalbum.ftest.webdriver.pages.FBLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

@@ -19,35 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Arrays;
 
+import junit.framework.TestResult;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.page.Page;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.fragment.common.Utils;
-import org.richfaces.tests.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
-import org.testng.ITestResult;
-import org.testng.SkipException;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
+import org.richfaces.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 @RunAsClient
-public abstract class AbstractPhotoalbumTest extends Arquillian {
+@RunWith(Arquillian.class)
+public abstract class AbstractPhotoalbumTest {
 
     public static final String IMAGES_DEC_DATE1 = "Dec 17, 2009";
     public static final String IMAGES_DEC_DATE2 = "Dec 18, 2009";
@@ -77,9 +80,11 @@ public abstract class AbstractPhotoalbumTest extends Arquillian {
     protected PhotoalbumPage page;
 
     public void deleteCookies() {
-        if (browser == null) {
-            throw new SkipException("webDriver isn't initialized");
-        }
+        Assume.assumeNotNull(browser);
+        /**
+         * previous method for testng, assume should work just the same if (browser == null) { throw new
+         * SkipException("webDriver isn't initialized"); }
+         */
         browser.manage().deleteAllCookies();
     }
 
@@ -116,9 +121,10 @@ public abstract class AbstractPhotoalbumTest extends Arquillian {
         page.logout();
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void logoutAfter(ITestResult m) throws Exception {
-        if (!m.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotLogoutAfter.class)) {
+    @After
+    // previously there was ITestResult as input param to get annotations, this does not work for junit
+    public void logoutAfter(Method m) throws Exception {
+        if (!m.isAnnotationPresent(DoNotLogoutAfter.class)) {
             if (browser != null && page != null) {
                 if (Utils.isVisible(page.getHeaderPanel().getLogoutLink())) {
                     logout();
@@ -128,11 +134,14 @@ public abstract class AbstractPhotoalbumTest extends Arquillian {
         }
     }
 
-    @BeforeMethod(alwaysRun = true)
+    @Before
     public void prepare(Method m) {
-        if (browser == null) {
-            throw new SkipException("webDriver isn't initialized");
-        }
+        Assume.assumeNotNull(browser);
+        /**
+         * previous method for testng, assume should work just the same if (browser == null) { throw new
+         * SkipException("webDriver isn't initialized"); }
+         */
+
         // the address needs to contain "localhost" instead of local loop IP, workaround for socials login
         String replaced = contextPath.toString();
         replaced = "localhost" + replaced.substring(replaced.indexOf(":8080"));
@@ -143,12 +152,9 @@ public abstract class AbstractPhotoalbumTest extends Arquillian {
         // so the logging needs to be done manually
         /**
          * E.g.:
-         *
-         * public void loadPage(Method m) {
-         *   if(m.isAnnotationPresent(LoggedUser.class)){
-         *     login(LoggedUser.getName(), LoggedUser.getPassword());
-         *   }
-         * }
+         * 
+         * public void loadPage(Method m) { if(m.isAnnotationPresent(LoggedUser.class)){ login(LoggedUser.getName(),
+         * LoggedUser.getPassword()); } }
          */
     }
 

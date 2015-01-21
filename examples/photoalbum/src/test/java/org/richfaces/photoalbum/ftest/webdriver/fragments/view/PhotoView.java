@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +34,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.editor.RichFacesEditor;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -73,7 +73,7 @@ public class PhotoView {
     }
 
     private void checkPhotoInfo(String info) {
-        assertEquals(photoInfo.getText(), info);
+        assertEquals(info, photoInfo.getText());
     }
 
     public List<WebElement> getAdditionalInfos() {
@@ -173,11 +173,11 @@ public class PhotoView {
             }
 
             private void checkPhotoData(String data) {
-                assertEquals(photoData.getText(), data);
+                assertEquals(data, photoData.getText());
             }
 
             private void checkPhotoName(String name) {
-                assertEquals(photoName.getText(), name);
+                assertEquals(name, photoName.getText());
             }
         }
     }
@@ -205,12 +205,12 @@ public class PhotoView {
         private WebElement addCommentButton;
 
         private void checkPanelName() {
-            assertEquals(panelName.getText(), "Comments");
+            assertEquals("Comments", panelName.getText());
         }
 
         public void addComment(final String comment) {
             addCommentEditor.type(comment);
-            //the page gets broken without the scrolling
+            // the page gets broken without the scrolling
             PhotoalbumUtils.scrollToElement(getAddCommentButton());
             Graphene.guardAjax(getAddCommentButton()).click();
         }
@@ -247,31 +247,31 @@ public class PhotoView {
             }
 
             private void checkAdditionalInfo(Object info) {
-                assertEquals(this.additionalInfo.getText(), info, "Additional info");
+                assertEquals("Additional info", info, this.additionalInfo.getText());
             }
 
             private void checkCommentText(String commentText) {
-                assertEquals(this.commentText.getText(), commentText, "Comment text");
+                assertEquals("Comment text", commentText, this.commentText.getText());
             }
 
             public void checkIfUsersComment() {
-                assertTrue(Utils.isVisible(deleteLink), "Delete link is not visible.");
+                assertTrue("Delete link is not visible.", Utils.isVisible(deleteLink));
             }
 
             private void checkImageBackground() {
-                assertTrue(imageBackground.getAttribute("src").contains("/img/shell/frame_photo_200.png"), "Image bg");
+                assertTrue("Image bg", imageBackground.getAttribute("src").contains("/img/shell/frame_photo_200.png"));
             }
 
             private void checkUserImage(String userImage) {
-                assertTrue(this.userImage.getAttribute("src").contains(userImage), "User Image");
+                assertTrue("User Image", this.userImage.getAttribute("src").contains(userImage));
             }
 
             private void checkUserName(String userName) {
-                assertEquals(this.userName.getText(), userName, "User name");
+                assertEquals("User name", userName, this.userName.getText());
             }
 
             public void delete() {
-                //the page gets broken without the scrolling
+                // the page gets broken without the scrolling
                 PhotoalbumUtils.scrollToElement(deleteLink);
                 Graphene.guardAjax(deleteLink).click();
             }

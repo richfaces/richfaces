@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -31,10 +31,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.FBLoginPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.SocialLoginPage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.pages.FBLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 import com.google.common.collect.Lists;
 
@@ -81,7 +81,8 @@ public class HeaderPanel {
     private Toolbar toolbar;
 
     private void checkAlwaysPresentElements() {
-        PhotoalbumUtils.checkVisible(Lists.newArrayList(imageIndexLink, loggedUserSpan, wikiPageLink, downloadsLink, communityLink));
+        PhotoalbumUtils.checkVisible(Lists.newArrayList(imageIndexLink, loggedUserSpan, wikiPageLink, downloadsLink,
+            communityLink));
         WebElement image = imageIndexLink.findElement(By.tagName("img"));
         assertTrue(image.getAttribute("src").contains("img/shell/logo_top.gif"));
     }
@@ -90,8 +91,8 @@ public class HeaderPanel {
         checkAlwaysPresentElements();
         PhotoalbumUtils.checkVisible(Lists.newArrayList(loggedUserLink, logoutLink));
         PhotoalbumUtils.checkNotVisible(loginLink, registerLink);
-        assertEquals(loggedUserSpan.getText(), "Welcome,");
-        assertEquals(loggedUserLink.getText(), user);
+        assertEquals("Welcome,", loggedUserSpan.getText());
+        assertEquals(user, loggedUserLink.getText());
         if (isLoggedWithFB) {
             PhotoalbumUtils.checkVisible(loggedInWithFB, fbLoggedUserImage);
             PhotoalbumUtils.checkNotVisible(loginToFBLink);
@@ -112,8 +113,10 @@ public class HeaderPanel {
     public void checkIfUserNotLogged() {
         checkAlwaysPresentElements();
         PhotoalbumUtils.checkVisible(Lists.newArrayList(loginLink, registerLink));
-        PhotoalbumUtils.checkNotVisible(loggedUserLink, logoutLink, loggedInWithFB, loggedInWithGPlus, loginToFBLink, loginToGPlusLink, fbLoggedUserImage);
-        assertEquals(loggedUserSpan.getText().trim(), "Welcome, guest! If you want access to full version of application, please register or login.");
+        PhotoalbumUtils.checkNotVisible(loggedUserLink, logoutLink, loggedInWithFB, loggedInWithGPlus, loginToFBLink,
+            loginToGPlusLink, fbLoggedUserImage);
+        assertEquals("Welcome, guest! If you want access to full version of application, please register or login.",
+            loggedUserSpan.getText().trim());
         getToolbar().checkIfUserNotLoggedToolbar();
     }
 
@@ -166,7 +169,8 @@ public class HeaderPanel {
     }
 
     private void loginToSocial(Class<? extends SocialLoginPage> pageClass) {
-        PhotoalbumUtils.loginWithSocial(pageClass, driver, GPlusLoginPage.class.equals(pageClass) ? loginToGPlusLink : loginToFBLink);
+        PhotoalbumUtils.loginWithSocial(pageClass, driver, GPlusLoginPage.class.equals(pageClass) ? loginToGPlusLink
+            : loginToFBLink);
     }
 
     public static class Toolbar {
@@ -189,15 +193,14 @@ public class HeaderPanel {
         private WebElement addImagesLinkSpan;
 
         public void checkIfUserLoggedToolbar(boolean hasOwnAlbums) {
-            PhotoalbumUtils.checkVisible(
-                hasOwnAlbums
-                    ? Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink, addAlbumGroupLink, addAlbumLink, addImagesLink)
-                    : Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink, addAlbumGroupLink, addAlbumLinkSpan, addImagesLinkSpan)
-            );
+            PhotoalbumUtils.checkVisible(hasOwnAlbums ? Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink,
+                addAlbumGroupLink, addAlbumLink, addImagesLink) : Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink,
+                myAllImagesLink, addAlbumGroupLink, addAlbumLinkSpan, addImagesLinkSpan));
         }
 
         public void checkIfUserNotLoggedToolbar() {
-            PhotoalbumUtils.checkNotVisible(Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink, addAlbumGroupLink, addAlbumLink, addImagesLink, addAlbumLinkSpan, addImagesLinkSpan));
+            PhotoalbumUtils.checkNotVisible(Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink,
+                addAlbumGroupLink, addAlbumLink, addImagesLink, addAlbumLinkSpan, addImagesLinkSpan));
         }
 
         public WebElement getAddAlbumLink() {

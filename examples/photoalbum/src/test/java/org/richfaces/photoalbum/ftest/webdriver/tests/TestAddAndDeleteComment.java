@@ -19,19 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.richfaces.tests.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.PhotoView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.PhotoView.CommentsPanel;
-import org.testng.annotations.Test;
+import org.junit.Test;
+import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView.CommentsPanel;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -54,7 +54,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
 
         // check previous comments
         List<PhotoView.CommentsPanel.Comment> comments = commentPanel.getComments();
-        assertEquals(comments.size(), 3);
+        assertEquals(3, comments.size());
         comments.get(0).checkAll(JAN_DATE_85, "Superb Shot and so beautiful Colors !!!", "avatar_w_default.png", "Noname");
         comments.get(1).checkAll(JAN_DATE_85, "really pretty. it looks like there is a lady in the _center_, blowing kisses!!", "avatar_w_default.png", "Noname");
         comments.get(2).checkAll(JAN_DATE_85, "that is a beautiful flower with great colours", "avatar_default.png", "amarkhel");
@@ -64,7 +64,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
         commentPanel.addComment(comment);
         // check comments
         comments = commentPanel.getComments();
-        assertEquals(comments.size(), 4);
+        assertEquals(4, comments.size());
         comments.get(0).checkAll(JAN_DATE_85, "Superb Shot and so beautiful Colors !!!", "avatar_w_default.png", "Noname");
         comments.get(1).checkAll(JAN_DATE_85, "really pretty. it looks like there is a lady in the _center_, blowing kisses!!", "avatar_w_default.png", "Noname");
         comments.get(2).checkAll(JAN_DATE_85, "that is a beautiful flower with great colours", "avatar_default.png", "amarkhel");
@@ -77,7 +77,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
 
         // check comments again
         comments = commentPanel.getComments();
-        assertEquals(comments.size(), 4);
+        assertEquals(4, comments.size());
         comments.get(0).checkAll(JAN_DATE_85, "Superb Shot and so beautiful Colors !!!", "avatar_w_default.png", "Noname");
         comments.get(1).checkAll(JAN_DATE_85, "really pretty. it looks like there is a lady in the _center_, blowing kisses!!", "avatar_w_default.png", "Noname");
         comments.get(2).checkAll(JAN_DATE_85, "that is a beautiful flower with great colours", "avatar_default.png", "amarkhel");
@@ -85,8 +85,11 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
         comments.get(3).checkIfUsersComment();
     }
 
-    @Test(dependsOnMethods = "addComment")
+    @Test
     public void deleteComment() {
+        // firstly need to add comment which has to succeed
+        addComment();
+        
         PhotoView photoView = getView(PhotoView.class);
         CommentsPanel commentPanel = photoView.getCommentPanel();
 
@@ -95,7 +98,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
         comments.get(3).delete();
         // check if deleted
         comments = commentPanel.getComments();
-        assertEquals(comments.size(), 3);
+        assertEquals(3, comments.size());
         comments.get(0).checkAll(JAN_DATE_85, "Superb Shot and so beautiful Colors !!!", "avatar_w_default.png", "Noname");
         comments.get(1).checkAll(JAN_DATE_85, "really pretty. it looks like there is a lady in the _center_, blowing kisses!!", "avatar_w_default.png", "Noname");
         comments.get(2).checkAll(JAN_DATE_85, "that is a beautiful flower with great colours", "avatar_default.png", "amarkhel");

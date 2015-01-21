@@ -19,11 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.tabPanel.RichFacesTabPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -56,27 +56,28 @@ public class SearchView {
     }
 
     public void checkActiveTabName(String tabName) {
-        assertEquals(tabPanel.advanced().getActiveHeaderElement().getText(), tabName);
+        assertEquals(tabName, tabPanel.advanced().getActiveHeaderElement().getText());
     }
 
     public void checkContainsCriterias(List<String> criterias) {
         String actualCriterias = criteria.getText();
         for (String crit : criterias) {
-            assertTrue(actualCriterias.contains(crit), "Actual criterias: " + actualCriterias + " should contain: [" + crit + ']');
+            assertTrue("Actual criterias: " + actualCriterias + " should contain: [" + crit + ']',
+                actualCriterias.contains(crit));
         }
     }
 
     public void checkEmptyResults() {
         assertFalse(Utils.isVisible(tabPanel.advanced().getRootElement()));
-        assertEquals(root.getText(), "No results found");
+        assertEquals("No results found", root.getText());
     }
 
     public void checkKeyWord(String key) {
-        assertEquals(keyword.getText(), "Keywords: " + key);
+        assertEquals("Keywords: " + key, keyword.getText());
     }
 
     public void checkTabNames(List<String> tabnames) {
-        assertEquals(PhotoalbumUtils.getStringsFromElements(tabPanel.advanced().getAllVisibleHeadersElements()), tabnames);
+        assertEquals(tabnames, PhotoalbumUtils.getStringsFromElements(tabPanel.advanced().getAllVisibleHeadersElements()));
     }
 
     public RichFacesTabPanel getTabPanel() {

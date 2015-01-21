@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,6 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.tree.RichFacesTree;
 import org.richfaces.fragment.tree.RichFacesTreeNode;
-import org.richfaces.fragment.tree.Tree.TreeNode;
 
 /**
  * Custom tree

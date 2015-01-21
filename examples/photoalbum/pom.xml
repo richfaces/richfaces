@@ -58,9 +58,6 @@
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <version.testng>6.8.8</version.testng>
-        <version.jboss.arq.testng></version.jboss.arq.testng>
-
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee17>1.7.0</version.tomee17>
         <version.glassfish40>3.1.2.2</version.glassfish40>
@@ -174,26 +171,6 @@
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
-        </dependency>
-        <!-- TestNG -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${version.testng}</version>
-        </dependency>
-        <!-- TestNG listeners for better console output -->
-        <dependency>
-            <groupId>org.richfaces.tests</groupId>
-            <artifactId>testng-listeners</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- This is because of TestNG listeners -->
-        <dependency>
-            <groupId>org.jboss.arquillian.graphene</groupId>
-            <artifactId>graphene-selenium</artifactId>
-            <version>2.0.0.Alpha5</version>
-            <type>pom</type>
         </dependency>
 <!--         Page Fragments -->
         <dependency>

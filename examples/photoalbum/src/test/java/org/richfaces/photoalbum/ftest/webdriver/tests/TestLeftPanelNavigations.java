@@ -19,20 +19,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
+import org.junit.Test;
 import org.richfaces.fragment.tree.Tree.TreeNode;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
-import org.testng.annotations.Test;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 import com.google.common.collect.Lists;
 
@@ -47,14 +47,14 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
 
     @Test
     public void testInitialState() {
-        assertEquals(PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()), PREDEFINED_SHELVES);
+        assertEquals(PREDEFINED_SHELVES, PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()));
     }
 
     @Test
     public void testInitialStateLoggedUser() {
         login();
-        assertEquals(PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()), PREDEFINED_SHELVES);
-        assertEquals(PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getMyGroupsTree().advanced().getNodesElements()), CUSTOM_SHELVES);
+        assertEquals(PREDEFINED_SHELVES, PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()));
+        assertEquals(CUSTOM_SHELVES, PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getMyGroupsTree().advanced().getNodesElements()));
     }
 
     @Test
@@ -64,12 +64,12 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         AlbumView album = getView(AlbumView.class);
         // check Nature group
         TreeNode node = page.getLeftPanel().getMyGroupsTree().expandNode(0);
-        assertEquals(node.advanced().getNodes().size(), 2);
+        assertEquals(2, node.advanced().getNodes().size());
         // open Animals album
         Graphene.guardAjax(node).selectNode(0);
         waitAjax().until().element(album.getAlbumInfo()).text().contains("Animals");
         album.checkAll("Animals", "Created 2009-12-18, contains 6 images", "Animals pictures", "Album group: Nature");
-        assertEquals(album.getPhotos().size(), 6);
+        assertEquals(6, album.getPhotos().size());
         album.getPhotos().get(0).checkAll(120, "1750979205_6e51b47ce9_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(1).checkAll(120, "1906662004_655d0f6ccf_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(4).checkAll(120, "9855284863_da027be6cf_o.jpg", IMAGES_DEC_DATE);
@@ -77,12 +77,12 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
 
         // check Sport & Cars group
         node = page.getLeftPanel().getMyGroupsTree().expandNode(1);
-        assertEquals(node.advanced().getNodes().size(), 2);
+        assertEquals(2, node.advanced().getNodes().size());
         // open Sport album
         Graphene.guardAjax(node).selectNode(1);
         waitAjax().until().element(album.getAlbumInfo()).text().contains("Sport");
         album.checkAll("Sport", "Created 2009-12-18, contains 3 images", "Sport pictures", "Album group: Sport & Cars");
-        assertEquals(album.getPhotos().size(), 3);
+        assertEquals(3, album.getPhotos().size());
         album.getPhotos().get(0).checkAll(120, "103193233_860c47c909_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(1).checkAll(120, "1350250361_2d963dd4e7_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(2).checkAll(120, "2042654579_d25c0db64f_o.jpg", IMAGES_DEC_DATE);
@@ -95,14 +95,14 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         // check Nature group
         GroupView albumGroup = page.getLeftPanel().openOwnGroup(0);
         albumGroup.checkAll("Nature", "Created 2009-12-18, contains 12 images into 2 albums", "Nature pictures", false);
-        assertEquals(albumGroup.getAlbumPreviews().size(), 2);
+        assertEquals(2, albumGroup.getAlbumPreviews().size());
         albumGroup.getAlbumPreview(0).checkAll("Animals", IMAGES_DEC_DATE);
         albumGroup.getAlbumPreview(1).checkAll("Nature", IMAGES_DEC_DATE);
 
         // check Sport & Cars group
         page.getLeftPanel().openOwnGroup(1);
         albumGroup.checkAll("Sport & Cars", "Created 2009-12-18, contains 9 images into 2 albums", "Sport & Cars pictures", false);
-        assertEquals(albumGroup.getAlbumPreviews().size(), 2);
+        assertEquals(2, albumGroup.getAlbumPreviews().size());
         albumGroup.getAlbumPreview(0).checkAll("Cars", IMAGES_DEC_DATE);
         albumGroup.getAlbumPreview(1).checkAll("Sport", IMAGES_DEC_DATE);
     }
@@ -113,19 +113,19 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         GroupsView albumGroupsView = page.getLeftPanel().openOwnGroups(2);
         albumGroupsView.checkHeader("My album groups (2)");
         List<GroupView> groups = albumGroupsView.getGroups();
-        assertEquals(groups.size(), 2);
+        assertEquals(2, groups.size());
 
         // check Monuments group
         GroupView group = groups.get(0);
         group.checkAll("Nature", "Created 2009-12-18, contains 12 images into 2 albums", "Nature pictures", true);
-        assertEquals(group.getAlbumPreviews().size(), 2);
+        assertEquals(2, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Animals", IMAGES_DEC_DATE);
         group.getAlbumPreview(1).checkAll("Nature", IMAGES_DEC_DATE);
 
         // check Nature group
         group = groups.get(1);
         group.checkAll("Sport & Cars", "Created 2009-12-18, contains 9 images into 2 albums", "Sport & Cars pictures", true);
-        assertEquals(group.getAlbumPreviews().size(), 2);
+        assertEquals(2, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Cars", IMAGES_DEC_DATE);
         group.getAlbumPreview(1).checkAll("Sport", IMAGES_DEC_DATE);
     }
@@ -135,38 +135,38 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         AlbumView album = getView(AlbumView.class);
         // check Monuments group
         TreeNode node = page.getLeftPanel().getPreDefinedGroupsTree().expandNode(0);
-        assertEquals(node.advanced().getNodes().size(), 1);
+        assertEquals(1, node.advanced().getNodes().size());
         // open Monuments and just buildings album
         Graphene.guardAjax(node).selectNode(0);
         waitAjax().until().element(album.getAlbumHeader().getNameElement()).text().contains("Monuments");
 
         album.checkAll("Monuments and just buildings", "Created 2009-12-18, contains 3 images", "Monuments and just buildings pictures", "Album group: Monuments");
-        assertEquals(album.getPhotos().size(), 3);
+        assertEquals(3, album.getPhotos().size());
         album.getPhotos().get(0).checkAll(120, "8561041065_43449e8697_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(1).checkAll(120, "2523480499_e988ddf4c1_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(2).checkAll(120, "4065627169_2e3cea3acf_o.jpg", IMAGES_DEC_DATE);
 
         // check Nature group
         node = page.getLeftPanel().getPreDefinedGroupsTree().expandNode(1);
-        assertEquals(node.advanced().getNodes().size(), 2);
+        assertEquals(2, node.advanced().getNodes().size());
         // open Animals album
         Graphene.guardAjax(node).selectNode(0);
         waitAjax().until().element(album.getAlbumHeader().getNameElement()).text().contains("Animals");
 
         album.checkAll("Animals", "Created 2009-12-18, contains 6 images", "Animals pictures", "Album group: Nature");
-        assertEquals(album.getPhotos().size(), 6);
+        assertEquals(6, album.getPhotos().size());
         album.getPhotos().get(0).checkAll(120, "1750979205_6e51b47ce9_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(1).checkAll(120, "1906662004_655d0f6ccf_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(4).checkAll(120, "9855284863_da027be6cf_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(5).checkAll(120, "5395800621_c0bc80ca53_o.jpg", IMAGES_DEC_DATE);
 
-        assertEquals(node.advanced().getNodes().size(), 2);
+        assertEquals(2, node.advanced().getNodes().size());
         // open Nature album
         Graphene.guardAjax(node).selectNode(1);
         waitAjax().until().element(album.getAlbumHeader().getNameElement()).text().contains("Nature");
 
         album.checkAll("Nature", "Created 2009-12-18, contains 6 images", "Nature pictures", "Album group: Nature");
-        assertEquals(album.getPhotos().size(), 6);
+        assertEquals(6, album.getPhotos().size());
         album.getPhotos().get(0).checkAll(120, "294928909_01ab1f5696_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(1).checkAll(120, "1352614209_6bfde3b6c2_o.jpg", IMAGES_DEC_DATE);
         album.getPhotos().get(4).checkAll(120, "3392730627_1cdb18cba6_o.jpg", IMAGES_DEC_DATE);
@@ -178,13 +178,13 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         // check Monuments group
         GroupView group = page.getLeftPanel().openPredefinedGroup(0);
         group.checkAll("Monuments", "Created 2009-12-18, contains 3 images into 1 albums", "Monuments pictures", false);
-        assertEquals(group.getAlbumPreviews().size(), 1);
+        assertEquals(1, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Monuments and just buildings", IMAGES_DEC_DATE);
 
         // check Nature group
         page.getLeftPanel().openPredefinedGroup(1);
         group.checkAll("Nature", "Created 2009-12-18, contains 12 images into 2 albums", "Nature pictures", false);
-        assertEquals(group.getAlbumPreviews().size(), 2);
+        assertEquals(2, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Animals", IMAGES_DEC_DATE);
         group.getAlbumPreview(1).checkAll("Nature", IMAGES_DEC_DATE);
     }
@@ -194,18 +194,18 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         GroupsView groupssView = page.getLeftPanel().openPredefinedGroups(5);
         groupssView.checkHeader("Public album groups (5)");
         List<GroupView> groups = groupssView.getGroups();
-        assertEquals(groups.size(), 5);
+        assertEquals(5, groups.size());
 
         // check Monuments group
         GroupView group = groups.get(0);
         group.checkAll("Monuments", "Created 2009-12-18, contains 3 images into 1 albums", "Monuments pictures", true);
-        assertEquals(group.getAlbumPreviews().size(), 1);
+        assertEquals(1, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Monuments and just buildings", IMAGES_DEC_DATE);
 
         // check Nature group
         group = groups.get(1);
         group.checkAll("Nature", "Created 2009-12-18, contains 12 images into 2 albums", "Nature pictures", true);
-        assertEquals(group.getAlbumPreviews().size(), 2);
+        assertEquals(2, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Animals", IMAGES_DEC_DATE);
         group.getAlbumPreview(1).checkAll("Nature", IMAGES_DEC_DATE);
     }

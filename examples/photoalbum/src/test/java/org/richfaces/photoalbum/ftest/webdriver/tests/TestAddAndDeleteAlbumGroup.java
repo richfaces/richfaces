@@ -19,24 +19,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Test;
 import org.richfaces.fragment.tree.RichFacesTree;
-import org.richfaces.tests.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.AddAlbumGroupPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-import org.testng.annotations.Test;
+import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumGroupPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
+ * 
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
@@ -65,8 +66,8 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
 
         // check initial state
         RichFacesTree myGroupsTree = page.getLeftPanel().getMyGroupsTree();
-        assertEquals(myGroupsTree.advanced().getNodes().size(), 2);
-        assertEquals(myGroupsTree.advanced().getLeafNodes().size(), 0);
+        assertEquals(2, myGroupsTree.advanced().getNodes().size());
+        assertEquals(0, myGroupsTree.advanced().getLeafNodes().size());
 
         // create group
         Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
@@ -76,31 +77,40 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
 
         // check changed state in left panel
         myGroupsTree = page.getLeftPanel().getMyGroupsTree();
-        assertEquals(myGroupsTree.advanced().getNodes().size(), 3);
-        assertEquals(myGroupsTree.advanced().getNodes().get(2).advanced().getNodes().size(), 0);
+        assertEquals(3, myGroupsTree.advanced().getNodes().size());
+        assertEquals(0, myGroupsTree.advanced().getNodes().get(2).advanced().getNodes().size());
 
         // check changed state in groups view
         GroupsView ownAlbumGroups = page.getLeftPanel().openOwnGroups(3);
         ownAlbumGroups.checkHeader("My album groups (3)");
-        ownAlbumGroups.getGroups().get(2).checkAll(GROUP_NAME, "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images into 0 albums", "", true);
+        ownAlbumGroups
+            .getGroups()
+            .get(2)
+            .checkAll(GROUP_NAME,
+                "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images into 0 albums", "", true);
 
         // open group
         GroupView groupView = page.getLeftPanel().openOwnGroup(GROUP_NAME);
 
         // check data
-        groupView.checkGroupHeader(GROUP_NAME, "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images into 0 albums");
-        assertEquals(groupView.getAlbumPreviews().size(), 0);
+        groupView.checkGroupHeader(GROUP_NAME, "Created " + dt.toString(pattern) + ".*" + dt.getYear()
+            + ", contains 0 images into 0 albums");
+        assertEquals(0, groupView.getAlbumPreviews().size());
         groupView.checkUserOwnsGroup(true);
     }
 
-    @Test(dependsOnMethods = "addAlbumGroup")
+    @Test
     public void deleteAlbumGroup() {
+        // firstly add album group
+        addAlbumGroup();
+
         GroupView groupView = getView(GroupView.class);
         // cancel before delete
         Graphene.guardAjax(groupView.getGroupHeader().getDeleteAlbumGroupLink()).click();
         ConfirmationPanel confirmationPanel = page.getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
-        confirmationPanel.check("Are You sure? All nested albums and images will also be dropped! Click OK to proceed, otherwise click Cancel.");
+        confirmationPanel
+            .check("Are You sure? All nested albums and images will also be dropped! Click OK to proceed, otherwise click Cancel.");
         confirmationPanel.cancel();
 
         // close before delete
@@ -117,7 +127,7 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
 
         // check
         RichFacesTree myAlbumGroupsTree = page.getLeftPanel().getMyGroupsTree();
-        assertEquals(myAlbumGroupsTree.advanced().getNodes().size(), 2);
-        assertEquals(myAlbumGroupsTree.advanced().getLeafNodes().size(), 0);
+        assertEquals(2, myAlbumGroupsTree.advanced().getNodes().size());
+        assertEquals(0, myAlbumGroupsTree.advanced().getLeafNodes().size());
     }
 }

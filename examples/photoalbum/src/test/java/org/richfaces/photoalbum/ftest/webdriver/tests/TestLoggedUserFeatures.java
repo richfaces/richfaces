@@ -19,21 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
 import org.jboss.arquillian.graphene.Graphene;
+import org.junit.Test;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView.AlbumHeader;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.PhotoView;
-import org.testng.annotations.Test;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView.AlbumHeader;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
+
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -50,7 +51,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
             file = new File(TestLoggedUserFeatures.class.getResource(filename).toURI());
         } catch (URISyntaxException ex) {
         }
-        assertTrue(file != null && file.exists(), "File does not exist.");
+        assertTrue("File does not exist.", file != null && file.exists());
         return file;
     }
 
@@ -60,20 +61,20 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
 
         // switch to Animals album and get header
         AlbumHeader albumHeader = page.getLeftPanel().openAlbumInOwnGroup("Animals", "Nature").getAlbumHeader();
-        assertEquals(albumHeader.getNameElement().getText().trim(), "Animals");
+        assertEquals("Animals", albumHeader.getNameElement().getText().trim());
         RichFacesInplaceInput input = albumHeader.getInput();
-        assertEquals(input.getTextInput().getStringValue(), "Animals");
+        assertEquals("Animals", input.getTextInput().getStringValue());
 
         // change the name of the Animals album
         Graphene.guardAjax(input.type("Animals album")).confirm();
         // check the change in left panel (navigation tree) and on current content view
-        assertEquals(albumHeader.getNameElement().getText().trim(), "Animals album");
-        assertEquals(page.getLeftPanel().getMyGroupsTree().advanced().getFirstNode() // animals are first album in first own group
-            .advanced().getFirstNode().advanced().getLabelElement().getText().trim(), "Animals album");
+        assertEquals("Animals album", albumHeader.getNameElement().getText().trim());
+        assertEquals("Animals album", page.getLeftPanel().getMyGroupsTree().advanced().getFirstNode() // animals are first album in first own group
+            .advanced().getFirstNode().advanced().getLabelElement().getText().trim());
         // check the change in the name of the link of inner photo
         PhotoView photoView = page.getContentPanel().albumView().getPhotos().get(0).open();
         String albumLinkText = photoView.getPhotoHeader().getLinks().get(1).getText();
-        assertEquals(albumLinkText.trim(), "Album: Animals album");
+        assertEquals("Album: Animals album", albumLinkText.trim());
     }
 
     @Test
@@ -82,15 +83,15 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
 
         // switch to Animals album, open first photo
         PhotoView photoView = page.getLeftPanel().openAlbumInOwnGroup("Animals", "Nature").getPhotos().get(0).open();
-        assertEquals(photoView.getPhotoHeader().getNameElement().getText().trim(), "1750979205_6e51b47ce9_o.jpg");
+        assertEquals("1750979205_6e51b47ce9_o.jpg", photoView.getPhotoHeader().getNameElement().getText().trim());
         RichFacesInplaceInput input = photoView.getPhotoHeader().getInput();
-        assertEquals(input.getTextInput().getStringValue(), "1750979205_6e51b47ce9_o.jpg");
+        assertEquals("1750979205_6e51b47ce9_o.jpg", input.getTextInput().getStringValue());
 //        assertEquals(photoView.getPhotoHeader().getAdditionalInfo().getText().trim(), "1750979205_6e51b47ce9_o.jpg");
 
         // change photo name
         Graphene.guardAjax(input.type("firstPhoto.jpg")).confirm();
         // check photo name
-        assertEquals(photoView.getPhotoHeader().getNameElement().getText().trim(), "firstPhoto.jpg");
+        assertEquals("firstPhoto.jpg", photoView.getPhotoHeader().getNameElement().getText().trim());
     }
 
     @Test
@@ -99,21 +100,21 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
 
         // switch to Nature group and get header
         GroupView.GroupHeader albumGroupHeader = page.getLeftPanel().openOwnGroup("Nature").getGroupHeader();
-        assertEquals(albumGroupHeader.getNameElement().getText().trim(), "Nature");
+        assertEquals("Nature", albumGroupHeader.getNameElement().getText().trim());
         RichFacesInplaceInput input = albumGroupHeader.getInput();
-        assertEquals(input.getTextInput().getStringValue(), "Nature");
+        assertEquals("Nature", input.getTextInput().getStringValue());
 
         // change the name of the group
         String albumGroupNewName = "Nature album group";
         Graphene.guardAjax(input.type(albumGroupNewName)).confirm();
         // check the change in left panel (navigation tree) and on current content view
-        assertEquals(albumGroupHeader.getNameElement().getText().trim(), albumGroupNewName);
-        assertEquals(page.getLeftPanel().getMyGroupsTree().advanced().getFirstNode()
-            .advanced().getLabelElement().getText().trim(), albumGroupNewName);
+        assertEquals(albumGroupNewName, albumGroupHeader.getNameElement().getText().trim());
+        assertEquals(albumGroupNewName, page.getLeftPanel().getMyGroupsTree().advanced().getFirstNode()
+            .advanced().getLabelElement().getText().trim());
 
         // check the change in the name of the link of inner album
         AlbumView albumView = page.getContentPanel().groupView().getAlbumPreviews().get(0).open();
         String albumLinkText = albumView.getAlbumHeader().getLinks().get(0).getText();
-        assertEquals(albumLinkText.trim(), String.format("Album group: %s", albumGroupNewName));
+        assertEquals(String.format("Album group: %s", albumGroupNewName), albumLinkText.trim());
     }
 }

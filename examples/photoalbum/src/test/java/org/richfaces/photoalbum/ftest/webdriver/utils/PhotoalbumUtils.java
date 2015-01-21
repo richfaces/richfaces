@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.utils;
+package org.richfaces.photoalbum.ftest.webdriver.utils;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Set;
@@ -33,7 +33,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Utils;
-import org.richfaces.tests.photoalbum.ftest.webdriver.pages.SocialLoginPage;
+import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
@@ -53,7 +53,7 @@ public final class PhotoalbumUtils {
     public static void checkNotVisible(List<WebElement> list) {
         int i = 0;
         for (WebElement webElement : list) {
-            assertFalse(Utils.isVisible(webElement), i + "(nth) element should not be visible");
+            assertFalse( i + "(nth) element should not be visible", Utils.isVisible(webElement));
             i++;
         }
     }
@@ -65,7 +65,7 @@ public final class PhotoalbumUtils {
     public static void checkVisible(List<WebElement> list) {
         int i = 0;
         for (WebElement webElement : list) {
-            assertTrue(Utils.isVisible(webElement), i + "(nth) element should be visible");
+            assertTrue(i + "(nth) element should be visible", Utils.isVisible(webElement));
             i++;
         }
     }

@@ -19,16 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView.AlbumPreview;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView.AlbumPreview;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -41,7 +41,7 @@ public class AllAlbumsView {
     private List<AlbumPreview> albumPreviews;
 
     public void checkAlbumsHeader(String headerInfo) {
-        assertEquals(this.headerInfo.getText().trim(), headerInfo);
+        assertEquals(headerInfo, this.headerInfo.getText().trim());
     }
 
     public AlbumPreview getAlbumPreview(int index) {

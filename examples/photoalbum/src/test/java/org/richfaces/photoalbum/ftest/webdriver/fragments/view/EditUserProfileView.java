@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

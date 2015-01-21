@@ -19,9 +19,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +40,7 @@ public class GroupsView {
     private List<GroupView> groups;
 
     public void checkHeader(String headerInfo) {
-        assertEquals(groupsHeader.getText(), headerInfo);
+        assertEquals(headerInfo, groupsHeader.getText());
     }
 
     public WebElement getGroupsHeader() {

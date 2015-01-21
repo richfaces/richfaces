@@ -19,12 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.richfaces.tests.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +39,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 import com.google.common.collect.Lists;
 
@@ -61,7 +61,8 @@ public class GroupView {
     }
 
     public void checkUserOwnsGroup(boolean owns) {
-        ArrayList<WebElement> ownGroupLinks = Lists.newArrayList(groupHeader.getDeleteAlbumGroupLink(), groupHeader.getEditAlbumGroupPropertiesLink());
+        ArrayList<WebElement> ownGroupLinks = Lists.newArrayList(groupHeader.getDeleteAlbumGroupLink(),
+            groupHeader.getEditAlbumGroupPropertiesLink());
         if (owns) {
             PhotoalbumUtils.checkVisible(ownGroupLinks);
         } else {
@@ -79,7 +80,7 @@ public class GroupView {
     }
 
     private void checkGroupDescription(String info) {
-        assertEquals(groupDescription.getText().trim(), info);
+        assertEquals(info, groupDescription.getText().trim());
     }
 
     public AlbumPreview getAlbumPreview(int index) {
@@ -115,7 +116,7 @@ public class GroupView {
 
         public void checkAdditionalInfo(String additionalInfo) {
             String val = this.getAdditionalInfo().getText().trim();
-            assertTrue(val.matches(additionalInfo), String.format("Was <%s>, expected <%s%s", val, additionalInfo, '>'));
+            assertTrue(String.format("Was <%s>, expected <%s%s", val, additionalInfo, '>'), val.matches(additionalInfo));
         }
 
         public void checkAll(String name, String additionalInfo, boolean visible) {
@@ -125,11 +126,11 @@ public class GroupView {
         }
 
         public void checkName(String name) {
-            assertEquals(this.name.getText().trim(), name);
+            assertEquals(name, this.name.getText().trim());
         }
 
         public void checkViewGroupLinkVisible(boolean visible) {
-            assertEquals(Utils.isVisible(viewGroupLink), visible);
+            assertEquals(visible, Utils.isVisible(viewGroupLink));
         }
 
         public WebElement getAdditionalInfo() {
@@ -204,18 +205,18 @@ public class GroupView {
         }
 
         private void checkAlbumData(Object data) {
-            assertEquals(albumData.getText(), data);
+            assertEquals(data, albumData.getText());
         }
 
         private void checkAlbumName(String name) {
-            assertEquals(albumName.getText(), name);
+            assertEquals(name, albumName.getText());
         }
 
         private void checkAlbumOwner(String owner) {
             if (owner.equals(NO_OWNER)) {
                 assertFalse(Utils.isVisible(albumOwnerLink));
             } else {
-                assertEquals(albumOwnerLink.getText(), owner);
+                assertEquals(owner, albumOwnerLink.getText());
             }
         }
     }

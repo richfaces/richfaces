@@ -19,21 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebElement;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AllAlbumsView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AllImagesView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.EditUserProfileView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.PhotoView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.SearchView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.UserProfileView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AllAlbumsView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AllImagesView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.EditUserProfileView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.SearchView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.UserProfileView;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

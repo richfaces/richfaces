@@ -19,12 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.richfaces.tests.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
-import static org.richfaces.tests.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.UNKNOWN_IMG_SRC;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.NO_OWNER;
+import static org.richfaces.photoalbum.ftest.webdriver.tests.AbstractPhotoalbumTest.UNKNOWN_IMG_SRC;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +42,7 @@ import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.dataScroller.RichFacesDataScroller;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.fragment.inputNumberSlider.RichFacesInputNumberSlider;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 import com.google.common.collect.Lists;
 
@@ -85,7 +85,7 @@ public class AlbumView {
     }
 
     public void checkAlbumInfo(String info) {
-        assertEquals(albumInfo.getText(), info);
+        assertEquals(info, albumInfo.getText());
     }
 
     public void checkAlbumHeader(String headerInfo, String headerAdditionalInfo) {
@@ -94,7 +94,8 @@ public class AlbumView {
     }
 
     public void checkUserOwnsAlbum(boolean owns) {
-        ArrayList<WebElement> ownAlbumLinks = Lists.newArrayList(albumHeader.getDeleteAlbumLink(), albumHeader.getEditAlbumPropertiesLink());
+        ArrayList<WebElement> ownAlbumLinks = Lists.newArrayList(albumHeader.getDeleteAlbumLink(),
+            albumHeader.getEditAlbumPropertiesLink());
         if (owns) {
             PhotoalbumUtils.checkVisible(ownAlbumLinks);
         } else {
@@ -156,7 +157,7 @@ public class AlbumView {
             checkName(info);
             checkAdditionalInfo(additionalInfo);
             assertEquals(getLinks().size(), linkText.length);
-            assertEquals(PhotoalbumUtils.getStringsFromElements(links), Lists.newArrayList(linkText));
+            assertEquals(Lists.newArrayList(linkText), PhotoalbumUtils.getStringsFromElements(links));
         }
 
         public void checkName(String name) {
@@ -164,8 +165,8 @@ public class AlbumView {
         }
 
         public void checkAdditionalInfo(String additionalInfo) {
-            assertTrue(this.getAdditionalInfo().getText().trim().matches(additionalInfo),
-                "Was " + this.getAdditionalInfo().getText().trim() + " , expected " + additionalInfo);
+            assertTrue("Was " + this.getAdditionalInfo().getText().trim() + " , expected " + additionalInfo, this
+                .getAdditionalInfo().getText().trim().matches(additionalInfo));
         }
 
         public WebElement getAdditionalInfo() {
@@ -246,7 +247,7 @@ public class AlbumView {
         }
 
         private void checkSecondData(Object authorName) {
-            assertEquals(secondData.getText(), authorName);
+            assertEquals(authorName, secondData.getText());
         }
 
         private void checkBackgroundPhoto(int photoSize) {
@@ -258,11 +259,11 @@ public class AlbumView {
         }
 
         private void checkFirstData(Object data) {
-            assertEquals(firstData.getText(), data);
+            assertEquals(data, firstData.getText());
         }
 
         private void checkPhotoName(String name) {
-            assertEquals(photoName.getText(), name);
+            assertEquals(name, photoName.getText());
         }
 
         public PhotoView open() {

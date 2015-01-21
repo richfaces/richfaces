@@ -19,9 +19,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments;
+package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -31,8 +31,8 @@ import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.inplaceSelect.InplaceSelect;
 import org.richfaces.fragment.panel.TextualFragmentPart;
 import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.AddAlbumPanel.Body;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumPanel.Body;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
 
 /**
  *
@@ -54,9 +54,9 @@ public class AddAlbumPanel extends RichFacesPopupPanel<TextualFragmentPart, Cont
     }
 
     public void check() {
-        assertEquals(getBodyContent().getNameText().getText(), "Name");
-        assertEquals(getBodyContent().getGroupNameText().getText(), "Group");
-        assertEquals(getHeaderContent().getText(), "Add album");
+        assertEquals("Name", getBodyContent().getNameText().getText());
+        assertEquals("Group", getBodyContent().getGroupNameText().getText());
+        assertEquals("Add album", getHeaderContent().getText());
     }
 
     public void close() {

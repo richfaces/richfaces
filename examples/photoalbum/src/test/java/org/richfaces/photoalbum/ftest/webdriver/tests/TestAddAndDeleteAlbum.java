@@ -19,27 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Test;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.tree.RichFacesTree;
 import org.richfaces.fragment.tree.Tree.TreeNode;
-import org.richfaces.tests.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.AddAlbumPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.GroupsView;
-import org.testng.annotations.Test;
+import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
+ * 
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
@@ -68,9 +69,9 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
 
         // check initial state
         RichFacesTree myAlbumGroupsTree = page.getLeftPanel().getMyGroupsTree();
-        assertEquals(myAlbumGroupsTree.advanced().getNodes().size(), 2);
+        assertEquals(2, myAlbumGroupsTree.advanced().getNodes().size());
         TreeNode node = myAlbumGroupsTree.expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName));
-        assertEquals(node.advanced().getNodes().size(), 2);
+        assertEquals(2, node.advanced().getNodes().size());
 
         // create album
         Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumLink()).click();
@@ -80,9 +81,9 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
 
         // check changed state in left panel
         myAlbumGroupsTree = page.getLeftPanel().getMyGroupsTree();
-        assertEquals(myAlbumGroupsTree.advanced().getNodes().size(), 2);
+        assertEquals(2, myAlbumGroupsTree.advanced().getNodes().size());
         node = myAlbumGroupsTree.expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName));
-        assertEquals(node.advanced().getNodes().size(), 3);
+        assertEquals(3, node.advanced().getNodes().size());
         // check changed state in album groups view
         GroupsView groupsView = page.getLeftPanel().openOwnGroups(2);
         groupsView.checkHeader("My album groups (2)");
@@ -96,22 +97,26 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
 
         // check data
         albumView.checkAlbumHeader(albumName, "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images");
-        assertEquals(albumView.getPhotos().size(), 0);
+        assertEquals(0, albumView.getPhotos().size());
         albumView.checkUserOwnsAlbum(true);
     }
 
-    @Test(dependsOnMethods = "addAlbum")
+    @Test
     public void deleteAlbum() {
+        // add album first
+        addAlbum();
+
         AlbumView albumView = getView(AlbumView.class);
         // cancel before delete
         Graphene.guardAjax(albumView.getAlbumHeader().getDeleteAlbumLink()).click();
         ConfirmationPanel confirmationPanel = page.getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
-        confirmationPanel.check("Are you sure? All images associated with this album will also be dropped! Click OK to proceed, otherwise click Cancel.");
+        confirmationPanel
+            .check("Are you sure? All images associated with this album will also be dropped! Click OK to proceed, otherwise click Cancel.");
         confirmationPanel.cancel();
 
         albumView.checkAlbumHeader(albumName, "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images");
-        assertEquals(albumView.getPhotos().size(), 0);
+        assertEquals(0, albumView.getPhotos().size());
         albumView.checkUserOwnsAlbum(true);
 
         // close before delete
@@ -121,7 +126,7 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
         confirmationPanel.close();
 
         albumView.checkAlbumHeader(albumName, "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images");
-        assertEquals(albumView.getPhotos().size(), 0);
+        assertEquals(0, albumView.getPhotos().size());
         albumView.checkUserOwnsAlbum(true);
 
         // delete
@@ -132,7 +137,8 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
 
         // check
         RichFacesTree myAlbumGroupsTree = page.getLeftPanel().getMyGroupsTree();
-        assertEquals(myAlbumGroupsTree.advanced().getNodes().size(), 2);
-        assertEquals(myAlbumGroupsTree.expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName)).advanced().getNodes().size(), 2);
+        assertEquals(2, myAlbumGroupsTree.advanced().getNodes().size());
+        assertEquals(2, myAlbumGroupsTree.expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName)).advanced()
+            .getNodes().size());
     }
 }

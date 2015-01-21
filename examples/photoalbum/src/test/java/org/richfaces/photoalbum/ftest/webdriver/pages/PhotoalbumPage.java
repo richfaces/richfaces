@@ -19,23 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.pages;
+package org.richfaces.photoalbum.ftest.webdriver.pages;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.messages.RichFacesMessages;
 import org.richfaces.fragment.notify.RichFacesNotifyMessage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.AddAlbumGroupPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.AddAlbumPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.ContentPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.ErrorPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.FooterPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.HeaderPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.LeftPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.LoginPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.SearchPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.SlideShowPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumGroupPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.ContentPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.ErrorPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.FooterPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.HeaderPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.LeftPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.SearchPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.SlideShowPanel;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

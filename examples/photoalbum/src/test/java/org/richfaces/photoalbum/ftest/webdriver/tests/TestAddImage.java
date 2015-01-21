@@ -19,21 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
 import org.jboss.arquillian.graphene.Graphene;
+import org.junit.Test;
 import org.richfaces.fragment.fileUpload.FileUploadItem;
 import org.richfaces.fragment.fileUpload.RichFacesFileUpload;
 import org.richfaces.fragment.notify.RichFacesNotifyMessage;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
-import org.richfaces.tests.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
-import org.testng.annotations.Test;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
+import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -50,7 +51,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
             file = new File(AbstractPhotoalbumTest.class.getResource(filename).toURI());
         } catch (URISyntaxException ex) {
         }
-        assertTrue(file != null && file.exists(), "File does not exist.");
+        assertTrue("File does not exist.", file != null && file.exists());
         return file;
     }
 
@@ -71,15 +72,15 @@ public class TestAddImage extends AbstractPhotoalbumTest {
         Graphene.guardAjax(fileUpload).upload();
         PhotoalbumUtils.waitFor(4000);// implicit wait time to handle callbacks
 
-        assertEquals(fileUpload.advanced().getItems().size(), 1);
+        assertEquals(1, fileUpload.advanced().getItems().size());
         FileUploadItem uploadedItem = fileUpload.advanced().getItems().getItem(0);
-        assertEquals(uploadedItem.getFilename(), GOOD_IMAGE_TO_UPLOAD);
+        assertEquals(GOOD_IMAGE_TO_UPLOAD, uploadedItem.getFilename());
         assertTrue(uploadedItem.isUploaded());
 
         AddImagesView.UploadedFilesPanel uploadedFilesPanel = addImagesView.getUploadedFilesPanel();
-        assertEquals(uploadedFilesPanel.getCompleteLabel().getText(), "Image upload is completed: 1 images was uploaded to Nature");
+        assertEquals("Image upload is completed: 1 images was uploaded to Nature", uploadedFilesPanel.getCompleteLabel().getText());
         assertTrue(uploadedFilesPanel.uploadedImagesLabelIsVisible());
-        assertEquals(uploadedFilesPanel.getUploadedPhotos().size(), 1);
+        assertEquals(1, uploadedFilesPanel.getUploadedPhotos().size());
         uploadedFilesPanel.getUploadedPhotos().get(0).checkAll(200, GOOD_IMAGE_TO_UPLOAD, String.valueOf(getFileFromFileName(GOOD_IMAGE_TO_UPLOAD).length() * 1.0));
     }
 
@@ -100,7 +101,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
 
         RichFacesNotifyMessage message = page.getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
-        assertEquals(message.getSummary(), "Error");
-        assertEquals(message.getDetail(), "Invalid file type. Only JPG is allowed.");
+        assertEquals("Error", message.getSummary());
+        assertEquals("Invalid file type. Only JPG is allowed.", message.getDetail());
     }
 }

@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view;
+package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.WebElement;
@@ -51,7 +51,8 @@ public class UserProfileView {
     @FindBy(css = "[id$='overForm:email']")
     private WebElement email;
 
-    public void checkAll(String imgName, String loginName, String firstName, String secondName, String Sex, String birthday, String email) {
+    public void checkAll(String imgName, String loginName, String firstName, String secondName, String Sex, String birthday,
+        String email) {
         checkAvatarImage(imgName);
         checkBirthday(birthday);
         checkEmail(email);
@@ -66,27 +67,27 @@ public class UserProfileView {
     }
 
     public void checkLoginName(String value) {
-        assertEquals(loginName.getText(), value);
+        assertEquals(value, loginName.getText());
     }
 
     public void checkFirstName(String value) {
-        assertEquals(firstName.getText(), value);
+        assertEquals(value, firstName.getText());
     }
 
     public void checkSurname(String value) {
-        assertEquals(surname.getText(), value);
+        assertEquals(value, surname.getText());
     }
 
     public void checkSex(String value) {
-        assertEquals(sex.getText(), value);
+        assertEquals(value, sex.getText());
     }
 
     public void checkBirthday(String value) {
-        assertEquals(birthDate.getText(), value);
+        assertEquals(value, birthDate.getText());
     }
 
     public void checkEmail(String value) {
-        assertEquals(email.getText(), value);
+        assertEquals(value, email.getText());
     }
 
     public void openEditProfile() {

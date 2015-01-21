@@ -19,16 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *******************************************************************************/
-package org.richfaces.tests.photoalbum.ftest.webdriver.tests;
+package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.SlideShowPanel;
-import org.richfaces.tests.photoalbum.ftest.webdriver.fragments.view.AlbumView;
-import org.testng.annotations.Test;
+import org.junit.Test;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.SlideShowPanel;
+import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 
 import com.google.common.collect.Lists;
 
