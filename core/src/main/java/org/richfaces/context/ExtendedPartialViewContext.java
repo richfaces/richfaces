@@ -355,7 +355,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
             ActivatorComponentRenderCallback callback = new ActivatorComponentRenderCallback(getFacesContext(), behaviorEvent);
 
-            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
+            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
                 setupRenderCallbackData(callback);
             }
 
