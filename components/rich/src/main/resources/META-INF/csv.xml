@@ -218,7 +218,7 @@
     <component>
         <type>org.richfaces.validator.SelectLabelValueValidator</type>
         <resource>
-            <name>select/select/select.js</name>
+            <name>select.js</name>
             <library>org.richfaces</library>
         </resource>
         <function>RichFaces.csv.validateSelectLabelValue</function>
