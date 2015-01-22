@@ -58,6 +58,9 @@
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
+        <version.wildfly80>8.0.0.Final</version.wildfly80>
+        <version.wildfly81>8.1.0.Final</version.wildfly81>
+        <version.wildfly82>8.2.0.Final</version.wildfly82>
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee17>1.7.0</version.tomee17>
         <version.glassfish40>3.1.2.2</version.glassfish40>
@@ -68,6 +71,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Test properties -->
+        <testng.listeners>org.jboss.test.selenium.listener.ConsoleStatusTestListener,org.jboss.test.selenium.listener.FailureLoggingTestListener</testng.listeners>
+        <testng.suite.xml>src/test/resources/testng.xml</testng.suite.xml>
+
+        <jvm.args.ip>-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=false</jvm.args.ip>
+        <!-- jvm args for all containers without setting prefered IP -->
+        <arquillian.drone.reusable>false</arquillian.drone.reusable>
+        <arquillian.container.all.jvm.args>-Xms1024m -Xmx1024m -XX:MaxPermSize=512m -DstatelessViews=${statelessViews}</arquillian.container.all.jvm.args>
+        <arquillian.container.all.jvm.args.withIP>${arquillian.container.all.jvm.args} ${jvm.args.ip}</arquillian.container.all.jvm.args.withIP>
+        <!-- following will be set as system properties -->
+        <arquillian.container.jbossas.7-1.node0>127.0.0.1</arquillian.container.jbossas.7-1.node0>
+        <arquillian.container.jbossas.7-1.jvm.args>${arquillian.container.all.jvm.args.withIP}
+            -Djboss.bind.address=${arquillian.container.jbossas.7-1.node0}
+            -Djboss.bind.address.management=${arquillian.container.jbossas.7-1.node0}
+            -Djboss.bind.address.unsecure=${arquillian.container.jbossas.7-1.node0}</arquillian.container.jbossas.7-1.jvm.args>
+        <arquillian.container.wildfly.8-1.jvm.args>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.wildfly.8-1.jvm.args>
+        
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
@@ -163,6 +183,11 @@
 
         <!-- Test dependencies -->
         <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-warp-jsf</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -172,7 +197,6 @@
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
-<!--         Page Fragments -->
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-page-fragments</artifactId>
@@ -500,22 +524,34 @@
                 </property>
             </activation>
             <properties>
-                <integration.test.source>${project.basedir}/src/test/integration</integration.test.source>
-
+                <integration.test.source>src/test/java/</integration.test.source>
+                
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
+                <arquillian.drone.browser>firefox</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
-
+                <arquillian.richfaces.version />
+                <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
+                <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
+                <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
+                <arquillian.container.home />
+                <arquillian.container.distribution />
+                <arquillian.container.configuration />
+                <arquillian.container.uninstall>true</arquillian.container.uninstall>
+                <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
+                <arquillian.maven.settings />
+                
                 <!-- Container Selection -->
+                <arquillian.launch.wildfly81>false</arquillian.launch.wildfly81>
+                <arquillian.launch.wildfly82>false</arquillian.launch.wildfly82>
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
                 <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
                 <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.extension</groupId>
-                    <artifactId>arquillian-warp-jsf</artifactId>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-build-resources</artifactId>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -559,18 +595,18 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>add-integration-test-sources</id>
-                                <phase>process-test-sources</phase>
-                                <goals>
-                                    <goal>add-test-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>${integration.test.source}</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
+<!--                             <execution> -->
+<!--                                 <id>add-integration-test-sources</id> -->
+<!--                                 <phase>process-test-sources</phase> -->
+<!--                                 <goals> -->
+<!--                                     <goal>add-test-source</goal> -->
+<!--                                 </goals> -->
+<!--                                 <configuration> -->
+<!--                                     <sources> -->
+<!--                                         <source>${integration.test.source}</source> -->
+<!--                                     </sources> -->
+<!--                                 </configuration> -->
+<!--                             </execution> -->
                             <execution>
                                 <id>add-integration-test-resources</id>
                                 <phase>process-test-resources</phase>
@@ -597,32 +633,60 @@
                         <executions>
                             <execution>
                                 <id>default-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
                                 <configuration>
-                                    <skip>${skipTests}</skip>
-                                    <test>${test}</test>
+                                        <!--  there are no unit tests -->
+                                    <skip>false</skip>
                                     <excludes>
-                                        <exclude>**/integration/**/*.java</exclude>
-                                        <exclude>**/component/*/*.java</exclude>
+                                        <exclude>**/ftest/**/Test*.java</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>
                             <execution>
                                 <id>integration-tests</id>
-                                <phase>verify</phase>
+                                <phase>integration-test</phase>
                                 <goals>
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
-                                    <testSourceDirectory>${integration.test.source}</testSourceDirectory>
+                                    <testSourceDirectory>src/test</testSourceDirectory>
                                     <includes>
-                                        <include>**/integration/**/*.java</include>
-                                        <include>**/component/*/*.java</include>
+                                        <include>**/ftest/**/Test*.java</include>
                                     </includes>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
                                     <systemPropertyVariables>
                                         <arquillian.debug>${arquillian.debug}</arquillian.debug>
                                     </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-arquillian-settings</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.richfaces</groupId>
+                                            <artifactId>richfaces-build-resources</artifactId>
+                                            <version>${version.richfaces}</version>
+                                            <type>jar</type>
+                                            <overWrite>true</overWrite>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>arquillian.xml</includes>
+                                    <outputDirectory>src/test/resources</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
@@ -664,6 +728,28 @@
         </profile>
 
         <!-- Containers -->
+        <profile>
+            <id>wildfly-managed-8-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly81</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>${version.wildfly81}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>jbossas-managed-7-1</id>
             <activation>

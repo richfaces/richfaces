@@ -26,8 +26,6 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Arrays;
 
-import junit.framework.TestResult;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -39,6 +37,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.fragment.common.Utils;
@@ -67,7 +67,7 @@ public abstract class AbstractPhotoalbumTest {
 
     @Deployment(testable = false)
     public static WebArchive createTestArchive() {
-        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/photoalbum.war"));
+        return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/richfaces-photoalbum.war"));
     }
 
     @Drone
@@ -79,6 +79,10 @@ public abstract class AbstractPhotoalbumTest {
     @Page
     protected PhotoalbumPage page;
 
+    // junit way to get hold of executed method and hence to get it's annotations
+    @Rule
+    public TestName testName = new TestName();
+    
     public void deleteCookies() {
         Assume.assumeNotNull(browser);
         /**
@@ -122,8 +126,9 @@ public abstract class AbstractPhotoalbumTest {
     }
 
     @After
-    // previously there was ITestResult as input param to get annotations, this does not work for junit
-    public void logoutAfter(Method m) throws Exception {
+    public void logoutAfter() throws Exception {
+        // TODO not yet working, need to get this from every specific method
+        Method m = AbstractPhotoalbumTest.class.getMethod(testName.getMethodName());
         if (!m.isAnnotationPresent(DoNotLogoutAfter.class)) {
             if (browser != null && page != null) {
                 if (Utils.isVisible(page.getHeaderPanel().getLogoutLink())) {
@@ -135,12 +140,8 @@ public abstract class AbstractPhotoalbumTest {
     }
 
     @Before
-    public void prepare(Method m) {
+    public void prepare() {
         Assume.assumeNotNull(browser);
-        /**
-         * previous method for testng, assume should work just the same if (browser == null) { throw new
-         * SkipException("webDriver isn't initialized"); }
-         */
 
         // the address needs to contain "localhost" instead of local loop IP, workaround for socials login
         String replaced = contextPath.toString();
@@ -152,10 +153,10 @@ public abstract class AbstractPhotoalbumTest {
         // so the logging needs to be done manually
         /**
          * E.g.:
-         * 
+         *
          * public void loadPage(Method m) { if(m.isAnnotationPresent(LoggedUser.class)){ login(LoggedUser.getName(),
          * LoggedUser.getPassword()); } }
-         */
+         */        
     }
 
     public static class PossibleStringOptions {
