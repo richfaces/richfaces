@@ -37,11 +37,11 @@
     <description>Maven plugin for packaging resources with web application</description>
 
     <properties>
-        <version.maven-core>3.0.4</version.maven-core>
-        <version.maven-archiver>2.4</version.maven-archiver>
+        <version.maven-core>3.0.5</version.maven-core>
+        <version.maven-archiver>2.6</version.maven-archiver>
         <version.maven-file-management>1.2.1</version.maven-file-management>
-        <version.plexus-utils>1.5.15</version.plexus-utils>
-        <version.plexus-velocity>1.1.2</version.plexus-velocity>
+        <version.plexus-utils>3.0.21</version.plexus-utils>
+        <version.plexus-velocity>1.1.8</version.plexus-velocity>
     </properties>
 
     <dependencies>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.3</version>
+            <version>3.4</version>
             <scope>provided</scope><!-- annotations are needed only to build the plugin -->
         </dependency>
         <dependency>
@@ -153,7 +153,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.4</version>
                 <configuration>
                     <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>

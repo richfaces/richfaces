@@ -279,7 +279,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces</groupId>
                                         <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                                        <versionRange>[4.5.1-SNAPSHOT,)</versionRange>
+                                        <versionRange>[4.5.2.Final,)</versionRange>
                                         <goals>
                                             <goal>process</goal>
                                         </goals>
