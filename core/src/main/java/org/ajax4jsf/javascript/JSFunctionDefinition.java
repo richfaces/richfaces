@@ -78,11 +78,11 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
     }
 
     protected void appendFunctionName(Appendable target) throws IOException {
-        target.append(FUNCTION);
-
         if (null != name) {
-            target.append(EMPTY_STRING).append(name);
+            target.append(name).append(" = ");
         }
+
+        target.append(FUNCTION);
     }
 
     protected void appendBody(Appendable target) throws IOException {
