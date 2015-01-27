@@ -292,7 +292,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     }
 
     /**
-     * ID of the request status component
+     * Name of the request status component that will indicate the status of the Ajax request
      */
     @Attribute
     public String getStatus() {
