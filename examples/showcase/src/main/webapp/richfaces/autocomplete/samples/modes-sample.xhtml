@@ -11,7 +11,7 @@
     <p>
         <b>2)</b> Same suggestions in <b>lazyClient</b> mode. Additionally allows multiple selections using tokens (comma and space chars). 
         This means you will be able to separate different values
-        with a space or comma and get a separate suggestions for any of them. The <b>autoFill</b> attribute is set to false so you
+        with a space or comma and get a separate suggestions for any of them. The <b>autofill</b> attribute is set to false so you
         will notice values are not automatically added.
     </p>
     <h:form>
@@ -23,7 +23,7 @@
         automatically, but just submit currently entered value.
     </p>
     <h:form>
-        <rich:autocomplete mode="cachedAjax" tokens="," minChars="0" autoFill="false" selectFirst="false"
+        <rich:autocomplete mode="cachedAjax" tokens="," minChars="0" autofill="false" selectFirst="false"
             autocompleteMethod="#{autocompleteBean.autocomplete}" />
     </h:form>
 </ui:composition>
