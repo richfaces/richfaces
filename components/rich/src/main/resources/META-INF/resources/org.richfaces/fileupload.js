@@ -211,8 +211,14 @@
             },
 
             __removeItem: function(item) {
-                this.items.splice($.inArray(item, this.items), 1);
-                this.submitedItems.splice($.inArray(item, this.submitedItems), 1);
+                var inItems = $.inArray(item, this.items),
+                    inSItems = $.inArray(item, this.submitedItems);
+                if (inItems != -1) {    
+                    this.items.splice(inItems, 1);
+                }
+                if (inSItems != -1) {
+                    this.submitedItems.splice(inSItems, 1);
+                }
                 this.__updateButtons();
                 rf.Event.fire(this.element, "onclear", [item.model]);
             },
@@ -435,6 +441,7 @@
                 this.progressBar.parent().hide();
                 this.link.html(this.fileUpload["clearLabel"]);
                 this.model.state = state;
+                this.fileUpload.submitedItems.push(this);
             }
         });
 }(RichFaces.jQuery, window.RichFaces));
