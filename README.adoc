@@ -91,6 +91,10 @@ If you are not using maven in your application, you can build the complete distr
 
 The generated ZIP distribution file will be placed in the `dist/target/` folder.  This zip file contains both the required and optional libraries to be included in your RichFaces-based application.
 
+[WARNING]
+Due to a bug in JDK building the distribution under JDK 1.6 will result in a corrupted global javadoc in `dist/target/site/javadoc`.
+The build itself will not fail and the separate javadocs for core and components aren't affected.
+
 == Contributing to the project
 
 Details on contributing to the project are available in the link:CONTRIBUTING.md[Contributing guide].
