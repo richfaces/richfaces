@@ -61,15 +61,16 @@
         };
 
         var element = function() {
-            if (! this.isNested) {
-                //use parent tbody as parent dom elem
-                return $(document.getElementById(this.id)).parent();
-            } else {
-                var regex = new RegExp("^" + this.id + "\\:\\d+\\:b$");
-                return $(document.getElementById(this.id)).parent().find("tr").filter(function() {
-                    return this.id.match(regex);
-                });
-            }
+                // use parent tbody as parent dom elem
+            return $(document.getElementById(this.id)).parent();
+        };
+        
+        var nestedElements = function() {
+                // return children rows - id contains the id of parent
+            var childrenRegex = new RegExp("^" + this.id + "\\:\\d+\\:");
+            return $(document.getElementById(this.id)).parent().find("tr").filter(function() {
+                return this.id.match(childrenRegex);
+            });
         };
 
         var stateInputElem = function() {
@@ -145,37 +146,37 @@
             },
 
             collapse: function(options) {
-                if (this.isNested) {
-                    var expandedTogglerRegex = new RegExp("^" + this.id + "\\:\\d+\\:\\w+\\:expanded$");
-                    var collapseTogglerRegex = new RegExp("^" + this.id + "\\:\\d+\\:\\w+\\:collapsed$");
-                    var subtableRegex = new RegExp("^" + this.id + "\\:\\d+\\:\\w+$");
-                    $(document.getElementById(this.id)).parent().find("tr[style='display: none;']").filter(function () {
-                        return this.id.match(subtableRegex);
-                    }).each(function () {
-                        if (this.rf) {
-                            if (this.rf.component.isExpanded) {
-                                $(document.getElementById(this.id)).parent().find(".rf-csttg-exp").filter(function () {
-                                    return this.id.match(expandedTogglerRegex);
-                                }).each(function () {
-                                    $(this).hide();
-                                });
-                                $(document.getElementById(this.id)).parent().find(".rf-csttg-colps").filter(function () {
-                                    return this.id.match(collapseTogglerRegex);
-                                }).each(function () {
-                                    $(this).show();
-                                });
-                                this.rf.component.collapse();
-                            }
-                        }
-                    });
-                }
                 this.setState(rf.ui.CollapsibleSubTable.collapse);
-                element.call(this).hide();
+                if (this.isNested) {
+                    nestedElements.call(this).hide();
+                }
+                else {
+                    element.call(this).hide();
+                }
             },
 
             expand: function(options) {
                 this.setState(rf.ui.CollapsibleSubTable.expand);
-                element.call(this).show();
+                
+                if (!this.isNested) {
+                    element.call(this).show();
+                }
+                else {
+                        // return first level children only
+                    var subtableRegex = new RegExp("^" + this.id + "\\:\\d+\\:[^\\:]+$");
+                    nestedElements.call(this).filter(function () {
+                        return this.id.match(subtableRegex);
+                    }).each(function() {
+                        if (this.rf) { // is a nested subtable, show content if necessary
+                            if (this.rf.component.isExpanded()) {
+                                this.rf.component.expand();
+                            }
+                        }
+                        else { // is a subtable toggler, always show
+                            $(this).show();
+                        }
+                    });
+                }
             },
 
             isExpanded: function() {
