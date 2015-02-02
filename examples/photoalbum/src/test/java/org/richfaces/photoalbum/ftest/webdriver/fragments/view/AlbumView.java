@@ -165,8 +165,8 @@ public class AlbumView {
         }
 
         public void checkAdditionalInfo(String additionalInfo) {
-            assertTrue("Was " + this.getAdditionalInfo().getText().trim() + " , expected " + additionalInfo, this
-                .getAdditionalInfo().getText().trim().matches(additionalInfo));
+            String message = "Was " + this.getAdditionalInfo().getText().trim() + " , expected " + additionalInfo;
+            assertTrue(message, this.getAdditionalInfo().getText().trim().matches(additionalInfo));
         }
 
         public WebElement getAdditionalInfo() {

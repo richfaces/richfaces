@@ -29,6 +29,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 import org.jboss.arquillian.graphene.Graphene;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.fragment.fileUpload.FileUploadItem;
 import org.richfaces.fragment.fileUpload.RichFacesFileUpload;
@@ -56,6 +57,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Ignore("test is ignored due to Graphene bug with file upload")
     public void testAddImage() {
         login();
 

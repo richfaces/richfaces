@@ -122,7 +122,7 @@
         <!-- GAV of the JSF implementation used for testing in servlet containers -->
         <property name="jsfImplementation">${arquillian.richfaces.jsfImplementation}</property>
         <!-- the home of the container -->
-        <property name="container">wildfly81</property>
+        <property name="container">${integration}</property>
         <!-- the home of the container -->
         <property name="containerHome">${arquillian.container.home}</property>
         <!-- the GAV of container distribution artifact -->

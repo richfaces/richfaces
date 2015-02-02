@@ -42,7 +42,6 @@ import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.fragment.common.Utils;
-import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
 import org.richfaces.photoalbum.ftest.webdriver.pages.PhotoalbumPage;
 
 /**
@@ -79,16 +78,8 @@ public abstract class AbstractPhotoalbumTest {
     @Page
     protected PhotoalbumPage page;
 
-    // junit way to get hold of executed method and hence to get it's annotations
-    @Rule
-    public TestName testName = new TestName();
-    
     public void deleteCookies() {
         Assume.assumeNotNull(browser);
-        /**
-         * previous method for testng, assume should work just the same if (browser == null) { throw new
-         * SkipException("webDriver isn't initialized"); }
-         */
         browser.manage().deleteAllCookies();
     }
 
@@ -127,15 +118,9 @@ public abstract class AbstractPhotoalbumTest {
 
     @After
     public void logoutAfter() throws Exception {
-        // TODO not yet working, need to get this from every specific method
-        Method m = AbstractPhotoalbumTest.class.getMethod(testName.getMethodName());
-        if (!m.isAnnotationPresent(DoNotLogoutAfter.class)) {
-            if (browser != null && page != null) {
-                if (Utils.isVisible(page.getHeaderPanel().getLogoutLink())) {
-                    logout();
-                    browser.manage().deleteAllCookies();
-                }
-            }
+        if (Utils.isVisible(page.getHeaderPanel().getLogoutLink())) {
+            logout();
+            browser.manage().deleteAllCookies();
         }
     }
 

@@ -58,7 +58,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
     private RichFacesList list;
 
     @After
-    private void resetSearchOptions() {
+    public void resetSearchOptions() {
         // we have to trigger ajax event, or the options will stay as set in test
         if (page != null) {
             Graphene.guardAjax(page.getSearchPanel()).searchFor("a");
@@ -153,7 +153,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
         List<AlbumPreview> albumPreviews = content.getAlbumPreviews();
         albumPreviews.get(0).checkAll("Animals", IMAGES_DEC_DATE, "Andrey Markhel");
         albumPreviews.get(5).checkAll("Water", IMAGES_DEC_DATE, "John Smith");
-        assertEquals(0, albumPreviews.size());
+        assertEquals(6, albumPreviews.size());
     }
 
     @Test

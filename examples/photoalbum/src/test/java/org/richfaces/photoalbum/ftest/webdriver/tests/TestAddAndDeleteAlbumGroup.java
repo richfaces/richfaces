@@ -29,7 +29,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.richfaces.fragment.tree.RichFacesTree;
-import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumGroupPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
@@ -44,8 +43,27 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
 
     private static final String GROUP_NAME = "New Album group";
 
+    /**
+     * Helper method used to add album group. 
+     * Firstly logs in and then checks whether album was already added.
+     */
+    private void addGroup() {
+        login();
+        
+        RichFacesTree myGroupsTree = page.getLeftPanel().getMyGroupsTree();
+        
+        // if album exists, do not add anything
+        if (myGroupsTree.advanced().getNodes().size() != 3) {
+         // create group
+            AddAlbumGroupPanel panel = page.getAddAlbumGroupPanel();
+            Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
+            panel = page.getAddAlbumGroupPanel();
+            panel.advanced().waitUntilPopupIsVisible().perform();
+            panel.addGroup(GROUP_NAME, false);
+        }
+    }
+
     @Test
-    @DoNotLogoutAfter
     public void addAlbumGroup() {
         login();
 
@@ -69,12 +87,8 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
         assertEquals(2, myGroupsTree.advanced().getNodes().size());
         assertEquals(0, myGroupsTree.advanced().getLeafNodes().size());
 
-        // create group
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
-        panel = page.getAddAlbumGroupPanel();
-        panel.advanced().waitUntilPopupIsVisible().perform();
-        panel.addGroup(GROUP_NAME, false);
-
+        addGroup();
+        
         // check changed state in left panel
         myGroupsTree = page.getLeftPanel().getMyGroupsTree();
         assertEquals(3, myGroupsTree.advanced().getNodes().size());
@@ -101,9 +115,13 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
 
     @Test
     public void deleteAlbumGroup() {
-        // firstly add album group
-        addAlbumGroup();
+        // firstly add album group with all the asserts (includes login())
+        addGroup();
 
+        // navigate to newly created group
+        page.getLeftPanel().openOwnGroups(3);
+        page.getLeftPanel().openOwnGroup(GROUP_NAME);
+        
         GroupView groupView = getView(GroupView.class);
         // cancel before delete
         Graphene.guardAjax(groupView.getGroupHeader().getDeleteAlbumGroupLink()).click();

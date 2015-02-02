@@ -21,7 +21,11 @@
  *******************************************************************************/
 package org.richfaces.photoalbum.ftest.webdriver.pages;
 
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.drone.webdriver.factory.WebDriverFactory;
 import org.jboss.arquillian.graphene.Graphene;
+import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.messages.RichFacesMessages;
 import org.richfaces.fragment.notify.RichFacesNotifyMessage;
@@ -73,6 +77,9 @@ public class PhotoalbumPage {
     @FindBy(css = ".rf-pp-cntr[id*='confirmation']")
     private ConfirmationPanel confirmationPanel;
 
+    @Drone
+    private WebDriver driver;
+    
     public void checkUserLogged(String user, boolean hasOwnAlbums, boolean isLoggedInWithFB, boolean isLoggedInWithGPlus) {
         headerPanel.checkUserLogged(user, hasOwnAlbums, isLoggedInWithFB, isLoggedInWithGPlus);
         leftPanel.checkIfUserLogged(hasOwnAlbums, isLoggedInWithFB, isLoggedInWithGPlus);
@@ -144,8 +151,15 @@ public class PhotoalbumPage {
         return loginPanel;
     }
 
+    /**
+     * Attempts to log the user in. In case user is already logged, nothing will happen.
+     * @param user username
+     * @param pswd password
+     */
     public void login(String user, String pswd) {
-        openLoginPanel().login(user, pswd);
+        if (new WebElementConditionFactory(headerPanel.getLoginLink()).isVisible().apply(driver)) {
+            openLoginPanel().login(user, pswd);
+        }
     }
 
     public void logout() {

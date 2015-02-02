@@ -31,7 +31,6 @@ import org.junit.Test;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.tree.RichFacesTree;
 import org.richfaces.fragment.tree.Tree.TreeNode;
-import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
@@ -50,8 +49,35 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
     private final DateTime dt = new DateTime();
     private final DateTimeFormatter pattern = DateTimeFormat.forPattern("EEE MMM dd");
 
+    private void addSingleAlbum() {
+        login();
+        AddAlbumPanel panel = page.getAddAlbumPanel();
+        
+        if (page.getLeftPanel().getMyGroupsTree().expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName)).advanced().getNodes().size() != 3) {
+            Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumLink()).click();
+            panel = page.getAddAlbumPanel();
+            panel.advanced().waitUntilPopupIsVisible().perform();
+            panel.addAlbum(albumGroupName, albumName);
+        }        
+    }
+    
+    /**
+     * Used to clear album when there are 3 inside nature group. This is to ensure that when
+     * executing deleteAlbum() test, it will firstly create one
+     */
+    private void clearCreatedAlbum() {
+        login();
+        if (page.getLeftPanel().getMyGroupsTree().expandNode(ChoicePickerHelper.byVisibleText().contains(albumGroupName)).advanced().getNodes().size() == 3) {
+            AlbumView albumView = page.getLeftPanel().openAlbumInOwnGroup(albumName, albumGroupName);
+            ConfirmationPanel confirmationPanel = page.getConfirmationPanel();
+            Graphene.guardAjax(albumView.getAlbumHeader().getDeleteAlbumLink()).click();
+            confirmationPanel = page.getConfirmationPanel();
+            confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
+            confirmationPanel.ok(); 
+        }
+    }
+    
     @Test
-    @DoNotLogoutAfter
     public void addAlbum() {
         login();
 
@@ -74,10 +100,7 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
         assertEquals(2, node.advanced().getNodes().size());
 
         // create album
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumLink()).click();
-        panel = page.getAddAlbumPanel();
-        panel.advanced().waitUntilPopupIsVisible().perform();
-        panel.addAlbum(albumGroupName, albumName);
+        addSingleAlbum();
 
         // check changed state in left panel
         myAlbumGroupsTree = page.getLeftPanel().getMyGroupsTree();
@@ -103,10 +126,15 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
 
     @Test
     public void deleteAlbum() {
-        // add album first
-        addAlbum();
-
-        AlbumView albumView = getView(AlbumView.class);
+        // clear & add album first (includes login)
+        // clear because of string pattern when creating album
+        clearCreatedAlbum();
+        addSingleAlbum();
+        
+        //navigate to albums
+        GroupView groupView = page.getLeftPanel().openOwnGroup(albumGroupName);
+        AlbumView albumView = page.getLeftPanel().openAlbumInOwnGroup(albumName, albumGroupName);
+        
         // cancel before delete
         Graphene.guardAjax(albumView.getAlbumHeader().getDeleteAlbumLink()).click();
         ConfirmationPanel confirmationPanel = page.getConfirmationPanel();

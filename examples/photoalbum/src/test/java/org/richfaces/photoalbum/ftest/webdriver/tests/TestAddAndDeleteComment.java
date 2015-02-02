@@ -29,7 +29,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
-import org.richfaces.photoalbum.ftest.webdriver.annotations.DoNotLogoutAfter;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView.CommentsPanel;
 
@@ -41,9 +40,17 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
 
     private final DateTime dt = new DateTime();
     private final DateTimeFormatter pattern = DateTimeFormat.forPattern("MMM d, YYYY");
-
+    private final String comment = "new comment";
+    
+    private void addSingleComment() {
+        PhotoView photoView = getView(PhotoView.class);
+        CommentsPanel commentPanel = photoView.getCommentPanel();
+        if(commentPanel.getComments().size() != 4) {
+            commentPanel.addComment(comment);
+        }
+    }
+    
     @Test
-    @DoNotLogoutAfter
     public void addComment() {
         login();
 
@@ -60,8 +67,8 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
         comments.get(2).checkAll(JAN_DATE_85, "that is a beautiful flower with great colours", "avatar_default.png", "amarkhel");
 
         // add comment
-        String comment = "new comment";
-        commentPanel.addComment(comment);
+        addSingleComment();
+        
         // check comments
         comments = commentPanel.getComments();
         assertEquals(4, comments.size());
@@ -87,8 +94,8 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
 
     @Test
     public void deleteComment() {
-        // firstly need to add comment which has to succeed
-        addComment();
+        // firstly need to add comment if its not already present (includes login)
+        addSingleComment();
         
         PhotoView photoView = getView(PhotoView.class);
         CommentsPanel commentPanel = photoView.getCommentPanel();
