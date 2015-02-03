@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -186,7 +187,7 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
             @Override
             public void perform() {
                 Graphene.waitGui().until().element(element).is().present();
-                Utils.triggerJQ(event.getEventName(), element);
+                Utils.triggerJQ((JavascriptExecutor) driver, event.getEventName(), element);
             }
         });
     }
