@@ -5,8 +5,12 @@
     <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
     <property name="checkstyle.header.file" value="/home/mpetrov/workspace/rf4-5/richfaces/examples/irc-client/target/checkstyle-header.txt"/>
   </local-check-config>
-  <fileset name="java-sources" enabled="true" check-config-name="maven-checkstyle-plugin" local="true">
-    <file-match-pattern match-pattern="src/main/java/.*\/.*\.java" include-pattern="true"/>
-    <file-match-pattern match-pattern="src/test/java.*\/.*\.java" include-pattern="true"/>
+  <local-check-config name="maven-checkstyle-plugin richfaces-checkstyle-report" location="jar:file:/C:/Users/Jeremy/.m2/repository/org/richfaces/richfaces-build-resources/4.5.1-SNAPSHOT/richfaces-build-resources-4.5.1-SNAPSHOT.jar!/richfaces-checkstyle/richfaces-checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration richfaces-checkstyle-report">
+    <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
+    <property name="checkstyle.header.file" value="C:\Users\Jeremy\Documents\GitHub\richfaces\examples\irc-client\target\checkstyle-header-richfaces-checkstyle-report.txt"/>
+  </local-check-config>
+  <fileset name="java-sources-richfaces-checkstyle-report" enabled="true" check-config-name="maven-checkstyle-plugin richfaces-checkstyle-report" local="true">
+    <file-match-pattern match-pattern="src/main/java/.*\.java" include-pattern="true"/>
+    <file-match-pattern match-pattern="src/test/java.*\.java" include-pattern="true"/>
   </fileset>
 </fileset-config>

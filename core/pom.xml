@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   JBoss, Home of Professional Open Source
   Copyright 2013, Red Hat, Inc. and individual contributors
@@ -21,7 +22,6 @@
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -51,6 +51,10 @@
                 <exclusion>
                     <groupId>org.jboss.spec.javax.faces</groupId>
                     <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xalan</artifactId>
+                    <groupId>xalan</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -308,7 +312,7 @@
                             <locale>en</locale>
                             <templates>
                                 <fileSet>
-                                    <directory>src/main/java</directory>
+                                    <directory>${project.basedir}/src/main/java</directory>
                                     <includes>
                                         <include>**/*.template.xml</include>
                                     </includes>
@@ -321,6 +325,12 @@
                                 <artifactId>jboss-javaee-6.0</artifactId>
                                 <version>${version.jboss-javaee}</version>
                                 <type>pom</type>
+                                <exclusions>
+                                    <exclusion>
+                                        <artifactId>xalan</artifactId>
+                                        <groupId>xalan</groupId>
+                                    </exclusion>
+                                </exclusions>
                             </dependency>
                             <dependency>
                                 <groupId>org.richfaces</groupId>
@@ -427,7 +437,7 @@
                             <execution>
                                 <id>jsdoc</id>
                                 <configuration>
-                                    <jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
+                                    <jsDir>${project.basedir}/src/main/resources/META-INF/resources</jsDir>
                                     <includes>**/*.js</includes>
                                     <caseSensitive>true</caseSensitive>
                                 </configuration>
