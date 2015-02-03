@@ -78,6 +78,7 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
         whitelistBaseClasses.add(Character.class);
         whitelistBaseClasses.add(Number.class);
         whitelistBaseClasses.add(Collection.class);
+        whitelistBaseClasses.add(Map.class);
 
         loadWhitelist();
     }
