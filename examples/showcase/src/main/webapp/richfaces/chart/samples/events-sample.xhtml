@@ -27,11 +27,15 @@
     <script type='text/javascript'>
         //<![CDATA[  
            function log(e){
-               $('#clickInfo').text("Series index: "+e.data.seriesIndex
+               if (e.data.item) {
+                   $('#clickInfo').text("Series index: "+e.data.seriesIndex
                        +" DataIndex: "+e.data.dataIndex+' ['+e.data.x+','+e.data.y+']');
+               }
            }
            function hover(e){
-               $("#hoverInfo").text(e.data.item.series.label+' ['+e.data.x+','+e.data.y+']');
+               if (e.data.item) {
+                   $("#hoverInfo").text(e.data.item.series.label+' ['+e.data.x+','+e.data.y+']');
+               }
            }
            function clear(){
                $("#hoverInfo").text("");
