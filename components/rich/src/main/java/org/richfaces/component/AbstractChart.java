@@ -122,7 +122,7 @@ public abstract class AbstractChart extends UIComponentBase implements CoreProps
             List<MethodExpression> particularSeriesListeners = (List<MethodExpression>) getAttributes().get("particularSeriesListeners");
 
             if(particularSeriesListeners!=null){
-                if(seriesId < particularSeriesListeners.size()){
+                if(seriesId >= 0 && seriesId < particularSeriesListeners.size()){
                     MethodExpression expr = particularSeriesListeners.get(seriesId);
                     if(expr!=null){
                         expr.invoke(context.getELContext(), new Object[]{event});

@@ -351,7 +351,7 @@
               var clickHandler = options.handlers['onplotclick'];	
               var particularClickHandlers= options.particularSeriesHandlers['onplotclick'];
               var clientId = this.element.attr('id');
-              return function (event, mouse, item) {
+              return function (event, pos, item) {
                 if (item !== null) {
                   //point in a chart clicked
                   event.data = {
@@ -369,7 +369,12 @@
                     event.data.x = options.xaxis.ticks[item.dataIndex][1];
 
                   }
-
+                } else {
+                    event.data = {
+                        x: pos.x,
+                        y: pos.y
+                    };
+                }
                   //sent request only if a server-side listener attached
                   if (options.serverSideListener) {
                     //server-side
@@ -386,7 +391,6 @@
                   if (particularClickHandlers[event.data.seriesIndex]) {
                 	  particularClickHandlers[event.data.seriesIndex].call(element, event);
                   }
-                }
               };
             },
             
@@ -395,7 +399,7 @@
               var hoverHandler = options.handlers['onplothover'];	
               var particularHoverHandlers =	options.particularSeriesHandlers['onplothover']; 
               
-              return function (event, mouse, item) {
+              return function (event, pos, item) {
                 if (item !== null) {
                   //point in a chart clicked
                   event.data = {
@@ -405,7 +409,12 @@
                     y: item.datapoint[1],
                     item: item
                   };
-
+                } else {
+                    event.data = {
+                        x: pos.x,
+                        y: pos.y
+                    };
+                }
                   //client-side
                   if (hoverHandler) {
                     hoverHandler.call(element, event);
@@ -415,7 +424,7 @@
                   if (particularHoverHandlers[event.data.seriesIndex]) {
                 	  particularHoverHandlers[event.data.seriesIndex].call(element, event);
                   }
-                }
+                
               };
             },
 

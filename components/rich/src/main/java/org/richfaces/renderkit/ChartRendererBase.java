@@ -43,20 +43,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractChart;
-import org.richfaces.component.AbstractChartSeries;
+import org.richfaces.component.AbstractChartLegend;
 import org.richfaces.component.AbstractChartPoint;
+import org.richfaces.component.AbstractChartSeries;
 import org.richfaces.component.AbstractChartXAxis;
 import org.richfaces.component.AbstractChartYAxis;
-import org.richfaces.component.AbstractChartLegend;
-import org.richfaces.model.ChartDataModel;
-import org.richfaces.model.PlotClickEvent;
-import org.richfaces.model.RawJSONString;
-import org.richfaces.model.NumberChartDataModel;
-import org.richfaces.model.StringChartDataModel;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
+import org.richfaces.model.ChartDataModel;
 import org.richfaces.model.ChartDataModel.ChartType;
+import org.richfaces.model.NumberChartDataModel;
+import org.richfaces.model.PlotClickEvent;
+import org.richfaces.model.RawJSONString;
+import org.richfaces.model.StringChartDataModel;
 
 
 /**
@@ -164,9 +164,15 @@ public abstract class ChartRendererBase extends RendererBase {
 
                 if (PLOT_CLICK_TYPE.equals(eventTypeParam)) {
                     double y = Double.parseDouble(yParam);
+                    String x = xParam;
+
+                    if (seriesIndexParam == null) {
+                        new PlotClickEvent(component, -1, -1, x, y).queue();
+                        return;
+                    }
+
                     int seriesIndex = Integer.parseInt(seriesIndexParam);
                     int pointIndex = Integer.parseInt(pointIndexParam);
-                    String x = xParam;
                     new PlotClickEvent(component, seriesIndex, pointIndex, x, y)
                             .queue();
                 }
