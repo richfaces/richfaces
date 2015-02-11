@@ -1,7 +1,6 @@
 /*--- RF Message styles ---*/
 .rf-msg,.rf-msgs {
     font-family: '#{a4jSkin.generalFamilyFont}'; /*generalFamilyFont*/
-    font-size: '#{a4jSkin.generalSizeFont}'; /*generalSizeFont*/
 }
 /* all messages */
 .rf-msg-err,.rf-msgs-err,.rf-msg-ftl,.rf-msgs-ftl,.rf-msg-inf,.rf-msgs-inf,.rf-msg-wrn,.rf-msgs-wrn,.rf-msg-ok,.rf-msgs-ok {
@@ -40,8 +39,10 @@
 
 .rf-msg-sum,.rf-msgs-sum { /*Summary*/
     display: inline;
+    font-size: '#{a4jSkin.generalSizeFont}'; /*generalSizeFont*/
 }
 
 .rf-msg-det,.rf-msgs-det { /*Description*/
     display: inline;
+    font-size: '#{a4jSkin.generalSizeFont}'; /*generalSizeFont*/
 }
