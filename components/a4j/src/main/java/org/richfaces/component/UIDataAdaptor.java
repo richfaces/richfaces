@@ -72,6 +72,7 @@ import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
+import org.richfaces.JsfVersion;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.log.Logger;
@@ -1393,9 +1394,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * @param context
      */
     private boolean requiresRowIteration(VisitContext context) {
-        // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.  Switch to using the enum when we no longer want to support JSF 2.0.
-        // return !context.getHints().contains(VisitHint.SKIP_ITERATION);
-        return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
+        // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.
+        if (JsfVersion.getCurrent() == JsfVersion.JSF_2_0) {
+            return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
+        }
+
+        return !context.getHints().contains(VisitHint.SKIP_ITERATION);
     }
 
     /**
