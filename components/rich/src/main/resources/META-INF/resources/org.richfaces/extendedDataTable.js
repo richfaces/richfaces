@@ -340,7 +340,7 @@
                         });
                         this.scrollElement.style.display = "none";
                     }
-                } else {
+                } else if (this.element.clientWidth != 0) {
                     this.contentDivElement.css('display', 'none');
                 }
                 var height = this.element.clientHeight;
