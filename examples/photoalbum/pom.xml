@@ -188,6 +188,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-phantom-driver</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -696,6 +701,18 @@
         </profile>
 
         <!-- Browsers -->
+        <profile>
+            <id>browser-phantomjs</id>
+            <activation>
+                <property>
+                    <name>browser</name>
+                    <value>phantomjs</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+            </properties>
+        </profile>
         <profile>
             <id>browser-chrome</id>
             <activation>

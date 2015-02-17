@@ -130,7 +130,7 @@ public abstract class AbstractPhotoalbumTest {
 
         // the address needs to contain "localhost" instead of local loop IP, workaround for socials login
         String replaced = contextPath.toString();
-        replaced = "localhost" + replaced.substring(replaced.indexOf(":8080"));
+        replaced = "http://localhost" + replaced.substring(replaced.indexOf(":8080"));
         browser.get(replaced + "index.jsf");
         // this method could also handle user logging
         // i.e by introducing an annotation @LoggedUser used for marking test methods
