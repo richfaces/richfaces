@@ -91,6 +91,9 @@
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
+    
+        <testCategory.included.default>NOT category.None</testCategory.included.default>
+        <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
     </properties>
 
     <prerequisites>
@@ -208,6 +211,11 @@
             <scope>test</scope>
             <optional>true</optional>
             <version>${version.richfaces}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-build-resources</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -533,7 +541,7 @@
                 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>firefox</arquillian.drone.browser>
+                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version />
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
@@ -552,6 +560,11 @@
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
                 <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
                 <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
+                
+                <!-- JUnit Categories Selection -->
+                <testCategory.excluded.container />
+                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
+                <testCategory.excluded.jsf />
             </properties>
             <dependencies>
                 <dependency>
@@ -663,12 +676,21 @@
                                     </includes>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
+                                    <groups>${testCategory.included.default} ${testCategory.excluded.browser}</groups>
+                                    <excludedGroups>${testCategory.excluded.default}</excludedGroups>
                                     <systemPropertyVariables>
                                         <arquillian.debug>${arquillian.debug}</arquillian.debug>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.richfaces</groupId>
+                                <artifactId>richfaces-build-resources</artifactId>
+                                <version>${version.richfaces}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -711,6 +733,7 @@
             </activation>
             <properties>
                 <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
             </properties>
         </profile>
         <profile>
@@ -723,6 +746,7 @@
             </activation>
             <properties>
                 <arquillian.drone.browser>chrome</arquillian.drone.browser>
+                <testCategory.excluded.browser />
             </properties>
         </profile>
         <profile>
@@ -735,6 +759,7 @@
             </activation>
             <properties>
                 <arquillian.drone.browser>firefox</arquillian.drone.browser>
+                <testCategory.excluded.browser>AND NOT category.FailingOnFirefox</testCategory.excluded.browser>
             </properties>
         </profile>
         <profile>

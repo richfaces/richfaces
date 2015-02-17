@@ -31,11 +31,14 @@ import java.net.URISyntaxException;
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.fileUpload.FileUploadItem;
 import org.richfaces.fragment.fileUpload.RichFacesFileUpload;
 import org.richfaces.fragment.notify.RichFacesNotifyMessage;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AddImagesView;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+
+import category.FailingOnPhantomJS;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -58,6 +61,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
 
     @Test
     @Ignore("test is ignored due to Graphene bug with file upload")
+    @Category(FailingOnPhantomJS.class)
     public void testAddImage() {
         login();
 
@@ -87,6 +91,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testAddInvalidImage_messageWillShow() {
         login();
 
