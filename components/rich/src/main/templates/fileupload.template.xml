@@ -55,13 +55,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                                 </span>
                             </c:if>
                             <cdk:object name="addLabel" value="#{attributes['addLabel']}" />
-                            #{addLabel != null ? addLabel : 'Add...'}
+                            #{not empty addLabel ? addLabel : 'Add...'}
                         </span>
                     </span>
                     <c:if test="#{!disabled}">
                         <span class="rf-fu-btn-upl">
                             <cdk:object name="uploadLabel" value="#{attributes['uploadLabel']}" />
-                            <span class="rf-fu-btn-cnt-upl">#{uploadLabel != null ? uploadLabel : 'Upload'}</span>
+                            <span class="rf-fu-btn-cnt-upl">#{not empty uploadLabel ? uploadLabel : 'Upload'}</span>
                         </span>
                     </c:if>
                 </span>
@@ -69,7 +69,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <span class="rf-fu-btns-rgh">
                         <span class="rf-fu-btn-clr">
                             <cdk:object name="clearAllLabel" value="#{attributes['clearAllLabel']}" />
-                            <span class="rf-fu-btn-cnt-clr">#{clearAllLabel != null ? clearAllLabel : 'Clear All'}</span>
+                            <span class="rf-fu-btn-cnt-clr">#{not empty clearAllLabel ? clearAllLabel : 'Clear All'}</span>
                         </span>
                     </span>
                 </c:if>
