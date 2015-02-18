@@ -25,8 +25,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel;
+
+import category.FailingOnPhantomJS;
+import category.Smoke;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -48,6 +52,7 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testLogInAndOut() {
         page.login("amarkhel", "12345");
         page.checkUserLogged("amarkhel", true, false, false);
@@ -56,6 +61,7 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testLogInAndOutWithFB() {
         page.openLoginPanel().loginWithFB();
         page.checkUserLogged("rich.faces.3", false, true, false);
@@ -64,6 +70,7 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testLogInAndOutWithGPlus() {
         page.openLoginPanel().loginWithGPlus();
         page.checkUserLogged("Rich", false, false, true);

@@ -25,8 +25,11 @@ package org.richfaces.photoalbum.ftest.webdriver.tests;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.richfaces.fragment.common.Utils;
+
+import category.Smoke;
 
 /**
  *
@@ -35,6 +38,7 @@ import org.richfaces.fragment.common.Utils;
 public class TestInitialPage extends AbstractPhotoalbumTest {
 
     @Test
+    @Category(Smoke.class)
     public void testTitle() {
         assertEquals("RichFaces PhotoAlbum demo", Utils.getTextFromHiddenElement(browser.findElement(By.tagName("title"))));
     }

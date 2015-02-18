@@ -28,11 +28,14 @@ import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.tree.Tree.TreeNode;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+
+import category.Smoke;
 
 import com.google.common.collect.Lists;
 
@@ -190,6 +193,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testPublicGroupsView() {
         GroupsView groupssView = page.getLeftPanel().openPredefinedGroups(5);
         groupssView.checkHeader("Public album groups (5)");

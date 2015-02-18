@@ -29,8 +29,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView.CommentsPanel;
+
+import category.FailingOnPhantomJS;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -51,6 +54,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
     }
     
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void addComment() {
         login();
 
@@ -93,6 +97,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void deleteComment() {
         // firstly need to add comment if its not already present (includes login)
         addSingleComment();

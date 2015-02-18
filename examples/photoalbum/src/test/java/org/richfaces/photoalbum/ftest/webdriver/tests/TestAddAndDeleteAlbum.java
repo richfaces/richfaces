@@ -28,6 +28,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.tree.RichFacesTree;
 import org.richfaces.fragment.tree.Tree.TreeNode;
@@ -36,6 +37,8 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.ConfirmationPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
+
+import category.Smoke;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
@@ -78,6 +81,7 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
     }
     
     @Test
+    @Category(Smoke.class)
     public void addAlbum() {
         login();
 
@@ -125,6 +129,7 @@ public class TestAddAndDeleteAlbum extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void deleteAlbum() {
         // clear & add album first (includes login)
         // clear because of string pattern when creating album

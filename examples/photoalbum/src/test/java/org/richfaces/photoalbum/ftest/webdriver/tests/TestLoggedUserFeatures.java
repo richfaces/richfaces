@@ -29,11 +29,14 @@ import java.net.URISyntaxException;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView.AlbumHeader;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.PhotoView;
+
+import category.FailingOnPhantomJS;
 
 
 /**
@@ -56,6 +59,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testEditAlbumName() {
         login();
 
@@ -78,6 +82,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testEditPhotoName() {
         login();
 
@@ -95,6 +100,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testEditAlbumGroupName() {
         login();
 

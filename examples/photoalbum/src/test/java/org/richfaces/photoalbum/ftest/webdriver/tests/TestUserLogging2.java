@@ -22,6 +22,9 @@
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+import category.FailingOnPhantomJS;
 
 
 
@@ -34,6 +37,7 @@ public class TestUserLogging2 extends AbstractPhotoalbumTest {
     * Removed from TestUserLogging, cannot get rid of G+ in cache
     */
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testLoginUser_loginWithSocials_logout() {
         page.login("amarkhel", "12345");
         page.checkUserLogged("amarkhel", true, false, false);

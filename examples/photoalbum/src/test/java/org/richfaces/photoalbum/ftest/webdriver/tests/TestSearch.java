@@ -30,6 +30,7 @@ import java.util.List;
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.list.RichFacesList;
@@ -42,6 +43,8 @@ import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupView.AlbumPr
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.GroupsView;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.SearchView;
 import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
+
+import category.Smoke;
 
 import com.google.common.collect.Lists;
 
@@ -72,6 +75,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testSearchOptions_loggedUserSearchInOwn() {
         login();
 
