@@ -5,7 +5,7 @@
 ### Requirements
 
  * Maven 3.0.3 or later
- * JBoss AS 7 or later
+ * Wildfly 8.1  or later
 
 ### Optional Additional Software
 
@@ -31,15 +31,15 @@ In order to run the demo on WildFly the server has to be started with `-Dorg.jbo
     
      
 
-### Testing
+### Integration Testing
 
-The Photoalbum comes with a small set of tests, to run them use
+The Photoalbum comes with a small set of integration tests, to run them use
 
-    mvn test -Parquillian-jbossas-remote
+    mvn clean verify -Dintegration=<nameOfServer> -Dtest=<nameOfTest>
    
-Or select the _arquillian-jbossas-remote_ profile from the IDE (Right click the project -> _Maven_ -> _Select Maven Profiles_) and then run the tests: right click _src/test/java_ -> _Run As_ -> _JUnit Test_
-    
-In order for the tests to execute you need to have a server running.
+Tests are runnable on wildfly81, wildfly81-remote, wildfly82, wildfly82-remote, jbosseap63 and jbosseap63-remote.
+To choose a server, write its name into -Dintegration. To run tests on remote server, you need start the server before running tests.
+In order to execute single test, use -Dtest=TestSomething, to run all the tests, simply omit this parameter.
 
 ### Predefined users
 
