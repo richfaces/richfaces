@@ -34,7 +34,7 @@
 .rf-ico-disc-dis,.rf-ico-disc-hdr-dis {
     background-image: "#{a4jSkin.imageUrl('discDisabled.png')}";}
 
-.rf-ico-grid-hdr, .rf-ico-grid, {
+.rf-ico-grid-hdr, .rf-ico-grid {
     background-image: "#{a4jSkin.imageUrl('grid.png')}";}
 
 .rf-ico-grid-dis,.rf-ico-grid-hdr-dis {
