@@ -22,6 +22,7 @@ public class UploadedImage implements Serializable {
     }
 
     public void setName(String name) {
+        this.name = name;
         int extDot = name.lastIndexOf('.');
         if (extDot > 0) {
             String extension = name.substring(extDot + 1);
