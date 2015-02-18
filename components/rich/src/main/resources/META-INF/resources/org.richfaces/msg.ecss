@@ -1,6 +1,7 @@
 /*--- RF Message styles ---*/
 .rf-msg,.rf-msgs {
     font-family: '#{a4jSkin.generalFamilyFont}'; /*generalFamilyFont*/
+    font-size: initial;
 }
 /* all messages */
 .rf-msg-err,.rf-msgs-err,.rf-msg-ftl,.rf-msgs-ftl,.rf-msg-inf,.rf-msgs-inf,.rf-msg-wrn,.rf-msgs-wrn,.rf-msg-ok,.rf-msgs-ok {
