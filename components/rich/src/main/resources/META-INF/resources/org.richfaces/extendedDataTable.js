@@ -502,7 +502,7 @@
             },
 
             drag: function(event) {
-                $(this.dragElement).setPosition({left:Math.max(this.resizeData.left + MIN_WIDTH, event.pageX)});
+                $(this.dragElement).setPosition({left:Math.max(this.resizeData.left + MIN_WIDTH, event.pageX), top: $(this.dragElement).offset().top});
                 return false;
             },
 
