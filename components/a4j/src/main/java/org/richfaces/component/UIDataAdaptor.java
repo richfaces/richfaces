@@ -1433,6 +1433,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 while (childIterator.hasNext()) {
                     UIComponent component = childIterator.next();
 
+                    UIComponent parent = component.getParent();
+
+                    if (!parent.isRendered()) { // skip if parent column is not rendered
+                        continue;
+                    }
+
                     processComponent(context, component, argument);
                 }
             }
