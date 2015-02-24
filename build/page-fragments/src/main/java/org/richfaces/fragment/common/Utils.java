@@ -52,7 +52,7 @@ public final class Utils {
     public static JavascriptExecutor getExecutorFromElement(WebElement element) {
         Preconditions.checkNotNull(element, "The element cannot be null.");
         if (element instanceof GrapheneProxyInstance) {
-            GrapheneContext context = ((GrapheneProxyInstance) element).getContext();
+            GrapheneContext context = ((GrapheneProxyInstance) element).getGrapheneContext();
             return (JavascriptExecutor) context.getWebDriver(JavascriptExecutor.class);
         }
         throw new RuntimeException(
@@ -359,7 +359,7 @@ public final class Utils {
      * @return
      */
     public static long getWaitGUIDefaultTimeout(WebDriver browser) {
-        return 1000 * ((GrapheneProxyInstance) browser).getContext().getConfiguration().getWaitGuiInterval();
+        return 1000 * ((GrapheneProxyInstance) browser).getGrapheneContext().getConfiguration().getWaitGuiInterval();
     }
 
     /**
@@ -369,6 +369,6 @@ public final class Utils {
      * @return
      */
     public static long getWaitAjaxDefaultTimeout(WebDriver browser) {
-        return 1000 * ((GrapheneProxyInstance) browser).getContext().getConfiguration().getWaitAjaxInterval();
+        return 1000 * ((GrapheneProxyInstance) browser).getGrapheneContext().getConfiguration().getWaitAjaxInterval();
     }
 }
