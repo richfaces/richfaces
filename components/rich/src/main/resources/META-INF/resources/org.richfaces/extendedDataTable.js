@@ -351,8 +351,8 @@
                     }
                     el = el.nextSibling;
                 }
-                if (this.bodyElement.offsetHeight > height || !this.contentElement) {
-                    this.bodyElement.style.height = height + "px";
+                if (this.bodyElement.offsetHeight != height || !this.contentElement) {
+                    this.bodyElement.style.height = height > this.contentDivElement.height() ? "" : height + "px";
                 }
                 this.activateResizeListener();
             },
