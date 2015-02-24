@@ -24,41 +24,31 @@ package org.richfaces.integration.javascript;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
-import static org.jboss.arquillian.warp.jsf.Phase.RENDER_RESPONSE;
 import static org.junit.Assert.assertThat;
 
 import java.net.URL;
 
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.javascript.JSLiteral;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.CoreDeployment;
-import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import com.google.common.base.Function;
 
 import category.Smoke;
 
 @RunWith(Arquillian.class)
-@WarpTest
 @RunAsClient
 @Category(Smoke.class)
 public class ITJavaScriptServiceAjax {
@@ -75,13 +65,22 @@ public class ITJavaScriptServiceAjax {
     @FindBy(id = "jsfAjax")
     private WebElement jsfAjax;
 
-    @ArquillianResource
-    private JavascriptExecutor executor;
-
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITJavaScriptServiceAjax.class);
-//        deployment.withWholeCore();
+
+        deployment.archive().addClasses(JsServiceBean.class);
+
+        // enableControlSkinning=false in order to remove warnings about not found resources
+        deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
+            public WebAppDescriptor apply(WebAppDescriptor descriptor) {
+
+                descriptor.getOrCreateContextParam().paramName("org.richfaces.enableControlSkinning")
+                    .paramValue("false");
+
+                return descriptor;
+            }
+        });
 
         addIndexPage(deployment);
 
@@ -91,11 +90,7 @@ public class ITJavaScriptServiceAjax {
     @Test
     public void jsf_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
-        Warp.initiate(new Activity() {
-            public void perform() {
-                guardAjax(jsfAjax).click();
-            }
-        }).observe(request().uri().contains("index.xhtml")).inspect(new AddScriptViaJavaScriptService());
+        guardAjax(jsfAjax).click();
 
         assertThat(driver.getTitle(),
             equalTo("ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete ajaxcomplete"));
@@ -104,11 +99,7 @@ public class ITJavaScriptServiceAjax {
     @Test
     public void richfaces_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
-        Warp.initiate(new Activity() {
-            public void perform() {
-                guardAjax(richfacesAjax).click();
-            }
-        }).observe(request().uri().contains("index.xhtml")).inspect(new AddScriptViaJavaScriptService());
+        guardAjax(richfacesAjax).click();
 
         assertThat(
             driver.getTitle(),
@@ -124,33 +115,21 @@ public class ITJavaScriptServiceAjax {
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
-        p.form("<h:commandButton id='jsfAjax' " + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
+        p.form("<h:commandButton id='jsfAjax' value='jsf ajax' action='#{jsServiceBean.addScript}' "
+            + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
 
-        p.form("<h:commandButton id='richfacesAjax' " + "onclick='RichFaces.ajax(this, event, {}); return false;' "
+        p.form("<h:commandButton id='richfacesAjax' value='richfaces ajax' action='#{jsServiceBean.addScript}' "
+            + "onclick='RichFaces.ajax(this, event, {}); return false;' "
             + "onbeforedomupdate=\"document.title += ' onbeforedomupdate'\" "
             + "oncomplete=\"document.title += ' oncomplete';\" />");
 
         p.form("<script>");
-        p.form("$(document).on('ajaxbeforedomupdate', function() { document.title += ' ajaxbeforedomupdate'; })");
-        p.form("$(document).on('ajaxcomplete', function() { document.title += ' ajaxcomplete'; })");
-        p.form("$(document).on('javascriptServiceComplete', function() { document.title += ' javascriptServiceComplete'; })");
+        p.form("  $(document).on('ajaxbeforedomupdate', function() { document.title += ' ajaxbeforedomupdate'; })");
+        p.form("  $(document).on('ajaxcomplete', function() { document.title += ' ajaxcomplete'; })");
+        p.form("  $(document).on('javascriptServiceComplete', function() { document.title += ' javascriptServiceComplete'; })");
         p.form("</script>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    public static class AddScriptViaJavaScriptService extends Inspection {
-        private static final long serialVersionUID = 1L;
-
-        @ArquillianResource
-        private FacesContext facesContext;
-
-        @ArquillianResource
-        private JavaScriptService jsService;
-
-        @BeforePhase(RENDER_RESPONSE)
-        public void add_script_using_JavaScriptService() {
-            jsService.addScript(facesContext, new JSLiteral("document.title += ' javascriptServiceInProgress';"));
-        }
-    }
 }
