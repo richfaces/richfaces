@@ -149,7 +149,9 @@
         var _this = this;
         var _event = event;
         var ajaxSuccess = function (event) {
-            updateItemsList.call(_this, _this.value, event.componentData && event.componentData[_this.id]);
+            if (_this.options.minChars <= _this.value.length) {
+                updateItemsList.call(_this, _this.value, event.componentData && event.componentData[_this.id]);
+            }
             if (_this.options.lazyClientMode && _this.value.length != 0) {
                 updateItemsFromCache.call(_this, _this.value);
             }
