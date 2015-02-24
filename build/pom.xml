@@ -121,7 +121,7 @@
         <version.selenium>2.43.1</version.selenium>
         <version.shrinkwrap>1.2.2</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.2.0-alpha-2</version.shrinkwrap.resolver>
-        <version.shrinkwrap.descriptors>2.0.0-alpha-6</version.shrinkwrap.descriptors>
+        <version.shrinkwrap.descriptors>2.0.0-alpha-7</version.shrinkwrap.descriptors>
         <version.arquillian.glassfish40>1.0.0.CR4</version.arquillian.glassfish40>
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
 
