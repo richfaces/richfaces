@@ -1557,8 +1557,8 @@ input[type='submit'].fb-button {
 }
 
 .FB-btn-medium {
-    background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yx/r/j_i0CTUUUEe.png);
-    background-position: -6px -4px;
+    background-image: url(../resources/img/FB-logo.png);
+    background-size: contain;
 }
 
 .G-btn-medium {
@@ -1566,8 +1566,8 @@ input[type='submit'].fb-button {
 }
 
 .FB-btn-small {
-    background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yx/r/j_i0CTUUUEe.png);
-    background-position: -20px -180px;
+    background-image: url(../resources/img/FB-logo.png);
+    background-size: contain;
 }
 
 .G-btn-small {
