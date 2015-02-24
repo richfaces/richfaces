@@ -112,11 +112,6 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-phantom-driver</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-warp-api</artifactId>
             <scope>provided</scope>
         </dependency>
