@@ -52,6 +52,7 @@ import javax.faces.event.PreValidateEvent;
 
 import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -71,11 +72,10 @@ import org.richfaces.event.ItemChangeSource;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 
 import com.google.common.base.Strings;
-import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 
 /**
  * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
@@ -948,6 +948,12 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             }
 
             if (result == VisitResult.ACCEPT) {
+                if (this instanceof AbstractCollapsiblePanel) {
+                    if (!((AbstractCollapsiblePanel) this).isExpanded()) {
+                        return true;
+                    }
+                }
+
                 Iterator<UIComponent> kids = this.getFacetsAndChildren();
 
                 while (kids.hasNext()) {
