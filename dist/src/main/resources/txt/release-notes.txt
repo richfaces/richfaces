@@ -31,6 +31,7 @@
     [RF-13979] - editor: 'basic' toolbar is same as 'full'
     [RF-13980] - Initially Page loaded with Data in ExtendedDatatable, after zoom out in Browser the Data is not displayed in ExtendedDatatable.
     [RF-13982] - Photoalbum - image for FB login missing
+    [RF-13988] - collapsiblePanel stops rendering of following components
 
     Component Upgrade
     [RF-13730] - Upgrade Mojarra in build/pom.xml
