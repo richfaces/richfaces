@@ -1,3 +1,46 @@
+4.5.3.Final
+-----------
+
+    Bug
+    [RF-10714] - Message: icon trimmed
+    [RF-10817] - Panel menu item: same icon for enabled and disabled state
+    [RF-10834] - File upload: default labels not used
+    [RF-10964] - autocomplete delete key behavior creates inconsistent state
+    [RF-10971] - rich:tooltip doesn't work in rich:extendedDataTable
+    [RF-11218] - showcase - rich:fileUpload - there is no file name information of uploaded file
+    [RF-11678] - rich:extendedDataTable column resize problem when placed in absolute positioned container
+    [RF-11679] - rich:extendedDataTable window resize problem when placed in absolute positioned container
+    [RF-12482] - rich:fileUpload, the upload button disappeared after deleting a uploaded file
+    [RF-13177] - rich:extendedDataTable scrolling broken on OS-X
+    [RF-13595] - rich:validator doesn't work when loaded via ajax (re-render)
+    [RF-13711] - a4j:ajax status does not work as expected
+    [RF-13721] - dataTable: columnClasses attribute doesn't work as described
+    [RF-13780] - Random JavaScript error due to missing attribute 'richfaces.RICH_CONTAINER'
+    [RF-13949] - push: error in browser console after push enabled/disabled
+    [RF-13950] - Photoalbum tests need to be migrated + create testing profiles
+    [RF-13957] - select: clicking on the bottom part of the input does not trigger onclick event
+    [RF-13958] - collapsibleSubTable: the most nested CST remains collapsed after parent CST re-expands
+    [RF-13959] - a4j:mediaOutput doesn't work if createContent is an EL expression
+    [RF-13961] - push: initialization of topic with subtopic will prevent sending push messages to this topic or to its subtopics
+    [RF-13962] - typo in rich:hotKey description on showcase
+    [RF-13963] - a4j calls and repeatable components
+    [RF-13965] - rich:select popup not displayed after clearing whole input
+    [RF-13968] - Showcase: autocomplete sample is using wrong attribute autoFill instead of autofill
+    [RF-13969] - rich:accordion height of first element is wrongly computed when switchType is "client".
+    [RF-13978] - UIDataAdaptor doesn't handle VisitHint.SKIP_ITERATION, doesn't check unrendered columns
+    [RF-13979] - editor: 'basic' toolbar is same as 'full'
+    [RF-13980] - Initially Page loaded with Data in ExtendedDatatable, after zoom out in Browser the Data is not displayed in ExtendedDatatable.
+    [RF-13982] - Photoalbum - image for FB login missing
+    [RF-13988] - collapsiblePanel stops rendering of following components
+
+    Component Upgrade
+    [RF-13730] - Upgrade Mojarra in build/pom.xml
+    [RF-13975] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-13939] - Rich:chart plotClick shouldn't be restricted to series points.
+    [RF-13964] - Pom Cleanup
+
 4.5.2.Final
 -----------
 

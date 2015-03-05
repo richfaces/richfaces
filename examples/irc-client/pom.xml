@@ -27,7 +27,7 @@
     <artifactId>irc-client</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - IRC Client</name>
-    <version>4.5.3-SNAPSHOT</version>
+    <version>4.5.4-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <description>
@@ -51,7 +51,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.3-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.4-SNAPSHOT</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
