@@ -36,7 +36,7 @@ mvn clean richfaces-resources:process -Dskins=blueSky -DstaticResourceMappingFil
 <plugin>
     <groupId>org.richfaces.cdk</groupId>
     <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-    <version>4.5.3.Final</version>
+    <version>4.5.4-SNAPSHOT</version>
     <configuration>
         <skins>
             <skin>blueSky</skin>
