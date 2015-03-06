@@ -117,7 +117,7 @@
         <version.arquillian.drone>2.0.0.Alpha4</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha7</version.arquillian.warp>
         <version.arquillian.graphene>2.1.0.Alpha2</version.arquillian.graphene>
-        <version.selenium>2.43.1</version.selenium>
+        <version.selenium>2.45.0</version.selenium>
         <version.shrinkwrap>1.2.2</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.2.0-beta-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-7</version.shrinkwrap.descriptors>
