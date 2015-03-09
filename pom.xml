@@ -248,6 +248,7 @@
                              was slowing builds down.  If removed review
                              full build. -->
                         <detectOfflineLinks>false</detectOfflineLinks>
+                        <failOnError>false</failOnError>
                     </configuration>
                 </plugin>
 
