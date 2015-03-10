@@ -307,13 +307,12 @@ public class BaseDeployment {
         JavaArchive[] dependencies;
 
         if (missingDependency.matches("^[^:]+:[^:]+:[^:]+")) {
-            // resolution of the artifact without a version specified
-            dependencies = resolver.resolve(missingDependency).withClassPathResolution(false).withTransitivity()
-                    .as(JavaArchive.class);
+            // resolution of the artifact with a version specified
+            dependencies = resolver.resolve(missingDependency).withTransitivity().as(JavaArchive.class);
         } else {
             // resolution of the artifact without a version specified
             dependencies = resolver.loadPomFromFile("pom.xml").resolve(missingDependency)
-                    .withClassPathResolution(false).withTransitivity().as(JavaArchive.class);
+                    .withTransitivity().as(JavaArchive.class);
         }
 
         for (JavaArchive archive : dependencies) {
@@ -331,7 +330,7 @@ public class BaseDeployment {
         if (mavenSettings == null || mavenSettings.isEmpty()) {
             return Maven.resolver();
         } else {
-            return Maven.configureResolver().fromFile(mavenSettings);
+            return Maven.configureResolver().withClassPathResolution(false).fromFile(mavenSettings);
         }
     }
 
