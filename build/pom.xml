@@ -122,7 +122,6 @@
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
 
         <!-- Container Versions -->
-        <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee17>1.7.1</version.tomee17>
         <version.wildfly8>8.0.0.Final</version.wildfly8>
 
@@ -212,11 +211,6 @@
                 <version>${version.cdk}</version>
             </dependency>
             <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-controller-client</artifactId>
-                <version>${version.jboss-as7}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${version.jsoup}</version>
@@ -265,16 +259,6 @@
             </dependency>
 
             <!-- Container versions -->
-            <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                <version>${version.jboss-as7}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.as</groupId>
-                <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                <version>${version.jboss-as7}</version>
-            </dependency>
             <dependency>
                 <groupId>org.wildfly</groupId>
                 <artifactId>wildfly-arquillian-container-managed</artifactId>
