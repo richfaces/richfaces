@@ -61,7 +61,7 @@
         <!-- Base Dependencies Versions -->
         <version.richfaces>4.5.4-SNAPSHOT</version.richfaces>
         <version.cdk>4.5.1-SNAPSHOT</version.cdk>
-        <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
+        <version.jboss-javaee>3.0.3.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
         <version.google-guava>18.0</version.google-guava>
