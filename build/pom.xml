@@ -81,7 +81,7 @@
         <version.slf4j>1.6.1</version.slf4j>
         <version.hsqldb>2.0.0</version.hsqldb>
         <version.hornetq>2.2.7.Final</version.hornetq>
-        <version.netty>3.2.5.Final</version.netty>
+        <version.netty>3.2.10.Final</version.netty>
         <version.weld>2.2.6.Final</version.weld>
         <version.rewrite>1.0.4.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
@@ -92,10 +92,10 @@
         <version.jstl-api>1.2-rev-1</version.jstl-api>
 
         <!-- Resource Optimizer -->
-        <version.reflections>0.9.8</version.reflections>
-        <version.yuicompressor>2.3.6</version.yuicompressor>
-        <version.jcommander>1.20</version.jcommander>
-        <version.jboss-el>1.0_02.CR5</version.jboss-el>
+        <version.reflections>0.9.9</version.reflections>
+        <version.yuicompressor>2.4.8</version.yuicompressor>
+        <version.jcommander>1.47</version.jcommander>
+        <version.jboss-el>1.0_02.CR6</version.jboss-el>
 
         <!-- Test Dependencies Versions -->
         <version.junit>4.12</version.junit>
@@ -103,7 +103,7 @@
         <version.jsf-test>1.1.9</version.jsf-test>
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
-        <version.xmlunit>1.2</version.xmlunit>
+        <version.xmlunit>1.6</version.xmlunit>
 
         <version.htmlunit>2.15</version.htmlunit>
         <version.xml-apis>1.4.01</version.xml-apis>
@@ -123,7 +123,7 @@
 
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee17>1.7.0</version.tomee17>
+        <version.tomee17>1.7.1</version.tomee17>
         <version.wildfly8>8.0.0.Final</version.wildfly8>
 
         <!-- Release repositories -->
