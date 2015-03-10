@@ -262,6 +262,7 @@
                     this.__finishUpload();
                     return;
                 }
+                rf.setGlobalStatusNameVariable(this.status);
                 this.loadableItem = this.items.shift();
                 this.__updateButtons();
                 this.loadableItem.startUploading();
