@@ -11,10 +11,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -31,7 +27,6 @@ import org.richfaces.utils.focus.FocusRetriever;
 import category.Smoke;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITFocusManager {
 
@@ -50,30 +45,11 @@ public class ITFocusManager {
     @FindBy(id = "form:input2")
     private WebElement input2;
 
-    private Activity openPage = new Activity() {
-        public void perform() {
-            browser.get(contextPath.toExternalForm());
-        }
-    };
-
-    private Activity submit = new Activity() {
-        public void perform() {
-            guardHttp(submitButton).click();
-        }
-    };
-
-    private Activity ajax = new Activity() {
-        public void perform() {
-            guardAjax(ajaxButton).click();
-        }
-    };
-
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFocusManager.class);
 
-        deployment.archive().addClasses(ComponentBean.class, VerifyFocusCandidates.class, VerifyFocusEnforcing.class,
-                VerifyFocusEnforcingOverridesFocusSettings.class, AbstractComponentAssertion.class);
+        deployment.archive().addClasses(ComponentBean.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
@@ -86,60 +62,53 @@ public class ITFocusManager {
     @Test
     @Category(Smoke.class)
     public void test_FocusManager_on_initial_request() {
-        Warp.initiate(openPage).inspect(new VerifyFocusEnforcing("input2"));
-
+        Graphene.guardHttp(browser).get(contextPath.toString());
         Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
     public void test_FocusManager_on_form_submit_postback() {
         // given
-        browser.get(contextPath.toExternalForm());
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm());
         // when
-        Warp.initiate(submit)
+        guardHttp(submitButton).click();
         // then
-                .inspect(new VerifyFocusEnforcing("input2"));
         Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
     public void test_FocusManager_on_ajax_postback() {
         // given
-        browser.get(contextPath.toExternalForm());
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm());
         // when
-        Warp.initiate(ajax)
+        guardAjax(ajaxButton).click();
         // then
-                .inspect(new VerifyFocusEnforcing("input2"));
         Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
     public void when_there_is_form_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
 
-        contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
-
-        Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm() + "form.jsf");
         Graphene.waitGui().until(new ElementIsFocused(input2));
 
-        Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        guardHttp(submitButton).click();
         Graphene.waitGui().until(new ElementIsFocused(input2));
 
-        Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        guardAjax(ajaxButton).click();
         Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
     public void when_there_is_view_based_focus_but_focus_was_enforced_using_FocusManager_then_it_is_not_aplied() {
 
-        contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
-
-        Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Graphene.guardHttp(browser).get(contextPath.toExternalForm() + "view.jsf");
         Graphene.waitGui().until(new ElementIsFocused(input2));
 
-        Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        guardHttp(submitButton).click();
         Graphene.waitGui().until(new ElementIsFocused(input2));
 
-        Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        guardAjax(ajaxButton).click();
         Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
@@ -149,6 +118,8 @@ public class ITFocusManager {
 
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
+
+        p.body("<f:event listener='#{componentBean.setFocusToSecondInput}' type='preRenderView' />");
 
         p.body("<h:form id='form'>");
 
@@ -167,6 +138,8 @@ public class ITFocusManager {
     private static void addFormFocusIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
+        p.body("<f:event listener='#{componentBean.setFocusToSecondInput}' type='preRenderView' />");
+
         p.body("<h:form id='form'>");
         p.body("    <rich:focus id='focus' binding='#{componentBean.component}' />");
 
@@ -184,6 +157,8 @@ public class ITFocusManager {
 
     private static void addViewFocusPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
+
+        p.body("<f:event listener='#{componentBean.setFocusToSecondInput}' type='preRenderView' />");
 
         p.body("<rich:focus id='focus' binding='#{componentBean.component}' />");
 

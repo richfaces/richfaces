@@ -3,8 +3,12 @@ package org.richfaces.component.focus;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.render.Renderer;
 import javax.inject.Named;
+
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.focus.FocusManager;
 
 @Named
 @RequestScoped
@@ -27,5 +31,11 @@ public class ComponentBean {
         String componentFamily = component.getFamily();
         String rendererType = component.getRendererType();
         return (T) context.getRenderKit().getRenderer(componentFamily, rendererType);
+    }
+    
+    public void setFocusToSecondInput(ComponentSystemEvent event) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FocusManager focusManager = ServiceTracker.getService(context, FocusManager.class);
+        focusManager.focus("input2");
     }
 }
