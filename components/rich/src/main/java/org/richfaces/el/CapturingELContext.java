@@ -36,7 +36,6 @@ import javax.el.ELResolver;
 import javax.el.FunctionMapper;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
-import javax.faces.context.FacesContext;
 import javax.faces.el.CompositeComponentExpressionHolder;
 
 import org.richfaces.validator.GraphValidatorState;
@@ -53,9 +52,9 @@ public class CapturingELContext extends ELContext {
     private ValueReference reference = null;
     private final InterceptingResolver resolver;
 
-    public CapturingELContext(ELContext parent,Map<Object, GraphValidatorState> states) {
+    public CapturingELContext(ELContext parent, Map<Object, GraphValidatorState> states) {
         this.parent = parent;
-        resolver = new InterceptingResolver(parent.getELResolver(),states);
+        resolver = new InterceptingResolver(parent.getELResolver(), states);
     }
 
     public ValueReference getReference() {
@@ -205,6 +204,11 @@ public class CapturingELContext extends ELContext {
         @Override
         public Class<?> getCommonPropertyType(ELContext context, Object base) {
             return delegate.getCommonPropertyType(context, base);
+        }
+
+        @Override
+        public Object convertToType(ELContext context, Object obj, Class<?> targetType) {
+            return delegate.convertToType(context, obj, targetType);
         }
     }
 }
