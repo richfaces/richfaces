@@ -19,18 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.region;
-
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
 
 import java.net.URL;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Warp;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,37 +39,36 @@ public abstract class AbstractRegionTest {
     protected static final String FORM_ID = "form";
 
     @Drone
-    private WebDriver browser;
+    protected WebDriver browser;
 
     @ArquillianResource
-    private URL contextPath;
+    protected URL contextPath;
 
-    @FindBy(id = BUTTON_ID)
-    private WebElement button;
-
+    @FindBy(id = "output")
+    protected WebElement output;
+    
     protected static class RegionTestDeployment extends A4JDeployment {
+
         RegionTestDeployment(Class<?> baseClass) {
             super(baseClass);
-            this.archive().addClasses(RegionBean.class, SetupExecute.class, VerifyExecutedIds.class);
+            this.archive().addClasses(RegionBean.class);
             this.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         }
     }
 
-    protected void setupExecute(String execute) {
-        Warp.initiate(new Activity() {
-
-            @Override
-            public void perform() {
-                browser.get(contextPath.toString());
-            }
-        }).inspect(new SetupExecute(execute));
+    protected void openPage(String execute) {
+        if (execute != null) {
+            Graphene.guardHttp(browser).get(contextPath.toString() + "?execute=" + execute);
+        } else {
+            Graphene.guardHttp(browser).get(contextPath.toString() + "?execute=");
+        }
     }
 
-    protected void verifyExecutedIds(String... expectedExecutedIds) {
-        Warp.initiate(new Activity() {
-            public void perform() {
-                button.click();
-            }
-        }).observe(request().uri().contains("index.xhtml")).inspect(new VerifyExecutedIds(expectedExecutedIds));
+    /**
+     * Removes all cookies so it effectively destroys session so that RegionBean will be recreated.
+     */
+    @After
+    public void cleanUpSession() {
+        browser.manage().deleteAllCookies();
     }
 }

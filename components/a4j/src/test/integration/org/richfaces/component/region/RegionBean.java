@@ -21,20 +21,26 @@
  */
 package org.richfaces.component.region;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+import java.util.Collection;
 
-@ManagedBean
-@ViewScoped
-public class RegionBean {
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
-    private String execute;
+@Named
+@SessionScoped
+public class RegionBean implements Serializable {
 
-    public String getExecute() {
-        return execute;
+    private static final long serialVersionUID = 1L;
+
+    private Collection<String> executedIds;
+
+    public Collection<String> getExecutedIds() {
+        return executedIds;
     }
-
-    public void setExecute(String execute) {
-        this.execute = execute;
+    
+    public void action() {
+        executedIds = FacesContext.getCurrentInstance().getPartialViewContext().getExecuteIds();
     }
 }

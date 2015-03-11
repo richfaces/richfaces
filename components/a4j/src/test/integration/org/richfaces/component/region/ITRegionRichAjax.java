@@ -22,65 +22,82 @@
 
 package org.richfaces.component.region;
 
+import java.util.Arrays;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import category.Smoke;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-@WarpTest
 @Category(Smoke.class)
 public class ITRegionRichAjax extends AbstractRegionTest {
 
-    @Deployment
+    @FindBy(id = "buttonNull")
+    private WebElement buttonNull;
+    
+    @FindBy(id = "buttonThis")
+    private WebElement buttonThis;
+    
+    @FindBy(id = "buttonAll")
+    private WebElement buttonAll;
+    
+    @FindBy(id = "buttonForm")
+    private WebElement buttonForm;
+    
+    @FindBy(id = "buttonRegion")
+    private WebElement buttonRegion;
+    
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RegionTestDeployment deployment = new RegionTestDeployment(ITRegionRichAjax.class);
-
-        FaceletAsset page = deployment.baseFacelet("index.xhtml");
-        page.form("<a4j:region id='region'>");
-        page.form("    <h:commandButton id='button'>");
-        page.form("        <a4j:ajax execute='#{regionBean.execute}' />");
-        page.form("    </h:commandButton>");
-        page.form("</a4j:region>");
-
+        deployment.archive()
+            .addAsWebResource(ITRegionRichAjax.class.getResource("RegionRichAjax.xhtml"), "index.xhtml");
         return deployment.getFinalArchive();
     }
 
     @Test
     public void testDefaults() {
-        setupExecute(null);
-        verifyExecutedIds("region");
+        openPage(null);
+        verifyExecutedIds(buttonNull, "regionNull");
     }
 
     @Test
     public void testExecuteThis() {
-        setupExecute("@this");
-        verifyExecutedIds(BUTTON_ID);
+        openPage("@this");
+        verifyExecutedIds(buttonThis, "buttonThis");
     }
 
     @Test
     public void testExecuteAll() {
-        setupExecute("@all");
-        verifyExecutedIds("@all");
+        openPage("@all");
+        verifyExecutedIds(buttonAll, "@all");
     }
 
     @Test
     public void testExecuteForm() {
-        setupExecute("@form");
-        verifyExecutedIds(FORM_ID, BUTTON_ID);
+        openPage("@form");
+        verifyExecutedIds(buttonForm, FORM_ID, "buttonForm");
     }
 
     @Test
     public void testExecuteRegion() {
-        setupExecute("@region");
-        verifyExecutedIds("region");
+        openPage("@region");
+        verifyExecutedIds(buttonRegion, "region");
+    }
+    
+    protected void verifyExecutedIds(WebElement button, String... expectedExecutedIds) {
+        Graphene.guardAjax(button).click();
+        Assert.assertEquals(Arrays.toString(expectedExecutedIds), output.getText());
     }
 }

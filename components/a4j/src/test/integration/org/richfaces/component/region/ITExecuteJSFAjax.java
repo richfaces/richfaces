@@ -22,54 +22,61 @@
 
 package org.richfaces.component.region;
 
+import java.util.Arrays;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-@WarpTest
 public class ITExecuteJSFAjax extends AbstractRegionTest {
 
-    @Deployment
+    @FindBy(id = BUTTON_ID)
+    private WebElement button;
+
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RegionTestDeployment deployment = new RegionTestDeployment(ITExecuteJSFAjax.class);
-
-        FaceletAsset page = deployment.baseFacelet("index.xhtml");
-        page.form("<h:commandButton id='button'>");
-        page.form("    <f:ajax execute='#{regionBean.execute}' />");
-        page.form("</h:commandButton>");
-
+        deployment.archive()
+            .addAsWebResource(ITExecuteJSFAjax.class.getResource("ExecuteJSFAjax.xhtml"), "index.xhtml");
         return deployment.getFinalArchive();
     }
 
     @Test
     public void testDefaults() {
-        setupExecute(null);
+        openPage(null);
         verifyExecutedIds(BUTTON_ID, BUTTON_ID);
     }
 
     @Test
     public void testExecuteThis() {
-        setupExecute("@this");
+        openPage("@this");
         verifyExecutedIds(BUTTON_ID);
     }
 
     @Test
     public void testExecuteAll() {
-        setupExecute("@all");
+        openPage("@all");
         verifyExecutedIds("@all");
     }
 
     @Test
     public void testExecuteForm() {
-        setupExecute("@form");
+        openPage("@form");
         verifyExecutedIds(BUTTON_ID, FORM_ID);
+    }
+
+    protected void verifyExecutedIds(String... expectedExecutedIds) {
+        Graphene.guardAjax(button).click();
+        Assert.assertEquals(Arrays.toString(expectedExecutedIds), output.getText());
     }
 
 }
