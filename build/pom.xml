@@ -123,7 +123,7 @@
 
         <!-- Container Versions -->
         <version.tomee17>1.7.1</version.tomee17>
-        <version.wildfly8>8.0.0.Final</version.wildfly8>
+        <version.wildfly8>8.2.0.Final</version.wildfly8>
 
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
