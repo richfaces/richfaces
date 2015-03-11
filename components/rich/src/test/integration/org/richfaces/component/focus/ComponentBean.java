@@ -8,20 +8,22 @@ import javax.faces.render.Renderer;
 import javax.inject.Named;
 
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.component.AbstractFocus;
 import org.richfaces.focus.FocusManager;
+import org.richfaces.renderkit.FocusRendererBase;
 
 @Named
 @RequestScoped
 public class ComponentBean {
 
-    private UIComponent component;
+    private AbstractFocus component;
 
-    public void setComponent(UIComponent component) {
+    public void setComponent(AbstractFocus component) {
         this.component = component;
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends UIComponent> T getComponent() {
+    public <T extends AbstractFocus> T getComponent() {
         return (T) component;
     }
 
@@ -38,4 +40,13 @@ public class ComponentBean {
         FocusManager focusManager = ServiceTracker.getService(context, FocusManager.class);
         focusManager.focus("input2");
     }
+    
+    public String getFocusCandidates() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        FocusRendererBase renderer = getRenderer();
+
+        return renderer.getFocusCandidatesAsString(context, component);
+    }
+    
 }
