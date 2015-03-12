@@ -28,12 +28,14 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Utils;
@@ -70,6 +72,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
     @FindBy(css = ".rf-fu-btn-add > span")
     private WebElement inputContainer;
 
+    @Drone
+    private WebDriver browser;
+
     private final AdvancedFileUploadInteractions interactions = new AdvancedFileUploadInteractions();
 
     @Override
@@ -77,7 +82,16 @@ public class RichFacesFileUpload implements FileUpload, AdvancedVisibleComponent
         final int expectedSize = advanced().getFileInputElements().size() + 1;
         String containerStyleClassBefore = advanced().getInputContainer().getAttribute("class");
         Utils.jQ("attr('class', '')", advanced().getInputContainer());
-        advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
+
+        if (browser instanceof PhantomJSDriver) {
+            // workaround for PhantomJS where usual upload does not work
+            ((PhantomJSDriver) browser).executePhantomJS("var page = this; page.uploadFile('input[type=file]', '"
+                + file.getAbsolutePath() + "');");
+        } else {
+            // for all other browsers
+            advanced().getFileInputElement().sendKeys(file.getAbsolutePath());
+        }
+
         Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", advanced().getInputContainer());
         try {
             Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
