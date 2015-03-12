@@ -124,7 +124,7 @@
         <version.wildfly80>8.0.0.Final</version.wildfly80>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.0.Final</version.wildfly82>
-        <version.tomee17>1.7.0</version.tomee17>
+        <version.tomee17>1.7.1</version.tomee17>
         <version.glassfish40>4.0</version.glassfish40>
         <version.tomcat6>6.0.36</version.tomcat6>
         <version.tomcat7>7.0.57</version.tomcat7>

@@ -126,7 +126,7 @@
 
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee17>1.7.0</version.tomee17>
+        <version.tomee17>1.7.1</version.tomee17>
         <version.wildfly8>8.0.0.Final</version.wildfly8>
 
         <!-- Release repositories -->
