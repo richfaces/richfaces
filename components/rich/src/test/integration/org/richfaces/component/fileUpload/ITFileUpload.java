@@ -1,9 +1,5 @@
 package org.richfaces.component.fileUpload;
 
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -11,24 +7,22 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.servlet.AfterServlet;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.fileUpload.FileUploadItem;
+import org.richfaces.fragment.fileUpload.RichFacesFileUpload;
+import org.richfaces.fragment.list.ListComponent;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
@@ -36,7 +30,6 @@ import category.Smoke;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-@WarpTest
 public class ITFileUpload {
 
     @Drone
@@ -45,7 +38,16 @@ public class ITFileUpload {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @ArquillianResource
+    private JavascriptExecutor executor;
+
+    @FindBy(id = "fileUpload")
+    private RichFacesFileUpload fileUpload;
+
+    @FindBy(id = "output")
+    private WebElement output;
+
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFileUpload.class);
 
@@ -57,52 +59,28 @@ public class ITFileUpload {
         return deployment.getFinalArchive();
     }
 
-    @FindByJQuery("input[type=file].rf-fu-inp:last")
-    private WebElement fileInputField;
-    @FindBy(css = "span.rf-fu-btn-upl")
-    private WebElement uploadButton;
-    @FindBy(css = "a.rf-fu-itm-lnk")
-    private WebElement firstAfterUploadClearLink;
-
-    @ArquillianResource
-    private JavascriptExecutor executor;
-
     @Test
-    @Category({Smoke.class})
+    @Category({ Smoke.class })
     public void test_file_upload() throws InterruptedException, URISyntaxException {
         browser.get(contextPath.toExternalForm());
 
         File file = new File(ITFileUpload.class.getResource("ITFileUpload.class").toURI());
 
-        executor.executeScript("$(arguments[0]).css({ position: 'absolute', top: '100px', left: '100px', display: 'block', visibility: 'visible', width: '100px', height: '100px' })", fileInputField);
-        String pathToFile = file.getAbsolutePath();
+        ListComponent<? extends FileUploadItem> items = fileUpload.advanced().getItems();
+        Assert.assertTrue("List of uploaded file should be empty.", items.isEmpty());
 
-        if (browser instanceof PhantomJSDriver) {
-            // workaround for PhantomJS where usual upload does not work
-            ((PhantomJSDriver)browser).executePhantomJS("var page = this; page.uploadFile('input[type=file]', '" + pathToFile + "');");
-        } else {
-            // for all other browsers
-            fileInputField.sendKeys(pathToFile);
-        }
+        fileUpload.addFile(file);
+        Assert.assertFalse("List of uploaded file should not be empty.", items.isEmpty());
+        Assert.assertEquals("There should be Delete link in first item", "Delete", items.getItem(0)
+            .getClearOrDeleteElement().getText());
 
-        Warp
-            .initiate(new Activity() {
-                public void perform() {
-                    uploadButton.click();
-                }})
-            .group()
-                .observe(request().uri().contains("index.xhtml"))
-                .inspect(new Inspection() {
-                    private static final long serialVersionUID = 1L;
+        Graphene.guardAjax(fileUpload).upload();
 
-                    @AfterServlet
-                    public void verifyUploadedFile(FileUploadBean bean) {
-                        assertEquals("ITFileUpload.class", bean.getUploadedFile().getName());
-                    }
-                })
-            .execute();
+        Assert.assertFalse("List of uploaded file should not be empty.", items.isEmpty());
+        Assert.assertEquals("There should be Clear link in first item", "Clear", items.getItem(0)
+            .getClearOrDeleteElement().getText());
 
-        waitAjax().until().element(firstAfterUploadClearLink).is().visible();
+        Assert.assertEquals("Uploaded file", "ITFileUpload.class", output.getText());
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -113,9 +91,9 @@ public class ITFileUpload {
         p.body("        console.log(e);");
         p.body("    });");
         p.body("</script>");
-        p.body("<h:form>");
-        p.body("    <rich:fileUpload fileUploadListener='#{fileUploadBean.listener}' />");
-        p.body("</h:form>");
+
+        p.form("<rich:fileUpload id='fileUpload' fileUploadListener='#{fileUploadBean.listener}' render='output' />");
+        p.form("<h:outputText id='output' value='#{fileUploadBean.uploadedFile.name}'/>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
