@@ -60,7 +60,7 @@
     margin: 0px 3px;
 }
 
-.rf-pm-itm:hover {
+.rf-pm-itm:hover, .rf-pm-top-itm:hover, .rf-pm-gr-hdr:hover {
     background-color: '#{a4jSkin.additionalBackgroundColor}';
 }
 
@@ -72,11 +72,6 @@
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: '#{a4jSkin.panelBorderColor}';
-}
-
-.rf-pm-gr-hdr:hover {
-    background: '#{a4jSkin.additionalBackgroundColor}';
-    color: white; /*TODO skin?*/
 }
 
 .rf-pm-gr-sel {
@@ -162,11 +157,6 @@
     margin: 0px 3px;
 }
 
-.rf-pm-top-itm:hover {
-    color: '#{a4jSkin.headerTextColor}';
-    background-color: '#{a4jSkin.additionalBackgroundColor}';
-}
-
 .rf-pm-top-itm-sel {
     font-style: italic;
 }
@@ -220,7 +210,7 @@
     background-color: inherit;
 }
 
-.rf-pm-top-itm-dis:hover {
+.rf-pm-top-itm-dis:hover, .rf-pm-gr-hdr-dis:hover, .rf-pm-gr-dis:hover {
     background-color: inherit;
     color: '#{a4jSkin.tabDisabledTextColor}';
 }
