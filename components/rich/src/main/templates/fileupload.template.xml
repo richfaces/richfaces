@@ -51,7 +51,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                             <c:if test="#{!disabled}">
                                 <span class="rf-fu-inp-cntr"> <!-- This span is needed for IE7 only. -->
                                     <!-- name attribute added dynamically in fileupload.js#startUploading -->
-                                    <input type="file" class="rf-fu-inp" multiple="multiple" />
+                                    <input type="file" class="rf-fu-inp" multiple="multiple" accept="#{attributes['acceptedTypes']}" />
                                 </span>
                             </c:if>
                             <cdk:object name="addLabel" value="#{attributes['addLabel']}" />
