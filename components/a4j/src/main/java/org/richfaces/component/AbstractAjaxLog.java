@@ -63,9 +63,12 @@ public abstract class AbstractAjaxLog extends UIComponentBase implements StylePr
     @Attribute
     public abstract LogMode getMode();
 
-    // public abstract String getHotkey();
-    // public abstract void setHotkey(String newvalue);
-    //
+    /**
+     * Key to open (in combination with Ctrl+Shift) the popup window. Default value is "L"
+     */
+    @Attribute
+    public abstract String getHotkey();
+
     // public abstract String getName();
     // public abstract void setName(String newvalue);
     //
