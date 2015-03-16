@@ -23,7 +23,7 @@
     <defaultProtocol type="Servlet 3.0" />
 
     <engine>
-        <property name="maxTestClassesBeforeRestart">${arquillian.maxTestClassesBeforeRestart:10}</property>
+        <property name="maxTestClassesBeforeRestart">${arquillian.maxTestClassesBeforeRestart:1}</property>
 <!--         <property name="deploymentExportPath">target/</property>  -->
     </engine>
 
