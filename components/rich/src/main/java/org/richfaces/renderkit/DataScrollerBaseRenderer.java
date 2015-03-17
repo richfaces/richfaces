@@ -106,19 +106,13 @@ public class DataScrollerBaseRenderer extends RendererBase {
         ControlsState controlsState = new ControlsState();
 
         if (pageIndex <= minPageIdx) {
+            useBackFast = false;
             useFirst = false;
         }
 
         if (pageIndex >= maxPageIdx) {
-            useLast = false;
-        }
-
-        if (pageIndex - fastStep < minPageIdx) {
-            useBackFast = false;
-        }
-
-        if (pageIndex + fastStep > maxPageIdx) {
             useForwFast = false;
+            useLast = false;
         }
 
         DataScrollerControlsMode boundaryControls = getModeOrDefault(component, "boundaryControls");

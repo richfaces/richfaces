@@ -40,14 +40,14 @@ import org.richfaces.DataScrollerUtils;
 import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.component.attribute.AjaxProps;
-import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.event.DataScrollEvent;
 import org.richfaces.event.DataScrollListener;
@@ -238,8 +238,10 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
             newPage = getPage() + 1;
         } else if (FAST_FORWARD_FACET_NAME.equals(facetName)) {
             newPage = getPage() + getFastStepOrDefault();
+            newPage = newPage < pageCount ? newPage : pageCount;
         } else if (FAST_REWIND_FACET_NAME.equals(facetName)) {
             newPage = getPage() - getFastStepOrDefault();
+            newPage = newPage > 0 ? newPage : 1;
         } else {
             try {
                 newPage = Integer.parseInt(facetName.toString());
