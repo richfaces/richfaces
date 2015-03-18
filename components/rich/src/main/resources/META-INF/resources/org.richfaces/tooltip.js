@@ -152,9 +152,17 @@
                     window.clearTimeout(tooltip.hidingTimerHandle);
                     tooltip.hidingTimerHandle = undefined;
                 }
+                
+                if (tooltip.loadingDelayHandle) {
+                    window.clearTimeout(tooltip.loadingDelayHandle);
+                    tooltip.loadingDelayHandle = undefined;
+                }
+                
                 if (this.shown) {
                     this.__hide();
                 }
+                
+                this.popup.hide();
             },
 
             __hideHandler: function(event) {
@@ -217,7 +225,7 @@
 
                 if (!this.shown) {
                     if (this.mode == "ajax" && this.options.showDelay > 1000) {
-                        window.setTimeout(function() {
+                        tooltip.loadingDelayHandle = window.setTimeout(function() {
                             tooltip.__loading().show();
                             tooltip.__content().hide();
                             tooltip.__show(event);
