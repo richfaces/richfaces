@@ -69,9 +69,7 @@
          * @return {Boolean} false
          * */
         execAjax : function (tooltip, event) {
-            tooltip.__loading().show();
-            tooltip.__content().hide();
-            tooltip.__show(event);
+            tooltip.__show(event,true);
 
             rf.ajax(tooltip.id, null, $.extend({}, tooltip.options["ajax"], {}));
 
@@ -86,7 +84,7 @@
          *             - true  - in other cases
          * */
         execClient : function (tooltip, event) {
-            tooltip.__show(event);
+            tooltip.__show(event, true);
         }
     };
 
@@ -218,7 +216,19 @@
                 }
 
                 if (!this.shown) {
-                    SHOW_ACTION.exec(this, event);
+                    if (this.mode == "ajax" && this.options.showDelay > 1000) {
+                        window.setTimeout(function() {
+                            tooltip.__loading().show();
+                            tooltip.__content().hide();
+                            tooltip.__show(event);
+                        }, 1000);
+                    } else if (this.mode == "ajax") {
+                        tooltip.__loading().show();
+                        tooltip.__content().hide();
+                    }
+                    this.__delay(tooltip.options.showDelay, function () {
+                        SHOW_ACTION.exec(tooltip, event);
+                    });
                 }
 
             },
@@ -232,20 +242,24 @@
              * @private
              * @return {void} TODO ...
              */
-            __show: function (event) {
+            __show: function (event, fireEvent) {
                 var tooltip = this;
-                this.__delay(this.options.showDelay, function () {
-                    if (!tooltip.options.followMouse) {
-                        tooltip.saveShowEvent = event;
-                    }
-                    if (!tooltip.shown) {
+                
+                if (!tooltip.options.followMouse) {
+                    tooltip.saveShowEvent = event;
+                }
+                if (!tooltip.shown) {
+                    if (fireEvent) {
                         tooltip.__fireBeforeShow();
-                        tooltip.popup.show(tooltip.saveShowEvent);
                     }
-                    //for showing tooltip in followMouse mode
+                    tooltip.popup.show(tooltip.saveShowEvent);
+                }
+                //for showing tooltip in followMouse mode
+                if (fireEvent) {
                     tooltip.shown = true;
                     tooltip.__fireShow();
-                });
+                }
+                
             },
 
             /***************************** Private Methods ****************************************************************/
