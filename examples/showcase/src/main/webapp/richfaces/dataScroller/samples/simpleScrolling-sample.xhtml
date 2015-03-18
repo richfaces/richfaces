@@ -12,7 +12,7 @@
     </h:outputStylesheet>
     <h:form id="form">
         <h:panelGrid columnClasses="acent">
-            <rich:dataScroller for="table" maxPages="5" />
+            <rich:dataScroller for="table" maxPages="5" fastStep="3"/>
             <rich:dataTable value="#{carsBean.allInventoryItems}" var="car" id="table" rows="10">
                 <rich:column accept="#{carsFiteringBean.acceptVendor}">
                     <f:facet name="header">
@@ -45,7 +45,7 @@
                     <h:outputText value="#{car.vin}" />
                 </rich:column>
             </rich:dataTable>
-            <rich:dataScroller for="table" maxPages="5" />
+            <rich:dataScroller for="table" maxPages="5" fastStep="3"/>
         </h:panelGrid>
     </h:form>
 </ui:composition>
