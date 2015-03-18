@@ -83,7 +83,7 @@
         <mime-type>text/css</mime-type>
     </mime-mapping>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>welcome.jsf</welcome-file>
     </welcome-file-list>
     <login-config>
         <auth-method>BASIC</auth-method>
