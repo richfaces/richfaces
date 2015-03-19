@@ -358,6 +358,63 @@
         if (!this.isFocused && this.isVisible) return;
         updateDefaultLabel.call(this, (event.type == "focus" ? "" : this.options.defaultLabel));
     }
+    
+    var keyupHandler = function(calendar) {
+        
+        return function (e) {       
+            e.preventDefault();
+            
+            var code;
+
+            if (e.keyCode) {
+                code = e.keyCode;
+            } else if (e.which) {
+                code = e.which;
+            }
+
+            var newDate = new Date(calendar.selectedDate || Date.now());
+            
+            var addDays = function (days) {
+                newDate.setDate(newDate.getDate() + days);
+            };
+            
+            switch (code) {
+                case rf.KEYS.LEFT:
+                    addDays(-1);
+                    break;
+                case rf.KEYS.RIGHT:
+                    addDays(1);
+                    break;
+                case rf.KEYS.UP:
+                    addDays(-7);
+                    break;
+                case rf.KEYS.DOWN:
+                    addDays(7);
+                    break;
+                case rf.KEYS.PAGEUP:
+                    if (e.shiftKey) {
+                        newDate.setFullYear(newDate.getFullYear() - 1);
+                        break;
+                    }
+                    newDate.setMonth(newDate.getMonth() - 1);
+                    break;
+                case rf.KEYS.PAGEDOWN:
+                    if (e.shiftKey) {
+                        newDate.setFullYear(newDate.getFullYear() + 1);
+                        break;
+                    }
+                    newDate.setMonth(newDate.getMonth() + 1);
+                    break;
+                case rf.KEYS.RETURN:
+                    calendar.close(true);
+                    return false;
+            }
+            
+            calendar.__selectDate(newDate);
+            
+            return false;
+        }
+    }
 
     // Constructor definition
     rf.ui.Calendar = function(componentId, locale, options, markups) {
@@ -498,7 +555,7 @@
 
         var tempStr = "RichFaces.component('" + this.id + "').";
 
-        var htmlTextHeader = '<table id="' + this.CALENDAR_CONTENT + '" border="0" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup ' + this.options.styleClass + '" style="' + popupStyles + this.options.style + '" onclick="' + tempStr + 'skipEventOnCollapse=true;"><tbody>';
+        var htmlTextHeader = '<table id="' + this.CALENDAR_CONTENT + '" border="0" tabindex="-1" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup ' + this.options.styleClass + '" style="' + popupStyles + this.options.style + '" onclick="' + tempStr + 'skipEventOnCollapse=true;"><tbody>';
         var colspan = (this.options.showWeeksBar ? "8" : "7");
         var htmlHeaderOptional = (this.options.optionalHeaderMarkup) ? '<tr><td class="rf-cal-hdr-optnl" colspan="' + colspan + '" id="' + this.id + 'HeaderOptional"></td></tr>' : '';
         var htmlFooterOptional = (this.options.optionalFooterMarkup) ? '<tr><td class="rf-cal-ftr-optl" colspan="' + colspan + '" id="' + this.id + 'FooterOptional"></td></tr>' : '';
@@ -587,6 +644,8 @@
         this.isAjaxMode = this.options.mode == "ajax";
 
         //alert(new Date().getTime()-_d.getTime());
+        
+        $(rf.getDomElement(this.CALENDAR_CONTENT)).on("keydown", keyupHandler(this));
     };
 
     // Extend component class and add protected methods from parent class to our container
@@ -984,6 +1043,8 @@
                     if (this.options.hidePopupOnScroll) {
                         this.scrollElements = rf.Event.bindScrollEventHandlers(element, this.eventOnScroll, this);
                     }
+                    
+                    $(rf.getDomElement(this.CALENDAR_CONTENT)).focus();
                 }
             },
 

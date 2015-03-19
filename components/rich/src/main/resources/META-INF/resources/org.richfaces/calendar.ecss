@@ -6,6 +6,7 @@
     border: 1px solid;
     border-color: '#{a4jSkin.panelBorderColor}';
     border-radius: '#{a4jSkin.panelBorderRadius}';
+    outline: none;
 }
 
 .rf-cal-popup {
