@@ -1,4 +1,4 @@
-<table id="form:calendarContent" border="0" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup undefined"
+<table id="form:calendarContent" border="0" tabindex="-1" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup undefined"
     style="display:none; position:absolute;z-index: 3" onclick="RichFaces.component(&apos;form:calendar&apos;).skipEventOnCollapse=true;">
     <tbody>
         <tr>
