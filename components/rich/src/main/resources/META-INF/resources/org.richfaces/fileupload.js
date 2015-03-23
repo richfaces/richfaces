@@ -30,7 +30,7 @@
 
         $.extend(this, options);
         if (this.acceptedTypes) {
-            this.acceptedTypes = $.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*/);
+            this.acceptedTypes = $.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*\.?/);
         }
         if (this.maxFilesQuantity) {
             this.maxFilesQuantity = parseInt($.trim(this.maxFilesQuantity));
@@ -272,9 +272,9 @@
                 fileName = fileName.toUpperCase();
                 var result = !this.acceptedTypes;
                 for (var i = 0; !result && i < this.acceptedTypes.length; i++) {
-                    var extension = "." + this.acceptedTypes[i];
+                    var extension = this.acceptedTypes[i];
 
-                    if (extension === "." && fileName.indexOf(".") < 0) {
+                    if (extension === "" && fileName.indexOf(".") < 0) {
                         // no extension
                         result = true;
                     } else {

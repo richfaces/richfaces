@@ -70,6 +70,8 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     /**
      * Defines comma separated list of file extensions accepted by component.
+     * The format of the file extension can be "png" or ".png",
+     *  the second format will filter extensions in the dialog window.
      * The component does not provide any feedback when rejecting file.
      * For introducing feedback for rejection, use ontyperejected parameter.
      */
@@ -246,7 +248,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
         if (acceptedTypes == null || acceptedTypes.isEmpty()) {
             return Collections.emptyList();
         } else {
-            return Arrays.asList(acceptedTypes.toLowerCase().replaceAll("\\s+", "").split(","));
+            return Arrays.asList(acceptedTypes.toLowerCase().replaceAll("\\.", "").split("\\s*,\\s*"));
         }
     }
 
