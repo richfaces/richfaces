@@ -362,8 +362,6 @@
     var keyupHandler = function(calendar) {
         
         return function (e) {       
-            e.preventDefault();
-            
             var code;
 
             if (e.keyCode) {
@@ -371,12 +369,18 @@
             } else if (e.which) {
                 code = e.which;
             }
+            
+            if (code == rf.KEYS.TAB) {
+                return true;
+            }
 
             var newDate = new Date(calendar.selectedDate || Date.now());
             
             var addDays = function (days) {
                 newDate.setDate(newDate.getDate() + days);
             };
+            
+            e.preventDefault();
             
             switch (code) {
                 case rf.KEYS.LEFT:
@@ -630,7 +634,24 @@
             var handler = new Function('event', "RichFaces.component('" + this.id + "').switchPopup();");
             rf.Event.bindById(this.POPUP_BUTTON_ID, "click" + this.namespace, handler, this);
             if (!this.options.enableManualInput) {
-                rf.Event.bindById(this.INPUT_DATE_ID, "click" + this.namespace, handler, this);
+                rf.Event.bindById(this.INPUT_DATE_ID, "focus" + this.namespace, handler, this);
+            } else {
+                var inputKeyDownHandler = function (event) {
+                    var code;
+
+                    if (event.keyCode) {
+                        code = event.keyCode;
+                    } else if (event.which) {
+                        code = event.which;
+                    }
+                    
+                    if (code == rf.KEYS.UP) {
+                        handler();
+                        event.preventDefault();
+                    }
+                }
+                
+                rf.Event.bindById(this.INPUT_DATE_ID, "keydown" + this.namespace, inputKeyDownHandler, this);
             }
             if (this.options.defaultLabel) {
                 updateDefaultLabel.call(this, this.options.defaultLabel);
@@ -672,7 +693,6 @@
                 if (this.options.popup && this.isVisible) {
                     this.scrollElements && rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
                     this.scrollElements = null;
-                    rf.Event.unbind(window.document, "click" + this.namespace);
                 }
                 $super.destroy.call(this);
             },
@@ -990,7 +1010,7 @@
                     if (this.isEditorVisible) this.hideEditor();
                     this.scrollElements && rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
                     this.scrollElements = null;
-                    rf.Event.unbind(window.document, "click" + this.namespace);
+                    rf.Event.unbindById(this.id, "focusout" + this.namespace);
 
                     $(rf.getDomElement(this.CALENDAR_CONTENT)).hide();
                     this.isVisible = false;
@@ -1036,8 +1056,6 @@
 
                     this.isVisible = true;
 
-                    rf.Event.bind(window.document, "click" + this.namespace, this.eventOnCollapse, this);
-
                     this.scrollElements && rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
                     this.scrollElements = null;
                     if (this.options.hidePopupOnScroll) {
@@ -1045,6 +1063,7 @@
                     }
                     
                     $(rf.getDomElement(this.CALENDAR_CONTENT)).focus();
+                    rf.Event.bindById(this.id, "focusout" + this.namespace, this.eventOnCollapse, this);
                 }
             },
 
