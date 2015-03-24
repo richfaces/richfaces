@@ -398,6 +398,12 @@
                 <artifactId>atmosphere-runtime</artifactId>
                 <version>${version.atmosphere}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>org.atmosphere</groupId>
+                <artifactId>atmosphere-runtime-native</artifactId>
+                <version>${version.atmosphere}</version>
+            </dependency>
 
             <!-- Example Dependecy Libraries Versions -->
             <dependency>
