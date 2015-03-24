@@ -5,16 +5,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.focus.FocusManager;
 import org.richfaces.renderkit.util.RendererUtils;
 
 public class FocusManagerImpl implements FocusManager {
 
-    private static final String SCRIPT = "RichFaces.jQuery(document.getElementById('%s')).focus();";
+        // find first text input among children or self
+    private static final String SCRIPT = "RichFaces.jQuery(document.getElementById('%s'))"
+                                       + ".find(':text:visible:first').addBack().focus();";
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
 
     @Override
