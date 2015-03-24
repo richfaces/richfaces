@@ -61,6 +61,18 @@
                 this.switchToItem(to || "@next");
             },
 
+            expand: function() {
+                this.switchToItem("true");
+            },
+            
+            collapse: function() {
+                this.switchToItem("false");
+            },
+            
+            isExpanded: function() {
+                return this.activeItem == "true";
+            },
+            
             /***************************** Private Methods ********************************************************/
 
             __onHeaderClick : function () {
