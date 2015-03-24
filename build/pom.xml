@@ -83,7 +83,7 @@
         <version.hornetq>2.2.7.Final</version.hornetq>
         <version.netty>3.2.5.Final</version.netty>
         <version.weld>2.2.6.Final</version.weld>
-        <version.rewrite>1.0.4.Final</version.rewrite>
+        <version.rewrite>2.0.12.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
         <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
