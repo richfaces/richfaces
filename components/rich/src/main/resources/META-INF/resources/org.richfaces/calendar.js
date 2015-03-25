@@ -634,7 +634,7 @@
             var handler = new Function('event', "RichFaces.component('" + this.id + "').switchPopup();");
             rf.Event.bindById(this.POPUP_BUTTON_ID, "click" + this.namespace, handler, this);
             if (!this.options.enableManualInput) {
-                rf.Event.bindById(this.INPUT_DATE_ID, "focus" + this.namespace, handler, this);
+                rf.Event.bindById(this.INPUT_DATE_ID, "focus" + this.namespace, this.showPopup, this);
             } else {
                 var inputKeyDownHandler = function (event) {
                     var code;
@@ -1011,6 +1011,9 @@
                     this.scrollElements && rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
                     this.scrollElements = null;
                     rf.Event.unbindById(this.id, "focusout" + this.namespace);
+                    if (!this.options.enableManualInput) {
+                        rf.Event.bindById(this.INPUT_DATE_ID, "click" + this.namespace, this.showPopup, this);
+                    }
 
                     $(rf.getDomElement(this.CALENDAR_CONTENT)).hide();
                     this.isVisible = false;
@@ -1064,6 +1067,7 @@
                     
                     $(rf.getDomElement(this.CALENDAR_CONTENT)).focus();
                     rf.Event.bindById(this.id, "focusout" + this.namespace, this.eventOnCollapse, this);
+                    rf.Event.unbindById(this.INPUT_DATE_ID, "click" + this.namespace);
                 }
             },
 
@@ -1072,16 +1076,19 @@
             },
 
             eventOnCollapse: function (e) {
-                if (this.skipEventOnCollapse) {
-                    this.skipEventOnCollapse = false;
+                that = this;
+                window.setTimeout(function() {
+                if (that.skipEventOnCollapse) {
+                    that.skipEventOnCollapse = false;
                     return true;
                 }
 
-                if (e.target.id == this.POPUP_BUTTON_ID || (!this.options.enableManualInput && e.target.id == this.INPUT_DATE_ID)) return true;
+                if (e.target.id == that.POPUP_BUTTON_ID || (!that.options.enableManualInput && e.target.id == that.INPUT_DATE_ID)) return true;
 
-                this.hidePopup();
+                that.hidePopup();
 
                 return true;
+                }, 200);
             },
 
             setInputField: function(dateStr, event) {
