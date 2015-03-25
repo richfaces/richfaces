@@ -1,3 +1,37 @@
+4.5.4.Final
+-----------
+
+    Bug
+    [RF-13977] - Remote Command Injection (EL Injection)
+    [RF-13990] - Cannot deploy Showcase in JBDS 8
+    [RF-13991] - GraphValidator is not working on Tomcat
+    [RF-13994] - FileUpload: 'status' attribute not working
+    [RF-14000] - Showcase: root path doesn't redirect to index page on EAP 6.3
+    [RF-14002] - Calendar: cannot close popup by clicking on button
+
+    Component Upgrade
+    [RF-13971] - Upgrade testing dependencies
+    [RF-13995] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-11376] - rich:panelMenu - barely visible label of submenu when it is hovered
+    [RF-11770] - showcase - rich:dataScroller - the fastStep should be set to more than default 1
+    [RF-12934] - ajax request for rich:tooltip should respect the showDelay parameter
+
+    Feature Request
+    [RF-6687] - Navigate Calendar with keyboard
+    [RF-11684] - rich:dataScroller optimize behaviour of fastStep
+    [RF-11984] - rich:fileUpload: implement file extension filtering
+    [RF-12799] - Log: add attribute hotkey
+    [RF-13251] - FocusManager to support complex components like rich:autocomplete
+
+    Task
+    [RF-10350] - Client API: collapsiblePanel api improvements
+    [RF-13997] - Remove .jsp files from projects
+    [RF-14001] - Add atmosphere-runtime-native to dependency managment
+    Sub-task
+    [RF-13998] - Add documentation for keyboard navigation
+
 4.5.3.Final
 -----------
 
