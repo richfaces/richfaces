@@ -25,6 +25,7 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -47,6 +48,8 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     private boolean cacheable;
     private MethodExpression contentProducer;
     private ValueExpression expiresExpression;
+
+    private static final String PARENTHESES = "[^\\(]*";
     /*
      * TODO: add handling for expressions:
      *
@@ -59,6 +62,12 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
 
     public void encode(FacesContext facesContext) throws IOException {
         OutputStream outStream = facesContext.getExternalContext().getResponseOutputStream();
+        String expr = contentProducer.getExpressionString();
+
+        if (!Pattern.matches(PARENTHESES, expr)) { // method expression must not be executed
+            throw new IllegalArgumentException("Expression \"" + expr + "\" contains parentheses.");
+        }
+
         contentProducer.invoke(facesContext.getELContext(), new Object[] { outStream, userData });
     }
 
