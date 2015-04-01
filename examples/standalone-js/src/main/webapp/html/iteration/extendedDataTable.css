@@ -32,7 +32,7 @@
     padding: 0;
 }
 *.rf-edt-hdr, *.rf-edt-tbl-hdr {
-    /*background-image: url(/components-demo/org.richfaces.resources/rfRes/colHdrGrad.png?v=4.5.4.Final&db=eAFjZJBjZDBiZBBhYGBgAgADawBq&ln=org.richfaces.images);*/
+    /*background-image: url(/components-demo/org.richfaces.resources/rfRes/colHdrGrad.png?v=4.5.5-SNAPSHOT&db=eAFjZJBjZDBiZBBhYGBgAgADawBq&ln=org.richfaces.images);*/
 }
 *.rf-edt-tbl-hdr {
     border-bottom: 0px solid ;
