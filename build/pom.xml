@@ -60,7 +60,7 @@
     <properties>
         <!-- Base Dependencies Versions -->
         <version.richfaces>4.5.5-SNAPSHOT</version.richfaces>
-        <version.cdk>4.5.0.Final</version.cdk>
+        <version.cdk>4.5.1-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
