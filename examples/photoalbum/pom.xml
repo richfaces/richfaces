@@ -244,6 +244,8 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- Travis build workaround -->
+                    <argLine>-Xms1024m -Xmx2048m</argLine>
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
@@ -400,6 +402,10 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.18.1</version>
+                    <configuration>
+                        <!-- Travis build workaround -->
+                        <argLine>-Xms1024m -Xmx2048m</argLine>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
@@ -663,6 +669,8 @@
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
+                                    <!-- Travis build workaround -->
+                                    <argLine>-Xms1024m -Xmx2048m</argLine>
                                         <!--  there are no unit tests -->
                                     <skip>false</skip>
                                     <excludes>
@@ -677,6 +685,8 @@
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
+                                    <!-- Travis build workaround -->
+                                    <argLine>-Xms1024m -Xmx2048m</argLine>
                                     <testSourceDirectory>src/test</testSourceDirectory>
                                     <includes>
                                         <include>**/ftest/**/Test*.java</include>

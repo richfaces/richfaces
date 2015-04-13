@@ -591,6 +591,8 @@
                             <execution>
                                 <id>default-test</id>
                                 <configuration>
+                                    <!-- Travis build workaround -->
+                                    <argLine>-Xms1024m -Xmx2048m</argLine>
                                     <skipTests>${skipTests}</skipTests>
                                     <test>${test}</test>
                                     <excludes>
@@ -605,6 +607,8 @@
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
+                                    <!-- Travis build workaround -->
+                                    <argLine>-Xms1024m -Xmx2048m</argLine>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
                                     <includes>
@@ -799,6 +803,8 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
+                            <!-- Travis build workaround -->
+                            <argLine>-Xms1024m -Xmx2048m</argLine>
                             <environmentVariables>
                                 <HTTPS_TESTING>true</HTTPS_TESTING>
                             </environmentVariables>
