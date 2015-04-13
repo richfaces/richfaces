@@ -41,12 +41,6 @@
         jQuery.atmosphere.unsubscribe();
     });
 
-    // Temp fix for https://github.com/Atmosphere/atmosphere-javascript/issues/143
-    jQuery(window).bind("beforeunload.atmosphere", function () {
-        jQuery.atmosphere.debug(new Date() + " Atmosphere: " + "beforeunload event");
-        jQuery.atmosphere.unsubscribe();
-    });
-
     jQuery(window).bind("offline", function () {
         jQuery.atmosphere.offline = true;
         var requestsClone = [].concat(jQuery.atmosphere.requests);
@@ -87,7 +81,7 @@
     };
 
     jQuery.atmosphere = {
-        version: "2.2.8-jquery",
+        version: "2.2.9-jquery",
         uuid: 0,
         offline: false,
         requests: [],
@@ -1728,7 +1722,7 @@
                 if (!isNaN(_heartbeatInterval) && _heartbeatInterval > 0) {
                     var _pushHeartbeat = function () {
                         if (_canLog('debug')) {
-                            atmosphere.util.debug("Sending heartbeat");
+                            jQuery.atmosphere.debug("Sending heartbeat");
                         }
                         _push(_heartbeatPadding);
                         rq.heartbeatTimer = setTimeout(_pushHeartbeat, _heartbeatInterval);

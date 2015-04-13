@@ -35,7 +35,7 @@
 
     "use strict";
 
-    var version = "2.2.8-javascript",
+    var version = "2.2.9-javascript",
         atmosphere = {},
         guid,
         offline = false,
@@ -3386,13 +3386,7 @@
     })();
 
     atmosphere.util.on(window, "unload", function (event) {
-        atmosphere.util.debug(new Date() + " Atmosphere: " + "unload event");
-        atmosphere.unsubscribe();
-    });
-
-    // Temp fix for https://github.com/Atmosphere/atmosphere-javascript/issues/143
-    atmosphere.util.on(window, "beforeunload", function (event) {
-        atmosphere.util.debug(new Date() + " Atmosphere: " + "beforeunload event");
+    	atmosphere.util.debug(new Date() + " Atmosphere: " + "unload event");
         atmosphere.unsubscribe();
     });
 
