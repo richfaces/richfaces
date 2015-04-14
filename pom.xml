@@ -128,7 +128,7 @@
         <version.glassfish40>4.0</version.glassfish40>
         <version.tomcat6>6.0.36</version.tomcat6>
         <version.tomcat7>7.0.57</version.tomcat7>
-        <version.tomcat8>8.0.15</version.tomcat8>
+        <version.tomcat8>8.0.21</version.tomcat8>
 
         <!-- Plugin Management: versions -->
         <version.compiler.plugin>3.2</version.compiler.plugin>
