@@ -163,8 +163,26 @@
                 var logMsg = 'RichFaces: ' + message;
                 if (console[level]) {
                     console[level](logMsg);
+                    if (message instanceof $) {
+                        // spans containing the XML response, print only the response
+                        for (var i = 0; i < message.length; i++ ) {
+                            console[level](message[i].textContent)
+                        }
+                    }
+                    else if (typeof message == "object") {
+                        // print object as object, not string
+                        console[level](message);
+                    }
                 } else if (console.log) {
                     console.log(logMsg);
+                    if (message instanceof $) {
+                        for (var i = 0; i < message.length; i++ ) {
+                            console.log(message[i].textContent)
+                        }
+                    }
+                    else if (typeof message == "object") {
+                        console.log(message);
+                    }
                 }
                 return;
             }
