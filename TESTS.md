@@ -90,7 +90,6 @@ There are two ways to run tests:
 * *remote*
   * best for development and fast turnaround
   * container and browser adapters reuse running instances
-  * no support for Tomcat7 (currently missing remote adapter)
 
 Changing RichFaces version
 --------------------------
@@ -385,7 +384,7 @@ You need to modify the `conf/tomcat-users.xml` file:
 
 Pass the following options to the console prior starting the server (or add it to `./bin/catalina.sh`):
 
-    export JAVA_OPTS="-Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
+    export JAVA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=127.0.0.1"
 
 Start the container:
 

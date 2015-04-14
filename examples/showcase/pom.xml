@@ -1560,6 +1560,27 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>tomcat-remote-8</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat8-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.tomcat8>true</arquillian.launch.tomcat8>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <showcase.war.classifier>tomcat6</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-remote-7</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <scm>
