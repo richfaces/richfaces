@@ -35,7 +35,7 @@
                 <h:outputText value="#{car.price}"/>
             </rich:column>
             <rich:column sortBy="#{car.mileage}"
-                         filterExpression="#{empty filterValue or car.price ge filterValue}"
+                         filterExpression="#{empty filterValue or car.mileage ge filterValue}"
                          filterValue="#{carsFilteringBean.mileageFilter}"
                          filterConverterMessage="Error converting the 'Mileage' filter value">
                 <f:facet name="header">Mileage</f:facet>
