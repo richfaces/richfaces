@@ -57,8 +57,8 @@ public abstract class AbstractAjaxLog extends UIComponentBase implements StylePr
     public abstract String getLevel();
 
     /**
-     * Determines how the log appears on the page, can be one of: "inline", "popup". When set to "popup", the popup
-     * window is opened by pressing the key combination Ctrl + Shift + L
+     * Determines how the log appears on the page, can be one of: "inline", "popup" or "console". When set to "popup", the popup
+     * window is opened by pressing the key combination Ctrl + Shift + L. "console" mode will log messages in the JavaScript console.
      */
     @Attribute
     public abstract LogMode getMode();
