@@ -649,7 +649,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                     }
                     visitState.increment();
                     visitState.setState(null, null);
-                    return VisitResult.ACCEPT;
+                    return VisitResult.REJECT;
                 } else if (AbstractTogglePanel.this == target || target instanceof UIRepeat) {
                     return VisitResult.ACCEPT;
                 } else {
