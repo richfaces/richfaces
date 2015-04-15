@@ -22,14 +22,14 @@
 
 package org.richfaces.component.attribute;
 
+import java.util.Collection;
+
+import javax.el.MethodExpression;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.SwitchType;
-
-import javax.el.MethodExpression;
-
-import java.util.Collection;
 
 /**
  * Interface defining the methods for tree-props.xml
@@ -102,16 +102,6 @@ public interface TreeProps {
      */
     @Attribute(description = @Description(value = "Method expression referencing a method that will be called when an TreeSelectionChangeEvent has been broadcast for the listener."))
     MethodExpression getSelectionChangeListener();
-
-    /**
-     * MethodExpression representing an tree node toggle listener method that will be notified when the tree node
-     * is toggled. The expression must evaluate to a public method that takes an TreeToggleEvent parameter, with a
-     * return type of void, or to a public method that takes no arguments with a return type of void.
-     * In the latter case, the method has no way of easily knowing where the event came from, but this can be
-     * useful in cases where a notification is needed that "some action happened".
-     */
-    @Attribute(description = @Description(value = "MethodExpression representing an tree node toggle listener method that will be notified when the tree node is toggled. The expression must evaluate to a public method that takes an TreeToggleEvent parameter, with a return type of void, or to a public method that takes no arguments with a return type of void. In the latter case, the method has no way of easily knowing where the event came from, but this can be useful in cases where a notification is needed that \"some action happened\"."))
-    MethodExpression getToggleListener();
 
     // TODO: There is some overlap between the attributes below and with IterationProps.
 
