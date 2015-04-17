@@ -97,4 +97,10 @@ public abstract class AbstractQueue extends UIComponentBase {
      */
     @Attribute
     public abstract String getName();
+
+    /**
+     * Name of the request status component that will indicate the status of the Ajax request going through the queue
+     */
+    @Attribute
+    public abstract String getStatus();
 }

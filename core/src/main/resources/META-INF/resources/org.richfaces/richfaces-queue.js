@@ -142,6 +142,10 @@
                     }
                 }
             }
+            
+            if (this.queueOptions.status && this.options.rfExt && !this.options.rfExt.status) {
+                this.options.rfExt.status = this.queueOptions.status;
+            }
 
             if (typeof this.queueOptions.requestGroupingId == "undefined") {
                 this.queueOptions.requestGroupingId = typeof this.source == "string" ? this.source : this.source.id;

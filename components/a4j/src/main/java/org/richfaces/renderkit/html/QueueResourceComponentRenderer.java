@@ -68,7 +68,8 @@ public class QueueResourceComponentRenderer extends Renderer {
         requestDelay,
         queueId,
         ignoreDupResponses,
-        requestGroupingId
+        requestGroupingId,
+        status
     }
 
     private void appendOptions(UIComponent queue, Map<String, Object> optionsHash) {
