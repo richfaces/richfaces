@@ -53,8 +53,8 @@ public class AddCSVMessageScript extends ScriptStringBase implements ScriptStrin
     @Override
     public void appendScript(Appendable target) throws IOException {
 
-        String summary = facesMessage.getSummary();
-        String detail = facesMessage.getDetail();
+        String summary = facesMessage.getSummary().replace("'", "\\'");
+        String detail = facesMessage.getDetail().replace("'", "\\'");
         int severity = facesMessage.getSeverity().getOrdinal();
 
         String script = MessageFormat.format(MESSAGE_OBJECT, messageId, summary, detail, severity);
