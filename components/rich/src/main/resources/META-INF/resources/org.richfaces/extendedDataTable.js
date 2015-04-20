@@ -863,13 +863,23 @@
                     $(window).off(this.resizeEventName);
                 }
             },
-
-            contextMenuAttach: function (menu) {
+            
+            __getMenuSelector: function (menu) {
                 var selector = "[id='" + this.element.id + "'] ";
                 selector += (typeof menu.options.targetSelector === 'undefined')
                     ?  ".rf-edt-b td" : menu.options.targetSelector;
                 selector = $.trim(selector);
+                return selector;
+            },
+
+            contextMenuAttach: function (menu) {
+                var selector = this.__getMenuSelector(menu);
                 rf.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
+            },
+            
+            contextMenuDetach: function (menu) {
+                var selector = this.__getMenuSelector(menu);
+                rf.Event.unbind(selector, menu.options.showEvent);
             },
 
             contextMenuShow: function (menu, event) {

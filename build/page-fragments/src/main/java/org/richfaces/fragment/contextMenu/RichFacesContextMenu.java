@@ -27,11 +27,15 @@ import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
+import org.richfaces.fragment.common.picker.ChoicePicker;
+import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
+ * @author pan
  */
-public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu, AdvancedInteractions<AbstractPopupMenu.AdvancedPopupMenuInteractions> {
+public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu,
+    AdvancedInteractions<AbstractPopupMenu.AdvancedPopupMenuInteractions> {
 
     @FindBy(className = "rf-ctx-itm")
     private List<WebElement> menuItemsElements;
@@ -43,6 +47,27 @@ public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu
     private WebElement script;
 
     private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions();
+
+    /**
+     * Selects an item of the pop-up menu already shown.
+     *
+     * @param picker the item picker
+     */
+    public void selectVisibleItem(ChoicePicker picker) {
+        WebElement item = picker.pick(advanced().getMenuItemElements());
+        if (item == null) {
+            throw new IllegalArgumentException("There is no such option to be selected, which satisfied the given rules!");
+        }
+        item.click();
+    }
+
+    public void selectVisibleItem(String header) {
+        selectVisibleItem(ChoicePickerHelper.byVisibleText().match(header));
+    }
+
+    public void selectVisibleItem(int index) {
+        selectVisibleItem(ChoicePickerHelper.byIndex().index(index));
+    }
 
     @Override
     public AdvancedContextMenuInteractions advanced() {

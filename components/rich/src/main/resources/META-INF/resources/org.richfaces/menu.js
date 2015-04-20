@@ -116,12 +116,19 @@
 
             destroy : function() {
                 // clean up code here
+                // forget this menu during the DOM cleanup, f.i. after AJAX rerender
+                if (this.menuManager.openedMenu === this.id) {
+                    this.menuManager.deletedMenuId();
+                }
                 this.detach(this.id);
 
                 if (this.target) {
                     rf.Event.unbindById(this.target, this.options.showEvent);
                     if (this.targetComponent && this.targetComponent.contextMenuAttach) {
                         $('body').off('rich:ready' + this.namespace, '[id="' + this.target + '"]');
+                        if(this.targetComponent.contextMenuDetach) {
+                            this.targetComponent.contextMenuDetach(this);
+                        }
                     }
                 }
 
