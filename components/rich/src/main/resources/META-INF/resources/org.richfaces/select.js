@@ -553,7 +553,7 @@
         var defaultLabel = RichFaces.component(id).defaultLabel;
         
         if (!value && label && (label != defaultLabel)) {
-            throw rf.csv.getMessage(null, 'UISELECTONE_INVALID', [id, ""]);
+            throw rf.csv.getMessage(null, null, [id, ""], 'UISELECTONE_INVALID');
         }
     };
 
