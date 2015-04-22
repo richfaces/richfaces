@@ -27,9 +27,12 @@ import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.SlideShowPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.view.AlbumView;
 
+import category.FailingOnFirefox;
+import category.Smoke;
 import com.google.common.collect.Lists;
 
 /**
@@ -57,6 +60,8 @@ public class TestAlbumViewActivities extends AbstractPhotoalbumTest {
     }
 
     @Test
+    //currently fails of FF exclusively, added to smoke category to test it with PhantomJS
+    @Category({ FailingOnFirefox.class, Smoke.class })
     public void testSlideShow() {
         page.getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments");
         AlbumView albumView = page.getContentPanel().albumView();
