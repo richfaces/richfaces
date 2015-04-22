@@ -785,7 +785,7 @@
             createEditor: function() {
                 var element = $(rf.getDomElement(this.CALENDAR_CONTENT));
                 var zindex = parseInt(element.css('z-index'), 10);
-                var htmlBegin = '<div id="' + this.EDITOR_SHADOW_ID + '" class="rf-cal-edtr-shdw" style="position:absolute; display:none;z-index:' + zindex + '"></div><table border="0" cellpadding="0" cellspacing="0" id="' + this.EDITOR_ID + '" style="position:absolute; display:none;z-index:' + (zindex + 1) + '" onclick="RichFaces.component(\'' + this.id + '\').skipEventOnCollapse=true;"><tbody><tr><td class="rf-cal-edtr-cntr" align="center"><div style="position:relative; display:inline-block;">';
+                var htmlBegin = '<div id="' + this.EDITOR_SHADOW_ID + '" class="rf-cal-edtr-shdw" style="position:absolute; display:none;z-index:' + zindex + '"></div><table border="0" cellpadding="0" cellspacing="0" id="' + this.EDITOR_ID + '" style="position:absolute; display:none;z-index:' + (zindex + 1) + '"><tbody><tr><td class="rf-cal-edtr-cntr" align="center"><div style="position:relative; display:inline-block;">';
                 var htmlContent = '<div id="' + this.EDITOR_LAYOUT_SHADOW_ID + '" class="rf-cal-edtr-layout-shdw"></div>';
 
                 var htmlEnd = '</div></td></tr></tbody></table>';
@@ -1790,6 +1790,7 @@
             },
 
             showTimeEditor: function() {
+                rf.Event.unbindById(this.id, "focusout" + this.namespace);
                 var editor;
                 if (this.timeType == 0) return;
                 if (!this.isEditorCreated) editor = this.createEditor();
@@ -1843,9 +1844,13 @@
                     }
                 }
                 if (this.options.popup && !this.options.showApplyButton) this.close(false);
+                this.skipEventOnCollapse = false;
+                $(rf.getDomElement(this.CALENDAR_CONTENT)).focus();
+                rf.Event.bindById(this.id, "focusout" + this.namespace, this.eventOnCollapse, this);
             },
 
             showDateEditor: function() {
+                rf.Event.unbindById(this.id, "focusout" + this.namespace);
                 var editor;
                 if (!this.isEditorCreated) editor = this.createEditor();
                 else editor = rf.getDomElement(this.EDITOR_ID);
@@ -1871,6 +1876,9 @@
                 if (updateCurrentDate) {
                     this.changeCurrentDate(this.dateEditorYear, this.dateEditorMonth);
                 }
+                this.skipEventOnCollapse = false;
+                $(rf.getDomElement(this.CALENDAR_CONTENT)).focus();
+                rf.Event.bindById(this.id, "focusout" + this.namespace, this.eventOnCollapse, this);
             },
 
             getValue: function() {
