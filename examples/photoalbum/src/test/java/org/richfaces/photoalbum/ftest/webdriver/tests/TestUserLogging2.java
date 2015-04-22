@@ -24,9 +24,8 @@ package org.richfaces.photoalbum.ftest.webdriver.tests;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import category.Failing;
 import category.FailingOnPhantomJS;
-
-
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -34,10 +33,11 @@ import category.FailingOnPhantomJS;
 public class TestUserLogging2 extends AbstractPhotoalbumTest {
 
     /**
-    * Removed from TestUserLogging, cannot get rid of G+ in cache
-    */
+     * Removed from TestUserLogging, cannot get rid of G+ in cache
+     */
     @Test
-    @Category(FailingOnPhantomJS.class)
+    // currently failing everywhere due to RF-14025
+    @Category({ FailingOnPhantomJS.class, Failing.class })
     public void testLoginUser_loginWithSocials_logout() {
         page.login("amarkhel", "12345");
         page.checkUserLogged("amarkhel", true, false, false);
