@@ -313,6 +313,9 @@
             },
 
             __getClientItemFromCache: function(inputLabel) {
+                if (!this.cache) {
+                    return {'label': '', 'value': ''};
+                }
                 var value;
                 var label;
                 if (this.enableManualInput) {
