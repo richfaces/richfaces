@@ -136,7 +136,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         var attachedComponents = rf.findNonVisualComponents(source);
         if (attachedComponents) {
             for (var i in attachedComponents) {
-                if (attachedComponents[i]) {
+                if (attachedComponents.hasOwnProperty(i) && attachedComponents[i]) {
                     attachedComponents[i].destroy();
                 }
             }
@@ -178,23 +178,25 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
             if (parameters) {
                 for (var parameterName in parameters) {
-                    var parameterValue = parameters[parameterName];
-
-                    var input = $("input[name='" + parameterName + "']", form);
-                    if (input.length == 0) {
-                        var newInput = $("<input />").attr({type: 'hidden', name: parameterName, value: parameterValue});
-                        if (parameterName === 'javax.faces.portletbridge.STATE_ID' /* fix for fileUpload in portlets */) {
-                            input = newInput.prependTo(form);
+                    if (parameters.hasOwnProperty(parameterName)) {
+                        var parameterValue = parameters[parameterName];
+    
+                        var input = $("input[name='" + parameterName + "']", form);
+                        if (input.length == 0) {
+                            var newInput = $("<input />").attr({type: 'hidden', name: parameterName, value: parameterValue});
+                            if (parameterName === 'javax.faces.portletbridge.STATE_ID' /* fix for fileUpload in portlets */) {
+                                input = newInput.prependTo(form);
+                            } else {
+                                input = newInput.appendTo(form);
+                            }
                         } else {
-                            input = newInput.appendTo(form);
+                            input.val(parameterValue);
                         }
-                    } else {
-                        input.val(parameterValue);
+    
+                        input.each(function() {
+                            parameterInputs.push(this)
+                        });
                     }
-
-                    input.each(function() {
-                        parameterInputs.push(this)
-                    });
                 }
             }
 
@@ -616,7 +618,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         parameters.rfExt = {};
         parameters.rfExt.status = options.status;
         for (var eventName in AJAX_EVENTS) {
-            parameters.rfExt[eventName] = options[eventName];
+            if (AJAX_EVENTS.hasOwnProperty(eventName)) {
+                parameters.rfExt[eventName] = options[eventName];
+            }
         }
 
         jsf.ajax.request(source, event, parameters);
@@ -635,23 +639,25 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             var form = getFormElement(sourceElement);
 
             for (var eventName in AJAX_EVENTS) {
-                var handlerCode, handler;
-
-                if (options.rfExt) {
-                    handlerCode = options.rfExt[eventName];
-                    handler = typeof handlerCode == "function" ? handlerCode : createEventHandler(handlerCode);
-                }
-
-                var serverHandler = AJAX_EVENTS[eventName];
-                if (serverHandler) {
-                    handler = $.proxy(function(clientHandler, event) {
-                      return serverHandler.call(this, clientHandler, event);
-                    }, sourceElement, handler);
-                }
-
-                if (handler) {
-                    eventHandlers = eventHandlers || {};
-                    eventHandlers[eventName] = handler;
+                if (AJAX_EVENTS.hasOwnProperty(eventName)) {
+                    var handlerCode, handler;
+    
+                    if (options.rfExt) {
+                        handlerCode = options.rfExt[eventName];
+                        handler = typeof handlerCode == "function" ? handlerCode : createEventHandler(handlerCode);
+                    }
+    
+                    var serverHandler = AJAX_EVENTS[eventName];
+                    if (serverHandler) {
+                        handler = $.proxy(function(clientHandler, event) {
+                          return serverHandler.call(this, clientHandler, event);
+                        }, sourceElement, handler);
+                    }
+    
+                    if (handler) {
+                        eventHandlers = eventHandlers || {};
+                        eventHandlers[eventName] = handler;
+                    }
                 }
             }
 

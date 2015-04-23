@@ -67,7 +67,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     var getMultipleHandlerWrapper = function (object, component) {
         var result = {};
         for (var type in object) {
-            result[type] = getHandlerWrapper(component, object[type]);
+            if (object.hasOwnProperty(type)) {
+                result[type] = getHandlerWrapper(component, object[type]);
+            }
         }
         return result;
     }

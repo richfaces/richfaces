@@ -134,9 +134,11 @@
                 var i = 0;
                 var menuItem;
                 for (i in this.items) {
-                    menuItem = this.items.eq(i);
-                    if (this.__isGroup(menuItem)) {
-                        rf.component(menuItem).hide();
+                    if (this.items.hasOwnProperty(i)) {
+                        menuItem = this.items.eq(i);
+                        if (this.__isGroup(menuItem)) {
+                            rf.component(menuItem).hide();
+                        }
                     }
                 }
             },

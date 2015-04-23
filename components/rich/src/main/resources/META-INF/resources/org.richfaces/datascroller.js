@@ -13,14 +13,16 @@
         data.component = component;
 
         for (id in buttons) {
-            var element = $(document.getElementById(id));
-
-            data.id = id;
-            data.page = buttons[id];
-            data.element = element;
-            data.fn = component.processClick;
-
-            element.bind('click', copy(data), fn);
+            if (buttons.hasOwnProperty(id)) {
+                var element = $(document.getElementById(id));
+    
+                data.id = id;
+                data.page = buttons[id];
+                data.element = element;
+                data.fn = component.processClick;
+    
+                element.bind('click', copy(data), fn);
+            }
         }
     };
 
@@ -29,7 +31,9 @@
         var eventData = {};
 
         for (key in data) {
-            eventData[key] = data[key];
+            if (data.hasOwnProperty(key)) {
+                eventData[key] = data[key];
+            }
         }
 
         return eventData;

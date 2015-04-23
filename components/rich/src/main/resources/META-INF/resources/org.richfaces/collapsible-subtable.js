@@ -53,7 +53,7 @@
 
             var eventOptions = this.options.ajaxEventOption;
             for (key in eventOptions) {
-                if (!parameters[key]) {
+                if (eventOptions.hasOwnProperty(key) && !parameters[key]) {
                     parameters[key] = eventOptions[key];
                 }
             }

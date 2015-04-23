@@ -63,7 +63,9 @@
                     this.track[0].tabIndex = this.tabIndex;
 
                     for (var i in selectedClasses) {
-                        this[i] += " " + selectedClasses[i];
+                        if (selectedClasses.hasOwnProperty(i)) {
+                            this[i] += " " + selectedClasses[i];
+                        }
                     }
                     var proxy = $.proxy(this.__inputHandler, this);
                     this.input.change(proxy);

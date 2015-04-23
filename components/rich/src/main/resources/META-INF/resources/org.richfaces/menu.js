@@ -60,7 +60,7 @@
         return {
             name : "Menu",
             initiateGroups : function(groupOptions) {
-                for (var i in groupOptions) {
+                for (var i = 0; i < groupOptions.length; i++) {
                     var groupId = groupOptions[i].id;
                     if (null != groupId) {
                         this.groupList[groupId] = new rf.ui.MenuGroup(

@@ -102,9 +102,11 @@
                     valueInput.value = id;
 
                     for (var itemName in this.items) {
-                        var item = this.items[itemName];
-                        if (item.__isSelected()) {
-                            item.__unselect();
+                        if (this.items.hasOwnProperty(itemName)) {
+                            var item = this.items[itemName];
+                            if (item.__isSelected()) {
+                                item.__unselect();
+                            }
                         }
                     }
 

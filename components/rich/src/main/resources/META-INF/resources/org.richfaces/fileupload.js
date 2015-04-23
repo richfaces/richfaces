@@ -225,10 +225,10 @@
 
             __removeAllItems: function(item) {
                 var itemsRemoved = [];
-                for (var i in this.submitedItems) {
+                for (var i = 0; i < this.submitedItems.length; i++) {
                     itemsRemoved.push(this.submitedItems[i].model);
                 }
-                for (var i in this.items) {
+                for (var i = 0; i < this.items.length; i++) {
                     itemsRemoved.push(this.items[i].model);
                 }
                 this.list.empty();
@@ -323,10 +323,10 @@
                 this.loadableItem = null;
                 this.__updateButtons();
                 var items = [];
-                for (var i in this.submitedItems) {
+                for (var i = 0; i < this.submitedItems.length; i++) {
                     items.push(this.submitedItems[i].model);
                 }
-                for (var i in this.items) {
+                for (var i = 0; i < this.items.length; i++) {
                     items.push(this.items[i].model);
                 }
                 rf.Event.fire(this.element, "onuploadcomplete", items);

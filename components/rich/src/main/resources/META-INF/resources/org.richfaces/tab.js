@@ -53,11 +53,13 @@
                 var header = $(rf.getDomElement(this.id + ":header"));
 
                 for (var state in stateMap) {
-                    if (state !== newState) {
-                        header.removeClass(stateMap[state]);
-                    }
-                    if (!header.hasClass(stateMap[newState])) {
-                        header.addClass(stateMap[newState]);
+                    if (stateMap.hasOwnProperty(state)) {
+                        if (state !== newState) {
+                            header.removeClass(stateMap[state]);
+                        }
+                        if (!header.hasClass(stateMap[newState])) {
+                            header.addClass(stateMap[newState]);
+                        }
                     }
                 }
                 return header;

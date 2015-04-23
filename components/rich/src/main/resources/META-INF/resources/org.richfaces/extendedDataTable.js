@@ -226,7 +226,9 @@
                 this.newWidths[columnId] = width;
                 var widthsArray = new Array();
                 for (var id in this.newWidths) {
-                    widthsArray.push(id + ":" + this.newWidths[id]);
+                    if (this.newWidths.hasOwnProperty(id)) {
+                        widthsArray.push(id + ":" + this.newWidths[id]);
+                    }
                 }
                 this.widthInput.value = widthsArray.toString();
                 this.updateLayout();
@@ -843,9 +845,11 @@
                 var $table = $(document.getElementById(this.element.id)),
                     widthsArray = new Array();
                 for (var id in this.newWidths) {
-                    $table.find("." + WIDTH_CLASS_NAME_BASE + id).css('width', this.newWidths[id])
-                        .parent().css('width', this.newWidths[id]);
-                    widthsArray.push(id + ":" + this.newWidths[id]);
+                    if (this.newWidths.hasOwnProperty(id)) {
+                        $table.find("." + WIDTH_CLASS_NAME_BASE + id).css('width', this.newWidths[id])
+                            .parent().css('width', this.newWidths[id]);
+                        widthsArray.push(id + ":" + this.newWidths[id]);
+                    }
                 }
                 this.widthInput.value = widthsArray.toString();
                 this.updateLayout();

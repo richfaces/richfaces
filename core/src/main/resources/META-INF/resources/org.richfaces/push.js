@@ -171,8 +171,10 @@
      */
     _errorCallback: function(response) {
       for (var address in this.newlySubcribed) {
-        this._subscribedTopics[address] = true;
-        $(document).trigger('error.push.RICH.' + address, response);
+        if (this.newlySubcribed.hasOwnProperty(address)) {
+          this._subscribedTopics[address] = true;
+          $(document).trigger('error.push.RICH.' + address, response);
+        }
       }
     },
 
@@ -184,9 +186,11 @@
 
       var topics = [];
       for (var address in this._handlersCounter) {
-        topics.push(address);
-        if (!this._subscribedTopics[address]) {
-          this.newlySubcribed[address] = true;
+        if (this._handlersCounter.hasOwnProperty(address)) {
+          topics.push(address);
+          if (!this._subscribedTopics[address]) {
+            this.newlySubcribed[address] = true;
+          }
         }
       }
 

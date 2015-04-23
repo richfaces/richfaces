@@ -44,10 +44,12 @@
     
     var translateProperties = function(target, source, translation) {
         for (var attr in source) {
-            var targetAttr = translation[attr] != null ? translation[attr] : attr;
-            target[targetAttr] = source[attr];
-            if (target[targetAttr] instanceof Object) {
-                target[targetAttr] = $.extend({}, target[targetAttr], translation);
+            if (source.hasOwnProperty(attr)) {
+                var targetAttr = translation[attr] != null ? translation[attr] : attr;
+                target[targetAttr] = source[attr];
+                if (target[targetAttr] instanceof Object) {
+                    target[targetAttr] = $.extend({}, target[targetAttr], translation);
+                }
             }
         }
         return target;

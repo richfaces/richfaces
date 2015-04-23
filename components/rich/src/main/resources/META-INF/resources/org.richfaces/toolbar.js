@@ -10,14 +10,13 @@
       var groups = options.groups;
       if (groups && groups.length > 0) {
           var group;
-          var i;
-          for (i in groups) {
+          for (var i = 0; i < groups.length; i++) {
               group = groups[i];
               if (group) {
                   var groupIds = group.ids;
                   var y;
                   var groupElements = [];
-                  for (y in groupIds) {
+                  for (var y = 0; y < groupIds.length; y++) {
                       groupElements.push(document.getElementById(groupIds[y]));
                   }
                   $(groupElements).bind(group.events);

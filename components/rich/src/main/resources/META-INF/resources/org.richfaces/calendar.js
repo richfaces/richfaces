@@ -486,11 +486,7 @@
         this.options = $.extend(this.options, defaultOptions, locales[locale], options, markups);
 
         // labels
-        var value = options.labels || {};
-        for (var name in defaultLabels) {
-            if (!value[name]) value[name] = defaultLabels[name];
-        }
-        this.options.labels = value;
+        this.options.labels = $.extend({}, defaultLabels, options.labels);
 
         this.popupOffset = [this.options.horizontalOffset, this.options.verticalOffset];
 

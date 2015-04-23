@@ -54,12 +54,14 @@
                 var statuses = statusContainer.data(statusDataAttribute);
                 if (statuses) {
                     for (var statusId in statuses) {
-                        var status = statuses[statusId];
-                        var result = status[methodName].apply(status, arguments);
-                        if (result) {
-                            statusApplied = true;
-                        } else {
-                            delete statuses[statusId];
+                        if (statuses.hasOwnProperty(statusId)) {
+                            var status = statuses[statusId];
+                            var result = status[methodName].apply(status, arguments);
+                            if (result) {
+                                statusApplied = true;
+                            } else {
+                                delete statuses[statusId];
+                            }
                         }
                     }
 

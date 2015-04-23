@@ -98,7 +98,7 @@
                 var h = parentPanel.getInnerHeight();
 
                 var items = parentPanel.getItems();
-                for (var i in items) {
+                for (var i = 0; i < items.length; i++) {
                     h -= items[i].__header().outerHeight();
                 }
 

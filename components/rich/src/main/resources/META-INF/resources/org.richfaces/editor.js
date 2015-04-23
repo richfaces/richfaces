@@ -59,7 +59,7 @@
             this.ckeditor.on('blur', $.proxy(this.__blurHandler, this));
             this.ckeditor.on('focus', $.proxy(this.__focusHandler, this));
             // register handlers for 'dirty' event
-            for (var i in eventsForDirty) {
+            for (var i = 0; i < eventsForDirty.length; i++) {
                 this.ckeditor.on(eventsForDirty[i], $.proxy(this.__checkDirtyHandlerWithDelay, this));
             }
             // interval for dirty checking
