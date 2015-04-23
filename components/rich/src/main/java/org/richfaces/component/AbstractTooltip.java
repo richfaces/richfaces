@@ -33,7 +33,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -168,6 +168,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
 
     @Attribute(hidden = true)
     public abstract Object getExecute();
+
+    @Attribute(defaultValue = "1000", description = @Description("Attribute is similar to the standard HTML attribute and can specify window placement relative to the content. Default value is \"1000\"."))
+    public abstract int getZindex();
 
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {

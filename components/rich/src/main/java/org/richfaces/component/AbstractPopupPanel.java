@@ -23,6 +23,7 @@ package org.richfaces.component;
 import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -52,7 +53,7 @@ public abstract class AbstractPopupPanel extends UIComponentBase implements Even
     @Attribute(hidden = true)
     public abstract String getVisualOptions();
 
-    @Attribute(defaultValue = "100")
+    @Attribute(defaultValue = "100", description = @Description("Attribute is similar to the standard HTML attribute and can specify window placement relative to the content. Default value is \"100\"."))
     public abstract int getZindex();
 
     /**
