@@ -24,8 +24,10 @@ package org.richfaces.application;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Properties;
+import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,12 +36,11 @@ import javax.faces.context.FacesContext;
 /**
  * In RichFaces 4.5.0 a new EPVC was intorduced that exposed a bug in Mojarra (MyFaces is Ok).
  *
- * This Mojarra issue was resolved in the following versions:
- * * JAVASERVERFACES-3157 fixed in 2.1.28 and 2.1.27.redhat-9
- * * JAVASERVERFACES-3151 fixed in 2.2.6 and 2.2.5-jbossorg-3
+ * This Mojarra issue was resolved in the following versions: * JAVASERVERFACES-3157 fixed in 2.1.28 and 2.1.27.redhat-9 *
+ * JAVASERVERFACES-3151 fixed in 2.2.6 and 2.2.5-jbossorg-3
  *
- * The public verifyJsfImplVersion method of this class can be used to inspect the runtime and ensure an
- * appropriately patched JSF implementation is present to work with the new EPVC
+ * The public verifyJsfImplVersion method of this class can be used to inspect the runtime and ensure an appropriately patched
+ * JSF implementation is present to work with the new EPVC
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
@@ -69,6 +70,12 @@ public class JsfVersionInspector {
             // We'll fall back to parsing the LogStrings.properties file for the impl version
             versionString = getLogStringsImplementationVersion();
         }
+        if (versionString == null) {
+            // LogStrings.properties were not found, we'll check the jar manifest
+            // known case for this is WebSphere with custom version of MyFaces (RF-14020),
+            // however other systems may be affected as well
+            versionString = getManifestImplementationVersion();
+        }
     }
 
     /**
@@ -79,8 +86,8 @@ public class JsfVersionInspector {
     }
 
     /**
-     * This method can be used to inspect the runtime and ensure an
-     * appropriately patched JSF implementation is present to work with the new EPVC
+     * This method can be used to inspect the runtime and ensure an appropriately patched JSF implementation is present to work
+     * with the new EPVC
      */
     public boolean verifyJsfImplVersion() {
         if (isMojarra()) {
@@ -99,7 +106,7 @@ public class JsfVersionInspector {
         if (version.major < 2) {
             return false;
         } else if (version.major > 2) {
-            return true;  // Future proof!
+            return true; // Future proof!
         } else { // version.major == 2
             if (version.minor < 1) {
                 return false;
@@ -129,15 +136,20 @@ public class JsfVersionInspector {
 
     String getPackageImplementationVersion() {
         Package facesPackage = FacesContext.getCurrentInstance().getClass().getPackage();
-//        if (facesPackage.getImplementationVersion() == null) {
-//            facesPackage = Package.getPackage("javax.faces");
-//        }
+        // if (facesPackage.getImplementationVersion() == null) {
+        // facesPackage = Package.getPackage("javax.faces");
+        // }
         return facesPackage.getImplementationVersion();
     }
 
     String getLogStringsImplementationVersion() {
         Properties prop = new Properties();
         InputStream in = getClass().getResourceAsStream("/com/sun/faces/LogStrings.properties");
+
+        if (in == null) {
+            return null;
+        }
+
         try {
             prop.load(in);
             in.close();
@@ -147,6 +159,25 @@ public class JsfVersionInspector {
         String jbossImplString = prop.getProperty("jsf.config.listener.version");
 
         return extractVersion(jbossImplString);
+    }
+
+    String getManifestImplementationVersion() {
+        String manifestVersion = "";
+        JarFile jar = null;
+
+        try {
+            URL url = FacesContext.class.getProtectionDomain().getCodeSource().getLocation();
+            jar = new JarFile(url.getFile());
+            manifestVersion = jar.getManifest().getMainAttributes().getValue("Implementation-version");
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to open a jar to determine the JSF version", e);
+        } finally {
+            try {
+                jar.close();
+            } catch (IOException e) {
+            }
+        }
+        return manifestVersion;
     }
 
     String extractVersion(String string) {
@@ -175,9 +206,11 @@ public class JsfVersionInspector {
         Version version;
 
         try {
-            version = new Version(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]), Integer.parseInt(numbers[2]), qualifier);
+            version = new Version(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]), Integer.parseInt(numbers[2]),
+                qualifier);
         } catch (NumberFormatException e) {
-            throw new RuntimeException(MessageFormat.format("Error parsing detected JSF version string: {0} ", versionString), e);
+            throw new RuntimeException(MessageFormat.format("Error parsing detected JSF version string: {0} ", versionString),
+                e);
         }
 
         return version;
@@ -185,7 +218,7 @@ public class JsfVersionInspector {
 
     boolean isMojarra() {
         String contextClassName = FacesContext.getCurrentInstance().getClass().getName();
-        return ("com.sun.faces.context.FacesContextImpl".equals(contextClassName) ||
-                "com.sun.faces.config.InitFacesContext".equals(contextClassName));
+        return ("com.sun.faces.context.FacesContextImpl".equals(contextClassName) || "com.sun.faces.config.InitFacesContext"
+            .equals(contextClassName));
     }
 }
