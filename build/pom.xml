@@ -113,7 +113,7 @@
         <version.commons-codec>1.6</version.commons-codec>
 
         <!-- Integration Tests Versions -->
-        <version.arquillian.core>1.1.7.Final</version.arquillian.core>
+        <version.arquillian.core>1.1.8.Final</version.arquillian.core>
         <version.arquillian.drone>2.0.0.Alpha4</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha7</version.arquillian.warp>
         <version.arquillian.graphene>2.1.0.Alpha2</version.arquillian.graphene>
