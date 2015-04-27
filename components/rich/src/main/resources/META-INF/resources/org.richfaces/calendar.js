@@ -359,7 +359,7 @@
         updateDefaultLabel.call(this, (event.type == "focus" ? "" : this.options.defaultLabel));
     }
     
-    var keyupHandler = function(calendar) {
+    var keydownhandler = function(calendar) {
         
         return function (e) {       
             var code;
@@ -411,6 +411,8 @@
                     break;
                 case rf.KEYS.RETURN:
                     calendar.close(true);
+                    return false;
+                default:
                     return false;
             }
             
@@ -662,7 +664,7 @@
 
         //alert(new Date().getTime()-_d.getTime());
         
-        $(rf.getDomElement(this.CALENDAR_CONTENT)).on("keydown", keyupHandler(this));
+        $(rf.getDomElement(this.CALENDAR_CONTENT)).on("keydown", keydownhandler(this));
     };
 
     // Extend component class and add protected methods from parent class to our container
