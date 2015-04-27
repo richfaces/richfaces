@@ -23,10 +23,7 @@ package org.richfaces.showcase.status;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.richfaces.showcase.status.page.TestReferencedUsagePage;
-
-import category.FailingOnPhantomJS;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -38,7 +35,6 @@ public class ITestReferencedUsage extends TestUsage {
     private TestReferencedUsagePage page;
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testUserNameAndAjaxRequestProgressImage() {
         page.getUserNameInput().sendKeys("a");
         assertProgressPictureAppearsOnAjaxRequest(page.getFirstAjaxRequestProgressImage());

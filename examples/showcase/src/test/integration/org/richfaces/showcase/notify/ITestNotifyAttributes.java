@@ -21,25 +21,21 @@
  *******************************************************************************/
 package org.richfaces.showcase.notify;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.notify.NotifyMessage;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.notify.page.NotifyAttributesPage;
-
-import category.FailingOnPhantomJS;
 
 import com.google.common.base.Predicate;
 
@@ -85,7 +81,6 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
     }
 
     @Test
-    @Category(FailingOnPhantomJS.class)
     public void testNonBlockingOpacity() {
         checkNonBlockingOpacity("0.5");
         checkNonBlockingOpacity("0");

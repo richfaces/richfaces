@@ -21,8 +21,6 @@
  *******************************************************************************/
 package org.richfaces.showcase.notify.page;
 
-import com.google.common.base.Predicate;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -31,6 +29,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
@@ -44,19 +44,19 @@ public class NotifyAttributesPage extends NotifyPage {
 
     @FindByJQuery(".rf-insl-inp:eq(0)")
     private WebElement inputForStayTime;
-    
+
     @FindByJQuery("input[type=checkbox]:eq(0)")
     private WebElement stickyCheckBox;
-    
+
     @FindByJQuery("input[type=checkbox]:eq(1)")
     private WebElement nonBlockingCheckBox;
-    
+
     @FindByJQuery("input[type=checkbox]:eq(2)")
     private WebElement showShadowCheckBox;
-    
+
     @FindByJQuery("input[type=checkbox]:eq(3)")
     private WebElement showCloseButtonCheckBox;
-    
+
     @FindByJQuery(".rf-insl-inp:eq(1)")
     private WebElement nonBlockingOpacityInput;
 
@@ -111,9 +111,7 @@ public class NotifyAttributesPage extends NotifyPage {
         if (!nonBlockingOpacity.startsWith("0")) {
             throw new IllegalArgumentException("The opacity has to start with '0'.");
         }
-        nonBlockingOpacityInput.click();
-        nonBlockingOpacityInput.clear();
-        nonBlockingOpacityInput.sendKeys(nonBlockingOpacity.substring(1));
+        actions.click(nonBlockingOpacityInput).sendKeys(Keys.chord(Keys.CONTROL, "a"), nonBlockingOpacity).build().perform();
     }
 
     public void showNotification() {
