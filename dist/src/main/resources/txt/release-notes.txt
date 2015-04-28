@@ -1,3 +1,35 @@
+4.5.5.Final
+-----------
+
+    Bug
+    [RF-11766] - rich:tree - selectionChangeListener isn't called when the model org.richfaces.model.TreeNode is used
+    [RF-12491] - Datatable model is accessed in tab panel which is not rendered using switch type "server"
+    [RF-12764] - rich:select - javascript error when using myfaces with french locale
+    [RF-13138] - a4j:log - should print partial-response value in a level=debug, but prints [Object] instead
+    [RF-14003] - Richfaces included jboss-el-api_3.0_spec-1.0.4.Final.jar in the pom.xml
+    [RF-14011] - a4j:mediaoutput does not work on wildfly 8.2 , uploaded Image is broken
+    [RF-14015] - rich:calendar month and year selection does not work
+    [RF-14016] - treeNode: missing @toggleListener in taglib and docs
+    [RF-14018] - rich:select - js error - this.cache is undefined (or similar js error)
+    [RF-14020] - Richfaces 4.5.2 not working in Websphere
+    [RF-14026] - collapsiblePanel regression with switchType="client" and expanded="false"
+    [RF-14027] - tooltip doesn't work with popupPanel (4.5.x).
+    [RF-14032] - rich:calendar - pressing a key after manually changing the year resets the date
+    [RF-14033] - calendar: fragment: DayPicker: selecting of a day uses unnecessary ctrl key
+
+    Component Upgrade
+    [RF-14012] - Upgrade third-party libraries
+    [RF-14030] - Upgrade Arquillian Core to 1.1.8
+
+    Feature Request
+    [RF-13203] - a4j:queue should have status attribute
+    [RF-14019] - Accordian Panel Item breaks in <= IE8 when Array polyfil is used
+    [RF-14022] - Add support for "resetValues" for AbstractActionComponents (UIMenuItem, UIPanelMenuItem, UITab)
+
+    Task
+    [RF-13996] - Travis build failures due to VM termination
+    [RF-14009] - log: document @mode=console
+
 4.5.4.Final
 -----------
 
