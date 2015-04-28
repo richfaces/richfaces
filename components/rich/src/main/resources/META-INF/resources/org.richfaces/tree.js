@@ -500,15 +500,24 @@
             getSelection: function() {
                 return this.__selection;
             },
-
-            contextMenuAttach: function (menu) {
+            
+            __getMenuSelector: function (menu) {
                 var selector = "[id='" + this.id[0].id + "'] ";
                 selector += (typeof menu.options.targetSelector === 'undefined')
                     ?  ".rf-trn-cnt" : menu.options.targetSelector;
                 selector = $.trim(selector);
-                rf.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
-            }
+                return selector;
+            },
 
+            contextMenuAttach: function (menu) {
+                var selector = this.__getMenuSelector(menu);
+                rf.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
+            },
+            
+            contextMenuDetach: function (menu) {
+                var selector = this.__getMenuSelector(menu);
+                rf.Event.unbind(selector, menu.options.showEvent);
+            }
         });
 
     // define super class link for Tree

@@ -230,10 +230,12 @@
                 this.detach(this.id);
 
                 rf.Event.unbind(this.popupElement, "keydown" + this.namespace);
+                rf.Event.unbindById(this.id, "mouseleave");
 
                 this.popup.destroy();
                 this.popup = null;
-
+                this.__overHandler();//clean up the hide TO
+                
                 // call parent's destroy method
                 $super.destroy.call(this);
             }
