@@ -949,7 +949,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
             if (result == VisitResult.ACCEPT) {
                 if (this instanceof AbstractCollapsiblePanel) {
-                    if (!((AbstractCollapsiblePanel) this).isExpanded()) {
+                    if (this.getSwitchType() != SwitchType.client && !((AbstractCollapsiblePanel) this).isExpanded()) {
                         return false;
                     }
                 }
