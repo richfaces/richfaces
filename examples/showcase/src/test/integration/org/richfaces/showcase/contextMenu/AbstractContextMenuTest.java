@@ -33,6 +33,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
 /**
@@ -49,13 +50,15 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
     private Actions actions;
 
     public enum InvocationType {
+
         RIGHT_CLICK,
         LEFT_CLICK
     }
 
-    protected void checkContextMenuRenderedAtCorrectPosition(WebElement target, WebElement contextMenuPopup,
+    protected void checkContextMenuRenderedAtCorrectPosition(WebElement target, RichFacesContextMenu ctxMenuFragment,
         InvocationType type, ExpectedCondition<Boolean> conditionTargetIsFocused) {
 
+        WebElement contextMenuPopup = ctxMenuFragment.advanced().getMenuPopup();
         if (conditionTargetIsFocused != null) {
             target.click();
             Graphene.waitGui(webDriver).withTimeout(2, TimeUnit.SECONDS).until(conditionTargetIsFocused);
@@ -68,7 +71,9 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
                 actions.moveToElement(target).click();
                 break;
             case RIGHT_CLICK:
-                actions.moveToElement(target).contextClick();
+                // using show() from fragment will make sure workaround is used for PhantomJS (RF-14034)
+                // but it will still show the menu in upper left corner of the browser for PhantomJS
+                ctxMenuFragment.advanced().show(target);
                 break;
             default:
                 throw new IllegalArgumentException("Wrong type of context menu invocation!");

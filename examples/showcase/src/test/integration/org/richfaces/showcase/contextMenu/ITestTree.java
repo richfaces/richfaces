@@ -29,8 +29,11 @@ import java.util.concurrent.TimeUnit;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.contextMenu.page.TreeContextMenuPage;
+
+import category.FailingOnPhantomJS;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -73,12 +76,13 @@ public class ITestTree extends AbstractContextMenuTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testContextMenuRenderedAtCorrectPosition() {
         page.expandNodes(4);
         WebElement elementToTryOn = page.getLeaves().get(0);
         Graphene.waitGui().withTimeout(2, TimeUnit.SECONDS).until().element(elementToTryOn).is().visible();
 
-        checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu().advanced().getMenuPopup(),
+        checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
             InvocationType.RIGHT_CLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn));
     }
 }

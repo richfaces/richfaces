@@ -29,10 +29,13 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.contextMenu.page.TableContextMenuPage;
+
+import category.FailingOnPhantomJS;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -78,6 +81,7 @@ public class ITestTable extends AbstractContextMenuTest {
     }
 
     @Test
+    @Category(FailingOnPhantomJS.class)
     public void testContextMenuRenderedOnTheCorrectPosition() {
         // resize browser window to enforce same conditions on all machines
         // this is a workaround for Jenkins where this test was failing
@@ -85,7 +89,7 @@ public class ITestTable extends AbstractContextMenuTest {
 
         WebElement elementToTryOn = page.getPrices().get(5);
 
-        checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu().advanced().getMenuPopup(),
+        checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
             InvocationType.RIGHT_CLICK, page.getWaitConditionOnSelectingRow(elementToTryOn));
     }
 }
