@@ -346,6 +346,13 @@ public class DayPicker {
         public boolean is(CalendarDay.DayType type) {
             return type.isType(getRootElement());
         }
+
+        @Override
+        public void select(boolean deselectOthers) {
+            // https://issues.jboss.org/browse/RF-14033
+            getRootElement().click();
+            Graphene.waitGui().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
+        }
     }
 
     public static class CalendarDaysImpl extends AbstractListComponent<CalendarDayImpl> {
