@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.common;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +34,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 /**
  * Extending org.openqa.selenium.interactions.Actions by some functionality.
@@ -209,7 +212,34 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         } else if (event.equals(Event.MOUSEMOVE)) {
             return moveToElement(element);
         } else if (event.equals(Event.CONTEXTCLICK) || event.equals(Event.CONTEXTMENU)) {
-            return contextClick(element);
+            // workaround for RF-14034
+            if (driver instanceof PhantomJSDriver) {
+                // has to be final to make it accessible from inner class
+                final WebElement finalElem = element;
+                // move to the element to maintain user-like behavior, it has no real effect on JS code
+                new Actions(driver).moveToElement(element).build().perform();
+
+                return addAction(new Action() {
+
+                    @Override
+                    public void perform() {
+                        List<WebElement> list = new ArrayList<WebElement>();
+                        list.add(finalElem);
+                        // using WebElement to set JS variable
+                        ((JavascriptExecutor) driver).executeScript("var element = arguments[0]; \n"
+                            + "if (window.CustomEvent) {\n"
+                            + "    element.dispatchEvent(new CustomEvent('contextmenu'));\n"
+                            + "} else if (document.createEvent) {\n"
+                            + "    var ev = document.createEvent('HTMLEvents');\n"
+                            + "    ev.initEvent('contextmenu', true, false);\n"
+                            + "    element.dispatchEvent(ev);\n"
+                            + "}", finalElem);
+                    }
+                });
+            } else {
+                // all other browsers use former solution - simply invoke context click
+                return contextClick(element);
+            }
         } else if (event.equals(Event.MOUSEOUT)) {
             Point coords = getPossibleCoordinationsForMouseOut(element);
             return moveToElement(element).moveByOffset(coords.x, coords.y);
