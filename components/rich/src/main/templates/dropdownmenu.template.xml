@@ -18,6 +18,7 @@
 
         <cdk:object name="label" value="#{getLabelFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
         <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
+        <cdk:object name="menuGroups" value="#{getMenuGroups(facesContext, component)}" />
 
         <div id="#{clientId}" class="rf-ddm-lbl #{isDisabled ? 'rf-ddm-dis' : 'rf-ddm-unsel '+styleClass} " style="#{style}"
             cdk:passThroughWithExclusions="">
@@ -65,9 +66,7 @@
                             wrapper="eventHandler" />
                     </cdk:scriptObject>
 
-                    new
-                    RichFaces.ui.Menu(#{toScriptArgs(clientId,
-                    options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});
+                    new RichFaces.ui.Menu(#{toScriptArgs(clientId, options)})<c:if test="#{not empty menuGroups}">.initiateGroups(#{toScriptArgs()})</c:if>;
 
                 </script>
             </c:if>

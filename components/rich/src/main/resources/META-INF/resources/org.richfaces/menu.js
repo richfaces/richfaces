@@ -60,6 +60,8 @@
         return {
             name : "Menu",
             initiateGroups : function(groupOptions) {
+                if (!groupOptions) { return; }
+
                 for (var i = 0; i < groupOptions.length; i++) {
                     var groupId = groupOptions[i].id;
                     if (null != groupId) {
