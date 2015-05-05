@@ -21,10 +21,10 @@
  *******************************************************************************/
 package org.richfaces.showcase.dataScroller;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -47,7 +47,6 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
     /* **********************************************************************************************************
      * Tests**********************************************************************************************************
      */
-
     @Test
     public void testFirstPageButton() {
         // starting from the first page
@@ -93,13 +92,13 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
 
     @Test
     public void testPreviousAndNextPageButton() {
-        testFastAndNormalButtons(page.getNextButton(), page.getPreviousButton(), false);
+        testFastAndNormalButtons(page.getNextButton(), page.getPreviousButton(), false, 1);
     }
 
     // in this demo the fasts button have the same functionality as the next/previous buttons
     @Test
     public void testPreviousAndNextPageButtonFast() {
-        testFastAndNormalButtons(page.getFastNextButton(), page.getFastPrevButton(), true);
+        testFastAndNormalButtons(page.getFastNextButton(), page.getFastPrevButton(), true, 3);
     }
 
     @Test
@@ -124,7 +123,6 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
      * Help methods ******************************************************************************************************
      * ****************
      */
-
     /**
      * Checking the buttons which have number of pages
      */
@@ -148,11 +146,13 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
 
     /**
      * Tests fast and normal buttons
-     * 
+     *
      * @param nextButton
      * @param previousButton
+     * @param fast indicated whether it is fast step button or not
+     * @param step indicated how many pages are switched at a time
      */
-    private void testFastAndNormalButtons(WebElement nextButton, WebElement previousButton, boolean fast) {
+    private void testFastAndNormalButtons(WebElement nextButton, WebElement previousButton, boolean fast, int step) {
         // starting on the first page
         int numberOfPageAtBeginning = page.getNumberOfCurrentPage();
         Car carBeforeClick = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
@@ -166,7 +166,7 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         // -- page
         int numberOfPageAfterClickOnNext = page.getNumberOfCurrentPage();
         assertEquals("Previous button or " + (fast ? "fast " : "") + " previous button does not work",
-            numberOfPageAfterClickOnNext, numberOfPageAtBeginning + 1);
+            numberOfPageAfterClickOnNext, numberOfPageAtBeginning + step);
         // click on the previous button
         Graphene.guardAjax(previousButton).click();
         // check

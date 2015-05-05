@@ -62,13 +62,13 @@ public class AbstractMessagePage {
 
     @FindByJQuery("input[id$=name]")
     private WebElement nameInput;
-    
+
     @FindByJQuery("input[id$=job]")
     private WebElement jobInput;
-    
+
     @FindByJQuery("input[id$=address]")
     private WebElement addressInput;
-    
+
     @FindByJQuery("input[id$=zip]")
     private WebElement zipInput;
 
@@ -88,6 +88,22 @@ public class AbstractMessagePage {
         fillInputWithStringOfLength(jobInput, MINIMUM_OF_JOB - 1);
         fillInputWithStringOfLength(addressInput, MINIMUM_OF_ADDRESS - 1);
         fillInputWithStringOfLength(zipInput, MINIMUM_OF_ZIP - 1);
+    }
+
+    public void fillShorterValueName() {
+        fillInputWithStringOfLength(nameInput, MINIMUM_OF_NAME - 1);
+    }
+
+    public void fillShorterValueJob() {
+        fillInputWithStringOfLength(jobInput, MINIMUM_OF_NAME - 1);
+    }
+
+    public void fillShorterValueAddress() {
+        fillInputWithStringOfLength(addressInput, MINIMUM_OF_NAME - 1);
+    }
+
+    public void fillShorterValueZip() {
+        fillInputWithStringOfLength(zipInput, MINIMUM_OF_NAME - 1);
     }
 
     public void fillCorrectValues() {
@@ -124,7 +140,7 @@ public class AbstractMessagePage {
     }
 
     protected WebElement[] allInputs() {
-        return new WebElement[]{ nameInput, jobInput, addressInput, zipInput };
+        return new WebElement[] { nameInput, jobInput, addressInput, zipInput };
     }
 
 }

@@ -21,7 +21,6 @@
  *******************************************************************************/
 package org.richfaces.showcase.notify;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -48,51 +47,59 @@ public class ITestNotifyMessages extends AbstractWebDriverTest {
      */
     @Test
     public void testAllInputsIncorrectValuesBlurActivation() {
-        checkNotifyMessages(false);
+        page.fillCorrectValues();
+        page.validate();
+        page.waitUntilThereIsNoNotify();
+
+        //test one by one all fields and assert, always wait for previous notification to fade away
+        page.fillShorterValueName();
+        page.blur();
+        assertErrorIsPresent("Name", "Name");
+        page.waitUntilThereIsNoNotify();
+
+        page.fillShorterValueJob();
+        page.blur();
+        assertErrorIsPresent("Job", "Job");
+        page.waitUntilThereIsNoNotify();
+
+        page.fillShorterValueZip();
+        page.blur();
+        assertErrorIsPresent("Zip", "Zip");
+        page.waitUntilThereIsNoNotify();
+
+        page.fillShorterValueAddress();
+        page.blur();
+        assertErrorIsPresent("Address", "Address");
+        page.waitUntilThereIsNoNotify();
     }
 
     @Test
     public void testAllInputsIncorrectValuesSubmitActivation() {
-        checkNotifyMessages(true);
-    }
-
-    /* ********************************************************************************************************************
-     * Help methods **************************************************************
-     * ******************************************************
-     */
-    protected void checkNotifyMessages(boolean submitActivation) {
         page.fillCorrectValues();
         page.validate();
         page.waitUntilThereIsNoNotify();
 
         page.fillShorterValues();
         page.blur();
-        if (submitActivation) {
-            page.waitUntilThereIsNoNotify();
-            page.validate();
-            page.getNotify().advanced().waitUntilMessagesAreVisible().perform();
-        }
+        page.waitUntilThereIsNoNotify();
+        page.validate();
+        page.getNotify().advanced().waitUntilMessagesAreVisible().perform();
 
         int numberOfNotifyMessages = page.getNotify().size();
-        if (submitActivation) {
-            assertEquals("There should be 4 notify messages!", 4, numberOfNotifyMessages);
-        } else {
-            assertTrue("There should be 4 notify messages!", numberOfNotifyMessages >= 4);
-        }
+        assertEquals("There should be 4 notify messages!", 4, numberOfNotifyMessages);
 
-        if (submitActivation) {
-            assertErrorIsPresent("Name", MessagesPage.NAME_ERROR_LESS_THAN_MINIMUM);
-            assertErrorIsPresent("Job", MessagesPage.JOB_ERROR_LESS_THAN_MINIMUM);
-            assertErrorIsPresent("Zip", MessagesPage.ZIP_ERROR_LESS_THAN_MINIMUM);
-            assertErrorIsPresent("Address", MessagesPage.ADDRESS_ERROR_LESS_THAN_MINIMUM);
-        } else {
-            assertErrorIsPresent("Name", "Name");
-            assertErrorIsPresent("Job", "Job");
-            assertErrorIsPresent("Zip", "Zip");
-            assertErrorIsPresent("Address", "Address");
-        }
+        assertErrorIsPresent("Name", MessagesPage.NAME_ERROR_LESS_THAN_MINIMUM);
+        assertErrorIsPresent("Job", MessagesPage.JOB_ERROR_LESS_THAN_MINIMUM);
+        assertErrorIsPresent("Zip", MessagesPage.ZIP_ERROR_LESS_THAN_MINIMUM);
+        assertErrorIsPresent("Address", MessagesPage.ADDRESS_ERROR_LESS_THAN_MINIMUM);
+
+        page.waitUntilThereIsNoNotify();
     }
 
+    /* ********************************************************************************************************************
+     * Help methods **************************************************************
+     * ******************************************************
+     */
     protected void assertErrorIsPresent(String fieldName, String expected) {
         List<? extends Message> messages = page.getNotify().getItems(Message.MessageType.ERROR);
         for (Message message : messages) {
