@@ -428,12 +428,12 @@ public class CoreDeployment extends BaseDeployment {
     }
     
     public void withA4jComponents() {
-        addMavenDependency("org.richfaces:richfaces-a4j:4.5.5.Final");
+        addMavenDependency("org.richfaces:richfaces-a4j:4.5.6-SNAPSHOT");
         excludeMavenDependency("richfaces-core");
     }
     
     public void withRichComponents() {
-        addMavenDependency("org.richfaces:richfaces:4.5.5.Final");
+        addMavenDependency("org.richfaces:richfaces:4.5.6-SNAPSHOT");
         excludeMavenDependency("richfaces-core");
     }
 
