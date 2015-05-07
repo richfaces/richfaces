@@ -22,10 +22,6 @@ import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
 import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
 import org.richfaces.photoalbum.util.ImageHandler;
-import org.richfaces.photoalbum.util.converters.ListConverter;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 
 @Named
 @SessionScoped
@@ -79,38 +75,7 @@ public class EventAlbumsHelper implements Serializable {
          * Facebook
          */
 
-        List<String> facebookIds = event.getFacebookAlbumIds();
-
-        if (facebookIds.size() != 0) {
-            // check if albums are loaded
-            emptyFacebookIds = new ArrayList<String>(Collections2.filter(facebookIds, new Predicate<String>() {
-
-                @Override
-                public boolean apply(String id) {
-                    return !fac.isAlbumLoaded(id);
-                }
-            }));
-
-            facebookAlbumIds = new ArrayList<String>(Collections2.filter(facebookIds, new Predicate<String>() {
-
-                @Override
-                public boolean apply(String id) {
-                    return fac.isAlbumLoaded(id);
-                }
-            }));
-
-            // set up the id
-            setFbAlbumIds(ListConverter.sListToString(emptyFacebookIds));
-
-            // load the loaded images
-            for (String lId : facebookAlbumIds) {
-                for (JSONObject fImage : fac.getImagesFromAlbum(lId)) {
-                    images.add(new ImageHandler(fImage));
-                }
-            }
-
-            setFacebookNeedsUpdate(emptyFacebookIds.size() > 0);
-        }
+        setFacebookNeedsUpdate(fac.isLoaded());
 
         /*
          * Google+
@@ -202,14 +167,6 @@ public class EventAlbumsHelper implements Serializable {
 
     public void setImages(List<ImageHandler> images) {
         this.images = images;
-    }
-
-    public String getFbAlbumIds() {
-        return fbAlbumIds;
-    }
-
-    public void setFbAlbumIds(String fbAlbumIds) {
-        this.fbAlbumIds = fbAlbumIds;
     }
 
     public boolean isFacebookNeedsUpdate() {

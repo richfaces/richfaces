@@ -43,9 +43,6 @@
             </h:panelGroup>
         </h:panelGrid>
 
-        <ui:include src="/includes/facebook/albumsList.xhtml">
-            <ui:param name="albumIds" value="#{facebookBean.userAlbumIds}" />
-            <ui:param name="albumString" value="#{facebookBean.userAlbumString}" />
-        </ui:include>
+        <ui:include src="/includes/facebook/albumsList.xhtml" />
     </a4j:region>
 </ui:composition>

@@ -42,20 +42,6 @@ public class FacebookBean implements Serializable {
 
     private JSONObject userInfo;
 
-    private List<String> userAlbumIds;
-
-    public List<String> getUserAlbumIds() {
-        return userAlbumIds;
-    }
-
-    public String getUserAlbumString() {
-        return ListConverter.sListToString(userAlbumIds);
-    }
-
-    public void setAlbumIds(String ids) {
-        this.userAlbumIds = ListConverter.StringToSList(ids);
-    }
-
     public JSONObject getUserInfo() {
         return userInfo;
     }

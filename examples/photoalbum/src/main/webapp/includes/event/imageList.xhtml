@@ -74,17 +74,15 @@
 
     <!-- **Album fetching** -->
     <!-- save the Facebook albums and images into the cache bean, then reload the image list -->
-    <a4j:jsFunction name="setFBimages" execute="@this" oncomplete="loadFBAlbums()">
+    <a4j:jsFunction name="setFBimages" execute="@this" oncomplete="reloadAlbums()">
         <a4j:param assignTo="#{facebookAlbumCache.all}" name="response" />
     </a4j:jsFunction>
-
-    <a4j:jsFunction name="loadFBAlbums" action="#{eventAlbumsHelper.loadFBImages}" execute="@this" oncomplete="reloadAlbums()" />
 
     <!-- if albums aren't loaded, get the albums from Facebook then trigger the poll for G+ albums -->
     <h:outputScript id="facebookCheck">    
         $(document).ready(function() {
             if (#{eventAlbumsHelper.facebookNeedsUpdate}) {
-                F.getAlbumsById( "#{eventAlbumsHelper.fbAlbumIds}", setFBimages, showError);
+                F.getAllAlbums(setFBimages, showError);
             }
             triggerPoll();
         });

@@ -25,8 +25,8 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
-    <rich:popupPanel id="albumsPopupPanel" minHeight="300" minWidth="500"
-        onshow="if(!#{facebookAlbumCache.areAlbumsLoaded(facebookBean.userAlbumIds)}){F.getShelfAlbums(#{facebookBean.userId}, loadFBAlbums, showError);}">
+    <rich:popupPanel id="albumsPopupPanel" minHeight="300" minWidth="500" rendered="#{userBean.loggedInFB}"
+        onshow="if(!#{facebookAlbumCache.loaded}){F.getAllAlbums(loadFBAlbums, showError);}">
         <f:facet name="header">
             <h:outputText value="Choose album to share to" />
         </f:facet>
@@ -41,11 +41,13 @@
         <a4j:mediaOutput id="imgUri" style="display:none" element="a" createContent="#{directLinkHelper.paintImage}"
             value="#{model.selectedImage.id}" mimeType="image/jpeg" />
 
-        <h:outputText value="No available albums. Log into Facebook and create one."
-            rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) == 0}" />
         <a4j:outputPanel id="fbAlbums">
-            <rich:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) > 0}"
-                value="#{facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)}" var="album" columns="3">
+            <h:outputText value="Loading albums, please wait."
+                rendered="#{!facebookAlbumCache.loaded}" />
+            <h:outputText value="No available albums. Log into Facebook and create one."
+                rendered="#{facebookAlbumCache.loaded and facebookAlbumCache.emptyCache}" />
+            <rich:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums()) > 0}"
+                value="#{facebookAlbumCache.getAlbums()}" var="album" columns="3">
                 <rich:panel header="#{album.getString('name')}">
                     <a4j:commandLink execute="@none"
                         onclick="F.pushImage('#{album.getString('id')}', #{rich:element('imgUri')}.href, '#{model.selectedImage.description}', showError); #{rich:component('albumsPopupPanel')}.hide()">
@@ -55,7 +57,7 @@
             </rich:dataGrid>
         </a4j:outputPanel>
         <a4j:jsFunction name="loadFBAlbums" render="fbAlbums">
-            <a4j:param assignTo="#{facebookAlbumCache.albums}" name="albums" />
+            <a4j:param assignTo="#{facebookAlbumCache.all}" name="albums" />
         </a4j:jsFunction>
     </rich:popupPanel>
 </ui:composition>

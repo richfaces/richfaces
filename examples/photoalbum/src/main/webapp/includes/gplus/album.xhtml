@@ -32,7 +32,7 @@
             </h1>
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
                 <h:outputText value="#{messages['created.album']} " />
-                <h:outputText styleClass="bold" value="#{album.getString('created')}" />
+                <h:outputText styleClass="bold" value="#{album.getString('created')}" converter="#{timestampConverter}" />
                 <h:outputText value=", #{messages['contain']}" />
                 <h:outputText styleClass="bold" value=" #{album.optString('size', '?')}" />
                 <h:outputText value=" #{messages['images_']}" />
@@ -83,7 +83,7 @@
                 </h:panelGrid>
                 <!-- <h:panelGroup layout="block" styleClass="photo_name">#{image.getString('name')}</h:panelGroup> -->
                 <h:panelGroup layout="block" styleClass="photo_data">
-                    <h:outputText value="#{image.getString('created')}" />
+                    <h:outputText value="#{image.getString('created')}" converter="#{timestampConverter}" />
                 </h:panelGroup>
             </h:panelGroup>
         </a4j:repeat>

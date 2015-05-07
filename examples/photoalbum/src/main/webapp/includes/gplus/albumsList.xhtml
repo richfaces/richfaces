@@ -62,7 +62,7 @@
                     </h:panelGrid>
                     <h:panelGroup layout="block" styleClass="album_name">#{googlePlusAlbumCache.getAlbum(albumId).getString('name')}</h:panelGroup>
                     <h:panelGroup layout="block" styleClass="album_data">
-                        <h:outputText value="#{googlePlusAlbumCache.getAlbum(albumId).getString('created')}" />
+                        <h:outputText value="#{googlePlusAlbumCache.getAlbum(albumId).getString('created')}" converter="#{timestampConverter}" />
                     </h:panelGroup>
                 </a4j:outputPanel>
 

@@ -116,60 +116,18 @@ var F = {};
     F.login = function(infoCb, albumIdsCb, errorCb) {
         FB.login(function(response) {
             if (response.authResponse) {
-                FB.api('/me?fields=first_name,last_name,email,username,birthday,gender,picture.width(24).height(24)', 'get', function(response) {
+                FB.api('/me?fields=first_name,last_name,email,birthday,gender,picture.width(24).height(24)', 'get', function(response) {
                     if (!response || response.error) {
                         errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                     } else {
                         infoCb(JSON.stringify(response));
                     }
                 });
-    
-                FB.api('fql', {
-                    q : {
-                        "q1" : "SELECT object_id from album WHERE owner = me()"
-                    }
-                }, function(response) {
-                    if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
-                    } else {
-                        var result_set = response.data[0].fql_result_set, 
-                            result = result_set[0]["object_id"];
-    
-                        for (var i = 1; i < result_set.length; i++) {
-                            result += "," + result_set[i]["object_id"];
-                        }
-                        albumIdsCb(result);
-                    }
-                });
             } else {
                 errorCb('Error' + errorDelimiter + 'User cancelled login or did not fully authorize.');
             }
         }, {
-            scope : 'read_stream, publish_stream, user_photos, user_birthday, email'
-        });
-    };
-    
-    // get info about all user albums on Facebook (without images)
-    F.getShelfAlbums = function(userId, callback, errorCb) {
-        FB.getLoginStatus(function(response) {
-            if (response.status === "connected") {
-                var query1 = "SELECT object_id, cover_pid, name, created, size FROM album WHERE owner = " + userId,
-                    query2 = "SELECT src, pid FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
-    
-                FB.api('fql', {
-                    q : {
-                        "q1" : query1,
-                        "q2" : query2
-                    }
-                }, function(response) {
-                    if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
-                    } else {
-                    	result = {albums: translateFBAlbums(response.data[0].fql_result_set), covers: translateFBCovers(response.data[1].fql_result_set) };
-                        callback(JSON.stringify(result));
-                    }
-                });
-            }
+            scope : 'read_stream, publish_actions, user_photos, user_birthday, email'
         });
     };
     
@@ -187,112 +145,160 @@ var F = {};
         };
     };
     
-    translateFBImages = function(images) {
+    translateFBImage = function(image) {
         var dict = {
-            "albumId": "album_object_id",
-            "created": "created",
-            "fullAlbumId": "album_object_id",
-            "id": "pid",
-            "name": "caption",
-            "thumbUrl": "src",
-            "url": "src_big"
-        };
-         
-        return images.map(translateFBJson(dict));
-    };
-    
-    translateFBAlbums = function(albums) {
-        var dict = {
-            "created": "created",
-            "fullId": "object_id",
-            "id": "object_id",
-            "cpid": "cover_pid",
+            "created": "created_time",
+            "id": "id",
             "name": "name",
-            "size": "size",
-            "url": "src_big"
+            "thumbUrl": "picture"
         };
          
-        return albums.map(translateFBJson(dict));
+        return (translateFBJson(dict))(image);
     };
     
-    translateFBCovers = function(covers) {
-    	var dict = {
-                "coverUrl": "src",
-                "pid": "pid"
-            };
-             
-            return covers.map(translateFBJson(dict));
+    translateFBAlbum = function(album) {
+        var dict = {
+            "created": "created_time",
+            "fullId": "id",
+            "id": "id",
+            "name": "name",
+            "size": "count"
+        };
+         
+        return (translateFBJson(dict))(album);
     };
     
-    // get info about albums specified by id - (e.g. "12345", "12347")
-    F.getAlbumsById = function(albumIds, callback, errorCb) {
-        if (albumIds === "0") {
-            callback(JSON.stringify({}));
-            return;
+    // get all albums and images
+    F.getAllAlbums = function(callback, errorCb) {
+        FB.getLoginStatus(function(response) {
+            if (response.status === "connected") {
+                FB.api('me/albums?fields=picture,created_time,count,name,photos{created_time,images,picture,name}', 'get',
+                  function(response) {
+                    if (!response || response.error) {
+                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
+                    } else {
+                        callback(JSON.stringify(convertFBAlbums(response.data)));
+                    }
+                });
+            }
+        });
+    };
+    
+    convertFBAlbums = function (data) {
+        /*
+         * In (only relevant fields):
+         * 
+         * data: [ALBUM]
+         * --
+         * ALBUM: {
+         *   created_time: CREATED, -- 2013-04-21T13:09:54+0000, has to be parsed
+         *   count: SIZE, -- missing on empty albums
+         *   name: NAME,
+         *   id: ID,
+         *   photos: {data: [PHOTO]},
+         *   picture: {
+         *     data: {
+         *       url: COVERURL
+         *     }
+         *   }
+         * --
+         * PHOTO: {
+         *   created_time: CREATED,
+         *   images: [IMAGE], -- contains several resolutions, we pick full size and medium size (to fit our layout)
+         *   picture: THUMBURL,
+         *   id: ID,
+         *   name: NAME -- optional
+         *   }
+         * --
+         * IMAGE: {
+         *   height: height, width: width,
+         *   source: URL
+         *   }
+         *   
+         * Out:
+         * [ALBUM]
+         * --
+         * ALBUM: {
+         *   created: CREATED,
+         *   size: SIZE,
+         *   name: NAME,
+         *   id: ID,
+         *   coverUrl: COVERURL,
+         *   images: [PHOTO]
+         *   }
+         * --
+         * PHOTO: {
+         *   thumbUrl: THUMBURL,
+         *   url: URL,
+         *   fullResUrl: URL
+         *   name: NAME/ID
+         *   id: ID
+         *   created: CREATED
+         *   }
+         *   
+         */
+        
+        var result = [],
+            album;
+        
+        for (var i = 0; i < data.length; i++) {
+            album = translateFBAlbum(data[i]);
+            
+            album.created = Date.parse(album.created);
+            
+            if (!album.size) { // empty albums have undefined count
+                album.size = 0;
+            }
+            
+            album.coverUrl = data[i].picture ? data[i].picture.data.url : 'resources/img/shell/frame_photo_120.png';
+            
+            if (data[i].photos) {
+                album.images = getFBPhotos(data[i].photos.data);
+            }
+            
+            result.push(album);
         }
         
-        FB.getLoginStatus(function(response) {
-    
-            if (response.status === "connected") {
-                var query1 = "SELECT object_id, cover_pid, name, created, size FROM album WHERE object_id IN (" + albumIds + ")",
-                    query2 = "SELECT src, pid FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)",
-                    query3 = "SELECT album_object_id, pid, src, src_big, caption, created FROM photo WHERE album_object_id IN (" + albumIds + ")";
-    
-                FB.api('fql', {
-                    q : {
-                        "q1" : query1,
-                        "q2" : query2,
-                        "q3" : query3
-                    }
-                }, function(response) {
-                    if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
-                    } else {
-                        var r = {
-                            q1 : null,
-                            q2 : null,
-                            q3 : null
-                        };
-    
-                        // the result may not ordered differently than the queries
-                        for (var i = 0; i < response.data.length; i++) {
-                            r[response.data[i].name] = response.data[i].fql_result_set;
-                        }
-    
-                        var result = {
-                            albums : translateFBAlbums(r.q1),
-                            covers : translateFBCovers(r.q2),
-                            images : translateFBImages(r.q3)
-                        };
-                        
-                        callback(JSON.stringify(result));
-                    }
-                });
-            }
-        });
+        return result;
     };
     
-    // get images from a given album
-    F.getAlbumImages = function(albumId, callback, errorCb) {
-        FB.getLoginStatus(function(response) {
-            if (response.status === "connected") {
-                var query1 = "SELECT album_object_id, pid, src, src_big, caption, created FROM photo WHERE album_object_id = " + albumId;
-                
-                FB.api('fql', {
-                    q : {
-                        "q1" : query1
-                    }
-                }, function(response) {
-                    if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
-                    } else {
-                        callback(JSON.stringify(translateFBImages(response.data[0].fql_result_set)));
-                    }
-                });
+    getFBPhotos = function(photos) {
+        var result = [],
+            photo;
+        
+        for (var i = 0; i < photos.length; i++) {
+            photo = translateFBImage(photos[i]);
+            
+            photo.created = Date.parse(photo.created);
+            
+            if (!photo.name) {
+                photo.name = photo.id;
             }
-        });
+            
+            addFBPhotoUrls(photo,photos[i].images);
+            
+            result.push(photo);
+        }
+        
+        return result;
     };
     
+    addFBPhotoUrls = function(photo, images) {
+        if (!images) {return;}
+        photo.fullResurl = images[0].source; // first image is the largest
+        
+        var max, currentMax = 0, midResUrl;
+        for (var i = 0; i < images.length; i++) {
+            max = images[i].height > images[i].width ? images[i].height : images[i].width;
+            
+            if (max > currentMax && max <= 600) {
+                midResUrl = images[i].source;
+                currentMax = max;
+            }
+        }
+        
+        photo.url = midResUrl;
+    };
 })(F);
 
 /*

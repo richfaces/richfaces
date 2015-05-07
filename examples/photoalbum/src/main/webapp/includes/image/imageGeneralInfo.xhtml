@@ -81,7 +81,7 @@
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
                         oncomplete="#{rich:component('confirmation')}.show()" execute="@this" />
-                    <richx:commandButton value="Share" rendered="#{controller.isUserImage(model.selectedImage)}" execute="@this"
+                    <richx:commandButton value="Share" rendered="#{controller.isUserImage(model.selectedImage) and userBean.loggedInFB}" execute="@this"
                         styleClass="fb-comm-button" render="albumsPopupPanel" oncomplete="#{rich:component('albumsPopupPanel')}.show()"/>
                 </td>
             </tr>

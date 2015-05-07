@@ -26,50 +26,49 @@
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
     <a4j:outputPanel rendered="#{not userBean.loggedInFB}">
-        <h:outputText value="This event has #{fn:length(albumIds)} albums on Facebook, " />
+        <h:outputText value="This event has #{fn:length(facebookAlbumCache.albums)} albums on Facebook, " />
         <a4j:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
             oncomplete="#{rich:component('loginPanel')}.show();" />
         <h:outputText value=" to see them." />
     </a4j:outputPanel>
 
     <a4j:outputPanel id="fbAlbums" rendered="#{userBean.loggedInFB}">
-        <h:outputText value="Albums are loading" rendered="#{not facebookAlbumCache.areAlbumsLoaded(albumIds)}" />
+        <h:outputText value="Loading albums, please wait." rendered="#{not facebookAlbumCache.loaded}" />
         <br style="clear: both" />
-        <a4j:repeat value="#{albumIds}" var="albumId" rowKeyVar="rk">
+        <a4j:repeat value="#{facebookAlbumCache.albums}" var="album" rowKeyVar="rk">
             <h:panelGroup layout="block" styleClass="preview_box_album_120">
 
-                <a4j:outputPanel rendered="#{facebookAlbumCache.isAlbumLoaded(albumId)}">
+                <a4j:outputPanel rendered="#{facebookAlbumCache.loaded}">
                     <h:graphicImage styleClass="pr_album_bg" value="resources/img/shell/frame_album_200.png" />
 
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
-                            <a4j:commandLink execute="@this" actionListener="#{controller.showFBAlbum(albumId)}"
+                            <a4j:commandLink execute="@this" actionListener="#{controller.showFBAlbum(album.getString('id'))}"
                                 onclick="select(':#{rk}:img'); #{rich:component('albumListTooltip')}.hide()" render="mainArea">
-                                <a4j:param assignTo="#{facebookAlbumCache.currentAlbumId}" value="#{albumId}" />
-                                <h:graphicImage id="img" url="#{facebookAlbumCache.getAlbum(albumId).getString('coverUrl')}"
+                                <a4j:param assignTo="#{facebookAlbumCache.currentAlbumId}" value="#{album.getString('id')}" />
+                                <h:graphicImage id="img" url="#{album.getString('coverUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
                                 <rich:tooltip id="albumListTooltip" followMouse="true" direction="topRight" showDelay="500"
                                     styleClass="tooltip">
                                     <span style="white-space: nowrap">
-                                        #{facebookAlbumCache.getAlbum(albumId).getString('name')} </span>
+                                        #{album.getString('name')} </span>
                                 </rich:tooltip>
                                 <rich:dragSource dragIndicator="dragIndicator" type="fbAlbum"
-                                    dragValue="#{facebookAlbumCache.getAlbum(albumId).getString('id')}"
+                                    dragValue="#{album.getString('id')}"
                                     rendered="#{not showDownload}" />
                             </a4j:commandLink>
                             <a4j:commandButton rendered="#{showDownload}"
-                                actionListener="#{fileDownloadManager.setUpDownload(facebookAlbumCache.getAlbum(albumId).getString('name'), albumId, facebookAlbumCache.getImageMap(albumId), model.selectedEvent)}"
+                                actionListener="#{fileDownloadManager.setUpDownload(album.getString('name'), albumId, facebookAlbumCache.getImageMap(album.getString('id')), model.selectedEvent)}"
                                 value="Import" render="pBar" />
                         </h:panelGroup>
                     </h:panelGrid>
-                    <h:panelGroup layout="block" styleClass="album_name">#{facebookAlbumCache.getAlbum(albumId).getString('name')}</h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="album_name">#{album.getString('name')}</h:panelGroup>
                     <h:panelGroup layout="block" styleClass="album_data">
-                        <h:outputText value="#{facebookAlbumCache.getAlbum(albumId).getString('created')}"
-                            converter="#{timestampConverter}" />
+                        <h:outputText value="#{album.getString('created')}" converter="#{timestampConverter}" />
                     </h:panelGroup>
                 </a4j:outputPanel>
 
-                <a4j:outputPanel rendered="#{!facebookAlbumCache.isAlbumLoaded(albumId)}">
+                <a4j:outputPanel rendered="#{!facebookAlbumCache.loaded}">
                     <h:graphicImage styleClass="pr_album_bg" value="resources/img/shell/frame_album_200.png" />
                     <h:panelGrid cellpadding="0" style="opacity: 0.6">
                         <h:outputText value="#{albumId}" style="display: inline-block; margin: 10px 0 0 10px" />
@@ -100,9 +99,9 @@
         <a4j:jsFunction name="reloadAlbums" render="fbAlbums" execute="@this" />
 
         <!-- if albums aren't loaded, get the albums from Facebook -->
-        <h:outputScript rendered="#{facebookAlbumCache.needsUpdate}">    
+        <h:outputScript rendered="#{!facebookAlbumCache.loaded}">    
                 $(document).ready(function() {
-                    F.getAlbumsById( "#{albumString}", setFBimages, showError);
+                    F.getAllAlbums(setFBimages, showError);
                 });
         </h:outputScript>
 

@@ -32,7 +32,8 @@
               status     : false, // check the login status upon init?
               cookie     : true, // set sessions cookies to allow your server to access the session?
               xfbml      : false,  // parse XFBML tags on this page?
-              channelUrl : '/includes/fbchannel.jsf'
+              channelUrl : '/includes/fbchannel.jsf',
+              version    : 'v2.3'
             });
         
             // Additional initialization code such as adding Event Listeners goes here
@@ -47,7 +48,7 @@
              var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
              if (d.getElementById(id)) {return;}
              js = d.createElement('script'); js.id = id; js.async = true;
-             js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+             js.src = "//connect.facebook.net/en_US/sdk" + (debug ? "/debug" : "") + ".js";
              ref.parentNode.insertBefore(js, ref);
            }(document, /*debug*/ false));
     </script>

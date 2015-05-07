@@ -44,7 +44,7 @@ public class TimestampConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Date d = new Date(Long.parseLong((String) value) * 1000); // convert to milliseconds
+        Date d = new Date(Long.parseLong((String) value));
         
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         

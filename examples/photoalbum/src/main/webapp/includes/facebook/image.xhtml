@@ -113,8 +113,8 @@
                         style="border : 3px solid #808080; max-width: 600px; max-height: 600px" url="#{image.getString('url')}">
                     </h:graphicImage></td>
                 <td style="vertical-align: top;"><h:panelGroup layout="block" styleClass="buttons-body"
-                        style="margin : 26px 0px 0px 0px;" rendered="#{image.getString('url') != null}">
-                        <a href="#{image.getString('url')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
+                        style="margin : 26px 0px 0px 0px;" rendered="#{image.getString('fullResUrl') != null}">
+                        <a href="#{image.getString('fullResUrl')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
                     </h:panelGroup></td>
             </tr>
         </table>

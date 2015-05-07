@@ -52,53 +52,24 @@ public class FacebookAlbumCache {
     private Map<String, Map<String, JSONObject>> images = new HashMap<String, Map<String, JSONObject>>();
     // < albumId, < imageId, {image} > >
 
-    private boolean needsUpdate = true;
-
     private String currentAlbumId;
     private String currentImageId;
 
+    private boolean loaded = false;
+    private boolean emptyCache = true;
+
     public void setAll(String json) {
-        try {
-            JSONObject jo = new JSONObject(json);
-            if (!jo.has("albums")) {
-                return;
-            }
-
-            storeAlbums(jo.getJSONArray("albums"), jo.getJSONArray("covers"));
-            storeImagesToAlbum(jo.getJSONArray("images"));
-            setNeedsUpdate(false);
-        } catch (JSONException e) {
-            error.fire(new ErrorEvent("Error: ", e.getMessage()));
-        }
-    }
-
-    public void setAlbums(String json) {
-        try {
-            JSONObject jo = new JSONObject(json);
-            if (!jo.has("albums")) {
-                return;
-            }
-
-            storeAlbums(jo.getJSONArray("albums"), jo.getJSONArray("covers"));
-        } catch (JSONException e) {
-            error.fire(new ErrorEvent("Error: ", e.getMessage()));
-        }
-    }
-
-    public void storeAlbums(JSONArray jAlbums, JSONArray jCovers) {
-        storeAlbums(jAlbums, jCovers, false);
-    }
-
-    public void storeAlbums(JSONArray jAlbums, JSONArray jCovers, boolean rewrite) {
-        String albumId;
-        JSONObject jo;
-        JSONObject jc;
-        int offset = 0;
+        albums = new HashMap<String, JSONObject>();
+        images = new HashMap<String, Map<String, JSONObject>>();
 
         try {
+            JSONArray jAlbums = new JSONArray(json);
+
+            String albumId;
+            JSONObject jo;
+
             for (int i = 0; i < jAlbums.length(); i++) {
                 jo = jAlbums.getJSONObject(i);
-                jc = jCovers.getJSONObject(i - offset);
 
                 if (!jo.has("id")) {
                     error.fire(new ErrorEvent("Error, object does not contain albums"));
@@ -106,47 +77,36 @@ public class FacebookAlbumCache {
 
                 albumId = jo.getString("id");
 
-                if (jc.getString("pid").equals(jo.getString("cpid"))) {
-                    jo.put("coverUrl", jc.getString("coverUrl"));
-                } else { // album without cover -> empty
-                    offset++;
-                    jo.put("coverUrl", "resources/img/shell/frame_photo_120.png");
-                    jo.put("empty", true);
-                }
-
-                if (albums.containsKey(albumId) && !rewrite) {
-                    // the album has already been loaded
-                    return;
-                } else if (rewrite) {
-                    albums.remove(albumId);
-                }
                 images.put(albumId, new HashMap<String, JSONObject>());
+                if (jo.getInt("size") > 0) {
+                    storeImagesToAlbum(albumId, jo.getJSONArray("images"));
+                    jo.remove("images");
+                }
                 albums.put(albumId, jo);
             }
-        } catch (JSONException je) {
-            error.fire(new ErrorEvent("Error", je.getMessage()));
+            loaded = true;
+            emptyCache = jAlbums.length() == 0;
+        } catch (JSONException e) {
+            error.fire(new ErrorEvent("Error: ", e.getMessage()));
         }
     }
 
-    public void storeImagesToAlbum(JSONArray ja) {
-
+    public void storeImagesToAlbum(String albumId, JSONArray ja) {
         String imageId = "";
-        String albumId = "";
         JSONObject jo;
+        Map<String, JSONObject> album = images.get(albumId);
 
         try {
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
 
-                if (!jo.has("albumId") || !jo.has("id")) {
+                if (!jo.has("id")) {
                     error.fire(new ErrorEvent("Error, object does not contain images"));
-
                 }
 
-                albumId = jo.getString("albumId");
                 imageId = jo.getString("id");
 
-                images.get(albumId).put(imageId, jo);
+                album.put(imageId, jo);
             }
         } catch (JSONException je) {
             error.fire(new ErrorEvent("Error", je.getMessage()));
@@ -165,49 +125,8 @@ public class FacebookAlbumCache {
         return new ArrayList<JSONObject>(images.get(albumId).values());
     }
 
-    public List<JSONObject> getAlbums(List<String> albumIds) {
-        if (albumIds == null) {
-            return null;
-        }
-
-        List<JSONObject> list = new ArrayList<JSONObject>();
-
-        for (String id : albumIds) {
-            list.add(albums.get(id));
-        }
-
-        return list;
-    }
-
-    public boolean isAlbumLoaded(String albumId) {
-        return albums.get(albumId) != null && (albums.get(albumId).optBoolean("empty", false) || !images.get(albumId).isEmpty());
-    }
-
-    // takes a list of id's from an event
-    public boolean areAlbumsLoaded(List<String> albumIds) {
-        if (needsUpdate) {
-            return false;
-        }
-
-        if (albumIds != null) {
-            for (String id : albumIds) {
-                if (!isAlbumLoaded(id)) {
-                    setNeedsUpdate(true);
-                    return false;
-                }
-            }
-        }
-
-        setNeedsUpdate(false);
-        return true;
-    }
-
-    public boolean isNeedsUpdate() {
-        return needsUpdate;
-    }
-
-    public void setNeedsUpdate(boolean needsUpdate) {
-        this.needsUpdate = needsUpdate;
+    public List<JSONObject> getAlbums() {
+        return new ArrayList<JSONObject>(albums.values());
     }
 
     public String getCurrentAlbumId() {
@@ -236,5 +155,21 @@ public class FacebookAlbumCache {
 
     public JSONObject getCurrentImage() {
         return images.get(currentAlbumId).get(currentImageId);
+    }
+
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        this.loaded = loaded;
+    }
+
+    public boolean isEmptyCache() {
+        return emptyCache;
+    }
+
+    public void setEmptyCache(boolean emptyCache) {
+        this.emptyCache = emptyCache;
     }
 }
