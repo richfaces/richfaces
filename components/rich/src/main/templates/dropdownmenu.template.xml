@@ -66,7 +66,7 @@
                             wrapper="eventHandler" />
                     </cdk:scriptObject>
 
-                    new RichFaces.ui.Menu(#{toScriptArgs(clientId, options)})<c:if test="#{not empty menuGroups}">.initiateGroups(#{toScriptArgs()})</c:if>;
+                    new RichFaces.ui.Menu(#{toScriptArgs(clientId, options)})<c:if test="#{not empty menuGroups}">.initiateGroups(#{toScriptArgs(menuGroups)})</c:if>;
 
                 </script>
             </c:if>

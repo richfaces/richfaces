@@ -49,7 +49,7 @@
                         <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide onitemclick" wrapper="eventHandler" />
                     </cdk:scriptObject>
 
-                    new RichFaces.ui.ContextMenu(#{toScriptArgs(clientId, options)})<c:if test="#{not empty menuGroups}">.initiateGroups(#{toScriptArgs()})</c:if>;
+                    new RichFaces.ui.ContextMenu(#{toScriptArgs(clientId, options)})<c:if test="#{not empty menuGroups}">.initiateGroups(#{toScriptArgs(menuGroups)})</c:if>;
 
                 </script>
             </c:if>
