@@ -41,6 +41,10 @@
         jQuery.atmosphere.unsubscribe();
     });
 
+    jQuery(window).bind("beforeunload.atmosphere", function () {
+        jQuery.atmosphere.debug(new Date() + " Atmosphere: " + "beforeunload event");
+    });
+
     jQuery(window).bind("offline", function () {
         jQuery.atmosphere.offline = true;
         var requestsClone = [].concat(jQuery.atmosphere.requests);
@@ -81,7 +85,7 @@
     };
 
     jQuery.atmosphere = {
-        version: "2.2.9-jquery",
+        version: "2.2.11-jquery",
         uuid: 0,
         offline: false,
         requests: [],
@@ -1426,7 +1430,7 @@
                     } else if (!webSocketOpened) {
                         _reconnectWithFallbackTransport("Websocket failed. Downgrading to Comet and resending");
 
-                    } else if (_request.reconnect && _response.transport === 'websocket' && message.code !== 1001) {
+                    } else if (_request.reconnect && _response.transport === 'websocket') {
                         _clearState();
                         if (_requestCount++ < _request.maxReconnectOnClose) {
                             _open('re-connecting', _request.transport, _request);

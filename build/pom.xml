@@ -75,7 +75,7 @@
         <version.myfaces>2.2.7</version.myfaces>
 
         <!-- Push Dependencies -->
-        <version.atmosphere>2.2.6</version.atmosphere>
+        <version.atmosphere>2.3.1</version.atmosphere>
 
         <!-- Example Dependency Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>

@@ -35,7 +35,7 @@
 
     "use strict";
 
-    var version = "2.2.9-javascript",
+    var version = "2.2.11-javascript",
         atmosphere = {},
         guid,
         offline = false,
@@ -440,6 +440,7 @@
                     closeR.transport = 'polling';
                     closeR.method = 'GET';
                     closeR.data = '';
+                    closeR.heartbeat = null;
                     if (_request.enableXDR) {
                         closeR.enableXDR = _request.enableXDR
                     }
@@ -1521,7 +1522,7 @@
                     } else if (!webSocketOpened) {
                         _reconnectWithFallbackTransport("Websocket failed. Downgrading to Comet and resending");
 
-                    } else if (_request.reconnect && _response.transport === 'websocket' && message.code !== 1001) {
+                    } else if (_request.reconnect && _response.transport === 'websocket' ) {
                         _clearState();
                         if (_requestCount++ < _request.maxReconnectOnClose) {
                             _open('re-connecting', _request.transport, _request);
@@ -2145,7 +2146,7 @@
                 }
 
                 if (!_request.dropHeaders) {
-                    ajaxRequest.setRequestHeader("X-Atmosphere-Framework", atmosphere.util.version);
+                    ajaxRequest.setRequestHeader("X-Atmosphere-Framework", version);
                     ajaxRequest.setRequestHeader("X-Atmosphere-Transport", request.transport);
 
                     if (request.heartbeat !== null && request.heartbeat.server !== null) {
@@ -3388,6 +3389,10 @@
     atmosphere.util.on(window, "unload", function (event) {
     	atmosphere.util.debug(new Date() + " Atmosphere: " + "unload event");
         atmosphere.unsubscribe();
+    });
+
+    atmosphere.util.on(window, "beforeunload", function (event) {
+        atmosphere.util.debug(new Date() + " Atmosphere: " + "beforeunload event");
     });
 
     // Pressing ESC key in Firefox kills the connection

@@ -77,7 +77,7 @@ public final class PushServlet extends AtmosphereServlet {
             ReflectorServletProcessor r = new ReflectorServletProcessor(this);
             r.setFilterClassName(PushHandlerFilter.class.getName());
 
-            framework.addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
+            framework().addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
         }
     }
 
