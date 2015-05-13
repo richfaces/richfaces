@@ -94,6 +94,10 @@
     
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
+        
+        <!-- JVM values for surefire plugin -->
+        <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
+        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
     </properties>
 
     <prerequisites>
@@ -245,7 +249,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <!-- Travis build workaround -->
-                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                    <argLine>${surefire.jvm.params}</argLine>
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
@@ -404,7 +408,7 @@
                     <version>2.18.1</version>
                     <configuration>
                         <!-- Travis build workaround -->
-                        <argLine>-Xms1024m -Xmx2048m</argLine>
+                        <argLine>${surefire.jvm.params}</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -670,7 +674,7 @@
                                 </goals>
                                 <configuration>
                                     <!-- Travis build workaround -->
-                                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                                    <argLine>${surefire.jvm.params}</argLine>
                                         <!--  there are no unit tests -->
                                     <skip>false</skip>
                                     <excludes>
@@ -686,7 +690,7 @@
                                 </goals>
                                 <configuration>
                                     <!-- Travis build workaround -->
-                                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                                    <argLine>${surefire.jvm.params}</argLine>
                                     <testSourceDirectory>src/test</testSourceDirectory>
                                     <includes>
                                         <include>**/ftest/**/Test*.java</include>

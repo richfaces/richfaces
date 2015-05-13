@@ -151,6 +151,10 @@
         <!-- Showcase -->
         <!-- default classifier -->
         <showcase.war.classifier>tomcat6</showcase.war.classifier>
+        
+        <!-- JVM values for surefire plugin -->
+        <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
+        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
     </properties>
 
     <prerequisites>
@@ -592,7 +596,7 @@
                                 <id>default-test</id>
                                 <configuration>
                                     <!-- Travis build workaround -->
-                                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                                    <argLine>${surefire.jvm.params}</argLine>
                                     <skipTests>${skipTests}</skipTests>
                                     <test>${test}</test>
                                     <excludes>
@@ -608,7 +612,7 @@
                                 </goals>
                                 <configuration>
                                     <!-- Travis build workaround -->
-                                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                                    <argLine>${surefire.jvm.params}</argLine>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
                                     <includes>
@@ -804,7 +808,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <!-- Travis build workaround -->
-                            <argLine>-Xms1024m -Xmx2048m</argLine>
+                            <argLine>${surefire.jvm.params}</argLine>
                             <environmentVariables>
                                 <HTTPS_TESTING>true</HTTPS_TESTING>
                             </environmentVariables>
