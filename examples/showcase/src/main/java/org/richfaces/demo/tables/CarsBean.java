@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.richfaces.component.AbstractDataTable;
 import org.richfaces.demo.common.data.RandomHelper;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorItem;
@@ -37,6 +38,7 @@ public class CarsBean implements Serializable {
     private int currentCarIndex;
     private InventoryItem editedCar;
     private int page = 1;
+    private AbstractDataTable dataTable;
 
     private int clientRows;
 
@@ -211,12 +213,37 @@ public class CarsBean implements Serializable {
         return iiList;
     }
 
+    public AbstractDataTable getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(AbstractDataTable dataTable) {
+        this.dataTable = dataTable;
+    }
+
     public int getCurrentCarIndex() {
         return currentCarIndex;
     }
 
     public void setCurrentCarIndex(int currentCarIndex) {
         this.currentCarIndex = currentCarIndex;
+    }
+
+    public void selectCarByVin(String vin) {
+        for (InventoryItem inventoryItem : allInventoryItems) {
+            if (inventoryItem.getVin().equals(vin)) {
+                editedCar = inventoryItem;
+            }
+        }
+    }
+
+    public void selectCarByRowKey(Object rowKey) {
+        Object originalKey = dataTable.getRowKey();
+        dataTable.setRowKey(rowKey);
+        if (dataTable.isRowAvailable()) {
+            editedCar = (InventoryItem) dataTable.getRowData();
+        }
+        dataTable.setRowKey(originalKey);
     }
 
     public InventoryItem getEditedCar() {

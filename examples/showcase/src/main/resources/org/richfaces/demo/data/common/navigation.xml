@@ -282,7 +282,7 @@
                 <samples>
                     <sample>
                         <id>simpleTable</id>
-                        <name>Basic Data Table</name>
+                        <name>Basic Table</name>
                     </sample>
                     <sample>
                         <id>tableStyling</id>
@@ -314,6 +314,10 @@
                     <sample>
                         <id>arrangeableModel</id>
                         <name>Arrangeable</name>
+                    </sample>
+                    <sample>
+                        <id>selection</id>
+                        <name>Selection</name>
                     </sample>
                 </samples>
             </demo>
