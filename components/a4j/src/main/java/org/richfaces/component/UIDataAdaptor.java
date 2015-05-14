@@ -1044,7 +1044,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    private boolean matchesBaseId(String clientId, String baseId, char separatorChar) {
+    protected boolean matchesBaseId(String clientId, String baseId, char separatorChar) {
         if (clientId.equals(baseId)) {
             return true;
         }
