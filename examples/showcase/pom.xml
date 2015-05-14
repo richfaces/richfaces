@@ -112,6 +112,10 @@
         
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+        
+        <!-- JVM values for surefire plugin -->
+        <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
+        <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
     </properties>
 
     <prerequisites>
@@ -309,7 +313,7 @@
                         <id>default-test</id>
                         <configuration>
                             <!-- Travis build workaround -->
-                            <argLine>-Xms1024m -Xmx2048m</argLine>
+                            <argLine>${surefire.jvm.params}</argLine>
                             <!--  there are no unit tests -->
                             <skipTests>true</skipTests>
                         </configuration>
@@ -317,7 +321,7 @@
                 </executions>
                 <configuration>
                     <!-- Travis build workaround -->
-                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                    <argLine>${surefire.jvm.params}</argLine>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                         <container.classifier>${showcase.war.classifier}</container.classifier>
@@ -337,7 +341,7 @@
                     <version>2.18.1</version>
                     <configuration>
                         <!-- Travis build workaround -->
-                        <argLine>-Xms1024m -Xmx2048m</argLine>
+                        <argLine>${surefire.jvm.params}</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -962,7 +966,7 @@
                                 <id>default-test</id>
                                 <configuration>
                                     <!-- Travis build workaround -->
-                                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                                    <argLine>${surefire.jvm.params}</argLine>
                                     <!--  there are no unit tests -->
                                     <skipTests>true</skipTests>
                                     <test>${test}</test>
@@ -979,7 +983,7 @@
                                 </goals>
                                 <configuration>
                                     <!-- Travis build workaround -->
-                                    <argLine>-Xms1024m -Xmx2048m</argLine>
+                                    <argLine>${surefire.jvm.params}</argLine>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
                                     <includes>
@@ -1194,7 +1198,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <!-- Travis build workaround -->
-                            <argLine>-Xms1024m -Xmx2048m</argLine>
+                            <argLine>${surefire.jvm.params}</argLine>
                             <environmentVariables>
                                 <HTTPS_TESTING>true</HTTPS_TESTING>
                             </environmentVariables>
