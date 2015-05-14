@@ -37,5 +37,7 @@ public class ContextMenuShowcase {
         guardAjax(contextMenu).selectItem(6);
 
         contextMenu.selectItem(ChoicePickerHelper.byVisibleText().startsWith("Clo"));
+
+        contextMenu.expandGroup("sub menu").expandGroup("sub sub menu").selectItem("sub sub menu item");
     }
 }

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.By;
@@ -56,6 +57,13 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
     private WebElement root;
 
     /**
+     * Creates a page fragment for menu group.
+     */
+    protected AbstractPopupMenu createSubMenuFragment(WebElement itemElement) {
+        return Graphene.createPageFragment(getClass(), itemElement);
+    }
+
+    /**
      * Returns the name of the actual page fragment.
      *
      * @return
@@ -68,7 +76,6 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
         return root;
     }
 
-
     /* ************************************************************************************************
      * API
      */
@@ -76,8 +83,55 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
     public abstract AdvancedPopupMenuInteractions advanced();
 
     @Override
+    public PopupMenuGroup expandGroup(ChoicePicker picker, WebElement target) {
+        advanced().setTarget(target);
+        return expandGroup(picker);
+    }
+
+    @Override
+    public PopupMenuGroup expandGroup(String header, WebElement target) {
+        return expandGroup(ChoicePickerHelper.byVisibleText().match(header), target);
+    }
+
+    @Override
+    public PopupMenuGroup expandGroup(int index, WebElement target) {
+        return expandGroup(ChoicePickerHelper.byIndex().index(index), target);
+    }
+
+    @Override
+    public PopupMenuGroup expandGroup(ChoicePicker picker) {
+        if (!advanced().isVisible()) {
+            advanced().show();
+        }
+        WebElement item = picker.pick(advanced().getMenuItemElements());
+        if (item == null) {
+            throw new IllegalArgumentException("There is no such group to be expanded, which satisfied the given rules!");
+        }
+        // open the sub menu
+        new Actions(browser).moveToElement(item).perform();
+        // create fragment and wait until it is visible
+        AbstractPopupMenu expandedGroup = createSubMenuFragment(item);
+        expandedGroup.advanced().waitUntilIsVisible().withMessage("The menu group did not show in given timeout!").perform();
+        // set target to sub menu root
+        expandedGroup.advanced().setTarget(item);
+        return expandedGroup;
+    }
+
+    @Override
+    public PopupMenuGroup expandGroup(String header) {
+        return expandGroup(ChoicePickerHelper.byVisibleText().match(header));
+    }
+
+    @Override
+    public PopupMenuGroup expandGroup(int index) {
+        return expandGroup(ChoicePickerHelper.byIndex().index(index));
+    }
+
+    @Override
     public void selectItem(ChoicePicker picker) {
-        advanced().show();
+        if (!advanced().isVisible()) {
+            advanced().show();
+        }
         WebElement item = picker.pick(advanced().getMenuItemElements());
         if (item == null) {
             throw new IllegalArgumentException("There is no such option to be selected, which satisfied the given rules!");
@@ -103,14 +157,12 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
 
     @Override
     public void selectItem(String header, WebElement target) {
-        advanced().setTarget(target);
-        selectItem(header);
+        selectItem(ChoicePickerHelper.byVisibleText().match(header), target);
     }
 
     @Override
     public void selectItem(int index, WebElement target) {
-        advanced().setTarget(target);
-        selectItem(index);
+        selectItem(ChoicePickerHelper.byIndex().index(index), target);
     }
 
     /* ****************************************************************************************************
@@ -343,7 +395,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
 
         @Override
         public boolean isVisible() {
-            return Utils.isVisible(getRootElement());
+            return Utils.isVisible(getMenuPopup());
         }
     }
 }
