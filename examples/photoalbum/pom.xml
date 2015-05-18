@@ -98,6 +98,11 @@
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
         <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
+        
+        <!-- G+ login credentials, default is undefined -->
+        <!-- if not provided, any tests requiring G+ login will fail -->
+        <googlePlus.username>undefined</googlePlus.username>
+        <googlePlus.password>undefined</googlePlus.password>
     </properties>
 
     <prerequisites>
@@ -701,6 +706,8 @@
                                     <excludedGroups>${testCategory.excluded.default}</excludedGroups>
                                     <systemPropertyVariables>
                                         <arquillian.debug>${arquillian.debug}</arquillian.debug>
+                                        <googlePlus.username>${googlePlus.username}</googlePlus.username>
+                                        <googlePlus.password>${googlePlus.password}</googlePlus.password>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>

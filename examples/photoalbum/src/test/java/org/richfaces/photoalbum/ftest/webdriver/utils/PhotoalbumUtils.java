@@ -33,6 +33,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.photoalbum.ftest.webdriver.pages.GPlusLoginPage;
 import org.richfaces.photoalbum.ftest.webdriver.pages.SocialLoginPage;
 
 import com.google.common.base.Predicate;
@@ -53,7 +54,7 @@ public final class PhotoalbumUtils {
     public static void checkNotVisible(List<WebElement> list) {
         int i = 0;
         for (WebElement webElement : list) {
-            assertFalse( i + "(nth) element should not be visible", Utils.isVisible(webElement));
+            assertFalse(i + "(nth) element should not be visible", Utils.isVisible(webElement));
             i++;
         }
     }
@@ -117,6 +118,10 @@ public final class PhotoalbumUtils {
     }
 
     public static void loginWithSocial(Class<? extends SocialLoginPage> pageClass, final WebDriver browser, WebElement loginLink) {
+        // in case this incovation targets G+ login, check if G+ credentials were provided; if not then throw IllegalArgumentException
+        if (GPlusLoginPage.class.equals(pageClass) && (System.getProperty("googlePlus.username").equals("undefined") || System.getProperty("googlePlus.password").equals("undefined"))) {
+            throw new IllegalArgumentException("G+ login was invoked but no login parameters were provided. Please specify them via -DgooglePlus.username and -DgooglePlus.password!");
+        }
         String originalWindow = browser.getWindowHandle();
         Graphene.guardAjax(loginLink).click();
         Graphene.waitModel().until(new Predicate<WebDriver>() {
@@ -135,8 +140,14 @@ public final class PhotoalbumUtils {
         try {
             WebDriver window = browser.switchTo().window(windowHandles.iterator().next());
             Graphene.waitModel().until().element(By.tagName("body")).is().visible();
-            Graphene.createPageFragment(pageClass, window.findElement(By.tagName("body")))
-                .login("rf.photoalbum@gmail.com", "rf.photoalbumrf.photoalbum");
+            SocialLoginPage loginPage = Graphene.createPageFragment(pageClass, window.findElement(By.tagName("body")));
+            if (GPlusLoginPage.class.equals(pageClass)) {
+                //G+ credential are extracted from system property
+                loginPage.login(System.getProperty("googlePlus.username"), System.getProperty("googlePlus.password"));
+            } else {
+                //FCB test account credentials are hardcoded and usable by anyone, should not result in acc being locked
+                loginPage.login("vocfryc_wongwitz_1429527192@tfbnw.net", "12345");
+            }
         } finally {
             browser.switchTo().window(originalWindow);
             PhotoalbumUtils.waitFor(5000);// FIXME: replace with some wait condition

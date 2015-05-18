@@ -58,6 +58,13 @@ the password is _12345_ in all cases.
 
 The Photoalbum allows you to connect to your Facebook and Google+ accounts and browse and share your photos. 
 Due to limitations put on the apps you need to be running the application on the default `localhost:8080` in order to log in successfully.
+As for Facebook integration, we are using Graph API(version > 2) and there is a test user profile with following credentials:
+E-mail address -> vocfryc_wongwitz_1429527192@tfbnw.net 
+Password -> 12345
+
+n order to successfully run integration tests which include Google+ login, you need to provide your own credentials. This can be
+achieved by adding following parameters when executing maven: -DgooglePlus.username=yourName -DgooglePlus.password=yourPswd
+If not provided, these tests will end up with IllegalArgumentException.
 
 ## Known issues
 ### Database error during deployment

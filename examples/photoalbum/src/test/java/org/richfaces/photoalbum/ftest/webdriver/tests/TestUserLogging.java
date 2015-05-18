@@ -29,7 +29,6 @@ import org.junit.experimental.categories.Category;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.LoginPanel;
 
-import category.Failing;
 import category.FailingOnPhantomJS;
 import category.Smoke;
 
@@ -62,18 +61,16 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
     }
 
     @Test
-    // currently failing everywhere due to RF-14025
-    @Category({ FailingOnPhantomJS.class, Failing.class })
+    @Category({ FailingOnPhantomJS.class })
     public void testLogInAndOutWithFB() {
         page.openLoginPanel().loginWithFB();
-        page.checkUserLogged("rich.faces.3", false, true, false);
+        page.checkUserLogged("Tom", false, true, false);
         page.logout();
         page.checkNotLogged();
     }
 
     @Test
-    // currently failing everywhere due to RF-14025
-    @Category({ FailingOnPhantomJS.class, Failing.class })
+    @Category({ FailingOnPhantomJS.class })
     public void testLogInAndOutWithGPlus() {
         page.openLoginPanel().loginWithGPlus();
         page.checkUserLogged("Rich", false, false, true);
