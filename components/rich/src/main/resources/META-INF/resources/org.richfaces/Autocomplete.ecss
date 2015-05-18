@@ -26,6 +26,7 @@ input.rf-au-inp {
     background-position: top left;
     background-color: '#{a4jSkin.controlBackgroundColor}';
     font-size: 1px;
+    vertical-align: middle;
 }
 
 .rf-au-fld-btn {
