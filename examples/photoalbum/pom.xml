@@ -58,7 +58,7 @@
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <version.wildfly80>8.0.0.Final</version.wildfly80>
+        <version.wildfly90>9.0.0.CR1</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.0.Final</version.wildfly82>
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
@@ -242,7 +242,7 @@
 
         <testResources>
             <testResource>
-                <directory>${project.basedir}/src/test/resources</directory>
+                <directory>${project.basedir}/src/test/arquillian-settings</directory>
                 <filtering>true</filtering>
             </testResource>
         </testResources>
@@ -577,6 +577,7 @@
                 <arquillian.maven.settings />
                 
                 <!-- Container Selection -->
+                <arquillian.launch.wildfly90>false</arquillian.launch.wildfly90>
                 <arquillian.launch.wildfly81>false</arquillian.launch.wildfly81>
                 <arquillian.launch.wildfly82>false</arquillian.launch.wildfly82>
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
@@ -741,7 +742,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                     <includes>arquillian.xml</includes>
-                                    <outputDirectory>src/test/resources</outputDirectory>
+                                    <outputDirectory>src/test/arquillian-settings</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
@@ -799,6 +800,27 @@
 
         <!-- Containers -->
         <profile>
+            <id>wildfly-managed-9-0</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly90</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>wildfly-managed-8-1</id>
             <activation>
                 <property>
@@ -838,6 +860,22 @@
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
                     <version>${version.wildfly82}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-remote-9-0</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly90-remote</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

@@ -121,7 +121,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Container Versions -->
-        <version.wildfly80>8.0.0.Final</version.wildfly80>
+        <version.wildfly90>9.0.0.CR1</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.0.Final</version.wildfly82>
         <version.tomee17>1.7.1</version.tomee17>
@@ -693,17 +693,17 @@
 
         <!-- Containers -->
         <profile>
-            <id>wildfly-managed-8-0</id>
+            <id>wildfly-managed-9-0</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly80</value>
+                    <value>wildfly90</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly80}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly80}</arquillian.container.distribution>
+                <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
                 <showcase.war.classifier>jbas71</showcase.war.classifier>
             </properties>
             <dependencies>
@@ -715,11 +715,11 @@
             </dependencies>
         </profile>
         <profile>
-            <id>wildfly-remote-8-0</id>
+            <id>wildfly-remote-9-0</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly80-remote</value>
+                    <value>wildfly90-remote</value>
                 </property>
             </activation>
             <properties>
