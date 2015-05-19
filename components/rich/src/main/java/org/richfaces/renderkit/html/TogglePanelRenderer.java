@@ -68,6 +68,8 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     protected static final String ITEM_CHANGE = "itemchange";
     protected static final String BEFORE_ITEM_CHANGE = "beforeitemchange";
     private static final String ON = "on";
+        // execute event handler only on the proper target, RF-12054
+    private static final String EVENT_TARGET_CHECKER = "if (event.target != event.currentTarget) {return;}";
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -162,7 +164,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
 
         String handler = handlersChain.toScript();
         if (handler != null) {
-            options.put(ON + eventName, new JSFunctionDefinition(JSReference.EVENT).addToBody(handler));
+            options.put(ON + eventName, new JSFunctionDefinition(JSReference.EVENT).addToBody(EVENT_TARGET_CHECKER).addToBody(handler));
         }
     }
 
