@@ -361,7 +361,7 @@
                 var item;
                 for (var i = 0; i < this.items.length; i++) {
                     item = this.items[i];
-                    if (!item.disabled && item.getName() === itemName) {
+                    if (!item.disabled && item.getName() == itemName) {
                         return i;
                     }
                 }
