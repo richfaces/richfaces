@@ -31,7 +31,6 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.PostConstructResource;
-import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -40,24 +39,24 @@ import org.richfaces.skin.SkinFactory;
  * @author Alex.Kolonitsky
  */
 public abstract class PanelIconBasic extends AbstractJava2DUserResource implements StateHolderResource {
-    private static final Dimension DIMENSION = new Dimension(16, 16);
-    private Color color;
-    @ResourceParameter(defaultValue = "false")
-    private boolean disabled;
+    private static final Dimension DIMENSION = new Dimension(16, 48);
+    private Color textColor;
+    private Color headerColor;
+    private Color disabledColor;
 
     protected PanelIconBasic() {
         super(DIMENSION);
     }
 
     public void paint(Graphics2D graphics2D) {
-        if (color == null || graphics2D == null) {
+        if (textColor == null || headerColor == null || disabledColor == null || graphics2D == null) {
             return;
         }
 
-        paintImage(graphics2D, color);
+        paintImage(graphics2D, textColor, headerColor, disabledColor);
     }
 
-    protected abstract void paintImage(Graphics2D g2d, Color color);
+    protected abstract void paintImage(Graphics2D g2d, Color color1, Color color2, Color color3);
 
     public boolean isTransient() {
         return false;
@@ -68,22 +67,29 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
-        Integer colorParameter = skin.getColorParameter(context, disabled ? "tabDisabledTextColor" : "generalTextColor");
-        if (colorParameter == null) {
-            colorParameter = defaultSkin.getColorParameter(context, disabled ? "tabDisabledTextColor" : "generalTextColor");
-        }
-        color = new Color(colorParameter);
-    }
 
-    public void setDisabled(boolean topIcon) {
-        this.disabled = topIcon;
+        textColor = getColor(context, skin, defaultSkin, "generalTextColor");
+        headerColor = getColor(context, skin, defaultSkin, "headerTextColor");
+        disabledColor = getColor(context, skin, defaultSkin, "tabDisabledTextColor");
     }
 
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        dataOutput.writeInt(color.getRGB());
+        dataOutput.writeInt(textColor.getRGB());
+        dataOutput.writeInt(headerColor.getRGB());
+        dataOutput.writeInt(disabledColor.getRGB());
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        color = new Color(dataInput.readInt());
+        textColor = new Color(dataInput.readInt());
+        headerColor = new Color(dataInput.readInt());
+        disabledColor = new Color(dataInput.readInt());
+    }
+
+    private Color getColor(FacesContext context, Skin skin, Skin defaultSkin, String colorString) {
+        Integer colorParameter = skin.getColorParameter(context, colorString);
+        if (colorParameter == null) {
+            colorParameter = defaultSkin.getColorParameter(context, colorString);
+        }
+        return new Color(colorParameter);
     }
 }

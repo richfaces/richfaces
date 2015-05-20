@@ -5,8 +5,8 @@
             <tbody>
                 <tr>
                     <td class="rf-cp-ico">
-                        <div class="rf-cp-ico-colps rf-ico-chevron-up-hdr"></div>
-                        <div class="rf-cp-ico-exp rf-ico-chevron-down-hdr"></div>
+                        <div class="rf-cp-ico-colps rf-ico-chevron-up rf-ico-t-hdr"></div>
+                        <div class="rf-cp-ico-exp rf-ico-chevron-down rf-ico-t-hdr"></div>
                     </td>
                     <td class="rf-cp-lbl">
                         <div class="rf-cp-lbl-exp"></div>

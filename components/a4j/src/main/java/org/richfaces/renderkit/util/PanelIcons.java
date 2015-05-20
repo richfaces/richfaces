@@ -53,9 +53,9 @@ public enum PanelIcons {
     private PanelIcons(String baseClass) {
         this.cssClass = baseClass;
 
-        this.headerClass = baseClass + "-hdr";
-        this.disabledCssClass = baseClass + "-dis";
-        this.disabledHeaderClass = baseClass + "-hdr-dis";
+        this.headerClass = baseClass + " rf-ico-t-hdr";
+        this.disabledCssClass = cssClass + " rf-ico-t-dis";
+        this.disabledHeaderClass = headerClass + " rf-ico-t-dis";
     }
 
     private String cssClass() {

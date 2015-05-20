@@ -30,13 +30,23 @@ import org.richfaces.resource.DynamicUserResource;
 @DynamicUserResource
 public class PanelIconDisc extends PanelIconBasic {
     @Override
-    protected void paintImage(Graphics2D g2d, Color color) {
+    protected void paintImage(Graphics2D g2d, Color color1, Color color2, Color color3) {
 
         Dimension dimension = getDimension();
         long dim = Math.round(dimension.getWidth() / 3);
 
-        g2d.setColor(color);
+        g2d.setColor(color1);
         g2d.translate(dim, dim);
+
+        g2d.fill(new Ellipse2D.Double(0, 0, dim, dim));
+
+        g2d.setColor(color2);
+        g2d.translate(0, 16);
+
+        g2d.fill(new Ellipse2D.Double(0, 0, dim, dim));
+
+        g2d.setColor(color3);
+        g2d.translate(0, 16);
 
         g2d.fill(new Ellipse2D.Double(0, 0, dim, dim));
     }

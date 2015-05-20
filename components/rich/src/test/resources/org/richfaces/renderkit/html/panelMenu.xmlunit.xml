@@ -7,16 +7,16 @@
                 <tbody>
                     <tr>
                         <td class="rf-pm-top-gr-ico">
-                            <div class="rf-pm-ico-colps rf-ico-transparent-hdr">
+                            <div class="rf-pm-ico-colps rf-ico-transparent rf-ico-t-hdr">
                             </div>
-                            <div class="rf-pm-ico-exp rf-ico-transparent-hdr">
+                            <div class="rf-pm-ico-exp rf-ico-transparent rf-ico-t-hdr">
                             </div>
                         </td>
                         <td class="rf-pm-top-gr-lbl" />
                         <td class="rf-pm-top-gr-exp-ico">
-                            <div class="rf-pm-ico-colps rf-ico-transparent-hdr">
+                            <div class="rf-pm-ico-colps rf-ico-transparent rf-ico-t-hdr">
                             </div>
-                            <div class="rf-pm-ico-exp rf-ico-transparent-hdr">
+                            <div class="rf-pm-ico-exp rf-ico-transparent rf-ico-t-hdr">
                             </div>
                         </td>
                     </tr>
@@ -43,13 +43,13 @@
                 <table class="rf-pm-itm-gr">
                     <tbody>
                         <tr>
-                            <td class="rf-pm-itm-ico rf-ico-transparent-dis" />
+                            <td class="rf-pm-itm-ico rf-ico-transparent rf-ico-t-dis" />
                             <td class="rf-pm-itm-lbl">
 
                                 My Disabled Item
 
                             </td>
-                            <td class="rf-pm-itm-exp-ico rf-ico-transparent-dis" />
+                            <td class="rf-pm-itm-exp-ico rf-ico-transparent rf-ico-t-dis" />
                         </tr>
                     </tbody>
                 </table>

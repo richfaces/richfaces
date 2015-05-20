@@ -34,12 +34,13 @@ import java.awt.image.BufferedImage;
  * @author Alex.Kolonitsky
  */
 public abstract class PanelIconChevronBasic extends PanelIconBasic {
-    private static final int BUFFER_IMAGE_SIZE = 128;
+    private static final int BUFFER_IMAGE_SIZE_WIDTH = 128;
+    private static final int BUFFER_IMAGE_SIZE_HEIGHT = 384;
 
     @Override
-    protected void paintImage(Graphics2D graphics2d, Color color) {
+    protected void paintImage(Graphics2D graphics2d, Color color1, Color color2, Color color3) {
 
-        BufferedImage bufferedImage = new BufferedImage(BUFFER_IMAGE_SIZE, BUFFER_IMAGE_SIZE, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bufferedImage = new BufferedImage(BUFFER_IMAGE_SIZE_WIDTH, BUFFER_IMAGE_SIZE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = bufferedImage.createGraphics();
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
@@ -53,7 +54,7 @@ public abstract class PanelIconChevronBasic extends PanelIconBasic {
         Dimension dimension = getDimension();
         g2d.setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
         g2d.translate(28, 28);
-        g2d.setColor(color);
+        g2d.setColor(color1);
 
         GeneralPath path = new GeneralPath();
         draw(path);
@@ -66,8 +67,36 @@ public abstract class PanelIconChevronBasic extends PanelIconBasic {
         }
         g2d.fill(path);
 
-        AffineTransform transform = AffineTransform.getScaleInstance(dimension.getHeight() / BUFFER_IMAGE_SIZE,
-            dimension.getHeight() / BUFFER_IMAGE_SIZE);
+        g2d.setColor(color2);
+        g2d.translate(0, 104);
+        if (this instanceof PanelIconChevron || this instanceof PanelIconChevronLeft) {
+            g2d.translate(-24, 24);
+        }
+
+        g2d.fill(path);
+        if (this instanceof PanelIconChevron || this instanceof PanelIconChevronLeft) {
+            g2d.translate(24, 0);
+        } else {
+            g2d.translate(0, 24);
+        }
+        g2d.fill(path);
+
+        g2d.setColor(color3);
+        g2d.translate(0, 104);
+        if (this instanceof PanelIconChevron || this instanceof PanelIconChevronLeft) {
+            g2d.translate(-24, 24);
+        }
+
+        g2d.fill(path);
+        if (this instanceof PanelIconChevron || this instanceof PanelIconChevronLeft) {
+            g2d.translate(24, 0);
+        } else {
+            g2d.translate(0, 24);
+        }
+        g2d.fill(path);
+
+        AffineTransform transform = AffineTransform.getScaleInstance(dimension.getWidth() / BUFFER_IMAGE_SIZE_WIDTH,
+            dimension.getHeight() / BUFFER_IMAGE_SIZE_HEIGHT);
         AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 
         graphics2d.drawImage(bufferedImage, transformOp, 0, 0);
