@@ -85,8 +85,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 </div>
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption
-                        attributes="acceptedTypes maxFilesQuantity immediateUpload onfileselect noDuplicate onfilesubmit ontyperejected onuploadcomplete doneLabel
-						sizeExceededLabel stoppedLabel serverErrorLabel clearLabel deleteLabel onclear status" />
+                        attributes="acceptedTypes maxFilesQuantity maxFileSize immediateUpload onfileselect noDuplicate onfilesubmit ontyperejected onuploadcomplete doneLabel
+                        onsizerejected sizeExceededLabel stoppedLabel serverErrorLabel clearLabel deleteLabel onclear status" />
                 </cdk:scriptObject>
                 <script type="text/javascript">new RichFaces.ui.FileUpload(#{toScriptArgs(clientId, options)});</script>
             </c:if>

@@ -64,6 +64,9 @@
         if (this.ontyperejected) {
             rf.Event.bind(this.element, "ontyperejected", new Function("event", this.ontyperejected));
         }
+        if (this.onsizerejected) {
+            rf.Event.bind(this.element, "onsizerejected", new Function("event", this.onsizerejected));
+        }
         if (this.onuploadcomplete) {
             rf.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
         }
@@ -169,6 +172,10 @@
             },
 
             __tryAddItem: function(context, file) {
+                if (this.maxFileSize && file.size > this.maxFileSize) {
+                    rf.Event.fire(this.element, "onsizerejected", file);
+                    return;
+                }
                 try {
                     if (this.__addItem(file)) {
                         context.acceptedFileNames.push(file.name);
