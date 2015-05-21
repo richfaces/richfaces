@@ -130,7 +130,7 @@ public class FileUploadRendererBase extends RendererBase {
                 if (uid != null) {
                     long contentLength = Long.parseLong(httpRequest.getHeader("Content-Length"));
 
-                    long maxRequestSize = getMaxRequestSize(httpRequest.getServletContext());
+                    long maxRequestSize = fileUpload.getMaxFileSize() != 0 ? fileUpload.getMaxFileSize() : getMaxRequestSize(httpRequest.getServletContext());
 
                     if (maxRequestSize != 0 && contentLength > maxRequestSize) {
                         externalContext.setResponseStatus(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE);
