@@ -54,6 +54,7 @@ public final class HtmlColor {
         colorNames.put("teal", new Color(0x008080));
         colorNames.put("fuchsia", new Color(0xFF00FF));
         colorNames.put("aqua", new Color(0x00FFFF));
+        colorNames.put("transparent", new Color(0xFF, 0xFF, 0xFF, 0x00));
     }
 
     private HtmlColor() {
