@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.el.ValueExpression;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -39,7 +40,6 @@ import javax.faces.model.ResultSetDataModel;
 import javax.faces.model.ScalarDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
-import org.richfaces.model.CollectionDataModel;
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -47,6 +47,7 @@ import org.ajax4jsf.model.SequenceDataModel;
 import org.ajax4jsf.model.SequenceRange;
 import org.ajax4jsf.model.SequenceState;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.model.CollectionDataModel;
 
 /**
  * @author Nick Belaevski
@@ -291,7 +292,31 @@ public class UISequence extends UIDataAdaptor {
         updateState();
     }
 
-    public int getRelativeRowIndex() {
+    /**
+     * Translates the relative row ID back to the original one containing a row key and invokes the callback on the affected
+     * row.
+     */
+    @Override
+    public boolean invokeOnRow(FacesContext facesContext, String clientId, ContextCallback callback) {
+        if ((null == facesContext) || (null == clientId) || (null == callback)) {
+            throw new NullPointerException();
+        }
+        char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+        String baseId = getClientId(facesContext);
+
+        if (!matchesBaseId(clientId, baseId, separatorChar)) {
+            return false;
+        }
+
+        String rowId = clientId.substring(baseId.length() + 1);
+        if (rowId.indexOf(separatorChar) >= 0) {
+            return false;
+        }
+        StringBuilder rowKeyId = new StringBuilder(baseId).append(separatorChar).append(toRowKey(rowId));
+        return super.invokeOnRow(facesContext, rowKeyId.toString(), callback);
+    }
+
+    private int getRelativeRowIndex() {
         int rowIndex = getRowIndex();
         int rows = getRows();
 
@@ -303,7 +328,7 @@ public class UISequence extends UIDataAdaptor {
     }
 
     public String getRelativeClientId(FacesContext facesContext) {
-
+        char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
         // save current rowKey
         Object savedRowKey = getRowKey();
 
@@ -315,9 +340,35 @@ public class UISequence extends UIDataAdaptor {
         // restore rowKey
         setRowKey(savedRowKey);
 
-        String result = baseId.append(UINamingContainer.getSeparatorChar(facesContext)).append(getRelativeRowIndex())
-                .toString();
+        return baseId.append(separatorChar).append(getRelativeRowIndex()).toString();
+    }
 
+    /**
+     * Converts the specified potential relative row ID to corresponding row key.
+     */
+    private Object toRowKey(String relativeRowId) {
+        Object result = relativeRowId;// fall through: original ID
+        int savedRowIndex = getRowIndex();
+        int absoluteIndex = getAbsoluteRowIndex(relativeRowId);
+        ExtendedDataModel<?> dataModel = getExtendedDataModel();
+        if (absoluteIndex >= 0 && absoluteIndex < dataModel.getRowCount()) {
+            dataModel.setRowIndex(absoluteIndex);
+            result = dataModel.getRowKey();
+            dataModel.setRowIndex(savedRowIndex);
+        }
         return result;
+    }
+
+    /**
+     * Converts the potential relative row index back to the absolute one.
+     */
+    private int getAbsoluteRowIndex(String rowIndex) {
+        try {
+            int relativeIndex = Integer.parseInt(rowIndex);
+            int firstRow = getActualFirst();
+            return firstRow + relativeIndex;
+        } catch (Exception ignore) {
+            return -1;
+        }
     }
 }
