@@ -40,7 +40,7 @@
 .rf-pm-itm-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -55,7 +55,7 @@
 .rf-pm-itm-exp-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -97,7 +97,7 @@
 .rf-pm-gr-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -113,7 +113,7 @@
 .rf-pm-gr-exp-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -136,7 +136,7 @@
 .rf-pm-top-itm-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -152,7 +152,7 @@
 .rf-pm-top-itm-exp-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -226,7 +226,7 @@
 .rf-pm-top-gr-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
@@ -242,7 +242,7 @@
 .rf-pm-top-gr-exp-ico {
     width: 16px;
     height: 16px;
-    background-position: right;
+    background-position-x: center;
     background-repeat: no-repeat;
     margin: 0px 3px;
 }
