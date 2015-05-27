@@ -1,3 +1,32 @@
+4.5.6.Final
+-----------
+
+    Bug
+    [RF-11091] - Autocomplete component is wrongly aligned
+    [RF-11606] - rich:select : doesn't cast selectItem value
+    [RF-12054] - TabPanel onitemchange of outer tab fired by inner tab
+    [RF-12362] - skin color parameters do not support "transparent"
+    [RF-14025] - Photoalbum login via social sites
+    [RF-14035] - Showcase context menu: JS error in console
+    [RF-14039] - Collapsible Panel Icon Regression
+    [RF-14043] - rich:tabPanel does not switch if rich:tab has number value name
+    [RF-14044] - push: error in browser console after push enabled/disabled
+
+    Component Upgrade
+    [RF-14038] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-14023] - rich:contextMenu - on ajax re-render the destroy function doesn`t clean up properly
+    [RF-14034] - PageFragments: Implement workaround for contextClick on PhantomJS
+
+    Feature Request
+    [RF-6524] - maxRequestSize for richfile upload should be made configurable per component and not globally.
+    [RF-12395] - fileUpload validations must be done on client
+
+    Task
+    [RF-13882] - Showcase-test failed on phantomJS
+    [RF-14042] - Create Arquillian profile for WildFly 9
+
 4.5.5.Final
 -----------
 
