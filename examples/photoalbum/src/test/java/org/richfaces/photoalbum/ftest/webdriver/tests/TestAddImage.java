@@ -65,7 +65,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
         // select album to add the pictures
         addImagesView.getSelect().openSelect().select("Nature");
 
-        // upload the picture
+        // upload good picture
         RichFacesFileUpload fileUpload = addImagesView.getFileUpload();
         fileUpload.addFile(getFileFromFileName(GOOD_IMAGE_TO_UPLOAD));
         Graphene.guardAjax(fileUpload).upload();
@@ -81,27 +81,16 @@ public class TestAddImage extends AbstractPhotoalbumTest {
         assertTrue(uploadedFilesPanel.uploadedImagesLabelIsVisible());
         assertEquals(1, uploadedFilesPanel.getUploadedPhotos().size());
         uploadedFilesPanel.getUploadedPhotos().get(0).checkAll(200, GOOD_IMAGE_TO_UPLOAD, String.valueOf(getFileFromFileName(GOOD_IMAGE_TO_UPLOAD).length() * 1.0));
-        logout();
-    }
 
-    @Test
-    public void testAddInvalidImage_messageWillShow() {
-        login();
-
-        // open view
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddImagesLink()).click();
-        AddImagesView addImagesView = getView(AddImagesView.class);
-
-        // select album to add the pictures
-        addImagesView.getSelect().openSelect().select("Nature");
-
-        // upload the picture
-        RichFacesFileUpload fileUpload = addImagesView.getFileUpload();
+        // upload bad picture
+        fileUpload.clearAll();
         fileUpload.addFile(getFileFromFileName(BAD_IMAGE_TO_UPLOAD));
 
         RichFacesNotifyMessage message = page.getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
         assertEquals("Error", message.getSummary());
         assertEquals("Invalid file type. Only JPG is allowed.", message.getDetail());
+
+        logout();
     }
 }

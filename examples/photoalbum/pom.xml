@@ -242,7 +242,7 @@
 
         <testResources>
             <testResource>
-                <directory>${project.basedir}/src/test/arquillian-settings</directory>
+                <directory>${project.basedir}/src/test/resources</directory>
                 <filtering>true</filtering>
             </testResource>
         </testResources>
@@ -742,7 +742,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                     <includes>arquillian.xml</includes>
-                                    <outputDirectory>src/test/arquillian-settings</outputDirectory>
+                                    <outputDirectory>src/test/resources</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
