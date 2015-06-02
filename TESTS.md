@@ -5,8 +5,9 @@ Framework tests allow you to run a set of Arquillian-based tests using the Graph
 
 The supported container matrix is:
 
-* WildFly 8.0
 * WildFly 8.1
+* WildFly 8.2
+* WildFly 9.0
 * JBoss EAP 6.2
 * JBoss EAP 6.3
 * TomEE 1.7
@@ -29,19 +30,19 @@ TL;DR
 
 Running a full build including smoke tests:
 
-    mvn install -Dintegration=wildfly80 -Dsmoke
+    mvn install -Dintegration=wildfly82 -Dsmoke
 
 Running particular framework test (on Chrome) from console:
 
-    // console 1: start WildFly 8.1 
-    ./wildfly-8.1.0.Final/bin/standalone.sh
+    // console 1: start WildFly 8.2 
+    ./wildfly-8.2.0.Final/bin/standalone.sh
 
     // console 2: start Selenium Server
     java -jar selenium-server-standalone-${VERSION}.jar -Dwebdriver.chrome.driver=/opt/google/chrome/chromedriver
     
     // console 3: run a test
     cd richfaces/core/
-    mvn verify -Dintegration=wildfly81-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
+    mvn verify -Dintegration=wildfly82-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
 You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
 
@@ -243,19 +244,23 @@ There is a possibility to take screenshots during executing tests. Its done via 
 
 To take screenshots one has to run the build with `take-screenshots` profile.
 
-    mvn verify -Dintegration=wildfly81 -Ptake-screenshots
+    mvn verify -Dintegration=wildfly82 -Ptake-screenshots
 
     
 Managed Containers 
 ==================
 
-### WildFly 8.0 - Managed
-
-    mvn verify -Dintegration=wildfly80
-
 ### WildFly 8.1 - Managed
 
     mvn verify -Dintegration=wildfly81
+
+### WildFly 8.2 - Managed
+
+    mvn verify -Dintegration=wildfly82
+
+### WildFly 9.0 - Managed
+
+    mvn verify -Dintegration=wildfly90
 
 ### JBoss EAP 6.2 - Managed
 
@@ -293,11 +298,11 @@ By default, all managed container are configured to obtain a distribution from s
 
 You can specify an URL that a container distribution should be downloaded from using the same property:
 
-    -Darquillian.container.distribution=file:///tmp/wildfly-dist-8.1.0.Final.zip
+    -Darquillian.container.distribution=file:///tmp/wildfly-dist-8.2.0.Final.zip
 
 or
 
-    -Darquillian.container.distribution=http://some.repository/wildfly-dist-8.1.0.Final.zip
+    -Darquillian.container.distribution=http://some.repository/wildfly-dist-8.2.0.Final.zip
 
 
 Remote Containers
@@ -320,14 +325,6 @@ First, start the Selenium Server:
 then run the test from the IDE (eg. in Eclipse: `Run As > JUnit Test`).
 
 
-### WildFly 8.0 - Remote
-
-Start: `[wildfly-8.0]$ ./bin/standalone.sh`
-
-Profile: `wildfly-remote-8-0`
-
-    mvn verify -Dintegration=wildfly80-remote
-
 ### WildFly 8.1 - Remote
 
 Start: `[wildfly-8.1]$ ./bin/standalone.sh`
@@ -335,6 +332,22 @@ Start: `[wildfly-8.1]$ ./bin/standalone.sh`
 Profile: `wildfly-remote-8-1`
 
     mvn verify -Dintegration=wildfly81-remote
+
+### WildFly 8.2 - Remote
+
+Start: `[wildfly-8.2]$ ./bin/standalone.sh`
+
+Profile: `wildfly-remote-8-2`
+
+    mvn verify -Dintegration=wildfly82-remote
+
+### WildFly 9.0 - Remote
+
+Start: `[wildfly-9.0]$ ./bin/standalone.sh`
+
+Profile: `wildfly-remote-9-0`
+
+    mvn verify -Dintegration=wildfly90-remote
 
 ### JBoss EAP 6.2 - Remote
 
