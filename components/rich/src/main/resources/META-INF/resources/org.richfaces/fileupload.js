@@ -446,8 +446,10 @@
                             var handlerCode = xml.children(handlerName).text();
                             
                             var handler = eventHandler(handlerCode);
-                                
-                            handler.call(this,event);
+                            
+                            if (handler) {
+                                handler.call(this,event);
+                            }
                             $(form).trigger('ajaxcomplete');
                         }
                     }
