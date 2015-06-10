@@ -394,6 +394,20 @@
                     newAction += "&javax.faces.ClientWindow=" + jsf.getClientWindow();
                 };
 
+                var eventHandler = function(handlerCode) {
+                    if (handlerCode) {
+                        var safeHandlerCode = "try {" +
+                                handlerCode + 
+                            "} catch (e) {" +
+                                "window.RichFaces.log.error('Error in method execution: ' + e.message)" +
+                            "}";
+
+                        return new Function("event", safeHandlerCode);
+                    }
+                }
+                
+                this.onerror = eventHandler(this.fileUpload.onerror);
+                
                 this.xhr = new XMLHttpRequest();
 
                 this.xhr.open('POST', newAction, true);
@@ -412,7 +426,7 @@
                         this.fileUpload.loadableItem = null;
                         this.finishUploading(ITEM_STATE.SERVER_ERROR_UPLOAD);
                     }, this);
-                    
+                
                 this.xhr.onload = $.proxy(function (e) {
                     switch (e.target.status) {
                         case 413:
@@ -425,26 +439,73 @@
                             responseStatus = ITEM_STATE.SERVER_ERROR_PROCESS;
                     }
                     
+                    var handlerFunction = function(handlerName) {
+                        return function (event) {
+                            var xml = $("partial-response extension#org\\.richfaces\\.extension", event.responseXML)
+                            
+                            var handlerCode = xml.children(handlerName).text();
+                            
+                            var handler = eventHandler(handlerCode);
+                                
+                            handler.call(this,event);
+                            $(form).trigger('ajaxcomplete');
+                        }
+                    }
+
+                    var eventsAdapter = rf.createJSFEventsAdapter({
+                        complete: handlerFunction('complete'),
+                        error: handlerFunction('error')
+                    });
+
                     var responseContext = {
                             source: this.fileUpload.element[0],
                             element: this.fileUpload.element[0],
                             /* hack for MyFaces */
                             _mfInternal: {
                                 _mfSourceControlId: this.fileUpload.element.attr('id')
-                            }
+                            },
+                            onevent: eventsAdapter,
+                            onerror: eventsAdapter
                         };
                         
-                        jsf.ajax.response(this.xhr, responseContext);
-                        this.finishUploading(responseStatus);
-                        this.fileUpload.__startUpload();
+                    var onbeforedomupdate = eventHandler(this.fileUpload.onbeforedomupdate);
+                    
+                    if (onbeforedomupdate) {
+                        var data = {};
+                        data.type = "event";
+                        data.status = 'complete';
+                        data.source = this.fileUpload.element[0];
+                        data.responseCode = this.xhr.status;
+                        data.responseXML = this.xhr.responseXML;
+                        data.responseText = this.xhr.responseText
+    
+                        onbeforedomupdate.call(this.fileUpload, data);
+                    }
+                    $(form).trigger('ajaxbeforedomupdate');
+                    jsf.ajax.response(this.xhr, responseContext);
+                    this.finishUploading(responseStatus);
+                    this.fileUpload.__startUpload();
                     }, this);
-
+                
+                var onbegin = eventHandler(this.fileUpload.onbegin);
+                
+                if (onbegin) {
+                    onbegin.call(this.fileUpload, {
+                        source: this.fileUpload.element[0],
+                        type: 'event',
+                        status: 'begin'
+                    })
+                }
+                $(form).trigger('ajaxbegin');
                 this.xhr.send(formData);
 
                 rf.Event.fire(this.fileUpload.element, "onfilesubmit", this.model);
             },
 
             finishUploading: function(state) {
+                if (state != ITEM_STATE.DONE && this.onerror) {
+                    this.onerror.call(this.fileUpload, {state: state, error: this.fileUpload[state + "Label"]});
+                }
                 this.state.html(this.fileUpload[state + "Label"]);
                 this.progressBar.parent().hide();
                 this.link.html(this.fileUpload["clearLabel"]);
