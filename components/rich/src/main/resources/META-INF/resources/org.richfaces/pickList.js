@@ -68,6 +68,8 @@
             rf.Event.bind(this, "change" + this.namespace, options['onchange']);
         }
 
+        this.keepSourceOrder = mergedOptions['keepSourceOrder'];
+        
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
     };
@@ -82,6 +84,7 @@
         clickRequiredToSelect: true,
         switchByClick : false,
         switchByDblClick : true,
+        keepSourceOrder : false,
         disabled : false
     };
 
@@ -150,6 +153,30 @@
             getTargetList: function() {
                 return this.targetList;
             },
+            
+            __insertSorted: function(items) {
+                var re = new RegExp(this.id + "Item(\\d+)");
+                for (var i = 0; i < items.length; i++) {
+                    var item = items.eq(i),
+                        itemIndex = parseInt(re.exec(item[0].id)[1]),
+                        l = this.sourceList.items.length,
+                        inserted = false;
+                    for (var j = 0; j < l; j++) {
+                        var currentItem = this.sourceList.items.eq(j),
+                            currentItemIndex = parseInt(re.exec(currentItem[0].id)[1]);
+                        if (currentItemIndex > itemIndex) {
+                            item.insertBefore(currentItem);
+                            inserted = true;
+                            break;
+                        }
+                    }
+                    if (!inserted) {
+                        this.sourceList.scrollContainer.append(item);
+                    }
+                }
+                this.sourceList.__updateItemsList();
+                this.encodeHiddenValues();
+            },
 
             add: function() {
                 this.targetList.setFocus();
@@ -161,8 +188,12 @@
             remove: function() {
                 this.sourceList.setFocus();
                 var items = this.targetList.removeSelectedItems();
-                this.sourceList.addItems(items);
-                this.encodeHiddenValues();
+                if (!this.keepSourceOrder) {
+                    this.sourceList.addItems(items);
+                    this.encodeHiddenValues();
+                    return;
+                }
+                this.__insertSorted(items);
             },
 
             addAll: function() {
@@ -175,8 +206,12 @@
             removeAll: function() {
                 this.sourceList.setFocus();
                 var items = this.targetList.removeAllItems();
-                this.sourceList.addItems(items);
-                this.encodeHiddenValues();
+                if (!this.keepSourceOrder) {
+                    this.sourceList.addItems(items);
+                    this.encodeHiddenValues();
+                    return;
+                }
+                this.__insertSorted(items);
             },
 
             encodeHiddenValues: function() {

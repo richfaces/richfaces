@@ -30,6 +30,13 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
     public abstract boolean isOrderable();
 
     /**
+     * <p>If "true" the items in the source list will remain sorted when items are added back to it.</p>
+     * <p>Default is "false"</p>
+     */
+    @Attribute(defaultValue = "false")
+    public abstract boolean isKeepSourceOrder();
+
+    /**
       * The text placed above the source list of items
       */
     @Attribute
