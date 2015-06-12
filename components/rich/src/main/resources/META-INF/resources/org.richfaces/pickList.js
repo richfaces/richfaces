@@ -10,6 +10,7 @@
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems"));
         this.sourceList = new rf.ui.ListMulti(id+ "SourceList", mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems"));
+        this.baseSelectItemCss = defaultOptions['selectItemCss'];
         this.selectItemCss = mergedOptions['selectItemCss'];
         var hiddenId = id + "SelValue";
         this.hiddenValues = $(document.getElementById(hiddenId));
@@ -224,8 +225,8 @@
             },
 
             toggleButtons: function() {
-                this.__toggleButton(this.addButton, this.sourceList.__getItems().filter('.' + this.selectItemCss).length > 0);
-                this.__toggleButton(this.removeButton, this.targetList.__getItems().filter('.' + this.selectItemCss).length > 0);
+                this.__toggleButton(this.addButton, this.sourceList.__getItems().filter('.' + this.baseSelectItemCss).length > 0);
+                this.__toggleButton(this.removeButton, this.targetList.__getItems().filter('.' + this.baseSelectItemCss).length > 0);
                 this.__toggleButton(this.addAllButton, this.sourceList.__getItems().length > 0);
                 this.__toggleButton(this.removeAllButton, this.targetList.__getItems().length > 0);
                 if (this.orderable) {
