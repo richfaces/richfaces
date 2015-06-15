@@ -19,8 +19,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.repeat;
+
+import static java.text.MessageFormat.format;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
@@ -32,7 +33,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -40,12 +40,17 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.A4JDeployment;
 
 @RunWith(Arquillian.class)
-@WarpTest
 @RunAsClient
 public class ITNestedRepeat {
+
+    private static final String INPUT_LOCATOR_TEMPLATE = "form:outer:{0}:inner:0:input";
+
+    @FindBy(id = "form:ajax")
+    private WebElement ajaxSubmitButton;
 
     @Drone
     private WebDriver browser;
@@ -53,7 +58,7 @@ public class ITNestedRepeat {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         A4JDeployment deployment = new A4JDeployment(ITNestedRepeat.class);
 
@@ -68,17 +73,16 @@ public class ITNestedRepeat {
     @Test
     public void testRendering() {
         browser.get(contextPath + "NestedRepeatTest.jsf");
-
+        WebElement input;
         for (int i = 0; i < 3; i++) {
-            WebElement input = browser.findElement(By.id("form:outer:" + i + ":inner:0:input"));
+            input = browser.findElement(By.id(format(INPUT_LOCATOR_TEMPLATE, i)));
             input.sendKeys(Integer.toString(i));
         }
 
-        WebElement ajax = browser.findElement(By.id("form:ajax"));
-        guardAjax(ajax).click();
+        guardAjax(ajaxSubmitButton).click();
 
         for (int i = 0; i < 3; i++) {
-            WebElement input = browser.findElement(By.id("form:outer:" + i + ":inner:0:input"));
+            input = browser.findElement(By.id(format(INPUT_LOCATOR_TEMPLATE, i)));
             assertEquals(Integer.toString(i), input.getAttribute("value"));
         }
     }

@@ -1,10 +1,8 @@
 package org.richfaces.component.ajax;
 
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+import static java.text.MessageFormat.format;
 
 import java.net.URL;
-
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -12,13 +10,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
-import org.jboss.arquillian.warp.jsf.BeforePhase;
-import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -35,9 +26,10 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import category.Failing;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITJsFunction {
+
+    private static final String JS_FUNCTION_WITH_PARAM_TEMPLATE = "myForm:repeat:{0}:panel";
 
     @Drone
     private WebDriver browser;
@@ -45,10 +37,10 @@ public class ITJsFunction {
     @ArquillianResource
     private URL contextPath;
 
-    @FindBy(id = "myForm:repeat:3:panel")
-    private WebElement panel3;
+    @FindBy(id = "myForm:output")
+    private WebElement output;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
 //        CoreUIDeployment deployment = new CoreUIDeployment(ITJsFunction.class, "4.2.3.Final");
         A4JDeployment deployment = new A4JDeployment(ITJsFunction.class);
@@ -95,29 +87,11 @@ public class ITJsFunction {
 
     @Test
     public void js_function_with_param() throws InterruptedException {
-        // given
         browser.get(contextPath.toExternalForm() + "param.jsf");
-
-        Warp.initiate(new Activity() {
-            public void perform() {
-                Graphene.guardAjax(panel3).click();
-            }
-        }).group().observe(request().uri().contains("param")).inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
-
-            @Inject
-            AjaxBean bean;
-
-            @BeforePhase(Phase.INVOKE_APPLICATION)
-            public void verify_param_not_yet_assigned() {
-                Assert.assertEquals(0, bean.getLongValue());
-            }
-
-            @AfterPhase(Phase.INVOKE_APPLICATION)
-            public void verify_param_assigned() {
-                Assert.assertEquals(3, bean.getLongValue());
-            }
-        }).execute();
+        for (int i : new int[] { 4, 1, 3 }) {
+            Graphene.guardAjax(browser.findElement(By.id(format(JS_FUNCTION_WITH_PARAM_TEMPLATE, i)))).click();
+            Assert.assertEquals(i, Integer.parseInt(output.getText()));
+        }
     }
 
     private static void addParamPage(A4JDeployment deployment) {
@@ -132,6 +106,8 @@ public class ITJsFunction {
         p.body("            <h:outputText value='#{node.label}  key: #{key}'/> ");
         p.body("        </a4j:outputPanel> ");
         p.body("    </a4j:repeat> ");
+        p.body("    <br/><br/>");
+        p.body("    value set by jsFunction with param: <h:outputText id='output' value='#{ajaxBean.longValue}'/> ");
         p.body("    <rich:messages /> ");
         p.body("</h:form> ");
         deployment.archive().addAsWebResource(p, "param.xhtml");

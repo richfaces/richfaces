@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.repeat;
 
 import static org.junit.Assert.assertEquals;
@@ -32,7 +31,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -44,7 +42,6 @@ import org.richfaces.integration.A4JDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
-@WarpTest
 @RunAsClient
 public class ITCollectionModel {
 
@@ -57,7 +54,7 @@ public class ITCollectionModel {
     @FindBy(css = "#list > li")
     private List<WebElement> items;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         A4JDeployment deployment = new A4JDeployment(ITCollectionModel.class);
 
@@ -76,9 +73,9 @@ public class ITCollectionModel {
 
         assertEquals("there are 3 items rendered", 3, items.size());
 
-        assertEquals("1", items.get(0).getText());
-        assertEquals("2", items.get(1).getText());
-        assertEquals("3", items.get(2).getText());
+        for (int i = 0; i < 3; i++) {
+            assertEquals(String.valueOf(i + 1), items.get(i).getText());
+        }
     }
 
     private static void addIndexPage(A4JDeployment deployment) {
