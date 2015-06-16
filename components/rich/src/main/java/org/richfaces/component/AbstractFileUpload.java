@@ -88,6 +88,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     /**
      * Defines the maximum allowed size of a file. Files exceeding the size will not be added in the component.
+     * Default value is 0 (no limit).
      */
     @Attribute(defaultValue = "0L")
     public abstract long getMaxFileSize();
