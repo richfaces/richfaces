@@ -24,3 +24,6 @@ log.txt
 chromedriver.log
 phantomjsdriver.log
 arquillian.xml
+/components/a4j/lib/
+/components/rich/lib/
+/core/lib/
