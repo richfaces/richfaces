@@ -19,29 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.extendedDataTable;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
-
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
-import org.jboss.arquillian.warp.jsf.BeforePhase;
-import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -54,32 +44,20 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import category.Failing;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITRowClick {
 
     @Drone
     private WebDriver browser;
-
     @ArquillianResource
     private URL contextPath;
 
-    @FindBy(id = "myForm:edt")
-    private WebElement edt;
-
     @FindBy(id = "myForm:edt:0:n")
     private WebElement firstRow;
+    @FindBy(id = "myForm:output")
+    private WebElement selectedNodeIdElement;
 
-    @FindBy(id = "myForm:ajax")
-    private WebElement button;
-
-    @FindBy(id = "myForm:edt:header")
-    private WebElement header;
-
-    @FindBy(className = "rf-edt-srt")
-    private WebElement sortHandle;
-
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITRowClick.class);
         deployment.archive().addClass(IterationBean.class);
@@ -91,31 +69,13 @@ public class ITRowClick {
     @Test
     @Category(Failing.class)
     // RF-13165
-    public void row_click() throws InterruptedException {
-        // given
+    public void row_click() {
         browser.get(contextPath.toExternalForm());
 
-        Warp.initiate(new Activity() {
-            public void perform() {
-                guardAjax(firstRow).click();
-            }
-        }).inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
+        assertEquals("", selectedNodeIdElement.getText());
 
-            @Inject
-            IterationBean bean;
-
-            @BeforePhase(Phase.INVOKE_APPLICATION)
-            public void verify_param_not_yet_assigned() {
-                Assert.assertEquals(null, bean.getNodeId());
-            }
-
-            @AfterPhase(Phase.INVOKE_APPLICATION)
-            public void verify_param_assigned() {
-                Assert.assertEquals((Integer) 1, bean.getNodeId());
-            }
-        });
-
+        guardAjax(firstRow).click();
+        assertEquals("5", selectedNodeIdElement.getText());
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -125,26 +85,27 @@ public class ITRowClick {
         p.body("function rowClicked(event) { ");
         p.body("  console.log(event) ");
         p.body("} ");
-        p.body("</script> ");
-        p.body("<h:form id='myForm'> ");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.nodes}' var='node' rowKeyVar='rowKey' onrowclick='rowClicked' > ");
-        p.body("        <a4j:ajax event='rowclick' render='myForm' listener='#{iterationBean.setNodeId(5)}' /> ");
-        p.body("        <rich:column id='column1' width='150px' > ");
-        p.body("            <f:facet name='header'>Column 1</f:facet> ");
+        p.body("</script>");
+        p.body("<h:form id='myForm'>");
+        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.nodes}' var='node' rowKeyVar='rowKey' onrowclick='rowClicked' >");
+        p.body("        <a4j:ajax event='rowclick' render='myForm output' listener='#{iterationBean.setNodeId(5)}' />");
+        p.body("        <rich:column id='column1' width='150px' >");
+        p.body("            <f:facet name='header'>Column 1</f:facet>");
         p.body("            Node: ");
         p.body("        </rich:column> ");
-        p.body("        <rich:column id='column2' width='150px' > ");
-        p.body("            <f:facet name='header'>Node id</f:facet> ");
+        p.body("        <rich:column id='column2' width='150px' >");
+        p.body("            <f:facet name='header'>Node id</f:facet>");
         p.body("            #{node.id} ");
         p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' width='150px' > ");
-        p.body("            <f:facet name='header'>Node label</f:facet> ");
+        p.body("        <rich:column id='column3' width='150px' >");
+        p.body("            <f:facet name='header'>Node label</f:facet>");
         p.body("            #{node.label} ");
-        p.body("        </rich:column> ");
-        p.body("    </rich:extendedDataTable> ");
-        p.body("</h:form> ");
+        p.body("        </rich:column>");
+        p.body("    </rich:extendedDataTable>");
+        p.body("    <br/>");
+        p.body("    selected node id: <h:outputText id='output' value='#{iterationBean.nodeId}' />");
+        p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
-
 }

@@ -12,7 +12,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +24,6 @@ import org.richfaces.utils.focus.ElementIsFocused;
 import org.richfaces.utils.focus.FocusRetriever;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITFocusPreserve {
 
@@ -50,7 +48,7 @@ public class ITFocusPreserve {
     @FindBy(id = "secondForm:renderFirstForm")
     private WebElement renderFirstFormFromSecondForm;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFocusPreserve.class);
 

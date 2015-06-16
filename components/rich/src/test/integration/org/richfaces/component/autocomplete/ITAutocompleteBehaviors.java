@@ -1,61 +1,48 @@
 package org.richfaces.component.autocomplete;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
-
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
-import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.autocomplete.RichFacesAutocomplete;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITAutocompleteBehaviors {
 
+    @FindBy(className = "rf-au")
+    private RichFacesAutocomplete autocomplete;
+
+    @FindBy(id = "blur")
+    private WebElement blurInput;
+
     @Drone
-    WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
-    @FindBy(id = "form:render")
-    WebElement renderButton;
+    @FindBy(id = "form:output")
+    private WebElement outputElement;
 
-    @FindBy(css = "input.rf-au-inp")
-    WebElement autocompleteInput;
-
-    @FindBy(css = ".rf-au-itm")
-    WebElement autocompleteItem;
-
-    @FindBy(css = "body")
-    WebElement body;
-
-    By suggestionList = By.cssSelector(".rf-au-lst-cord");
-
-    @Deployment
+    @Deployment(testable = false)
+    // RF-12114
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITAutocompleteBehaviors.class);
 
@@ -69,33 +56,19 @@ public class ITAutocompleteBehaviors {
     /**
      * onblur should have input value available via 'this.value' expression
      */
-    @Test
     // RF-12114
+    @Test
     public void testAjaxOnBlur() {
         // given
         browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("t");
-        waitGui().withMessage("suggestion list is visible").until().element(suggestionList).is().visible();
-        autocompleteItem.click();
 
-        // when / then
-        Warp.initiate(new Activity() {
+        assertFalse(Boolean.parseBoolean(outputElement.getText()));
 
-            @Override
-            public void perform() {
-                guardAjax(body).click();
-            }
-        }).inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
+        autocomplete.type("t").select(0);
 
-            @Inject
-            AutocompleteBean bean;
+        guardAjax(blurInput).click();
 
-            @AfterPhase(Phase.INVOKE_APPLICATION)
-            public void verify_bean_executed() {
-                assertTrue(bean.isListenerInvoked());
-            }
-        });
+        assertTrue(Boolean.parseBoolean(outputElement.getText()));
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -103,8 +76,12 @@ public class ITAutocompleteBehaviors {
 
         p.body("<h:form id='form'>");
         p.body("    <rich:autocomplete id='autocomplete' autocompleteList='#{autocompleteBean.suggestions}'>");
-        p.body("        <a4j:ajax event='blur' listener='#{autocompleteBean.actionListener}' />");
+        p.body("        <a4j:ajax event='blur' listener='#{autocompleteBean.actionListener}' render='output' />");
         p.body("    </rich:autocomplete>");
+        p.body("    <br/>");
+        p.body("    listener was invoked: <h:outputText id='output' value='#{autocompleteBean.listenerInvoked}' />");
+        p.body("    <br/>");
+        p.body("    <input value='blur' type='button' id='blur' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

@@ -10,7 +10,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,29 +21,23 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.utils.focus.ElementIsFocused;
 import org.richfaces.utils.focus.FocusRetriever;
 
-import com.google.common.base.Predicate;
-
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITFocusViewMode {
 
     @Drone
     private WebDriver browser;
-
     @ArquillianResource
     private URL contextPath;
 
     @FindBy(id = "form1")
     private Form form1;
-
     @FindBy(id = "form2")
     private Form form2;
-
     @FindBy(id = "form3")
     private Form form3;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFocusViewMode.class);
 
@@ -53,17 +46,37 @@ public class ITFocusViewMode {
         return deployment.getFinalArchive();
     }
 
+    private WebElement getFocusedElement() {
+        return FocusRetriever.retrieveActiveElement();
+    }
+
     @Test
-    public void when_view_focus_is_renderer_on_initial_request_then_first_tabbable_input_from_first_form_on_the_page_is_focused() {
+    public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
+        // having
+        browser.get(contextPath.toExternalForm());
+        assertEquals(form1.getInput2(), getFocusedElement());
+
+        // then
+        form3.getInput1().click();
+        form3.submitAjax();
+        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
+
+        form3.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
+    }
+
+    @Test
+    public void when_forms_without_focus_are_sent_using_ajax_then_view_focus_settings_is_applied_to_them_and_tabindex_priority_is_used() {
         // having
         browser.get(contextPath.toExternalForm());
 
         // then
-        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
+        form2.submitAjax();
+        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
     }
 
     @Test
-    public void when_forms_without_focus_are_submitted_then_view_focus_settings_is_applied_to_them_and_validation_awareness_is_used() {
+    public void when_forms_without_focus_are_sent_using_ajax_then_view_focus_settings_is_applied_to_them_and_validation_awareness_is_used() {
         // having
         browser.get(contextPath.toExternalForm());
 
@@ -83,7 +96,7 @@ public class ITFocusViewMode {
     }
 
     @Test
-    public void when_forms_without_focus_are_sent_using_ajax_then_view_focus_settings_is_applied_to_them_and_validation_awareness_is_used() {
+    public void when_forms_without_focus_are_submitted_then_view_focus_settings_is_applied_to_them_and_validation_awareness_is_used() {
         // having
         browser.get(contextPath.toExternalForm());
 
@@ -93,32 +106,12 @@ public class ITFocusViewMode {
     }
 
     @Test
-    public void when_forms_without_focus_are_sent_using_ajax_then_view_focus_settings_is_applied_to_them_and_tabindex_priority_is_used() {
+    public void when_view_focus_is_renderer_on_initial_request_then_first_tabbable_input_from_first_form_on_the_page_is_focused() {
         // having
         browser.get(contextPath.toExternalForm());
 
         // then
-        form2.submitAjax();
-        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
-    }
-
-    @Test
-    public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
-        // having
-        browser.get(contextPath.toExternalForm());
-        assertEquals(form1.getInput2(), getFocusedElement());
-
-        // then
-        form3.getInput1().click();
-        form3.submitAjax();
-        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
-
-        form3.submit();
-        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
-    }
-
-    private WebElement getFocusedElement() {
-        return FocusRetriever.retrieveActiveElement();
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
     }
 
     private static void addIndexPage(RichDeployment deployment) {
@@ -171,17 +164,18 @@ public class ITFocusViewMode {
 
     public static class Form {
 
+        @FindBy(css = "[id$=ajax]")
+        private WebElement ajax;
         @FindBy(css = "[id$=input1]")
         private WebElement input1;
-
         @FindBy(css = "[id$=input2]")
         private WebElement input2;
-
         @FindBy(css = "[id$=submit]")
         private WebElement submit;
 
-        @FindBy(css = "[id$=ajax]")
-        private WebElement ajax;
+        public WebElement getAjax() {
+            return ajax;
+        }
 
         public WebElement getInput1() {
             return input1;
@@ -195,30 +189,12 @@ public class ITFocusViewMode {
             return submit;
         }
 
-        public WebElement getAjax() {
-            return ajax;
-        }
-
         public void submit() {
             Graphene.guardHttp(submit).click();
         }
 
         public void submitAjax() {
             Graphene.guardAjax(ajax).click();
-        }
-    }
-
-    private class ElementFocusedPredicate implements Predicate<WebDriver> {
-
-        private final WebElement elementToBeFocused;
-
-        public ElementFocusedPredicate(WebElement elementToBeFocused) {
-            this.elementToBeFocused = elementToBeFocused;
-        }
-
-        @Override
-        public boolean apply(WebDriver input) {
-            return getFocusedElement().equals(elementToBeFocused);
         }
     }
 }

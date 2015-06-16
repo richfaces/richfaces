@@ -25,20 +25,31 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.context.ExtendedPartialViewContext;
 
 @ManagedBean
 @ViewScoped
 public class CounterBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private int counter = 0;
 
-    public int incrementAndGet() {
-        return ++counter;
+    public void appendOncomplete() {
+        ExtendedPartialViewContext.getInstance(FacesContext.getCurrentInstance()).appendOncomplete("document.title = 'script executed'");
     }
 
     public int getState() {
+        return counter;
+    }
+
+    public void increment() {
+        counter++;
+    }
+
+    public int incrementAndGet() {
+        increment();
         return counter;
     }
 }

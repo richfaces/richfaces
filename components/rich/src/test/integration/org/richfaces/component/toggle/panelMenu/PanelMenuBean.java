@@ -19,20 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.toggle.panelMenu;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
-@Named
+@ManagedBean
 @RequestScoped
 public class PanelMenuBean {
 
-    private String current = "none";
+    public static final String ITEM_CHANGED = "changed";
+    public static final String ITEM_DEFAULT = "none";
+
+    private String current = ITEM_DEFAULT;
 
     public void doAction() {
-        this.current = "action";
+        this.current = ITEM_CHANGED;
     }
 
     public String getCurrent() {

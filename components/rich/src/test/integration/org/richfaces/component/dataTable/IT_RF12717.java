@@ -1,29 +1,23 @@
 package org.richfaces.component.dataTable;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.List;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
-import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,7 +28,6 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import com.google.common.base.Function;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class IT_RF12717 {
 
@@ -44,13 +37,14 @@ public class IT_RF12717 {
     @ArquillianResource
     private URL contextPath;
 
-    @FindBy(css = "form")
-    private WebElement form;
+    @FindBy(css = "table a")
+    private List<WebElement> rowLinks;
+    @FindBy(id = "myForm:output")
+    private WebElement selectedValueElement;
+    @FindBy(css = "input[type='submit']")
+    private WebElement showTableButton;
 
-    @FindBy(css = "table")
-    private WebElement table;
-
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
 //        UIDeployment deployment = new UIDeployment(IT_RF12717.class, "4.2.3.Final");
         RichDeployment deployment = new RichDeployment(IT_RF12717.class);
@@ -60,10 +54,10 @@ public class IT_RF12717 {
             @Override
             public WebAppDescriptor apply(@Nullable WebAppDescriptor input) {
                 input
-                        .createContextParam()
-                        .paramName("javax.faces.PARTIAL_STATE_SAVING")
-                        .paramValue("false")
-                        .up();
+                    .createContextParam()
+                    .paramName("javax.faces.PARTIAL_STATE_SAVING")
+                    .paramValue("false")
+                    .up();
                 return input;
             }
         });
@@ -73,43 +67,42 @@ public class IT_RF12717 {
     }
 
     @Test
-    public void check_row_click() throws InterruptedException {
+    public void check_row_click() {
         browser.get(contextPath.toExternalForm());
-        guardHttp(form.findElement(By.cssSelector("input[type='submit']"))).click();
-        final WebElement firstRowLink = table.findElement(By.cssSelector("a"));
 
-        Warp.initiate(new Activity() {
-            @Override
-            public void perform() {
-                guardHttp(firstRowLink).click();
-            }
-        }).inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
+        assertEquals("", selectedValueElement.getText());
+        assertTrue(rowLinks.isEmpty());
 
-            @Inject IterationBean bean;
+        // show the table
+        guardHttp(showTableButton).click();
+        assertEquals("", selectedValueElement.getText());
+        assertEquals(3, rowLinks.size());
 
-            @AfterPhase(Phase.RENDER_RESPONSE)
-            public void verify() {
-                Assert.assertEquals("3", bean.getSelectedValue());
-            }
-        });
+        // check row links
+        final String[] expectedNumbers = { "3", "6", "4" };
+        int size = rowLinks.size();
+        for (int i = 0; i < size; i++) {
+            guardHttp(rowLinks.get(i)).click();
+            assertEquals(expectedNumbers[i], selectedValueElement.getText());
+        }
     }
 
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
         p.body("<h:commandButton id='show' value='Show Table' type='submit' action='#{iterationBean.show}' />");
-        p.body("<rich:dataTable id='tableId' value='#{iterationBean.data}' var='bean' rows='3' rendered='#{!empty iterationBean.data}'> ");
-        p.body("    <rich:column> ");
-        p.body("        <f:facet name='header'> ");
-        p.body("            <h:outputText value='Header' styleClass='tableHeader' /> ");
-        p.body("        </f:facet> ");
-        p.body("        <h:commandLink styleClass='selectLink' action='#{iterationBean.setSelectedValue(bean)}' value='Select #{bean}' immediate='true' /> ");
-        p.body("    </rich:column> ");
-        p.body("</rich:dataTable> ");
+        p.body("<rich:dataTable id='tableId' value='#{iterationBean.data}' var='bean' rows='3' rendered='#{!empty iterationBean.data}'>");
+        p.body("    <rich:column>");
+        p.body("        <f:facet name='header'>");
+        p.body("            <h:outputText value='Header' styleClass='tableHeader' />");
+        p.body("        </f:facet>");
+        p.body("        <h:commandLink styleClass='selectLink' action='#{iterationBean.setSelectedValue(bean)}' value='Select #{bean}' immediate='true' />");
+        p.body("    </rich:column>");
+        p.body("</rich:dataTable>");
+        p.body("<br/>");
+        p.body("selected value: <h:outputText id='output' value='#{iterationBean.selectedValue}' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
-
 }

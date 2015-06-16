@@ -12,7 +12,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
@@ -32,7 +31,6 @@ import org.richfaces.utils.focus.ElementIsFocused;
 import category.Failing;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITFocusSubmissionMethods {
 
@@ -57,7 +55,7 @@ public class ITFocusSubmissionMethods {
     @FindBy(id = "form:input2")
     private WebElement input2;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFocusSubmissionMethods.class);
 

@@ -2,15 +2,15 @@ package org.richfaces.component.validation;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Named
-@SessionScoped
+@ManagedBean
+@ViewScoped
 public class GraphValidatorBean implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
@@ -18,53 +18,37 @@ public class GraphValidatorBean implements Serializable, Cloneable {
     @NotNull
     @NotEmpty
     private String inputText = "";
-    private boolean selectBooleanCheckbox = true;
-    private Class<?>[] validationGroups = new Class[] { MethodValidationGroup.class };
-    private boolean groupValid = true;
-    private boolean actionInvoked = false;
-
-    @AssertTrue(message = "group-failure", groups = { MethodValidationGroup.class })
-    public boolean isGroupValid() {
-        return groupValid;
-    }
-
-    public void action() {
-        actionInvoked = true;
-    }
-
-    public interface MethodValidationGroup {
-    }
-
-    public interface FieldValidationGroup {
-    }
-
-    // getters / setters
+    private Class<?>[] validationGroups = new Class[] { AlwaysPassingGroup.class };
 
     public String getInputText() {
         return inputText;
-    }
-
-    public void setInputText(String inputText) {
-        this.inputText = inputText;
-    }
-
-    public boolean isSelectBooleanCheckbox() {
-        return selectBooleanCheckbox;
-    }
-
-    public void setSelectBooleanCheckbox(boolean selectBooleanCheckbox) {
-        this.selectBooleanCheckbox = selectBooleanCheckbox;
     }
 
     public Class<?>[] getValidationGroups() {
         return validationGroups;
     }
 
+    @AssertTrue(message = "group-failure", groups = { AlwaysPassingGroup.class })
+    public boolean isGroupValid() {
+        return Boolean.TRUE;
+    }
+
+    public void setAlwaysPassingValidationGroup() {
+        setValidationGroups(new Class<?>[] { AlwaysPassingGroup.class });
+    }
+
+    public void setEmptyValidationGroup() {
+        setValidationGroups(new Class<?>[] {});
+    }
+
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
+    }
+
     public void setValidationGroups(Class<?>[] validationGroups) {
         this.validationGroups = validationGroups;
     }
 
-    public boolean isActionInvoked() {
-        return actionInvoked;
+    public interface AlwaysPassingGroup {
     }
 }

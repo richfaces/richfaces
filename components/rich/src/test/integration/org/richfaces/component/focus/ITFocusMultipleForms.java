@@ -10,7 +10,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +21,6 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.utils.focus.ElementIsFocused;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class ITFocusMultipleForms {
 
@@ -41,7 +39,7 @@ public class ITFocusMultipleForms {
     @FindBy(id = "form3")
     private Form form3;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFocusMultipleForms.class);
 

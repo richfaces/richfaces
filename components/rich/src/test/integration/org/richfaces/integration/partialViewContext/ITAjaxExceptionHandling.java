@@ -1,15 +1,12 @@
 package org.richfaces.integration.partialViewContext;
 
-import static org.jboss.arquillian.warp.jsf.Phase.INVOKE_APPLICATION;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URL;
 
-import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -17,11 +14,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +31,6 @@ import org.xml.sax.SAXException;
  */
 @RunAsClient
 @RunWith(Arquillian.class)
-@WarpTest
 public class ITAjaxExceptionHandling {
 
     @Drone
@@ -49,14 +40,12 @@ public class ITAjaxExceptionHandling {
     private URL contextPath;
 
     @FindBy(id = "button")
-    private WebElement button;
+    private WebElement exceptionCausingButton;
 
-    @FindBy(tagName = "body")
-    private WebElement body;
-
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITAjaxExceptionHandling.class);
+        deployment.archive().addClass(ExceptionCausingBean.class);
 
         addIndexPage(deployment);
 
@@ -67,21 +56,7 @@ public class ITAjaxExceptionHandling {
     public void test() throws ParserConfigurationException, SAXException, IOException {
         browser.get(contextPath.toExternalForm());
 
-        Warp.initiate(new Activity() {
-            public void perform() {
-                button.click();
-            }
-        }).inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
-
-            @BeforePhase(INVOKE_APPLICATION)
-            public void publishException() {
-                FacesContext context = FacesContext.getCurrentInstance();
-
-                context.getApplication().publishEvent(context, ExceptionQueuedEvent.class,
-                        new ExceptionQueuedEventContext(context, new IllegalStateException("this should be handled by JSF")));
-            }
-        });
+        guardAjax(exceptionCausingButton).click();
 
         Document doc = PartialResponseTestingHelper.getDocument(browser);
 
@@ -104,9 +79,8 @@ public class ITAjaxExceptionHandling {
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
-
         p.form("<h:panelGroup id='panel'>");
-        p.form("    <h:commandButton id='button'>");
+        p.form("    <h:commandButton id='button' action='#{exceptionCausingBean.causeException}' >");
         p.form("        <f:ajax />");
         p.form("    </h:commandButton>");
         p.form("</h:panelGroup>");

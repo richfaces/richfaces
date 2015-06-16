@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.integration.resource;
 
 import static org.junit.Assert.assertEquals;
@@ -34,7 +33,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.javaee6.ParamValueType;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
@@ -47,22 +45,20 @@ import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
-
 import com.google.common.base.Function;
 
 @RunWith(Arquillian.class)
-@WarpTest
 @RunAsClient
 @Category(Smoke.class)
 public class ITResourceOptimization {
 
     @Drone
-    WebDriver driver;
+    private WebDriver driver;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
 
         RichDeployment deployment = new RichDeployment(ITResourceOptimization.class);
@@ -77,7 +73,6 @@ public class ITResourceOptimization {
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
-
                 List<ParamValueType<WebAppDescriptor>> allContextParam = input.getAllContextParam();
                 for (ParamValueType<WebAppDescriptor> contextParam : allContextParam) {
                     if (ProjectStage.PROJECT_STAGE_PARAM_NAME.equals(contextParam.getParamName())) {
@@ -88,7 +83,7 @@ public class ITResourceOptimization {
                 input.getOrCreateContextParam().paramName("org.richfaces.resourceOptimization.enabled").paramValue("true");
 
                 return input;
-            };
+            }
         });
 
         return deployment.getFinalArchive();

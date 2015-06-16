@@ -10,14 +10,16 @@ import javax.inject.Named;
 @RequestScoped
 public class AutocompleteBean {
 
+    private static final List<String> LIST = Arrays.asList("Toronto", "New York", "San Francisco", "Tampa Bay");
+    private static final long serialVersionUID = 1L;
     private boolean listenerInvoked = false;
-
-    public List<String> getSuggestions() {
-        return Arrays.asList("Toronto", "New York", "San Francisco", "Tampa Bay");
-    }
 
     public void actionListener() {
         listenerInvoked = true;
+    }
+
+    public List<String> getSuggestions() {
+        return LIST;
     }
 
     public boolean isListenerInvoked() {

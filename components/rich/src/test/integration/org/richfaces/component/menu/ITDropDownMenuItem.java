@@ -19,12 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.menu;
 
-import static org.jboss.arquillian.graphene.Graphene.guardNoRequest;
+import static java.lang.String.format;
 
-import java.io.File;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.jboss.arquillian.graphene.Graphene.guardNoRequest;
+import static org.junit.Assert.assertEquals;
+
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -32,9 +35,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -43,11 +43,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-@WarpTest
 public class ITDropDownMenuItem {
+
+    private static final String MENU_ITEM_TEMPLATE = "<rich:menuItem id='menuItem' label='Test' action='#{ddmBean.doAction}' mode='%s' render='current' />";
 
     @Drone
     private WebDriver browser;
@@ -55,47 +57,52 @@ public class ITDropDownMenuItem {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @FindBy(css = "[id$='current']")
+    private WebElement currentItemElement;
+    @FindBy(className = "rf-ddm-itm-lbl")
+    private WebElement menuItem;
+
+    private static void addMenuItemPageWithMode(RichDeployment deployment, String pageName, String itemMode) {
+        FaceletAsset p = new FaceletAsset();
+        p.form(format(MENU_ITEM_TEMPLATE, itemMode));
+        p.form("<br/>");
+        p.form("current item: <h:outputText id='current' value='#{ddmBean.current}' />");
+        deployment.archive().addAsWebResource(p, pageName);
+    }
+
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITDropDownMenuItem.class);
         deployment.archive()
-            .addClasses(DropDownMenuBean.class, VerifyMenuAction.class)
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .addAsWebResource(new File("src/test/resources/org/richfaces/renderkit/html/menuItem_serverMode.xhtml"), "menuItem_serverMode.xhtml")
-            .addAsWebResource(new File("src/test/resources/org/richfaces/renderkit/html/menuItem_ajaxMode.xhtml"), "menuItem_ajaxMode.xhtml")
-            .addAsWebResource(new File("src/test/resources/org/richfaces/renderkit/html/menuItem_clientMode.xhtml"), "menuItem_clientMode.xhtml");
-
+            .addClasses(DropDownMenuBean.class)
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        addMenuItemPageWithMode(deployment, "menuItem_ajaxMode.xhtml", "ajax");
+        addMenuItemPageWithMode(deployment, "menuItem_clientMode.xhtml", "client");
+        addMenuItemPageWithMode(deployment, "menuItem_serverMode.xhtml", "server");
         return deployment.getFinalArchive();
-    }
-
-    @FindBy(className ="rf-ddm-itm-lbl")
-    private WebElement menuItem;
-
-    @Test
-    public void testServer() {
-        browser.get(contextPath.toString() + "menuItem_serverMode.jsf");
-        verifyOnServer();
     }
 
     @Test
     public void testAjax() {
         browser.get(contextPath.toString() + "menuItem_ajaxMode.jsf");
-        verifyOnServer();
+        assertEquals(DropDownMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        guardAjax(menuItem).click();
+        assertEquals(DropDownMenuBean.ITEM_CHANGED, currentItemElement.getText());
     }
 
     @Test
     public void testClick() {
         browser.get(contextPath.toString() + "menuItem_clientMode.jsf");
+        assertEquals(DropDownMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         guardNoRequest(menuItem).click();
+        assertEquals(DropDownMenuBean.ITEM_DEFAULT, currentItemElement.getText());
     }
 
-    private void verifyOnServer() {
-        Warp
-        .initiate(new Activity() {
-            public void perform() {
-                menuItem.click();
-            }
-        })
-        .inspect(new VerifyMenuAction());
+    @Test
+    public void testServer() {
+        browser.get(contextPath.toString() + "menuItem_serverMode.jsf");
+        assertEquals(DropDownMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+        guardHttp(menuItem).click();
+        assertEquals(DropDownMenuBean.ITEM_CHANGED, currentItemElement.getText());
     }
 }

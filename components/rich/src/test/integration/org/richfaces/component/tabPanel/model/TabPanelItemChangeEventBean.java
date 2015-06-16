@@ -1,40 +1,41 @@
 package org.richfaces.component.tabPanel.model;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
 import javax.enterprise.inject.Model;
 
 import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.event.ItemChangeEvent;
 
-import com.google.common.collect.Lists;
-
 @Model
 public class TabPanelItemChangeEventBean implements Serializable {
+
+    public static final boolean DEFAULT = false;
+    public static final boolean INVOKED = true;
+
     private static final long serialVersionUID = 1L;
 
-    private AbstractTabPanel tabPanel;
-    private transient List<ItemChangeEvent> events = Lists.newLinkedList();
+    private boolean invoked = DEFAULT;
 
-    public void setTabPanel(AbstractTabPanel tabPanel) {
-        this.tabPanel = tabPanel;
-    }
+    private AbstractTabPanel tabPanel;
 
     public AbstractTabPanel getTabPanel() {
         return tabPanel;
     }
 
+    public boolean isInvoked() {
+        return invoked;
+    }
+
     public void itemChangeListener(ItemChangeEvent event) {
-        events.add(event);
+        invoked = INVOKED;
     }
 
-    public List<ItemChangeEvent> getEvents() {
-        return Collections.unmodifiableList(events);
+    public void reset() {
+        invoked = DEFAULT;
     }
 
-    public void clearEvents() {
-        events.clear();
+    public void setTabPanel(AbstractTabPanel tabPanel) {
+        this.tabPanel = tabPanel;
     }
 }
