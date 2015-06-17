@@ -26,12 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.util.base64.Codec;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -50,13 +45,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
-import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.external.ResourceTracker;
-import org.richfaces.resource.mapping.ResourceAggregator;
 import org.richfaces.resource.mapping.ResourceMapper;
-import org.richfaces.resource.mapping.ResourceMapping;
-import org.richfaces.resource.mapping.ResourcePath;
-import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -121,36 +111,5 @@ public class ITResourceMapperService {
         String href = element.getAttribute("href");
 
         assertThat(href, containsString("/javax.faces.resource/mapped.library/stylesheet.css"));
-    }
-
-    public static class Mapper implements ResourceMapper, ResourceAggregator {
-
-        private Map<ResourceKey, String> mapping = new HashMap<ResourceKey, String>() {
-            {
-                put(ResourceKey.create("some.library:stylesheet.css"), "mapped.library/stylesheet.css");
-                put(ResourceKey.create("another.library:stylesheet.css"), "mapped.library/stylesheet.css");
-            }
-        };
-
-        @Override
-        public ResourceMapping mapResource(ResourceKey resourceKey) {
-            final String mapped = mapping.get(resourceKey);
-
-            if (mapped == null) {
-                return null;
-            }
-
-            return new ResourceMapping() {
-                @Override
-                public ResourcePath getResourcePath(FacesContext context) {
-                    return new ResourceServletMapping(new ResourcePath(mapped)).getResourcePath(context);
-                }
-            };
-        }
-
-        @Override
-        public Set<ResourceKey> getAggregatedResources(ResourcePath requestPath) {
-            return mapping.keySet();
-        }
     }
 }
