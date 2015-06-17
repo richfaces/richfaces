@@ -388,7 +388,7 @@
                         "&javax.faces.source="           + this.fileUpload.id +
                         "&javax.faces.partial.execute="  + this.fileUpload.id +
                         "&org.richfaces.ajax.component=" + this.fileUpload.id + 
-                        "&" + jsf.getViewState(this.fileUpload.form[0]);
+                        "&javax.faces.viewState=" + this.fileUpload.form.find("input[name='javax.faces.ViewState']").val();
 
                 if (jsf.getClientWindow && jsf.getClientWindow()) {
                     newAction += "&javax.faces.ClientWindow=" + jsf.getClientWindow();
