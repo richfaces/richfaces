@@ -21,6 +21,8 @@
  */
 package org.richfaces.integration.push;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -30,7 +32,7 @@ import org.richfaces.application.push.TopicsContext;
 
 @ManagedBean(name = "pushBean")
 @SessionScoped
-public class PushBean {
+public class PushBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,7 +44,7 @@ public class PushBean {
 
     private void sendMessage(Object message) throws MessageException {
         TopicsContext topicsContext = TopicsContext.lookup();
-        TopicKey topicKey = new TopicKey(AbstractPushTestWithoutWarp.TOPIC);
+        TopicKey topicKey = new TopicKey(AbstractPushTest.TOPIC);
         topicsContext.getOrCreateTopic(topicKey);
         topicsContext.publish(topicKey, message);
     }

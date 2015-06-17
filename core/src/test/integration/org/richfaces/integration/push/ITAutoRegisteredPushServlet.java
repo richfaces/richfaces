@@ -19,32 +19,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.integration.push;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
-@WarpTest
-@Ignore("RF-13290 test fails after upgrade to 1.0.17 (probably Warp issue)")
 public class ITAutoRegisteredPushServlet extends AbstractPushTest {
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreDeployment deployment = createBasicDeployment(ITAutoRegisteredPushServlet.class);
         return deployment.getFinalArchive();
     }
 
     @Test
-    @RunAsClient
     public void test() {
         super.testSimplePush();
     }

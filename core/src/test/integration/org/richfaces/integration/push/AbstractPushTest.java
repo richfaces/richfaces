@@ -19,150 +19,96 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.integration.push;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
+import static java.text.MessageFormat.format;
+
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.client.filter.RequestFilter;
-import org.jboss.arquillian.warp.client.filter.http.HttpRequest;
-import org.jboss.arquillian.warp.servlet.AfterServlet;
-import org.jboss.arquillian.warp.servlet.BeforeServlet;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.richfaces.application.push.MessageException;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.TopicsContext;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.webapp.PushHandlerFilter;
 
-@WarpTest
+@RunAsClient
 public class AbstractPushTest {
 
-    @Drone
-    WebDriver driver;
+    private static final String MESSAGE_RECEIVED = "message-received:";
+
+    public static final String TOPIC = "testingTopic";
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
+    @Drone
+    private WebDriver driver;
+    @FindBy(css = "[id$='sendMessage']")
+    private WebElement sendButton;
 
     public static CoreDeployment createBasicDeployment(Class<?> testClass) {
 
         CoreDeployment deployment = new CoreDeployment(testClass);
         deployment.withA4jComponents();
-        
-        FaceletAsset p = new FaceletAsset();
-        p.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
-        p.body("<a4j:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
+        deployment.archive().addClasses(PushBean.class);
 
-        deployment.addMavenDependency(
-                "org.atmosphere:atmosphere-runtime");
+        FaceletAsset p = new FaceletAsset();
+        p.body("<script type='text/javascript'>document.title = 'waiting-for-message';</script>");
+        p.body("<a4j:push address='" + TOPIC + "' onsubscribed=\"console.log('a4j:push subscribed')\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data;\" />");
+        p.form("<a4j:commandButton id='sendMessage' value='send message' action='#{pushBean.sendMessage}' />");
+
+        deployment.addMavenDependency("org.atmosphere:atmosphere-runtime");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
 
         return deployment;
     }
 
+    private void loadPage() {
+        driver.get(contextPath.toString());
+    }
+
+    private void printDebugMessageAboutPageReloads(int pushMessagesSent) {
+        System.out.println(format("### Page was reloaded <{0}> times before the push started to work.", pushMessagesSent - 1));
+    }
 
     public void testSimplePush() {
-        Warp
-            .initiate(new Activity() {
-
-                    @Override
-                    public void perform() {
-                        driver.navigate().to(contextPath);
-                    }
-                })
-            .group()
-                // TODO ARQ-1368: this is wrong: index(1) should be after uri().contains(...)
-                .observe(request().uri().contains("__richfacesPushAsync").index(1))
-                .inspect(new PushServletAssertion())
-            .execute();
-
-
-        waitAjax().withTimeout(5,  SECONDS).until(titleIs("message-received: 1"));
-    }
-
-    // TODO should be part of Phaser
-    public static class UriRequestFilter implements RequestFilter<HttpRequest> {
-
-        private String uriPart;
-
-        public UriRequestFilter(String uriPart) {
-            this.uriPart = uriPart;
-        }
-
-        @Override
-        public boolean matches(HttpRequest httpRequest) {
-            String uri = httpRequest.getUri();
-            return uri.contains(uriPart);
+        loadPage();
+        assertEquals("waiting-for-message", driver.getTitle());
+        int pushMessagesSent = waitForPushIsInitialized();
+        printDebugMessageAboutPageReloads(pushMessagesSent);
+        pushMessagesSent++;// will continue from position + 1
+        int numberOfTestedRequests = 5 + pushMessagesSent;
+        for (int i = pushMessagesSent; i < numberOfTestedRequests; i++) {
+            sendButton.click();
+            waitAjax().withTimeout(2, TimeUnit.SECONDS).until(titleIs(format("message-received: {0}", i)));
         }
     }
 
-    public static class PushServletAssertion extends Inspection {
-
-        private static final long serialVersionUID = 1L;
-
-        @ArquillianResource
-        HttpServletRequest request;
-
-        @ArquillianResource
-        HttpServletResponse response;
-
-        @ArquillianResource
-        PushContextFactory pushContextFactory;
-
-        @BeforeServlet
-        public void beforeServlet() throws Exception {
-            Session session = getCurrentSession();
-            assertEquals("messages for current session must be empty before pushing", 0, session.getMessages().size());
-
-            // TODO should be invokable by separate session
-            sendMessage("1");
-        }
-
-        @AfterServlet
-        public void afterServlet() throws InterruptedException {
-            // TODO instead of waiting, we should be able intercept Atmosphere's onBroaddcast/.. methods
-            final Session session = getCurrentSession();
-            while (session.getMessages().size() > 0) {
-                Thread.sleep(50);
+    // https://issues.jboss.org/browse/RF-13888
+    protected int waitForPushIsInitialized() {
+        int numberOfTries = 40;
+        RuntimeException t = null;
+        for (int i = 1; i <= numberOfTries; i++) {
+            try {
+                sendButton.click();
+                waitGui().until(ExpectedConditions.titleContains(MESSAGE_RECEIVED));
+                return Integer.parseInt(driver.getTitle().replaceAll(MESSAGE_RECEIVED, "").trim());
+            } catch (TimeoutException exception) {
+                t = exception;
+                loadPage();
             }
         }
-
-        private Session getCurrentSession() {
-            PushContext pushContext = pushContextFactory.getPushContext();
-            String pushSessionId = request.getParameter(PushHandlerFilter.PUSH_SESSION_ID_PARAM);
-            Session session = pushContext.getSessionManager().getPushSession(pushSessionId);
-            return session;
-        }
-
-        private void sendMessage(String message) throws MessageException {
-            TopicsContext topicsContext = TopicsContext.lookup();
-            TopicKey topicKey = new TopicKey(Commons.TOPIC);
-            topicsContext.getOrCreateTopic(topicKey);
-            topicsContext.publish(topicKey, message);
-        }
-    }
-
-    public static class Commons {
-        public static final String TOPIC = "testingTopic";
+        throw new RuntimeException(format("The push did not intialize within <{0}> page reloads.", numberOfTries), t);
     }
 }

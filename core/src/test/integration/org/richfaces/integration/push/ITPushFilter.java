@@ -19,46 +19,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.integration.push;
 
 import javax.faces.webapp.FacesServlet;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.webapp.PushFilter;
 
 import com.google.common.base.Function;
-import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
-@WarpTest
-@Ignore("RF-13290 test fails after upgrade to 1.0.17 (probably Warp issue)")
 public class ITPushFilter extends AbstractPushTest {
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreDeployment deployment = createBasicDeployment(ITPushFilter.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
-                        .createFilter()
-                            .filterName(PushFilter.class.getSimpleName())
-                            .filterClass(PushFilter.class.getName())
-                            .asyncSupported(true)
-                        .up()
-                        .createFilterMapping()
-                            .filterName(PushFilter.class.getSimpleName())
-                            .servletName(FacesServlet.class.getSimpleName())
-                        .up();
+                    .createFilter()
+                    .filterName(PushFilter.class.getSimpleName())
+                    .filterClass(PushFilter.class.getName())
+                    .asyncSupported(true)
+                    .up()
+                    .createFilterMapping()
+                    .filterName(PushFilter.class.getSimpleName())
+                    .servletName(FacesServlet.class.getSimpleName())
+                    .up();
             }
         });
 
@@ -66,7 +60,6 @@ public class ITPushFilter extends AbstractPushTest {
     }
 
     @Test
-    @RunAsClient
     public void test() {
         super.testSimplePush();
     }
