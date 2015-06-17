@@ -82,7 +82,7 @@
         <version.hsqldb>2.0.0</version.hsqldb>
         <version.hornetq>2.2.7.Final</version.hornetq>
         <version.netty>3.2.5.Final</version.netty>
-        <version.weld>2.2.6.Final</version.weld>
+        <version.weld>2.2.12.Final</version.weld>
         <version.rewrite>2.0.12.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
         <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
