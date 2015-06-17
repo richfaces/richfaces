@@ -21,26 +21,18 @@
  */
 package org.richfaces.integration.partialResponse;
 
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
-import static org.junit.Assert.assertFalse;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertEquals;
 import static org.richfaces.integration.push.AbstractPushTest.createBasicDeployment;
 
 import java.net.URL;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.servlet.AfterServlet;
-import org.jboss.arquillian.warp.servlet.BeforeServlet;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
@@ -59,24 +51,24 @@ import com.google.common.base.Predicate;
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 @RunWith(Arquillian.class)
-@WarpTest
-public class ITCliendWindowID {
+@RunAsClient
+public class ITClientWindowID {
 
     @ArquillianResource
     private URL contextPath;
-
     @Drone
     private WebDriver browser;
 
     @FindBy
     private WebElement inputText;
-
     @FindBy(css = "input[name='javax.faces.ClientWindow']")
     private WebElement hiddenFieldWithClientWindowID;
+    @FindBy(css = "[id='checkClientWindowIdIsNotEmptyResultElement']")
+    private WebElement checkClientWindowIdIsNotEmptyResultElement;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = createBasicDeployment(ITCliendWindowID.class);
+        CoreDeployment deployment = createBasicDeployment(ITClientWindowID.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
@@ -88,15 +80,16 @@ public class ITCliendWindowID {
             }
         });
 
+        deployment.archive().addClass(SimpleBean.class);
         addIndexPage(deployment);
-        return deployment.getFinalArchive().addClass(SimpleBean.class);
+
+        return deployment.getFinalArchive();
     }
 
     @Test
-    @RunAsClient
     public void should_include_hidden_field_with_client_window_id() {
-        browser.navigate().to(contextPath);
-        Graphene.waitModel().until(new Predicate<WebDriver>() {
+        browser.get(contextPath.toString());
+        waitModel().until(new Predicate<WebDriver>() {
             private String value;
 
             @Override
@@ -113,49 +106,24 @@ public class ITCliendWindowID {
     }
 
     @Test
-    @RunAsClient
     public void should_include_client_window_id_into_request_header() {
-        browser.navigate().to(contextPath);
-        Warp
-            .initiate(new Activity() {
-
-                @Override
-                public void perform() {
-                    Graphene.guardAjax(inputText).sendKeys("RichFaces");
-                }
-            })
-            .observe(request().parameter().containsParameter("jfwid"))
-            .inspect(new ClientWindowIDAssertion());
-    }
-
-    public static class ClientWindowIDAssertion extends Inspection {
-
-        private static final long serialVersionUID = 1L;
-
-        @ArquillianResource
-        HttpServletRequest request;
-
-        @BeforeServlet
-        public void beforeServlet() throws Exception {
-            assertFalse(request.getParameter("jfwid").trim().isEmpty());
-        }
-
-        @AfterServlet
-        public void afterServlet() throws InterruptedException {
-            assertFalse(request.getParameter("jfwid").trim().isEmpty());
-        }
+        browser.get(contextPath.toString());
+        guardAjax(inputText).sendKeys("RichFaces");
+        assertEquals(SimpleBean.PASSED, checkClientWindowIdIsNotEmptyResultElement.getText());
     }
 
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<h:inputText id='inputText' value='#{simpleBean.test}'>");
-        p.form("    <a4j:ajax event='keyup' render='out' />");
+        p.form("    <a4j:ajax event='keyup' render='out checkClientWindowIdIsNotEmptyResultElement' listener='#{simpleBean.checkClientWindowIdIsNotEmpty}' />");
         p.form("</h:inputText>");
-
+        p.form("<br/>");
         p.body("<a4j:outputPanel id='out'>");
         p.body("  <a id='link' href='/foo.html'>#{simpleBean.test}</a>");
         p.body("</a4j:outputPanel>");
+        p.form("<br/>");
+        p.form("check of not empty client window id: <h:outputText id='checkClientWindowIdIsNotEmptyResultElement' value='#{simpleBean.checkClientWindowIdIsNotEmptyResult}' />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

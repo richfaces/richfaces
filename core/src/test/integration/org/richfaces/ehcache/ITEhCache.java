@@ -54,7 +54,7 @@ public class ITEhCache {
     private URL contextPath;
 
     @FindBy(tagName = "span")
-    WebElement message;
+    private WebElement message;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -77,7 +77,7 @@ public class ITEhCache {
     @Test
     public void testCache() {
         driver.get(contextPath.toExternalForm());
-     // assert the cache contains pre-defined value
+        // assert the cache contains pre-defined value
         waitGui(driver).until().element(message).text().contains("value-x");
     }
 }

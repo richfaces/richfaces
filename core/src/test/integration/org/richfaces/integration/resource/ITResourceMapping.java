@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.integration.resource;
 
 import static org.hamcrest.Matchers.containsString;
@@ -36,7 +35,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
@@ -46,6 +44,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourceMapper;
@@ -53,72 +52,69 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 
 import category.Smoke;
-
 import com.google.common.base.Function;
-import org.richfaces.deployment.CoreDeployment;
 
 @RunWith(Arquillian.class)
-@WarpTest
 @RunAsClient
 @Category(Smoke.class)
 public class ITResourceMapping {
 
     @Drone
-    WebDriver driver;
+    private WebDriver driver;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
 
         CoreDeployment deployment = new CoreDeployment(ITResourceMapping.class);
 //        deployment.withWholeCore();
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
-                .key(":original.css").value("relocated.css")
-                .key(":part1.css").value("aggregated.css")
-                .key(":part2.css").value("aggregated.css")
-                .key("part1.js").value("aggregated.js")
-                .key("part2.js").value("aggregated.js");
+            .key(":original.css").value("relocated.css")
+            .key(":part1.css").value("aggregated.css")
+            .key(":part2.css").value("aggregated.css")
+            .key("part1.js").value("aggregated.js")
+            .key("part2.js").value("aggregated.js");
 
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
         FaceletAsset relocationPage = new FaceletAsset().head("<h:outputStylesheet name=\"original.css\" />");
 
         FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
-                + "<h:outputStylesheet name=\"part2.css\" />");
+            + "<h:outputStylesheet name=\"part2.css\" />");
 
         FaceletAsset javaScriptAggregationPage = new FaceletAsset().head("<h:outputScript name=\"part1.js\" />"
-                + "<h:outputScript name=\"part2.js\" />");
+            + "<h:outputScript name=\"part2.js\" />");
 
         deployment.archive()
-                /** classes */
-                .addPackage(ResourceHandlerImpl.class.getPackage())
-                .addPackage(ResourceTracker.class.getPackage())
-                .addPackage(ResourceMapper.class.getPackage())
-                .addClasses(Codec.class)
-                /** META-INF */
-                .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
-                /** ROOT */
-                .addAsWebResource(relocationPage, "relocation.xhtml")
-                .addAsWebResource(aggregationPage, "aggregation.xhtml")
-                .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
-                .addAsWebResource(emptyResource, "resources/original.css")
-                .addAsWebResource(emptyResource, "resources/part1.css")
-                .addAsWebResource(emptyResource, "resources/part2.css")
-                .addAsWebResource(emptyResource, "resources/relocated.css")
-                .addAsWebResource(emptyResource, "resources/aggregated.css")
-                .addAsWebResource(emptyResource, "resources/part1.js")
-                .addAsWebResource(emptyResource, "resources/part2.js")
-                .addAsWebResource(emptyResource, "resources/aggregated.js");
+            /** classes */
+            .addPackage(ResourceHandlerImpl.class.getPackage())
+            .addPackage(ResourceTracker.class.getPackage())
+            .addPackage(ResourceMapper.class.getPackage())
+            .addClasses(Codec.class)
+            /** META-INF */
+            .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
+            /** ROOT */
+            .addAsWebResource(relocationPage, "relocation.xhtml")
+            .addAsWebResource(aggregationPage, "aggregation.xhtml")
+            .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
+            .addAsWebResource(emptyResource, "resources/original.css")
+            .addAsWebResource(emptyResource, "resources/part1.css")
+            .addAsWebResource(emptyResource, "resources/part2.css")
+            .addAsWebResource(emptyResource, "resources/relocated.css")
+            .addAsWebResource(emptyResource, "resources/aggregated.css")
+            .addAsWebResource(emptyResource, "resources/part1.js")
+            .addAsWebResource(emptyResource, "resources/part2.js")
+            .addAsWebResource(emptyResource, "resources/aggregated.js");
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor descriptor) {
 
                 descriptor.getOrCreateContextParam()
-                        .paramName("org.richfaces.enableControlSkinning")
-                        .paramValue("false");
+                    .paramName("org.richfaces.enableControlSkinning")
+                    .paramValue("false");
 
                 return descriptor;
             }
