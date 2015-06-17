@@ -450,7 +450,7 @@
                             if (handler) {
                                 handler.call(this,event);
                             }
-                            $(form).trigger('ajaxcomplete');
+                            $("form").trigger('ajaxcomplete');
                         }
                     }
 
@@ -483,7 +483,7 @@
     
                         onbeforedomupdate.call(this.fileUpload, data);
                     }
-                    $(form).trigger('ajaxbeforedomupdate');
+                    this.fileUpload.form.trigger('ajaxbeforedomupdate');
                     jsf.ajax.response(this.xhr, responseContext);
                     this.finishUploading(responseStatus);
                     this.fileUpload.__startUpload();
@@ -498,7 +498,7 @@
                         status: 'begin'
                     })
                 }
-                $(form).trigger('ajaxbegin');
+                this.fileUpload.form.trigger('ajaxbegin');
                 this.xhr.send(formData);
 
                 rf.Event.fire(this.fileUpload.element, "onfilesubmit", this.model);
