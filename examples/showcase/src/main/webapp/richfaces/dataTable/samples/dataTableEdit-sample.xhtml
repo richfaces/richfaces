@@ -42,7 +42,7 @@
                     <a4j:param value="#{it.index}" assignTo="#{carsBean.currentCarIndex}" />
                 </a4j:commandLink>
                 <a4j:commandLink styleClass="no-decor" render="editGrid, vin, mage, price" execute="@this"
-                    oncomplete="#{rich:component('editPane')}.show()" resetValues="true">
+                    oncomplete="#{rich:component('editPane')}.show()" resetValues="true" actionListener="#{carsBean.resetValues()}">
                     <h:graphicImage value="/images/icons/edit.gif" alt="edit" />
                     <a4j:param value="#{it.index}" assignTo="#{carsBean.currentCarIndex}" />
                     <f:setPropertyActionListener target="#{carsBean.editedCar}" value="#{car}" />

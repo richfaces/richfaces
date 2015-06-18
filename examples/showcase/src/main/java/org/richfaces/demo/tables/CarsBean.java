@@ -14,9 +14,13 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.richfaces.JsfVersion;
 import org.richfaces.demo.common.data.RandomHelper;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorItem;
@@ -241,5 +245,18 @@ public class CarsBean implements Serializable {
 
     public void setClientRows(int clientRows) {
         this.clientRows = clientRows;
+    }
+
+    public void resetValues() {
+        // reset input fields to prevent stuck values after a validation failure
+        // not necessary in JSF 2.2+ (@resetValues on a4j:commandButton)
+        if (!JsfVersion.getCurrent().isCompliantWith(JsfVersion.JSF_2_2)) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            UIComponent comp = fc.getViewRoot().findComponent("form:editGrid");
+
+            ((EditableValueHolder) comp.findComponent("form:price")).resetValue();
+            ((EditableValueHolder) comp.findComponent("form:mage")).resetValue();
+            ((EditableValueHolder) comp.findComponent("form:vin")).resetValue();
+        }
     }
 }
