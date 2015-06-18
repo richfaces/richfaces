@@ -376,9 +376,12 @@
                 this.model.state = ITEM_STATE.UPLOADING;
                 this.uid = Math.random();
 
-                var formData = new FormData(this.fileUpload.form[0]);
-                    fileName = this.model.file.name;
+                var formData = new FormData(),
+                    fileName = this.model.file.name,
+                    viewState = this.fileUpload.form.find("input[name='javax.faces.ViewState']").val();
 
+                formData.append(this.fileUpload.form[0].id, this.fileUpload.form[0].id);
+                formData.append("javax.faces.ViewState", viewState);
                 formData.append(this.fileUpload.id, this.model.file);
 
                 var originalAction = this.fileUpload.form.attr("action"),
@@ -388,7 +391,7 @@
                         "&javax.faces.source="           + this.fileUpload.id +
                         "&javax.faces.partial.execute="  + this.fileUpload.id +
                         "&org.richfaces.ajax.component=" + this.fileUpload.id + 
-                        "&javax.faces.viewState=" + this.fileUpload.form.find("input[name='javax.faces.ViewState']").val();
+                        "&javax.faces.ViewState=" + viewState;
 
                 if (jsf.getClientWindow && jsf.getClientWindow()) {
                     newAction += "&javax.faces.ClientWindow=" + jsf.getClientWindow();
