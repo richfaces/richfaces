@@ -1,3 +1,27 @@
+4.5.7.Final
+-----------
+
+    Bug
+    [RF-11159] - rich:panelMenuGroup component don't save it's expanded property
+    [RF-11413] - Popup panel, component values on popup panel are not updated after validation process fails
+    [RF-12037] - Fileupload:onbegin, oncomplete and onbeforedomupdate does not work
+    [RF-12777] - rich:picklist - selectItemClass disables the buttons
+    [RF-14060] - column: @sortType, @filterType: flaws in vdl doc
+    [RF-14063] - rich:fileUpload - URI too long
+    [RF-14064] - calendar: day picker: wrong/different styling of hovered day
+
+    Component Upgrade
+    [RF-14059] - Upgrade third-party libraries
+
+    Feature Request
+    [RF-4308] - rich:pickList: keep sort order of source list after add/remove operations
+    [RF-14031] - Redesign the AbstractPopupMenu page fragment to enable more complex ContextMenu interactions
+
+    Task
+    [RF-14050] - fileUpload: add default value of @maxFileSize to VDL doc
+    [RF-14051] - photoalbum: fix TestAddImage tests
+    [RF-14052] - Update TESTS.md with WildFly 9 profile
+
 4.5.6.Final
 -----------
 
