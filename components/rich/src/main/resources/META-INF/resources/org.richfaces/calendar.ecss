@@ -222,7 +222,7 @@
 
 .rf-cal-hov {
     background-color: '#{a4jSkin.calendarSpecBackgroundColor}';
-    background-color: '#{a4jSkin.calendarSpecTextColor}';
+    color: '#{a4jSkin.calendarSpecTextColor}';
 }
 
 .rf-cal-tl-btn {
