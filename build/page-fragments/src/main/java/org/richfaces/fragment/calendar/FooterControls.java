@@ -75,7 +75,7 @@ public class FooterControls {
             throw new RuntimeException("Clean button is not displayed.");
         }
         getCleanButtonElement().click();
-        Graphene.waitGui().until().element(getCleanButtonElement()).is().not().visible();
+        Graphene.waitGui().withMessage("Clean button should not be visible.").until().element(getCleanButtonElement()).is().not().visible();
     }
 
     public WebElement getCleanButtonElement() {

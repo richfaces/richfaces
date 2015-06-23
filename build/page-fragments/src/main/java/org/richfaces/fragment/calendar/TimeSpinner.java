@@ -102,7 +102,7 @@ public abstract class TimeSpinner<T> {
     }
 
     public void waitUntilIsVisible() {
-        Graphene.waitModel().until().element(getRootElement()).is().visible();
+        Graphene.waitModel().withMessage("Time spinner should be visible.").until().element(getRootElement()).is().visible();
     }
 
     /**

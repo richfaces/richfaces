@@ -249,7 +249,7 @@ public class YearAndMonthEditor {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().visible();
             }
-        }.withMessage("Year and month editor to be not visible.")
+        }.withMessage("Year and month editor to be visible.")
             .withTimeout(getTimeoutForYearAndMonthEditorToBeVisible(), TimeUnit.MILLISECONDS);
     }
 

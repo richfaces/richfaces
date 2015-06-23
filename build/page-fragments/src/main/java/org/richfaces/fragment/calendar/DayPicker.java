@@ -351,7 +351,7 @@ public class DayPicker {
         public void select(boolean deselectOthers) {
             // https://issues.jboss.org/browse/RF-14033
             getRootElement().click();
-            Graphene.waitGui().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
+            Graphene.waitGui().withMessage("Day should be selected.").until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
         }
     }
 
