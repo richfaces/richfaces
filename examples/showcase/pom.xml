@@ -335,6 +335,8 @@
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                         <container.classifier>${showcase.war.classifier}</container.classifier>
+                        <!-- never restart container, override '1' from build-resources -->
+                        <arquillian.maxTestClassesBeforeRestart>0</arquillian.maxTestClassesBeforeRestart>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
