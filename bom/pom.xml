@@ -27,7 +27,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-cache-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.7-SNAPSHOT</version>
+    <version>4.5.8-SNAPSHOT</version>
     <name>RichFaces BOM</name>
 
     <description>
