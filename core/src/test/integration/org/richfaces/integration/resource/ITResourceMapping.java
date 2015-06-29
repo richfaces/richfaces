@@ -37,7 +37,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -52,7 +51,6 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 
 import category.Smoke;
-import com.google.common.base.Function;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -108,17 +106,6 @@ public class ITResourceMapping {
             .addAsWebResource(emptyResource, "resources/part1.js")
             .addAsWebResource(emptyResource, "resources/part2.js")
             .addAsWebResource(emptyResource, "resources/aggregated.js");
-
-        deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
-            public WebAppDescriptor apply(WebAppDescriptor descriptor) {
-
-                descriptor.getOrCreateContextParam()
-                    .paramName("org.richfaces.enableControlSkinning")
-                    .paramValue("false");
-
-                return descriptor;
-            }
-        });
 
         return deployment.getFinalArchive();
     }

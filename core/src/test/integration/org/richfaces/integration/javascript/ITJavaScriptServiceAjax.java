@@ -34,7 +34,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -43,8 +42,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import com.google.common.base.Function;
 
 import category.Smoke;
 
@@ -70,17 +67,6 @@ public class ITJavaScriptServiceAjax {
         CoreDeployment deployment = new CoreDeployment(ITJavaScriptServiceAjax.class);
 
         deployment.archive().addClasses(JsServiceBean.class);
-
-        // enableControlSkinning=false in order to remove warnings about not found resources
-        deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
-            public WebAppDescriptor apply(WebAppDescriptor descriptor) {
-
-                descriptor.getOrCreateContextParam().paramName("org.richfaces.enableControlSkinning")
-                    .paramValue("false");
-
-                return descriptor;
-            }
-        });
 
         addIndexPage(deployment);
 

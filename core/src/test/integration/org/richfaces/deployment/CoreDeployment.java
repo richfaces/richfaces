@@ -49,6 +49,7 @@ import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.richfaces.VersionBean;
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.DependencyInjector;
@@ -168,6 +169,7 @@ public class CoreDeployment extends BaseDeployment {
 
         this.withBaseClasses().withUtilities().withLogging();
 
+        this.withDisabledControlSkinning();
 //        this.withArquillianExtensions().withWaiting();
     }
 
@@ -221,6 +223,20 @@ public class CoreDeployment extends BaseDeployment {
         archive().addPackages(true, "org.richfaces.util");
         // remove unnecessary imported test class
         archive().deleteClass(LRUMapTest.class);
+        return this;
+    }
+
+    /**
+     * Disable control skinning to remove warnings about not found resources
+     */
+    public CoreDeployment withDisabledControlSkinning() {
+        this.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
+            public WebAppDescriptor apply(WebAppDescriptor descriptor) {
+                descriptor.getOrCreateContextParam().paramName("org.richfaces.enableControlSkinning")
+                    .paramValue("false");
+                return descriptor;
+            }
+        });
         return this;
     }
 
