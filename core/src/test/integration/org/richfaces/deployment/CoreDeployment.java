@@ -167,7 +167,7 @@ public class CoreDeployment extends BaseDeployment {
 
         this.withBaseClasses().withUtilities().withLogging();
 
-        this.withArquillianExtensions().withWaiting();
+//        this.withArquillianExtensions().withWaiting();
     }
 
     /*
