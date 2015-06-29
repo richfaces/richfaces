@@ -128,6 +128,7 @@ import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.external.ResourceTrackerImpl;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.skin.SkinFactory;
+import org.richfaces.util.LRUMapTest;
 import org.richfaces.util.PropertiesUtil;
 import org.richfaces.wait.Condition;
 import org.richfaces.wait.Wait;
@@ -218,6 +219,8 @@ public class CoreDeployment extends BaseDeployment {
      */
     public CoreDeployment withUtilities() {
         archive().addPackages(true, "org.richfaces.util");
+        // remove unnecessary imported test class
+        archive().deleteClass(LRUMapTest.class);
         return this;
     }
 
