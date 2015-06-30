@@ -14,11 +14,6 @@ import java.util.List;
  *
  */
 public abstract class AbstractOrderingComponent extends AbstractSelectManyComponent {
-    /**
-     * The text placed above the list of items
-     */
-    @Attribute
-    public abstract String getCaption();
 
     @Attribute(defaultValue = "true", hidden = true) // TODO: unhide once javascript API's are available RF-11209
     public abstract boolean isShowButton();

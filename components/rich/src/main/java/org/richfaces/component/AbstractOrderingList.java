@@ -26,6 +26,12 @@ public abstract class AbstractOrderingList extends AbstractOrderingComponent imp
         return getValue();
     }
 
+    /**
+     * The text placed above the list of items
+     */
+    @Attribute
+    public abstract String getCaption();
+
     //-------- List Events
 
     /**
