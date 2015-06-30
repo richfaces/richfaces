@@ -557,7 +557,7 @@
 
         var tempStr = "RichFaces.component('" + this.id + "').";
 
-        var htmlTextHeader = '<table id="' + this.CALENDAR_CONTENT + '" border="0" tabindex="-1" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup ' + this.options.styleClass + '" style="' + popupStyles + this.options.style + '" onclick="' + tempStr + 'skipEventOnCollapse=true;"><tbody>';
+        var htmlTextHeader = '<table id="' + this.CALENDAR_CONTENT + '" border="0" tabindex="-1" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup ' + this.options.styleClass + '" style="' + popupStyles + this.options.style + '" onmousedown="' + tempStr + 'skipEventOnCollapse=true;"><tbody>';
         var colspan = (this.options.showWeeksBar ? "8" : "7");
         var htmlHeaderOptional = (this.options.optionalHeaderMarkup) ? '<tr><td class="rf-cal-hdr-optnl" colspan="' + colspan + '" id="' + this.id + 'HeaderOptional"></td></tr>' : '';
         var htmlFooterOptional = (this.options.optionalFooterMarkup) ? '<tr><td class="rf-cal-ftr-optl" colspan="' + colspan + '" id="' + this.id + 'FooterOptional"></td></tr>' : '';
