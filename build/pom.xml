@@ -117,12 +117,13 @@
         <version.arquillian.drone>2.0.0.Alpha4</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha7</version.arquillian.warp>
         <version.arquillian.graphene>2.1.0.Alpha2</version.arquillian.graphene>
-        <version.selenium>2.45.0</version.selenium>
+        <version.selenium>2.46.0</version.selenium>
         <version.shrinkwrap>1.2.2</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.2.0-beta-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-7</version.shrinkwrap.descriptors>
         <version.arquillian.glassfish40>1.0.0.CR4</version.arquillian.glassfish40>
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
+        <version.httpclient>4.3.3</version.httpclient>
 
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
@@ -398,7 +399,7 @@
                 <artifactId>atmosphere-runtime</artifactId>
                 <version>${version.atmosphere}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.atmosphere</groupId>
                 <artifactId>atmosphere-runtime-native</artifactId>
@@ -573,6 +574,11 @@
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
                 <version>${version.xml-apis}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${version.httpclient}</version>
             </dependency>
 
             <!-- tests (TODO - is it necessary?) -->
