@@ -19,9 +19,9 @@
   License along with this software; if not, write to the Free
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  -->
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces.examples</groupId>
@@ -260,6 +260,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.eu.ingwar.tools</groupId>
+            <artifactId>arquillian-suite-extension</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <scope>test</scope>
@@ -330,6 +335,8 @@
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                         <container.classifier>${showcase.war.classifier}</container.classifier>
+                        <!-- never restart container, override '1' from build-resources -->
+                        <arquillian.maxTestClassesBeforeRestart>0</arquillian.maxTestClassesBeforeRestart>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -613,11 +620,6 @@
                     <scope>test</scope>
                     <version>${version.richfaces}</version>
                     <classifier>configuration-tomcat</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.extension</groupId>
-                    <artifactId>arquillian-warp-jsf</artifactId>
-                    <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.arquillian.junit</groupId>

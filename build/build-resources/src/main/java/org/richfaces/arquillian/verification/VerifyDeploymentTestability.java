@@ -46,6 +46,18 @@ import org.jboss.arquillian.warp.WarpTest;
 public class VerifyDeploymentTestability {
 
     /**
+     * Checks if WarpTest.class is on classpath
+     */
+    private boolean isWarpDependencyInProject() {
+        try {
+            WarpTest.class.getName();
+            return true;
+        } catch (NoClassDefFoundError e) {
+            return false;
+        }
+    }
+
+    /**
      * Verifies that all non-Warp, client-side only tests does not have @Deployment that is marked testable.
      *
      * @param event
@@ -57,18 +69,17 @@ public class VerifyDeploymentTestability {
         // run-as-client class
         if (testClass.getAnnotation(RunAsClient.class) != null) {
 
-            // non-warp class
-            if (testClass.getAnnotation(WarpTest.class) == null) {
+            // project does not contain Warp dependency or it is a non-warp class
+            if (!isWarpDependencyInProject() || testClass.getAnnotation(WarpTest.class) == null) {
                 Method method = testClass.getMethod(Deployment.class);
                 Deployment deployment = method.getAnnotation(Deployment.class);
 
                 // deployment is testable
                 if (deployment.testable()) {
                     throw new IllegalArgumentException("Non-Warp test that is marked as @RunAsClient should not be testable: "
-                            + testClass.getJavaClass().getName());
+                        + testClass.getJavaClass().getName());
                 }
             }
         }
     }
-
 }

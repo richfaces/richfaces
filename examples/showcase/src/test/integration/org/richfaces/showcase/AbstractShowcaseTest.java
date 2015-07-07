@@ -1,27 +1,30 @@
 package org.richfaces.showcase;
 
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.OverProtocol;
 import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.runner.RunWith;
-import org.jboss.arquillian.junit.Arquillian;
 
 @RunAsClient
 @RunWith(Arquillian.class)
+@ArquillianSuiteDeployment
 public class AbstractShowcaseTest {
-        
+
     @ArquillianResource
-    protected URL contextRoot;   
+    protected URL contextRoot;
     protected static final Boolean runInPortalEnv = Boolean.getBoolean("runInPortalEnv");
-    
+
     @Deployment(testable = false)
+    @OverProtocol("Servlet 3.0")
     public static WebArchive deploy() {
         File warFile2deploy;
         if (runInPortalEnv) {
@@ -32,7 +35,7 @@ public class AbstractShowcaseTest {
         WebArchive war = ShrinkWrap.createFromZipFile(WebArchive.class, warFile2deploy);
         return war;
     }
-    
+
     protected String getAdditionToContextRoot() {
         ShowcaseLayout layout = loadLayout();
         String addition;
@@ -82,6 +85,7 @@ public class AbstractShowcaseTest {
     }
 
     protected static enum ShowcaseLayout {
+
         COMMON, MOBILE;
     }
 
