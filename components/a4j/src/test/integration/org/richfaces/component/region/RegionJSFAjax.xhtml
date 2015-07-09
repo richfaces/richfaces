@@ -31,7 +31,7 @@
 
 <h:body>
     <h:form id="form" prependId="false">
-        <a4j:region>
+        <a4j:region id="region">
             <h:commandButton id="button" value="button" action="#{regionBean.action}">
                 <f:ajax execute="#{param['execute']}" render="output" />
             </h:commandButton>
