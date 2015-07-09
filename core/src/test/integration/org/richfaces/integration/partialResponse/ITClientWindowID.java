@@ -36,6 +36,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,6 +44,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
+import category.JSF22Only;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
@@ -52,6 +54,7 @@ import com.google.common.base.Predicate;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
+@Category(JSF22Only.class)
 public class ITClientWindowID {
 
     @ArquillianResource
