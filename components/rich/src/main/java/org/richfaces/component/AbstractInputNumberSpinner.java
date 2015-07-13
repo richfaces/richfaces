@@ -77,15 +77,6 @@ public abstract class AbstractInputNumberSpinner extends UIInputNumber implement
     public abstract String getInputClass();
 
     /**
-     * If "right", the InputText Box would be rendered on the right side of the ruler.
-     * If "left", the InputText Box would be rendered on the left side of the ruler.
-     * If "top", the InputText Box would be rendered on the top of the ruler.
-     * If "bottom", the InputText Box would be rendered on the bottom of the ruler.
-     */
-    @Attribute(defaultValue = "InputNumberSliderInputPosition.DEFAULT")
-    public abstract InputNumberSliderInputPosition getInputPosition();
-
-    /**
      * Attribute specifies the initial length of input in characters.
      * <br />
      * Default value is "10".
