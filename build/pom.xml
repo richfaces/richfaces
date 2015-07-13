@@ -69,10 +69,10 @@
 
         <!-- JSF Implementations Versions-->
         <version.javax.faces-api>2.2</version.javax.faces-api>
-        <version.org.glassfish.javax.faces>2.2.8</version.org.glassfish.javax.faces>
-        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>2.2.8</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>
-        <version.org.jboss.javax.faces.jsf-impl>2.2.8-jbossorg-2</version.org.jboss.javax.faces.jsf-impl>
-        <version.myfaces>2.2.7</version.myfaces>
+        <version.org.glassfish.javax.faces>2.2.11</version.org.glassfish.javax.faces>
+        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>2.2.11</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>
+        <version.org.jboss.javax.faces.jsf-impl>2.2.11-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
+        <version.myfaces>2.2.8</version.myfaces>
 
         <!-- Push Dependencies -->
         <version.atmosphere>2.3.1</version.atmosphere>
