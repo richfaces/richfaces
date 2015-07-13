@@ -37,17 +37,17 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTab;
 import org.richfaces.component.AbstractTabPanel;
-import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.ComponentIterators;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.VisitChildrenRejectable;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 import com.google.common.base.Predicate;
 
@@ -80,8 +80,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
         if (pvc.isPartialRequest()) {
             // encode the tabPanel headers when the tab is encoded
             String headerMetaComponentId = parentTabPanel.getClientId(context)
-                    + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + AbstractTabPanel.HEADER_META_COMPONENT;
+                + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTabPanel.HEADER_META_COMPONENT;
             pvc.getRenderIds().add(headerMetaComponentId);
         }
 
@@ -159,7 +158,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
         res.put("disabled", ((AbstractTab) component).isDisabled());
         res.put("enter", ((AbstractTogglePanelItemInterface) component).getOnenter());
         res.put("leave", ((AbstractTogglePanelItemInterface) component).getOnleave());
-
+        res.put("ajax", AjaxRendererUtils.buildEventOptions(context, component));
         return res;
     }
 

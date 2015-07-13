@@ -81,7 +81,7 @@
          * @return {Boolean} false
          * */
         execAjax : function (oldPanel, newPanel) {
-            var options = $.extend({}, newPanel.getTogglePanel().options["ajax"], {});
+            var options = $.extend({}, newPanel.getTogglePanel().options["ajax"], oldPanel.options.ajax);
 
             this.__setActiveItem(newPanel);
             rf.ajax(newPanel.id, null, options);
