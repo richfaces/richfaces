@@ -334,14 +334,14 @@
             /***************************** Private Methods ********************************************************/
             __bindEventHandlers:function(element,options){
             	
-                this.chartElement.on('plotclick', this._getPlotClickHandler(this.options, this.chartElement, _plotClickServerSide));
-                this.chartElement.on('plothover', this._getPlotHoverHandler(this.options, this.chartElement));
-            	if (this.options.handlers && this.options.handlers.onmouseout) {
-                    this.chartElement.on('mouseout', this.options.handlers.onmouseout);
+                element.on('plotclick', this._getPlotClickHandler(options, element.get(0), _plotClickServerSide));
+                element.on('plothover', this._getPlotHoverHandler(options, element.get(0)));
+            	if (options.handlers && options.handlers.onmouseout) {
+                    element.on('mouseout', options.handlers.onmouseout);
                 }
 
-                if (this.options.zoom) {
-                    this.chartElement.on('plotselected', $.proxy(this._zoomFunction, this));
+                if (options.zoom) {
+                    element.on('plotselected', $.proxy(this._zoomFunction, this));
                 }
                 
             },
