@@ -12,7 +12,7 @@
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.selectId);
         this.currentValue = $(rf.getDomElement(fieldId)).val();
         this.tempValue = this.getValue();
-        this.isChanged = this.tempValue.length != 0;
+        this.isChanged = false;
         bindEventHandlers.call(this);
     };
 
