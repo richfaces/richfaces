@@ -39,7 +39,7 @@
                             <div class="rf-ord-lst-dcrtn"
                                 cdk:passThrough="onclick:onlistclick ondblclick:onlistdblclick onmousedown:onlistmousedown onmouseup:onlistmouseup onmouseover:onlistmouseover
                                 onmousemove:onlistmousemove onmouseout:onlistmouseout onkeypress:onlistkeypress onkeydown:onlistkeydown onkeyup:onlistkeyup">
-                                <div class="rf-ord-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                                <div class="rf-ord-lst-scrl" id="#{clientId}Scroll" style="#{encodeHeightAndWidth(component)}">
                                     <c:choose>
                                         <c:when test="#{! hasColumnChildren}">
                                             <div id="#{clientId}Items">

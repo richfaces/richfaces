@@ -38,7 +38,7 @@
                                 <div class="rf-pick-lst-dcrtn"
                                      cdk:passThrough="onclick:onsourceclick ondblclick:onsourcedblclick onmousedown:onsourcemousedown onmouseup:onsourcemouseup onmouseover:onsourcemouseover
                                                       onmousemove:onsourcemousemove onmouseout:onsourcemouseout">
-                                    <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                                    <div class="rf-pick-lst-scrl" id="#{clientId}SourceScroll" style="#{encodeHeightAndWidth(component)}">
                                         <c:choose>
                                             <c:when test="#{! hasColumnChildren}">
                                                 <div id="#{clientId}SourceItems">
@@ -105,7 +105,7 @@
                                             <div class="rf-pick-lst-dcrtn"
                                                  cdk:passThrough="onclick:ontargetclick ondblclick:ontargetdblclick onmousedown:ontargetmousedown onmouseup:ontargetmouseup onmouseover:ontargetmouseover
                                     onmousemove:ontargetmousemove onmouseout:ontargetmouseout">
-                                                <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                                                <div class="rf-pick-lst-scrl" id="#{clientId}TargetScroll" style="#{encodeHeightAndWidth(component)}">
                                                     <c:choose>
                                                         <c:when test="#{! hasColumnChildren}">
                                                             <div id="#{clientId}TargetItems">

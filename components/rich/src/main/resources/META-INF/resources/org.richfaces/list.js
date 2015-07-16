@@ -12,6 +12,7 @@
         this.selectItemCss = mergedOptions.selectItemCss;
         this.selectItemCssMarker = mergedOptions.selectItemCss.split(" ", 1)[0];
         this.scrollContainer = $(mergedOptions.scrollContainer);
+        this.parentContainer = mergedOptions.parentContainer ? $(mergedOptions.parentContainer) : this.scrollContainer;
         this.itemCss = mergedOptions.itemCss.split(" ", 1)[0]; // we only need one of the item css classes to identify the item
         this.listCss = mergedOptions.listCss;
         this.clickRequiredToSelect = mergedOptions.clickRequiredToSelect;
@@ -216,8 +217,8 @@
             },
 
             addItems: function(items) {
-                var parentContainer = this.scrollContainer;
-                parentContainer.append(items);
+                var container = this.parentContainer;
+                container.append(items);
                 this.__updateItemsList();
                 rf.Event.fire(this, "additems", items);
             },
