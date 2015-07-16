@@ -374,12 +374,6 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     }
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the panel menu group when it is hovered.
-     */
-    @Attribute
-    public abstract String getHoverClass();
-
-    /**
      * Space-separated list of CSS style class(es) to be applied to the left icon of the panel menu group.
      */
     @Attribute
