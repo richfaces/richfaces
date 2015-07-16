@@ -46,7 +46,6 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import category.FailingOnFirefox;
 import category.Smoke;
 
 @RunWith(Arquillian.class)
@@ -137,7 +136,6 @@ public class ITChartBasic {
     }
 
     @Test
-    @Category({ Smoke.class, FailingOnFirefox.class })
     public void testChartEvents() {
         // does not work on FF - Webdriver cannot click into position on canvas hence cannot fire event
         final String serverSide = "Server's speaking:Point with index 0 within series 0 was clicked. Point coordinates: [1990,19.1].";
@@ -163,7 +161,6 @@ public class ITChartBasic {
     }
 
     @Test
-    @Category({ Smoke.class, FailingOnFirefox.class })
     public void testZoom() {
         // does not work on FF - Webdriver cannot click into position on canvas
         browser.get(deploymentUrl.toExternalForm());
