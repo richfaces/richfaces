@@ -146,6 +146,10 @@
             if (this.queueOptions.status && this.options.rfExt && !this.options.rfExt.status) {
                 this.options.rfExt.status = this.queueOptions.status;
             }
+            
+            if (this.queueOptions.onerror && this.options.rfExt && !this.options.rfExt.error) {
+                this.options.rfExt.error = this.queueOptions.onerror;
+            }
 
             if (typeof this.queueOptions.requestGroupingId == "undefined") {
                 this.queueOptions.requestGroupingId = typeof this.source == "string" ? this.source : this.source.id;
