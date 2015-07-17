@@ -51,7 +51,9 @@ public final class AjaxRendererUtils {
     public static final String AJAX_QUEUE_ATTR = "eventsQueue";
     public static final String AJAX_SINGLE_ATTR = "ajaxSingle";
     public static final String AJAX_SINGLE_PARAMETER_NAME = "ajaxSingle";
+    public static final String ERROR_EVENT_NAME = "error";
     public static final String ONBEGIN_ATTR_NAME = "onbegin";
+    public static final String ONERROR_ATTR_NAME = "onerror";
     /**
      * Attribute for keep JavaScript function name for call after complete request.
      */
@@ -252,6 +254,11 @@ public final class AjaxRendererUtils {
         String handlerScript = getHandlerScript(facesContext, component, ONBEGIN_ATTR_NAME, BEGIN_EVENT_NAME);
         if (!Strings.isNullOrEmpty(handlerScript)) {
             ajaxOptions.set(BEGIN_EVENT_NAME, handlerScript);
+        }
+
+        handlerScript = getHandlerScript(facesContext, component, ONERROR_ATTR_NAME, ERROR_EVENT_NAME);
+        if (!Strings.isNullOrEmpty(handlerScript)) {
+            ajaxOptions.set(ERROR_EVENT_NAME, handlerScript);
         }
 
         String queueId = getQueueId(component);

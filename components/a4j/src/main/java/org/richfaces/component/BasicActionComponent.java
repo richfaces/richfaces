@@ -143,6 +143,11 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     }
 
     @Override
+    public String getOnerror() {
+        return null;
+    }
+
+    @Override
     public String getStatus() {
         return null;
     }
