@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.BypassProps;
+import org.richfaces.component.attribute.ErrorProps;
 import org.richfaces.view.facelets.html.AjaxPollHandler;
 
 /**
@@ -38,7 +39,7 @@ import org.richfaces.view.facelets.html.AjaxPollHandler;
  * @author shura
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = AjaxPollHandler.class, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PollRenderer"))
-public abstract class AbstractPoll extends BasicActionComponent implements AjaxProps, BypassProps {
+public abstract class AbstractPoll extends BasicActionComponent implements AjaxProps, BypassProps, ErrorProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Poll";
     public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
     public static final String TIMER = "timer";

@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.BypassProps;
+import org.richfaces.component.attribute.ErrorProps;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ import org.richfaces.component.attribute.BypassProps;
  * @author asmirnov@exadel.com
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets))
-public abstract class AbstractAjaxFunction extends BasicActionComponent implements AjaxProps, BypassProps {
+public abstract class AbstractAjaxFunction extends BasicActionComponent implements AjaxProps, BypassProps, ErrorProps {
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 

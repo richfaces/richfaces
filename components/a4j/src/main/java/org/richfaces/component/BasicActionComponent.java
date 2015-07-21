@@ -32,9 +32,10 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.ErrorProps;
 import org.richfaces.util.Sets;
 
-public class BasicActionComponent extends AbstractActionComponent implements AjaxProps {
+public class BasicActionComponent extends AbstractActionComponent implements AjaxProps, ErrorProps {
 
     enum PropertyKeys {
         render,
@@ -86,10 +87,10 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     }
 
     /**
-     * Ids of components that will participate in the "execute" portion of the Request Processing Lifecycle.
-     * Can be a single id, a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection.
-     * Any of the keywords "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list.
-     * Some components make use of additional keywords
+     * Ids of components that will participate in the "execute" portion of the Request Processing Lifecycle. Can be a single id,
+     * a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection. Any of the keywords
+     * "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list. Some components make use of
+     * additional keywords
      */
     @Attribute
     public Object getExecute() {
@@ -102,10 +103,10 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     }
 
     /**
-     * Ids of components that will participate in the "render" portion of the Request Processing Lifecycle.
-     * Can be a single id, a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection.
-     * Any of the keywords "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list.
-     * Some components make use of additional keywords
+     * Ids of components that will participate in the "render" portion of the Request Processing Lifecycle. Can be a single id,
+     * a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection. Any of the keywords
+     * "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list. Some components make use of
+     * additional keywords
      */
     @Attribute
     public Object getRender() {
@@ -161,6 +162,5 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
     public boolean isResetValues() {
         return false;
     }
-
 
 }
