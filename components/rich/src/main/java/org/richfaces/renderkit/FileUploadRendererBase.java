@@ -88,7 +88,8 @@ public class FileUploadRendererBase extends RendererBase {
                     String contentDisposition = part.getHeader("Content-Disposition");
                     String filename = MultipartRequestParser.parseFileName(contentDisposition);
                     if (filename != null) {
-                        files.add(new UploadedFile30(part.getName(), filename, part));
+                        // RF-14092: request encoded in UTF8 (XHR2 default) will be parsed as Latin1 (HTTP default)
+                        files.add(new UploadedFile30(part.getName(), new String(filename.getBytes("iso-8859-1"), "utf-8"), part));
                     }
                 }
             } else {
