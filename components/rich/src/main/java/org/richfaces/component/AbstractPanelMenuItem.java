@@ -222,12 +222,6 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     }
 
     /**
-     * The client-side script method to be called after the menu group is unselected
-     */
-    @Attribute(events = @EventName("unselect"))
-    public abstract String getOnunselect();
-
-    /**
      * The client-side script method to be called after the menu group is selected
      */
     @Attribute(events = @EventName("select"))

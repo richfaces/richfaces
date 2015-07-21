@@ -55,7 +55,6 @@ import com.google.common.base.Predicate;
  */
 @JsfRenderer(type = "org.richfaces.PanelMenuItemRenderer", family = AbstractPanelMenuItem.COMPONENT_FAMILY)
 public class PanelMenuItemRenderer extends DivPanelRenderer {
-    public static final String UNSELECT = "unselect";
     public static final String SELECT = "select";
     public static final String BEFORE_SELECT = "beforeselect";
     private static final String CSS_CLASS_PREFIX = "rf-pm-itm";
@@ -218,7 +217,6 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         options.put("unselectable", panelMenuItem.getUnselectable());
         options.put("stylePrefix", getCssClass(panelMenuItem, ""));
 
-        addEventOption(context, panelMenuItem, options, UNSELECT);
         addEventOption(context, panelMenuItem, options, SELECT);
         addEventOption(context, panelMenuItem, options, BEFORE_SELECT);
 
