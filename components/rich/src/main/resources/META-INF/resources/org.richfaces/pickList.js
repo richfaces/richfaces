@@ -176,8 +176,8 @@
                     if (!inserted) {
                         this.sourceList.scrollContainer.append(item);
                     }
+                    this.sourceList.__updateItemsList();
                 }
-                this.sourceList.__updateItemsList();
                 this.encodeHiddenValues();
             },
 
