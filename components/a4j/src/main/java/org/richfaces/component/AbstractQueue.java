@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.ErrorProps;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(name = "queue", generate = false, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.QueueRenderer"))
-public abstract class AbstractQueue extends UIComponentBase {
+public abstract class AbstractQueue extends UIComponentBase implements ErrorProps {
     public static final String GLOBAL_QUEUE_NAME = "org.richfaces.queue.global";
     public static final String COMPONENT_TYPE = "org.richfaces.Queue";
     public static final String COMPONENT_FAMILY = "org.richfaces.Queue";

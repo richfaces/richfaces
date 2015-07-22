@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.ErrorProps;
 
 /**
  * <p>
@@ -41,7 +42,7 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Lukas Fryc
  */
 @JsfComponent(type = AbstractPush.COMPONENT_TYPE, family = AbstractPush.COMPONENT_FAMILY, tag = @Tag(name = "push", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PushRenderer"))
-public abstract class AbstractPush extends UIComponentBase {
+public abstract class AbstractPush extends UIComponentBase implements ErrorProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Push";
     public static final String COMPONENT_FAMILY = "org.richfaces.Push";
 

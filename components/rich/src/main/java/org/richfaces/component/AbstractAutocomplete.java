@@ -53,6 +53,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AutocompleteProps;
 import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.component.attribute.ErrorProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.FocusProps;
@@ -74,7 +75,7 @@ import org.richfaces.view.facelets.AutocompleteHandler;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
-public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, StyleClassProps, StyleProps, AutocompleteProps {
+public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, ErrorProps, StyleClassProps, StyleProps, AutocompleteProps {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
