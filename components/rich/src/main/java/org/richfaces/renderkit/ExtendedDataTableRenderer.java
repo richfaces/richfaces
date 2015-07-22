@@ -119,6 +119,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         private Part current;
         private Iterator<Part> partIterator;
         private EncoderVariance encoderVariance = EncoderVariance.full;
+        private int frozenColumnsSize;
 
         public RendererState(FacesContext context, UIDataTableBase table) {
             super(context);
@@ -126,12 +127,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             List<UIComponent> columns = getOrderedColumns(context);
 
-            int frozenColumnsAttribute = (Integer) table.getAttributes().get("frozenColumns");
-            if (frozenColumnsAttribute < 0 || frozenColumnsAttribute >= columns.size()) {
-                frozenColumnsAttribute = 0;
+            frozenColumnsSize = (Integer) table.getAttributes().get("frozenColumns");
+            if (frozenColumnsSize < 0 || frozenColumnsSize >= columns.size()) {
+                frozenColumnsSize = 0;
             }
 
-            int count = Math.min(frozenColumnsAttribute, columns.size());
+            int count = Math.min(frozenColumnsSize, columns.size());
             List<UIComponent> frozenColumns = columns.subList(0, count);
             columns = columns.subList(count, columns.size());
             parts = new ArrayList<Part>(PartName.values().length);
@@ -888,8 +889,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getContainerClientId(facesContext) + ":"
             + part.getName().getId(), null);
         columns = part.getColumns().iterator();
-        int columnNumber = 0;
-        int lastColumnNumber = part.getColumns().size() - 1;
+        int frozenColumns = (state.getPart().name == PartName.normal ? state.frozenColumnsSize : 0);
+        int columnNumber = 0 + frozenColumns;
+        int lastColumnNumber = part.getColumns().size() + frozenColumns - 1;
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
