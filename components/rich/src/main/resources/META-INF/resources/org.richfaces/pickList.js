@@ -179,6 +179,7 @@
                     this.sourceList.__updateItemsList();
                 }
                 this.encodeHiddenValues();
+                this.toggleButtons();
             },
 
             add: function() {
