@@ -37,6 +37,7 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
@@ -54,6 +55,7 @@ import com.google.common.base.Predicate;
  */
 @RunAsClient
 @RunWith(Arquillian.class)
+@Ignore("https://issues.jboss.org/browse/RF-14095")
 public class ITActivatorComponentNotRenderedProcessing {
 
     @Drone
