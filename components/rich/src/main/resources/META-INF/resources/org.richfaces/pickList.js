@@ -174,7 +174,7 @@
                         }
                     }
                     if (!inserted) {
-                        this.sourceList.scrollContainer.append(item);
+                        this.sourceList.parentContainer.append(item);
                     }
                     this.sourceList.__updateItemsList();
                 }
