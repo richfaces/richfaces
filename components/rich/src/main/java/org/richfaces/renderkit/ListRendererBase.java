@@ -237,6 +237,10 @@ public abstract class ListRendererBase extends RendererBase {
         return null;
     }
 
+    protected Integer getFirst(UIComponent component) {
+        return ((AbstractList) component).getFirst() + 1;
+    }
+
     protected void encodeListItems(FacesContext context, UIComponent component, ListType listType) throws IOException {
         AbstractList list = (AbstractList) component;
         try {

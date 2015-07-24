@@ -84,7 +84,7 @@
 
         <cdk:switch key="#{listType}">
             <cdk:case values="ordered">
-                <ol id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                <ol id="#{elementId}" class="#{styleClass}" start="#{getFirst(component)}" cdk:passThroughWithExclusions="type value">
                     <cdk:call expression="encodeListItems(facesContext, component, listType)" />
                 </ol>
             </cdk:case>
