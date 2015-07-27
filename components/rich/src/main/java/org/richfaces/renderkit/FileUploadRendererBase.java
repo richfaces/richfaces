@@ -80,7 +80,7 @@ public class FileUploadRendererBase extends RendererBase {
         try {
             List<UploadedFile> files = new LinkedList<UploadedFile>();
 
-              // check if Servlet 3.0+ is being used
+            // check if Servlet 3.0+ is being used
             if (request.getParts().size() > 0) {
                 Collection<Part> parts = request.getParts();
 
@@ -89,7 +89,13 @@ public class FileUploadRendererBase extends RendererBase {
                     String filename = MultipartRequestParser.parseFileName(contentDisposition);
                     if (filename != null) {
                         // RF-14092: request encoded in UTF8 (XHR2 default) will be parsed as Latin1 (HTTP default)
-                        files.add(new UploadedFile30(part.getName(), new String(filename.getBytes("iso-8859-1"), "utf-8"), part));
+                        // on Tomcat it can be any encoding (org.apache.catalina.filters.SetCharacterEncodingFilter)
+                        String encoding = request.getCharacterEncoding();
+                        if (encoding == null) {
+                            encoding = "iso-8859-1";
+                        }
+                        files
+                            .add(new UploadedFile30(part.getName(), new String(filename.getBytes(encoding), "utf-8"), part));
                     }
                 }
             } else {
@@ -131,7 +137,8 @@ public class FileUploadRendererBase extends RendererBase {
                 if (uid != null) {
                     long contentLength = Long.parseLong(httpRequest.getHeader("Content-Length"));
 
-                    long maxRequestSize = fileUpload.getMaxFileSize() != 0 ? fileUpload.getMaxFileSize() : getMaxRequestSize(httpRequest.getServletContext());
+                    long maxRequestSize = fileUpload.getMaxFileSize() != 0 ? fileUpload.getMaxFileSize()
+                        : getMaxRequestSize(httpRequest.getServletContext());
 
                     if (maxRequestSize != 0 && contentLength > maxRequestSize) {
                         externalContext.setResponseStatus(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE);
