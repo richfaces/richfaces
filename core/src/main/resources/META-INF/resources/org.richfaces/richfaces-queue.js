@@ -88,7 +88,18 @@
 
         var defaultQueueOptions = {};
         //defaultQueueOptions[DEFAULT_QUEUE_ID] = {requestDelay:0, ignoreDupResponse:false, timeout:0};
-        var eventHandlers = {};
+        var eventHandlers = ["status", "onbeforedomupdate", "oncomplete", "onerror"];
+        
+        var addEventHandlers = function(queueOptions, options) {
+            for (var i = 0; i < eventHandlers.length; i++) {
+                var event = eventHandlers[i],
+                    handler = event.startsWith("on") ? event.substr(2) : event;
+                if (queueOptions[event] && options.rfExt && !options.rfExt[handler]) {
+                    // add global event handler unless the item provides its own
+                    options.rfExt[handler] = queueOptions[event];
+                }
+            }
+        }
 
         var QueueEntry = function(queue, source, event, options) {
             this.queue = queue;
@@ -143,14 +154,12 @@
                 }
             }
             
-            if (this.queueOptions.status && this.options.rfExt && !this.options.rfExt.status) {
-                this.options.rfExt.status = this.queueOptions.status;
+            addEventHandlers(this.queueOptions, this.options);
+            
+            if (this.queueOptions.onsubmit) {
+                this.options.queueonsubmit = new Function("entry", this.queueOptions.onsubmit);
             }
             
-            if (this.queueOptions.onerror && this.options.rfExt && !this.options.rfExt.error) {
-                this.options.rfExt.error = this.queueOptions.onerror;
-            }
-
             if (typeof this.queueOptions.requestGroupingId == "undefined") {
                 this.queueOptions.requestGroupingId = typeof this.source == "string" ? this.source : this.source.id;
             }
