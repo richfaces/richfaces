@@ -213,7 +213,7 @@ public class DayPicker {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().not().visible();
             }
-        }.withMessage("Day picker to be not visible.");
+        }.withMessage("Waiting for day picker to be not visible.");
     }
 
     public WaitingWrapper waitUntilIsVisible() {
@@ -222,7 +222,7 @@ public class DayPicker {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().visible();
             }
-        }.withMessage("Day picker to be visible.");
+        }.withMessage("Waiting for day picker to be visible.");
     }
 
     public List<WebElement> getWeekDaysLabelsElements() {
@@ -351,7 +351,7 @@ public class DayPicker {
         public void select(boolean deselectOthers) {
             // https://issues.jboss.org/browse/RF-14033
             getRootElement().click();
-            Graphene.waitGui().withMessage("Day should be selected.").until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
+            Graphene.waitGui().withMessage("Waiting for day to be selected.").until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
         }
     }
 

@@ -117,7 +117,7 @@ public class HeaderControls {
         }
         String before = getYearAndMonthEditorOpenerElement().getText();
         getNextMonthElement().click();
-        Graphene.waitAjax().withMessage("Month should change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
+        Graphene.waitAjax().withMessage("Waiting for month to change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public void nextYear() {
@@ -127,7 +127,7 @@ public class HeaderControls {
         }
         String before = getYearAndMonthEditorOpenerElement().getText();
         getNextYearElement().click();
-        Graphene.waitAjax().withMessage("Year should change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
+        Graphene.waitAjax().withMessage("Waiting for year to change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public YearAndMonthEditor openYearAndMonthEditor() {
@@ -146,7 +146,7 @@ public class HeaderControls {
         }
         String before = getYearAndMonthEditorOpenerElement().getText();
         getPreviousYearElement().click();
-        Graphene.waitAjax().withMessage("Year should change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
+        Graphene.waitAjax().withMessage("Waiting for year to change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public void previousMonth() {
@@ -156,7 +156,7 @@ public class HeaderControls {
         }
         String before = getYearAndMonthEditorOpenerElement().getText();
         getPreviousMonthElement().click();
-        Graphene.waitAjax().withMessage("Month should change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
+        Graphene.waitAjax().withMessage("Waiting for month to change.").until().element(getYearAndMonthEditorOpenerElement()).text().not().equalTo(before);
     }
 
     public void setCalendarEditor(CalendarEditor calendarEditor) {
@@ -177,7 +177,7 @@ public class HeaderControls {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRoot()).is().not().visible();
             }
-        }.withMessage("Header controls to be not visible.")
+        }.withMessage("Waiting for header controls to be not visible.")
             .withTimeout(getTimeoutForPopupToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
 
@@ -187,7 +187,7 @@ public class HeaderControls {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRoot()).is().visible();
             }
-        }.withMessage("Header controls to be visible.");
+        }.withMessage("Waiting for header controls to be visible.");
     }
 
     public WebElement getRoot() {

@@ -133,7 +133,7 @@ public class RichFacesAdvancedInlineCalendar {
                     }
                 });
             }
-        }.withMessage("Calendar to be not visible.");
+        }.withMessage("Waiting for calendar to be not visible.");
     }
 
     public WaitingWrapper waitUntilIsVisible() {
@@ -148,7 +148,7 @@ public class RichFacesAdvancedInlineCalendar {
                     }
                 });
             }
-        }.withMessage("Calendar to be visible.");
+        }.withMessage("Waiting for calendar to be visible.");
     }
 
     public static class CalendarEditor {

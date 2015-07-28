@@ -256,7 +256,7 @@ public class TimeEditor {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().not().visible();
             }
-        }.withMessage("Time editor to be not visible.").withTimeout(getTimeoutForTimeEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
+        }.withMessage("Waiting for time editor to be not visible.").withTimeout(getTimeoutForTimeEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
 
     public WaitingWrapper waitUntilIsVisible() {
@@ -265,6 +265,6 @@ public class TimeEditor {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().visible();
             }
-        }.withMessage("Time editor to be visible.").withTimeout(getTimeoutForTimeEditorToBeVisible(), TimeUnit.MILLISECONDS);
+        }.withMessage("Waiting for time editor to be visible.").withTimeout(getTimeoutForTimeEditorToBeVisible(), TimeUnit.MILLISECONDS);
     }
 }

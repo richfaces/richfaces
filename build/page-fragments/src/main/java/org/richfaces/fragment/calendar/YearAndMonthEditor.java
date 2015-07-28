@@ -169,13 +169,13 @@ public class YearAndMonthEditor {
     public void nextDecade() {
         String firstBefore = getFirstYear().getText();
         getNextDecadeButtonElement().click();
-        Graphene.waitGui().withMessage("The decade was not changed.").until().element(getFirstYear()).text().not().equalTo(firstBefore);
+        Graphene.waitGui().withMessage("Waiting for decade to change.").until().element(getFirstYear()).text().not().equalTo(firstBefore);
     }
 
     public void previousDecade() {
         String firstBefore = getFirstYear().getText();
         getPreviousDecadeButtonElement().click();
-        Graphene.waitGui().withMessage("The decade was not changed.").until().element(getFirstYear()).text().not().equalTo(firstBefore);
+        Graphene.waitGui().withMessage("Waiting for decade to change.").until().element(getFirstYear()).text().not().equalTo(firstBefore);
     }
 
     public YearAndMonthEditor selectDate(DateTime date) {
@@ -192,7 +192,7 @@ public class YearAndMonthEditor {
     private void selectMonth(int month) {
         WebElement monthElement = getRootElement().findElement(By.cssSelector("div[id*='DateEditorLayoutM" + (month - 1) + "']"));
         monthElement.click();
-        Graphene.waitGui().withMessage("The month was not selected.").until().element(monthElement).attribute("class").contains(getSelectedClass());
+        Graphene.waitGui().withMessage("Waiting for month to be selected.").until().element(monthElement).attribute("class").contains(getSelectedClass());
     }
 
     private void selectYear(int year) {
@@ -214,7 +214,7 @@ public class YearAndMonthEditor {
         // select year
         WebElement yearElement = getRootElement().findElement(ByJQuery.selector("div[id*='DateEditorLayoutY']:contains('" + year + "')"));
         yearElement.click();
-        Graphene.waitGui().withMessage("The year was not selected.").until().element(yearElement).attribute("class").contains(getSelectedClass());
+        Graphene.waitGui().withMessage("Waiting for year to be selected.").until().element(yearElement).attribute("class").contains(getSelectedClass());
     }
 
     public void settimeoutForYearAndMonthEditorToBeNotVisible(long timeoutInMilliseconds) {
@@ -239,7 +239,7 @@ public class YearAndMonthEditor {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().not().visible();
             }
-        }.withMessage("Year and month editor to be not visible.")
+        }.withMessage("Waiting for year and month editor to be not visible.")
             .withTimeout(getTimeoutForYearAndMonthEditorToBeNotVisible(), TimeUnit.MILLISECONDS);
     }
 
@@ -249,7 +249,7 @@ public class YearAndMonthEditor {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRootElement()).is().visible();
             }
-        }.withMessage("Year and month editor to be visible.")
+        }.withMessage("Waiting for year and month editor to be visible.")
             .withTimeout(getTimeoutForYearAndMonthEditorToBeVisible(), TimeUnit.MILLISECONDS);
     }
 

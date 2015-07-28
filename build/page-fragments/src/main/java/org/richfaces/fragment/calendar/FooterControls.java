@@ -75,7 +75,7 @@ public class FooterControls {
             throw new RuntimeException("Clean button is not displayed.");
         }
         getCleanButtonElement().click();
-        Graphene.waitGui().withMessage("Clean button should not be visible.").until().element(getCleanButtonElement()).is().not().visible();
+        Graphene.waitGui().withMessage("Waiting for clean button to be not visible.").until().element(getCleanButtonElement()).is().not().visible();
     }
 
     public WebElement getCleanButtonElement() {
@@ -135,7 +135,7 @@ public class FooterControls {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRoot()).is().not().visible();
             }
-        }.withMessage("Footer controls to be not visible.");
+        }.withMessage("Waiting for footer controls to be not visible.");
     }
 
     public WaitingWrapper waitUntilIsVisible() {
@@ -144,7 +144,7 @@ public class FooterControls {
             protected void performWait(FluentWait<WebDriver, Void> wait) {
                 wait.until().element(getRoot()).is().visible();
             }
-        }.withMessage("Footer controls to be visible.");
+        }.withMessage("Waiting for footer controls to be visible.");
     }
 
     public WebElement getRoot() {
