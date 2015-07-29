@@ -75,7 +75,7 @@ import org.richfaces.view.facelets.AutocompleteHandler;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
-public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, ErrorProps, StyleClassProps, StyleProps, AutocompleteProps {
+public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder, DisabledProps, FocusProps, EventsKeyProps, EventsMouseProps, StyleClassProps, StyleProps, AutocompleteProps {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
@@ -253,12 +253,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
      */
     @Attribute(events = @EventName("begin"))
     public abstract String getOnbegin();
-
-    /**
-      * The client-side script method to be called when an error has occurred during Ajax communications
-      */
-    @Attribute(events = @EventName("error"))
-    public abstract String getOnerror();
 
     /**
      * The client-side script method to be called after the DOM is updated
