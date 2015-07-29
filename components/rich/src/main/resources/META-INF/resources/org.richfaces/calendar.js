@@ -409,6 +409,15 @@
                     }
                     newDate.setMonth(newDate.getMonth() + 1);
                     break;
+                case 67: // C
+                    calendar.__resetSelectedDate();
+                    return false;
+                case 84: // T
+                    calendar.today();
+                    return false;
+                case 72: // H
+                    calendar.showTimeEditor();
+                    return false;
                 case rf.KEYS.RETURN:
                     calendar.close(true);
                     return false;
@@ -817,6 +826,36 @@
                 this.correctEditorButtons(editor, this.TIME_EDITOR_BUTTON_OK, this.TIME_EDITOR_BUTTON_CANCEL);
 
                 this.isTimeEditorLayoutCreated = true;
+                
+                var timeKeyDownHandler = function(calendar) {
+                    return function(e) {
+                        var code;
+    
+                        if (e.keyCode) {
+                            code = e.keyCode;
+                        } else if (e.which) {
+                            code = e.which;
+                        }
+                        
+                        switch(code) {
+                            case rf.KEYS.TAB:
+                                if ((e.target.id == calendar.id + 'TimeMinutes' && !calendar.showSeconds) ||
+                                        (e.target.id == calendar.id + 'TimeSeconds')) {
+                                    e.preventDefault();
+                                    rf.getDomElement(calendar.id + 'TimeHours').focus();
+                                }
+                                break;
+                            case rf.KEYS.ESC:
+                                calendar.hideTimeEditor(false);
+                                break;
+                            case rf.KEYS.RETURN:
+                                calendar.hideTimeEditor(true);
+                                return false;
+                        }
+                    }
+                }
+                
+                $(rf.getDomElement(this.TIME_EDITOR_LAYOUT_ID)).on('keydown', timeKeyDownHandler(this));
             },
 
             correctEditorButtons: function(editor, buttonID1, buttonID2) {
@@ -1809,6 +1848,7 @@
 
                 this.clonePosition(rf.getDomElement(this.TIME_EDITOR_LAYOUT_ID), rf.getDomElement(this.EDITOR_LAYOUT_SHADOW_ID), {left: 3, top: 3});
                 this.isEditorVisible = true;
+                rf.getDomElement(this.id + 'TimeHours').focus();
             },
 
             hideEditor: function() {
