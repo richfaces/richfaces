@@ -93,7 +93,7 @@
         var addEventHandlers = function(queueOptions, options) {
             for (var i = 0; i < eventHandlers.length; i++) {
                 var event = eventHandlers[i],
-                    handler = event.startsWith("on") ? event.substr(2) : event;
+                    handler = event.match(/^on/) ? event.substr(2) : event;
                 if (queueOptions[event] && options.rfExt && !options.rfExt[handler]) {
                     // add global event handler unless the item provides its own
                     options.rfExt[handler] = queueOptions[event];
