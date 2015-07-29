@@ -234,7 +234,7 @@
 
                 this.popup.destroy();
                 this.popup = null;
-                this.__overHandler();//clean up the hide TO
+                window.clearTimeout(this.hideTimeoutId);//clean up the hide TO
 
                 // call parent's destroy method
                 $super.destroy.call(this);
