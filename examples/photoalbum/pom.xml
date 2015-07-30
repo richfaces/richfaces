@@ -58,9 +58,9 @@
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <version.wildfly90>9.0.0.CR1</version.wildfly90>
+        <version.wildfly90>9.0.1.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
-        <version.wildfly82>8.2.0.Final</version.wildfly82>
+        <version.wildfly82>8.2.1.Final</version.wildfly82>
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee17>1.7.0</version.tomee17>
         <version.glassfish40>3.1.2.2</version.glassfish40>
