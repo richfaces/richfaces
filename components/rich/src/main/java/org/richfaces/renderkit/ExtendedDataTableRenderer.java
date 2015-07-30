@@ -514,6 +514,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
                 writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":tb" + partName.getId(), null);
+                state.resetCurrentRow();
                 encodeRows(context, state);
                 writer.endElement(HtmlConstants.TBODY_ELEMENT);
                 writer.endElement(HtmlConstants.TABLE_ELEMENT);
