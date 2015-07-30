@@ -839,8 +839,9 @@
                         
                         switch(code) {
                             case rf.KEYS.TAB:
-                                if ((e.target.id == calendar.id + 'TimeMinutes' && !calendar.showSeconds) ||
-                                        (e.target.id == calendar.id + 'TimeSeconds')) {
+                                if ((e.target.id == calendar.id + 'TimeMinutes' && !calendar.showSeconds && !calendar.timeType == 2)  ||
+                                        (e.target.id == calendar.id + 'TimeSeconds' && !calendar.timeType == 2) ||
+                                        (e.target.id == calendar.id + 'TimeSign')) {
                                     e.preventDefault();
                                     rf.getDomElement(calendar.id + 'TimeHours').focus();
                                 }
