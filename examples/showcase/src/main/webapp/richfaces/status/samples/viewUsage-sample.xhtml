@@ -9,14 +9,14 @@
                     <h:outputText value="User Details Panel" />
                 </f:facet>
                 <h:panelGrid columns="2">
-                    <a4j:ajax event="keyup">
+                    <a4j:ajax event="keyup" listener="#{userBean.causeDelay}">
                         <h:outputText value="User name:" />
                         <h:inputText value="#{userBean.name}" />
                         <h:outputText value="Address:" />
                         <h:inputText value="#{userBean.address}" />
                     </a4j:ajax>
                 </h:panelGrid>
-                <h:commandButton value="Submit" type="button" action="#{userBean.store}">
+                <h:commandButton value="Submit" type="button" action="#{userBean.storeWithDelay}">
                     <a4j:ajax render="out" />
                 </h:commandButton>
                 <h:outputText value="#{userBean.recordStatus}" id="out" />
@@ -28,7 +28,7 @@
                     <h:outputText value="Simple search panel" />
                 </f:facet>
                 <h:inputText value="Search..." />
-                <a4j:commandButton value="Submit" type="button" />
+                <a4j:commandButton value="Submit" type="button" action="#{userBean.causeDelay}"/>
             </rich:panel>
         </h:form>
         <a4j:status>
