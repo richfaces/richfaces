@@ -6,6 +6,7 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name = "userBean")
 @RequestScoped
 public class UserBean {
+
     private String name = "";
     private String email = "";
     private String password = "";
@@ -18,6 +19,11 @@ public class UserBean {
 
     public UserBean() {
         super();
+    }
+
+    public void storeWithDelay() {
+        causeDelay();
+        store();
     }
 
     public void store() {
@@ -106,5 +112,14 @@ public class UserBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void causeDelay() {
+        // attempt to cause a delay in ajax request
+        // used in a4j:status samples to improve user experience
+        try {
+            Thread.sleep(500l);
+        } catch (InterruptedException ex) {
+        }
     }
 }
