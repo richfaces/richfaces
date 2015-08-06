@@ -1,3 +1,48 @@
+4.5.8.Final
+-----------
+
+    Bug
+    [RF-11176] - [a4j:commandButton] [a4j:commandLink] missing base attribute onerror
+    [RF-11711] - a4j:queue - review usage of attributes onsubmit, oncomplete, onevent, onbeforedomupdate and onerror
+    [RF-11805] - a4j:queue onerror doesn't seem to work
+    [RF-12351] - rich:extendedDataTable frozen columns cause alternating row color to be out of sync with unfrozen part of table
+    [RF-13558] - pickList, orderingList: list doesn't scroll when using keys
+    [RF-14056] - Repository sync problem
+    [RF-14074] - rich:calendar popup disappeared in IE in special case.
+    [RF-14076] - tab: @onbegin and @status are not working
+    [RF-14077] - pickList: @caption element is not visible
+    [RF-14079] - panelMenuGroup and item: @onunselect does not work
+    [RF-14082] - inputNumberSpinner: @inputPosition does not work
+    [RF-14086] - Rich:chart with a4j:ajax re-render fails on WF 9 and Tomcat
+    [RF-14087] - Autocomplete needs two clicks to open
+    [RF-14089] - panelMenuGroup: @hoverClass does not work
+    [RF-14092] - FileUpload doesn't preserve filename encoding
+    [RF-14093] - rich:pickList source order not preserved for the beginning of the list
+    [RF-14094] - pickList: the state of buttons is not updated after removing item(s) when @keepSourceOrdered=true
+    [RF-14097] - a4j:mediaoutput does not work on wildfly 8.2
+    [RF-14098] - autocomplete: @onerror does not work
+    [RF-14100] - Highlighting of rich:dropDownMenu on refresh
+    [RF-14106] - Showcase: chart component sample is not rendered
+    [RF-14108] - mobile showcase with myfaces: cannot open any example
+
+    Component Upgrade
+    [RF-14073] - Upgrade third-party libraries
+    [RF-14083] - Upgrade JSF
+    [RF-14096] - Upgrade WildFly 8 and 9 Arquillian profiles
+
+    Enhancement
+    [RF-13271] - AjaxEventsProps is missing @onerror attribute
+    [RF-14067] - page-fragments: calendar: add missing wait messages
+    [RF-14071] - showcase: integration tests: deploy the war only once
+    [RF-14109] - Showcase: a4j:status samples, user experience
+
+    Feature Request
+    [RF-11781] - rich:list and rich:dataScroller: numbering on other than the first page
+    [RF-14078] - rich:calendar focus does not come to apply and today button
+
+    Sub-task
+    [RF-14103] - Update rich:calendar documentation for keyboard navigation
+
 4.5.7.Final
 -----------
 
