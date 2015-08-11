@@ -30,14 +30,14 @@ Build System::  Maven
 
 == Getting Started
 
-To use the RichFaces framework in your JSF maven application, simply add the following dependency to your `pom.xml` file (Replacing the version `4.5.8-SNAPSHOT` with the version of the library you wish to include):
+To use the RichFaces framework in your JSF maven application, simply add the following dependency to your `pom.xml` file (Replacing the version `4.5.9-SNAPSHOT` with the version of the library you wish to include):
 
 [source, xml]
 ----
 <dependency>
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces</artifactId>
-    <version>4.5.8-SNAPSHOT</version>
+    <version>4.5.9-SNAPSHOT</version>
 </dependency>
 ----
 
