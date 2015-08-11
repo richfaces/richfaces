@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,8 +18,10 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.dataTable.page;
+
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +101,7 @@ public class TableFilteringPage {
         for (WebElement row : tBody.findElements(By.tagName("tr"))) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             result.add(new Car(cells.get(0).getText(), cells.get(1).getText(), cells.get(2).getText(), cells.get(3).getText(),
-                    cells.get(4).getText(), null));
+                cells.get(4).getText(), null));
         }
         return result;
     }
@@ -112,8 +114,9 @@ public class TableFilteringPage {
         input.click();
         input.clear();
         input.sendKeys(value);
-        Action blur = valid ? Graphene.guardAjax(fireEventAction(input, "blur")) : fireEventAction(input, "blur");
-        blur.perform();
+
+        // blur the actual input
+        guardAjax((input == vinInput ? mileageInput : vinInput)).click();
     }
 
     protected Action fireEventAction(final WebElement element, final String event) {

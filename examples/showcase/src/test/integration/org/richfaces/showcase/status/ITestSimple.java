@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,48 +18,36 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.status;
 
-import static org.junit.Assert.assertEquals;
-
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.status.page.TestSimplePage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestSimple extends TestUsage {
-
+    
     @Page
     private TestSimplePage page;
-
-    @Test
-    public void testUserNameAndAjaxRequestProgress() {
-        page.getUserNameInput().sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
-    }
-
+    
     @Test
     public void testAddressAndAjaxRequestProgress() {
-        page.getAddressInput().sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
+        assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getAddressInput()));
     }
-
+    
     @Test
     public void testSubmitButtonAndAjaxRequestProgress() {
-        page.getUserNameInput().sendKeys("a");
-        page.getSubmitButton().click();
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        assertEquals("There should appear notification that user stored successfully!", "User a stored successfully",
-            page.getOutput().getText());
+        Graphene.guardAjax(page.getUserNameInput()).sendKeys("a");
+        assertProgressPictureAppearsOnAjaxRequest(clickButtonAction(page.getSubmitButton()));
+        Graphene.waitAjax().until().element(page.getOutput()).text().equalTo("User a stored successfully");
+    }
+    
+    @Test
+    public void testUserNameAndAjaxRequestProgress() {
+        assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getUserNameInput()));
     }
 }

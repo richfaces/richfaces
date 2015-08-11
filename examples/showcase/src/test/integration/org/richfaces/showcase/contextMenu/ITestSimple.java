@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.contextMenu;
 
 import static org.junit.Assert.assertTrue;
@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.richfaces.fragment.common.Event;
 import org.richfaces.showcase.contextMenu.page.SimpleContextMenuPage;
 
 /**
@@ -64,6 +65,6 @@ public class ITestSimple extends AbstractContextMenuTest {
     @Test
     public void testContextMenuRenderedAtCorrectPosition() {
         checkContextMenuRenderedAtCorrectPosition(page.getPicture(), page.getContextMenu(),
-            InvocationType.LEFT_CLICK, null);
+            Event.CLICK, null, false, false);
     }
 }

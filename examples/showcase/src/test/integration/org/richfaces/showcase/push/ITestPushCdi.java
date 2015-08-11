@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,187 +18,151 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.push;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static java.text.MessageFormat.format;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.FindBy;
 import org.richfaces.showcase.AbstractWebDriverTest;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class ITestPushCdi extends AbstractWebDriverTest {
 
-    /* **********************************************************************
-     * Locators **********************************************************************
+    private static final By MESSAGES_BY_ID = By.id("messages");
+    private static final String TEST_STRING_TEMPLATE = "Test string {0}";
+
+    private final List<String> EXPECTED_MESSAGES_ON_CONSUMERS = Lists.newArrayList(
+        "Test string 5\nTest string 4\nTest string 3\nTest string 2\nTest string 1",
+        "Test string 5\nTest string 4\nTest string 3\nTest string 2",
+        "Test string 5\nTest string 4\nTest string 3",
+        "Test string 5\nTest string 4",
+        "Test string 5"
+    );
+
+    @FindBy(className = "message")
+    private WebElement messageInputElement;
+    @FindBy(className = "popupLink")
+    private WebElement openNewConsumerWindowButton;
+    @FindBy(css = "input[type=submit]")
+    private WebElement submitButton;
+
+    /**
+     * @param consumersWindows
      */
-
-    private final By MESSAGE_CONSUMER_INVOKE_LINK = By.className("popupLink");
-    private final By INPUT_FOR_MESSAGES = By.className("message");
-    private final By CONSUMER_MESSAGE = By.id("messages");
-    private final By SUBMIT = By.xpath("//input[@type='submit']");
-
-    /* ************************************************************************
-     * Constants ************************************************************************
-     */
-
-    private final Map<Integer, String> EXPECTED_MESSAGES_ON_CONSUMERS = new HashMap<Integer, String>() {
-        // just for avoiding of warning about serialVersionUID declaration
-        private static final long serialVersionUID = -1113582265865921787L;
-
-        {
-            put(4, "Test string 5");
-            put(3, "Test string 5\nTest string 4");
-            put(2, "Test string 5\nTest string 4\nTest string 3");
-            put(1, "Test string 5\nTest string 4\nTest string 3\nTest string 2");
-            put(0, "Test string 5\nTest string 4\nTest string 3\nTest string 2\nTest string 1");
+    private void checkExpectedMessagesOnConsumers(List<String> consumersWindows) {
+        String entry;
+        for (int i = 0; i < consumersWindows.size(); i++) {
+            entry = consumersWindows.get(i);
+            webDriver.switchTo().window(entry);
+            Graphene.waitAjax().until(new ConsumerHasMessagePredicate(i));
         }
-    };
-
-    /* ************************************************************************
-     * Tests ************************************************************************
-     */
-
-    @Test
-    public void testSendMessagesToSequentiallyOpenedConsumers() {
-
-        String firstWindow = closeAllpreviouslyOpenedWindows();
-
-        Map<Integer, String> consumersWindows = new HashMap<Integer, String>();
-
-        WebElement input = webDriver.findElement(INPUT_FOR_MESSAGES);
-
-        Set<String> windows = null;
-
-        // 5 times will be new consumer invoked
-        for (int i = 0; i < 5; i++) {
-
-            windows = webDriver.getWindowHandles();
-
-            String newConsumer = waitForConsumerWindowLoadingAfterInvocation(i, windows);
-
-            windows = webDriver.getWindowHandles();
-            windows.remove(firstWindow);
-
-            consumersWindows.put(i, newConsumer);
-
-            String message = "Test string " + (i + 1);
-
-            input.sendKeys(message);
-
-            webDriver.findElement(SUBMIT).click();
-
-            assertTrue("The input should be empty after submiting!", input.getText().equals(""));
-
-            webDriver.switchTo().window(newConsumer);
-
-            String messagesAfterPush = webDriver.findElement(CONSUMER_MESSAGE).getText();
-
-            long end = System.currentTimeMillis() + 5000;
-            while (System.currentTimeMillis() < end) {
-
-                boolean isPushedToAllConsumers = true;
-
-                for (String window : windows) {
-
-                    webDriver.switchTo().window(window);
-
-                    messagesAfterPush = webDriver.findElement(CONSUMER_MESSAGE).getText();
-
-                    if (!messagesAfterPush.contains(message)) {
-                        isPushedToAllConsumers = false;
-                    }
-
-                }
-
-                if (isPushedToAllConsumers)
-                    break;
-            }
-
-            webDriver.switchTo().window(firstWindow);
-        }
-
-        checkExpectedMessagesOnConsumers(consumersWindows);
-
     }
 
-    /* ***************************************************************************************************
-     * Help methods ************************************************************** *************************************
-     */
-
     private String closeAllpreviouslyOpenedWindows() {
-
         String firstWindow = webDriver.getWindowHandle();
-
         Set<String> windows = webDriver.getWindowHandles();
         windows.remove(firstWindow);
-
         for (String i : windows) {
-
             webDriver.switchTo().window(i);
             webDriver.close();
         }
-
         webDriver.switchTo().window(firstWindow);
-
         return firstWindow;
     }
 
     /**
-     * 
      * @param currentNumberOfConsumerWindows
      * @param oldWindows
      * @return
      */
-    private String waitForConsumerWindowLoadingAfterInvocation(final int currentNumberOfConsumerWindows, Set<String> oldWindows) {
-
-        webDriver.findElement(MESSAGE_CONSUMER_INVOKE_LINK).click();
-
-        (new WebDriverWait(webDriver, 4)).until(new ExpectedCondition<Boolean>() {
-
-            public Boolean apply(WebDriver d) {
-
-                return (d.getWindowHandles().size() - 1) > currentNumberOfConsumerWindows;
-            }
-        });
-
+    private String openNewConsumerWindowAndGetItsHandle(final int currentNumberOfConsumerWindows) {
+        Set<String> oldWindows = webDriver.getWindowHandles();
+        openNewConsumerWindowButton.click();
+        Graphene.waitModel().withTimeout(5, TimeUnit.SECONDS).until(new WindowsHandlesSizeIncreasePredicate(currentNumberOfConsumerWindows));
         Set<String> currentWindows = webDriver.getWindowHandles();
         currentWindows.removeAll(oldWindows);
-
-        return Collections.list(Collections.enumeration(currentWindows)).get(0);
+        return currentWindows.iterator().next();
     }
 
-    /**
-     * 
-     * @param consumersWindows
-     */
-    private void checkExpectedMessagesOnConsumers(Map<Integer, String> consumersWindows) {
+    private void submitNewMessage(int i) {
+        messageInputElement.sendKeys(format(TEST_STRING_TEMPLATE, (i + 1)));
+        Graphene.guardAjax(submitButton).click();
+        Graphene.waitGui().withMessage("The input should be empty after submiting!")
+            .until().element(messageInputElement).value().equalTo("");
+    }
 
-        for (Map.Entry<Integer, String> entry : consumersWindows.entrySet()) {
+    @Test
+    public void testSendMessagesToSequentiallyOpenedConsumers() {
+        String publisherWindowHandle = closeAllpreviouslyOpenedWindows();
+        final int testedConsumers = 5;
+        List<String> consumersWindows = new ArrayList<String>(testedConsumers);
 
-            webDriver.switchTo().window(entry.getValue());
+        for (int i = 0; i < testedConsumers; i++) {
+            String newConsumerWindowHandle = openNewConsumerWindowAndGetItsHandle(i);
 
-            String actualMessage = webDriver.findElement(CONSUMER_MESSAGE).getText();
+            webDriver.switchTo().window(newConsumerWindowHandle).switchTo().window(publisherWindowHandle);
 
-            Integer key = entry.getKey();
-            String expectedMessages = EXPECTED_MESSAGES_ON_CONSUMERS.get(key);
-            assertEquals("The window invoked in the order as " + key + " should contains different messages", expectedMessages,
-                actualMessage);
+            consumersWindows.add(newConsumerWindowHandle);
+
+            submitNewMessage(i);
+        }
+        checkExpectedMessagesOnConsumers(consumersWindows);
+    }
+
+    private class WindowsHandlesSizeIncreasePredicate implements Predicate<WebDriver> {
+
+        private final int previousWindowHandlesSize;
+
+        private WindowsHandlesSizeIncreasePredicate(int previousWindowHandlesSize) {
+            this.previousWindowHandlesSize = previousWindowHandlesSize;
+        }
+
+        @Override
+        public boolean apply(WebDriver d) {
+            return (d.getWindowHandles().size() - 1) > previousWindowHandlesSize;
+        }
+    };
+
+    private class ConsumerHasMessagePredicate implements Predicate<WebDriver> {
+
+        private final int index;
+        private String message, actualText, expectedText;
+
+        public ConsumerHasMessagePredicate(int index) {
+            this.index = index;
+        }
+
+        @Override
+        public boolean apply(WebDriver t) {
+            actualText = webDriver.findElement(MESSAGES_BY_ID).getText();
+            expectedText = EXPECTED_MESSAGES_ON_CONSUMERS.get(index);
+            boolean result = actualText.equals(expectedText);
+            if (!result) {
+                message = format("The window invoked in the order as <{0}> should contain different message. Expected: <{1}>, has: <{2}>", index, expectedText, actualText);
+            }
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return message;
         }
     }
-
 }

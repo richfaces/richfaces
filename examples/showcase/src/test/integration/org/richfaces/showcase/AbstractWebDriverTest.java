@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 
 public class AbstractWebDriverTest extends AbstractShowcaseTest {
+
     @Drone
     protected WebDriver webDriver;
 
@@ -78,4 +79,10 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
         }
     }
 
+    public void waitFor(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException ex) {
+        }
+    }
 }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,16 +18,14 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.notify.page;
 
-import com.google.common.base.Predicate;
 
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -37,7 +35,7 @@ public class StackingMessagesPage extends NotifyPage {
 
     @FindByJQuery("input[type=submit]:eq(0)")
     private WebElement renderFirstButtonTopLeft;
-    
+
     @FindByJQuery("input[type=submit]:eq(1)")
     private WebElement renderSecondBottomRight;
 
@@ -53,16 +51,9 @@ public class StackingMessagesPage extends NotifyPage {
 
     @Override
     public void waitUntilThereIsNoNotify() {
-        Graphene.waitModel()
+        getNotify().advanced().waitUntilMessagesAreNotVisible()
             .withTimeout(11, TimeUnit.SECONDS)
             .withMessage("waiting for notify to hide.")
-            .until(new Predicate<WebDriver>() {
-
-                @Override
-                public boolean apply(WebDriver input) {
-                    return getNotify().isEmpty();
-                }
-            });
+            .perform();
     }
-
 }

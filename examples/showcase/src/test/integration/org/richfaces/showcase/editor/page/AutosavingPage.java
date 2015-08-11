@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.editor.page;
 
 import org.openqa.selenium.WebElement;
@@ -27,10 +27,10 @@ import org.richfaces.fragment.editor.RichFacesEditor;
 
 public class AutosavingPage {
 
-    @FindBy(css = ".example-cnt")
+    @FindBy(className = "rf-ed")
     private RichFacesEditor editor;
 
-    @FindBy(css = ".rf-p-b")
+    @FindBy(className = "rf-p-b")
     private WebElement outputFromEditor;
 
     public RichFacesEditor getEditor() {

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.progressBar;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
@@ -30,7 +30,6 @@ import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestAjaxProgressBar extends AbstractProgressBarTest {
 
@@ -46,20 +45,20 @@ public class ITestAjaxProgressBar extends AbstractProgressBarTest {
     public void testProgressBarIsRisingByMax3() {
         startButton.click();
         waitAjax(webDriver).until()
-                .element(progressBar)
-                .text()
-                .contains("%");
-        while(progressBar.getText().contains("%")) {
+            .element(progressBar)
+            .text()
+            .contains("%");
+        while (progressBar.getText().contains("%")) {
             String value = progressBar.getText();
             waitAjax().until()
-                    .element(progressBar)
-                    .value()
-                    .not()
-                    .equalTo(value);
+                .element(progressBar)
+                .value()
+                .not()
+                .equalTo(value);
             if (value.length() >= 3) {
                 // this ensures that a correct value was read since ajax request timing can be tricky
                 getTheNumberFromValueAndSaveToList(value);
-            }            
+            }
         }
         checkTheDeviationInList(MAX_DEVIATION);
     }

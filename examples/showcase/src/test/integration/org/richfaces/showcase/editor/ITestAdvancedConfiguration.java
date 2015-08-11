@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,65 +18,81 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.editor;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Keyboard;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.editor.page.AdvancedConfigurationPage;
+import org.richfaces.utils.focus.ElementIsFocused;
 
 /**
- * @author <a href="mailto:jhuska@redhat.com">Lukas Fryc and Juraj Huska</a>
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
 public class ITestAdvancedConfiguration extends AbstractWebDriverTest {
+
+    @ArquillianResource
+    private Keyboard keyboard;
 
     @Page
     private AdvancedConfigurationPage page;
 
+    private String getNewPageButtonTitle() {
+        return page.getNewPageButton().getAttribute("title");
+    }
+
     @Test
     public void testEnglishLanguage() {
-
         guardAjax(page.getEnglishRadio()).click();
 
-        String titleOfNewPageButton = page.getNewPageButton().getAttribute("title");
-        assertEquals("The language was not changed to english!", AdvancedConfigurationPage.NEW_PAGE_ENG, titleOfNewPageButton);
+        assertEquals("The language was not changed to english!", AdvancedConfigurationPage.NEW_PAGE_ENG, getNewPageButtonTitle());
     }
 
     @Test
     public void testFrenchLanguage() {
         guardAjax(page.getFrenchRadio()).click();
 
-        String titleOfNewPageButton = page.getNewPageButton().getAttribute("title");
-        assertEquals("The language was not changed to french!", AdvancedConfigurationPage.NEW_PAGE_FR, titleOfNewPageButton);
+        assertEquals("The language was not changed to french!", AdvancedConfigurationPage.NEW_PAGE_FR, getNewPageButtonTitle());
     }
 
     @Test
     public void testGermanLanguage() {
         guardAjax(page.getGermanRadio()).click();
 
-        String titleOfNewPageButton = page.getNewPageButton().getAttribute("title");
-        assertEquals("The language was not changed to german!", AdvancedConfigurationPage.NEW_PAGE_DE, titleOfNewPageButton);
+        assertEquals("The language was not changed to german!", AdvancedConfigurationPage.NEW_PAGE_DE, getNewPageButtonTitle());
     }
 
     @Test
     public void testUserFocusAutomaticallyOnEditor() {
-        try {
-            webDriver.switchTo().frame(0);
-            WebElement activeArea = webDriver.findElement(By.tagName("body"));
+        // workaround for Selenium bug https://code.google.com/p/selenium/issues/detail?id=7937
+        // focus on some input on the page, so the Keyboard will not be focused in URL bar of the browser
+        // this will also reload the editor, so the focus on editor will be re-applied
+        Graphene.guardAjax(page.getEnglishRadio()).click();
 
-            String expected = "Test String";
-            activeArea.sendKeys(expected);
-            assertTrue("The text should be writen to editor without explicit previos focusing!",
-                activeArea.getText().contains(expected));
-        } finally {
-            webDriver.switchTo().defaultContent();
-        }
+        // wait until the focus is applied
+        waitForEditorIsFocused();
+
+        final String expected = "Test String";
+        // write some text
+        keyboard.sendKeys(expected);
+        // check it was written to editor, which had the focus
+        assertEquals("The text should be writen to editor without explicit previous focusing!", expected, page.getEditor().getText());
+    }
+
+    private void waitForEditorIsFocused() {
+        final WebElement editorFrameElement = page.getEditor().advanced().getRootElement().findElement(By.tagName("iframe"));
+        webDriver.switchTo().frame(editorFrameElement);
+        Graphene.waitAjax().until(new ElementIsFocused(null));
+        webDriver.switchTo().defaultContent();
     }
 }

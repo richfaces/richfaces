@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.contextMenu;
 
 import static org.junit.Assert.assertEquals;
@@ -33,6 +33,7 @@ import org.junit.experimental.categories.Category;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.richfaces.fragment.common.Event;
 import org.richfaces.showcase.contextMenu.page.TableContextMenuPage;
 
 import category.FailingOnPhantomJS;
@@ -60,13 +61,14 @@ public class ITestTable extends AbstractContextMenuTest {
                 break;
             }
 
-            rowPrice.click();
+            Graphene.guardAjax(rowPrice).click();
             Graphene.waitGui().until(page.getWaitConditionOnSelectingRow(rowPrice));
+            waitFor(1000);// stabilization wait time, the waitGui before does not suffice
 
             String priceFromTable = rowPrice.getText();
 
-            page.getContextMenu().advanced().setTarget(rowPrice);
-            page.getContextMenu().selectItem(0);
+            page.getContextMenu().advanced().show(rowPrice);
+            Graphene.guardAjax(page.getContextMenu()).selectItem(0);
 
             Graphene.waitGui().until().element(page.getPriceFromPopup()).is().visible();
 
@@ -90,6 +92,6 @@ public class ITestTable extends AbstractContextMenuTest {
         WebElement elementToTryOn = page.getPrices().get(5);
 
         checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
-            InvocationType.RIGHT_CLICK, page.getWaitConditionOnSelectingRow(elementToTryOn));
+            Event.CONTEXTCLICK, page.getWaitConditionOnSelectingRow(elementToTryOn), false, false);
     }
 }

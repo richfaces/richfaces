@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,22 +18,19 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.collapsiblePanel;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import org.jboss.arquillian.graphene.Graphene;
-import org.richfaces.showcase.collapsiblePanel.page.SimplePage;
-import org.richfaces.showcase.panel.AbstractPanelTest;
-import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.richfaces.showcase.collapsiblePanel.page.SimplePage;
+import org.richfaces.showcase.panel.AbstractPanelTest;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestSimple extends AbstractPanelTest {
 
@@ -46,19 +43,20 @@ public class ITestSimple extends AbstractPanelTest {
             page.getFirstPanel().click();
         }
         checkContentOfPanel(page.getFirstPanelContent(), RICH_FACES_INFO);
-        page.getFirstPanel().click();
-        page.getSecondPanel().click();
-        assertFalse("The content of the first panel should not be visible, since the panel is collapsed!", page.getFirstPanelContent().isDisplayed());
-
-        Graphene.waitAjax(webDriver).until()
-                .element(page.getSecondPanelContent())
-                .is()
-                .visible();
+        page.getFirstPanel().click();// close
+        guardAjax(page.getSecondPanel()).click();// open
+        Graphene.waitAjax(webDriver)
+            .withMessage("The content of the first panel should not be visible, since the panel is collapsed!")
+            .until().element(page.getFirstPanelContent()).is().not().visible();
+        Graphene.waitAjax(webDriver).until().element(page.getSecondPanelContent()).is().visible();
         checkContentOfPanel(page.getSecondPanelContent(), RICH_FACES_JSF_INFO);
-        page.getSecondPanel().click();
-        page.getFirstPanel().click();
-        /* This is workaround because page.secondPanelContent is not reachable at this time, there is only element with class rf-cp-b*/
-        int size = webDriver.findElements(ByJQuery.selector("div[class='rf-cp-b']")).size();
-        assertTrue("The content of the second panel should not be visible, since the panel is collapsed!", size == 1);
+
+        guardAjax(page.getSecondPanel()).click();// close
+        page.getFirstPanel().click();// open
+        Graphene.waitAjax(webDriver)
+            .withMessage("The content of the second panel should not be visible, since the panel is collapsed!")
+            .until().element(page.getSecondPanelContent()).is().not().visible();
+        Graphene.waitGui(webDriver).until().element(page.getFirstPanelContent()).is().visible();
+        checkContentOfPanel(page.getFirstPanelContent(), RICH_FACES_INFO);
     }
 }

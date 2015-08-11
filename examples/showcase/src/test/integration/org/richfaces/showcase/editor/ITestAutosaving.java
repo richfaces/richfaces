@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.editor;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
@@ -36,14 +36,13 @@ import org.richfaces.showcase.editor.page.AutosavingPage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestAutosaving extends AbstractWebDriverTest {
 
     @Page
     private AutosavingPage page;
 
-    private static final int TIMEOUT_FOR_AUTOSAVING = 1600;
+    private static final int TIMEOUT_FOR_AUTOSAVING = 5000;
 
     private final String[] EXPECTED_PARAGRAPHS = {
             "\"Little Red Riding Hood\" is a famous fairy tale about a young girl's encounter with a wolf. "
@@ -72,7 +71,6 @@ public class ITestAutosaving extends AbstractWebDriverTest {
 
     @Test
     public void testContentOfEditor() {
-
         String contentOfEditorInput = page.getOutputFromEditor().getText();
 
         int j = 1;

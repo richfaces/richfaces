@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.dataScroller.page;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -29,16 +29,16 @@ import org.openqa.selenium.WebElement;
  */
 public abstract class AbstractDataScrollerPage {
 
-    public final String CLASS_OF_BUTTON_FIRST = "rf-ds-btn rf-ds-btn-first";
-    public final String CLASS_OF_BUTTON_FAST_RWD = "rf-ds-btn rf-ds-btn-fastrwd";
-    public final String CLASS_OF_BUTTON_PREV = "rf-ds-btn rf-ds-btn-prev";
-    public final String CLASS_OF_BUTTON_NEXT = "rf-ds-btn rf-ds-btn-next";
-    public final String CLASS_OF_BUTTON_FAST_FWD = "rf-ds-btn rf-ds-btn-fastfwd";
-    public final String CLASS_OF_BUTTON_LAST = "rf-ds-btn rf-ds-btn-last";
-    public final String CLASS_OF_BUTTON_DIS = "rf-ds-dis";
+    public static final String CLASS_OF_BUTTON_FIRST = "rf-ds-btn rf-ds-btn-first";
+    public static final String CLASS_OF_BUTTON_FAST_RWD = "rf-ds-btn rf-ds-btn-fastrwd";
+    public static final String CLASS_OF_BUTTON_PREV = "rf-ds-btn rf-ds-btn-prev";
+    public static final String CLASS_OF_BUTTON_NEXT = "rf-ds-btn rf-ds-btn-next";
+    public static final String CLASS_OF_BUTTON_FAST_FWD = "rf-ds-btn rf-ds-btn-fastfwd";
+    public static final String CLASS_OF_BUTTON_LAST = "rf-ds-btn rf-ds-btn-last";
+    public static final String CLASS_OF_BUTTON_DIS = "rf-ds-dis";
 
-    public final String CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER = "rf-ds-nmb-btn";
-    public final String CLASS_OF_ACTIVE_BUTTON_WITH_NUMBER = CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + " rf-ds-act";
+    public static final String CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER = "rf-ds-nmb-btn";
+    public static final String CLASS_OF_ACTIVE_BUTTON_WITH_NUMBER = CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + " rf-ds-act";
 
     @FindByJQuery("a[class='" + CLASS_OF_BUTTON_NEXT + "']")
     private WebElement nextButton;

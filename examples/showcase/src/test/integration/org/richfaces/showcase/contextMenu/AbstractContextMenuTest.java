@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,27 +18,25 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.contextMenu;
 
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class AbstractContextMenuTest extends AbstractWebDriverTest {
 
@@ -46,44 +44,30 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
 
     public static final double TOLERANCE = 3.0;
 
-    @ArquillianResource
-    private Actions actions;
-
-    public enum InvocationType {
-
-        RIGHT_CLICK,
-        LEFT_CLICK
-    }
-
     protected void checkContextMenuRenderedAtCorrectPosition(WebElement target, RichFacesContextMenu ctxMenuFragment,
-        InvocationType type, ExpectedCondition<Boolean> conditionTargetIsFocused) {
+        Event showEvent, ExpectedCondition<Boolean> conditionTargetIsFocused, boolean selectingTargetTriggersAjax,
+        boolean invokingMenuTriggersAjax) {
 
-        WebElement contextMenuPopup = ctxMenuFragment.advanced().getMenuPopup();
         if (conditionTargetIsFocused != null) {
-            target.click();
+            if (selectingTargetTriggersAjax) {
+                guardAjax(target).click();
+            } else {
+                target.click();
+            }
             Graphene.waitGui(webDriver).withTimeout(2, TimeUnit.SECONDS).until(conditionTargetIsFocused);
+            waitFor(1000);// stabilization wait time, the waitGui before does not suffice
         }
-        waitGui();
 
-        // clicks in the middle of the target
-        switch (type) {
-            case LEFT_CLICK:
-                actions.moveToElement(target).click();
-                break;
-            case RIGHT_CLICK:
-                // using show() from fragment will make sure workaround is used for PhantomJS (RF-14034)
-                // but it will still show the menu in upper left corner of the browser for PhantomJS
-                ctxMenuFragment.advanced().show(target);
-                break;
-            default:
-                throw new IllegalArgumentException("Wrong type of context menu invocation!");
+        ctxMenuFragment.advanced().setShowEvent(showEvent);
+        // using show() from fragment will make sure workaround is used for PhantomJS (RF-14034)
+        // but it will still show the menu in upper left corner of the browser for PhantomJS
+        if (invokingMenuTriggersAjax) {
+            guardAjax(ctxMenuFragment.advanced()).show(target);
+        } else {
+            ctxMenuFragment.advanced().show(target);
         }
-        actions.build().perform();
-
-        Graphene.waitGui().withTimeout(2, TimeUnit.SECONDS).until().element(contextMenuPopup).is().visible();
-
         Point locationOfTarget = target.getLocation();
-        Point locationOfCtxMenu = contextMenuPopup.getLocation();
+        Point locationOfCtxMenu = ctxMenuFragment.advanced().getMenuPopup().getLocation();
 
         double witdth = getTargetWidth(target);
         double height = getTargetHeight(target);

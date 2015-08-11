@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.inplaceSelect;
 
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
@@ -26,6 +26,7 @@ import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.common.Event;
+import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceSelect.page.SimplePage;
@@ -39,19 +40,6 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
     @Page
     private SimplePage page;
 
-    /* *********************************************************************************************
-     * Tests ********************************************************************* ************************
-     */
-    @Test
-    public void testSimpleSelect() {
-        for (int i = 1; i <= 5; i++) {
-            checkSelect(page.getSimpleSelect(), "Option " + i, Event.CLICK);
-            // blur & wait for popul to hide
-            page.getDummyBlurElement().click();
-            page.getSimpleSelect().advanced().waitForPopupToHide().perform();
-        }
-    }
-
     @Test
     public void testCustomizationSelect() {
         checkSelect(page.getCustomSelect(), "Alabama", Event.DBLCLICK);
@@ -59,9 +47,13 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
         checkSelect(page.getCustomSelect(), "California", Event.DBLCLICK);
     }
 
-    /* *********************************************************************************************************
-     * Help methods ************************************************************** *******************************************
-     */
+    @Test
+    public void testSimpleSelect() {
+        for (int i = 1; i <= 5; i++) {
+            checkSelect(page.getSimpleSelect(), "Option " + i, Event.CLICK);
+        }
+    }
+
     /**
      * Checks the select, when it is select which is activated by double click, then also there is need for click on accept
      * button.
@@ -71,9 +63,9 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
             select.advanced().setEditByEvent(event);
             select.select(option).confirmByControlls();
         } else {
-            select.select(option);
-         // manual blur as workaround for problems with fast selection
-            page.getCustomSelect().advanced().getRootElement().click();
+            select.select(option).confirm();
+            // blur & wait for popup to hide
+            webDriver.findElement(Utils.BY_BODY).click();
         }
         waitModel().until().element(select.advanced().getLabelInputElement()).text().equalTo(option);
     }

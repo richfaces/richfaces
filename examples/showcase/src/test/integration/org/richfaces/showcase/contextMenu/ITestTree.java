@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,9 +18,10 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.contextMenu;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertTrue;
 
@@ -31,6 +32,9 @@ import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.richfaces.fragment.common.Event;
+import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.contextMenu.page.TreeContextMenuPage;
 
 import category.FailingOnPhantomJS;
@@ -55,12 +59,19 @@ public class ITestTree extends AbstractContextMenuTest {
 
             String artistFromTree = leaf.getText();
 
-            leaf.click();
+            guardAjax(leaf).click();
             waitGui().withTimeout(3, TimeUnit.SECONDS).until(page.getExpextedConditionOnNodeSelected(leaf));
-            waitGui();
+            waitFor(1000);// stabilization wait time, the waitGui before does not suffice
 
-            page.getContextMenu().advanced().setTarget(leaf);
-            page.getContextMenu().selectItem(0);
+            RichFacesContextMenu contextMenu = page.getContextMenu();
+            contextMenu.advanced().setShowEvent(Event.CONTEXTMENU);
+            if (webDriver instanceof PhantomJSDriver) {
+                // the menu is invoked by JavaScript, which does not invoke any ajax request
+                contextMenu.advanced().show(leaf);
+            } else {
+                guardAjax(contextMenu.advanced()).show(leaf);
+            }
+            guardAjax(contextMenu).selectItem(0);
             waitGui().withTimeout(3, TimeUnit.SECONDS).until().element(page.getArtistFromPopup()).is().visible();
 
             String artistFromPopup = page.getArtistFromPopup().getText();
@@ -83,6 +94,6 @@ public class ITestTree extends AbstractContextMenuTest {
         Graphene.waitGui().withTimeout(2, TimeUnit.SECONDS).until().element(elementToTryOn).is().visible();
 
         checkContextMenuRenderedAtCorrectPosition(elementToTryOn, page.getContextMenu(),
-            InvocationType.RIGHT_CLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn));
+            Event.CONTEXTCLICK, page.getExpextedConditionOnNodeSelected(elementToTryOn), true, true);
     }
 }

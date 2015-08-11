@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.status;
 
 import org.jboss.arquillian.graphene.page.Page;
@@ -27,7 +27,6 @@ import org.richfaces.showcase.status.page.TestReferencedUsagePage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestReferencedUsage extends TestUsage {
 
@@ -35,15 +34,12 @@ public class ITestReferencedUsage extends TestUsage {
     private TestReferencedUsagePage page;
 
     @Test
-    public void testUserNameAndAjaxRequestProgressImage() {
-        page.getUserNameInput().sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.getFirstAjaxRequestProgressImage());
+    public void testAddressAndAjaxRequestProgressImage() {
+        assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getAddressInput()), 1);
     }
 
     @Test
-    public void testAddressAndAjaxRequestProgressImage() {
-        page.getAddressInput().sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.getSecondAjaxRequestProgressImage());
+    public void testUserNameAndAjaxRequestProgressImage() {
+        assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getUserNameInput()), 0);
     }
-
 }

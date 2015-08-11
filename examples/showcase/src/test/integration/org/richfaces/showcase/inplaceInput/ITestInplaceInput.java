@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,13 +18,14 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.inplaceInput;
 
-import static org.junit.Assert.assertEquals;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
+import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.inplaceInput.RichFacesInplaceInput;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceInput.page.SimplePage;
@@ -34,16 +35,12 @@ import org.richfaces.showcase.inplaceInput.page.SimplePage;
  *
  * @author <a href="mailto:ppitonak@redhat.com">Pavol Pitonak</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
- * @version $Revision: 22196 $
  */
 public class ITestInplaceInput extends AbstractWebDriverTest {
 
     @Page
     private SimplePage page;
 
-    /* ********************************************************************************
-     * Tests********************************************************************************
-     */
     @Test
     public void testEnterSomethingToNameInput() {
         enterSomethingToInputAndCheck(page.getName());
@@ -54,15 +51,11 @@ public class ITestInplaceInput extends AbstractWebDriverTest {
         enterSomethingToInputAndCheck(page.getEmail());
     }
 
-    /* ***********************************************************************************
-     * Help methods***********************************************************************************
-     */
     private void enterSomethingToInputAndCheck(RichFacesInplaceInput input) {
-        String expectedString = "Test string";
+        final String expectedString = "Test string";
         input.type(expectedString).confirm();
-
-        String actualString = input.advanced().getLabelValue();
-
-        assertEquals("The value in the input is not what have been typed there!", expectedString, actualString);
+        // blur
+        webDriver.findElement(Utils.BY_BODY).click();
+        waitModel().until().element(input.advanced().getLabelInputElement()).text().equalTo(expectedString);
     }
 }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.status;
 
 import org.jboss.arquillian.graphene.page.Page;
@@ -27,7 +27,6 @@ import org.richfaces.showcase.status.page.TestViewUsagePage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestViewUsage extends TestUsage {
 
@@ -35,27 +34,22 @@ public class ITestViewUsage extends TestUsage {
     private TestViewUsagePage page;
 
     @Test
-    public void testUserNameAndImagePresentionOfAjaxProgress() {
-        page.getUserNameInput().sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
-    }
-
-    @Test
     public void testAddressAndImagePresentionOfAjaxProgress() {
-        page.getAddressInput().sendKeys("a");
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
-    }
-
-    @Test
-    public void testSumbitForUserDetailsAndImagePresentionOfAjaxProgress() {
-        page.getSubmitButton().click();
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
+        assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getAddressInput()));
     }
 
     @Test
     public void testSubmitForSearchPanelAndImagePresentionOfAjaxProgress() {
-        page.getSearchButton().click();
-        assertProgressPictureAppearsOnAjaxRequest(page.getProgressImage());
+        assertProgressPictureAppearsOnAjaxRequest(clickButtonAction(page.getSearchButton()));
     }
 
+    @Test
+    public void testSumbitForUserDetailsAndImagePresentionOfAjaxProgress() {
+        assertProgressPictureAppearsOnAjaxRequest(clickButtonAction(page.getSubmitButton()));
+    }
+
+    @Test
+    public void testUserNameAndImagePresentionOfAjaxProgress() {
+        assertProgressPictureAppearsOnAjaxRequest(sendKeysToInputAction(page.getUserNameInput()));
+    }
 }

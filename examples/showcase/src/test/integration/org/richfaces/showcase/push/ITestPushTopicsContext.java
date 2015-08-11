@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.push;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jboss.arquillian.graphene.Graphene;
@@ -39,34 +38,31 @@ import org.richfaces.showcase.AbstractWebDriverTest;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestPushTopicsContext extends AbstractWebDriverTest {
+
+    private static final Pattern UUID_PATTERN = Pattern.compile("(\\w+)-(\\w+)-(\\w+)-(\\w+)-(\\w+)");
 
     @FindBy(css = "div[id$='uuid']")
     private WebElement uuidElement;
 
-    /* *****************************************************************************
-     * Tests ********************************************************************* ********
-     */
     @Test
     public void testUuidIsChangingInSomeIntervals() {
+        final int checks = 10;
+        final int halfChecks = checks / 2;
         String uuid = uuidElement.getText();
         checkTheUuid(uuid);
-        List<Long> deviations = new ArrayList<Long>();
-        for (int i = 0; i < 20; i++) {
+        List<Long> deviations = new ArrayList<Long>(checks);
+        for (int i = 0; i < checks; i++) {
             Long deviation = checkDeviation();
             deviations.add(deviation);
         }
         Collections.sort(deviations);
-        long median = deviations.get(9);
-        assertTrue("The median of five measurements should be in range of (4800ms, 5200ms)",
-            ((median > 4800) && (median < 5200)));
+        long median = checks % 2 == 0
+            ? (deviations.get(halfChecks - 1) + deviations.get(halfChecks)) / 2
+            : deviations.get(halfChecks);
+        assertEquals("The median of " + checks + " measurements should be in range of (4600ms, 5400ms)", 5000, median, 400);
     }
-
-    /* *******************************************************************************
-     * Help methods ************************************************************** *****************
-     */
 
     /**
      * Checks the deviation between two pushes, also checking that the uuid is changing
@@ -77,11 +73,11 @@ public class ITestPushTopicsContext extends AbstractWebDriverTest {
     private Long checkDeviation() {
         Long beforePush = System.currentTimeMillis();
         String uuidBefore = uuidElement.getText();
-        Graphene.waitAjax(webDriver).withTimeout(30, TimeUnit.SECONDS).until().element(uuidElement).text().not()
+        Graphene.waitAjax(webDriver).withTimeout(10, TimeUnit.SECONDS).until().element(uuidElement).text().not()
             .equalTo(uuidBefore);
         Long afterPush = System.currentTimeMillis();
         checkTheUuid(uuidElement.getText());
-        return new Long(afterPush - beforePush);
+        return afterPush - beforePush;
     }
 
     /**
@@ -89,9 +85,6 @@ public class ITestPushTopicsContext extends AbstractWebDriverTest {
      */
     private void checkTheUuid(String uuid) {
         assertEquals("The length of uuid is wrong!", 36, uuid.length());
-        final String patternStr = "(\\w+)-(\\w+)-(\\w+)-(\\w+)-(\\w+)";
-        final Pattern p = Pattern.compile(patternStr);
-        final Matcher m = p.matcher(uuid);
-        assertTrue("Wrong uuid, there should be 4 hyphens", m.matches());
+        assertTrue("Wrong uuid, there should be 4 hyphens", UUID_PATTERN.matcher(uuid).matches());
     }
 }
