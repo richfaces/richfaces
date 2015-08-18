@@ -45,6 +45,9 @@
             },
 
             show : function(e) {
+            	if (e) {
+            		e.stopPropagation();
+            	}
                 if (this.menuManager.openedMenu != this.id) {
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
