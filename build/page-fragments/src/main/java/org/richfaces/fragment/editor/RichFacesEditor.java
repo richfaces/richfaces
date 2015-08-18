@@ -21,8 +21,11 @@
  */
 package org.richfaces.fragment.editor;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.fragment.Root;
+import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -33,6 +36,8 @@ import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.ClearType;
 import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.common.VisibleComponentInteractions;
+import org.richfaces.fragment.common.WaitingWrapper;
+import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.editor.toolbar.RichFacesEditorToolbar;
 
 /**
@@ -67,6 +72,13 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         advanced().clear(ClearType.JS);
     }
 
+    /**
+     * @return the executor
+     */
+    protected JavascriptExecutor getExecutor() {
+        return executor;
+    }
+
     @Override
     public String getText() {
         try {
@@ -77,6 +89,7 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
     }
 
     protected WebElement switchToEditorActiveArea() {
+        advanced().waitForFrameElementToBeVisible().perform();
         browser.switchTo().frame(advanced().getFrameElement());
         WebElement activeArea = browser.findElement(By.tagName("body"));
         activeArea.click();
@@ -94,22 +107,9 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         }
     }
 
-    /**
-     * @return the executor
-     */
-    protected JavascriptExecutor getExecutor() {
-        return executor;
-    }
-
     public class AdvancedEditorInteractions implements VisibleComponentInteractions {
 
-        protected WebElement getFrameElement() {
-            return frameElement;
-        }
-
-        public WebElement getRootElement() {
-            return root;
-        }
+        private long _timeoutForFrameElementToBeVisible = -1;
 
         public void clear(ClearType clearType) {
             try {
@@ -134,6 +134,18 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
             }
         }
 
+        public WebElement getFrameElement() {
+            return frameElement;
+        }
+
+        public WebElement getRootElement() {
+            return root;
+        }
+
+        public long getTimeoutForFrameElementToBeVisible() {
+            return (_timeoutForFrameElementToBeVisible == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForFrameElementToBeVisible;
+        }
+
         public RichFacesEditorToolbar getToolbar() {
             return toolbar;
         }
@@ -141,6 +153,22 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
+        }
+
+        public void setTimeoutForFrameElementToBeVisible(long timeoutInMilliseconds) {
+            _timeoutForFrameElementToBeVisible = timeoutInMilliseconds;
+        }
+
+        public WaitingWrapper waitForFrameElementToBeVisible() {
+            return new WaitingWrapperImpl() {
+
+                @Override
+                protected void performWait(FluentWait<WebDriver, Void> wait) {
+                    wait.until().element(getFrameElement()).is().visible();
+                }
+            }
+                .withMessage("Waiting for inner frame element to be visible.")
+                .withTimeout(getTimeoutForFrameElementToBeVisible(), TimeUnit.MILLISECONDS);
         }
     }
 }
