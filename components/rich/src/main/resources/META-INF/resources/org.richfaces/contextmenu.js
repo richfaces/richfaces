@@ -5,7 +5,8 @@
         showEvent : 'contextmenu',
         cssRoot : "ctx",
         cssClasses : {},
-        attached : true
+        attached : true,
+        showOptions : {}
     };
 
     // constructor definition
@@ -44,13 +45,17 @@
                 return $super.__showHandler.call(this, e);
             },
 
-            show : function(e) {
-            	if (e) {
-            		e.stopPropagation();
-            	}
+            show : function(e, options) {
+                if (e) {
+                    e.stopPropagation();
+                }
                 if (this.menuManager.openedMenu != this.id) {
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
+                    this.options.showOptions = options || {};
+                    if (this.options.showOptions.replace) {
+                    	this.__replaceOnShow();
+                    }
                     this.__showPopup(e); // include the event to position the popup at the cursor
                     var parent = rf.component(this.target);
                     if (parent && parent.contextMenuShow) {
@@ -70,9 +75,28 @@
 
                 // call parent's destroy method
                 $super.destroy.call(this);
+            },
+            
+            __replaceOnShow : function() {
+                var labels = this.element.find(".rf-ctx-itm-lbl"),
+                    opts = this.options.showOptions.replace,
+                    first = true;
+
+                for (o in opts) {
+                    if (opts.hasOwnProperty(o)) {
+                        var re = new RegExp("{" + o + "}", "g")
+                        labels.map(function(index, label) {
+                            if (!label.getAttribute("data-original")) {
+                                label.setAttribute("data-original", label.innerText);
+                            }
+
+                            var text = first ? label.getAttribute("data-original") : label.innerText;
+                            label.innerText = text.replace(re, opts[o]);
+                        });
+                        first = false;
+                    }
+                }
             }
-
-
         };
     })());
 
