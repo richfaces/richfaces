@@ -31,6 +31,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.ClearType;
@@ -92,16 +93,21 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
         advanced().waitForFrameElementToBeVisible().perform();
         browser.switchTo().frame(advanced().getFrameElement());
         WebElement activeArea = browser.findElement(By.tagName("body"));
-        activeArea.click();
         return activeArea;
     }
 
     @Override
     public void type(String text) {
         try {
-            switchToEditorActiveArea().sendKeys("");
-            // needs to do both ways, various JS events then do not work otherwise
-            executor.executeScript(String.format("document.body.textContent= document.body.textContent + '%s'", text));
+            if (browser instanceof PhantomJSDriver) {
+                // workaround for https://github.com/detro/ghostdriver/issues/335
+                if (!Utils.<Boolean>invokeRichFacesJSAPIFunction(advanced().getRootElement(), "isReadOnly()")) {
+                    switchToEditorActiveArea();
+                    executor.executeScript(String.format("document.body.textContent = document.body.textContent + '%s'", text));
+                }
+            } else {
+                switchToEditorActiveArea().sendKeys(text);
+            }
         } finally {
             browser.switchTo().defaultContent();
         }
