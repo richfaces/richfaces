@@ -37,8 +37,12 @@ import com.google.common.base.Predicate;
 
 public class RichFacesStatus implements Status, AdvancedVisibleComponentIteractions<AdvancedStatusInteractions> {
 
+    private static final String DISPLAY_NONE_REGEXP = ".*display:\\s?none;?.*";
+    private static final String STYLE = "style";
+
     @Root
     private WebElement rootElement;
+
     @FindBy(className = "rf-st-error")
     private WebElement errorElement;
     @FindBy(className = "rf-st-start")
@@ -55,7 +59,13 @@ public class RichFacesStatus implements Status, AdvancedVisibleComponentIteracti
 
     @Override
     public StatusState getStatusState() {
-        return Utils.isVisible(advanced().getStartElement()) ? StatusState.START : Utils.isVisible(advanced().getStopElement()) ? StatusState.STOP : StatusState.ERROR;
+        if (!advanced().getStartElement().getAttribute(STYLE).matches(DISPLAY_NONE_REGEXP)) {
+            return StatusState.START;
+        } else if (!advanced().getStopElement().getAttribute(STYLE).matches(DISPLAY_NONE_REGEXP)) {
+            return StatusState.STOP;
+        } else {
+            return StatusState.ERROR;
+        }
     }
 
     @Override
