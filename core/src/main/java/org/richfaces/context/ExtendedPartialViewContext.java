@@ -149,6 +149,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     private PartialViewContext wrappedViewContext;
     private PartialResponseWriter partialResponseWriter;
     private boolean released = false;
+    private boolean isActivatorVisitedAtRender = false;
 
     // request data
     private ContextMode contextMode = null;
@@ -580,7 +581,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      * Visits activator component to collect attributes needed for render phase
      */
     private void visitActivatorAtRender() {
-        if (detectContextMode() == ContextMode.EXTENDED) {
+        if (detectContextMode() == ContextMode.EXTENDED && !isActivatorVisitedAtRender) {
             ActivatorComponentRenderCallback callback = new ActivatorComponentRenderCallback(getFacesContext(), behaviorEvent);
 
             if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
@@ -601,6 +602,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
                 appendOncomplete(oncomplete);
                 setResponseData(responseData);
             }
+            isActivatorVisitedAtRender = true;
         }
     }
 
