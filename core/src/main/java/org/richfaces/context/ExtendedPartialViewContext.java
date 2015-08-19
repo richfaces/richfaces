@@ -368,6 +368,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
             if (!isRenderAll()) {
                 addImplicitRenderIds(renderIds);
             }
+            isActivatorVisitedAtRender = true;
         }
 
         return Boolean.TRUE.equals(renderAll) || renderIds.contains(ALL);
