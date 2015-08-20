@@ -6,7 +6,7 @@
         <rich:editor id="editor" toolbar="full" value="#{editorBean.value}" style="margin-bottom: 1em">
             <a4j:ajax event="change" render="panel" status="panelUpdateStatus" />
             <a4j:ajax event="dirty" render="panel" status="panelUpdateStatus">
-                <a4j:attachQueue requestDelay="1000" />
+                <a4j:attachQueue requestDelay="4000" />
             </a4j:ajax>
         </rich:editor>
         
