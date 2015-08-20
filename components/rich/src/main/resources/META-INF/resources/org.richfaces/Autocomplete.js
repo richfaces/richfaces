@@ -133,7 +133,7 @@
     };
 
     var autoFill = function (inputValue, value) {
-        if (this.options.autofill && value.toLowerCase().indexOf(inputValue) == 0) {
+        if (this.options.autofill && value.toLowerCase().indexOf(inputValue.toLowerCase()) == 0) {
             var field = rf.getDomElement(this.fieldId);
             var start = rf.Selection.getStart(field);
             this.__setInputValue(inputValue + value.substring(inputValue.length));
