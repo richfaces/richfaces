@@ -33,10 +33,8 @@
             invokeOnComponent : function(event, target, callback) {
                 if (callback && typeof callback == 'function') {
                     $(target).each(function() {
-                        var component = rf.component(this);
-                        if (component) {
-                            callback(event, component);
-                        }
+                        var component = rf.component(this) || this;
+                        callback(event, component);
                     });
                 }
             }
