@@ -285,7 +285,7 @@ public class SelectManyHelper {
             } else if (Collection.class.isAssignableFrom(modelType) || Object.class.equals(modelType)) {
                 // If modelType is a Collection, do the following to arrive at targetForConvertedValues:
                 // Ask the component for its attribute under the key "collectionType"
-                String collectionType = (String) component.getAttributes().get("collectionType");
+                Object collectionType = component.getAttributes().get("collectionType");
                 if (collectionType != null) {
                     // Let targetForConvertedValues be a new instance of Collection implemented by the concrete class specified in collectionType
                     Class<?> collectionClass = getCollectionClass(collectionType);
@@ -355,16 +355,23 @@ public class SelectManyHelper {
         return targetForConvertedValues;
     }
 
-    private static Class getCollectionClass(String collectionType) {
+    private static Class getCollectionClass(Object collectionType) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        Class<?> collectionClass = null;
+        Class<? extends Collection> collectionClass = null;
         if (classLoader == null) {
             classLoader = SelectManyRendererBase.class.getClassLoader();
         }
-        try {
-            collectionClass = classLoader.loadClass(collectionType).asSubclass(Collection.class);
-        } catch (ClassNotFoundException e) {
-            throw new FacesException(e);
+        if (collectionType instanceof Class) {
+            collectionClass = (Class<? extends Collection>) collectionType;
+        } else if (collectionType instanceof String) {
+            try {
+                collectionClass = classLoader.loadClass((String) collectionType).asSubclass(Collection.class);
+            } catch (ClassNotFoundException e) {
+                throw new FacesException(e);
+            }
+        } else {
+            throw new FacesException("'collectionType' should resolve to type String or Class. Found: "
+                + collectionType.getClass().getName());
         }
         return collectionClass;
     }

@@ -42,8 +42,8 @@ public interface MultiSelectProps extends SelectProps {
      * Optional attribute that is a literal string that is the fully qualified class name of a concrete class that
      * implements java.util.Collection, or an EL expression that evaluates to either 1. such a String, or 2. the Class object itself.
      */
-    @Attribute(description = @Description(value = "Optional attribute that is a literal string that is the fully qualified class name of a concrete class that implements java.util.Collection, or an EL expression that evaluates to either 1. such a String, or 2. the Class object itself."))
-    String getCollectionType();
+    @Attribute(description = @Description(value = "Optional attribute that is a literal string that is the fully qualified class name of a concrete class that implements java.util.List, or an EL expression that evaluates to either 1. such a String, or 2. the Class object itself."))
+    Object getCollectionType();
 
     /**
      * The minimum height of the item list (in pixels).
