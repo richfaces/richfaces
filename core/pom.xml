@@ -162,13 +162,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- tests -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Resource Optimizer -->
         <dependency>
             <groupId>org.reflections</groupId>

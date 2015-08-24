@@ -50,8 +50,7 @@ public class ITCommandButtonImage {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         A4JDeployment deployment = new A4JDeployment(ITCommandButtonImage.class);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .addAsWebResource(new File("src/test/resources/images/square.jpg"), "resources/square.jpg");
+        deployment.archive().addAsWebResource(new File("src/test/resources/images/square.jpg"), "resources/square.jpg");
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();

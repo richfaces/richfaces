@@ -48,7 +48,7 @@ public class ITAutocompleteEvents {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITAutocompleteEvents.class);
 
-        deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(AutocompleteBean.class);
 
         addIndexPage(deployment);
 

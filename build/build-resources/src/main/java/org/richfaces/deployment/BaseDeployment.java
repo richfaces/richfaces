@@ -92,28 +92,28 @@ public class BaseDeployment {
         this.facesConfig = Descriptors.create(WebFacesConfigDescriptor.class).version(FacesConfigVersionType._2_0);
 
         this.webXml = Descriptors.create(WebAppDescriptor.class)
-                .version("3.0")
-                .addNamespace("xmlns:web", "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd")
-                .getOrCreateWelcomeFileList()
-                    .welcomeFile("faces/index.xhtml")
-                .up()
-                .getOrCreateContextParam()
-                    .paramName("javax.faces.PROJECT_STAGE")
-                    .paramValue("Development")
-                .up()
-                .getOrCreateServlet()
-                    .servletName(FacesServlet.class.getSimpleName())
-                    .servletClass(FacesServlet.class.getName())
-                    .loadOnStartup(1)
-                .up()
-                .getOrCreateServletMapping()
-                    .servletName(FacesServlet.class.getSimpleName())
-                    .urlPattern("*.jsf")
-                .up()
-                .getOrCreateServletMapping()
-                    .servletName(FacesServlet.class.getSimpleName())
-                    .urlPattern("/faces/*")
-                .up();
+            .version("3.0")
+            .addNamespace("xmlns:web", "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd")
+            .getOrCreateWelcomeFileList()
+            .welcomeFile("faces/index.xhtml")
+            .up()
+            .getOrCreateContextParam()
+            .paramName("javax.faces.PROJECT_STAGE")
+            .paramValue("Development")
+            .up()
+            .getOrCreateServlet()
+            .servletName(FacesServlet.class.getSimpleName())
+            .servletClass(FacesServlet.class.getName())
+            .loadOnStartup(1)
+            .up()
+            .getOrCreateServletMapping()
+            .servletName(FacesServlet.class.getSimpleName())
+            .urlPattern("*.jsf")
+            .up()
+            .getOrCreateServletMapping()
+            .servletName(FacesServlet.class.getSimpleName())
+            .urlPattern("/faces/*")
+            .up();
 
         // Servlet container setup
         if (configuration.servletContainerSetup()) {
@@ -140,14 +140,14 @@ public class BaseDeployment {
     }
 
     /**
-     * Returns the final testable archive - packages all the resources which were configured separately
+     * Returns the final testable archive - packages all the resources which were configured separately, also adds empty
+     * beans.xml file
      */
     public WebArchive getFinalArchive() {
         WebArchive finalArchive = archive
-                .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
-                .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml");
-
-
+            .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
+            .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml")
+            .addAsWebInfResource(new File("src/test/resources/beans.xml"));
 
         // add library dependencies
         exportMavenDependenciesToArchive(finalArchive);
@@ -246,7 +246,6 @@ public class BaseDeployment {
         addMavenDependency(configuration.getJsfImplementation());
 
         addMavenDependency("org.jboss.weld.servlet:weld-servlet");
-        excludeMavenDependency("slf4j-api");
 
         addMavenDependency("org.jboss.el:jboss-el");
         excludeMavenDependency("el-api");
@@ -254,29 +253,28 @@ public class BaseDeployment {
         addMavenDependency("javax.annotation:jsr250-api:1.0");
         addMavenDependency("javax.servlet:jstl:1.2");
 
-
         webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
 
                 // setup Weld Servlet
                 webXml
                     .createListener()
-                        .listenerClass("org.jboss.weld.environment.servlet.Listener");
+                    .listenerClass("org.jboss.weld.environment.servlet.Listener");
 
                 // setup ExpressionFactory of JBoss EL (supports unified EL)
                 switch (configuration.getJsfProvider()) {
                     case MOJARRA:
                         webXml
                             .getOrCreateContextParam()
-                                .paramName("com.sun.faces.expressionFactory")
-                                .paramValue("org.jboss.el.ExpressionFactoryImpl");
+                            .paramName("com.sun.faces.expressionFactory")
+                            .paramValue("org.jboss.el.ExpressionFactoryImpl");
                         break;
 
                     case MYFACES:
                         webXml
                             .getOrCreateContextParam()
-                                .paramName("org.apache.myfaces.EXPRESSION_FACTORY")
-                                .paramValue("org.jboss.el.ExpressionFactoryImpl");
+                            .paramName("org.apache.myfaces.EXPRESSION_FACTORY")
+                            .paramValue("org.jboss.el.ExpressionFactoryImpl");
                         break;
                 }
 
@@ -288,10 +286,12 @@ public class BaseDeployment {
     }
 
     /**
-     * <p>Add basic dependencies which RichFaces depends on.</p>
+     * <p>
+     * Add basic dependencies which RichFaces depends on.</p>
      *
-     * <p>This dependencies would be brought transitively by org.richfaces:richfaces:jar artifact, however
-     * in snapshot builds we don't rely on this dependency and we use target/richfaces.jar instead.</p>
+     * <p>
+     * This dependencies would be brought transitively by org.richfaces:richfaces:jar artifact, however in snapshot builds we
+     * don't rely on this dependency and we use target/richfaces.jar instead.</p>
      */
     private void addRequiredMavenDependencies() {
         addMavenDependency("com.google.guava:guava", "net.sourceforge.cssparser:cssparser");
@@ -309,11 +309,11 @@ public class BaseDeployment {
         if (missingDependency.matches("^[^:]+:[^:]+:[^:]+")) {
             // resolution of the artifact without a version specified
             dependencies = resolver.resolve(missingDependency).withClassPathResolution(false).withTransitivity()
-                    .as(JavaArchive.class);
+                .as(JavaArchive.class);
         } else {
             // resolution of the artifact without a version specified
             dependencies = resolver.loadPomFromFile("pom.xml").resolve(missingDependency)
-                    .withClassPathResolution(false).withTransitivity().as(JavaArchive.class);
+                .withClassPathResolution(false).withTransitivity().as(JavaArchive.class);
         }
 
         for (JavaArchive archive : dependencies) {

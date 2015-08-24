@@ -44,7 +44,7 @@ public class ITSelectValidation {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITSelectValidation.class);
 
-        deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(AutocompleteBean.class);
 
         addIndexPage(deployment);
 

@@ -50,7 +50,6 @@ public class ITFocusManager {
         RichDeployment deployment = new RichDeployment(ITFocusManager.class);
 
         deployment.archive().addClasses(ComponentBean.class);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
         addViewFocusPage(deployment);

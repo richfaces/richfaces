@@ -68,7 +68,6 @@ public class ITJsfAjaxScriptRendering {
         A4JDeployment deployment = new A4JDeployment(ITJsfAjaxScriptRendering.class);
 
         addIndexPage(deployment);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
     }

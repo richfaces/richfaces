@@ -81,7 +81,6 @@ public class ITPlainSkin {
 
 
         addIndexPage(deployment);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
     }

@@ -67,7 +67,6 @@ public class ITFocusValidationAware {
         RichDeployment deployment = new RichDeployment(ITFocusValidationAware.class);
 
         deployment.archive().addClasses(ComponentBean.class);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
 

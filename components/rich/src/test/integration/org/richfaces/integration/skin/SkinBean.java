@@ -19,16 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.integration.skin;
+
+import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class SkinTestBean implements Serializable {
+public class SkinBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private String skin = "DEFAULT";
 

@@ -64,8 +64,7 @@ public class ITNestedRepeat {
 
         deployment.archive()
             .addClasses(NestedDataBean.class)
-            .addAsWebResource(ITNestedRepeat.class.getResource("NestedRepeatTest.xhtml"), "NestedRepeatTest.xhtml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addAsWebResource(ITNestedRepeat.class.getResource("NestedRepeatTest.xhtml"), "NestedRepeatTest.xhtml");
 
         return deployment.getFinalArchive();
     }

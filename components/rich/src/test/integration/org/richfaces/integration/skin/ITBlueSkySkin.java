@@ -83,7 +83,6 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
         });
 
         addIndexPage(deployment);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
     }

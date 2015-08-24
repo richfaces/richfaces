@@ -33,7 +33,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Assert;
@@ -42,10 +41,10 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
-import org.richfaces.integration.RichDeployment;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -75,22 +74,22 @@ public class ITSkin extends AbstractSkinTestBase {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITSkin.class);
-        deployment.archive().addClass(SkinTestBean.class);
+        deployment.archive().addClass(SkinBean.class);
         deployment.archive().addAsResource("bindedtest.skin.properties");
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
 
                 input.getOrCreateContextParam()
                     .paramName("org.richfaces.skin")
-                    .paramValue("#{skinTestBean.skin}");
+                    .paramValue("#{skinBean.skin}");
 
                 return input;
-            };
+            }
+        ;
         });
 
 
         addIndexPage(deployment);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
     }
@@ -118,7 +117,6 @@ public class ITSkin extends AbstractSkinTestBase {
         assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
         assertEquals("org.richfaces.images", parameters.get("ln"));
 
-
         Graphene.guardHttp(buttonSkin2).click();
         url = getBackgroundUrl(buttonSkin1);
         parameters = parseQueryParameters(url);
@@ -135,9 +133,9 @@ public class ITSkin extends AbstractSkinTestBase {
         p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");
         p.form("</rich:panel> ");
-        p.form("<h:commandButton id='buttonSkin1' actionListener='#{skinTestBean.setSkin(\"blueSky\")}' value = 'Select skin 1' /> ");
-        p.form("<h:commandButton id='buttonSkin2' actionListener='#{skinTestBean.setSkin(\"ruby\")}' value = 'Select skin 2' /> ");
-        p.form("<h:commandButton id='buttonSkin3' actionListener='#{skinTestBean.setSkin(\"plain\")}' value = 'Select skin 3' /> ");
+        p.form("<h:commandButton id='buttonSkin1' actionListener='#{skinBean.setSkin(\"blueSky\")}' value = 'Select skin 1' /> ");
+        p.form("<h:commandButton id='buttonSkin2' actionListener='#{skinBean.setSkin(\"ruby\")}' value = 'Select skin 2' /> ");
+        p.form("<h:commandButton id='buttonSkin3' actionListener='#{skinBean.setSkin(\"plain\")}' value = 'Select skin 3' /> ");
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 }

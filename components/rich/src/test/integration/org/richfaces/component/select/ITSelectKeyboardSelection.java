@@ -47,7 +47,7 @@ public class ITSelectKeyboardSelection {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITSelectKeyboardSelection.class);
 
-        deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(AutocompleteBean.class);
 
         addIndexPage(deployment);
 

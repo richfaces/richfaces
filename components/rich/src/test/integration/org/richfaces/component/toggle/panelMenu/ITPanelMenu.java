@@ -65,8 +65,7 @@ public class ITPanelMenu {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITPanelMenu.class);
         deployment.archive()
-            .addClasses(PanelMenuBean.class)
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addClasses(PanelMenuBean.class);
         addDisabledMenuItemPage(deployment);
         addDisabledMenuGroupPage(deployment);
         addDisabledMenuGroupPageClient(deployment);
