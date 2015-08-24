@@ -224,6 +224,10 @@
                 }
             },
 
+            focus: function () {
+                this.list.setFocus();
+            },
+
             __disableButton: function (button) {
                  if (! button.hasClass('rf-ord-btn-dis')) {
                     button.addClass('rf-ord-btn-dis')

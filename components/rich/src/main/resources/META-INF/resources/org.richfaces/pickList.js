@@ -237,6 +237,10 @@
                 }
             },
 
+            focus: function () {
+                this.sourceList.setFocus();
+            },
+
             __toggleButton: function(button, enabled) {
                 if (this.disabled || ! enabled) {
                     if (! button.hasClass('rf-pick-btn-dis')) {
