@@ -83,8 +83,13 @@
             },
 
             getId: function() {
-                return    this.id;
+                return this.id;
             },
+
+            focus: function() {
+                this.__setInputFocus();
+            },
+
             destroy: function() {
                 rf.Event.unbindById(this.input, this.namespace);
                 this.input = null;

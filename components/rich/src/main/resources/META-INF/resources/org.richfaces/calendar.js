@@ -1141,6 +1141,11 @@
             getCurrentDate: function() {
                 return this.currentDate;
             },
+
+            focus: function() {
+                rf.getDomElement(this.INPUT_DATE_ID).focus();
+            },
+
             __getSelectedDate: function() {
                 if (!this.selectedDate) return null; else return this.selectedDate;
             },

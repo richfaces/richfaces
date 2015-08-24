@@ -106,6 +106,10 @@
                 return parseFloat(ret);
             },
 
+            focus: function() {
+                this.input.focus();
+            },
+
             destroy: function (event) {
                 if (this.intervalId) {
                     window.clearInterval(this.intervalId);

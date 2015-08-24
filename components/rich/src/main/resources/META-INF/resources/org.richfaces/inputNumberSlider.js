@@ -117,6 +117,10 @@
                 return parseFloat(ret);
             },
 
+            focus: function() {
+                this.input.focus();
+            },
+
             __setValue: function (value, event, skipOnchange) {
                 if (!isNaN(value)) {
                     var changed = false;

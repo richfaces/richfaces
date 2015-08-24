@@ -281,6 +281,9 @@
                 updateInputValue.call(this, value);
                 this.isChanged = true;
             },
+            focus: function () {
+                rf.getDomElement(this.fieldId).focus();
+            },
             /*
              * Protected methods
              */
