@@ -121,6 +121,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Container Versions -->
+        <version.wildfly100>10.0.0.Beta2</version.wildfly100>
         <version.wildfly90>9.0.1.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
@@ -692,6 +693,47 @@
         </profile>
 
         <!-- Containers -->
+        <profile>
+            <id>wildfly-managed-10-0</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly100</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly10>true</arquillian.launch.wildfly10>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly100}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly100}</arquillian.container.distribution>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-remote-10-0</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly100-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>wildfly-managed-9-0</id>
             <activation>

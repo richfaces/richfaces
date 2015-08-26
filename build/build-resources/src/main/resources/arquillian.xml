@@ -47,6 +47,13 @@
             <property name="jbossHome">${arquillian.container.home}</property>
         </configuration>
     </container>
+    
+    <container qualifier="wildfly10" default="${arquillian.launch.wildfly10}">
+        <configuration>
+            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
+            <property name="jbossHome">${arquillian.container.home}</property>
+        </configuration>
+    </container>
 
     <container qualifier="tomcat6" default="${arquillian.launch.tomcat6}">
         <configuration>
