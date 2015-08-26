@@ -313,8 +313,9 @@
             },
 
             __getClientItemFromCache: function(inputLabel) {
+                var empty = {'label': '', 'value': ''};
                 if (!this.cache) {
-                    return {'label': '', 'value': ''};
+                    return empty;
                 }
                 var value;
                 var label;
@@ -338,6 +339,8 @@
                 if (label) {
                     return {'label': label, 'value': value};
                 }
+                
+                return empty;
             },
 
             __getClientItem: function(inputLabel) {
