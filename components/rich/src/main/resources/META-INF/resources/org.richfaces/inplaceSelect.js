@@ -102,6 +102,15 @@
                 this.list.__selectItemByValue(value);
             },
             onblur: function(e) {
+                /*
+                 * reset the state; (RF-11402) 
+                 * in IE clicking on the scrollbar triggers blur but doesn't trigger mouseup
+                 */
+                if (this.isMouseDown) {
+                    this.isMouseDown = false;
+                    this.__setInputFocus();
+                    return;
+                }
                 this.__hidePopup();
                 $super.onblur.call(this);
             },
