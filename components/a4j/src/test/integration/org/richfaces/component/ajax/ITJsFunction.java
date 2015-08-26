@@ -47,7 +47,6 @@ public class ITJsFunction {
         deployment.archive().addClass(AjaxBean.class);
         addIndexPage(deployment);
         addParamPage(deployment);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
     }

@@ -59,8 +59,7 @@ public class ITCollectionModel {
         A4JDeployment deployment = new A4JDeployment(ITCollectionModel.class);
 
         deployment.archive()
-            .addClasses(CollectionModelBean.class)
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addClasses(CollectionModelBean.class);
 
         addIndexPage(deployment);
 

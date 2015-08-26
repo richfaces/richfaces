@@ -44,7 +44,7 @@ public class ITAutocompleteDestroy {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITAutocompleteDestroy.class);
 
-        deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(AutocompleteBean.class);
 
         addIndexPage(deployment);
 

@@ -49,7 +49,7 @@ public class ITAutocompleteTokenizing {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITAutocompleteTokenizing.class);
 
-        deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(AutocompleteBean.class);
 
         addIndexPage(deployment);
 

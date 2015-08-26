@@ -74,8 +74,7 @@ public class ITDropDownMenuItem {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITDropDownMenuItem.class);
         deployment.archive()
-            .addClasses(DropDownMenuBean.class)
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+            .addClasses(DropDownMenuBean.class);
         addMenuItemPageWithMode(deployment, "menuItem_ajaxMode.xhtml", "ajax");
         addMenuItemPageWithMode(deployment, "menuItem_clientMode.xhtml", "client");
         addMenuItemPageWithMode(deployment, "menuItem_serverMode.xhtml", "server");

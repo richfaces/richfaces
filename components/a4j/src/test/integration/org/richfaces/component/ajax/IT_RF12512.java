@@ -36,7 +36,6 @@ public class IT_RF12512 {
         deployment.archive().addClass(A4JRepeatBean.class);
         deployment.archive().addClass(AjaxBean.class);
         deployment.archive().addAsWebResource(new File("src/test/resources/org/richfaces/view/facelets/html/a4jrepeatMatrix.xhtml"));
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         addIndexPage(deployment);
         return deployment.getFinalArchive();
     }

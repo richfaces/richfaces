@@ -52,7 +52,6 @@ public class ITFileUpload {
         RichDeployment deployment = new RichDeployment(ITFileUpload.class);
 
         deployment.archive().addClass(FileUploadBean.class);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
 

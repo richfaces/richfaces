@@ -75,7 +75,7 @@ public class ITChartBasic {
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITChartBasic.class);
-        deployment.archive().addClasses(ChartBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(ChartBean.class);
         addIndexPage(deployment);
         return deployment.getFinalArchive();
     }

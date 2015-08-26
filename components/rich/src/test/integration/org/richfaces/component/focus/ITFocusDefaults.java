@@ -53,7 +53,7 @@ public class ITFocusDefaults {
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITFocusValidationAware.class);
 
-        deployment.archive().addClasses(ComponentBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+        deployment.archive().addClasses(ComponentBean.class);
 
         addIndexPage(deployment);
 

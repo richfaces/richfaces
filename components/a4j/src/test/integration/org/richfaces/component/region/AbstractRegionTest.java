@@ -52,7 +52,6 @@ public abstract class AbstractRegionTest {
         RegionTestDeployment(Class<?> baseClass) {
             super(baseClass);
             this.archive().addClasses(RegionBean.class);
-            this.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         }
     }
 

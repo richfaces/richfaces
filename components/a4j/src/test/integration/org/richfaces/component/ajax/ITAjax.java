@@ -35,7 +35,6 @@ public class ITAjax {
         A4JDeployment deployment = new A4JDeployment(ITAjax.class);
         deployment.archive().addClass(AjaxBean.class);
         addIndexPage(deployment);
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
     }

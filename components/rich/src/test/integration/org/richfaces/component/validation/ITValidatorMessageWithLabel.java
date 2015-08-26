@@ -69,7 +69,6 @@ public class ITValidatorMessageWithLabel {
 
         addIndexPage(deployment);
 
-        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         deployment.archive().addAsResource(messageBundleResource);
 
         deployment.facesConfig(new Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor>() {
