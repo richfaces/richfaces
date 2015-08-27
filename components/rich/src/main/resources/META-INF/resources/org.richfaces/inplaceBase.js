@@ -85,6 +85,10 @@
                 this.oncancel();
             },
 
+            open: function() {
+                this.__editHandler();
+            },
+
             isValueSaved: function() {
                 return this.isSaved;
             },
