@@ -351,6 +351,10 @@
                 rf.Event.unbindById(this.target, this.namespace);
                 this.popup.destroy();
                 this.popup = null;
+                if (this.hidingTimerHandle) {
+                    window.clearTimeout(this.hidingTimerHandle);
+                    this.hidingTimerHandle = undefined;
+                }
                 $super.destroy.call(this);
             }
         });
