@@ -105,9 +105,11 @@
                 /*
                  * reset the state; (RF-11402) 
                  * in IE clicking on the scrollbar triggers blur but doesn't trigger mouseup
+                 * in Chrome clicking on the scrollbar triggers blur when the page is scrolled
                  */
-                if (this.isMouseDown) {
+                if (this.isMouseDown || (this.isMouseUp && !this.isSaved)) {
                     this.isMouseDown = false;
+                    this.isMouseUp = false;
                     this.__setInputFocus();
                     return;
                 }
@@ -196,6 +198,7 @@
             },
             __onListMouseUp: function(e) {
                 this.isMouseDown = false;
+                this.isMouseUp = true;
                 this.__setInputFocus();
             },
             __showLabel: function(e) {
