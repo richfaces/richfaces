@@ -30,8 +30,13 @@
         this.attachToDom(this.parentId);
         this.dragElement = $(document.getElementById(this.options.parentId));
         this.dragElement.draggable();
-
-        if (options.indicator) {
+        
+        if (options.dragOptions) {
+            this.dragElement.draggable("option", options.dragOptions);
+            if (options.dragOptions.helper) {
+                this.dragElement.data("indicator", false);
+            }
+        } else if (options.indicator) {
             var element = $(document.getElementById(options.indicator));
             var clone = element.clone();
             $("*[id]", clone).andSelf().each(function() {

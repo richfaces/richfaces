@@ -29,6 +29,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDragSource;
 import org.richfaces.javascript.DnDScript;
@@ -59,6 +60,7 @@ public class DragSourceRenderer extends DnDRenderBase {
             AbstractDragSource dragSource = (AbstractDragSource) component;
             options.put("indicator", getDragIndicatorClientId(facesContext, dragSource));
             options.put("type", dragSource.getType());
+            options.put("dragOptions", new JSLiteral(dragSource.getDragOptions()));
             options.put("parentId", getParentClientId(facesContext, component));
         }
         return options;

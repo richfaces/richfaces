@@ -47,6 +47,12 @@ public abstract class AbstractDragSource extends UIComponentBase {
     public abstract String getDragIndicator();
 
     /**
+     * A set of options for jQuery.draggable widget
+     */
+    @Attribute
+    public abstract String getDragOptions();
+
+    /**
      * A drag zone type that is used for zone definition, which elements can be accepted by a drop zone
      */
     @Attribute
