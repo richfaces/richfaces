@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.notify.page;
 
 import org.jboss.arquillian.graphene.Graphene;
@@ -27,6 +27,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
@@ -42,80 +43,84 @@ public class NotifyAttributesPage extends NotifyPage {
 
     public static final int TIMEOUT = 5000;
 
-    @FindByJQuery(".rf-insl-inp:eq(0)")
-    private WebElement inputForStayTime;
-
-    @FindByJQuery("input[type=checkbox]:eq(0)")
-    private WebElement stickyCheckBox;
-
-    @FindByJQuery("input[type=checkbox]:eq(1)")
-    private WebElement nonBlockingCheckBox;
-
-    @FindByJQuery("input[type=checkbox]:eq(2)")
-    private WebElement showShadowCheckBox;
-
-    @FindByJQuery("input[type=checkbox]:eq(3)")
-    private WebElement showCloseButtonCheckBox;
-
-    @FindByJQuery(".rf-insl-inp:eq(1)")
-    private WebElement nonBlockingOpacityInput;
-
-    @FindBy(css = "input[type=submit]")
-    private WebElement showNotification;
-
     @ArquillianResource
     private Actions actions;
 
-    public void setStayTime(long time) {
-        inputForStayTime.click();
-        inputForStayTime.clear();
-        inputForStayTime.click();
-        actions.sendKeys(inputForStayTime, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.DELETE, Keys.DELETE, Keys.DELETE, Long.toString(time)).build().perform();
-    }
-
-    public void setSticky(boolean sticky) {
-        if (stickyCheckBox.isSelected() != sticky) {
-            stickyCheckBox.click();
-        }
-    }
+    @FindByJQuery(".rf-insl-inp:eq(0)")
+    private WebElement inputForStayTime;
+    @FindByJQuery("input[type=checkbox]:eq(1)")
+    private WebElement nonBlockingCheckBox;
+    @FindByJQuery(".rf-insl-inp:eq(1)")
+    private WebElement inputForNonBlockingOpacity;
+    @FindByJQuery("input[type=checkbox]:eq(3)")
+    private WebElement showCloseButtonCheckBox;
+    @FindBy(css = "input[type=submit]")
+    private WebElement showNotification;
+    @FindByJQuery("input[type=checkbox]:eq(2)")
+    private WebElement showShadowCheckBox;
+    @FindByJQuery("input[type=checkbox]:eq(0)")
+    private WebElement stickyCheckBox;
 
     public void setNonBlocking(final boolean nonBlocking) {
         if (nonBlockingCheckBox.isSelected() != nonBlocking) {
-            actions.moveToElement(nonBlockingCheckBox).click().build().perform();
-            Graphene.waitGui()
-                .until(new Predicate<WebDriver>() {
-                    @Override
-                    public boolean apply(WebDriver input) {
-                        return nonBlockingOpacityInput.isEnabled() == nonBlocking;
-                    }
-                });
+            Graphene.guardAjax(nonBlockingCheckBox).click();
+            Graphene.waitGui().until(new Predicate<WebDriver>() {
+                @Override
+                public boolean apply(WebDriver input) {
+                    return inputForNonBlockingOpacity.isEnabled() == nonBlocking;
+                }
+            });
+        }
+    }
+
+    public void setNonBlockingOpacity(double nonBlockingOpacity) {
+        setNonBlocking(true);
+        if (!inputForNonBlockingOpacity.isEnabled()) {
+            throw new IllegalStateException("The input for setting non blocking opacity is disabled.");
+        }
+        if (nonBlockingOpacity >= 1) {
+            throw new IllegalArgumentException("The opacity should be less than 1");
+        }
+        setInputValueTo(inputForNonBlockingOpacity, nonBlockingOpacity);
+    }
+
+    public void setShowCloseButton(boolean showCloseButton) {
+        if (showCloseButtonCheckBox.isSelected() != showCloseButton) {
+            Graphene.guardAjax(showCloseButtonCheckBox).click();
         }
     }
 
     public void setShowShadow(boolean showShadow) {
         if (showShadowCheckBox.isSelected() != showShadow) {
-            showShadowCheckBox.click();
+            Graphene.guardAjax(showShadowCheckBox).click();
         }
     }
 
-    public void setShowCloseButtion(boolean showCloseButton) {
-        if (showCloseButtonCheckBox.isSelected() != showCloseButton) {
-            showCloseButtonCheckBox.click();
+    private void setInputValueTo(WebElement input, double value) {
+        Action action = actions
+            .click(input)
+            .sendKeys(Keys.chord(Keys.CONTROL, "a"), String.valueOf(value))
+            // blur the input
+            .sendKeys(Keys.TAB).build();
+        if (!input.getAttribute("value").equals(String.valueOf(value))) {
+            // value was changed => ajax request
+            action = Graphene.guardAjax(action);
         }
+        action.perform();
     }
 
-    public void setNonBlockingOpacity(String nonBlockingOpacity) {
-        if (!nonBlockingOpacityInput.isEnabled()) {
-            throw new IllegalStateException("The input for setting non blocking opacity is disabled.");
+    public void setStayTime(long time) {
+        setInputValueTo(inputForStayTime, time);
+    }
+
+    public void setSticky(boolean sticky) {
+        if (stickyCheckBox.isSelected() != sticky) {
+            Graphene.guardAjax(stickyCheckBox).click();
         }
-        if (!nonBlockingOpacity.startsWith("0")) {
-            throw new IllegalArgumentException("The opacity has to start with '0'.");
-        }
-        actions.click(nonBlockingOpacityInput).sendKeys(Keys.chord(Keys.CONTROL, "a"), nonBlockingOpacity).build().perform();
     }
 
     public void showNotification() {
-        showNotification.click();
+        Graphene.guardAjax(showNotification).click();
         waitUntilThereIsNotify();
     }
 

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,11 +18,12 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.notify;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,16 +66,11 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
         page.setSticky(true);
         page.showNotification();
 
-        boolean ok = false;
-
         try {
             page.waitUntilThereIsNoNotify();
+            fail("The notify message should not dissapear until closed manually, when @sticky=true.");
         } catch (RuntimeException ex) {
-
-            ok = true;
         }
-
-        assertTrue("The message should not dissapear", ok);
 
         page.getNotify().getItem(0).close();
         page.waitUntilThereIsNoNotify();
@@ -82,9 +78,9 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
 
     @Test
     public void testNonBlockingOpacity() {
-        checkNonBlockingOpacity("0.5");
-        checkNonBlockingOpacity("0");
-        checkNonBlockingOpacity("0.9");
+        checkNonBlockingOpacity(0.5);
+        checkNonBlockingOpacity(0);
+        checkNonBlockingOpacity(0.9);
     }
 
     @Test
@@ -108,31 +104,27 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
     @Test
     public void testShowCloseButton() {
         page.waitUntilThereIsNoNotify();
-        page.setShowCloseButtion(true);
+        page.setShowCloseButton(true);
         page.showNotification();
 
         NotifyMessage message = page.getNotify().getItem(0);
 
-        actions.moveToElement(message.advanced().getSummaryElement()).build().perform();
+        actions.moveToElement(message.advanced().getSummaryElement()).perform();
         assertTrue("The close button should be visible!", message.advanced().getCloseIconElement().isDisplayed());
         page.waitUntilThereIsNoNotify();
 
-        page.setShowCloseButtion(false);
+        page.setShowCloseButton(false);
 
         page.showNotification();
 
         message = page.getNotify().getItem(0);
 
-        actions.moveToElement(message.advanced().getSummaryElement());
+        actions.moveToElement(message.advanced().getSummaryElement()).perform();
         assertFalse("The close button should not be visible!", message.advanced().getCloseIconElement().isDisplayed());
     }
 
-    /* *****************************************************************************
-     * Help methods ************************************************************** ***************
-     */
-    private void checkNonBlockingOpacity(final String opacity) {
+    private void checkNonBlockingOpacity(final double opacity) {
         loadPage();
-        page.setNonBlocking(true);
         page.setNonBlockingOpacity(opacity);
         page.waitUntilThereIsNoNotify();
         page.showNotification();
@@ -145,7 +137,7 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
                 @Override
                 public boolean apply(WebDriver input) {
                     double actualOpacity = Double.valueOf(message.advanced().getRootElement().getCssValue("opacity"));
-                    boolean succcess = Math.abs(Double.valueOf(opacity) - actualOpacity) <= 0.2;
+                    boolean succcess = Math.abs(opacity - actualOpacity) <= 0.2;
                     if (!succcess) {
                         Utils.triggerJQ("mouseover", message.advanced().getSummaryElement());
                     }
@@ -174,14 +166,4 @@ public class ITestNotifyAttributes extends AbstractWebDriverTest {
             + " milisec, but was: " + delta + " milisec", (delta > moreThan) && (delta < lessThan));
     }
 
-    public static void waitForSomeTime(long howLongInMilis) {
-
-        long timeout = System.currentTimeMillis() + howLongInMilis;
-        long currentTime = System.currentTimeMillis();
-
-        while (timeout > currentTime) {
-
-            currentTime = System.currentTimeMillis();
-        }
-    }
 }
