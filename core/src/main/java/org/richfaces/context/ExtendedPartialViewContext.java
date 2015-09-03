@@ -353,22 +353,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
         // RF-13740, MyFaces doesn't call for renderIds in advance
         if (renderIds == null) {
             renderIds = new LinkedHashSet<String>();
-
-            ActivatorComponentRenderCallback callback = new ActivatorComponentRenderCallback(getFacesContext(), behaviorEvent);
-
-            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
-                setupRenderCallbackData(callback);
-            }
-
-            // take collection value stored during execute
-            if (componentRenderIds != null) {
-                renderIds.addAll(componentRenderIds);
-            }
-
-            if (!isRenderAll()) {
-                addImplicitRenderIds(renderIds);
-            }
-            isActivatorVisitedAtRender = true;
+            visitActivatorAtRender();
         }
 
         return Boolean.TRUE.equals(renderAll) || renderIds.contains(ALL);
