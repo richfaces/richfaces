@@ -161,8 +161,6 @@
                 if (this.shown) {
                     this.__hide();
                 }
-                
-                this.popup.hide();
             },
 
             __hideHandler: function(event) {
