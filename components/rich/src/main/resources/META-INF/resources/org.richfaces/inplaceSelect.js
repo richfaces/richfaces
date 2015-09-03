@@ -107,6 +107,8 @@
                  * in IE clicking on the scrollbar triggers blur but doesn't trigger mouseup
                  * in Chrome clicking on the scrollbar triggers blur when the page is scrolled
                  */
+                window.clearTimeout(this.timeoutId);
+                this.timeoutId = undefined;
                 if (this.isMouseDown || (this.isMouseUp && !this.isSaved)) {
                     this.isMouseDown = false;
                     this.isMouseUp = false;
@@ -180,6 +182,7 @@
             },
             __blurHandler: function(e) {
                 if (this.saveOnSelect || !this.isMouseDown) {
+                    this.isMouseUp = false;
                     if (this.isEditState()) {
                         this.timeoutId = window.setTimeout($.proxy(function() {
                             this.onblur(e);
@@ -198,7 +201,7 @@
             },
             __onListMouseUp: function(e) {
                 this.isMouseDown = false;
-                this.isMouseUp = true;
+                this.isMouseUp = !!this.timeoutId; // set only if blur was triggered
                 this.__setInputFocus();
             },
             __showLabel: function(e) {
