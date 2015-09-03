@@ -54,7 +54,7 @@
                     this.menuManager.addMenuId(this.id);
                     this.options.showOptions = options || {};
                     if (this.options.showOptions.replace) {
-                    	this.__replaceOnShow();
+                        this.__replaceOnShow();
                     }
                     this.__showPopup(e); // include the event to position the popup at the cursor
                     var parent = rf.component(this.target);
@@ -82,16 +82,17 @@
                     opts = this.options.showOptions.replace,
                     first = true;
 
-                for (o in opts) {
+                for (var o in opts) {
                     if (opts.hasOwnProperty(o)) {
-                        var re = new RegExp("{" + o + "}", "g")
+                        var re = new RegExp("{" + o + "}", "g");
                         labels.map(function(index, label) {
-                            if (!label.getAttribute("data-original")) {
-                                label.setAttribute("data-original", label.innerText);
+                            var $label = $(label);
+                            if (!$label.attr("data-original")) {
+                                $label.attr("data-original", $label.text());
                             }
 
-                            var text = first ? label.getAttribute("data-original") : label.innerText;
-                            label.innerText = text.replace(re, opts[o]);
+                            var text = first ? $label.attr("data-original") : $label.text();
+                            $label.text(text.replace(re, opts[o]));
                         });
                         first = false;
                     }
