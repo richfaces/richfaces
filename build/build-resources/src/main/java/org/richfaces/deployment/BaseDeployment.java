@@ -286,6 +286,16 @@ public class BaseDeployment {
     }
 
     /**
+     * Adds Hibernate validator dependency, but only when using Servlet container (Tomcat, Jetty).
+     */
+    public BaseDeployment addHibernateValidatorWhenUsingServletContainer() {
+        if (configuration.servletContainerSetup()) {
+            return addMavenDependency("org.hibernate:hibernate-validator");
+        }
+        return this;
+    }
+
+    /**
      * <p>
      * Add basic dependencies which RichFaces depends on.</p>
      *
