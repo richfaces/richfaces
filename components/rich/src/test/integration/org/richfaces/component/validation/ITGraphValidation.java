@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.validation;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -42,6 +41,8 @@ public class ITGraphValidation extends GraphValidationTestBase {
         deployment.archive().addClasses(GraphBean.class, Group.class);
 
         addIndexPage(deployment);
+
+        deployment.addHibernateValidatorWhenUsingServletContainer();
 
         return deployment.getFinalArchive();
     }

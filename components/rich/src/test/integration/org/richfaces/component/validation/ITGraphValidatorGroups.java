@@ -47,6 +47,8 @@ public class ITGraphValidatorGroups {
         deployment.archive().addClass(GraphValidatorBean.class);
         addIndexPage(deployment);
 
+        deployment.addHibernateValidatorWhenUsingServletContainer();
+
         return deployment.getFinalArchive();
     }
 

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.validation;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -50,6 +49,8 @@ public class ITClientValidation extends ValidationTestBase {
 
         addIndexPage(deployment);
 
+        deployment.addHibernateValidatorWhenUsingServletContainer();
+
         return deployment.getFinalArchive();
     }
 
@@ -79,7 +80,9 @@ public class ITClientValidation extends ValidationTestBase {
         p.body("    </h:inputText>");
         p.body("    <h:outputText id='out' value='#{test.value}'></h:outputText>");
         p.body("</h:form>");
-
+        p.body("<br />");
+        p.body("<input id='blurButton' value='blur' type='button' />");
+        p.body("<br />");
         p.body("<rich:message id='uiMessage' for='text' />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
