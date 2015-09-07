@@ -2,6 +2,43 @@
 -----------
 
     Bug
+    [RF-11402] - Metamer: rich:inplaceSelect: scroller disappear when move by mouse
+    [RF-12488] - detached contextmenu menu fails
+    [RF-12510] - jsFunction data called before completittion
+    [RF-12759] - rich:componentControl doesn't work on commandButton
+    [RF-12820] - AutoComplete Layout Table is broken
+    [RF-12841] - Tooltip: JavaScript Error with showDelay and partial update
+    [RF-14081] - Rerendering of drag indicator not reflected when dragging an element
+    [RF-14102] - orderingList, pickList: @collectionType can only be a String
+    [RF-14119] - page-fragments: status: status state is not returned correctly
+    [RF-14120] - page-fragments: editor: type method is changing editor's text even if in readonly mode
+    [RF-14122] - autocomplete: autofill does not work for upper case beginning letter
+    [RF-14129] - rich:select list doesn't opens, if first element in the list is empty (with solution)
+    [RF-14133] - mobile showcase with myfaces: cannot display any example
+    [RF-14136] - [rich:toolbar] hideDelay does not work
+    [RF-14138] - components/rich cannot be compiled with java 1.6
+
+    Component Upgrade
+    [RF-14113] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-14101] - Replace Showcase tests for a4j:status
+    [RF-14115] - page-fragments: editor: wait for inner frame to be visible before switching to it
+    [RF-14121] - showcase: editor: decrease autosaving frequency
+
+    Feature Request
+    [RF-7824] - Add "focus" method to focusable components
+    [RF-11842] - Support for macrosubstitutions in the contextMenu
+
+    Sub-task
+    [RF-14118] - Document text substitutions in rich:contextMenu
+    [RF-14125] - Add focus() to JS API documentation
+    [RF-14131] - Document @dragOptions for rich:dragSource
+
+4.5.8.Final
+-----------
+
+    Bug
     [RF-11176] - [a4j:commandButton] [a4j:commandLink] missing base attribute onerror
     [RF-11711] - a4j:queue - review usage of attributes onsubmit, oncomplete, onevent, onbeforedomupdate and onerror
     [RF-11805] - a4j:queue onerror doesn't seem to work
