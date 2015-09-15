@@ -27,14 +27,14 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.5.9.Final</version>
+        <version>4.5.10-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-push-depchain</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.9.Final</version>
+    <version>4.5.10-SNAPSHOT</version>
     <name>RichFaces Push Depchain</name>
 
     <description>
