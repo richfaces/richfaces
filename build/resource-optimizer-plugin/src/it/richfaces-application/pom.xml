@@ -4,13 +4,13 @@
     <groupId>org.richfaces.cdk</groupId>
     <artifactId>richfaces-application</artifactId>
     <name>Test component annotations</name>
-    <version>4.5.9-SNAPSHOT</version>
+    <version>4.5.10-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.5.9-SNAPSHOT</version>
+        <version>4.5.10-SNAPSHOT</version>
         <relativePath>../../../../build/parent/pom.xml</relativePath>
     </parent>
 
@@ -19,7 +19,7 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
-                <version>4.5.9-SNAPSHOT</version>
+                <version>4.5.10-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>process</id>

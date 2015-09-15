@@ -27,7 +27,7 @@
     <artifactId>components-demo</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Example - Component </name>
-    <version>4.5.9-SNAPSHOT</version>
+    <version>4.5.10-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <description>
@@ -51,7 +51,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.9-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.10-SNAPSHOT</version.richfaces>
         <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
         <version.jboss-spec>3.0.2.Final</version.jboss-spec>
         <version.junit>4.11</version.junit>
