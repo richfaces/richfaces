@@ -1,8 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
+    <rich:panel styleClass="vdlPanel" bodyClass="vdlPanelBody">
+        <span style="font-weight: bold; font-size: 12px">VDL Documentation</span>
+        <ul style="margin: 4px 0 0 0; padding-left: 20px;">
+            <li><a href="http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/index.html?rich/treeModelAdaptor.html">rich:treeModelAdaptor</a></li>
+            <li><a href="http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/index.html?rich/treeModelRecursiveAdaptor.html">rich:treeModelRecursiveAdaptor</a></li>
+        </ul>
+    </rich:panel>
     <p>
         The <b>rich:treeModelRecursiveAdaptor</b> component allows a tree to be populated with a recursive heirarchical model.
         It is used together with <b>rich:tree</b> and <b>rich:treeNode</b> components.

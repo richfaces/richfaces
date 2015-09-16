@@ -295,3 +295,20 @@ a.show,a.hide {
 textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
     -webkit-text-fill-color: #B6AD84;
 }
+
+.vdlPanel {
+    border: 2px solid;
+    float: right;
+    position:relative;
+    top: -16px;
+    right: -21px;
+}
+
+.vdlPanelBody {
+    padding: 6px;
+}
+
+.vdlPanelBody a {
+    font-size: 12px;
+    font-weight: bold
+}

@@ -1,8 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
+    <rich:panel styleClass="vdlPanel" bodyClass="vdlPanelBody">
+        <span style="font-weight: bold; font-size: 12px">VDL Documentation</span>
+        <ul style="margin: 4px 0 0 0; padding-left: 20px;">
+            <li><a href="http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/index.html?rich/dragIndicator.html">rich:dragIndicator</a></li>
+        </ul>
+    </rich:panel>
     <p>
         This sample uses the same code as the basic example, but additionally defines a custom indicator using the <b>rich:dragIndicator</b>
         component. The custom indicator uses styling attributes for a customized appearance.

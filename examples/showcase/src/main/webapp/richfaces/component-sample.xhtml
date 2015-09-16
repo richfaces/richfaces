@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <ui:composition template="/templates/main.xhtml">
     <ui:define name="body">
         <h:outputStylesheet>
             .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
-            display: none;
+                display: none;
             }
         </h:outputStylesheet>
         <rich:tabPanel switchType="client" styleClass="navigation" activeItem="#{demoNavigator.currentSample.id}"
@@ -18,6 +18,9 @@
             </c:forEach>
         </rich:tabPanel>
         <fieldset class="example-cnt">
+            <rich:panel rendered="#{!demoNavigator.currentDemo.excludeReference}" styleClass="vdlPanel" bodyClass="vdlPanelBody">
+                <a href="http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/index.html?#{fn:replace(demoNavigator.currentDemo.name, ':', '/')}.html">VDL documentation</a>
+            </rich:panel>
             <ui:include src="#{demoNavigator.sampleURI}" />
         </fieldset>
     </ui:define>
