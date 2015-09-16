@@ -386,15 +386,16 @@
 
                 var originalAction = this.fileUpload.form.attr("action"),
                     delimiter = originalAction.indexOf("?") == -1 ? "?" : "&",
+                    encodedId = encodeURIComponent(this.fileUpload.id),
                     newAction =  originalAction + delimiter + UID + "=" + this.uid + 
                         "&javax.faces.partial.ajax=true" + 
-                        "&javax.faces.source="           + this.fileUpload.id +
-                        "&javax.faces.partial.execute="  + this.fileUpload.id +
-                        "&org.richfaces.ajax.component=" + this.fileUpload.id + 
-                        "&javax.faces.ViewState=" + viewState;
+                        "&javax.faces.source="           + encodedId +
+                        "&javax.faces.partial.execute="  + encodedId +
+                        "&org.richfaces.ajax.component=" + encodedId + 
+                        "&javax.faces.ViewState=" + encodeURIComponent(viewState);
 
                 if (jsf.getClientWindow && jsf.getClientWindow()) {
-                    newAction += "&javax.faces.ClientWindow=" + jsf.getClientWindow();
+                    newAction += "&javax.faces.ClientWindow=" + encodeURIComponent(jsf.getClientWindow());
                 };
 
                 var eventHandler = function(handlerCode) {
