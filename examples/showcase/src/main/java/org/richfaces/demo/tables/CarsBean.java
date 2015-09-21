@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.richfaces.demo.tables;
 
 import java.io.Serializable;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.richfaces.demo.poll;
 
 import java.io.Serializable;

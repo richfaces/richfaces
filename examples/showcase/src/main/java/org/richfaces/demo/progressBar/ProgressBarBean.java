@@ -1,6 +1,3 @@
-/**
- *
- */
 package org.richfaces.demo.progressBar;
 
 import java.io.Serializable;
