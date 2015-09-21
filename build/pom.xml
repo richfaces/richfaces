@@ -65,7 +65,7 @@
 
         <!-- Project Versions -->
         <version.google-guava>18.0</version.google-guava>
-        <version.cssparser>0.9.16</version.cssparser>
+        <version.cssparser>0.9.17</version.cssparser>
 
         <!-- JSF Implementations Versions-->
         <version.javax.faces-api>2.2</version.javax.faces-api>
