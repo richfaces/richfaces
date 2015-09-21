@@ -21,7 +21,27 @@
     </h:outputStylesheet>
 
     <h:form id="form">
-        <h:outputScript library="org.richfaces.showcase" name="js/picturesUtils.js"/>
+        <h:outputScript>
+        //<![CDATA[
+            function resize(pic, coeff) {
+                var w = Math.round(pic.width * coeff);
+                var h = Math.round(pic.height * coeff);
+            
+                if (w > 1 && h > 1 && h<1000 && w<1000) {
+                    pic.width = w;
+                    pic.heigth = h;
+                }
+            }
+            
+            function enlarge(element){
+                resize(element, 1.1);
+            }
+            
+            function decrease(element){
+                resize(element, 0.9);
+            }
+        //]]>
+        </h:outputScript>
 
         <h:graphicImage library="org.richfaces.showcase" name="img/pic1.jpg" id="pic" style="border : 5px solid #E4EAEF"/>
 

@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "mediaBean")
 @RequestScoped
 public class MediaBean {
-    private static final String RICHFACES_MEDIA_OUTPUT_IMAGE_SOURCE = "/richfaces/mediaOutput/image/source.png";
+    private static final String RICHFACES_MEDIA_OUTPUT_IMAGE_SOURCE = "/resources/org.richfaces.showcase/img/source.png";
     private static final int BUFFER_SIZE = 8192;
     private Color[] colors;
     private boolean isIndexed = false;

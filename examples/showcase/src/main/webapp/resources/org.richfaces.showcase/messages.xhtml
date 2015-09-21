@@ -14,10 +14,9 @@
     </composite:interface>
 
     <composite:implementation>
-        <h:outputStylesheet library="org.richfaces.showcase" name="messages.css" />
         <a4j:outputPanel ajaxRendered="true">
             <h:messages layout="#{cc.attrs.layout}" showSummary="true" style="color:red; #{cc.attrs.style}"
-                styleClass="rich-message #{cc.attrs.styleClass}" />
+                styleClass="#{cc.attrs.styleClass}" />
         </a4j:outputPanel>
     </composite:implementation>
 </body>
