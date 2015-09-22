@@ -4,22 +4,38 @@
     xmlns:rich="http://richfaces.org/rich">
 
     <h:outputStylesheet>
-        .panelc { width:25%; }
-        .valign { vertical-align:top; }
-        .dropTargetPanel { width: 90%; }
+        .panelc {
+            width:25%;
+        }
+        
+        .valign {
+            vertical-align:top;
+        }
+        
+        .dropTargetPanel {
+            width: 90%;
+        }
+        
         .footerClass {
-        text-align: center;
-        padding-top: 5px;
+            text-align: center;
+            padding-top: 5px;
         }
-        .rf-ind-drag{
-        font-size:11px;
-        cursor:pointer;
-        width:100px;
-        border:1px solid gray;
-        padding:2px
+        
+        .rf-ind-drag {
+            font-size:11px;
+            cursor:pointer;
+            width:100px;
+            border:1px solid gray;
+            padding:2px
         }
-        .rf-ind-acpt{border:2px solid green}
-        .rf-ind-rejt{border:2px solid red}
+        
+        .rf-ind-acpt {
+            border:2px solid green
+        }
+        
+        .rf-ind-rejt {
+            border:2px solid red
+        }
     </h:outputStylesheet>
     <h:form id="form">
 
@@ -33,7 +49,7 @@
                     <h:column>
                         <a4j:outputPanel layout="block" styleClass="rf-ind-drag">
                             <rich:dragSource type="#{fm.family}" dragValue="#{fm}" />
-                            <h:outputText value="#{fm.name}"></h:outputText>
+                            <h:outputText value="#{fm.name}" />
                         </a4j:outputPanel>
                     </h:column>
                     <f:facet name="footer">
@@ -52,11 +68,9 @@
 
                 <h:dataTable id="phptable" columns="1" value="#{dragDropBean.targetPHP}" var="fm">
                     <h:column>
-                        <h:outputText value="#{fm.name}"></h:outputText>
+                        <h:outputText value="#{fm.name}" />
                     </h:column>
                 </h:dataTable>
-
-
             </rich:panel>
 
             <rich:panel styleClass="dropTargetPanel">
@@ -68,11 +82,9 @@
 
                 <h:dataTable id="dnettable" columns="1" value="#{dragDropBean.targetDotNet}" var="fm">
                     <h:column>
-                        <h:outputText value="#{fm.name}"></h:outputText>
+                        <h:outputText value="#{fm.name}" />
                     </h:column>
                 </h:dataTable>
-
-
             </rich:panel>
 
             <rich:panel styleClass="dropTargetPanel">
@@ -84,7 +96,7 @@
 
                 <h:dataTable id="cftable" columns="1" value="#{dragDropBean.targetCF}" var="fm">
                     <h:column>
-                        <h:outputText value="#{fm.name}"></h:outputText>
+                        <h:outputText value="#{fm.name}" />
                     </h:column>
                 </h:dataTable>
             </rich:panel>
@@ -92,6 +104,6 @@
 
     </h:form>
     <a4j:outputPanel ajaxRendered="true">
-        <h:messages></h:messages>
+        <h:messages />
     </a4j:outputPanel>
 </ui:composition>

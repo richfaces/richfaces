@@ -21,30 +21,13 @@
 
     <p>
         To explore all <b>configuration options</b>, you may want to visit <a
-            href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Setting_Configurations">CKEditor Developer Guide</a>
+            href="http://docs.ckeditor.com/#!/guide/dev_configuration">CKEditor Developer Guide</a>
         and use <a href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor.config JavaScript API</a>
         as reference.
     </p>
 
     <p>In following sample, you can dynamically <b>change the language of editor</b>. Editor is also configured to <b>grab focus after
         page load</b> and has <b>customized toolbar setup</b>.</p>
-
-    <h:outputStylesheet>
-        .rf-p { margin-bottom: 1em }
-    </h:outputStylesheet>
-
-    <h:form>
-        <a4j:ajax render="editor">
-            <rich:panel header="Language Configuration">
-                <h:selectOneRadio id="languageSelection" value="#{editorBean.language}">
-                    <f:selectItem itemLabel="English (en)" itemValue="en" />
-                    <f:selectItem itemLabel="French (fr)" itemValue="fr" />
-                    <f:selectItem itemLabel="German (de)" itemValue="de" />
-                </h:selectOneRadio>
-            </rich:panel>
-        </a4j:ajax>
-    </h:form>
-
 
     <ui:include src="#{demoNavigator.sampleIncludeURI}" />
     <ui:include src="/templates/includes/source-view.xhtml">
@@ -53,7 +36,6 @@
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
     </ui:include>
-
 </ui:composition>
 
 </html>

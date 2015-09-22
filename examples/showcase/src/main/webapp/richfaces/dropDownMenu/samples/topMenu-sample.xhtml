@@ -6,15 +6,15 @@
 
     <h:outputStylesheet>
         .pic {
-        margin-bottom: -4px;
-        margin-right: 2px;
+            margin-bottom: -4px;
+            margin-right: 2px;
         }
 
         .search .rf-ddm-itm-sel {
-        background-color: transparent;
-        background-image:none;
-        border-color: transparent;
-        cursor: default;
+            background-color: transparent;
+            background-image:none;
+            border-color: transparent;
+            cursor: default;
         }
     </h:outputStylesheet>
 
@@ -50,11 +50,11 @@
                         <h:outputText value="Links" />
                     </h:panelGrid>
                 </f:facet>
-                <rich:menuItem submitMode="client" onclick="document.location.href='http://labs.jboss.com/jbossrichfaces/'">
+                <rich:menuItem submitMode="client" onclick="document.location.href='http://richfaces.org/'">
                     <h:outputText value="RichFaces Home Page" />
                 </rich:menuItem>
                 <rich:menuItem submitMode="client"
-                    onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
+                    onclick="document.location.href='https://developer.jboss.org/en/richfaces/content'">
                     <h:outputText value="RichFaces Forum" />
                 </rich:menuItem>
             </rich:dropDownMenu>
@@ -63,8 +63,8 @@
 
     <br />
     <a4j:outputPanel ajaxRendered="true">
-        <h:outputText value="Current Selection: "></h:outputText>
-        <h:outputText style="font-weight:bold" value="#{dropDownMenuBean.current}"></h:outputText>
+        <h:outputText value="Current Selection: " />
+        <h:outputText style="font-weight:bold" value="#{dropDownMenuBean.current}" />
     </a4j:outputPanel>
     <br />
 

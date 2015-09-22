@@ -10,9 +10,9 @@
         <h:panelGrid columns="2" width="80%" id="grid">
             <h:panelGrid columns="1">
 
-                <h:outputText value="Polling Inactive" rendered="#{not pollBean.pollEnabled}"></h:outputText>
+                <h:outputText value="Polling Inactive" rendered="#{not pollBean.pollEnabled}" />
 
-                <h:outputText value="Polling Active" rendered="#{pollBean.pollEnabled}"></h:outputText>
+                <h:outputText value="Polling Active" rendered="#{pollBean.pollEnabled}" />
 
                 <a4j:commandButton style="width:120px" id="control" value="#{pollBean.pollEnabled?'Stop':'Start'} Polling"
                     render="poll, grid">

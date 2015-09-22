@@ -26,29 +26,6 @@
 
     <p>However you can download any other CKEditor skin, place it to predefined location (<tt>/META-INF/resources/org.richfaces.ckeditor/skins/</tt> or <tt>WAR/resources/org.richfaces.ckeditor/skins/</tt>), and then setup <b>skin attribute</b>.
         This way you can use a skin of your choice.</p>
-        
-    <h:outputStylesheet>
-        .rf-p { margin-bottom: 1em }
-    </h:outputStylesheet>
-    
-    <h:form>
-        <a4j:ajax render="editor">
-            <rich:panel header="Toolbar Configuration">
-                <h:selectOneRadio id="toolbarSelection" value="#{editorBean.toolbar}">
-                    <f:selectItem itemLabel="Basic" itemValue="basic" />
-                    <f:selectItem itemLabel="Full" itemValue="full" />
-                    <f:selectItem itemLabel="Custom" itemValue="custom" />                
-                </h:selectOneRadio>
-            </rich:panel>
-            
-            <rich:panel header="Editor Skin">
-                <h:selectOneRadio id="skinSelection" value="#{editorBean.skin}">
-                    <f:selectItem itemLabel="moono" itemValue="moono" />
-                </h:selectOneRadio>
-            </rich:panel>
-        </a4j:ajax>
-    </h:form>
-
 
     <ui:include src="#{demoNavigator.sampleIncludeURI}" />
     <ui:include src="/templates/includes/source-view.xhtml">
@@ -56,6 +33,12 @@
         <ui:param name="sourceType" value="xhtml" />
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/org.richfaces.ckeditor/config.js" />
+        <ui:param name="sourceType" value="javascript" />
+        <ui:param name="openLabel" value="View Default Configuration" />
+        <ui:param name="hideLabel" value="Hide Default Configuration" />
     </ui:include>
 </ui:composition>
 

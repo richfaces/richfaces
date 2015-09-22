@@ -6,7 +6,7 @@
         <p>This example shows a pickList in the simpler, single column display, with ordering of the result list enabled:</p>
         <rich:panel style="width:560px;">
             <f:facet name="header">
-                <h:outputText value="Simple pick list"></h:outputText>
+                <h:outputText value="Simple pick list" />
             </f:facet>
             <rich:pickList value="#{listSelectBean.selectedCapitals}" sourceCaption="Available cities" targetCaption="Selected cities" listWidth="165px" listHeight="100px" orderable="true">
                 <f:selectItems value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" />
@@ -18,7 +18,7 @@
         <p>In the next example, the list of capitals is displayed in a multi-column format:</p>
         <rich:panel style="width:560px;">
             <f:facet name="header">
-                <h:outputText value="Pick list with columns"></h:outputText>
+                <h:outputText value="Pick list with columns" />
             </f:facet>
             <rich:pickList value="#{listSelectBean.selectedCapitals}" var="capital" listHeight="200px">
                 <f:selectItems value="#{listSelectBean.capitals}" />

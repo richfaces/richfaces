@@ -15,22 +15,22 @@
     </h:outputStylesheet>
     <rich:panel>
         <f:facet name="header">
-            <h:outputText value="Car Store"></h:outputText>
+            <h:outputText value="Car Store" />
         </f:facet>
         <h:form>
             <rich:dataGrid value="#{carsBean.allInventoryItems}" var="car" columns="3" elements="9" width="600px" border="0">
                 <rich:panel bodyClass="pbody">
                     <f:facet name="header">
-                        <h:outputText value="#{car.vendor} #{car.model}"></h:outputText>
+                        <h:outputText value="#{car.vendor} #{car.model}" />
                     </f:facet>
                     <h:panelGrid columns="2">
-                        <h:outputText value="Price:" styleClass="label"></h:outputText>
+                        <h:outputText value="Price:" styleClass="label" />
                         <h:outputText value="#{car.price}" />
-                        <h:outputText value="Mileage:" styleClass="label"></h:outputText>
+                        <h:outputText value="Mileage:" styleClass="label" />
                         <h:outputText value="#{car.mileage}" />
-                        <h:outputText value="VIN:" styleClass="label"></h:outputText>
+                        <h:outputText value="VIN:" styleClass="label" />
                         <h:outputText value="#{car.vin}" />
-                        <h:outputText value="Stock:" styleClass="label"></h:outputText>
+                        <h:outputText value="Stock:" styleClass="label" />
                         <h:outputText value="#{car.stock}" />
                     </h:panelGrid>
                 </rich:panel>

@@ -6,7 +6,7 @@
         <p>This example shows a select component that behaves basically the same as the standard:</p>
         <rich:panel style="width:220px;">
             <f:facet name="header">
-                <h:outputText value="Simples select"></h:outputText>
+                <h:outputText value="Simples select" />
             </f:facet>
             <rich:select>
                 <f:selectItem itemValue="0" itemLabel="Option 1" />
@@ -19,7 +19,7 @@
         <p>In the next example you can manually enter values, and any invalid entries are not allowed.</p>
         <rich:panel style="width:220px;">
             <f:facet name="header">
-                <h:outputText value="Select with manual input"></h:outputText>
+                <h:outputText value="Select with manual input" />
             </f:facet>
             <rich:select enableManualInput="true" defaultLabel="start typing for select">
                 <f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
