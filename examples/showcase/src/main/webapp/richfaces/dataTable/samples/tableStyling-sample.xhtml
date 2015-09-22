@@ -4,16 +4,17 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:outputStylesheet>
         .even-row {
-        background-color: #FCFFFE;
+            background-color: #FCFFFE;
         }
 
         .odd-row {
-        background-color: #ECF3FE;
+            background-color: #ECF3FE;
         }
 
-        .active-row {
-        background-color: #FFEBDA !important;
-        cursor: pointer;
+        .even-row:hover,
+        .odd-row:hover {
+            background-color: #FFEBDA;
+            cursor: pointer;
         }
     </h:outputStylesheet>
     <h:form id="form">
@@ -51,8 +52,4 @@
             </rich:column>
         </rich:dataTable>
     </h:form>
-
-    <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" attachType="live" />
-    <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" attachType="live" />
-
 </ui:composition>

@@ -4,31 +4,39 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:outputStylesheet>
         .rf-panel-header {
-        color: #0054BD;
+            color: #0054BD;
         }
 
         .panel {
-        vertical-align: top;
+            vertical-align: top;
         }
 
         .top {
-        width: 200px;
-        height: 100px;
+            width: 200px;
+            height: 100px;
         }
 
         .head2 {
-        background-image: url();
-        background-color: #4C9600;
-        height: 18px;
-        text-align: center;
-        vertical-align: middle;
-        color: #CFF;
-        padding: 4px 0;
+            background-image: url();
+            background-color: #4C9600;
+            height: 18px;
+            text-align: center;
+            vertical-align: middle;
+            color: #CFF;
+            padding: 4px 0;
         }
 
         .body3 {
-        height: 100px;
-        overflow: auto;
+            height: 100px;
+            overflow: auto;
+        }
+        
+        .class2:hover .head2 {
+            background-color: #60BA01;
+        }
+        
+        .class2:hover .body3 {
+            background-color: #F4FFF8;
         }
     </h:outputStylesheet>
     <h:panelGrid columnClasses="panel" border="0" columns="2">
@@ -51,10 +59,7 @@
     </h:panelGrid>
 
     <h:panelGrid columnClasses="panel" border="0" columns="3">
-        <rich:panel
-            onmouseover="document.getElementById(this.id+'_header').style.background='#60BA01';document.getElementById(this.id+'_body').style.background='#F4FFF8'"
-            onmouseout="document.getElementById(this.id+'_header').style.background='#4C9600';document.getElementById(this.id+'_body').style.background='#E4FFC8'"
-            style="width:200px;" headerClass="head2" bodyClass="body3">
+        <rich:panel styleClass="class2" style="width:200px;" headerClass="head2" bodyClass="body3">
             <f:facet name="header">
                 Panel header
             </f:facet>
