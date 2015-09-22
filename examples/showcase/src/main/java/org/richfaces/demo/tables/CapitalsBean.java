@@ -12,16 +12,9 @@ import org.richfaces.demo.tables.model.capitals.Capital;
 @ManagedBean
 @SessionScoped
 public class CapitalsBean implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = -1509108399715814302L;
     @ManagedProperty(value = "#{capitalsParser.capitalsList}")
     private List<Capital> capitals;
-
-    public CapitalsBean() {
-        // TODO Auto-generated constructor stub
-    }
 
     public List<Capital> getCapitals() {
         return capitals;

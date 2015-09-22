@@ -22,8 +22,8 @@
     </script>
      
     <h:form >
-        <rich:chart onplotclick="log(event)" onplothover="hover(event)" onmouseout="clear()" plotClickListener="#{chartEventBean.handler}">
-            <a4j:repeat value="#{chartEventBean.countries}" var="country" >
+        <rich:chart onplotclick="log(event)" onplothover="hover(event)" onmouseout="clear()" plotClickListener="#{chartBean.handler}">
+            <a4j:repeat value="#{chartBean.countries}" var="country" >
                 <rich:chartSeries label="#{country.name}" type="line">
                     <a4j:repeat value="#{country.data}" var="record">
                         <rich:chartPoint x="#{record.year}" y="#{record.tons}" />
@@ -35,7 +35,7 @@
             <rich:chartYAxis label="metric tons of CO2 per capita"/>
         </rich:chart>
         <h3>Server-side chart event message:</h3>
-        <h:outputText id="msg" value="#{chartEventBean.msg}"/>
+        <h:outputText id="msg" value="#{chartBean.msg}"/>
     </h:form>
     <h3>Client-side hover info:</h3>
     <span id='hoverInfo'/><br/>

@@ -21,10 +21,9 @@ public class FileSystemNode {
     private static final Function<String, FileSystemNode> FACTORY = new Function<String, FileSystemNode>() {
         public FileSystemNode apply(String from) {
             return new FileSystemNode(from.substring(0, from.length() - 1));
-        }
-
-        ;
+        };
     };
+
     private static final Function<String, String> TO_SHORT_PATH = new Function<String, String>() {
         public String apply(String from) {
             int idx = from.lastIndexOf('/');
@@ -34,10 +33,9 @@ public class FileSystemNode {
             }
 
             return from.substring(idx + 1);
-        }
-
-        ;
+        };
     };
+
     private String path;
     private List<FileSystemNode> directories;
     private List<String> files;

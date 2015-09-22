@@ -26,9 +26,6 @@ import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 @ManagedBean(name = "carsBean")
 @ViewScoped
 public class CarsBean implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = -3832235132261771583L;
     private static final int DECIMALS = 1;
     private static final int CLIENT_ROWS_IN_AJAX_MODE = 15;
@@ -123,53 +120,28 @@ public class CarsBean implements Serializable {
             if (allInventoryItems == null) {
                 allInventoryItems = new ArrayList<InventoryItem>();
 
-                for (int k = 0; k <= 5; k++) {
-                    try {
-                        switch (k) {
-                            case 0:
-                                allInventoryItems.addAll(createCar("Chevrolet", "Corvette", 5));
-                                allInventoryItems.addAll(createCar("Chevrolet", "Malibu", 8));
-                                allInventoryItems.addAll(createCar("Chevrolet", "Tahoe", 6));
+                try {
+                    allInventoryItems.addAll(createCar("Chevrolet", "Corvette", 5));
+                    allInventoryItems.addAll(createCar("Chevrolet", "Malibu", 8));
+                    allInventoryItems.addAll(createCar("Chevrolet", "Tahoe", 6));
 
-                                break;
+                    allInventoryItems.addAll(createCar("Ford", "Taurus", 12));
+                    allInventoryItems.addAll(createCar("Ford", "Explorer", 11));
 
-                            case 1:
-                                allInventoryItems.addAll(createCar("Ford", "Taurus", 12));
-                                allInventoryItems.addAll(createCar("Ford", "Explorer", 11));
+                    allInventoryItems.addAll(createCar("Nissan", "Maxima", 9));
+                    allInventoryItems.addAll(createCar("Nissan", "Frontier", 6));
 
-                                break;
+                    allInventoryItems.addAll(createCar("Toyota", "4-Runner", 7));
+                    allInventoryItems.addAll(createCar("Toyota", "Camry", 15));
+                    allInventoryItems.addAll(createCar("Toyota", "Avalon", 13));
 
-                            case 2:
-                                allInventoryItems.addAll(createCar("Nissan", "Maxima", 9));
-                                allInventoryItems.addAll(createCar("Nissan", "Frontier", 6));
+                    allInventoryItems.addAll(createCar("GMC", "Sierra", 8));
+                    allInventoryItems.addAll(createCar("GMC", "Yukon", 10));
 
-                                break;
-
-                            case 3:
-                                allInventoryItems.addAll(createCar("Toyota", "4-Runner", 7));
-                                allInventoryItems.addAll(createCar("Toyota", "Camry", 15));
-                                allInventoryItems.addAll(createCar("Toyota", "Avalon", 13));
-
-                                break;
-
-                            case 4:
-                                allInventoryItems.addAll(createCar("GMC", "Sierra", 8));
-                                allInventoryItems.addAll(createCar("GMC", "Yukon", 10));
-
-                                break;
-
-                            case 5:
-                                allInventoryItems.addAll(createCar("Infiniti", "G35", 6));
-                                allInventoryItems.addAll(createCar("Infiniti", "EX35", 5));
-
-                                break;
-
-                            default:
-                                break;
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    allInventoryItems.addAll(createCar("Infiniti", "G35", 6));
+                    allInventoryItems.addAll(createCar("Infiniti", "EX35", 5));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }

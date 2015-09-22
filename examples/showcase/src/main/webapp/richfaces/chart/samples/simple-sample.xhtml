@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
-    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
     <h:form>
-        
         <rich:chart title="Countries by carbon dioxide emissions per capita" styleClass="graf">
-	        <a4j:repeat value="#{chartBean.countries}" var="country" >
-	            <rich:chartSeries label="#{country.name}" type="line">
-	                <a4j:repeat value="#{country.data}" var="record">
-	                    <rich:chartPoint x="#{record.year}" y="#{record.tons}" />
-	                </a4j:repeat>
-	            </rich:chartSeries>
-	        </a4j:repeat>
-	        <rich:chartXAxis  label="year"/>
-	        <rich:chartYAxis label="metric tons of CO2 per capita"/>
-    	</rich:chart> 
-    	
-    	<rich:chart id="bar" title="GDP sector composition">
-	        <rich:chartLegend sorting="ascending"/>
-	        <a4j:repeat value="#{chartBean.gdp}" var="country">
-	            <rich:chartSeries label="#{country.state}" type="bar">
-	                <rich:chartPoint x="Agricultural" y="#{country.agricult}"/>
-	                <rich:chartPoint x="Industrial" y="#{country.industry}"/>
-	                <rich:chartPoint x="Service" y="#{country.service}"/>
-	            </rich:chartSeries>
-	        </a4j:repeat>
-		</rich:chart>
-		
-		<rich:chart id="pie" title="USA GDP" >
-	        <rich:chartLegend sorting="ascending"/>
-	        <rich:chartSeries data="#{chartBean.pie}" type="pie"/>
-		</rich:chart>
-    	
+            <a4j:repeat value="#{chartBean.countries}" var="country">
+                <rich:chartSeries label="#{country.name}" type="line">
+                    <a4j:repeat value="#{country.data}" var="record">
+                        <rich:chartPoint x="#{record.year}" y="#{record.tons}" />
+                    </a4j:repeat>
+                </rich:chartSeries>
+            </a4j:repeat>
+            <rich:chartXAxis label="year" />
+            <rich:chartYAxis label="metric tons of CO2 per capita" />
+        </rich:chart>
 
+        <rich:chart id="bar" title="GDP sector composition">
+            <rich:chartLegend sorting="ascending" />
+            <a4j:repeat value="#{chartBean.gdp}" var="country">
+                <rich:chartSeries label="#{country.state}" type="bar">
+                    <rich:chartPoint x="Agricultural" y="#{country.agricult}" />
+                    <rich:chartPoint x="Industrial" y="#{country.industry}" />
+                    <rich:chartPoint x="Service" y="#{country.service}" />
+                </rich:chartSeries>
+            </a4j:repeat>
+        </rich:chart>
+
+        <rich:chart id="pie" title="USA GDP">
+            <rich:chartLegend sorting="ascending" />
+            <rich:chartSeries data="#{chartBean.pie}" type="pie" />
+        </rich:chart>
     </h:form>
 </ui:composition>

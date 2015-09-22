@@ -21,6 +21,18 @@
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
     </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/adaptors/FileSystemBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View FileSystemBean Source" />
+        <ui:param name="hideLabel" value="Hide FileSystemBean Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/adaptors/FileSystemNode.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View FileSystemNode Source" />
+        <ui:param name="hideLabel" value="Hide FileSystemNode Source" />
+    </ui:include>
 </ui:composition>
 
 </html>

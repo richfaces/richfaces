@@ -18,6 +18,12 @@
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
     </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/CarsBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View CarsBean Source" />
+        <ui:param name="hideLabel" value="Hide CarsBean Source" />
+    </ui:include>
 </ui:composition>
 
 </html>
