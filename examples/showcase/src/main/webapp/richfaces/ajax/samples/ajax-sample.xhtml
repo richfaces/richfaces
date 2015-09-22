@@ -6,6 +6,6 @@
         <h:inputText value="#{userBean.name}">
             <a4j:ajax event="keyup" render="out" />
         </h:inputText>
-        <h:outputText value="#{userBean.name}" id="out" />
+        <h:outputText value="#{userBean.name}" id="out" style="word-break: break-all"/>
     </h:form>
 </ui:composition>

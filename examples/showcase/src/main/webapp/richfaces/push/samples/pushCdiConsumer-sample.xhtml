@@ -8,7 +8,7 @@
             <a4j:push address="pushCdi"
                 ondataavailable="jQuery('&lt;li /&gt;').prependTo('#messages').text(event.rf.data)" />
 
-            <ul id="messages" />
+            <ul id="messages" style="word-break: break-all"/>
         </h:panelGrid>
     </h:form>
 </ui:composition>

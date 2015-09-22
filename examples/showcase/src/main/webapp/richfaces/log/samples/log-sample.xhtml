@@ -7,7 +7,7 @@
         <a4j:commandButton value="Submit" render="out" />
         <br />
         <a4j:outputPanel id="out">
-            <h:outputText value="Hello #{userBean.name}!" rendered="#{not empty userBean.name}" />
+            <h:outputText value="Hello #{userBean.name}!" rendered="#{not empty userBean.name}" style="word-break: break-all"/>
         </a4j:outputPanel>
     </h:form>
     <a4j:log />
