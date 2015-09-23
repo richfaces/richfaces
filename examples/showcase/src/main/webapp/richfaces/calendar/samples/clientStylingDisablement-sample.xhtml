@@ -14,19 +14,22 @@
     </h:outputStylesheet>
     <h:outputScript>
         var curDt = new Date();
-        function disablementFunction(day){
-        if (day.isWeekend) return false;
-        if (curDt==undefined){
-        curDt = day.date.getDate();
+        
+        function disablementFunction(day) {
+            if (day.isWeekend) return false;
+            if (curDt==undefined){
+                curDt = day.date.getDate();
+            }
+
+            return (curDt.getTime() - day.date.getTime() &lt; 0);
         }
-        if (curDt.getTime() - day.date.getTime() &lt; 0) return true; else return false;
-        }
+
         function disabledClassesProv(day){
-        if (curDt.getTime() - day.date.getTime() &gt;= 0) return 'rf-cal-boundary-day';
-        var res = '';
-        if (day.isWeekend) res+='weekendBold ';
-        if (day.day%3==0) res+='everyThirdDay';
-        return res;
+            if (curDt.getTime() - day.date.getTime() &gt;= 0) return 'rf-cal-boundary-day';
+            var res = '';
+            if (day.isWeekend) res+='weekendBold ';
+            if (day.day%3==0) res+='everyThirdDay';
+            return res;
         }
     </h:outputScript>
     <rich:calendar dayDisableFunction="disablementFunction" dayClassFunction="disabledClassesProv" boundaryDatesMode="scroll" />
