@@ -32,6 +32,11 @@ p {
     padding: 0 0 10px;
 }
 
+textarea {
+    max-width: 300px;
+    max-height: 200px;
+}
+
 #page {
     margin: 0 auto;
     width: 987px;

@@ -5,7 +5,7 @@
     <div style="position: relative; height: 140px">
         <h:panelGrid columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
             <h:outputText value="Notes:" />
-            <h:inputTextarea cols="20" rows="4" id="notes" value="#{profile.notes}" label="Notes" required="true" />
+            <h:inputTextarea cols="20" rows="4" id="notes" value="#{profile.notes}" label="Notes" required="true" style="max-height: 90px"/>
             <rich:message for="notes" />
         </h:panelGrid>
         <div class="navPanel" style="width: 100%;">
