@@ -37,6 +37,11 @@ textarea {
     max-height: 200px;
 }
 
+textarea.cke_source {
+    max-width: none;
+    max-height: none;
+}
+
 #page {
     margin: 0 auto;
     width: 987px;
