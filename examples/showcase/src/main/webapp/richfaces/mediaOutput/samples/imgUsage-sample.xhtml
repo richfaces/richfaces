@@ -32,7 +32,7 @@
                 <a4j:commandButton value="Process the image" render="img" execute="@form" />
             </f:facet>
         </h:panelGrid>
-        <a4j:mediaOutput element="img" cacheable="false" session="true" id="img" createContent="#{mediaBean.process}"
-            value="#{mediaData}" mimeType="image/jpeg" alt="img" />
+        <a4j:mediaOutput element="img" cacheable="false" id="img" createContent="#{mediaBean.process}"
+            value="#{mediaData}" mimeType="image/jpeg" />
     </h:form>
 </ui:composition>
