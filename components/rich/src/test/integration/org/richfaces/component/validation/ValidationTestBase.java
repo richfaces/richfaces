@@ -45,8 +45,8 @@ public abstract class ValidationTestBase {
     @FindBy(name = "form:text")
     protected WebElement inputText;
 
-    @FindBy(css = "body")
-    protected WebElement body;
+    @FindBy(id = "blurButton")
+    protected WebElement blurButton;
 
     protected void submitValueAndCheckMessage(String value, Matcher<String> matcher) throws Exception {
         browser.get(contextPath.toString());
@@ -57,7 +57,7 @@ public abstract class ValidationTestBase {
     }
 
     protected void submitValue() {
-        browser.findElement(By.id("form:out")).click(); //blur
+        blurButton.click();// blur
     }
 
     protected void checkMessage(String messageId, Matcher<String> matcher) {

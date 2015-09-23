@@ -247,9 +247,6 @@ public class BaseDeployment {
 
         addMavenDependency("org.jboss.weld.servlet:weld-servlet");
 
-        addMavenDependency("org.jboss.el:jboss-el");
-        excludeMavenDependency("el-api");
-
         addMavenDependency("javax.annotation:jsr250-api:1.0");
         addMavenDependency("javax.servlet:jstl:1.2");
 
@@ -261,27 +258,20 @@ public class BaseDeployment {
                     .createListener()
                     .listenerClass("org.jboss.weld.environment.servlet.Listener");
 
-                // setup ExpressionFactory of JBoss EL (supports unified EL)
-                switch (configuration.getJsfProvider()) {
-                    case MOJARRA:
-                        webXml
-                            .getOrCreateContextParam()
-                            .paramName("com.sun.faces.expressionFactory")
-                            .paramValue("org.jboss.el.ExpressionFactoryImpl");
-                        break;
-
-                    case MYFACES:
-                        webXml
-                            .getOrCreateContextParam()
-                            .paramName("org.apache.myfaces.EXPRESSION_FACTORY")
-                            .paramValue("org.jboss.el.ExpressionFactoryImpl");
-                        break;
-                }
-
                 return webXml;
             }
         });
 
+        return this;
+    }
+
+    /**
+     * Adds Hibernate validator dependency, but only when using Servlet container (Tomcat, Jetty).
+     */
+    public BaseDeployment addHibernateValidatorWhenUsingServletContainer() {
+        if (configuration.servletContainerSetup()) {
+            return addMavenDependency("org.hibernate:hibernate-validator");
+        }
         return this;
     }
 

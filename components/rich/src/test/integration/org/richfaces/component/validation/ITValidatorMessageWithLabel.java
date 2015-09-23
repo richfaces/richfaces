@@ -31,7 +31,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.junit.Assert;
@@ -39,14 +38,13 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
-
 import com.google.common.base.Function;
 
 @RunAsClient
@@ -58,6 +56,9 @@ public class ITValidatorMessageWithLabel {
 
     @ArquillianResource
     private URL contextPath;
+
+    @FindBy(id = "blurButton")
+    private WebElement blurButton;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -79,15 +80,21 @@ public class ITValidatorMessageWithLabel {
             }
         });
 
+        deployment.addHibernateValidatorWhenUsingServletContainer();
+
         return deployment.getFinalArchive();
     }
 
     /**
-     * <p>Tests that validation message contains a label, i.e. content of "label" attribute of h:inputText component. This
-     * is not default behavior, there is following setting in file MessagesWithLabels.properties:
-     * javax.faces.validator.BeanValidator.MESSAGE={1}: {0}</p>
+     * <p>
+     * Tests that validation message contains a label, i.e. content of "label" attribute of h:inputText component. This is not
+     * default behavior, there is following setting in file MessagesWithLabels.properties:
+     * javax.faces.validator.BeanValidator.MESSAGE={1}: {0}
+     * </p>
      *
-     * <p>{@link https://issues.jboss.org/browse/RF-12754}</p>
+     * <p>
+     * {@link https://issues.jboss.org/browse/RF-12754}
+     * </p>
      */
     @Test
     @Category(Failing.class)
@@ -97,7 +104,7 @@ public class ITValidatorMessageWithLabel {
         WebElement input = browser.findElement(By.id("myForm:input1"));
 
         input.sendKeys("RichFaces");
-        Graphene.guardNoRequest(input).sendKeys(Keys.TAB);
+        Graphene.guardNoRequest(blurButton).click();
 
         WebElement message = browser.findElement(By.id("myForm:msg1"));
         Assert.assertEquals("Validation message", "Input 1: max 4 characters", message.getText());
@@ -146,7 +153,10 @@ public class ITValidatorMessageWithLabel {
         p.body("        <rich:message id='msg2' for='input2' />");
         p.body("    </h:panelGrid>");
         p.body("    <br />");
+        p.body("    <input id='blurButton' value='blur' type='button' />");
+        p.body("    <br />");
         p.body("    <h:commandButton id='hButton' value='h:commandButton' style='margin-right: 10px;' />");
+        p.body("    <br />");
         p.body("    <a4j:commandButton id='rButton' value='a4j:commandButton' />");
         p.body("</h:form>");
 

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.validation;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -46,14 +45,16 @@ public class ITFacesBeanValidator extends GraphValidationTestBase {
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
-                 webXml.createContextParam()
-                     .paramName("javax.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR")
-                     .paramValue("true");
-                 return webXml;
+                webXml.createContextParam()
+                    .paramName("javax.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR")
+                    .paramValue("true");
+                return webXml;
             }
         });
 
         ITGraphValidation.addIndexPage(deployment);
+
+        deployment.addHibernateValidatorWhenUsingServletContainer();
 
         return deployment.getFinalArchive();
     }
