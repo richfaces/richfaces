@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	            <cdk:scriptObject name="options">
 	                <cdk:scriptOption attributes="styleClass position method direction" />
 	            </cdk:scriptObject>
-	            new RichFaces.ui.NotifyStack('#{clientId}', #{toScriptArgs(options)});
+	            new RichFaces.ui.NotifyStack(#{toScriptArgs(clientId, options)});
 	        </script>
         </span>
     </cc:implementation>
