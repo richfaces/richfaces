@@ -31,14 +31,18 @@ import java.util.regex.Pattern;
 public final class HtmlDimensions {
     private static final Pattern PATTERN_NUMERIC = Pattern.compile("^[+-]?\\d+(\\.\\d+)?$");
     private static final Pattern PATTERN_PX = Pattern.compile("^[+-]?\\d+(\\.\\d+)?px$");
+    private static final Pattern PATTERN_PT = Pattern.compile("^[+-]?\\d+(\\.\\d+)?pt$");
     private static final Pattern PATTERN_PCT = Pattern.compile("^[+-]?\\d+(\\.\\d+)?%$");
     private static final NumberFormat NUMERIC_FORMAT = new DecimalFormat();
     private static final DecimalFormat PX_FORMAT = new DecimalFormat();
+    private static final DecimalFormat PT_FORMAT = new DecimalFormat();
     private static final NumberFormat PCT_FORMAT = NumberFormat.getPercentInstance();
 
     static {
         PX_FORMAT.setPositiveSuffix("px");
         PX_FORMAT.setNegativeSuffix("px");
+        PT_FORMAT.setPositiveSuffix("pt");
+        PT_FORMAT.setNegativeSuffix("pt");
     }
 
     private HtmlDimensions() {
@@ -58,6 +62,10 @@ public final class HtmlDimensions {
                 } else if (PATTERN_PX.matcher(size).matches()) {
                     synchronized (PX_FORMAT) {
                         d = PX_FORMAT.parse(size).doubleValue();
+                    }
+                } else if (PATTERN_PT.matcher(size).matches()) {
+                    synchronized (PT_FORMAT) {
+                        d = PT_FORMAT.parse(size).doubleValue() * (4/3.0);
                     }
                 } else if (PATTERN_PCT.matcher(size).matches()) {
                     synchronized (PCT_FORMAT) {
