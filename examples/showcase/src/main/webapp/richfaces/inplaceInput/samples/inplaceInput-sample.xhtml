@@ -2,15 +2,22 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .iinput {
+            max-width: 560px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </h:outputStylesheet>
     <rich:panel>
         <f:facet name="header">
             <h:outputText value="Person Info" />
         </f:facet>
         <h:panelGrid columns="2">
             <h:outputText value="Name: " />
-            <rich:inplaceInput defaultLabel="click to enter your name" />
+            <rich:inplaceInput defaultLabel="click to enter your name" styleClass="iinput" />
             <h:outputText value="Email:" />
-            <rich:inplaceInput defaultLabel="click to enter your email" />
+            <rich:inplaceInput defaultLabel="click to enter your email" styleClass="iinput" />
         </h:panelGrid>
     </rich:panel>
 </ui:composition>
