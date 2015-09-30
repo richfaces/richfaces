@@ -20,6 +20,7 @@
             });
             tbody.find(".rf-dt-flt-i").each(function() {
                 $(this).bind("blur", {filterHandle: this}, $.proxy(self.filterHandler, self));
+                $(this).bind("keyup", {filterHandle: this}, $.proxy(self.filterHandler, self));
             });
 
         }
@@ -129,6 +130,9 @@
             },
 
             filterHandler: function(event) {
+                if (event.type == "keyup" && event.keyCode != 13) {
+                    return;
+                }
                 var filterHandle = $(event.data.filterHandle);
                 var columnId = filterHandle.data('columnid');
                 var filterValue = filterHandle.val();
