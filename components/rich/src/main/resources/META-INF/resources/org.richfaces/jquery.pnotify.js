@@ -303,7 +303,9 @@
                         e.stopPropagation();
                         nonblock_pass(e, "ondblclick");
                     }
-                }
+                },
+                "dir": opts.dir,
+                "lang": opts.lang
             });
             pnotify.opts = opts;
             // Create a drop shadow.
