@@ -20,7 +20,8 @@
         </rich:tabPanel>
         <fieldset class="example-cnt">
             <rich:panel rendered="#{!demoNavigator.currentDemo.excludeReference}" styleClass="vdlPanel" bodyClass="vdlPanelBody">
-                <a href="http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/index.html?#{fn:replace(demoNavigator.currentDemo.name, ':', '/')}.html">VDL documentation</a>
+                <a href="http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/index.html?#{fn:replace(demoNavigator.currentDemo.name, ':', '/')}.html">VDL documentation</a><br/>
+                <a href="http://docs.jboss.org/richfaces/latest_4_5_X/Component_Reference/en-US/html_single/##{fn:replace(demoNavigator.currentDemo.name, ':', '')}" class="ref">Component Reference</a>
             </rich:panel>
             <ui:include src="#{demoNavigator.sampleURI}" />
         </fieldset>
