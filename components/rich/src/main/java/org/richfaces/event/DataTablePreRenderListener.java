@@ -37,6 +37,7 @@ import javax.faces.event.SystemEventListener;
 import org.ajax4jsf.Messages;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.AbstractTree;
 import org.richfaces.component.DataComponentsContextUtil;
 import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.util.MessageUtil;
@@ -104,7 +105,8 @@ public class DataTablePreRenderListener implements SystemEventListener {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         UIComponent source = (UIComponent) event.getSource();
 
-        if ((source instanceof UIDataAdaptor) || (source instanceof UIData)) {
+        if (((source instanceof UIDataAdaptor) || (source instanceof UIData)) &&
+            !(source instanceof AbstractTree)) {
             dataTable = source;
             List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
             if (!dataScrollers.isEmpty()) {
