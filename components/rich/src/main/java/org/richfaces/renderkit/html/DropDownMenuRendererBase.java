@@ -26,11 +26,14 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menugroup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menuitem.js"),
         @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head") })
 public abstract class DropDownMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";

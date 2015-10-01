@@ -1,7 +1,5 @@
 package org.richfaces.renderkit.html;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
@@ -13,7 +11,6 @@ import org.richfaces.component.Mode;
 import org.richfaces.renderkit.AjaxCommandRendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 
-@ResourceDependencies(@ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head"))
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MenuItemRenderer";
 
