@@ -11,6 +11,14 @@
         <cdk:renderer-type>org.richfaces.MenuItemRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
+        <cdk:resource-dependency name="richfaces-event.js" library="org.richfaces" />
+        <cdk:resource-dependency name="menuitem.js" library="org.richfaces" />
+        <cdk:resource-dependency name="dropdownmenu.ecss" library="org.richfaces" />
         <cdk:import package="org.richfaces.renderkit.util" names="RendererUtils" />
     </cc:interface>
 
