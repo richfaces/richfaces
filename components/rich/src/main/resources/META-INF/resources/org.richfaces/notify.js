@@ -86,6 +86,8 @@
             options.styleClass = options.styleClass ? severity + " " + options.styleClass : severity;
         }
         
+        options.showCloseButton = options.sticky || options.showCloseButton;
+        
         var pnotifyOptions = translateProperties({}, options, propertyTranslation);
 
         var display = function() {
