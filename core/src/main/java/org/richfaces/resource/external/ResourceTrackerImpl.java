@@ -23,6 +23,7 @@ package org.richfaces.resource.external;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
@@ -74,15 +75,21 @@ public class ResourceTrackerImpl implements ResourceTracker {
         ResourceTracker tracker = externalResourceTracker.get();
         if (tracker == null) {
             Class<?> myfacesResUtilClass = null;
+            boolean myFacesInUse = false;
             for (String myFacesResourceUtilsClass : MYFACES_RESOURCE_UTILS_CLASSES) {
                 try {
-                    myfacesResUtilClass = this.getClass().getClassLoader().loadClass(myFacesResourceUtilsClass);
+                    ClassLoader cl = this.getClass().getClassLoader();
+                    myfacesResUtilClass = cl.loadClass(myFacesResourceUtilsClass);
+
+                    Class<?> factoryClass = cl.loadClass("org.apache.myfaces.context.FacesContextFactoryImpl");
+                    Object factory = FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+                    myFacesInUse = factoryClass.isInstance(factory);
                     break;
                 } catch (Exception e) {
                     LOG.debug("could not load myfaces resource utils class: " + myFacesResourceUtilsClass, e);
                 }
             }
-            if (myfacesResUtilClass != null) {
+            if (myFacesInUse) {
                 externalResourceTracker.compareAndSet(null, new ResourceTrackerForMyFaces(myfacesResUtilClass));
             } else {
                 externalResourceTracker.compareAndSet(null, new ResourceTrackerForMojarra());
