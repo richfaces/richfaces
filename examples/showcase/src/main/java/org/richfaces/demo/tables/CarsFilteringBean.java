@@ -11,9 +11,6 @@ import org.richfaces.model.Filter;
 @ManagedBean
 @ViewScoped
 public class CarsFilteringBean implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = -5680001353441022183L;
     private String vinFilter;
     private String vendorFilter;

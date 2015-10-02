@@ -20,7 +20,6 @@ public class AutocompleteBean {
     private List<Capital> capitals;
 
     public AutocompleteBean() {
-        // TODO Auto-generated constructor stub
     }
 
     @PostConstruct

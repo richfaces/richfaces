@@ -53,7 +53,6 @@ public class CalendarModel implements CalendarDataModel {
     }
 
     public Object getToolTip(Date date) {
-        // TODO Auto-generated method stub
         return null;
     }
 }

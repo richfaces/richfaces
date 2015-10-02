@@ -12,9 +12,6 @@ import javax.validation.constraints.Size;
 @ManagedBean
 @SessionScoped
 public class PasswordValidationBean implements Cloneable, Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1952428504080910113L;
     @Size(min = 5, max = 15, message = "Password length must be between {min} and {max} characters.")
     private String password = "";

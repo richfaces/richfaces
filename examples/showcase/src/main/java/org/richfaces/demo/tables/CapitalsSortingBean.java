@@ -12,9 +12,6 @@ import org.richfaces.component.SortOrder;
 @ManagedBean
 @ViewScoped
 public class CapitalsSortingBean implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = -6237417487105926855L;
     private static final String TIMEZONE_GMT_SEPARATOR = "-";
     private SortOrder capitalsOrder = SortOrder.unsorted;
