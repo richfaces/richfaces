@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-components-parent</artifactId>
-        <version>4.5.10-SNAPSHOT</version>
+        <version>4.5.11-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -37,7 +37,7 @@
     <properties>
         <faces.resources.dir>${project.build.outputDirectory}/META-INF/resources</faces.resources.dir>
         <resource.mappings.dir>${project.build.outputDirectory}/META-INF/richfaces</resource.mappings.dir>
-        <version.richfaces.resource.plugin>4.5.10-SNAPSHOT</version.richfaces.resource.plugin>
+        <version.richfaces.resource.plugin>4.5.11-SNAPSHOT</version.richfaces.resource.plugin>
     </properties>
 
     <dependencies>

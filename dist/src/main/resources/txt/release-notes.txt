@@ -1,4 +1,38 @@
-4.5.8.Final
+4.5.10.Final
+------------
+
+    Bug
+    [RF-11053] - Showcase: layout broken in data grid sample
+    [RF-11558] - showcase - rich:notify - sample Attributes of Notify - in some configuration it is not possible to close notification
+    [RF-12174] - Showcase: pages with textarea might overflow
+    [RF-12558] - showcase - rich:panelMenu - repeatedly selecting of item from menu does not update outputPanel
+    [RF-12658] - NotifyStack generates invalid JS
+    [RF-12923] - rich:notifyMessage, notifyMessages: some attributes are not applied to created message component
+    [RF-14130] - Exception when skin properties replaced
+    [RF-14143] - Richfaces 4.5.8 Fileupload not working on WF 8.2 and Apache Cluster (with SSON)
+    [RF-14144] - ScrollerPage calls getRowCount() on Tree model if one the same view.
+    [RF-14147] - Resource-Optimizer skips ckeditor.js
+    [RF-14148] - JSF implementation detection within ResourceTrackerImpl is insufficient for classpaths with multiple implementations
+
+    Component Upgrade
+    [RF-14149] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-11212] - showcase - rich:popupPanel - Login panel positioning sample - should use <h:inputSecret> for password inputs
+    [RF-11636] - showcase - a4j:region - alter the example layout to look better
+    [RF-13050] - Showcase - not all demos have references for beans which are used in them
+    [RF-14156] - contextMenu with dynamic group doesn't work properly
+
+    Feature Request
+    [RF-11213] - showcase - rich:calendar - Simple calendar sample - should change text value of buttons 'today' and 'clean' when changing locale
+    [RF-11324] - Link Showcase to Tag Reference and possibly component docs
+    [RF-14150] - rich:dataTable - trigger built-in filtering on RETURN
+
+    Task
+    [RF-14140] - Stabilize integration tests on Tomcat
+    [RF-14145] - Clean up showcase
+
+4.5.9.Final
 -----------
 
     Bug
