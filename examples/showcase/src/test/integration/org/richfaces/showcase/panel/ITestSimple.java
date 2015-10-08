@@ -32,22 +32,14 @@ import org.junit.Test;
  */
 public class ITestSimple extends AbstractPanelTest {
 
-    /* ******************************************************************************
-     * Constants******************************************************************************
-     */
-
-    protected final String PANEL_WITH_HEADER = "fieldset div[class*=rf-p]:first";
-    protected final String PANEL_WITHOUT_HEADER = "fieldset div[class*=rf-p]:last";
+    protected final String PANEL_WITH_HEADER = "fieldset .rf-p:eq(1)";
+    protected final String PANEL_WITHOUT_HEADER = "fieldset .rf-p:eq(2)";
     protected final String HEADER = "div[class*=rf-p-hdr]";
     protected final String BODY = "div[class*=rf-p-b]";
 
     protected final String HEADER_CONTENT = "Panel with default Look-n-feel";
 
     protected final String BODY_OF_PANEL_WITHOUT_HDR = "JSF 2 and RichFaces 4:";
-
-    /* *******************************************************************************
-     * Tests*******************************************************************************
-     */
 
     @Test
     public void testPanelWithHeader() {
@@ -58,10 +50,10 @@ public class ITestSimple extends AbstractPanelTest {
     @Test
     public void testPanelWithoutHeader() {
         waitAjax(webDriver).until("Panel header should not be visible!")
-                .element(ByJQuery.selector(PANEL_WITHOUT_HEADER + " > " + HEADER))
-                .is()
-                .not()
-                .present();
+            .element(ByJQuery.selector(PANEL_WITHOUT_HEADER + " > " + HEADER))
+            .is()
+            .not()
+            .present();
         checkContentOfPanel(PANEL_WITHOUT_HEADER, BODY_OF_PANEL_WITHOUT_HDR);
     }
 }
