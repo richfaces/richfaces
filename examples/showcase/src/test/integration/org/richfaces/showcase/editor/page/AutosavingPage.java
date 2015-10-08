@@ -21,6 +21,7 @@
  */
 package org.richfaces.showcase.editor.page;
 
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.editor.RichFacesEditor;
@@ -30,7 +31,7 @@ public class AutosavingPage {
     @FindBy(className = "rf-ed")
     private RichFacesEditor editor;
 
-    @FindBy(className = "rf-p-b")
+    @FindByJQuery(".rf-p-b:eq(1)")
     private WebElement outputFromEditor;
 
     public RichFacesEditor getEditor() {
