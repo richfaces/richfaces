@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.repeat.page;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -29,38 +29,29 @@ import org.openqa.selenium.WebElement;
  */
 public class RepeatPage {
 
-    @FindByJQuery("div.rf-p:first div[id$=header]")
-    private WebElement firstStateHeader;
-
-    @FindByJQuery("div.rf-p:first div[id$=body]")
-    private WebElement firstStateBody;
-
-    @FindByJQuery("div.rf-p:last div[id$=header]")
-    private WebElement lastStateHeader;
-
-    @FindByJQuery("div.rf-p:last div[id$=body]")
-    private WebElement lastStateBody;
-
-    @FindByJQuery("a.rf-ds-nmb-btn:first")
-    private WebElement anchorForSecondPage;
-
     @FindByJQuery("a.rf-ds-nmb-btn:last")
+    private WebElement anchorForLastPage;
+    @FindByJQuery(value = "a.rf-ds-nmb-btn:first")
+    private WebElement anchorForSecondPage;
+    @FindByJQuery(value = "a.rf-ds-nmb-btn:eq(1)")
     private WebElement anchorForThirdPage;
 
-    public WebElement getFirstStateHeader() {
-        return firstStateHeader;
-    }
+    @FindByJQuery(".rf-p:eq(1) .rf-p-b tr:first td:last")
+    private WebElement firstStateCapital;
+    @FindByJQuery(value = ".rf-p:eq(1) .rf-p-hdr")
+    private WebElement firstStateHeader;
+    @FindByJQuery(".rf-p:eq(1) .rf-p-b tr:last td:last")
+    private WebElement firstStateTimeZone;
 
-    public WebElement getFirstStateBody() {
-        return firstStateBody;
-    }
+    @FindByJQuery(".rf-p:last .rf-p-b tr:first td:last")
+    private WebElement lastStateCapital;
+    @FindByJQuery(value = ".rf-p:last .rf-p-hdr")
+    private WebElement lastStateHeader;
+    @FindByJQuery(".rf-p:last .rf-p-b tr:last td:last")
+    private WebElement lastStateTimeZone;
 
-    public WebElement getLastStateHeader() {
-        return lastStateHeader;
-    }
-
-    public WebElement getLastStateBody() {
-        return lastStateBody;
+    public WebElement getAnchorForLastPage() {
+        return anchorForLastPage;
     }
 
     public WebElement getAnchorForSecondPage() {
@@ -71,4 +62,27 @@ public class RepeatPage {
         return anchorForThirdPage;
     }
 
+    public WebElement getFirstStateCapital() {
+        return firstStateCapital;
+    }
+
+    public WebElement getFirstStateHeader() {
+        return firstStateHeader;
+    }
+
+    public WebElement getFirstStateTimeZone() {
+        return firstStateTimeZone;
+    }
+
+    public WebElement getLastStateCapital() {
+        return lastStateCapital;
+    }
+
+    public WebElement getLastStateHeader() {
+        return lastStateHeader;
+    }
+
+    public WebElement getLastStateTimeZone() {
+        return lastStateTimeZone;
+    }
 }
