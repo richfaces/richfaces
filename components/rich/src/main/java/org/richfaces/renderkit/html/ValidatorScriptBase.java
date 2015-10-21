@@ -14,8 +14,6 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     public static final String DISABLE_AJAX = "da";
     public static final JSReference DISABLE_AJAX_REF = new JSReference(DISABLE_AJAX);
     public static final String EOL = ";\n";
-    public static final String CLIENT_ID = "id";
-    public static final JSReference CLIENT_ID_REF = new JSReference(CLIENT_ID);
     public static final String SOURCE_ID = "sid";
     public static final JSReference SOURCE_ID_REF = new JSReference(SOURCE_ID);
     public static final String CONVERTER = "c";
@@ -31,16 +29,16 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     public static final NullConverterScript NULL_CONVERTER_SCRIPT = new NullConverterScript();
     public static final String CSV_NAMESPACE = "RichFaces.csv.";
     public static final String VALUE_FUNCTION_NAME = CSV_NAMESPACE + "getValue";
-    public static final JSFunction GET_VALUE_FUNCTION = new JSFunction(VALUE_FUNCTION_NAME, CLIENT_ID_REF, ELEMENT_REF);
+    public static final JSFunction GET_VALUE_FUNCTION = new JSFunction(VALUE_FUNCTION_NAME, ELEMENT_REF);
     public static final String VALIDATE_FUNCTION_NAME = CSV_NAMESPACE + "validate";
-    public static final JSFunction VALIDATE_FUNCTION = new JSFunction(VALIDATE_FUNCTION_NAME, CLIENT_ID_REF, ELEMENT_REF);
+    public static final JSFunction VALIDATE_FUNCTION = new JSFunction(VALIDATE_FUNCTION_NAME, ELEMENT_REF);
 
     public ValidatorScriptBase() {
-        super(EVENT, CLIENT_ID, ELEMENT, DISABLE_AJAX);
+        super(EVENT, ELEMENT, DISABLE_AJAX);
     }
 
     public String createCallScript(String clientId, String sourceId) {
-        JSFunction callFunction = new JSFunction(getName(), EVENT_REF, clientId, null != sourceId ? sourceId : JSReference.THIS);
+        JSFunction callFunction = new JSFunction(getName(), EVENT_REF, JSReference.THIS);
         return callFunction.toScript();
     }
 
@@ -61,7 +59,7 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     }
 
     protected void appendValidatorCall(Appendable target) throws IOException {
-        JSFunction callValidator = new JSFunction(VALIDATE_FUNCTION_NAME, EVENT_REF, CLIENT_ID_REF, ELEMENT_REF, PARAMS_REF);
+        JSFunction callValidator = new JSFunction(VALIDATE_FUNCTION_NAME, EVENT_REF, ELEMENT_REF, PARAMS_REF);
         callValidator.appendScript(target);
         target.append(EOL);
     }
@@ -72,7 +70,7 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     }
 
     protected void appendAjaxFunction(Appendable target, String ajaxScript) throws IOException {
-        JSFunctionDefinition ajaxFunction = new JSFunctionDefinition(EVENT, CLIENT_ID);
+        JSFunctionDefinition ajaxFunction = new JSFunctionDefinition(EVENT);
         ajaxFunction.addToBody(ajaxScript);
         ajaxFunction.appendScript(target);
     }

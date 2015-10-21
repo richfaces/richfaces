@@ -70,7 +70,7 @@ public class AjaxOnlyScript extends ValidatorScriptBase {
     protected void appendBody(Appendable target) throws IOException {
         target.append("if(!").append(DISABLE_AJAX).append("){(");
         appendAjaxFunction(target, ajaxScript);
-        target.append(").call(").append(ELEMENT).append(",").append(EVENT).append(",").append(CLIENT_ID).append(");");
+        target.append(").call(").append(ELEMENT).append(",").append(EVENT).append(");");
         target.append(("}"));
     }
 }

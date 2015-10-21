@@ -152,14 +152,14 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
                                 clientSideConverterScript);
                     } catch (ScriptNotFoundException e) {
                         // ajax-only validation
-                        validatorScript = new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
+                        validatorScript = new AjaxOnlyScript(behavior.getAjaxScript(behaviorContext));
                     }
                 } else {
                     validatorScript = createValidatorScript(behaviorContext, behavior, validators, null);
                 }
             } catch (ConverterNotFoundException e) {
                 // fallback to ajax-only validation
-                validatorScript = new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
+                validatorScript = new AjaxOnlyScript(behavior.getAjaxScript(behaviorContext));
             }
             String clientId = getComponentClientId(behaviorContext);
             String name = ScriptUtils.getValidJavascriptName(validatorScript.toScript());
@@ -180,32 +180,14 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
         Collection<? extends LibraryScriptFunction> validatorScripts = getClientSideValidatorScript(
                 behaviorContext.getFacesContext(), validators);
         if (validatorScripts.isEmpty()) {
-            return new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
+            return new AjaxOnlyScript(behavior.getAjaxScript(behaviorContext));
         } else if (validatorScripts.size() < validators.size()) {
-            return new ClientAndAjaxScript(clientSideConverterScript, validatorScripts, createAjaxScript(behaviorContext,
-                    behavior), behavior.getOnvalid(), behavior.getOninvalid());
+            return new ClientAndAjaxScript(clientSideConverterScript, validatorScripts, behavior.getAjaxScript(behaviorContext),
+                behavior.getOnvalid(), behavior.getOninvalid());
         } else {
             return new ClientOnlyScript(clientSideConverterScript, validatorScripts, behavior.getOnvalid(),
                     behavior.getOninvalid());
         }
-    }
-
-    private String createAjaxScript(ClientBehaviorContext behaviorContext, ClientValidatorBehavior behavior) {
-        String ajaxScript = behavior.getAjaxScript(behaviorContext);
-        String clientId = getComponentClientId(behaviorContext);
-        ajaxScript = replaceTextToVariable(ajaxScript, clientId, ValidatorScriptBase.CLIENT_ID);
-        String sourceId = behaviorContext.getSourceId();
-        if (null != sourceId) {
-            // TODO - send sourceId as separate parameter.
-            ajaxScript = replaceTextToVariable(ajaxScript, sourceId, ValidatorScriptBase.ELEMENT);
-        }
-        return ajaxScript;
-    }
-
-    private String replaceTextToVariable(String ajaxScript, String clientId, String variableName) {
-        ajaxScript = ajaxScript.replace("'" + clientId + "'", variableName);
-        ajaxScript = ajaxScript.replace("\"" + clientId + "\"", variableName);
-        return ajaxScript;
     }
 
     /**
