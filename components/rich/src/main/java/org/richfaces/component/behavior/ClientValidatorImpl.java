@@ -52,6 +52,7 @@ import javax.faces.validator.Validator;
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
@@ -75,6 +76,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
+
 import org.richfaces.view.facelets.html.ClientValidatorHandler;
 
 /**
@@ -92,6 +94,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     private static final Set<String> THIS = Collections.singleton("@this");
     private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];
     private static final String VALUE = "value";
+    private static final String IMMEDIATE = "immediate";
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
     private Class<?>[] groups;
 
@@ -103,7 +106,8 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
 
     protected enum Properties {
         onvalid,
-        oninvalid
+        oninvalid,
+        immediate
     }
 
     @Override
@@ -414,8 +418,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
      * @see org.richfaces.component.behavior.ClientValidatorBehavior#isImmediateSet()
      */
     public boolean isImmediateSet() {
-        // TODO - implement this method in RichFaces AjaxBehavior
-        return false;
+        return getValueExpression(IMMEDIATE) != null;
     }
 
     // Disable processing for any component except validated input.
@@ -437,6 +440,20 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     @Override
     public Collection<String> getRender() {
         return NONE;
+    }
+
+    /**
+     * Flag indicating that, if this component is activated by the user, notifications should be delivered to interested
+     * listeners and actions immediately (that is, during Apply Request Values phase) rather than waiting until the
+     * Process Validations phase.
+     */
+    @Attribute(description = @Description("Flag indicating that, if this component is activated by the user, notifications should be delivered to interested listeners and actions immediately (that is, during Apply Request Values phase) rather than waiting until the Process Validations phase."))
+    public boolean isImmediate() {
+        return (Boolean) getStateHelper().eval(Properties.immediate);
+    }
+
+    public void setImmediate(boolean value) {
+        getStateHelper().put(Properties.immediate, value);
     }
 
     @Attribute
