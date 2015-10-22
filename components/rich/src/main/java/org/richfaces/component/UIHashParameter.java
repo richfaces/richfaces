@@ -55,6 +55,9 @@ public class UIHashParameter extends UIComponentBase {
         setRendererType(null);
     }
 
+    @Attribute(hidden = true)
+    public boolean isRendered() {return true;};
+
     /**
      * The name of the javascript hash property which this hash should be assigned to (can be used as nested hashParameter) or
      * null if no property should be used (can be used simply as function parameter).

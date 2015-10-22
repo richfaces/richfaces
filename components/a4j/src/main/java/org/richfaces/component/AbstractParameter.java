@@ -59,6 +59,9 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
      */
     private Converter converter = null;
 
+    @Attribute(hidden = true)
+    public abstract boolean isRendered();
+
     /**
      * If set to true, the value will not enclosed within single quotes and there will be no escaping of characters.
      * This allows the use of the value as JavaScript code for calculating value on the client-side.
