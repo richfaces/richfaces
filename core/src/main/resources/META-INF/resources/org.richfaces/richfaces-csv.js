@@ -181,11 +181,12 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             clearMessage: function(componentId) {
                 rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId });
             },
-            validate: function (event, id, element, params) {
-                var element = rf.getDomElement(element || id);
+            validate: function (event, element, params) {
+                var element = rf.getDomElement(element);
                 var value = getValue(element);
                 var convertedValue;
                 var converter = params.c;
+                var id = element.id;
                 rf.csv.clearMessage(id);
                 if (converter) {
                     var label = getLabel(converter, id);
