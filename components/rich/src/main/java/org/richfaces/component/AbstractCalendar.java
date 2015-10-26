@@ -341,12 +341,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract Object getWeekDayLabelsShort();
 
     /**
-     * List of the day names displays on the days bar in the following way "Sun, Mon, Tue, Wed,"
-     */
-    @Attribute
-    public abstract Object getWeekDayLabels();
-
-    /**
      * The javascript function that determines the CSS style class for each day cell
      */
     @Attribute

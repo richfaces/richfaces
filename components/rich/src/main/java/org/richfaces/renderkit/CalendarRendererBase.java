@@ -82,7 +82,6 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     public static final String MONTH_LABELS_SHORT = "monthLabelsShort";
     public static final String MONTH_LABELS = "monthLabels";
     public static final String WEEK_DAY_LABELS_SHORT = "weekDayLabelsShort";
-    public static final String WEEK_DAY_LABELS = "weekDayLabels";
     public static final String FIRST_DAY_WEEK = "firstWeekDay";
     public static final String MIN_DAYS_IN_FIRST_WEEK = "minDaysInFirstWeek";
     public static final String CALENDAR_ICON_RESOURCE_NAME = "calendarIcon.png";
@@ -417,13 +416,6 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
         int monthMax = calendar.getActualMaximum(Calendar.MONTH);
         int monthMin = calendar.getActualMinimum(Calendar.MONTH);
-
-        String[] weekDayLabels = RenderKitUtils.asArray(calendarComponent.getWeekDayLabels());
-        if (isEmptyArray(weekDayLabels)) {
-            weekDayLabels = dateFormat.getWeekdays();
-            weekDayLabels = shiftDates(minimum, maximum, weekDayLabels);
-        }
-        RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS, weekDayLabels);
 
         String[] weekDayLabelsShort = RenderKitUtils.asArray(calendarComponent.getWeekDayLabelsShort());
         if (isEmptyArray(weekDayLabelsShort)) {

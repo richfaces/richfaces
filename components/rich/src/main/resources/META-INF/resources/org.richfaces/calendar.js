@@ -268,7 +268,6 @@
         this.calendar = calendar;
         this.monthLabels = calendar.options.monthLabels;
         this.monthLabelsShort = calendar.options.monthLabelsShort;
-        this.weekDayLabels = calendar.options.weekDayLabels;
         this.weekDayLabelsShort = calendar.options.weekDayLabelsShort;
         this.controlLabels = calendar.options.labels;
     };
@@ -288,7 +287,7 @@
             timeEditorFields: CalendarView.timeEditorFields
         });
 
-    // must be :defaultTime, minDaysInFirstWeek, firstWeekday, weekDayLabels, weekDayLabelsShort, monthLabels, monthLabelsShort
+    // must be :defaultTime, minDaysInFirstWeek, firstWeekday, weekDayLabelsShort, monthLabels, monthLabelsShort
 
     // defaults definition
     var defaultOptions = {
@@ -439,7 +438,7 @@
         // weekNumberMarkup - week number cell markup
         //		context: {weekNumber, elementId, component}
         // weekDayMarkup - week day cell markup
-        //		context: {weekDayLabel, weekDayLabelShort, weekDayNumber, isWeekend, elementId, component}
+        //		context: {weekDayLabelShort, weekDayNumber, isWeekend, elementId, component}
 
         // headerMarkup
         // footerMarkup
@@ -448,7 +447,6 @@
 
         // currentDate - date to show month (day not used) (MM/yyyy)
         // selectedDate - selected date (mm/dd/yyyy)
-        // weekDayLabels - collection of week day labels keyed by week day numbers
         // weekDayLabelsShort - collection of week day short labels keyed by week day numbers
         // minDaysInFirstWeek - locale-specific constant defining number of days in the first week
         // firstWeekDay - (0..6) locale-specific constant defining number of the first week day
@@ -586,7 +584,7 @@
             if (this.options.showWeeksBar) htmlTextWeekDayBar.push('<td class="rf-cal-day-lbl"><br/></td>');
             var weekDayCounter = this.options.firstWeekDay;
             for (var i = 0; i < 7; i++) {
-                context = {weekDayLabel: this.options.weekDayLabels[weekDayCounter], weekDayLabelShort: this.options.weekDayLabelsShort[weekDayCounter], weekDayNumber:weekDayCounter, isWeekend:this.isWeekend(i), elementId:this.WEEKDAY_ELEMENT_ID + i, component:this};
+                context = {weekDayLabelShort: this.options.weekDayLabelsShort[weekDayCounter], weekDayNumber:weekDayCounter, isWeekend:this.isWeekend(i), elementId:this.WEEKDAY_ELEMENT_ID + i, component:this};
                 var weekDayHtml = this.evaluateMarkup(this.options.weekDayMarkup, context);
                 if (weekDayCounter == 6) weekDayCounter = 0; else weekDayCounter++;
 
