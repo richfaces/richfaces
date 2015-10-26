@@ -40,7 +40,7 @@
 
         <cdk:object name="hooks" value="#{component.attributes['hooks']}" />
         <cdk:object name="hooksFacet" value="#{component.facets['hooks']}" type="javax.faces.component.UIComponent" />
-        <div id="#{clientId}" class="#{component.styleClass} chart-container">
+        <div id="#{clientId}" class="#{component.styleClass} chart-container" cdk:passThrough="style">
             <div class="chart-title">#{component.title}</div>
             <div id="#{clientId}Chart" class="chart"></div>
             <script type="text/javascript">
