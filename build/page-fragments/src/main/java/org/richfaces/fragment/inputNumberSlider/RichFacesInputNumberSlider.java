@@ -102,7 +102,8 @@ public class RichFacesInputNumberSlider extends AbstractNumberInput implements I
                 throw new RuntimeException("Trace is not visible.");
             }
             scrollToView();
-            Actions actions = new Actions(browser).clickAndHold(advanced().getHandleElement());
+            // clickAndHold(element) replaced by moveToElement with offset + clickAndHold (RF-14183)
+            Actions actions = new Actions(browser).moveToElement(advanced().getHandleElement(), 0, 0).clickAndHold();
             actions.moveToElement(advanced().getRootElement(), pixelInTrace, 0);
             actions.release(advanced().getHandleElement()).build().perform();
         }
