@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.Description;
  */
 public interface NotifyAttributes {
 
-    @Attribute(description = @Description("If true, notification have to be closed manually"))
+    @Attribute(description = @Description("If true, notifications have to be closed with the close button (overrides @showCloseButton)"))
     boolean isSticky();
 
     void setSticky(boolean sticky);
@@ -44,17 +44,17 @@ public interface NotifyAttributes {
 
     void setStyleClass(String styleClass);
 
-    @Attribute(description = @Description("Defines whetever the notification should fade when hovering and allow to click elements behind"))
+    @Attribute(description = @Description("Defines whether the notification should fade when hovering and allow to click elements behind"))
     boolean isNonblocking();
 
     void setNonblocking(boolean nonblocking);
 
-    @Attribute(description = @Description("Defines whetever the shadow under notification should be displayed"))
+    @Attribute(description = @Description("Defines whether the shadow under notification should be displayed"))
     boolean isShowShadow();
 
     void setShowShadow(boolean showShadow);
 
-    @Attribute(defaultValue = "true", description = @Description("Defines whetever close button should be displayed"))
+    @Attribute(defaultValue = "true", description = @Description("Defines whether the close button should be displayed"))
     boolean isShowCloseButton();
 
     void setShowCloseButton(boolean showCloseButton);
