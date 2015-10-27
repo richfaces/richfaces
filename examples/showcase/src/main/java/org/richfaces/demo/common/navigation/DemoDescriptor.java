@@ -1,7 +1,6 @@
 package org.richfaces.demo.common.navigation;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
