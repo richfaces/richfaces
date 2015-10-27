@@ -420,6 +420,9 @@
                 case rf.KEYS.RETURN:
                     calendar.close(true);
                     return false;
+                case rf.KEYS.ESC:
+                    calendar.close(false);
+                    return false;
                 default:
                     return false;
             }
