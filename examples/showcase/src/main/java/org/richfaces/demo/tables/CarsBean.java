@@ -31,6 +31,7 @@ public class CarsBean implements Serializable {
     private static final int CLIENT_ROWS_IN_AJAX_MODE = 15;
     private static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
     private List<InventoryItem> allInventoryItems = null;
+    private List<InventoryItem> shortInventoryList = null;
     private List<InventoryVendorList> inventoryVendorLists = null;
     private int currentCarIndex;
     private InventoryItem editedCar;
@@ -71,7 +72,7 @@ public class CarsBean implements Serializable {
         synchronized (this) {
             if (inventoryVendorLists == null) {
                 inventoryVendorLists = new ArrayList<InventoryVendorList>();
-                List<InventoryItem> inventoryItems = getAllInventoryItems();
+                List<InventoryItem> inventoryItems = getShortInventoryList();
 
                 Collections.sort(inventoryItems, new Comparator<InventoryItem>() {
                     public int compare(InventoryItem o1, InventoryItem o2) {
@@ -146,6 +147,29 @@ public class CarsBean implements Serializable {
             }
         }
         return allInventoryItems;
+    }
+    
+    private List<InventoryItem> getShortInventoryList() {
+        synchronized (this) {
+            if (shortInventoryList == null) {
+                shortInventoryList = new ArrayList<InventoryItem>();
+
+                try {
+                    shortInventoryList.addAll(createCar("Chevrolet", "Corvette", 2));
+                    shortInventoryList.addAll(createCar("Chevrolet", "Malibu", 4));
+                    shortInventoryList.addAll(createCar("Chevrolet", "Tahoe", 1));
+
+                    shortInventoryList.addAll(createCar("Ford", "Taurus", 5));
+                    shortInventoryList.addAll(createCar("Ford", "Explorer", 3));
+
+                    shortInventoryList.addAll(createCar("Nissan", "Maxima", 3));
+                    shortInventoryList.addAll(createCar("Nissan", "Frontier", 4));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return shortInventoryList;
     }
 
     public List<InventoryItem> createCar(String vendor, String model, int count) {
