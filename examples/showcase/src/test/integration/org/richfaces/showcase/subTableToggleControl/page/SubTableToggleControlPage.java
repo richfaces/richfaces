@@ -1,6 +1,6 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
- * Copyright 2010-2014, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2015, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.subTableToggleControl.page;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -29,46 +29,42 @@ import org.openqa.selenium.WebElement;
  */
 public class SubTableToggleControlPage {
 
-    @FindByJQuery("span.rf-csttg:eq(0)")
-    private WebElement chevroletToggler;
-
-    @FindByJQuery("span.rf-csttg:eq(2)")
-    private WebElement gMCToggler;
-
-    @FindByJQuery("span.rf-csttg:eq(4)")
-    private WebElement nissanToggler;
-
     @FindByJQuery("tbody.rf-cst:eq(0)")
     private WebElement bodyOfChevroletSubtable;
-
+    @FindByJQuery("tbody.rf-cst:eq(1)")
+    private WebElement bodyOfFordSubtable;
     @FindByJQuery("tbody.rf-cst:eq(2)")
-    private WebElement bodyOfGMCSubtable;
-
-    @FindByJQuery("tbody.rf-cst:eq(4)")
     private WebElement bodyOfNissanSubtable;
 
-    public WebElement getChevroletToggler() {
-        return chevroletToggler;
-    }
-
-    public WebElement getgMCToggler() {
-        return gMCToggler;
-    }
-
-    public WebElement getNissanToggler() {
-        return nissanToggler;
-    }
+    @FindByJQuery(value = "span.rf-csttg:eq(0)")
+    private WebElement chevroletToggler;
+    @FindByJQuery(value = "span.rf-csttg:eq(1)")
+    private WebElement fordToggler;
+    @FindByJQuery(value = "span.rf-csttg:eq(2)")
+    private WebElement nissanToggler;
 
     public WebElement getBodyOfChevroletSubtable() {
         return bodyOfChevroletSubtable;
     }
 
-    public WebElement getBodyOfGMCSubtable() {
-        return bodyOfGMCSubtable;
+    public WebElement getBodyOfFordSubtable() {
+        return bodyOfFordSubtable;
     }
 
     public WebElement getBodyOfNissanSubtable() {
         return bodyOfNissanSubtable;
+    }
+
+    public WebElement getChevroletToggler() {
+        return chevroletToggler;
+    }
+
+    public WebElement getFordToggler() {
+        return fordToggler;
+    }
+
+    public WebElement getNissanToggler() {
+        return nissanToggler;
     }
 
 }
