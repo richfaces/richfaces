@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,7 +17,6 @@ import javax.faces.model.SelectItem;
 import org.richfaces.JsfVersion;
 import org.richfaces.demo.common.data.RandomHelper;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
-import org.richfaces.demo.tables.model.cars.InventoryVendorItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
 @ManagedBean(name = "carsBean")
@@ -33,6 +29,8 @@ public class CarsBean implements Serializable {
     private List<InventoryItem> allInventoryItems = null;
     private List<InventoryItem> shortInventoryList = null;
     private List<InventoryVendorList> inventoryVendorLists = null;
+    private List<InventoryVendorList> shortInventoryVendorLists = null;
+    private List<String> allVendors = Arrays.asList("Chevrolet", "Ford", "Nissan", "Toyota", "GMC", "Infiniti");
     private int currentCarIndex;
     private InventoryItem editedCar;
     private int page = 1;
@@ -54,66 +52,75 @@ public class CarsBean implements Serializable {
     public List<SelectItem> getVendorOptions() {
         List<SelectItem> result = new ArrayList<SelectItem>();
         result.add(new SelectItem("", ""));
-        for (InventoryVendorList vendorList : getInventoryVendorLists()) {
-            result.add(new SelectItem(vendorList.getVendor()));
+
+        for (String vendor : allVendors) {
+            result.add(new SelectItem(vendor));
         }
         return result;
     }
 
     public List<String> getAllVendors() {
-        List<String> result = new ArrayList<String>();
-        for (InventoryVendorList vendorList : getInventoryVendorLists()) {
-            result.add(vendorList.getVendor());
-        }
-        return result;
+        return allVendors;
     }
 
     public List<InventoryVendorList> getInventoryVendorLists() {
         synchronized (this) {
             if (inventoryVendorLists == null) {
                 inventoryVendorLists = new ArrayList<InventoryVendorList>();
-                List<InventoryItem> inventoryItems = getShortInventoryList();
 
-                Collections.sort(inventoryItems, new Comparator<InventoryItem>() {
-                    public int compare(InventoryItem o1, InventoryItem o2) {
-                        return o1.getVendor().compareTo(o2.getVendor());
-                    }
-                });
-                Iterator<InventoryItem> iterator = inventoryItems.iterator();
+                int counter = 0;
                 InventoryVendorList vendorList = new InventoryVendorList();
-                vendorList.setVendor(inventoryItems.get(0).getVendor());
-                while (iterator.hasNext()) {
-                    InventoryItem item = iterator.next();
-                    InventoryVendorItem newItem = new InventoryVendorItem();
-                    itemToVendorItem(item, newItem);
-                    if (!item.getVendor().equals(vendorList.getVendor())) {
-                        inventoryVendorLists.add(vendorList);
-                        vendorList = new InventoryVendorList();
-                        vendorList.setVendor(item.getVendor());
-                    }
-                    vendorList.getVendorItems().add(newItem);
+                try {
+                    String vendor = allVendors.get(counter++);
+
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Corvette", 5));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Malibu", 8));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Tahoe", 6));
+                    inventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Taurus", 12));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Explorer", 11));
+                    inventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Maxima", 9));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Frontier", 6));
+                    inventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "4-Runner", 7));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Camry", 15));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Avalon", 13));
+                    inventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Sierra", 8));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Yukon", 10));
+                    inventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+
+                    vendorList.getVendorItems().addAll(createCar(vendor, "G35", 6));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "EX35", 5));
+                    inventoryVendorLists.add(vendorList);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                inventoryVendorLists.add(vendorList);
             }
         }
         return inventoryVendorLists;
-    }
-
-    private void itemToVendorItem(InventoryItem item, InventoryVendorItem newItem) {
-        newItem.setActivity(item.getActivity());
-        newItem.setChangePrice(item.getChangePrice());
-        newItem.setChangeSearches(item.getChangeSearches());
-        newItem.setDaysLive(item.getDaysLive());
-        newItem.setExposure(item.getExposure());
-        newItem.setInquiries(item.getInquiries());
-        newItem.setMileage(item.getMileage());
-        newItem.setMileageMarket(item.getMileageMarket());
-        newItem.setModel(item.getModel());
-        newItem.setPrice(item.getPrice());
-        newItem.setPriceMarket(item.getPriceMarket());
-        newItem.setPrinted(item.getPrinted());
-        newItem.setStock(item.getStock());
-        newItem.setVin(item.getVin());
     }
 
     public List<InventoryItem> getAllInventoryItems() {
@@ -121,51 +128,58 @@ public class CarsBean implements Serializable {
             if (allInventoryItems == null) {
                 allInventoryItems = new ArrayList<InventoryItem>();
 
-                try {
-                    allInventoryItems.addAll(createCar("Chevrolet", "Corvette", 5));
-                    allInventoryItems.addAll(createCar("Chevrolet", "Malibu", 8));
-                    allInventoryItems.addAll(createCar("Chevrolet", "Tahoe", 6));
-
-                    allInventoryItems.addAll(createCar("Ford", "Taurus", 12));
-                    allInventoryItems.addAll(createCar("Ford", "Explorer", 11));
-
-                    allInventoryItems.addAll(createCar("Nissan", "Maxima", 9));
-                    allInventoryItems.addAll(createCar("Nissan", "Frontier", 6));
-
-                    allInventoryItems.addAll(createCar("Toyota", "4-Runner", 7));
-                    allInventoryItems.addAll(createCar("Toyota", "Camry", 15));
-                    allInventoryItems.addAll(createCar("Toyota", "Avalon", 13));
-
-                    allInventoryItems.addAll(createCar("GMC", "Sierra", 8));
-                    allInventoryItems.addAll(createCar("GMC", "Yukon", 10));
-
-                    allInventoryItems.addAll(createCar("Infiniti", "G35", 6));
-                    allInventoryItems.addAll(createCar("Infiniti", "EX35", 5));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                for (InventoryVendorList list : getInventoryVendorLists()) {
+                    allInventoryItems.addAll(list.getVendorItems());
                 }
             }
         }
         return allInventoryItems;
     }
-    
-    private List<InventoryItem> getShortInventoryList() {
+
+    public List<InventoryVendorList> getShortInventoryVendorLists() {
+        synchronized (this) {
+            if (shortInventoryVendorLists == null) {
+                shortInventoryVendorLists = new ArrayList<InventoryVendorList>();
+
+                int counter = 0;
+                InventoryVendorList vendorList = new InventoryVendorList();
+                try {
+                    String vendor = allVendors.get(counter++);
+
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Corvette", 2));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Malibu", 4));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Tahoe", 1));
+                    shortInventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Taurus", 5));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Explorer", 3));
+                    shortInventoryVendorLists.add(vendorList);
+
+                    vendor = allVendors.get(counter++);
+                    vendorList = new InventoryVendorList();
+                    vendorList.setVendor(vendor);
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Maxima", 3));
+                    vendorList.getVendorItems().addAll(createCar(vendor, "Frontier", 4));
+                    shortInventoryVendorLists.add(vendorList);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return shortInventoryVendorLists;
+    }
+
+    public List<InventoryItem> getShortInventoryList() {
         synchronized (this) {
             if (shortInventoryList == null) {
                 shortInventoryList = new ArrayList<InventoryItem>();
 
-                try {
-                    shortInventoryList.addAll(createCar("Chevrolet", "Corvette", 2));
-                    shortInventoryList.addAll(createCar("Chevrolet", "Malibu", 4));
-                    shortInventoryList.addAll(createCar("Chevrolet", "Tahoe", 1));
-
-                    shortInventoryList.addAll(createCar("Ford", "Taurus", 5));
-                    shortInventoryList.addAll(createCar("Ford", "Explorer", 3));
-
-                    shortInventoryList.addAll(createCar("Nissan", "Maxima", 3));
-                    shortInventoryList.addAll(createCar("Nissan", "Frontier", 4));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                for (InventoryVendorList list : getShortInventoryVendorLists()) {
+                    shortInventoryList.addAll(list.getVendorItems());
                 }
             }
         }
