@@ -115,7 +115,6 @@
         <!-- Integration Tests Versions -->
         <version.arquillian.core>1.1.8.Final</version.arquillian.core>
         <version.arquillian.drone>2.0.0.Alpha4</version.arquillian.drone>
-        <version.arquillian.warp>1.0.0.Alpha7</version.arquillian.warp>
         <version.arquillian.graphene>2.1.0.Alpha2</version.arquillian.graphene>
         <version.selenium>2.46.0</version.selenium>
         <version.shrinkwrap>1.2.2</version.shrinkwrap>
@@ -273,13 +272,6 @@
                 <groupId>org.jboss.arquillian.selenium</groupId>
                 <artifactId>selenium-bom</artifactId>
                 <version>${version.selenium}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.extension</groupId>
-                <artifactId>arquillian-warp-bom</artifactId>
-                <version>${version.arquillian.warp}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

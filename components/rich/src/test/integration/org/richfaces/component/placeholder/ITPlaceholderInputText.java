@@ -24,7 +24,6 @@ package org.richfaces.component.placeholder;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
@@ -35,7 +34,6 @@ import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
-
 import com.google.common.base.Function;
 
 /**
@@ -103,14 +101,14 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
     @Test
     @Category(Smoke.class)
     public void testComponentSourceWithSelector() throws Exception {
-        URL selectorUrl = URLUtils.buildUrl(contextPath, "selector.jsf?selector=input");
-        sourceChecker.checkComponentSource(selectorUrl, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
+        URL url = new URL(contextPath, "selector.jsf?selector=input");
+        sourceChecker.checkComponentSource(url, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
     }
 
     @Test
     @Category(Smoke.class)
     public void testComponentSourceWithoutSelector() throws Exception {
-        URL urL = new URL(contextPath.toExternalForm() + "index.jsf");
-        sourceChecker.checkComponentSource(urL, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));
+        URL url = new URL(contextPath.toExternalForm() + "index.jsf");
+        sourceChecker.checkComponentSource(url, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));
     }
 }
