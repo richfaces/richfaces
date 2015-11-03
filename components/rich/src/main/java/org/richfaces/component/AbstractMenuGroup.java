@@ -1,6 +1,7 @@
 package org.richfaces.component;
 
 import javax.faces.component.UIOutput;
+import javax.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -48,6 +49,9 @@ public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, D
 
     @Attribute(hidden = true)
     public abstract Object getValue();
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 
     @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {

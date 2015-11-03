@@ -25,12 +25,14 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
 import com.google.common.base.Strings;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -57,6 +59,9 @@ public abstract class AbstractPlaceholder extends UIOutput implements StyleClass
 
     @Attribute(required = true)
     public abstract Object getValue();
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 
     /**
      * The jQuery selector used to filter which child DOM elements will be a placeholder attached to.

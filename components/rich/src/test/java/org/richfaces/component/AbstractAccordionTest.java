@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.convert.Converter;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -218,6 +219,11 @@ public class AbstractAccordionTest {
             @Override
             public String getOnmouseup() {
                 return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public Converter getConverter() {
+                return null;
             }
         };
         List<UIComponent> children = accordion.getChildren();

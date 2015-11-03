@@ -24,6 +24,7 @@ package org.richfaces.component;
 import javax.faces.component.UIOutput;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+import javax.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -64,6 +65,8 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     @Attribute(hidden = true)
     public abstract Object getValue();
 
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 
     @Override
     public String getFamily() {

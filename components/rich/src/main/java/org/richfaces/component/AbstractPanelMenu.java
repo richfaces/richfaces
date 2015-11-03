@@ -26,6 +26,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -146,6 +147,9 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void setSubmittedActiveItem(String submittedValue) {
         this.submittedActiveItem = String.valueOf(submittedValue);
     }
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 
     /**
      * Holds the active panel name. This name is a reference to the name identifier of the active child

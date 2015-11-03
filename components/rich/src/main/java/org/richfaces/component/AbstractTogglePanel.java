@@ -41,6 +41,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ExceptionQueuedEvent;
@@ -124,6 +125,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
         return false;
     }
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 
     // -------------------------------------------------- Editable Value Holder
 

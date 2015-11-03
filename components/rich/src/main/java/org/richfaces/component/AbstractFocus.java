@@ -3,6 +3,7 @@ package org.richfaces.component;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
@@ -82,6 +83,12 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
      */
     @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
+
+    @Attribute(hidden = true)
+    public abstract Object getValue();
 
     /**
      * Returns a mode of Focus component

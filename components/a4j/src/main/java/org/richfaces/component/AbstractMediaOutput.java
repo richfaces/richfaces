@@ -26,6 +26,7 @@ import javax.el.MethodExpression;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIOutput;
+import javax.faces.convert.Converter;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -223,4 +224,7 @@ public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyP
      */
     @Attribute
     public abstract Object getValue();
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 }

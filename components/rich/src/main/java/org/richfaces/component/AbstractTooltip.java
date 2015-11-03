@@ -29,6 +29,7 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
 import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
@@ -171,6 +172,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
 
     @Attribute(defaultValue = "1000", description = @Description("Attribute is similar to the standard HTML attribute and can specify window placement relative to the content. Default value is \"1000\"."))
     public abstract int getZindex();
+
+    @Attribute(hidden = true)
+    public abstract Converter getConverter();
 
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
