@@ -41,6 +41,7 @@ import javax.faces.event.BehaviorEvent;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
@@ -164,9 +165,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     /**
      * Name of JavaScript event property (click, change, etc.) of parent component that triggers the behavior.
      * If the event attribute is not defined, the behavior is triggered on the event that normally provides
-     * interaction behavior for the parent component
+     * interaction behavior for the parent component. The value cannot be an EL expression.
      */
-    @Attribute
+    @Attribute(description = @Description("Name of JavaScript event property (click, change, etc.) of parent component that triggers the behavior. If the event attribute is not defined, the behavior is triggered on the event that normally provides interaction behavior for the parent component. The value cannot be an EL expression."))
     public String getEvent() {
         return (String) getStateHelper().eval(PropertyKeys.event);
     }
