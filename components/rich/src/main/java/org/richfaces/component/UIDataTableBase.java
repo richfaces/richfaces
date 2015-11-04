@@ -52,6 +52,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.component.attribute.ColumnProps;
 import org.richfaces.component.attribute.EventsRowProps;
+import org.richfaces.component.attribute.RowColumnStyleProps;
 import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
@@ -70,7 +71,7 @@ import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
-public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, ColumnProps, EventsRowProps, StyleProps {
+public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, ColumnProps, EventsRowProps, RowColumnStyleProps, StyleProps {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";
@@ -134,24 +135,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
      */
     @Attribute
     public abstract String getRowClass();
-
-    /**
-     * Assigns one or more space-separated CSS class names to the columns of the table. If the CSS class names are
-     * comma-separated, each class will be assigned to a particular column in the order they follow in the attribute. If you
-     * have less class names than columns, the class will be applied to every n-fold column where n is the order in which the
-     * class is listed in the attribute. If there are more class names than columns, the overflow ones are ignored.
-     */
-    @Attribute
-    public abstract String getColumnClasses();
-
-    /**
-     * Assigns one or more space-separated CSS class names to the rows of the table. If the CSS class names are comma-separated,
-     * each class will be assigned to a particular row in the order they follow in the attribute. If you have less class names
-     * than rows, the class will be applied to every n-fold row where n is the order in which the class is listed in the
-     * attribute. If there are more class names than rows, the overflow ones are ignored.
-     */
-    @Attribute
-    public abstract String getRowClasses();
 
     /**
      * Comma-separated list of column names determining priority of row sorting.

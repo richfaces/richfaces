@@ -36,6 +36,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataGrid;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.attribute.ColumnProps;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
@@ -64,7 +66,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, null);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-thead", null);
             writer.startElement(HtmlConstants.TR_ELEMENT, component);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-dg-h ", ((ColumnProps) component).getHeaderClass()), null);
             writer.startElement(HtmlConstants.TH_ELEM, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h-c", null);
 
@@ -100,7 +102,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, null);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-tfoot", null);
             writer.startElement(HtmlConstants.TR_ELEMENT, component);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-dg-f ", ((ColumnProps) component).getFooterClass()), null);
             writer.startElement(HtmlConstants.TD_ELEM, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f-c", null);
 
@@ -163,14 +165,15 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             if (processCell != 0) {
                 writer.endElement(HtmlConstants.TR_ELEMENT);
                 rowHolder.resetProcessCell();
+                processCell = rowHolder.getProcessCell();
             }
             writer.startElement(HtmlConstants.TR_ELEMENT, dataGrid);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-r", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-dg-r ", getRowClass(rowHolder)), null);
             rowHolder.nextRow();
         }
 
         writer.startElement(HtmlConstants.TD_ELEM, dataGrid);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-c", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-dg-c ", getColumnClass(rowHolder, processCell)), null);
         renderChildren(facesContext, dataGrid);
         writer.endElement(HtmlConstants.TD_ELEM);
     }
