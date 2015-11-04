@@ -30,6 +30,7 @@ import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractActionComponent;
+import org.richfaces.component.BasicActionComponent;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.renderkit.AjaxConstants;
 import org.richfaces.renderkit.AjaxFunction;
@@ -188,11 +189,9 @@ public final class AjaxRendererUtils {
         Map<String, Object> parametersMap = RENDERER_UTILS.createParametersMap(facesContext, component);
         ajaxOptions.addParameters(parametersMap);
 
-        if (component instanceof AbstractActionComponent) {
-            if (component instanceof AjaxProps) {
-                if (((AjaxProps) component).isResetValues()) {
-                    ajaxOptions.setParameter(AjaxConstants.RESET_VALUES_PARAMETER, true);
-                }
+        if (component instanceof BasicActionComponent) {
+            if (((BasicActionComponent) component).isResetValues()) {
+                ajaxOptions.setParameter(AjaxConstants.RESET_VALUES_PARAMETER, true);
             }
         }
 

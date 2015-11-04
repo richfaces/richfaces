@@ -30,10 +30,9 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AccesskeyProps;
-import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.AjaxCommandProps;
 import org.richfaces.component.attribute.BypassProps;
 import org.richfaces.component.attribute.CoreProps;
-import org.richfaces.component.attribute.ErrorProps;
 import org.richfaces.component.attribute.LinkProps;
 import org.richfaces.renderkit.AjaxConstants;
 
@@ -45,7 +44,7 @@ import org.richfaces.renderkit.AjaxConstants;
  * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets))
-public abstract class AbstractCommandLink extends BasicActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps, BypassProps, CoreProps, ErrorProps, LinkProps {
+public abstract class AbstractCommandLink extends BasicActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxCommandProps, BypassProps, CoreProps, LinkProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CommandLink";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
