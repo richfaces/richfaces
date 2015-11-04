@@ -246,6 +246,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     }
 
     @Override
+    @Attribute(hidden = true)
     public Object getValue() {
         return String.valueOf(isExpanded());
     }
