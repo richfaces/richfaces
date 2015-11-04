@@ -456,7 +456,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         getStateHelper().put(Properties.immediate, value);
     }
 
-    @Attribute
+    @Attribute(description = @Description("Javascript code executed when the validation succeeds."))
     public String getOnvalid() {
         return (String) getStateHelper().eval(Properties.onvalid);
     }
@@ -465,7 +465,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         getStateHelper().put(Properties.onvalid, value);
     }
 
-    @Attribute
+    @Attribute(description = @Description("Javascript code executed when the validation fails."))
     public String getOninvalid() {
         return (String) getStateHelper().eval(Properties.oninvalid);
     }

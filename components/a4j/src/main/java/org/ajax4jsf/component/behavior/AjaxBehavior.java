@@ -179,7 +179,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     /**
      * Method expression referencing a method that will be called when an AjaxBehaviorEvent has been broadcast for the listener.
      */
-    @Attribute
+    @Attribute(description = @Description("Method expression referencing a method that will be called when an AjaxBehaviorEvent has been broadcast for the listener."))
     public MethodExpression getListener() {
         return (MethodExpression) getStateHelper().eval(PropertyKeys.listener);
     }
@@ -358,7 +358,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
     /**
      * If true, indicate that this particular Ajax transaction is a value reset transaction. This will cause resetValue() to be called on any EditableValueHolder instances encountered as a result of this ajax transaction. If not specified, or the value is false, no such indication is made.
      */
-    @Attribute
+    @Attribute(description = @Description("If true, indicate that this particular Ajax transaction is a value reset transaction. This will cause resetValue() to be called on any EditableValueHolder instances encountered as a result of this ajax transaction. If not specified, or the value is false, no such indication is made."))
     public boolean isResetValues() {
         return (Boolean) getStateHelper().eval(PropertyKeys.resetValues, false);
     }
