@@ -25,7 +25,7 @@ package org.richfaces.javascript.client.message;
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Event;
+import com.gargoylesoftware.htmlunit.javascript.host.event.Event;
 
 /**
  * <p class="changed_added_4_0">

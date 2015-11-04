@@ -103,9 +103,10 @@
         <version.jsf-test>1.1.9</version.jsf-test>
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
-        <version.xmlunit>1.2</version.xmlunit>
+        <version.xmlunit>1.6</version.xmlunit>
 
-        <version.htmlunit>2.15</version.htmlunit>
+        <version.htmlunit>2.18</version.htmlunit>
+        <version.htmlunit-core-js>2.17</version.htmlunit-core-js>
         <version.xml-apis>1.4.01</version.xml-apis>
         <version.hibernate-validator>4.3.2.Final</version.hibernate-validator>
 
@@ -113,17 +114,17 @@
         <version.commons-codec>1.6</version.commons-codec>
 
         <!-- Integration Tests Versions -->
-        <version.arquillian.core>1.1.8.Final</version.arquillian.core>
-        <version.arquillian.drone>2.0.0.Alpha4</version.arquillian.drone>
-        <version.arquillian.graphene>2.1.0.Alpha2</version.arquillian.graphene>
-        <version.selenium>2.46.0</version.selenium>
-        <version.shrinkwrap>1.2.2</version.shrinkwrap>
-        <version.shrinkwrap.resolver>2.2.0-beta-1</version.shrinkwrap.resolver>
-        <version.shrinkwrap.descriptors>2.0.0-alpha-7</version.shrinkwrap.descriptors>
+        <version.arquillian.core>1.1.10.Final</version.arquillian.core>
+        <version.arquillian.drone>2.0.0.Alpha5</version.arquillian.drone>
+        <version.arquillian.graphene>2.1.0.Alpha3</version.arquillian.graphene>
+        <version.selenium>2.48.2</version.selenium>
+        <version.shrinkwrap>1.2.3</version.shrinkwrap>
+        <version.shrinkwrap.resolver>2.2.0</version.shrinkwrap.resolver>
+        <version.shrinkwrap.descriptors>2.0.0-alpha-8</version.shrinkwrap.descriptors>
         <version.arquillian.glassfish40>1.0.0.CR4</version.arquillian.glassfish40>
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
         <version.arquillian.suite.extension>1.1.2</version.arquillian.suite.extension>
-        <version.httpclient>4.3.3</version.httpclient>
+        <version.httpclient>4.5.1</version.httpclient>
 
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
@@ -561,7 +562,7 @@
             <dependency>
                 <groupId>net.sourceforge.htmlunit</groupId>
                 <artifactId>htmlunit-core-js</artifactId>
-                <version>${version.htmlunit}</version>
+                <version>${version.htmlunit-core-js}</version>
             </dependency>
             <dependency>
                 <groupId>xml-apis</groupId>
