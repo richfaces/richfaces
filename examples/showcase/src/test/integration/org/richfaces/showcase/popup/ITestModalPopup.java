@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.popup;
 
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
@@ -27,12 +27,12 @@ import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Actions;
 import org.richfaces.showcase.panel.AbstractPanelTest;
 import org.richfaces.showcase.popup.page.PopupPage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestModalPopup extends AbstractPanelTest {
 
@@ -40,7 +40,7 @@ public class ITestModalPopup extends AbstractPanelTest {
     private PopupPage page;
 
     @FindBy(css = "div[id$='popup_shade']")
-    private WebElement hidePopup;
+    private WebElement popupPanelShadow;
 
     protected final String BODY_OF_POPUP = "You can also check and trigger events if the use clicks outside of the panel.\n"
         + "In this example clicking outside closes the panel.";
@@ -53,7 +53,8 @@ public class ITestModalPopup extends AbstractPanelTest {
                 .is()
                 .visible();
         checkContentOfPanel(page.getPopupPanelContent(), BODY_OF_POPUP);
-        hidePopup.click();
+        // move to the corner of the shadow or the click will be invoked on the popup panel (middle of the shadow element)
+        new Actions(webDriver).moveToElement(popupPanelShadow, 1, 1).click().perform();
         waitGui(webDriver).until("The popup panel should not be visible now!")
                 .element(page.getPopupPanelContent())
                 .is()
