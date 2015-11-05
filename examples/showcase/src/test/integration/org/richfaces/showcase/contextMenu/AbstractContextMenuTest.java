@@ -22,16 +22,16 @@
 package org.richfaces.showcase.contextMenu;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.richfaces.fragment.common.Event;
+import org.richfaces.fragment.common.Locations;
+import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.contextMenu.RichFacesContextMenu;
 import org.richfaces.showcase.AbstractWebDriverTest;
 
@@ -42,7 +42,7 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
 
     public static final double EPSILON = 0.000000001;
 
-    public static final double TOLERANCE = 3.0;
+    public static final int TOLERANCE = 3;
 
     protected void checkContextMenuRenderedAtCorrectPosition(WebElement target, RichFacesContextMenu ctxMenuFragment,
         Event showEvent, ExpectedCondition<Boolean> conditionTargetIsFocused, boolean selectingTargetTriggersAjax,
@@ -66,19 +66,16 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
         } else {
             ctxMenuFragment.advanced().show(target);
         }
-        Point locationOfTarget = target.getLocation();
-        Point locationOfCtxMenu = ctxMenuFragment.advanced().getMenuPopup().getLocation();
 
-        double witdth = getTargetWidth(target);
-        double height = getTargetHeight(target);
+        Locations expected = Utils.getLocations(target);
+        // move by height/2 and width/2 so the new top left corner will be right in the middle of the element
+        expected = expected.moveAllBy(expected.getWidth() / 2, expected.getHeight() / 2);
 
-        double halfOfDiagonal = Math.sqrt((height * height) + (witdth * witdth)) / 2.0;
-        double distance = getDistance(locationOfTarget, locationOfCtxMenu);
+        Locations actual = Utils.getLocations(ctxMenuFragment.advanced().getMenuPopup());
 
-        double result = halfOfDiagonal - distance;
-
-        assertTrue("The context menu was not rendered on the correct position! The difference is: " + result, result >= 0
-            && result < TOLERANCE);
+        // check the top left corners are the same (with tolerance)
+        Utils.tolerantAssertPointEquals(expected.getTopLeft(), actual.getTopLeft(), TOLERANCE, TOLERANCE,
+            "The context menu was not rendered on the correct position!");
     }
 
     public double getTargetWidth(WebElement target) {
@@ -92,12 +89,4 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
 
         return dimension.getHeight();
     }
-
-    private double getDistance(Point point1, Point point2) {
-        java.awt.Point point3 = new java.awt.Point(point1.getX(), point1.getY());
-        java.awt.Point point4 = new java.awt.Point(point2.getX(), point2.getY());
-
-        return point3.distance(point4);
-    }
-
 }
