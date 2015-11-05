@@ -32,16 +32,18 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import com.google.common.base.Predicate;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -51,7 +53,11 @@ public class ITPanelMenu {
     private WebDriver browser;
     @ArquillianResource
     private URL contextPath;
+    @ArquillianResource
+    private JavascriptExecutor executor;
 
+    @FindBy(css = "[id$='disabledGroup:hdr']")
+    private WebElement disabledGroupHeader;
     @FindBy(id = "disabledGroup")
     private WebElement disabledGroup;
     @FindBy(className = "disabled")
@@ -81,6 +87,8 @@ public class ITPanelMenu {
     @Test
     public void test_disabled_menu() {
         browser.get(contextPath.toString() + "disabled-menu.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         Graphene.guardAjax(disabledMenu).click();
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
@@ -92,6 +100,8 @@ public class ITPanelMenu {
     @Test
     public void test_disabled_menu_item() {
         browser.get(contextPath.toString() + "disabled-menu-item.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         Graphene.guardAjax(disabledMenu).click();
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
@@ -100,6 +110,8 @@ public class ITPanelMenu {
     @Test
     public void test_enabled_menu() {
         browser.get(contextPath.toString() + "disabled-menu.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         Graphene.guardAjax(enabledMenu).click();
         assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
@@ -108,6 +120,8 @@ public class ITPanelMenu {
     @Test
     public void test_enabled_menu_group() {
         browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         Graphene.guardAjax(enabledMenu).click();
         assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
@@ -116,6 +130,8 @@ public class ITPanelMenu {
     @Test
     public void test_enabled_menu_item() {
         browser.get(contextPath.toString() + "disabled-menu-item.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         Graphene.guardAjax(enabledMenu).click();
         assertEquals(PanelMenuBean.ITEM_CHANGED, currentItemElement.getText());
@@ -124,7 +140,9 @@ public class ITPanelMenu {
     @Test
     public void test_expansion_of_client_mode_disabled_menu_group() {
         browser.get(contextPath.toString() + "disabled-menu-group-client.jsf");
-        Graphene.guardNoRequest(disabledGroup).click();
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        Graphene.guardNoRequest(disabledGroupHeader).click();
         assertNotEquals("disabled menu group in client mode should have menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
     }
 
@@ -134,7 +152,9 @@ public class ITPanelMenu {
     @Test
     public void test_expansion_of_disabled_menu_group() {
         browser.get(contextPath.toString() + "disabled-menu-group.jsf");
-        Graphene.guardNoRequest(disabledGroup).click();
+        waitUntilOnLoadJavaScriptIsExecuted();
+
+        Graphene.guardAjax(disabledGroupHeader).click();
         assertEquals("disabled menu group should have no menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
     }
 
@@ -144,9 +164,23 @@ public class ITPanelMenu {
     @Test
     public void test_item_in_expanded_disabled_menu_group() {
         browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
+        waitUntilOnLoadJavaScriptIsExecuted();
+
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
         Graphene.guardAjax(disabledMenu).click();
         assertEquals(PanelMenuBean.ITEM_DEFAULT, currentItemElement.getText());
+    }
+
+    /**
+     * Wait until JS function (hack for enabling the disabled menu) binded to 'onload' event is executed
+     */
+    private void waitUntilOnLoadJavaScriptIsExecuted() {
+        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver t) {
+                return (Boolean) executor.executeScript("return enableMenuWasCalled;");
+            }
+        });
     }
 
     private static void addDisabledMenuGroupPage(RichDeployment deployment) {
@@ -154,8 +188,10 @@ public class ITPanelMenu {
 
         //  Re-enable the disabled javascript with this custom javascript call
         p.body("<script type='text/javascript'>");
+        p.body("    var enableMenuWasCalled=false;");
         p.body("    function enableMenu() {");
         p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledGroup','ajax':{'incId':'1'} , 'expanded':false,'expandEvent':'click','disabled':false,'mode':'ajax'} )");
+        p.body("        enableMenuWasCalled=true;");
         p.body("    }");
         p.body("    jQuery(enableMenu);");
         p.body("</script>");
@@ -181,8 +217,10 @@ public class ITPanelMenu {
 
         //  Re-enable the disabled javascript with this custom javascript call
         p.body("<script type='text/javascript'>");
+        p.body("    var enableMenuWasCalled=false;");
         p.body("    function enableMenu() {");
         p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledGroup','ajax':{'incId':'1'} , 'expanded':false,'expandEvent':'click','disabled':false,'mode':'client'} )");
+        p.body("        enableMenuWasCalled=true;");
         p.body("    }");
         p.body("    jQuery(enableMenu);");
         p.body("</script>");
@@ -210,6 +248,7 @@ public class ITPanelMenu {
         p.body("<script type='text/javascript'>");
         p.body("    function enableMenu() {");
         p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledGroup','ajax':{'incId':'1'} , 'expanded':true,'expandEvent':'click','disabled':false,'mode':'ajax'} )");
+        p.body("        enableMenuWasCalled=true;");
         p.body("    }");
         p.body("    jQuery(enableMenu);");
         p.body("</script>");
@@ -235,8 +274,10 @@ public class ITPanelMenu {
 
         //  Re-enable the disabled javascript with this custom javascript call
         p.body("<script type='text/javascript'>");
+        p.body("    var enableMenuWasCalled=false;");
         p.body("    function enableMenu() {");
         p.body("        new RichFaces.ui.PanelMenuItem('disabledMenu',{'unselectable':false,'selectable':true,'name':'Item_2','ajax':{'incId':'1'} , 'disabled':false,'mode':'ajax'} )");
+        p.body("        enableMenuWasCalled=true;");
         p.body("    }");
         p.body("    jQuery(enableMenu);");
         p.body("</script>");
@@ -258,10 +299,12 @@ public class ITPanelMenu {
 
         //  Re-enable the disabled javascript with this custom javascript call
         p.body("<script type='text/javascript'>");
+        p.body("    var enableMenuWasCalled=false;");
         p.body("    function enableMenu() {");
         p.body("        new RichFaces.ui.PanelMenu('disabledMenu',{'bubbleSelection':true,'ajax':{'incId':'1'} ,'expandSingle':true,'disabled':false} )");
         p.body("        new RichFaces.ui.PanelMenuGroup('disabledMenuGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledMenu','ajax':{'incId':'1'} , 'expanded':true,'expandEvent':'click','disabled':false,'mode':'ajax'} )");
         p.body("        new RichFaces.ui.PanelMenuItem('disabledMenuItem',{'unselectable':false,'selectable':true,'name':'Item_2','ajax':{'incId':'1'} , 'disabled':false,'mode':'ajax'} )");
+        p.body("        enableMenuWasCalled=true;");
         p.body("    }");
         p.body("    jQuery(enableMenu);");
         p.body("</script>");
