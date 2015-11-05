@@ -2,7 +2,7 @@ package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 import java.net.URL;
 
@@ -57,7 +57,7 @@ public class ITFocusAjaxRendered {
     @Test
     public void when_the_focus_is_not_ajaxRendered_then_no_element_should_have_focus_after_ajax() {
         browser.get(contextPath.toExternalForm());
-        assertEquals(input1, focusRetriever.retrieveActiveElement());
+        waitGui().until(new ElementIsFocused(input1));
 
         // when
         input2.click();

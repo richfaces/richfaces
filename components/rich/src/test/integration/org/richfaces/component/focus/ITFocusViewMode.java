@@ -1,7 +1,5 @@
 package org.richfaces.component.focus;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -19,7 +17,6 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.utils.focus.ElementIsFocused;
-import org.richfaces.utils.focus.FocusRetriever;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -46,15 +43,11 @@ public class ITFocusViewMode {
         return deployment.getFinalArchive();
     }
 
-    private WebElement getFocusedElement() {
-        return FocusRetriever.retrieveActiveElement();
-    }
-
     @Test
     public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
         // having
         browser.get(contextPath.toExternalForm());
-        assertEquals(form1.getInput2(), getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
 
         // then
         form3.getInput1().click();
