@@ -28,9 +28,11 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.model.DataVisitor;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.RowColumnStyleProps;
 import org.richfaces.renderkit.RowHolderBase;
 
 /**
@@ -39,7 +41,7 @@ import org.richfaces.renderkit.RowHolderBase;
  * but is clearer and easier to follow in the source code.</p>
  */
 @JsfComponent(type = AbstractColumnGroup.COMPONENT_TYPE, family = AbstractColumnGroup.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"), tag = @Tag(name = "columnGroup"))
-public abstract class AbstractColumnGroup extends UIPanel implements Row, Column {
+public abstract class AbstractColumnGroup extends UIPanel implements Row, Column, RowColumnStyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.ColumnGroup";
     public static final String COMPONENT_FAMILY = "org.richfaces.ColumnGroup";
 
@@ -62,5 +64,24 @@ public abstract class AbstractColumnGroup extends UIPanel implements Row, Column
 
         // TODO nick - implement in the proper way
         visitor.process(context, null, argument);
+    }
+
+    enum Properties {
+        columnClasses,
+        rowClasses
+    }
+
+    @Attribute(hidden = true)
+    public String getColumnClasses() {
+        return (String) getStateHelper().eval(Properties.columnClasses, getParentTable().getColumnClasses());
+    }
+
+    @Attribute(hidden = true)
+    public String getRowClasses() {
+        return (String) getStateHelper().eval(Properties.rowClasses, getParentTable().getRowClasses());
+    }
+
+    public RowColumnStyleProps getParentTable() {
+        return ComponentIterators.getParent(this, UIDataTableBase.class);
     }
 }
