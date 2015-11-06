@@ -74,7 +74,7 @@ public class SelectManyRendererBase extends InputRendererBase {
             ClientSelectItem item = iter.next();
             if (item.isSelected()) {
                 if (sb.length() > 0) {
-                    sb.append(",");
+                    sb.append("\",'");
                 }
                 sb.append(item.getConvertedValue());
             }
@@ -100,7 +100,7 @@ public class SelectManyRendererBase extends InputRendererBase {
             if (value.trim().equals("")) {
                 ((EditableValueHolder) picklist).setSubmittedValue(new String[] {});
             } else {
-                String[] reqValues = value.split(",");
+                String[] reqValues = value.split("\",'");
                 ((EditableValueHolder) picklist).setSubmittedValue(reqValues);
             }
         } else {

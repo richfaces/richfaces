@@ -388,7 +388,7 @@
                 this.__getItems().each(function( index ) {
                     encoded.push($(this).data('clientSelectItem').value);
                 });
-                return encoded.join(",");
+                return encoded.join("\",'");
             },
 
             __selectCurrent: function() {
