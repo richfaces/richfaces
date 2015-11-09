@@ -140,15 +140,15 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisi
             return root;
         }
 
-        protected List<WebElement> getRowElements() {
+        public List<WebElement> getRowElements() {
             return rowElements;
         }
 
-        protected List<WebElement> getRecordsElements() {
+        public List<WebElement> getRecordsElements() {
             return recordsElements;
         }
 
-        protected WebElement getNoDataElement() {
+        public WebElement getNoDataElement() {
             return noDataElement;
         }
 
