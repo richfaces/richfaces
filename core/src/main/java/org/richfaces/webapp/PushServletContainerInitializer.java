@@ -92,7 +92,7 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
 
             servletContext.setAttribute(PushContextFactoryImpl.PUSH_HANDLER_MAPPING_ATTRIBUTE, pushHandlerMapping);
         } catch (Exception e) {
-            servletContext.log(MessageFormat.format("Caught exception when registering RichFaces Push Servlet: {0]", e.getMessage()), e);
+            servletContext.log(MessageFormat.format("Caught exception when registering RichFaces Push Servlet: {0}", e.getMessage()), e);
         }
     }
 

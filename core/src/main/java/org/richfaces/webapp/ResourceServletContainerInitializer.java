@@ -66,7 +66,7 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
             }
         } catch (Exception e) {
             servletContext
-                    .log(MessageFormat.format("Exception registering RichFaces Resource Servlet: {0]", e.getMessage()), e);
+                    .log(MessageFormat.format("Exception registering RichFaces Resource Servlet: {0}", e.getMessage()), e);
         }
     }
 
