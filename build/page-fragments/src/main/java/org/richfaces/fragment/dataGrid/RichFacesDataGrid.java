@@ -38,9 +38,10 @@ import org.richfaces.fragment.common.VisibleComponentInteractions;
 /**
  * Class representing a page fragment for RichFaces DataGrid.
  *
- * <p>Be aware, that this class is not intended to be used directly (injected
- * into the test with <tt>@FindBy</tt>), but to be extended so the generic types
- * are substituted with a regular type representing particular part of the grid.</p>
+ * <p>
+ * Be aware, that this class is not intended to be used directly (injected into the test with <tt>@FindBy</tt>), but to be
+ * extended so the generic types are substituted with a regular type representing particular part of the grid.
+ * </p>
  *
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @param <RECORD>
@@ -67,8 +68,9 @@ public class RichFacesDataGrid<RECORD> implements DataGrid<RECORD>, AdvancedVisi
     @Override
     public List<RECORD> getRecordsInRow(int rowIndex) {
         List<RECORD> result = new ArrayList<RECORD>();
-        if (getNumberOfRows() - 1 > rowIndex) {
-            throw new IllegalArgumentException("There is not so many rows! Requesting: " + rowIndex + ", but there is only: " + getNumberOfRows());
+        int numberOfRows = getNumberOfRows();
+        if (rowIndex > numberOfRows - 1) {
+            throw new IllegalArgumentException("There is not so many rows! Requesting: " + rowIndex + ", but there is only: " + numberOfRows);
         }
         List<WebElement> recordsInParticularRow = advanced().getRowElements().get(rowIndex).findElements(ByJQuery.selector(advanced().getJQSelectorForRecord()));
         for (WebElement recordRoot : recordsInParticularRow) {
