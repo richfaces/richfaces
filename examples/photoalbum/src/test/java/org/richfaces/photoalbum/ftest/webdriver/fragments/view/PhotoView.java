@@ -251,7 +251,7 @@ public class PhotoView {
             }
 
             private void checkCommentText(String commentText) {
-                assertEquals("Comment text", commentText, this.commentText.getText());
+                assertEquals("Comment text", commentText, this.commentText.getText().trim());
             }
 
             public void checkIfUsersComment() {
