@@ -81,7 +81,7 @@
 
 .rf-ord-sel {
     width: 100%;
-    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
     border-width: 1px;
     border-style: dotted;
     border-color: '#{a4jSkin.generalTextColor}';

@@ -92,7 +92,7 @@ input.rf-au-inp {
 }
 
 .rf-au-itm-sel {
-    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
     border-width: 1px;
     border-style: dotted;
     border-color: '#{a4jSkin.generalTextColor}';
