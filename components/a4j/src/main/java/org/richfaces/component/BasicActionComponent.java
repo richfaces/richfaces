@@ -91,7 +91,8 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
      * Ids of components that will participate in the "execute" portion of the Request Processing Lifecycle. Can be a single id,
      * a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection. Any of the keywords
      * "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list. Some components make use of
-     * additional keywords
+     * additional keywords.<br/>
+     * Default value is "@region" which resolves to this component if no region is present.
      */
     @Attribute
     public Object getExecute() {
