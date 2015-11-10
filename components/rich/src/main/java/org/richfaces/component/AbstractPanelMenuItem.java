@@ -80,7 +80,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     // ------------------------------------------------ Component Attributes
 
     /**
-     * Defines whenever the item is selectable.
+     * Defines whenever the item is selectable. Default: true.
      */
     @Attribute(defaultValue = "Boolean.TRUE")
     public abstract Boolean getSelectable();

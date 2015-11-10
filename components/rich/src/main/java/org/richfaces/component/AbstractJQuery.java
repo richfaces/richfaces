@@ -87,7 +87,7 @@ public abstract class AbstractJQuery extends UIComponentBase {
 
     /**
      * The timing of the jQuery attachment: "domready" (when DOM is ready), "immediate" (immediately after component client-side
-     * code is processed). This attribute is ignored when attribute "name" is provided.
+     * code is processed). This attribute is ignored when attribute "name" is provided. Default value - "domready"
      */
     @Attribute
     public abstract JQueryTiming getTiming();

@@ -73,13 +73,13 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel implements Co
     }
 
     /**
-     * The position of the header: top, bottom, left, right
+     * The position of the header: top (default), bottom
      */
     @Attribute
     public abstract HeaderPosition getHeaderPosition();
 
     /**
-     * The alignment of the tab panel header: left, center, right, bottom, top
+     * The alignment of the tab panel header: left (default), right
      */
     @Attribute
     public abstract HeaderAlignment getHeaderAlignment();

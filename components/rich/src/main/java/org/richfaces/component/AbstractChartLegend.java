@@ -41,7 +41,7 @@ public abstract class AbstractChartLegend extends UIComponentBase {
      * <ul>
      * <li>nw - top left</li>
      * <li>sw - bottom left</li>
-     * <li>ne - top right</li>
+     * <li>ne - top right (default)</li>
      * <li>se - bottom right</li>
      * </ul>
      */

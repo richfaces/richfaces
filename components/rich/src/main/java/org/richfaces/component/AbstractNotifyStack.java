@@ -49,12 +49,12 @@ public abstract class AbstractNotifyStack extends UIComponentBase {
 
     public abstract void setPosition(CornerPosition position);
 
-    @Attribute(description = @Description("Defines where new notifications will appear"))
+    @Attribute(description = @Description("Defines where new notifications will be added: first (start of the list, default) or last (end of the list)."))
     public abstract StackingMethod getMethod();
 
     public abstract void setMethod(StackingMethod method);
 
-    @Attribute(description = @Description("Defines in which direction will be notification stacked"))
+    @Attribute(description = @Description("Defines in which direction will be notification stacked: horizontal or vertical (default)"))
     public abstract StackingDirection getDirection();
 
     public abstract void setDirection(StackingDirection direction);

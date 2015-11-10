@@ -67,7 +67,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     public abstract boolean isSaveOnSelect();
 
     /**
-     *  If "true", apply the changes when the focus is lost
+     *  Defines whether the changes should apply when the focus is lost. Default value - "true"
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnBlur();

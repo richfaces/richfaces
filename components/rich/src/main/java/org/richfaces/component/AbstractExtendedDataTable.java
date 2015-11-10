@@ -83,7 +83,7 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
 
     /**
      * Defines selection mode for the table: none, single (only one row can be selected), multiple (Ctrl/Shift keys are used for
-     * multi-selection), multipleKeyboardFree (clicks are used for multi-selection)
+     * multi-selection), multipleKeyboardFree (clicks are used for multi-selection). Default value - "multiple"
      */
     @Attribute
     public abstract SelectionMode getSelectionMode();

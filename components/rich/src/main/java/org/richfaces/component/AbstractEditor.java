@@ -62,8 +62,7 @@ public abstract class AbstractEditor extends UIInput implements CoreProps, Focus
     public abstract String getToolbar();
 
     /**
-     * <p>Set the skin of the richfaces editor.  Bundled skins include: richfaces, kama, v2, office2003</p>
-     * <p>Default is richfaces</p>
+     * <p>Set the skin of the richfaces editor. The only skin available by default is "moono".</p>
      */
     @Attribute(defaultValue = "moono")
     public abstract String getSkin();

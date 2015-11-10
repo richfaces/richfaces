@@ -24,6 +24,7 @@ import javax.faces.component.UIPanel;
 
 import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -48,7 +49,7 @@ public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput,
     public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
 
-    @Attribute(defaultValue = "false")
+    @Attribute(description = @Description("Defines, whether the content of this component must be (or not) included in AJAX response created by parent AJAX Container, even if it is not forced by reRender list of ajax action. Ignored if component marked to output by some Ajax action component. Default value - \"false\""), defaultValue = "false")
     public abstract boolean isAjaxRendered();
 
     @Attribute(defaultValue= "true")

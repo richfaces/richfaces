@@ -210,7 +210,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem imple
     // ------------------------------------------------ Component Attributes
 
     /**
-     * Defines whenever the group is selectable.
+     * Defines whenever the group is selectable. Default: false.
      */
     @Attribute(defaultValue = "Boolean.FALSE")
     public abstract Boolean getSelectable();

@@ -46,10 +46,10 @@ public abstract class AbstractHotKey extends UIComponentBase {
     @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'), more key sequences separated by space. Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
     public abstract String getKey();
 
-    @Attribute(defaultValue = "false", description = @Description("The switch which enables handling events coming from input"))
+    @Attribute(defaultValue = "false", description = @Description("The switch which enables handling events coming from input. Default value - \"false\""))
     public abstract boolean isEnabledInInput();
 
-    @Attribute(defaultValue = "true", description = @Description("The switch which prevents native browser actions (prevents default) to be taken and stops event propagation up to the tree"))
+    @Attribute(defaultValue = "true", description = @Description("The switch which prevents native browser actions (prevents default) to be taken and stops event propagation up to the tree. Default value - \"true\""))
     public abstract boolean isPreventDefault();
 
     @Attribute(description = @Description("The jQuery selector (subset of CSS selectors defined by W3C) of the DOM root from which key events should be handled. When no value provided, events are handled for whole document. ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)"))

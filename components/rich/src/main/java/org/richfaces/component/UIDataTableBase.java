@@ -143,7 +143,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public abstract Collection<Object> getSortPriority();
 
     /**
-     * Specifies when table will be sorted according to one column (single) or multiple columns (multi).
+     * Specifies when table will be sorted according to one column (single) or multiple columns (multi). Default value - "multi"
      */
     @Attribute
     public abstract SortMode getSortMode();

@@ -56,7 +56,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public abstract String getDefaultLabel();
 
     /**
-     *  If "true", apply the changes when the focus is lost
+     *  Defines whether the changes should apply when the focus is lost. Default value - "true".
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnBlur();

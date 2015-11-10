@@ -51,13 +51,13 @@ public abstract class AbstractAjaxLog extends UIComponentBase implements StylePr
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
 
     /**
-     * Sets the logging level, can be one of 'debug', 'info', 'warn', 'error'.
+     * Sets the logging level, can be one of 'debug', 'info' (default), 'warn', 'error'.
      */
     @Attribute
     public abstract String getLevel();
 
     /**
-     * Determines how the log appears on the page, can be one of: "inline", "popup" or "console". When set to "popup", the popup
+     * Determines how the log appears on the page, can be one of: "inline" (default), "popup" or "console". When set to "popup", the popup
      * window is opened by pressing the key combination Ctrl + Shift + L. "console" mode will log messages in the JavaScript console.
      */
     @Attribute
