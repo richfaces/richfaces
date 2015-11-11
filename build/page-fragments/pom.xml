@@ -54,7 +54,8 @@
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
+            <artifactId>selenium-api</artifactId>
+            <version>2.46.0</version>
         </dependency>
 
         <!-- Testing dependencies -->
