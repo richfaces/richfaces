@@ -34,9 +34,9 @@
         <cdk:resource-dependency library="org.richfaces" name="notify.ecss" />
     </cc:interface>
     <cc:implementation>
-        <span id="#{clientId}" class="rf-ntf-msg" cdk:passThroughWithExclusions="id class dir lang">
+        <span id="#{clientId}" class="rf-ntf-msg" cdk:passThroughWithExclusions="id class dir lang style title">
             <cdk:scriptObject name="options">
-                <cdk:scriptOption attributes="sticky stayTime delay styleClass appearAnimation hideAnimation animationSpeed showHistory nonblocking showShadow showCloseButton nonblockingOpacity dir lang" />
+                <cdk:scriptOption attributes="sticky stayTime delay styleClass appearAnimation hideAnimation animationSpeed showHistory nonblocking showShadow showCloseButton nonblockingOpacity dir lang style title" />
                 <cdk:scriptOption wrapper="eventHandler" attributes="onclick ondblclick  onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup" />
             </cdk:scriptObject>
             <cdk:call expression="addStackIdOption(options, facesContext, component)" />

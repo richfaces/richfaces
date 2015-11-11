@@ -106,6 +106,12 @@
                     options['on' + e.type].call(this, e);
                 }
             });
+            if (options.style) {
+                pnotify.attr('style', pnotify.attr('style') + options.style)
+            }
+            if (options.title) {
+                pnotify.attr('title', options.title)
+            }
             stack.addNotification(pnotify);
         }
         
