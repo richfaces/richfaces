@@ -57,11 +57,13 @@
         var requestsClone = [].concat(jQuery.atmosphere.requests);
         for (var i = 0; i < requestsClone.length; i++) {
             var rq = requestsClone[i];
-            rq.close();
-            clearTimeout(rq.response.request.id);
+            if(rq.handleOnlineOffline) {
+                rq.close();
+                clearTimeout(rq.response.request.id);
 
-            if (rq.heartbeatTimer) {
-                clearTimeout(rq.heartbeatTimer);
+                if (rq.heartbeatTimer) {
+                    clearTimeout(rq.heartbeatTimer);
+                }
             }
         }
     });
@@ -70,8 +72,10 @@
         jQuery.atmosphere.offline = false;
         if (jQuery.atmosphere.requests.length > 0) {
             for (var i = 0; i < jQuery.atmosphere.requests.length; i++) {
-                jQuery.atmosphere.requests[i].init();
-                jQuery.atmosphere.requests[i].execute();
+                if(requests[i].handleOnlineOffline) {
+                    jQuery.atmosphere.requests[i].init();
+                    jQuery.atmosphere.requests[i].execute();
+                }
             }
         }
     });
@@ -92,7 +96,7 @@
     };
 
     jQuery.atmosphere = {
-        version: "2.2.12-jquery",
+        version: "2.2.13-jquery",
         uuid: 0,
         offline: false,
         requests: [],
@@ -239,6 +243,7 @@
                 ackInterval: 0,
                 closeAsync: false,
                 reconnectOnServerError: true,
+                handleOnlineOffline: true,
                 onError: function (response) {
                 },
                 onClose: function (response) {
@@ -1794,10 +1799,12 @@
 
                 var reconnectFExec = function (force) {
                     rq.lastIndex = 0;
-                    if (force || (rq.reconnect && _requestCount++ < rq.maxReconnectOnClose)) {
+                    _requestCount++; // Increase also when forcing reconnect as _open checks _requestCount
+                    if (force || (rq.reconnect && _requestCount <= rq.maxReconnectOnClose)) {
+                       var delay = force ? 0 : request.reconnectInterval; // Reconnect immediately if the server resumed the connection (timeout)
                         _response.ffTryingReconnect = true;
                         _open('re-connecting', request.transport, request);
-                        _reconnect(ajaxRequest, rq, request.reconnectInterval);
+                        _reconnect(ajaxRequest, rq, delay);
                     } else {
                         _onError(0, "maxReconnectOnClose reached");
                     }
@@ -2098,7 +2105,7 @@
                 }
             }
 
-            function _reconnect(ajaxRequest, request, reconnectInterval) {
+            function _reconnect(ajaxRequest, request, delay) {
 
                 if (_response.closedByClientTimeout) {
                     return;
@@ -2119,10 +2126,10 @@
                         delete request.reconnectId;
                     }
 
-                    if (reconnectInterval > 0) {
+                    if (delay > 0) {
                         setTimeout(function () {
                             _request.reconnectId = _executeRequest(request);
-                        }, reconnectInterval);
+                        }, delay);
                     } else {
                         _executeRequest(request);
                     }
@@ -3171,7 +3178,7 @@
 
         // TODO extract to utils or something
         isBinary: function (data) {
-            // True if data is an instance of Blob, ArrayBuffer or ArrayBufferView 
+            // True if data is an instance of Blob, ArrayBuffer or ArrayBufferView
             return /^\[object\s(?:Blob|ArrayBuffer|.+Array)\]$/.test(Object.prototype.toString.call(data));
         }
     };
