@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build-resources</artifactId>
-    <version>4.5.11-SNAPSHOT</version>
+    <version>4.5.11.Final</version>
     <name>RichFaces Build Resources</name>
 
     <description>
@@ -50,7 +50,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.11-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.11.Final</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-components-parent</artifactId>
-        <version>4.5.11-SNAPSHOT</version>
+        <version>4.5.11.Final</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
