@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,15 +18,15 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.photoalbum.ftest.webdriver.pages;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.drone.webdriver.factory.WebDriverFactory;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.messages.RichFacesMessages;
 import org.richfaces.fragment.notify.RichFacesNotifyMessage;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.AddAlbumGroupPanel;
@@ -79,7 +79,7 @@ public class PhotoalbumPage {
 
     @Drone
     private WebDriver driver;
-    
+
     public void checkUserLogged(String user, boolean hasOwnAlbums, boolean isLoggedInWithFB, boolean isLoggedInWithGPlus) {
         headerPanel.checkUserLogged(user, hasOwnAlbums, isLoggedInWithFB, isLoggedInWithGPlus);
         leftPanel.checkIfUserLogged(hasOwnAlbums, isLoggedInWithFB, isLoggedInWithGPlus);
@@ -145,14 +145,18 @@ public class PhotoalbumPage {
     }
 
     public LoginPanel openLoginPanel() {
-        Graphene.waitAjax().until().element(headerPanel.getLoginLink()).is().visible();
-        Graphene.guardAjax(headerPanel.getLoginLink()).click();
+        // do not open panel if is already opened
+        if (!Utils.isVisible(loginPanel.getBodyContent().getLoginButton())) {
+            Graphene.waitAjax().until().element(headerPanel.getLoginLink()).is().visible();
+            Graphene.guardAjax(headerPanel.getLoginLink()).click();
+        }
         loginPanel.advanced().waitUntilPopupIsVisible().perform();
         return loginPanel;
     }
 
     /**
      * Attempts to log the user in. In case user is already logged, nothing will happen.
+     *
      * @param user username
      * @param pswd password
      */
