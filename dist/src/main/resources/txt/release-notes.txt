@@ -1,3 +1,51 @@
+4.5.11.Final
+------------
+
+    Bug
+    [RF-12098] - PickList doesn't accept comma in string value
+    [RF-13045] - param and hashParam: attribute @rendered is not working
+    [RF-13259] - DataTable rowClasses with columnGroup is not rendered
+    [RF-14163] - showcase: correct references to bean
+    [RF-14164] - rich:notifyMessage, notifyMessages: attributes @style and @title are not applied to created message component
+    [RF-14169] - showcase: panel: bad description in lookCustomization sample
+    [RF-14171] - @resetValues was added to not listed components
+    [RF-14172] - validator: @event cannot be a ValueExpression
+    [RF-14174] - validator: @immediate does not work and has wrong description
+    [RF-14175] - calendar: unused attribute @weekDayLabels
+    [RF-14176] - chart: attribute @style does not work
+    [RF-14178] - validator: @onbeforesubmit cannot be used with MyFaces
+    [RF-14179] - VDL-doc: specified default values are not correct
+    [RF-14194] - Misprint in format string of MessageFormat.format in ResourceServletContainerInitializer
+    [RF-14197] - page-fragments: dataGrid: getRecordsInRow contains bad condition
+
+    Component Upgrade
+    [RF-14170] - Upgrade third-party libraries
+    [RF-14182] - Upgrade testing dependencies
+
+    Enhancement
+    [RF-14162] - showcase: add missing links to VDL Documentation/Component Reference in some examples
+    [RF-14168] - showcase: collapsibleSubTable demo: wrong output in cars total count
+    [RF-14183] - page-fragments: inputNumberSlider: dragging the handle starts from wrong value
+    [RF-14186] - Hide @converter and @value in components extending UIOutput
+    [RF-14190] - Provide better contrast for selected items
+    [RF-14192] - showcase: focus: fix simple and delayed samples
+    [RF-14193] - Allow skipping resource optimization during build
+    [RF-14196] - page-fragments: dataGrid: make methods for returning of elements in advanced interactions public
+
+    Feature Request
+    [RF-10779] - rich:dataGrid - support classes for header, footer, rows and columns
+    [RF-14166] - rich:calendar keyboard support to close calendar
+
+    Task
+    [RF-14157] - showcase: fix integration tests
+    [RF-14158] - update VDL doc for notify's @sticky attribute
+    [RF-14173] - VDL-doc: validator: add missing documentation of attributes
+    [RF-14189] - Remove unused arquillian-warp test dependencies
+
+    Sub-task
+    [RF-14187] - calendar: document keyboard support for closing the popup
+    [RF-14195] - vdl-doc: tables + dataGrid: add description to attributes
+
 4.5.10.Final
 ------------
 
