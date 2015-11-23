@@ -554,7 +554,7 @@
                 <container.resources.exclude>**</container.resources.exclude>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
 
-                <integration.test.source>src/test/integration</integration.test.source>
+                <integration.test.source>src/test/java</integration.test.source>
                 <integration.test.pattern>**/**/IT*.java</integration.test.pattern>
 
                 <!-- Arquillian Configuration -->
@@ -660,18 +660,7 @@
             <build>
                 <testResources>
                     <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>false</filtering>
-                    </testResource>
-                    <testResource>
-                        <directory>${integration.test.source}</directory>
-                        <filtering>false</filtering>
-                        <excludes>
-                            <exclude>**/*.java</exclude>
-                        </excludes>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test/arquillian-settings/</directory>
+                        <directory>${project.basedir}/src/test/resources</directory>
                         <filtering>true</filtering>
                     </testResource>
                 </testResources>
@@ -959,25 +948,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                     <includes>arquillian.xml</includes>
-                                    <outputDirectory>src/test/arquillian-settings</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-integration-test-sources</id>
-                                <phase>process-test-sources</phase>
-                                <goals>
-                                    <goal>add-test-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>${integration.test.source}</source>
-                                    </sources>
+                                    <outputDirectory>src/test/resources</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
