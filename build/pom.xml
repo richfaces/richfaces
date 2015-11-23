@@ -121,14 +121,12 @@
         <version.shrinkwrap>1.2.3</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.2.0</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-8</version.shrinkwrap.descriptors>
-        <version.arquillian.glassfish40>1.0.0.CR4</version.arquillian.glassfish40>
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
         <version.arquillian.suite.extension>1.1.2</version.arquillian.suite.extension>
         <version.httpclient>4.3.3</version.httpclient>
 
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee17>1.7.1</version.tomee17>
         <version.wildfly8>8.2.1.Final</version.wildfly8>
 
         <!-- Release repositories -->
@@ -319,33 +317,8 @@
                 <version>${version.wildfly8}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.openejb</groupId>
-                <artifactId>arquillian-tomee-remote</artifactId>
-                <version>${version.tomee17}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-glassfish-managed-3.1</artifactId>
-                <version>${version.arquillian.glassfish40}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                <version>${version.arquillian.glassfish40}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-tomcat-remote-6</artifactId>
-                <version>${version.arquillian.tomcat}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-tomcat-remote-7</artifactId>
-                <version>${version.arquillian.tomcat}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.arquillian.container</groupId>
-                <artifactId>arquillian-tomcat-managed-6</artifactId>
                 <version>${version.arquillian.tomcat}</version>
             </dependency>
             <dependency>

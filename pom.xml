@@ -125,9 +125,6 @@
         <version.wildfly90>9.0.1.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
-        <version.tomee17>1.7.1</version.tomee17>
-        <version.glassfish40>4.0</version.glassfish40>
-        <version.tomcat6>6.0.36</version.tomcat6>
         <version.tomcat7>7.0.57</version.tomcat7>
         <version.tomcat8>8.0.21</version.tomcat8>
 
@@ -463,11 +460,8 @@
 
                 <!-- Container Selection -->
                 <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
-                <arquillian.launch.tomcat6>false</arquillian.launch.tomcat6>
                 <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
                 <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
-                <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
-                <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
 
                 <!-- HTTPS testing -->
                 <firefoxProfileTemplate />
@@ -1004,138 +998,6 @@
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-controller-client</artifactId>
                     <version>7.2.0.Final</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomee-managed-1-7</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomee17</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomee17>true</arquillian.launch.tomee17>
-                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
-                <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee17}</arquillian.container.home>
-                <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee17}</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.openejb</groupId>
-                    <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>${version.tomee17}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomee-remote-1-7</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomee17-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomee17>true</arquillian.launch.tomee17>
-                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.openejb</groupId>
-                    <artifactId>arquillian-tomee-remote</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>glassfish-managed-4-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>glassfish40</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.glassfish40>true</arquillian.launch.glassfish40>
-                <arquillian.container.home>${project.build.directory}/glassfish4</arquillian.container.home>
-                <arquillian.container.distribution>org.glassfish.main.distributions:glassfish:zip:${version.glassfish40}</arquillian.container.distribution>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-managed-3.1</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>glassfish-remote-4-0</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>glassfish40-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.glassfish40>true</arquillian.launch.glassfish40>
-                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomcat-remote-6</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomcat6-remote</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
-                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <showcase.war.classifier>tomcat6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-remote-6</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>tomcat-managed-6</id>
-            <activation>
-                <property>
-                    <name>integration</name>
-                    <value>tomcat6</value>
-                </property>
-            </activation>
-            <properties>
-                <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
-                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat6}</arquillian.container.home>
-                <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat6}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
-                <showcase.war.classifier>tomcat6</showcase.war.classifier>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-tomcat-managed-6</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

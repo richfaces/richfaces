@@ -55,17 +55,6 @@
         </configuration>
     </container>
 
-    <container qualifier="tomcat6" default="${arquillian.launch.tomcat6}">
-        <configuration>
-            <property name="catalinaHome">${arquillian.container.home}</property>
-            <property name="javaVmArguments">
-                -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
-            </property>
-            <property name="user">admin</property>
-            <property name="pass">pass</property>
-        </configuration>
-    </container>
-
     <container qualifier="tomcat7" default="${arquillian.launch.tomcat7}">
         <configuration>
             <property name="catalinaHome">${arquillian.container.home}</property>
@@ -88,24 +77,6 @@
         </configuration>
     </container>
 
-    <container qualifier="tomee17" default="${arquillian.launch.tomee17}">
-        <configuration>
-            <property name="httpPort">8080</property>
-            <property name="stopPort">9005</property>
-            <property name="version">${version.tomee17}</property>
-            <property name="dir">${arquillian.container.home}</property>
-            <property name="appWorkingDir">target/arquillian-test-working-dir</property>
-            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
-        </configuration>
-    </container>
-
-    <container qualifier="glassfish40" default="${arquillian.launch.glassfish40}">
-        <configuration>
-            <property name="glassFishHome">${arquillian.container.home}</property>
-            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
-        </configuration>
-    </container>
-    
     <extension qualifier="selenium-server">
         <property name="port">8444</property>
         <property name="firefoxProfileTemplate">${firefoxProfileTemplate}</property>

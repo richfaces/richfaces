@@ -10,9 +10,6 @@ The supported container matrix is:
 * WildFly 9.0
 * JBoss EAP 6.2
 * JBoss EAP 6.3
-* TomEE 1.7
-* GlassFish 4.0
-* Tomcat 6
 * Tomcat 7
 * Tomcat 8
 
@@ -270,18 +267,6 @@ Managed Containers
 
     mvn verify -Dintegration=jbosseap63
 
-### TomEE 1.7 - Managed
-
-    mvn verify -Dintegration=tomee17
-
-### GlassFish 4.0 - Managed
-
-    mvn verify -Dintegration=glassfish40
-
-### Tomcat 6 - Managed
-
-    mvn verify -Dintegration=tomcat6
-
 ### Tomcat 7 - Managed
 
     mvn verify -Dintegration=tomcat7
@@ -365,23 +350,7 @@ Profile: `jbosseap-remote-6-3`
 
     mvn verify -Dintegration=jbosseap63-remote
 
-### GlassFish 4.0 - Remote
-
-Start: `[glassfish4]$ ./glassfish/bin/startserv`
-
-Profile: `glassfish-remote-4-0`
-
-    mvn verify -Dintegration=glassfish40-remote
-
-### TomEE 1.7 - Remote
-
-Start: `[apache-tomee-webprofile-1.7.0]$ ./bin/tomee.sh start`
-
-Profile: `tomee-remote-1-7`
-
-    mvn verify -Dintegration=tomee17-remote
-
-### Tomcat 6/7/8 - Remote
+### Tomcat 7/8 - Remote
 
 You need to modify the `conf/tomcat-users.xml` file:
 
