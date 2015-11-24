@@ -1,0 +1,8 @@
+= RichFaces Push demo using JMS
+
+== How to run on WildFly 8.2.1:
+* in order to work with pre-set values stored in web.xml and custom server configuration, you'll have to create a new user:
+*** create an application user with `name`, `password` and `role` set to `guest`
+* copy configuration from `src/main/resources/wildfly-config/standalone-full-custom.xml` to `${WILDFLY_HOME}/standalone/configuration`
+* start WildFly with an argument specifying the name of custom configuration: `-c=standalone-full-custom.xml`
+* deploy the `push-jms-demo-{VERSION}.war` and open http://localhost:8080/push-jms-demo/
