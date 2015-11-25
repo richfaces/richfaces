@@ -198,7 +198,55 @@
 
 	    };
 
-    
+        var handleStringTicks = function(options) {
+        /*
+         * data transformation:
+         * data: [["label1", value1], ["label2", value2"], …]
+         * 
+         * =>
+         * 
+         * data: [[0, value1], [1, value2], …] 
+         * ticks: [[0, "label1"], [1, "label2"], …]
+         *
+         */
+        options.xaxis.tickLength = 0;
+
+        var seriesLength,
+            seriesTotal = options.data.length,
+            _tickNames = {},
+            _tickTotal = 0,
+            _currTickNumber,
+            _currItem;
+
+        if (options.charttype === 'bar') {
+            options.bars = options.bars || {};
+            options.bars.barWidth = 1 / (seriesTotal + 1);
+        }
+        for (var i = 0; i < seriesTotal; i++) {
+            seriesLength = options.data[i].data.length;
+
+            if (options.charttype === 'bar') {
+                options.data[i].bars.order = i;
+            }
+            for (var j = 0; j < seriesLength; j++) { 
+                _currItem = options.data[i].data[j];
+                _currTickNumber = _tickNames[_currItem[0]];
+
+                if (_currTickNumber == undefined) {
+                    _currTickNumber = _tickTotal++;
+                    _tickNames[_currItem[0]] = _currTickNumber;
+                }
+
+                _currItem[0] = _currTickNumber;
+            }
+        }
+
+        options.xaxis.ticks = [];
+        for (tick in _tickNames) {
+            options.xaxis.ticks.push([_tickNames[tick],tick]);
+        }
+    };
+
     rf.ui = rf.ui || {};
 
     rf.ui.Chart = rf.BaseComponent.extendClass({
@@ -223,68 +271,14 @@
                     // [{data:1, label:"label1"},{data:2,label:"label2"},...]
                     this.options.data = this.options.data[0]; //pie chart data should not be in a collection
                 }
-                else if (this.options.charttype === 'bar') {                    
+                else if (this.options.charttype === 'bar') {
                     if (this.options.xtype === 'string') {
-                        /*
-                         * data transformation:
-                         * data: [["label1", value1], ["label2", value2"], …]
-                         * 
-                         * =>
-                         * 
-                         * data: [[1, value1], [2, value2], …] 
-                         * ticks: [[1, "label1"], [2, "label2"], …]
-                         *
-                         */
-                        this.options.xaxis.tickLength = 0;
-                        
-                        var seriesLength = this.options.data[0].data.length,
-                            seriesTotal = this.options.data.length,
-                            ticks = [],
-                            ordered = false;
-                            
-                        this.options.bars = this.options.bars || {};
-                        this.options.bars.barWidth = 1 / (seriesTotal + 1);
-                        for (var i = 0; i < seriesLength; i++) {
-                            ticks.push( [i, this.options.data[0].data[i][0]] );
-                            for (var j = 0; j < seriesTotal; j++) { 
-                                this.options.data[j].data[i][0] = i;
-                                if (!ordered) {
-                                    this.options.data[j].bars.order = j;
-                                }
-                            }
-                            ordered = true;
-                        }
-                        
-                        this.options.xaxis.ticks = ticks;
+                        handleStringTicks(this.options);
                     }
-                    
-                    
                   }
                   else if (options.charttype === 'line') {
                     if (this.options.xtype === 'string') {
-                        /*
-                         * data transformation:
-                         * data: [["label1", value1], ["label2", value2"], …]
-                         * 
-                         * =>
-                         * 
-                         * data: [[1, value1], [2, value2], …] 
-                         * ticks: [[1, "label1"], [2, "label2"], …]
-                         *
-                         */
-                        this.options.xaxis.tickLength = 0;
-                        
-                        var seriesLength = this.options.data[0].data.length,
-                            seriesTotal = this.options.data.length,
-                            ticks = [];
-                        for (var i = 0; i < seriesLength; i++) {
-                            ticks.push( [i, this.options.data[0].data[i][0]] );
-                            for (var j = 0; j < seriesTotal; j++) {
-                                this.options.data[j].data[i][0] = i;
-                            }
-                        }
-                        
-                        this.options.xaxis.ticks = ticks;
+                        handleStringTicks(this.options);
                     }
                     if (options.zoom) {
                       this.options.selection = {mode: 'xy'};
