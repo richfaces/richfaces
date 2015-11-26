@@ -312,12 +312,20 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return (String) getStateHelper().eval(Properties.topItemClass, getItemClass());
     }
 
+    public void setTopItemClass(String topItemClass) {
+        getStateHelper().put(Properties.topItemClass, topItemClass);
+    }
+
     /**
      * Space-separated list of CSS style class(es) to be applied to disabled top-level panel menu items
      */
     @Attribute
     public String getTopItemDisabledClass() {
         return (String) getStateHelper().eval(Properties.topItemDisabledClass, getItemDisabledClass());
+    }
+
+    public void setTopItemDisabledClass(String topItemDisabledClass) {
+        getStateHelper().put(Properties.topItemDisabledClass, topItemDisabledClass);
     }
 
     /**
@@ -460,12 +468,20 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return (String) getStateHelper().eval(Properties.topGroupClass, getGroupClass());
     }
 
+    public void setTopGroupClass(String topGroupClass) {
+        getStateHelper().put(Properties.topGroupClass, topGroupClass);
+    }
+
     /**
      * Space-separated list of CSS style class(es) to be applied to disabled top-level panel menu groups
      */
     @Attribute
     public String getTopGroupDisabledClass() {
         return (String) getStateHelper().eval(Properties.topGroupDisabledClass, getGroupDisabledClass());
+    }
+
+    public void setTopGroupDisabledClass(String topGroupDisabledClass) {
+        getStateHelper().put(Properties.topGroupDisabledClass, topGroupDisabledClass);
     }
 
     /**
