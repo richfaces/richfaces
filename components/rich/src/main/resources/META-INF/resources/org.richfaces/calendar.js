@@ -1706,21 +1706,23 @@
                     newSelectedDate = null;
                 }
 
-                var newCell = this.__getDayCell(date);
-                
-                if (newSelectedDate.getMonth() == this.currentDate.getMonth() && newSelectedDate.getFullYear() == this.currentDate.getFullYear() && newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
-                    this.selectedDate = newSelectedDate;
-                    this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
-                    this.selectedDateCellId = newCell.attr('id');
-                    this.selectedDateCellColor = this.getCellBackgroundColor(e);
-    
-                    newCell.removeClass("rf-cal-btn");
-                    newCell.removeClass("rf-cal-hov");
-                    newCell.addClass("rf-cal-sel");
-    
-                    this.renderHF();
-                    
-                    return false;
+                if (newSelectedDate) {
+                    var newCell = this.__getDayCell(newSelectedDate);
+
+                    if (newSelectedDate.getMonth() == this.currentDate.getMonth() && newSelectedDate.getFullYear() == this.currentDate.getFullYear() && newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
+                        this.selectedDate = newSelectedDate;
+                        this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
+                        this.selectedDateCellId = newCell.attr('id');
+                        this.selectedDateCellColor = this.getCellBackgroundColor(e);
+
+                        newCell.removeClass("rf-cal-btn");
+                        newCell.removeClass("rf-cal-hov");
+                        newCell.addClass("rf-cal-sel");
+
+                        this.renderHF();
+                        
+                        return false;
+                    }
                 }
                 
                 // fire user event
