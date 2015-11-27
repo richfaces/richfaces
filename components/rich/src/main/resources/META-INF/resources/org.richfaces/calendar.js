@@ -418,7 +418,9 @@
                     calendar.showTimeEditor();
                     return false;
                 case rf.KEYS.RETURN:
-                    calendar.close(true);
+                    if (!calendar.__getDayCell(newDate).hasClass("rf-cal-dis")) {
+                        calendar.close(true);
+                    }
                     return false;
                 case rf.KEYS.ESC:
                     calendar.close(false);
@@ -704,7 +706,9 @@
                 }
                 $super.destroy.call(this);
             },
-
+            __getDayCell: function(date) {
+                return $(rf.getDomElement(this.DATE_ELEMENT_ID + (this.firstDateIndex + date.getDate() - 1)));
+            },
             dateEditorSelectYear: function(value) {
                 if (this.dateEditorYearID) {
                     $(rf.getDomElement(this.dateEditorYearID)).removeClass('rf-cal-edtr-btn-sel');
@@ -1486,6 +1490,8 @@
                                 classNames += " rf-cal-sel";
                             }
                             else if (!this.options.disabled && !this.options.readonly && dataobj.enabled) classNames += ' rf-cal-btn';
+                            
+                            if (!dataobj.enabled) classNames += ' rf-cal-dis';
 
                             // add custom style class
                             if (dataobj.customStyleClass) {
@@ -1700,6 +1706,23 @@
                     newSelectedDate = null;
                 }
 
+                var newCell = this.__getDayCell(date);
+                
+                if (newSelectedDate.getMonth() == this.currentDate.getMonth() && newSelectedDate.getFullYear() == this.currentDate.getFullYear() && newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
+                    this.selectedDate = newSelectedDate;
+                    this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
+                    this.selectedDateCellId = newCell.attr('id');
+                    this.selectedDateCellColor = this.getCellBackgroundColor(e);
+    
+                    newCell.removeClass("rf-cal-btn");
+                    newCell.removeClass("rf-cal-hov");
+                    newCell.addClass("rf-cal-sel");
+    
+                    this.renderHF();
+                    
+                    return false;
+                }
+                
                 // fire user event
                 var flag = true;
                 var isDateChange = false;
@@ -1714,7 +1737,7 @@
                             this.selectedDate = newSelectedDate;
                             if (!oldSelectedDate || (oldSelectedDate - this.selectedDate)) {
                                 // find cell and change style class
-                                var e = $(rf.getDomElement(this.DATE_ELEMENT_ID + (this.firstDateIndex + this.selectedDate.getDate() - 1)));
+                                var e = this.__getDayCell(this.selectedDate);
 
                                 this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
                                 this.selectedDateCellId = e.attr('id');
@@ -1735,6 +1758,22 @@
                             // change currentDate and call this.onUpdate();
                             if (this.changeCurrentDate(newSelectedDate.getFullYear(), newSelectedDate.getMonth(), noUpdate)) {
                                 //this.selectedDate = newSelectedDate;
+                                var newCell = this.__getDayCell(date);
+                                
+                                if (newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
+                                    this.selectedDate = newSelectedDate;
+                                    this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
+                                    this.selectedDateCellId = newCell.attr('id');
+                                    this.selectedDateCellColor = this.getCellBackgroundColor(e);
+
+                                    newCell.removeClass("rf-cal-btn");
+                                    newCell.removeClass("rf-cal-hov");
+                                    newCell.addClass("rf-cal-sel");
+
+                                    this.renderHF();
+                                    
+                                    return false;
+                                }
                             } else {
                                 this.selectedDate = oldSelectedDate;
                                 isDateChange = false;

@@ -220,6 +220,11 @@
     font-weight: '#{a4jSkin.headerWeightFont}';
 }
 
+.rf-cal-sel.rf-cal-dis {
+    background-color: #d0d0d0;
+    color: #909090;
+}
+
 .rf-cal-hov {
     background-color: '#{a4jSkin.calendarSpecBackgroundColor}';
     color: '#{a4jSkin.calendarSpecTextColor}';
