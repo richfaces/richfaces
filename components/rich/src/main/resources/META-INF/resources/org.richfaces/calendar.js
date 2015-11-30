@@ -361,6 +361,9 @@
     var keydownhandler = function(calendar) {
         
         return function (e) {       
+            if (calendar.keydownDisabled) { // waiting for ajax request
+                return;
+            }
             var code;
 
             if (e.keyCode) {
@@ -1285,6 +1288,7 @@
                     this.afterLoad();
                     this.afterLoad = null;
                 }
+                this.keydownDisabled = false;
             },
 
             indexData:function(daysData, isAjaxMode) {
@@ -1760,21 +1764,38 @@
                             // change currentDate and call this.onUpdate();
                             if (this.changeCurrentDate(newSelectedDate.getFullYear(), newSelectedDate.getMonth(), noUpdate)) {
                                 //this.selectedDate = newSelectedDate;
-                                var newCell = this.__getDayCell(date);
-                                
-                                if (newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
-                                    this.selectedDate = newSelectedDate;
-                                    this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
-                                    this.selectedDateCellId = newCell.attr('id');
-                                    this.selectedDateCellColor = this.getCellBackgroundColor(e);
 
-                                    newCell.removeClass("rf-cal-btn");
-                                    newCell.removeClass("rf-cal-hov");
-                                    newCell.addClass("rf-cal-sel");
+                                this.afterLoad = function() {
+                                    var newCell = this.__getDayCell(newSelectedDate);
 
-                                    this.renderHF();
+                                    if (newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
+                                        this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
+                                        this.selectedDateCellId = newCell.attr('id');
+                                        this.selectedDateCellColor = this.getCellBackgroundColor(e);
+
+                                        newCell.removeClass("rf-cal-btn");
+                                        newCell.removeClass("rf-cal-hov");
+                                        newCell.addClass("rf-cal-sel");
+
+                                        this.renderHF();
+                                        
+                                        return false;
+                                    }
                                     
-                                    return false;
+                                    return true;
+                                }
+                                
+                                if (!this.isAjaxMode) {
+                                    var r = this.afterLoad();
+                                    this.afterLoad = null;
+                                    
+                                    if (!r) {
+                                        return false;
+                                    }
+                                } else {
+                                    this.keydownDisabled = true;
+                                    this.selectedDate = oldSelectedDate;
+                                    isDateChange = false;
                                 }
                             } else {
                                 this.selectedDate = oldSelectedDate;
