@@ -175,7 +175,7 @@
         //caution: JSF submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
         var params = {};
         params[this.id + ".ajax"] = "1";
-        rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess});
+        rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess, queueId: _this.options.queueId});
     };
 
     var clearSelection = function () {

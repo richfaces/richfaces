@@ -62,7 +62,7 @@
                     <cdk:object name="mode" type="Object" value="#{component.attributes['mode']}" />
                     <cdk:scriptObject name="options">
                         <cdk:scriptOption name="buttonId" value="#{clientId}Button" />
-                        <cdk:scriptOption attributes="selectedItemClass autofill disabled selectFirst tokens" />
+                        <cdk:scriptOption attributes="selectedItemClass autofill disabled selectFirst tokens queueId" />
                         <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur"
                             wrapper="eventHandler" />
                         <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
