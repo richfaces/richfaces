@@ -27,7 +27,7 @@
                     onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{getInputValue(facesContext, component)}"
                     disabled="#{disabled}" name="#{clientId}Input" type="text"
                     class="rf-au-fnt rf-au-inp #{component.attributes['inputClass']}" autocomplete="off"
-                    cdk:passThrough="tabindex"/>
+                    cdk:passThrough="tabindex title"/>
                 <c:if test="#{component.attributes['showButton']}">
                     <span id="#{clientId}Button" class="rf-au-btn">
                         <span class="rf-au-btn-arrow#{component.attributes['disabled'] ? '-dis' : ''}"></span>
