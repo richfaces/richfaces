@@ -22,16 +22,11 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
-import javax.el.MethodNotFoundException;
 import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -43,17 +38,13 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.ResultDataModel;
-import javax.faces.model.ResultSetDataModel;
-import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.component.AbstractAttachQueue;
 import org.richfaces.component.AbstractAutocomplete;
+import org.richfaces.component.AbstractPlaceholder;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.AutocompleteMode;
 import org.richfaces.component.MetaComponentResolver;
@@ -168,10 +159,23 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         }
     }
 
+    private int getLayoutChildCount(AbstractAutocomplete component) {
+        int count = component.getChildCount();
+
+        for (UIComponent c : component.getChildren()) {
+            // do not switch from default strategy if just attachQueue or placeholder is present
+            if (c instanceof AbstractAttachQueue || c instanceof AbstractPlaceholder) {
+                count -= 1;
+            }
+        }
+
+        return count;
+    }
+
     public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item,
         AutocompleteEncodeStrategy strategy) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
-        if (comboBox.getChildCount() > 0) {
+        if (getLayoutChildCount(comboBox) > 0) {
             strategy.encodeItem(facesContext, comboBox);
         } else {
             if (item != null) {
