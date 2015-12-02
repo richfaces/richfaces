@@ -82,10 +82,7 @@
     var UID_ALT = "rf_fu_uid_alt";
     var FAKE_PATH = "C:\\fakepath\\";
     var ITEM_HTML = '<div class="rf-fu-itm">'
-        + '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st" />'
-        + '<div class="progress progress-striped active">'
-        + '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'
-        + '<span></span></div></div></span>'
+        + '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st" /></span>'
         + '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
 
     var ITEM_STATE = {
@@ -348,14 +345,66 @@
     };
 
     $.extend(Item.prototype, {
+            __createProgressBar: function(item, facet) {
+                
+                var $pb = facet.find(".rf-pb");
+                if ($pb.length) { // custom progressBar
+                    return {
+                        pb: RichFaces.component($pb),
+                        prepare: function() {
+                            item.find(".rf-fu-itm-lft").append($pb.detach());
+                        },
+                        setValue: function(progress) {
+                            var max = parseFloat(this.pb.maxValue), min = parseFloat(this.pb.minValue),
+                                relativeProgress = progress*(max - min)/100 + min;
+                            this.pb.setValue(relativeProgress);
+                        },
+                        cleanUp: function() {
+                            facet.append($pb.detach());
+                        },
+                        show: function() {
+                            $pb.show();
+                        },
+                        hide: function() {
+                            $pb.hide();
+                        }
+                    }
+                }
+                
+                var progressElement = 
+                      '<div class="progress progress-striped active">'
+                    + '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'
+                    + '<span></span></div></div>';
+                
+                return {
+                    prepare: function() {
+                        item.find(".rf-fu-itm-lft").append($(progressElement));
+                        this.element = item.find(".progress-bar");
+                        this.label = this.element.find("span");
+                    },
+                    setValue: function(progress) {
+                        this.label.html( progress + " %" );
+                        this.element.attr("aria-valuenow", progress);
+                        this.element.css("width", progress + "%");
+                    },
+                    cleanUp: function() {
+                    },
+                    show: function() {
+                        this.element.parent().show();
+                    },
+                    hide: function() {
+                        this.element.parent().hide();
+                    }
+                }
+            },
             getJQuery: function() {
                 this.element = $(ITEM_HTML);
                 var leftArea = this.element.children(".rf-fu-itm-lft:first");
                 this.label = leftArea.children(".rf-fu-itm-lbl:first");
                 this.state = this.label.nextAll(".rf-fu-itm-st:first");
-                this.progressBar = leftArea.find(".progress-bar");
-                this.progressBar.parent().hide();
-                this.progressLabel = this.progressBar.find('span');
+                this.progressBarFacet = this.__createProgressBar(this.element, this.fileUpload.hiddenContainer);
+                this.progressBarFacet.prepare();
+                this.progressBarFacet.hide();
                 this.link = leftArea.next().children("a");
                 this.label.html(this.model.name);
                 this.link.html(this.fileUpload["deleteLabel"]);
@@ -370,8 +419,8 @@
 
             startUploading: function() {
                 this.state.css("display", "block");
-                this.progressBar.parent().show();
-                this.progressLabel.html("0 %");
+                this.progressBarFacet.setValue(0);
+                this.progressBarFacet.show();
                 this.link.html("");
                 this.model.state = ITEM_STATE.UPLOADING;
                 this.uid = Math.random();
@@ -420,9 +469,7 @@
                 this.xhr.upload.onprogress = $.proxy(function(e) {
                         if (e.lengthComputable) {
                             var progress = Math.floor((e.loaded / e.total) * 100);
-                            this.progressLabel.html( progress + " %" );
-                            this.progressBar.attr("aria-valuenow", progress);
-                            this.progressBar.css("width", progress + "%");
+                            this.progressBarFacet.setValue(progress);
                         }
                     }, this);
 
@@ -513,7 +560,8 @@
                     this.onerror.call(this.fileUpload, {state: state, error: this.fileUpload[state + "Label"]});
                 }
                 this.state.html(this.fileUpload[state + "Label"]);
-                this.progressBar.parent().hide();
+                this.progressBarFacet.hide();
+                this.progressBarFacet.cleanUp();
                 this.link.html(this.fileUpload["clearLabel"]);
                 this.model.state = state;
                 this.fileUpload.submitedItems.push(this);
