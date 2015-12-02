@@ -22,9 +22,13 @@
 
 package org.richfaces.component;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterators;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -42,13 +46,8 @@ import javax.faces.render.Renderer;
 
 import org.richfaces.renderkit.html.ScriptsRenderer;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 public abstract class UITransient extends UIComponentBase {
     private String id;
@@ -229,7 +228,7 @@ public abstract class UITransient extends UIComponentBase {
 
     @Override
     public Iterator<UIComponent> getFacetsAndChildren() {
-        return Iterators.emptyIterator();
+        return ImmutableSet.<UIComponent>of().iterator();
     }
 
     @Override

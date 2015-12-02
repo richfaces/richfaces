@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -90,7 +91,7 @@ public class TreeNodeImpl implements TreeNode {
 
     public Iterator<Object> getChildrenKeysIterator() {
         if (isLeaf()) {
-            return Iterators.emptyIterator();
+            return ImmutableSet.of().iterator();
         }
 
         return Iterators.unmodifiableIterator(keysList.iterator());

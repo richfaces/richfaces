@@ -27,7 +27,7 @@ import java.util.List;
 
 import org.richfaces.util.SeparatorChar;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 
 /**
@@ -60,7 +60,7 @@ final class IdParser {
 
         @Override
         public String toString() {
-            return Objects.toStringHelper(this).add("image", image).add("function", function).toString();
+            return MoreObjects.toStringHelper(this).add("image", image).add("function", function).toString();
         }
 
         @Override

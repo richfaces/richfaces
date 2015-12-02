@@ -27,8 +27,8 @@ import java.util.Enumeration;
 
 import javax.swing.tree.TreeNode;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Objects.ToStringHelper;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.MoreObjects.ToStringHelper;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
@@ -128,7 +128,7 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
 
     @Override
     public String toString() {
-        ToStringHelper toStringHelper = Objects.toStringHelper(this);
+        ToStringHelper toStringHelper = MoreObjects.toStringHelper(this);
         toStringHelper.add("data", data);
 
         return toStringHelper.toString();

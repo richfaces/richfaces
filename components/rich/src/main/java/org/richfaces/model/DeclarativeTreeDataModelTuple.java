@@ -23,7 +23,7 @@ package org.richfaces.model;
 
 import javax.faces.component.UIComponent;
 
-import com.google.common.base.Objects.ToStringHelper;
+import com.google.common.base.MoreObjects.ToStringHelper;
 
 /**
  * @author Nick Belaevski

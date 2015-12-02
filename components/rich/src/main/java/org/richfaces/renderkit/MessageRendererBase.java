@@ -36,16 +36,17 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractMessage;
 import org.richfaces.component.AbstractMessages;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.RendererUtils;
-import org.richfaces.application.ServiceTracker;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
@@ -72,7 +73,7 @@ public class MessageRendererBase extends RendererBase {
 
                 UIComponent result = RendererUtils.getInstance().findComponentFor(component, forClientId);
                 if (result == null) {
-                    msgIter = Iterators.emptyIterator();
+                    msgIter = ImmutableSet.<MessageForRender>of().iterator();
                 } else {
                     String clientId = result.getClientId(context);
                     msgIter = getMessagesForId(context, clientId);
@@ -81,7 +82,7 @@ public class MessageRendererBase extends RendererBase {
                 msgIter = getMessagesForId(context, null);
             }
         } else {
-            msgIter = Iterators.emptyIterator();
+            msgIter = ImmutableSet.<MessageForRender>of().iterator();
             Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
             while (clientIdsWithMessages.hasNext()) {
                 String clientId = (String) clientIdsWithMessages.next();

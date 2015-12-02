@@ -27,7 +27,7 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
 import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.Iterators;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * @author Nick Belaevski
@@ -35,7 +35,7 @@ import com.google.common.collect.Iterators;
  */
 class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> dataTableChildren;
-    private Iterator<UIComponent> columnChildren = Iterators.emptyIterator();
+    private Iterator<UIComponent> columnChildren = ImmutableSet.<UIComponent>of().iterator();
 
     public DataTableDataChildrenIterator(UIComponent dataTable) {
         super();
@@ -53,13 +53,13 @@ class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
             if (child instanceof UIColumn || child instanceof AbstractColumn) {
                 columnChildren = child.getChildren().iterator();
             } else {
-                columnChildren = Iterators.emptyIterator();
+                columnChildren = ImmutableSet.<UIComponent>of().iterator();
                 return child;
             }
         }
 
-        dataTableChildren = Iterators.emptyIterator();
-        columnChildren = Iterators.emptyIterator();
+        dataTableChildren = ImmutableSet.<UIComponent>of().iterator();
+        columnChildren = ImmutableSet.<UIComponent>of().iterator();
 
         return endOfData();
     }

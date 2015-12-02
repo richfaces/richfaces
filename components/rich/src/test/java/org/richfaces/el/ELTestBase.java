@@ -25,8 +25,7 @@ import org.richfaces.el.model.Bean;
 import org.richfaces.el.model.Person;
 import org.richfaces.validator.GraphValidatorState;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Maps;
+import com.google.common.collect.ImmutableSet;
 
 public class ELTestBase {
     class DummyELResolver extends ELResolver {
@@ -41,7 +40,7 @@ public class ELTestBase {
 
         @Override
         public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-            return Iterators.emptyIterator();
+            return ImmutableSet.<FeatureDescriptor>of().iterator();
         }
 
         @Override

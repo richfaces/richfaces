@@ -37,6 +37,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 
 /**
@@ -144,7 +145,7 @@ public final class SelectUtils {
 
     private static final class SelectItemsIterator extends AbstractIterator<SelectItem> {
         private Iterator<UIComponent> children;
-        private Iterator<SelectItem> items = Iterators.emptyIterator();
+        private Iterator<SelectItem> items = ImmutableSet.<SelectItem>of().iterator();
         private FacesContext context;
 
         public SelectItemsIterator(FacesContext context, Iterator<UIComponent> children) {
@@ -160,7 +161,7 @@ public final class SelectUtils {
 
                     if (!items.hasNext()) {
                         // free iterator
-                        items = Iterators.emptyIterator();
+                        items = ImmutableSet.<SelectItem>of().iterator();
                     }
 
                     return nextItem;
@@ -194,7 +195,7 @@ public final class SelectUtils {
 
         private Iterator<SelectItem> createSelectItemsIterator(UIComponent component, Object value) {
             if (value == null) {
-                return Iterators.emptyIterator();
+                return ImmutableSet.<SelectItem>of().iterator();
             } else if (value instanceof SelectItem) {
                 return Iterators.singletonIterator((SelectItem) value);
             } else if (value instanceof Object[]) {
@@ -219,7 +220,7 @@ public final class SelectUtils {
                 }
             }
 
-            return Iterators.emptyIterator();
+            return ImmutableSet.<SelectItem>of().iterator();
         }
 
         private Iterator<SelectItem> createUISelectItemsIterator(UISelectItems selectItems) {
@@ -235,7 +236,7 @@ public final class SelectUtils {
 
         private Iterator<SelectItem> createIterator(UIComponent child) {
             if (!child.isRendered()) {
-                return Iterators.emptyIterator();
+                return ImmutableSet.<SelectItem>of().iterator();
             }
 
             if (child instanceof UISelectItem) {
@@ -246,7 +247,7 @@ public final class SelectUtils {
                 return createUISelectItemsInterfaceIterator(child);
             }
 
-            return Iterators.emptyIterator();
+            return ImmutableSet.<SelectItem>of().iterator();
         }
     }
 

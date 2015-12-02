@@ -23,8 +23,8 @@ package org.richfaces.demo.input;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Objects.ToStringHelper;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.MoreObjects.ToStringHelper;
 
 /**
  * @author nick
@@ -65,7 +65,7 @@ public class Country {
 
     @Override
     public String toString() {
-        ToStringHelper helper = Objects.toStringHelper(this);
+        ToStringHelper helper = MoreObjects.toStringHelper(this);
 
         helper.add("name", name).add("iso", iso).add("domain", domain);
 

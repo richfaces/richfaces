@@ -23,7 +23,7 @@ package org.richfaces.model;
 
 import java.io.Serializable;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 /**
  * @author Nick Belaevski
@@ -88,6 +88,6 @@ public class DeclarativeModelKey implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("modelId", getModelId()).add("modelKey", getModelKey()).toString();
+        return MoreObjects.toStringHelper(this).add("modelId", getModelId()).add("modelKey", getModelKey()).toString();
     }
 }

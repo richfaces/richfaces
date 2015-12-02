@@ -21,12 +21,14 @@
  */
 package org.richfaces.component;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.Iterators;
+import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
-import java.util.Iterator;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
@@ -39,7 +41,7 @@ public final class ComponentIterators {
     // TODO nick - convert to filter/find functions
     public static Iterator<UIComponent> parents(final UIComponent component) {
         if (component == null) {
-            return Iterators.<UIComponent>emptyIterator();
+            return ImmutableSet.<UIComponent>of().iterator();
         }
 
         return new AbstractIterator<UIComponent>() {
@@ -60,7 +62,7 @@ public final class ComponentIterators {
 
     public static Iterator<UIComponent> parentsAndSelf(final UIComponent component) {
         if (component == null) {
-            return Iterators.<UIComponent>emptyIterator();
+            return ImmutableSet.<UIComponent>of().iterator();
         }
 
         return Iterators.concat(Iterators.singletonIterator(component), parents(component));

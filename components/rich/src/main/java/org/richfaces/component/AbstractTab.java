@@ -45,7 +45,7 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.context.ExtendedRenderVisitContext;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
-import com.google.common.collect.Iterators;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including
@@ -206,7 +206,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
             if (component.getFacetCount() > 0) {
                 kids = component.getFacets().values().iterator();
             } else {
-                kids = Iterators.emptyIterator();
+                kids = ImmutableSet.<UIComponent>of().iterator();
             }
         } else {
             kids =  component.getFacetsAndChildren();
@@ -302,8 +302,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
      */
     public boolean visitTree(VisitContext context, VisitCallback callback) {
-        if (!isVisitable(context))
+        if (!isVisitable(context)) {
             return false;
+        }
 
         FacesContext facesContext = context.getFacesContext();
         pushComponentToEL(facesContext, null);
@@ -311,8 +312,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         try {
             VisitResult result = context.invokeVisitCallback(this, callback);
 
-            if (result == VisitResult.COMPLETE)
+            if (result == VisitResult.COMPLETE) {
                 return true;
+            }
 
             if (result == VisitResult.ACCEPT) {
                 // Do not render the non-active children, but always render the visible header facets.
@@ -321,8 +323,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
                 while(kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);
 
-                    if (done)
+                    if (done) {
                         return true;
+                    }
                 }
             }
         }

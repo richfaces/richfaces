@@ -27,12 +27,12 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
 import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.Iterators;
+import com.google.common.collect.ImmutableSet;
 
 class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> facetsIterator;
     private Iterator<UIComponent> dataTableChildren;
-    private Iterator<UIComponent> columnFacets = Iterators.emptyIterator();
+    private Iterator<UIComponent> columnFacets = ImmutableSet.<UIComponent>of().iterator();
 
     public DataTableFixedChildrenIterator(UIComponent dataTable) {
         super();
@@ -58,8 +58,8 @@ class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
             }
         }
 
-        dataTableChildren = Iterators.emptyIterator();
-        columnFacets = Iterators.emptyIterator();
+        dataTableChildren = ImmutableSet.<UIComponent>of().iterator();
+        columnFacets = ImmutableSet.<UIComponent>of().iterator();
 
         return endOfData();
     }

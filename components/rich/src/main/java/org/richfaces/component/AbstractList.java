@@ -25,7 +25,6 @@ import java.util.Iterator;
 import javax.faces.component.UIComponent;
 
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -39,12 +38,13 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.IterationProps;
 import org.richfaces.component.attribute.RowsProps;
 import org.richfaces.component.attribute.SequenceProps;
+import org.richfaces.taglib.ListHandler;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
-import org.richfaces.taglib.ListHandler;
 
 /**
  * <p>The &lt;rich:list&gt; component renders a list of items. The list can be an numerically ordered list, an
@@ -68,7 +68,7 @@ public abstract class AbstractList extends UISequence implements CoreProps, Even
             return Maps.filterKeys(getFacets(), namePredicate).values().iterator();
         }
 
-        return Iterators.emptyIterator();
+        return ImmutableSet.<UIComponent>of().iterator();
     }
 
     protected Iterator<UIComponent> dataChildren() {
