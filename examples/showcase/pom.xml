@@ -553,41 +553,6 @@
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
-
-                <integration.test.source>src/test/java</integration.test.source>
-                <integration.test.pattern>**/**/IT*.java</integration.test.pattern>
-
-                <!-- Arquillian Configuration -->
-                <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
-                <arquillian.drone.reusable>false</arquillian.drone.reusable>
-                <arquillian.richfaces.version />
-                <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
-                <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
-                <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
-                <arquillian.container.home />
-                <arquillian.container.distribution />
-                <arquillian.container.configuration />
-                <arquillian.container.uninstall>true</arquillian.container.uninstall>
-                <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
-                <arquillian.maven.settings />
-
-                <!-- Container Selection -->
-                <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
-                <arquillian.launch.tomcat6>false</arquillian.launch.tomcat6>
-                <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
-                <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
-                <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
-                <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
-
-                <!-- HTTPS testing -->
-                <firefoxProfileTemplate />
-                <trustStore />
-
-                <!-- JUnit Categories Selection -->
-                <testCategory.excluded.container />
-                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
-                <testCategory.excluded.jsf />
             </properties>
             <dependencies>
                 <dependency>
@@ -600,70 +565,8 @@
                     <artifactId>myfaces-impl</artifactId>
                     <scope>${dependency.scope}</scope>
                 </dependency>
-
-                <dependency>
-                    <groupId>org.richfaces</groupId>
-                    <artifactId>richfaces-build-resources</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.richfaces</groupId>
-                    <artifactId>richfaces-build-resources</artifactId>
-                    <type>zip</type>
-                    <scope>test</scope>
-                    <version>${version.richfaces}</version>
-                    <classifier>configuration-wildfly82-https</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>org.richfaces</groupId>
-                    <artifactId>richfaces-build-resources</artifactId>
-                    <type>zip</type>
-                    <scope>test</scope>
-                    <version>${version.richfaces}</version>
-                    <classifier>configuration-tomcat</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.junit</groupId>
-                    <artifactId>arquillian-junit-container</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.protocol</groupId>
-                    <artifactId>arquillian-protocol-servlet</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.shrinkwrap.resolver</groupId>
-                    <artifactId>shrinkwrap-resolver-depchain</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.shrinkwrap.descriptors</groupId>
-                    <artifactId>shrinkwrap-descriptors-depchain</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.extension</groupId>
-                    <artifactId>arquillian-drone-webdriver-depchain</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.graphene</groupId>
-                    <artifactId>graphene-webdriver</artifactId>
-                    <type>pom</type>
-                    <scope>test</scope>
-                </dependency>
             </dependencies>
             <build>
-                <testResources>
-                    <testResource>
-                        <directory>${project.basedir}/src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
                 <plugins>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
@@ -927,6 +830,139 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>integration-tests</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                </property>
+            </activation>
+            <properties>
+                <integration.test.source>src/test/java</integration.test.source>
+                <integration.test.pattern>**/**/IT*.java</integration.test.pattern>
+
+                <!-- Arquillian Configuration -->
+                <arquillian.debug>false</arquillian.debug>
+                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <arquillian.drone.reusable>false</arquillian.drone.reusable>
+                <arquillian.richfaces.version />
+                <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
+                <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
+                <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
+                <arquillian.container.home />
+                <arquillian.container.distribution />
+                <arquillian.container.configuration />
+                <arquillian.container.uninstall>true</arquillian.container.uninstall>
+                <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
+                <arquillian.maven.settings />
+
+                <!-- Container Selection -->
+                <arquillian.launch.jbosseap6>false</arquillian.launch.jbosseap6>
+                <arquillian.launch.tomcat6>false</arquillian.launch.tomcat6>
+                <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
+                <arquillian.launch.tomcat8>false</arquillian.launch.tomcat8>
+                <arquillian.launch.tomee17>false</arquillian.launch.tomee17>
+                <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
+
+                <!-- HTTPS testing -->
+                <firefoxProfileTemplate />
+                <trustStore />
+
+                <!-- JUnit Categories Selection -->
+                <testCategory.excluded.container />
+                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
+                <testCategory.excluded.jsf />
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-build-resources</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-build-resources</artifactId>
+                    <type>zip</type>
+                    <scope>test</scope>
+                    <version>${version.richfaces}</version>
+                    <classifier>configuration-wildfly82-https</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-build-resources</artifactId>
+                    <type>zip</type>
+                    <scope>test</scope>
+                    <version>${version.richfaces}</version>
+                    <classifier>configuration-tomcat</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.junit</groupId>
+                    <artifactId>arquillian-junit-container</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.protocol</groupId>
+                    <artifactId>arquillian-protocol-servlet</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                    <artifactId>shrinkwrap-resolver-depchain</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+                    <artifactId>shrinkwrap-descriptors-depchain</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-drone-webdriver-depchain</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.graphene</groupId>
+                    <artifactId>graphene-webdriver</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>${project.basedir}/src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
+                <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
@@ -1004,27 +1040,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>jrebel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.zeroturnaround</groupId>
-                        <artifactId>jrebel-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-rebel-xml</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>browser-phantomjs</id>
             <activation>
