@@ -77,7 +77,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <div class="rf-fu-lst" style="height: #{attributes['listHeight']}"/>
             <c:if test="#{!disabled}">
                 <div class="rf-fu-cntr-hdn">
-                    <iframe name="#{clientId}" />
                     <cdk:object name="progressBar" value="#{component.facets['progress']}" />
                     <c:if test="#{progressBar != null and progressBar.isRendered()}">
                         <cdk:call expression="progressBar.encodeAll(facesContext)" />
