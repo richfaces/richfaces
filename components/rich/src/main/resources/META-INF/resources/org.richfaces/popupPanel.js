@@ -47,7 +47,6 @@
 
 
     rf.ui.PopupPanel = function(id, options) {
-
         $super.constructor.call(this, id);
         this.markerId = id;
         this.attachToDom(this.markerId);
@@ -162,6 +161,12 @@
             },
 
             destroy: function() {
+                if (this.domReattached) {
+                    var div = this.div.get(0);
+                    this.shadeDiv.length && div.appendChild(this.shadeDiv.get(0));
+                    div.appendChild(this.cdiv.get(0));
+                }
+
                 this.findForm(this.cdiv).off("ajaxcomplete", this.resizeProxy);
 
                 this._contentElement = null;
