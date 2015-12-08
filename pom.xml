@@ -148,7 +148,7 @@
 
         <!-- Showcase -->
         <!-- default classifier -->
-        <showcase.war.classifier>tomcat6</showcase.war.classifier>
+        <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
         
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->

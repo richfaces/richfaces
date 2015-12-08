@@ -51,17 +51,13 @@ When you see the `BUILD SUCCESSFUL` message you can deploy the
 application on the server. To deploy it on Tomcat, copy the *.war* 
 file from `target` folder to ``TOMCAT_HOME/webapps`` folder. Then, launch the *startup.sh* or *startup.bat* script from ``TOMCAT_HOME/bin/`` directory to start the server.
     
-### Deploying on JBoss AS 7 / EAP 6
+### Deploying on EAP 6 / WildFly 8, 9, 10
     
 To build the project for a JEE6 server you need to navigate to the ``/examples/richfaces-showcase`` and run
     
-for JBoss AS 7.0.x:
+for for EAP 6 / WildFly 8, 9, 10
     
-    mvn clean package -Pjbas7
-    
-or for JBoss AS 7.1.x / EAP 6 / WildFly 8
-    
-    mvn clean package -Pjbas71
+    mvn clean package -Pjee6
     
 When you see the `BUILD SUCCESSFUL` message you can deploy the application on the server.
     
@@ -70,13 +66,9 @@ launch the `standalone.sh` or `standalone.bat` script from ``JBOSS_HOME/bin/`` t
     
 To **deploy** it on the application server, use either:
     
-1. Use the `jboss-as-maven-plugin` to deploy to a running application server:
+1. use the server's management console, which is bound by default at <http://localhost:9990>
 
-    mvn jboss-as:deploy -Pjbas7
-
-2. or use the server's management console, which is bound by default at <http://localhost:9990>
-
-3. or copy the `.war` file from `target` folder to the folder: ``JBOSS_HOME/standalone/deployments``
+2. or copy the `.war` file from `target` folder to the folder: ``JBOSS_HOME/standalone/deployments``
     
 After deploying the examples to your server open a browser and type 
 <http://localhost:8080/showcase> to view the examples. Note that the URL depends on the context on which your application server deployed the showcase application.
@@ -87,17 +79,17 @@ The tests work quite the same as framework test. For more information see [Frame
 
 #### Some examples
 
-For testing on managed WildFly 8.1 on Firefox use:
+For testing on managed WildFly 8.2 on Firefox use:
 
-   ``mvn clean verify -Dintegration=wildfly81 -Dbrowser=firefox``
+   ``mvn clean verify -Dintegration=wildfly82 -Dbrowser=firefox``
 
-For testing on managed Tomcat 7:
+For testing on managed Tomcat 7 using Mojarra:
 
    ``mvn clean verify -Dintegration=tomcat7``
 
-For testing on managed Tomcat 7 on Firefox using MyFaces use:
+For testing on managed Tomcat 8 on Firefox using MyFaces use:
 
-   ``mvn clean verify -Dintegration=tomcat7 -Dbrowser=firefox -Pmyfaces``
+   ``mvn clean verify -Dintegration=tomcat8 -Dbrowser=firefox -Dmyfaces``
 
 
 Setting up Eclipse to work with the showcase
@@ -114,13 +106,13 @@ the examples as maven-based projects.
     
 **You are now able to work with the Showcase within Eclipse.** Note that by using JBoss Developer Studio you can skip installing all of the required plugins and you can import the project right away.
     
-* In order to deploy the Showcase on JBoss AS 7.1.x from Eclipse one needs to:
-    * Select the right maven profile: ``jbas71``
+* In order to deploy the Showcase on WildFly 8.2 from Eclipse one needs to:
+    * Select the right maven profile: ``jee6``
         * Either by pressing hot key `CTRL + ALT + P`, while the showcase project is selected
-        * Or right click on the showcase project in the `project explorer --> Properties --> Maven` and fill in the input: `jbas71`
+        * Or right click on the showcase project in the `project explorer --> Properties --> Maven` and fill in the input: `jee6`
     * Alter the deployment assembly
-        * Right click on the showcase project --> Properties --> Deployment assembly. By default there should be: src/main/java, src/main/resources, src/main/resources-jbas71/, src/main/webapp
-        * One needs to add src/main/webapp-jbas71: hit the add button and select the folder option, find the webapp-jbas71 and add it
+        * Right click on the showcase project --> Properties --> Deployment assembly. By default there should be: src/main/java, src/main/resources, src/main/resources-jee6/, src/main/webapp
+        * One needs to add src/main/webapp-jee6: hit the add button and select the folder option, find the webapp-jee6 and add it
     * Now the showcase can be **deployed**, be sure that you are loading the showcase application on the correct context root and also that there was not added a default `persistence.xml` in ``src/main/resources/META-INF`` (delete it). The URL one should access looks like: <http://localhost:8080/showcase>
     
     

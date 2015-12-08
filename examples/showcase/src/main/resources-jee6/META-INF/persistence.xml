@@ -4,7 +4,7 @@
 
     <persistence-unit name="richfaces-showcase" transaction-type="RESOURCE_LOCAL">
 
-        <non-jta-data-source>java:/DefaultDS</non-jta-data-source>
+        <non-jta-data-source>java:jboss/datasources/showcase</non-jta-data-source>
 
         <class>org.richfaces.demo.arrangeablemodel.Person</class>
 

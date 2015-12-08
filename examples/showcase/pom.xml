@@ -68,13 +68,15 @@
         <container.resources>${project.basedir}/src/main/resources-tomcat</container.resources>
         <container.resources.exclude />
         <container.webapp>${project.basedir}/src/main/webapp-tomcat</container.webapp>
+        
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
-        <mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</mojarra.excluded.libraries>
-        <myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</myfaces.excluded.libraries>
-        <jee6.excluded.libraries>
-            ${mojarra.excluded.libraries},
-            ${myfaces.excluded.libraries},
+
+        <tomcat-mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</tomcat-mojarra.excluded.libraries>
+        <tomcat-myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</tomcat-myfaces.excluded.libraries>
+        <openshift.excluded.libraries>
+            ${tomcat-mojarra.excluded.libraries},
+            ${tomcat-myfaces.excluded.libraries},
             WEB-INF/lib/jboss-jsf-api_2.1_spec*,
             WEB-INF/lib/jsf-impl*,
             WEB-INF/lib/jta*,
@@ -97,9 +99,8 @@
             WEB-INF/lib/jboss-interceptors*,
             WEB-INF/lib/jsr250-api*,
             WEB-INF/lib/weld-servlet*
-        </jee6.excluded.libraries>
-        <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
-        <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
+        </openshift.excluded.libraries>
+        <jee6.excluded.libraries>${openshift.excluded.libraries},WEB-INF/lib/jsr305*</jee6.excluded.libraries>
 
         <testCategory.included.default>NOT category.None</testCategory.included.default>
         <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
@@ -114,6 +115,9 @@
         <!-- JVM values for surefire plugin -->
         <!-- Has a default value for Travis; MUST be set to smaller for 32-bit environment -->
         <surefire.jvm.params>-Xms1024m -Xmx2048m</surefire.jvm.params>
+
+        <!-- Default war classifier -->
+        <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
     </properties>
 
     <prerequisites>
@@ -429,9 +433,6 @@
                     <value>myfaces</value>
                 </property>
             </activation>
-            <properties>
-                <showcase.war.classifier>myfaces</showcase.war.classifier>
-            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
@@ -453,69 +454,29 @@
                 <container.webapp>${project.basedir}/src/main/webapp-jee6</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
-        </profile>
-        <profile>
-            <id>jbas7</id>
-            <properties>
-                <showcase.war.classifier>jbas7</showcase.war.classifier>
-                <container.resources>${project.basedir}/src/main/resources-jbas7</container.resources>
-                <container.webapp>${project.basedir}/src/main/webapp-jbas7</container.webapp>
-                <dependency.scope>provided</dependency.scope>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
                         <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
-                            <classifier>jbas7</classifier>
-                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
+                            <classifier>${showcase.war.classifier}</classifier>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
                             </webappDirectory>
 
-                            <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
-                            <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                            <packagingExcludes>${jee6.excluded.libraries}</packagingExcludes>
+                            <warSourceExcludes>${jee6.excluded.libraries}</warSourceExcludes>
                         </configuration>
                     </plugin>
+                    <!--
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
                         <configuration>
-                            <filename>richfaces-showcase-jbas7.war</filename>
+                            <filename>richfaces-showcase-jee6.war</filename>
                         </configuration>
                     </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>jbas71</id>
-            <properties>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
-                <container.resources>${project.basedir}/src/main/resources-jbas71</container.resources>
-                <container.webapp>${project.basedir}/src/main/webapp-jbas71</container.webapp>
-                <dependency.scope>provided</dependency.scope>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <classifier>jbas71</classifier>
-                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
-                            </webappDirectory>
-
-                            <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
-                            <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>7.1.1.Final</version>
-                        <configuration>
-                            <filename>richfaces-showcase-jbas71.war</filename>
-                        </configuration>
-                    </plugin>
+                    -->
                 </plugins>
             </build>
         </profile>
@@ -523,7 +484,7 @@
             <id>openshift</id>
             <properties>
                 <showcase.war.classifier>openshift</showcase.war.classifier>
-                <container.resources>${project.basedir}/src/main/resources-jbas7</container.resources>
+                <container.resources>${project.basedir}/src/main/resources-openshift</container.resources>
                 <container.webapp>${project.basedir}/src/main/webapp-openshift</container.webapp>
                 <dependency.scope>provided</dependency.scope>
                 <war.outputFileNameMapping>@{artifactId}@.@{extension}@</war.outputFileNameMapping>
@@ -571,14 +532,14 @@
                             <execution>
                                 <id>default-war</id>
                                 <configuration>
-                                    <classifier>tomcat6</classifier>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
+                                    <classifier>tomcat-mojarra</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat-mojarra
                                     </webappDirectory>
                                     <packagingExcludes>
-                                        ${mojarra.excluded.libraries}
+                                        ${tomcat-mojarra.excluded.libraries}
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        ${mojarra.excluded.libraries}
+                                        ${tomcat-mojarra.excluded.libraries}
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
@@ -598,20 +559,20 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>myfaces</id>
+                                <id>tomcat-myfaces</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>war</goal>
                                 </goals>
                                 <configuration>
-                                    <classifier>myfaces</classifier>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-myfaces
+                                    <classifier>tomcat-myfaces</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat-myfaces
                                     </webappDirectory>
                                     <packagingExcludes>
-                                        ${myfaces.excluded.libraries}
+                                        ${tomcat-myfaces.excluded.libraries}
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        ${myfaces.excluded.libraries}
+                                        ${tomcat-myfaces.excluded.libraries}
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
@@ -641,12 +602,8 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
                                     </webappDirectory>
 
-                                    <packagingExcludes>
-                                        ${jee6.excluded.libraries}
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        ${jee6.excluded.libraries}
-                                    </warSourceExcludes>
+                                    <packagingExcludes>${jee6.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jee6.excluded.libraries}</warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>${project.basedir}/src/main/webapp</directory>
@@ -674,84 +631,6 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>jbas7</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>war</goal>
-                                </goals>
-                                <configuration>
-                                    <classifier>jbas7</classifier>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
-                                    </webappDirectory>
-
-                                    <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
-                                    <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
-                                    <webResources>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/webapp</directory>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
-                                            <excludes>
-                                                <exclude>**</exclude>
-                                            </excludes>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/webapp-jbas7</directory>
-                                            <targetPath>/</targetPath>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/resources-jbas7</directory>
-                                            <targetPath>WEB-INF/classes</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/java</directory>
-                                            <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                    </webResources>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>jbas71</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>war</goal>
-                                </goals>
-                                <configuration>
-                                    <classifier>jbas71</classifier>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
-                                    </webappDirectory>
-
-                                    <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
-                                    <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
-                                    <webResources>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/webapp</directory>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/webapp-tomcat</directory>
-                                            <excludes>
-                                                <exclude>**</exclude>
-                                            </excludes>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/webapp-jbas71</directory>
-                                            <targetPath>/</targetPath>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/resources-jbas71</directory>
-                                            <targetPath>WEB-INF/classes</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.basedir}/src/main/java</directory>
-                                            <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                    </webResources>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>openshift</id>
                                 <phase>package</phase>
                                 <goals>
@@ -761,8 +640,8 @@
                                     <classifier>openshift</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-openshift
                                     </webappDirectory>
-                                    <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
-                                    <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                                    <packagingExcludes>${openshift.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${openshift.excluded.libraries}</warSourceExcludes>
                                     <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                                     <webResources>
                                         <resource>
@@ -780,7 +659,7 @@
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>${project.basedir}/src/main/resources-jbas7</directory>
+                                            <directory>${project.basedir}/src/main/resources-openshift</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
@@ -1098,7 +977,7 @@
                 <arquillian.launch.wildfly10>true</arquillian.launch.wildfly10>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly100}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly100}</arquillian.container.distribution>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1117,7 +996,7 @@
                 </property>
             </activation>
             <properties>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1139,7 +1018,7 @@
                 <arquillian.launch.wildfly9>true</arquillian.launch.wildfly9>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly90}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly90}</arquillian.container.distribution>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1158,7 +1037,7 @@
                 </property>
             </activation>
             <properties>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1180,7 +1059,7 @@
                 <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly81}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly81}</arquillian.container.distribution>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1203,7 +1082,7 @@
                 <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1227,7 +1106,7 @@
                 <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly82}</arquillian.container.home>
                 <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly82}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-wildfly82-https:${version.richfaces}</arquillian.container.configuration>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1261,7 +1140,7 @@
                 </property>
             </activation>
             <properties>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1281,7 +1160,7 @@
                 </property>
             </activation>
             <properties>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1305,7 +1184,7 @@
                 <arquillian.container.home>${project.build.directory}/jboss-eap-6.2</arquillian.container.home>
                 <arquillian.container.distribution>file:///path/to/jboss-eap-6.2.4.zip</arquillian.container.distribution>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1332,7 +1211,7 @@
             </activation>
             <properties>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1362,7 +1241,7 @@
                 <arquillian.container.home>${project.build.directory}/jboss-eap-6.3</arquillian.container.home>
                 <arquillian.container.distribution>file:///path/to/jboss-eap-6.3.0.zip</arquillian.container.distribution>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1389,7 +1268,7 @@
             </activation>
             <properties>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
-                <showcase.war.classifier>jbas71</showcase.war.classifier>
+                <showcase.war.classifier>jee6</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1421,7 +1300,7 @@
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
                 <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
-                <showcase.war.classifier>tomcat6</showcase.war.classifier>
+                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1442,7 +1321,7 @@
             <properties>
                 <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <showcase.war.classifier>tomcat6</showcase.war.classifier>
+                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1467,7 +1346,7 @@
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat8}</arquillian.container.home>
                 <arquillian.container.distribution>org.apache.tomcat:tomcat:zip:${version.tomcat8}</arquillian.container.distribution>
                 <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${version.richfaces}</arquillian.container.configuration>
-                <showcase.war.classifier>tomcat6</showcase.war.classifier>
+                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1488,7 +1367,7 @@
             <properties>
                 <arquillian.launch.tomcat8>true</arquillian.launch.tomcat8>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
-                <showcase.war.classifier>tomcat6</showcase.war.classifier>
+                <showcase.war.classifier>tomcat-mojarra</showcase.war.classifier>
             </properties>
             <dependencies>
                 <dependency>
@@ -1497,6 +1376,19 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+        <!-- Activate with any Tomcat container to use MyFaces -->
+        <profile>
+            <id>tomcat-with-myfaces</id>
+            <activation>
+                <property>
+                    <name>myfaces</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <showcase.war.classifier>tomcat-myfaces</showcase.war.classifier>
+            </properties>
         </profile>
     </profiles>
 
