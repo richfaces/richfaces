@@ -360,10 +360,7 @@
     
     var keydownhandler = function(calendar) {
         
-        return function (e) {       
-            if (calendar.keydownDisabled) { // waiting for ajax request
-                return;
-            }
+        return function (e) {
             var code;
 
             if (e.keyCode) {
@@ -376,14 +373,18 @@
                 return true;
             }
 
+            e.preventDefault();
+            
+            if (calendar.keydownDisabled) { // waiting for ajax request
+                return;
+            }
+
             var newDate = new Date(calendar.selectedDate || Date.now());
             
             var addDays = function (days) {
                 newDate.setDate(newDate.getDate() + days);
             };
-            
-            e.preventDefault();
-            
+
             switch (code) {
                 case rf.KEYS.LEFT:
                     addDays(-1);
@@ -1766,9 +1767,10 @@
                                 //this.selectedDate = newSelectedDate;
 
                                 this.afterLoad = function() {
+                                    this.selectedDate = newSelectedDate;
                                     var newCell = this.__getDayCell(newSelectedDate);
 
-                                    if (newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
+                                    
                                         this.clearEffect(this.selectedDateCellId, "rf-cal-sel", (this.options.disabled || this.options.readonly ? null : "rf-cal-btn"));
                                         this.selectedDateCellId = newCell.attr('id');
                                         this.selectedDateCellColor = this.getCellBackgroundColor(e);
@@ -1778,29 +1780,28 @@
                                         newCell.addClass("rf-cal-sel");
 
                                         this.renderHF();
-                                        
-                                        return false;
+
+                                    if (newCell.hasClass('rf-cal-dis')) { // do not apply date, just select
+                                        return;
                                     }
-                                    
-                                    return true;
+
+                                    this.invokeEvent("dateselect", eventData.element, eventData.event, this.selectedDate);
+                                    if (applySelection === true) {
+                                        this.setInputField(this.selectedDate != null ? this.__getSelectedDateString(this.options.datePattern) : "", eventData.event);
+                                    }
                                 }
                                 
                                 if (!this.isAjaxMode) {
-                                    var r = this.afterLoad();
+                                    this.afterLoad();
                                     this.afterLoad = null;
-                                    
-                                    if (!r) {
-                                        return false;
-                                    }
                                 } else {
                                     this.keydownDisabled = true;
                                     this.selectedDate = oldSelectedDate;
-                                    isDateChange = false;
                                 }
                             } else {
                                 this.selectedDate = oldSelectedDate;
-                                isDateChange = false;
                             }
+                            isDateChange = false;
                         }
                     }
                     else {
