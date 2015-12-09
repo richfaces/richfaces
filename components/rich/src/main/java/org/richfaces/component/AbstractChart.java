@@ -44,6 +44,7 @@ import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.model.PlotClickEvent;
 import org.richfaces.model.PlotClickListener;
 import org.richfaces.renderkit.ChartRendererBase;
+import org.richfaces.view.facelets.html.ChartTagHandler;
 
 
 /**
@@ -54,7 +55,7 @@ import org.richfaces.renderkit.ChartRendererBase;
 @JsfComponent(
         type= AbstractChart.COMPONENT_TYPE,
         family = AbstractChart.COMPONENT_FAMILY,
-        tag = @Tag(name="chart",handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets),
+        tag = @Tag(name="chart",handlerClass=ChartTagHandler.class,type = TagType.Facelets),
         facets = @Facet(name = "hooks", description = @Description("A set of JavaScript functions to modify the plotting process.")),
         renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE),
         fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
@@ -104,6 +105,8 @@ public abstract class AbstractChart extends UIComponentBase implements CoreProps
      */
     @Attribute(signature = @Signature(parameters = PlotClickEvent.class))
     public abstract MethodExpression getPlotClickListener();
+
+    public abstract void setPlotClickListener(MethodExpression plotClickListener);
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
