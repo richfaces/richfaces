@@ -45,6 +45,8 @@ input.rf-ii-fld {
     padding-right: 3px;
     display: inline-block;
     position: relative;
+    min-width: 20px;
+    min-height: 1em;
 }
 
 .rf-ii-chng {
