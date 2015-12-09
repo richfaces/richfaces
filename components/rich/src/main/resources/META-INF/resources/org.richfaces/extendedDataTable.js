@@ -132,6 +132,7 @@
                 this.rowCount = rowCount;
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
+                this.options.loadDelay = 400;
                 this.element = this.attachToDom();
                 this.newWidths = {};
                 this.storeDomReferences();
@@ -608,7 +609,7 @@
                     var _this = this;
                     this.timeoutId = window.setTimeout(function (event) {
                         _this.loadData(event)
-                    }, 1000);
+                    }, this.options.loadDelay);
                 }
             },
 
