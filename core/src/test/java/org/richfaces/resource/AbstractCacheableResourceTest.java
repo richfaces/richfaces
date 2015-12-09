@@ -42,6 +42,7 @@ import org.jboss.test.faces.mock.FacesMock;
  * @author Nick Belaevski
  * @since 4.0
  */
+@SuppressWarnings("deprecation")
 public class AbstractCacheableResourceTest extends AbstractFacesTest {
     private static final int MILLISECONDS_IN_HOUR = 60 * 60 * 1000;
     /* HTTP Date format required by the HTTP/1.1 RFC */

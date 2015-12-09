@@ -55,6 +55,7 @@ public class LengthValidatorTest extends ValidatorTestBase {
         return "validateLength";
     }
 
+    @SuppressWarnings("deprecation")
     @Parameters
     public static List<RunParameters[]> parameters() {
         return options(pass(""), pass("aaa"), pass("123"), pass("", MINIMUM, 2), pass("vv", MINIMUM, 2),

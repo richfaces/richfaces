@@ -36,7 +36,6 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.UniqueIdVendor;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
@@ -88,13 +87,13 @@ public abstract class UITransient extends UIComponentBase {
 
     @SuppressWarnings("deprecation")
     @Override
-    public ValueBinding getValueBinding(String name) {
+    public javax.faces.el.ValueBinding getValueBinding(String name) {
         return null;
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void setValueBinding(String name, ValueBinding binding) {
+    public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
         // do nothing
 
     }

@@ -55,6 +55,7 @@ public class DoubleRangeValidatorTest extends ValidatorTestBase {
         return "validateDoubleRange";
     }
 
+    @SuppressWarnings("deprecation")
     @Parameters
     public static List<RunParameters[]> parameters() {
         return options(pass(0L), pass(3L), pass(Double.MAX_VALUE), pass(0.0D, MINIMUM, 2.0D, IGNORE_MESSAGE, true),

@@ -50,7 +50,7 @@ public final class RichFunction {
 
     private static ComponentLocator locator = new ComponentLocator() {
         public UIComponent findComponent(FacesContext context, UIComponent contextComponent, String id) {
-            return RENDERER_UTILS.findComponentFor(context, contextComponent, id);
+            return RENDERER_UTILS.findComponentFor(contextComponent, id);
         }
     };
 

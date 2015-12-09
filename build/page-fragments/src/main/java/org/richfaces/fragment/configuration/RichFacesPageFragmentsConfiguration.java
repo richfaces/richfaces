@@ -39,6 +39,7 @@ public class RichFacesPageFragmentsConfiguration implements DroneConfiguration<R
         this.useJSInteractionStrategy = useJSInteractionStrategy;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public RichFacesPageFragmentsConfiguration configure(ArquillianDescriptor descriptor, Class<? extends Annotation> qualifier) {
         return ConfigurationMapper.fromArquillianDescriptor(descriptor, this, qualifier);

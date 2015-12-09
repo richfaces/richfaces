@@ -64,7 +64,7 @@ public final class Test {
             output.write(bytes[i]);
         }
 
-        FastBufferInputStream input = new FastBufferInputStream(output);
+        FastBufferInputStream input = new FastBufferInputStream(output.getFirstBuffer());
         StringBuffer sb = new StringBuffer();
 
         // use for reading unconvenient array length.
@@ -141,7 +141,7 @@ public final class Test {
             output.write(bytes[i]);
         }
 
-        FastBufferReader input = new FastBufferReader(output);
+        FastBufferReader input = new FastBufferReader(output.getFirstBuffer());
         StringBuffer sb = new StringBuffer();
 
         // use for reading unconvenient array length.
@@ -218,7 +218,7 @@ public final class Test {
         }
 
         FastBufferOutputStream output2 = output.convertToOutputStream("UTF-8");
-        FastBufferInputStream input = new FastBufferInputStream(output2);
+        FastBufferInputStream input = new FastBufferInputStream(output2.getFirstBuffer());
         StringBuffer sb = new StringBuffer();
 
         // use for reading unconvenient array length.
@@ -296,7 +296,7 @@ public final class Test {
         }
 
         FastBufferWriter output2 = output.convertToWriter("UTF-8");
-        FastBufferReader input = new FastBufferReader(output2);
+        FastBufferReader input = new FastBufferReader(output2.getFirstBuffer());
         StringBuffer sb = new StringBuffer();
 
         // use for reading unconvenient array length.

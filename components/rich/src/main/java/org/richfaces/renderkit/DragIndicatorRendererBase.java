@@ -43,7 +43,7 @@ public class DragIndicatorRendererBase extends RendererBase {
     public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
         String indicatorId = dragSource.getDragIndicator();
         if (!"".equals(indicatorId)) {
-            UIComponent indicator = getUtils().findComponentFor(facesContext, dragSource, indicatorId);
+            UIComponent indicator = getUtils().findComponentFor(dragSource, indicatorId);
             if (indicator != null) {
                 indicatorId = indicator.getClientId(facesContext);
             }

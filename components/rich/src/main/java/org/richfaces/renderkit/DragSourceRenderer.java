@@ -79,7 +79,7 @@ public class DragSourceRenderer extends DnDRenderBase {
     public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
         String indicatorId = dragSource.getDragIndicator();
         if (indicatorId != null) {
-            UIComponent indicator = getUtils().findComponentFor(facesContext, dragSource, indicatorId);
+            UIComponent indicator = getUtils().findComponentFor(dragSource, indicatorId);
             if (indicator != null) {
                 indicatorId = indicator.getClientId(facesContext);
             }

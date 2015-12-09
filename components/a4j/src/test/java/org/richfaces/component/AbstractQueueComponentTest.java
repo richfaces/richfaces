@@ -30,15 +30,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.faces.view.facelets.ResourceResolver;
-
 import net.sourceforge.htmlunit.corejs.javascript.FunctionObject;
 import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
 import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
 import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 import net.sourceforge.htmlunit.corejs.javascript.Undefined;
-
 import net.sourceforge.htmlunit.corejs.javascript.UniqueTag;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.jboss.test.faces.ApplicationServer;
@@ -119,8 +117,8 @@ public abstract class AbstractQueueComponentTest {
 
     protected void checkRequestData(RequestData requestData, String data, double startTime, double endTime, boolean aborted) {
         assertEquals("Data check failed for " + requestData, data, requestData.getData());
-        assertEquals("Start time check failed for " + requestData, startTime, requestData.getStartTime());
-        assertEquals("End time check failed for " + requestData, endTime, requestData.getEndTime());
+        assertEquals("Start time check failed for " + requestData, startTime, requestData.getStartTime(), 0.01);
+        assertEquals("End time check failed for " + requestData, endTime, requestData.getEndTime(), 0.01);
         assertEquals("Aborted check failed for " + requestData, aborted, requestData.isAborted());
     }
 
@@ -165,8 +163,9 @@ public abstract class AbstractQueueComponentTest {
         return this.getClass().getPackage().getName().replace('.', '/');
     }
 
-    protected ResourceResolver createResourceResolver() {
-        return new ResourceResolver() {
+    @SuppressWarnings("deprecation") // deprecated in JSF 2.2
+    protected javax.faces.view.facelets.ResourceResolver createResourceResolver() {
+        return new javax.faces.view.facelets.ResourceResolver() {
             public URL resolveUrl(String path) {
                 return Thread.currentThread().getContextClassLoader().getResource(getRootContextPath() + path);
             }

@@ -191,7 +191,7 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
         String forId = toggleControl.getFor();
         if (forId != null && forId.length() > 0) {
 
-            UIComponent subTable = RENDERER_UTILS.findComponentFor(context, toggleControl, forId);
+            UIComponent subTable = RENDERER_UTILS.findComponentFor(toggleControl, forId);
             if (subTable instanceof AbstractCollapsibleSubTable) {
                 return (AbstractCollapsibleSubTable) subTable;
             }

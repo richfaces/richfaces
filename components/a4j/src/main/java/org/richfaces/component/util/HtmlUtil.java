@@ -84,7 +84,7 @@ public final class HtmlUtil {
 
             // make new id selector here using matcher.group(1)
             String unescaped = matcher.group(1).replaceAll("\\\\:", ":");
-            UIComponent target = RENDERER_UTILS.findComponentFor(context, component, unescaped);
+            UIComponent target = RENDERER_UTILS.findComponentFor(component, unescaped);
 
             if (target != null) {
                 matcher.appendReplacement(sb,
