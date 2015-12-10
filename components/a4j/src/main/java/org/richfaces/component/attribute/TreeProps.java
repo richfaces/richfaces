@@ -44,9 +44,9 @@ public interface TreeProps {
     String getNodeClass();
 
     /**
-     * Determines which treeNode should be used for rendering. Should contain EL expressions which uses request-scoped variable with name defied in attribute 'var'.
+     * Determines which treeNode should be used for rendering. Should contain EL expressions which uses request-scoped variable with name defied in attribute 'var'. If not set a default treeNode will be created.
      */
-    @Attribute(description = @Description(value = "Determines which treeNode should be used for rendering. Should contain EL expressions which uses request-scoped variable with name defied in attribute 'var'."))
+    @Attribute(description = @Description(value = "Determines which treeNode should be used for rendering. Should contain EL expressions which uses request-scoped variable with name defied in attribute 'var'. If not set a default treeNode will be created."))
     String getNodeType();
 
     /**
@@ -129,4 +129,10 @@ public interface TreeProps {
      */
     @Attribute(description = @Description(value = "Boolean attribute that defines whether this iteration component will reset saved children's state before rendering. By default state is reset if there are no faces messages with severity error or higher."))
     boolean isKeepSaved();
+
+    /**
+     * When "true" a default treeNode will be created for nodes in the dataModel that do not match any existing treeNode.
+     */
+    @Attribute(defaultValue = "false", description = @Description("When \"true\" a default treeNode will be created for nodes in the dataModel that do not match any existing treeNode."))
+    boolean isUseDefaultNode();
 }

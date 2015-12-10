@@ -79,6 +79,9 @@ public class TreeHandler extends ComponentHandler {
 
         UIComponent defaultTreeNode = c.getFacet(DEFAULT_TREE_NODE_FACET_NAME);
         if (defaultTreeNode == null) {
+            defaultTreeNode = c.getFacet(DEFAULT_TREE_NODE_ID); // backwards compatibility
+        }
+        if (defaultTreeNode == null) {
             String var = ((AbstractTree) c).getVar();
 
             if (Strings.isNullOrEmpty(var)) {

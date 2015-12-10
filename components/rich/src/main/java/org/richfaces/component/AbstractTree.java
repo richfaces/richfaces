@@ -110,7 +110,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
     public static final String SELECTION_META_COMPONENT_ID = "selection";
     public static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
-    public static final String DEFAULT_TREE_NODE_FACET_NAME = DEFAULT_TREE_NODE_ID;
+    public static final String DEFAULT_TREE_NODE_FACET_NAME = "defaultNode";
     private static final String COMPONENT_FOR_MODEL_UNAVAILABLE = "Component is not available for model {0}";
     private static final String CONVERTER_FOR_MODEL_UNAVAILABLE = "Row key converter is not available for model {0}";
 
@@ -266,7 +266,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                     return node;
                 }
             }
-        } else if (Strings.isNullOrEmpty(nodeType)) {
+        } else if (Strings.isNullOrEmpty(nodeType) || isUseDefaultNode()) {
             return (AbstractTreeNode) getFacet(DEFAULT_TREE_NODE_FACET_NAME);
         }
 
