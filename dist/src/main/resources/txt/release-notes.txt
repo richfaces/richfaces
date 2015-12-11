@@ -1,3 +1,37 @@
+4.5.12.Final
+------------
+
+    Bug
+    [RF-10642] - Autocomplete does not have a title attribute
+    [RF-11327] - Inplace Input - typing a space into the input field
+    [RF-14205] - rich:chart does not render sparse datasets
+    [RF-14206] - fileUpload: custom progressBar is not used
+
+    Component Upgrade
+    [RF-14204] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-10935] - Component reference: add section about icons of collapsible panel
+    [RF-14201] - showcase: put integration tests to default tests directory
+    [RF-14207] - VDL-doc: a4j:ajax doesn't specify default for @execute
+
+    Feature Request
+    [RF-10169] - Panel Menu - propagate top{Group,Item}* customization attributes to their regular equivalent
+    [RF-11902] - [rich:autocomplete] attachQueue doesn't work
+    [RF-12643] - Fix deprecations warnings in Java code
+    [RF-12887] - Nodes with types that are not listed in <rich:treeNode> are not rendered
+    [RF-12948] - rich:autocomplete problems with nested rich:placeholder
+    [RF-13139] - popupPanel duplicated if double clicking links for opening popup
+    [RF-13408] - ExtendedDataTable, ajax loading delay of 1000ms
+    [RF-14199] - rich:calendar disabled dates can be selected by using keyboard
+
+    Task
+    [RF-14198] - photoalbum: stabilize TestUserLogging test
+    [RF-14202] - cleanup profiles for integration tests
+
+    Sub-task
+    [RF-14208] - update component reference and add a showcase example for default node
+
 4.5.11.Final
 ------------
 
