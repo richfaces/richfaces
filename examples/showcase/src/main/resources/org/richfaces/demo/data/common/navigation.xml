@@ -393,6 +393,10 @@
                         <id>tree</id>
                         <name>Simple tree from XML</name>
                     </sample>
+                    <sample new="true">
+                        <id>defaultNode</id>
+                        <name>Default treeNode</name>
+                    </sample>
                 </samples>
             </demo>
             <demo excludeReference="true">

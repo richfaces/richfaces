@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .tr-nd, .tr-d {
+            float: left;
+        }
+        
+        .tr-d {
+            margin-left: 40px;
+        }
+        
+        .rf-tr {
+            margin-bottom: 20px;
+        }
+    </h:outputStylesheet>
+    <h:form>
+        <p><b>rich:treeNode</b> components do not have to be created for every node type;
+        by setting <i>useDefaultNode="true"</i> a default treeNode will be used for node types that do not match the provided treeNodes. 
+        The dataModel contains three types of nodes - "country", "company" and "cd", 
+        this example contains a treeNode only for type="country", the left tree doesn't use the default and so the types "company" and "cd" are not rendered.</p>
+
+        <rich:tree id="tree-no-default" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
+            styleClass="tr-nd">
+            <rich:treeNode type="country">
+                #{node.name}
+            </rich:treeNode>
+        </rich:tree>
+        <rich:tree id="tree-default" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
+            useDefaultNode="true" styleClass="tr-d">
+            <rich:treeNode type="country">
+                #{node.name}
+            </rich:treeNode>
+        </rich:tree>
+
+        <p style="clear:both">The appearance of the default node can be changed using <b>f:facet</b> named <i>defaultNode</i>.</p>
+
+        <rich:tree id="tree-facet" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
+            useDefaultNode="true">
+            <rich:treeNode type="country">
+                #{node.name}
+            </rich:treeNode>
+            <f:facet name="defaultNode">
+                <rich:treeNode iconExpanded="/images/tree/disc.gif" iconCollapsed="/images/tree/disc.gif" iconLeaf="/images/tree/song.gif">
+                    #{node.type} / #{node.name}
+                </rich:treeNode>
+            </f:facet>
+        </rich:tree>
+
+        <p>By omitting <i>nodeType</i> the whole tree will be rendered using the default treeNodes (this doesn't require <i>useDefault</i>).</p>
+
+        <rich:tree id="tree" var="node" value="#{treeBean.rootNodes}" toggleType="client" />
+    </h:form>
+</ui:composition>
