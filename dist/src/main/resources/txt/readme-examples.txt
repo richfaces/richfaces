@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                       RichFaces 4.5.12-SNAPSHOT EXAMPLES
+                                       RichFaces 4.5.13-SNAPSHOT EXAMPLES
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
