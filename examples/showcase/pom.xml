@@ -72,11 +72,23 @@
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <tomcat-mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</tomcat-mojarra.excluded.libraries>
-        <tomcat-myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</tomcat-myfaces.excluded.libraries>
+        <mojarra.excluded.libraries>
+            WEB-INF/lib/myfaces*,
+            WEB-INF/lib/commons-codec*,
+            WEB-INF/lib/commons-digester*,
+            WEB-INF/lib/commons-logging*,
+            WEB-INF/lib/commons-beanutils*
+        </mojarra.excluded.libraries>
+        <myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</myfaces.excluded.libraries>
+        <all.excluded.libraries>
+            WEB-INF/lib/geronimo-atinject*
+        </all.excluded.libraries>
+        <tomcat-mojarra.excluded.libraries>${all.excluded.libraries},${mojarra.excluded.libraries}</tomcat-mojarra.excluded.libraries>
+        <tomcat-myfaces.excluded.libraries>${all.excluded.libraries},${myfaces.excluded.libraries}</tomcat-myfaces.excluded.libraries>
         <openshift.excluded.libraries>
-            ${tomcat-mojarra.excluded.libraries},
-            ${tomcat-myfaces.excluded.libraries},
+            ${all.excluded.libraries},
+            ${mojarra.excluded.libraries},
+            ${myfaces.excluded.libraries},
             WEB-INF/lib/jboss-jsf-api_2.1_spec*,
             WEB-INF/lib/jsf-impl*,
             WEB-INF/lib/jta*,
@@ -98,7 +110,8 @@
             WEB-INF/lib/javax.inject*,
             WEB-INF/lib/jboss-interceptors*,
             WEB-INF/lib/jsr250-api*,
-            WEB-INF/lib/weld-servlet*
+            WEB-INF/lib/weld-servlet*,
+            WEB-INF/lib/xml-apis*
         </openshift.excluded.libraries>
         <jee6.excluded.libraries>${openshift.excluded.libraries},WEB-INF/lib/jsr305*</jee6.excluded.libraries>
 
@@ -1377,7 +1390,7 @@
                 </dependency>
             </dependencies>
         </profile>
-        <!-- Activate with any Tomcat container to use MyFaces -->
+        <!-- Activate with any Tomcat container to use MyFaces. Has to be the last profile. -->
         <profile>
             <id>tomcat-with-myfaces</id>
             <activation>
