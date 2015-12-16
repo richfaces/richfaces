@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010-2014, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2015, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -32,16 +32,27 @@ import org.richfaces.showcase.editor.page.ToolbarAndSkinningPage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestToolbarAndSkinning extends AbstractWebDriverTest {
 
     protected final int BASIC_ED_BUTTONS = 6;
-    protected final int FULL_ED_BUTTONS = 60;
     protected final int CUSTOM_ED_BUTTONS = 35;
+    protected final int FULL_ED_BUTTONS = 60;
 
     @Page
     private ToolbarAndSkinningPage page;
+
+    private void clickAndCheckButtonsSize(WebElement button, int size) {
+        if (!isRadionButtonChecked(button)) {
+            guardAjax(button).click();
+        }
+        assertEquals("The number of buttons is incorrect!", size, page.getButtonsOfEditor().size());
+    }
+
+    private boolean isRadionButtonChecked(WebElement radionButton) {
+        String attribute = String.valueOf(radionButton.getAttribute("checked")).trim();
+        return attribute.equals("checked") || attribute.equals("true");
+    }
 
     @Test
     public void testNumberOfButtonsBasicEditor() {
@@ -49,17 +60,12 @@ public class ITestToolbarAndSkinning extends AbstractWebDriverTest {
     }
 
     @Test
-    public void testNumberOfButtonsFullEditor() {
-        clickAndCheckButtonsSize(page.getFullEditorCheckbox(), FULL_ED_BUTTONS);
-    }
-
-    @Test
     public void testNumberOfButtonsCustomEditor() {
         clickAndCheckButtonsSize(page.getCustomEditorCheckbox(), CUSTOM_ED_BUTTONS);
     }
 
-    private void clickAndCheckButtonsSize(WebElement button, int size) {
-        guardAjax(button).click();
-        assertEquals("The number of buttons is incorrect!", size, page.getButtonsOfEditor().size());
+    @Test
+    public void testNumberOfButtonsFullEditor() {
+        clickAndCheckButtonsSize(page.getFullEditorCheckbox(), FULL_ED_BUTTONS);
     }
 }

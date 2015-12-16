@@ -21,6 +21,8 @@
  */
 package org.richfaces.showcase.editor.page;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,9 +30,9 @@ import org.richfaces.fragment.editor.RichFacesEditor;
 
 public class AdvancedConfigurationPage {
 
+    public static final String NEW_PAGE_DE = "Neue Seite";
     public static final String NEW_PAGE_ENG = "New Page";
     public static final String NEW_PAGE_FR = "Nouvelle page";
-    public static final String NEW_PAGE_DE = "Neue Seite";
 
     @FindBy(className = "rf-ed")
     private RichFacesEditor editor;
@@ -51,20 +53,37 @@ public class AdvancedConfigurationPage {
         return editor;
     }
 
-    public WebElement getEnglishRadio() {
-        return englishRadio;
-    }
-
-    public WebElement getFrenchRadio() {
-        return frenchRadio;
-    }
-
-    public WebElement getGermanRadio() {
-        return germanRadio;
-    }
-
     public WebElement getNewPageButton() {
         return newPageButton;
     }
 
+    private boolean isRadionButtonChecked(WebElement radionButton) {
+        String attribute = String.valueOf(radionButton.getAttribute("checked")).trim();
+        return attribute.equals("checked") || attribute.equals("true");
+    }
+
+    public void switchToEditorLanguage(Lang l) {
+        WebElement button;
+        switch (l) {
+            case DE:
+                button = germanRadio;
+                break;
+            case EN:
+                button = englishRadio;
+                break;
+            case FR:
+                button = frenchRadio;
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown language " + l);
+        }
+        if (!isRadionButtonChecked(button)) {
+            guardAjax(button).click();
+        }
+    }
+
+    public static enum Lang {
+
+        EN, FR, DE
+    }
 }

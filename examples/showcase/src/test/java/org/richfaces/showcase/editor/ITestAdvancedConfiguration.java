@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010-2014, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2015, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -21,7 +21,6 @@
  */
 package org.richfaces.showcase.editor;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.graphene.Graphene;
@@ -33,6 +32,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Keyboard;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.editor.page.AdvancedConfigurationPage;
+import org.richfaces.showcase.editor.page.AdvancedConfigurationPage.Lang;
 import org.richfaces.utils.focus.ElementIsFocused;
 
 /**
@@ -53,22 +53,19 @@ public class ITestAdvancedConfiguration extends AbstractWebDriverTest {
 
     @Test
     public void testEnglishLanguage() {
-        guardAjax(page.getEnglishRadio()).click();
-
+        page.switchToEditorLanguage(Lang.EN);
         assertEquals("The language was not changed to english!", AdvancedConfigurationPage.NEW_PAGE_ENG, getNewPageButtonTitle());
     }
 
     @Test
     public void testFrenchLanguage() {
-        guardAjax(page.getFrenchRadio()).click();
-
+        page.switchToEditorLanguage(Lang.FR);
         assertEquals("The language was not changed to french!", AdvancedConfigurationPage.NEW_PAGE_FR, getNewPageButtonTitle());
     }
 
     @Test
     public void testGermanLanguage() {
-        guardAjax(page.getGermanRadio()).click();
-
+        page.switchToEditorLanguage(Lang.DE);
         assertEquals("The language was not changed to german!", AdvancedConfigurationPage.NEW_PAGE_DE, getNewPageButtonTitle());
     }
 
@@ -77,7 +74,7 @@ public class ITestAdvancedConfiguration extends AbstractWebDriverTest {
         // workaround for Selenium bug https://code.google.com/p/selenium/issues/detail?id=7937
         // focus on some input on the page, so the Keyboard will not be focused in URL bar of the browser
         // this will also reload the editor, so the focus on editor will be re-applied
-        Graphene.guardAjax(page.getEnglishRadio()).click();
+        page.switchToEditorLanguage(Lang.EN);
 
         // wait until the focus is applied
         waitForEditorIsFocused();
