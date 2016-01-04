@@ -147,6 +147,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
      * , java.lang.Class)
      */
     @Override
+    @SuppressWarnings("deprecation")
     public FundamentalTestConfiguration configure(ArquillianDescriptor descriptor, Class<? extends Annotation> qualifier) {
         return ConfigurationMapper.fromArquillianDescriptor(descriptor, this, qualifier);
     }
