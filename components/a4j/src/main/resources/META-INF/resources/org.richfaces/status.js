@@ -44,7 +44,11 @@
             if (statusName) {
                 statusContainers = [$(document)];
             } else {
-                statusContainers = [$(source).parents('form'), $(document)];
+                // the element reference will be stale if it was rerendered
+                // we need to find the current element in the DOM
+                var currentSource = document.getElementById(source.id);
+
+                statusContainers = [$(currentSource).parents('form'), $(document)];
             }
 
             for (var containerIdx = 0; containerIdx < statusContainers.length && !statusApplied;
