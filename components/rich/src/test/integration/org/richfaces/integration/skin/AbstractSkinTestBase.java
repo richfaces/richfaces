@@ -23,15 +23,13 @@ package org.richfaces.integration.skin;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpUtils;
-
 import org.openqa.selenium.WebElement;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Maps;
 
 public abstract class AbstractSkinTestBase {
@@ -52,11 +50,12 @@ public abstract class AbstractSkinTestBase {
     }
 
     protected Map<String, String> parseQueryParameters(URL url) {
-        return Maps.transformValues(HttpUtils.parseQueryString(url.getQuery()), new Function<String[], String>() {
-            @Override
-            public String apply(String[] input) {
-                return input[0];
-            }
-        });
+        HashMap<String, String> map = Maps.newHashMap();
+        int indexOfEq;
+        for (String paramString : url.getQuery().split("&")) {
+            indexOfEq = paramString.indexOf('=');
+            map.put(paramString.substring(0, indexOfEq), paramString.substring(indexOfEq + 1));
+        }
+        return map;
     }
 }
