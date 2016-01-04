@@ -167,7 +167,11 @@
                 }
                 else {
                     var item = this.items.eq(0);
-                    return this.__getParentMenuFromItem(item);
+                    if (item.length == 1) {
+                        return this.__getParentMenuFromItem(item);
+                    }
+                    // disabled items are not referenced
+                    return this.__getParentMenuFromItem($(this.element));
                 }
             },
 
