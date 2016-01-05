@@ -619,6 +619,10 @@
                 } else if (this.bodyElement.scrollTop + this.bodyElement.clientHeight
                     < (this.activeIndex + 1) * this.rowHeight + this.spacerElement.offsetHeight) { //DOWN
                     this.bodyElement.scrollTop = Math.min(this.bodyElement.scrollTop + this.rowHeight, this.bodyElement.scrollHeight - this.bodyElement.clientHeight);
+                } else if (this.activeIndex == 0) {
+                    this.bodyElement.scrollTop -= 5; // scroll top item down to force loading
+                } else if (this.activeIndex + 1 == this.rows) {
+                    this.bodyElement.scrollTop += 5; // scroll bottom up
                 }
             },
 
