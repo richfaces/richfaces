@@ -154,7 +154,9 @@ body > header > div img.logo {
     padding:  10px;
 }
 
-
+.vdlPanel {
+    display: none;
+}
 
 /*************************************************
 RichFaces panelMenu styles overwriting
