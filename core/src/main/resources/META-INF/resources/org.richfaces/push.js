@@ -226,7 +226,7 @@
             var messageCallback = $.proxy(this._messageCallback, this);
             var errorCallback = $.proxy(this._errorCallback, this);
 
-            $.atmosphere.subscribe(url, messageCallback, {
+            atmosphere.subscribe(url, messageCallback, {
               transport: this.options.transport,
               fallbackTransport: this.options.fallbackTransport,
               logLevel: this.options.logLevel,
@@ -247,7 +247,7 @@
      * Ends Atmosphere connection
      */
     _disconnect: function() {
-      $.atmosphere.unsubscribe();
+      atmosphere.unsubscribe();
     }
   };
 
