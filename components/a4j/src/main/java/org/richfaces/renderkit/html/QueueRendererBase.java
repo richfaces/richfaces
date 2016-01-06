@@ -89,6 +89,11 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
         }
 
         UIComponent comp = event.getComponent();
+
+        if (!comp.isRendered()) {
+            return;
+        }
+
         String queueName = getQueueName(context, comp);
         QueueRegistry queueRegistry = QueueRegistry.getInstance(context);
 
