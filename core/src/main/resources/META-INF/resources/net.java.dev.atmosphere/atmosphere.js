@@ -38,7 +38,7 @@
 
     "use strict";
 
-    var version = "2.2.13-javascript",
+    var version = "2.3.0-javascript",
         atmosphere = {},
         guid,
         offline = false,
@@ -1548,7 +1548,7 @@
                                 _executeWebSocket(true);
                             }
                         } else {
-                            atmosphere.util.log(_request.logLevel, ["Websocket reconnect maximum try reached " + _request.requestCount]);
+                            atmosphere.util.log(_request.logLevel, ["Websocket reconnect maximum try reached " + _requestCount]);
                             if (_canLog('warn')) {
                                 atmosphere.util.warn("Websocket error, reason: " + message.reason);
                             }
@@ -3372,10 +3372,11 @@
                 return true;
             }
 
-            // Force Android to use CORS as some version like 2.2.3 fail otherwise
+            // Force older Android versions to use CORS as some version like 2.2.3 fail otherwise
             var ua = navigator.userAgent.toLowerCase();
-            var isAndroid = ua.indexOf("android") > -1;
-            if (isAndroid) {
+            var androidVersionMatches = ua.match(/.+android ([0-9]{1,2})/i),
+                majorVersion = parseInt((androidVersionMatches && androidVersionMatches[0]) || -1, 10);
+            if (!isNaN(majorVersion) && majorVersion > -1 && majorVersion < 3) {
                 return true;
             }
             return false;
