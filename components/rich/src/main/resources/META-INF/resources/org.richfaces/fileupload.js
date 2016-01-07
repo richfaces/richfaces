@@ -511,7 +511,8 @@
                     });
 
                     var responseContext = {
-                            source: this.fileUpload.element[0],
+                            source: this.fileUpload.element[0], // MyFaces
+                            sourceid: this.fileUpload.element[0], // Mojarra
                             element: this.fileUpload.element[0],
                             /* hack for MyFaces */
                             _mfInternal: {
