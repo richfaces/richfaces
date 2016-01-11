@@ -24,11 +24,13 @@ package org.richfaces.fragment.editor;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -106,7 +108,20 @@ public class RichFacesEditor implements Editor, AdvancedVisibleComponentIteracti
                     executor.executeScript(String.format("document.body.textContent = document.body.textContent + '%s'", text));
                 }
             } else {
-                switchToEditorActiveArea().sendKeys(text);
+                // following is a workaround to put the typed text to the end of the editor's content (works with Selenium 2.46,
+                // 2.48)
+                WebElement area = switchToEditorActiveArea();
+                boolean hasNoText = area.getText().isEmpty();
+                // focus in editor
+                area.click();
+                if (hasNoText) {
+                    area.sendKeys(text);
+                } else {
+                    // focus on last element (<br>)
+                    area.findElement(ByJQuery.selector("*:last")).click();
+                    // move cursor to the end and append text
+                    area.sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, text);
+                }
             }
         } finally {
             browser.switchTo().defaultContent();
