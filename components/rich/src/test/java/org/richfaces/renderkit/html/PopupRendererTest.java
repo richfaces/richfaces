@@ -86,7 +86,7 @@ public class PopupRendererTest {
         HtmlPage page = environment.getPage("/popupPanelTest.jsf");
         HtmlElement panelWithFacet = page.getHtmlElementById("panel");
         assertNotNull(panelWithFacet);
-        assertEquals("visibility: hidden;", panelWithFacet.getAttribute("style"));
+        assertEquals("display: none;", panelWithFacet.getAttribute("style"));
         HtmlElement panelShade = page.getHtmlElementById("panel_shade");
         assertEquals("rf-pp-shade", panelShade.getAttribute("class"));
         assertNotNull(panelShade);
