@@ -149,7 +149,7 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
 
     /**
      * Expose the values from either the autocompleteList or autocompleteMethod attributes under a request scoped key so that the values may be referred to in an EL expression while rendering this component.
-     * Used only in an auto-completing select component.
+     * When using auto-completing select component this attribute is required.
      */
     @Override
     @Attribute
