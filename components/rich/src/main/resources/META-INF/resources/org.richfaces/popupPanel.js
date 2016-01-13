@@ -349,7 +349,7 @@
                             }
                         })
                     }
-                    this.div.css('display', 'block');
+                    this.div.css('display', 'inline-block');
                     if (this.options.autosized) {
                         this.shadowDiv.css('width', this.cdiv[0].clientWidth);
 

@@ -15,7 +15,7 @@
         <cdk:object name="zindex" value="#{component.attributes['zindex']}" />
 
         <cdk:call expression="checkOptions(facesContext, component)" />
-        <div id="#{clientId}" style="display: none;">
+        <div id="#{clientId}" style="visibility: hidden;">
             <c:if test="#{component.attributes['modal']}">
                 <div id="#{clientId}_shade" onclick="#{component.attributes['onmaskclick']}" ondblclick="#{component.attributes['onmaskdblclick']}"
                     oncontextmenu="#{component.attributes['onmaskcontextmenu']}" onmouseup="#{component.attributes['onmaskmouseup']}"
