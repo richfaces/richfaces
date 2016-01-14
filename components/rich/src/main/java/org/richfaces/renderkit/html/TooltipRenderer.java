@@ -124,8 +124,9 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         writer.startElement(getMarkupElement(tooltip), tooltip);
         writer.writeAttribute(ID_ATTRIBUTE, tooltip.getClientId(context) + ":content", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tt-cnt", null);
-        if (tooltip.getChildCount() == 0) {
-            writer.write(tooltip.getValue().toString());
+        Object value = tooltip.getValue();
+        if (tooltip.getChildCount() == 0 && value != null) {
+            writer.write(value.toString());
         }
     }
 
