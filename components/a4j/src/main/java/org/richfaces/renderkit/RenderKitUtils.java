@@ -50,6 +50,7 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.renderkit.ComponentAttribute.Kind;
+import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
 
 /**
  * @author Nick Belaevski
@@ -505,9 +506,11 @@ public final class RenderKitUtils {
 
         List<ClientBehavior> behaviorsForEvent = behaviors.get(behaviorEvent);
         String behaviorSource = parametersMap.get(BEHAVIOR_SOURCE_ID);
+        String ajaxSource = parametersMap.get(AJAX_COMPONENT_ID_PARAMETER);
         String clientId = component.getClientId(context);
 
-        if (behaviorSource != null && behaviorSource.equals(clientId)) {
+        if (behaviorSource != null && behaviorSource.equals(clientId) ||
+            clientId.equals(ajaxSource)) {
             if (behaviorsForEvent != null && !behaviorsForEvent.isEmpty()) {
                 for (ClientBehavior behavior : behaviorsForEvent) {
                     behavior.decode(context, component);
