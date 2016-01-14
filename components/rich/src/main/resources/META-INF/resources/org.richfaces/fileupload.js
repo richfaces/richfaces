@@ -402,9 +402,6 @@
                 var leftArea = this.element.children(".rf-fu-itm-lft:first");
                 this.label = leftArea.children(".rf-fu-itm-lbl:first");
                 this.state = this.label.nextAll(".rf-fu-itm-st:first");
-                this.progressBarFacet = this.__createProgressBar(this.element, this.fileUpload.hiddenContainer);
-                this.progressBarFacet.prepare();
-                this.progressBarFacet.hide();
                 this.link = leftArea.next().children("a");
                 this.label.html(this.model.name);
                 this.link.html(this.fileUpload["deleteLabel"]);
@@ -418,6 +415,9 @@
             },
 
             startUploading: function() {
+                this.progressBarFacet = this.__createProgressBar(this.element, this.fileUpload.hiddenContainer);
+                this.progressBarFacet.prepare();
+                this.progressBarFacet.hide();
                 this.state.css("display", "block");
                 this.progressBarFacet.setValue(0);
                 this.progressBarFacet.show();
