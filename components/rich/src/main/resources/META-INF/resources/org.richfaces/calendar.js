@@ -938,7 +938,7 @@
 
             createSpinnerTable: function(id) {
                 return '<table cellspacing="0" cellpadding="0" border="0"><tbody><tr>' +
-                    '<td class="rf-cal-sp-inp-ctnr">' +
+                    '<td class="rf-cal-sp-inp-cntr">' +
                     '<input id="' + id + '" name="' + id + '" class="rf-cal-sp-inp" type="text" />' +
                     '</td>' +
                     '<td class="rf-cal-sp-btn">' +
