@@ -143,6 +143,20 @@ public class ClientOnlyScript extends ValidatorScriptBase {
         } else if (!validators.equals(other.validators)) {
             return false;
         }
+        if (onvalid == null) {
+            if (other.onvalid != null) {
+                return false;
+            }
+        } else if (!onvalid.equals(other.onvalid)) {
+            return false;
+        }
+        if (oninvalid == null) {
+            if (other.oninvalid != null) {
+                return false;
+            }
+        } else if (!oninvalid.equals(other.oninvalid)) {
+            return false;
+        }
         return true;
     }
 }
