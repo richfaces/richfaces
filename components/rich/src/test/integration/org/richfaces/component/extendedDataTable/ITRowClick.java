@@ -33,15 +33,12 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.RichDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import category.Failing;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -67,7 +64,6 @@ public class ITRowClick {
     }
 
     @Test
-    @Category(Failing.class)
     // RF-13165
     public void row_click() {
         browser.get(contextPath.toExternalForm());
@@ -82,13 +78,13 @@ public class ITRowClick {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<script type='text/javascript'>");
-        p.body("function rowClicked(event) { ");
-        p.body("  console.log(event) ");
-        p.body("} ");
+        p.body("function rowClicked(event) {");
+        p.body("  console.log(event);");
+        p.body("}");
         p.body("</script>");
         p.body("<h:form id='myForm'>");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.nodes}' var='node' rowKeyVar='rowKey' onrowclick='rowClicked' >");
-        p.body("        <a4j:ajax event='rowclick' render='myForm output' listener='#{iterationBean.setNodeId(5)}' />");
+        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.nodes}' var='node' rowKeyVar='rowKey' onrowclick='rowClicked(event)' >");
+        p.body("        <a4j:ajax event='rowclick' render='myForm' listener='#{iterationBean.setNodeId(5)}' />");
         p.body("        <rich:column id='column1' width='150px' >");
         p.body("            <f:facet name='header'>Column 1</f:facet>");
         p.body("            Node: ");
