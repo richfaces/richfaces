@@ -20,7 +20,7 @@
         <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
         <cdk:object name="menuGroups" value="#{getMenuGroups(facesContext, component)}" />
 
-        <div id="#{clientId}" class="rf-ddm-lbl #{isDisabled ? 'rf-ddm-dis' : 'rf-ddm-unsel '+styleClass} " style="#{style}"
+        <div id="#{clientId}" class="rf-ddm-lbl #{(isDisabled ? 'rf-ddm-dis ' : 'rf-ddm-unsel ') + styleClass} " style="#{style}"
             cdk:passThroughWithExclusions="">
             <div id="#{clientId}_label" class="#{isDisabled ? 'rf-ddm-lbl-dis' : 'rf-ddm-lbl-dec'}">
 

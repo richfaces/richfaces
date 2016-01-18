@@ -27,7 +27,7 @@
         <cdk:object name="iconFacet" value="#{getIconFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
         <cdk:object name="iconAttribute" value="#{getIconAttribute(facesContext, component)}" type="java.lang.String" />
 
-        <div id="#{clientId}" class="rf-#{cssRoot}-itm #{isDisabled ? 'rf-' +cssRoot+ '-itm-dis '+disabledClass : 'rf-' +cssRoot+ '-itm-unsel '+styleClass}"
+        <div id="#{clientId}" class="rf-#{cssRoot}-itm #{(isDisabled ? 'rf-' +cssRoot+ '-itm-dis '+disabledClass+' ' : 'rf-' +cssRoot+ '-itm-unsel ') + styleClass}"
             style="#{style}" cdk:passThroughWithExclusions="">
             <span class="rf-#{cssRoot}-itm-ic #{iconClass}">
                 <c:choose>
