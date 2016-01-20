@@ -211,6 +211,12 @@
 
             __showHandler : function(e) {
                 if (!this.__isShown()) {
+                    // prevent menu from hiding in case __leaveHandler was triggered
+                    // (happens when showEvent is preceded by a click, e.g. "dblclick")
+                    if (this.hideTimeoutId) {
+                        window.clearTimeout(this.hideTimeoutId);
+                        this.hideTimeoutId = null;
+                    }
                     this.showTimeoutId = window.setTimeout($.proxy(function() {
                         this.show(e);
                     }, this), this.options.showDelay);
@@ -219,9 +225,11 @@
             },
 
             __leaveHandler : function() {
-                this.hideTimeoutId = window.setTimeout($.proxy(function() {
-                    this.hide();
-                }, this), this.options.hideDelay);
+                if (!this.hideTimeoutId) {
+                    this.hideTimeoutId = window.setTimeout($.proxy(function() {
+                        this.hide();
+                    }, this), this.options.hideDelay);
+                }
             },
 
             __overHandler : function() {
