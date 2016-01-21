@@ -28,7 +28,7 @@
                 <c:choose>
                     <c:when test="#{!component.attributes['popup']}">
                         <input id="#{clientId}InputDate" autocomplete="off" style="display:none" name="#{clientId}InputDate"
-                            value="#{this:getInputValue(facesContext,component)}" type="hidden" />
+                            value="#{this:getInputValue(facesContext,component)}" type="hidden" cdk:passThrough="title" />
                     </c:when>
                     <c:otherwise>
                         <input id="#{clientId}InputDate" name="#{clientId}InputDate" value="#{this:getInputValue(facesContext,component)}"
@@ -36,7 +36,8 @@
                             accesskey="#{component.attributes['accesskey']}" maxlength="#{component.attributes['maxlength']}"
                             size="#{component.attributes['inputSize']}" style="vertical-align: middle; #{component.attributes['inputStyle']}"
                             class="rf-cal-inp #{component.attributes['inputClass']}" tabindex="#{component.attributes['tabindex']}"
-                            readonly="#{(!component.attributes['enableManualInput'] || component.attributes['readonly']) ? 'readonly' : ''}">
+                            readonly="#{(!component.attributes['enableManualInput'] || component.attributes['readonly']) ? 'readonly' : ''}"
+                            cdk:passThrough="title">
                             <cdk:call expression="renderInputHandlers(facesContext, component);" />
                         </input>
                         <c:choose>

@@ -638,6 +638,11 @@
 
         var div = rf.getDomElement(this.CALENDAR_CONTENT);
         div = $(div).replaceWith(htmlTextHeader + htmlHeaderOptional + htmlControlsHeader + htmlTextWeekDayBar.join('') + htmlTextWeek.join('') + htmlControlsFooter + htmlFooterOptional + htmlTextFooter);
+
+        if (!this.options.popup) {
+            rf.getDomElement(this.CALENDAR_CONTENT).title = document.getElementById(this.INPUT_DATE_ID).title;
+        }
+
         this.attachToDom(); // TODO: optimize double $
 
         // memory leaks fix // from old 3.3.x code, may be not needed now

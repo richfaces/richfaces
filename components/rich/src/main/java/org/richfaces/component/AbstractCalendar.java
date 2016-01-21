@@ -50,6 +50,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsPopupsProps;
 import org.richfaces.component.attribute.PopupsProps;
 import org.richfaces.component.attribute.PositionProps;
@@ -77,7 +78,7 @@ import org.richfaces.view.facelets.CalendarHandler;
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"),
         tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
-public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, EventsPopupsProps, PopupsProps, PositionProps, StyleClassProps, StyleProps {
+public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, CoreProps, EventsPopupsProps, PopupsProps, PositionProps, StyleClassProps, StyleProps {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
     public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
