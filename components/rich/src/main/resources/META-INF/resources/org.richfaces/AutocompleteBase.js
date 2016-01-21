@@ -32,7 +32,6 @@
 
         if (this.options.buttonId) {
             inputEventHandlers["mousedown" + this.namespace] = onButtonShow;
-            inputEventHandlers["mouseup" + this.namespace] = onSelectMouseUp;
             rf.Event.bindById(this.options.buttonId, inputEventHandlers, this);
         }
 
@@ -47,28 +46,16 @@
             }
         };
         rf.Event.bindById(this.fieldId, inputEventHandlers, this);
-
-        inputEventHandlers = {};
-        inputEventHandlers["mousedown" + this.namespace] = onSelectMouseDown;
-        inputEventHandlers["mouseup" + this.namespace] = onSelectMouseUp;
-        rf.Event.bindById(this.selectId, inputEventHandlers, this);
-    };
-
-    var onSelectMouseDown = function () {
-        this.isMouseDown = true;
-    };
-    var onSelectMouseUp = function () {
-        rf.getDomElement(this.fieldId).focus();
     };
 
     var onButtonShow = function (event) {
-        this.isMouseDown = true;
         if (this.timeoutId) {
             window.clearTimeout(this.timeoutId);
             this.timeoutId = null;
         }
 
-        rf.getDomElement(this.fieldId).focus();
+        var fieldId = this.fieldId;
+        window.setTimeout(function(){rf.getDomElement(fieldId).focus()}, 0);
         if (this.isVisible) {
             this.__hide(event);
         } else {
@@ -85,24 +72,19 @@
     };
 
     var onBlur = function (event) {
-        if (this.isMouseDown) {
-            rf.getDomElement(this.fieldId).focus();
-            this.isMouseDown = false;
-        } else if (!this.isMouseDown) {
-            if (this.isVisible) {
-                var _this = this;
-                this.timeoutId = window.setTimeout(function() {
-                    if (_this.isVisible) {
-                        _this.__hide(event);
-                    }
-                }, 200);
-            }
-            if (this.focused) {
-                this.focused = false;
-                this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
-                if (this.__focusValue != this.getValue()) {
-                    this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
+        if (this.isVisible) {
+            var _this = this;
+            this.timeoutId = window.setTimeout(function() {
+                if (_this.isVisible) {
+                    _this.__hide(event);
                 }
+            }, 200);
+        }
+        if (this.focused) {
+            this.focused = false;
+            this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
+            if (this.__focusValue != this.getValue()) {
+                this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
             }
         }
     };
