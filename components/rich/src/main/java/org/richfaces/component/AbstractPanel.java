@@ -40,7 +40,7 @@ public abstract class AbstractPanel extends UIComponentBase implements CoreProps
     public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     * Provides the text on the panel header.
      */
     @Attribute
     public abstract String getHeader();
@@ -52,7 +52,7 @@ public abstract class AbstractPanel extends UIComponentBase implements CoreProps
     public abstract String getHeaderClass();
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     * Space-separated list of CSS style class(es) to be applied to the panel body.
      */
     @Attribute
     public abstract String getBodyClass();
