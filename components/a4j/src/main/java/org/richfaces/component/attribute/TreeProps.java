@@ -131,8 +131,8 @@ public interface TreeProps {
     boolean isKeepSaved();
 
     /**
-     * When "true" a default treeNode will be created for nodes in the dataModel that do not match any existing treeNode.
+     * When "true" a default treeNode will be created for nodes in the dataModel that do not match any existing treeNode. Default value - "false".
      */
-    @Attribute(defaultValue = "false", description = @Description("When \"true\" a default treeNode will be created for nodes in the dataModel that do not match any existing treeNode."))
+    @Attribute(defaultValue = "false", description = @Description("When \"true\" a default treeNode will be created for nodes in the dataModel that do not match any existing treeNode. Default value - \"false\"."))
     boolean isUseDefaultNode();
 }
