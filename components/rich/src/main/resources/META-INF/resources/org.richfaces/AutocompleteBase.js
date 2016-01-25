@@ -46,9 +46,18 @@
             }
         };
         rf.Event.bindById(this.fieldId, inputEventHandlers, this);
+
+        inputEventHandlers = {};
+        inputEventHandlers["mousedown" + this.namespace] = onSelectMouseDown;
+        rf.Event.bindById(this.selectId, inputEventHandlers, this);
+    };
+
+    var onSelectMouseDown = function () {
+        this.isMouseDown = true;
     };
 
     var onButtonShow = function (event) {
+        this.isMouseDown = true;
         if (this.timeoutId) {
             window.clearTimeout(this.timeoutId);
             this.timeoutId = null;
@@ -72,19 +81,24 @@
     };
 
     var onBlur = function (event) {
-        if (this.isVisible) {
-            var _this = this;
-            this.timeoutId = window.setTimeout(function() {
-                if (_this.isVisible) {
-                    _this.__hide(event);
+        if (this.isMouseDown) {
+            rf.getDomElement(this.fieldId).focus();
+            this.isMouseDown = false;
+        } else if (!this.isMouseDown) {
+            if (this.isVisible) {
+                var _this = this;
+                this.timeoutId = window.setTimeout(function() {
+                    if (_this.isVisible) {
+                        _this.__hide(event);
+                    }
+                }, 200);
+            }
+            if (this.focused) {
+                this.focused = false;
+                this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
+                if (this.__focusValue != this.getValue()) {
+                    this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
                 }
-            }, 200);
-        }
-        if (this.focused) {
-            this.focused = false;
-            this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
-            if (this.__focusValue != this.getValue()) {
-                this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
             }
         }
     };
