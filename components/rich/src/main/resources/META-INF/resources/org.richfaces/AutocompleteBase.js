@@ -32,6 +32,7 @@
 
         if (this.options.buttonId) {
             inputEventHandlers["mousedown" + this.namespace] = onButtonShow;
+            inputEventHandlers["mouseup" + this.namespace] = onMouseUp;
             rf.Event.bindById(this.options.buttonId, inputEventHandlers, this);
         }
 
@@ -56,20 +57,26 @@
         this.isMouseDown = true;
     };
 
+    var onMouseUp = function () {
+        this.isMouseDown = false;
+    };
+
     var onButtonShow = function (event) {
-        this.isMouseDown = true;
+        if (this.focused) {
+            this.isMouseDown = true;
+        }
         if (this.timeoutId) {
             window.clearTimeout(this.timeoutId);
             this.timeoutId = null;
         }
 
-        var fieldId = this.fieldId;
-        window.setTimeout(function(){rf.getDomElement(fieldId).focus()}, 0);
         if (this.isVisible) {
             this.__hide(event);
         } else {
             onShow.call(this, event);
         }
+        var fieldId = this.fieldId;
+        window.setTimeout(function() {rf.getDomElement(fieldId).focus()}, 0);
     };
 
     var onFocus = function (event) {
@@ -224,7 +231,7 @@
             this.__onHide(event);
         }
     };
-    
+
     var conceal = function () {
         if (this.isVisible) {
             if (this.scrollElements) {
