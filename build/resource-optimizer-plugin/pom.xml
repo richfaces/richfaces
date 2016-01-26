@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.5.13-SNAPSHOT</version>
+        <version>4.5.13.Final</version>
         <relativePath>../../</relativePath>
     </parent>
 
