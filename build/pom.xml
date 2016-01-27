@@ -27,7 +27,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.13-SNAPSHOT</version>
+    <version>4.5.14-SNAPSHOT</version>
     <name>RichFaces Build Version Management</name>
 
     <description>
@@ -59,7 +59,7 @@
 
     <properties>
         <!-- Base Dependencies Versions -->
-        <version.richfaces>4.5.13-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.14-SNAPSHOT</version.richfaces>
         <version.cdk>4.5.1-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
@@ -179,18 +179,18 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
-                <version>4.5.13-SNAPSHOT</version>
+                <version>4.5.14-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-push-depchain</artifactId>
-                <version>4.5.13-SNAPSHOT</version>
+                <version>4.5.14-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-push-native-depchain</artifactId>
-                <version>4.5.13-SNAPSHOT</version>
+                <version>4.5.14-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
             <dependency>

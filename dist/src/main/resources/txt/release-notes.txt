@@ -1,3 +1,42 @@
+4.5.13.Final
+------------
+
+    Bug
+    [RF-10813] - Calendar: css class doesn't follow naming conventions
+    [RF-11635] - rich:calendar missing attribute title
+    [RF-11915] - MenuGroup with all items disabled or no items causes JS error
+    [RF-11941] - mobile showcase - a4j:queue - Warning generated on server side
+    [RF-12092] - a4j:poll : a4j:status never clears
+    [RF-12337] - rich:popupPanel impacts layout even if not shown
+    [RF-12527] - Drag indicator is not visible when popup panel is open
+    [RF-12653] - rich:autocomplete needs two clicks to hide popup
+    [RF-12661] - rich:tooltip causes NPE with null value
+    [RF-13127] - onvalid and oninvalide pass wrong element when using rich:element with String field
+    [RF-13165] - The rowclick event of the rich:dataTable is not recognized as a valid server-side event during an ajax postback
+    [RF-13167] - disabled contextMenu/dropDownMenu/menuGroup/menuItem is missing styleClass
+    [RF-13441] - contextMenu - when showEvent is dblclick then context menu disappear after invoking
+    [RF-14200] - mobile showcase: links to VDL doc and Component reference
+    [RF-14213] - fileUpload: custom progressBar is used only for the first item when uploading multiple items
+    [RF-14215] - extendedDataTable: keyboard navigation fails when using lower values of @clientRows
+    [RF-14218] - fileupload: error in browser console during upload
+
+    Component Upgrade
+    [RF-14217] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-11705] - showcase, rich:popupPanel - low contrast of close button
+    [RF-14219] - page-fragments: editor: 'type' method: append the text to the end of the content with Selenium 2.48
+    [RF-14221] - Incorrect description of "header" attribute in rich:panel tag doc (http://docs.jboss.org/richfaces/latest_4_5_X/vdldoc/)
+
+    Task
+    [RF-14024] - rich:select - clarify usage of autoComplete
+    [RF-14203] - showcase: cleanup release profile
+    [RF-14211] - component reference: tree: add images for default node examples
+    [RF-14212] - vdl-doc: tree: add default value of @useDefaultNode
+    [RF-14214] - showcase: stabilize integration tests with tomcat+myfaces
+    [RF-14220] - component reference: select: add sample and more informations about using select in auto-completing mode
+    [RF-14223] - showcase: stabilize integration tests
+
 4.5.12.Final
 ------------
 
