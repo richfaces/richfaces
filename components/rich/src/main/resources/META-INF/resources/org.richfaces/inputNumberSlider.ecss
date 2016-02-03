@@ -74,7 +74,9 @@ input.rf-insl-inp {
     position: absolute;
     display: none;
     padding: 2px;
-    border: 1px solid '#{a4jSkin.tipBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{a4jSkin.tipBorderColor}';
     background-color: '#{a4jSkin.tipBackgroundColor}';
 }
 
