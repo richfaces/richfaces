@@ -75,6 +75,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
         @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.mousewheel.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js"),
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
@@ -767,6 +768,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
         addToScriptHash(options, "selectionMode", attributes.get("selectionMode"), SelectionMode.multiple);
+        addToScriptHash(options, "showColumnControl", attributes.get("showColumnControl"), false);
         addToScriptHash(options, "onbeforeselectionchange",
             RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")),
             null, ScriptHashVariableWrapper.eventHandler);

@@ -460,6 +460,9 @@
                     this.hideOffscreen(this.element);
                 }
                 this.activateResizeListener();
+                if (this.options['showColumnControl']) {
+                    this.__addColumnControl();
+                }
                 $(this.element).trigger("rich:ready", this);
             },
 
@@ -904,6 +907,88 @@
                 if (! this.ranges.contains(index) ) {
                     this.selectionClickListener(event);
                 }
+            },
+
+            __addColumnControl: function () {
+                var button = $('<div class="rf-edt-colctrl-btn" />'),
+                    controlId = this.id + ":colctrl",
+                    controlPopup = $('<div id="' + controlId + '" class="rf-edt-colctrl" />');
+
+                var tableHeader = $(this.element).find(".rf-edt-tbl-hdr");
+
+                tableHeader.append(button);
+                $(this.element).append(controlPopup);
+
+                var popupOptions = {
+                    jointPoint: "RT",
+                    positionOffset: [8,8],
+                    visible: true,
+                    type: "DROPDOWN"
+                };
+
+                this.columnControl = new RichFaces.ui.Popup(controlId, popupOptions);
+                this.columnControl.hide();
+                button.click($.proxy(function(event) {
+                    this.columnControl.visible ? this.columnControl.hide() : this.columnControl.show(event);
+                }, this));
+
+                var columns = $(),
+                    selectors = [],
+                    column = columns.eq(0),
+                    columnNames = this.__getColumnNames(),
+                    columnName = columnNames[0],
+                    patterns = {
+                        tdClass: /rf-edt-td-\w+/,
+                        cellClass: /rf-edt-c-\w+/,
+                        id: /[^:]+$/
+                    },
+                    currSelector;
+
+                this.tbodies.each(function() {
+                    columns = columns.add($(this).children(':eq(0)').children())}
+                );
+
+                for (var i = 0; i < columns.length; i++) {
+                    column = columns.eq(i);
+                    currSelector = column.attr('class');
+                    if (currSelector && currSelector.match(patterns.tdClass)) {
+                        currSelector = '.' + currSelector.match(patterns.tdClass)[0];
+                    } else {
+                        currSelector = 'td:has(> .' + column.children(':eq(0)').attr('class').match(patterns.cellClass)[0] + ')';
+                    }
+                    selectors.push({
+                        selector: currSelector,
+                        name: columnNames[i] || "#" + column.attr('id').match(patterns.id)[0]
+                    });
+                }
+
+                var inputPart1 = "<label><input type=\"checkbox\" checked=\"checked\" onchange=\"$('",
+                    inputPart2 = "').toggle(); RichFaces.component('" + this.id + "').updateLayout(); return false;\" onclick=\"event.stopPropagation();\">",
+                    inputPart3 = "</label><br/>";
+                
+                var $input;
+                selectors.forEach(function(item) {
+                    $input = $(inputPart1 + item.selector + inputPart2 + item.name + inputPart3);
+                    controlPopup.append($input);
+                });
+            },
+
+            __getColumnNames: function () {
+                var names = [];
+
+                this.headerCells.each(function() {
+                    names.push(this.children[0].textContent);
+                });
+
+                if (names.length) {
+                    return names;
+                }
+
+                this.footerCells.each(function() {
+                    names.push(this.children[0].textContent);
+                });
+
+                return names;
             }
         });
 

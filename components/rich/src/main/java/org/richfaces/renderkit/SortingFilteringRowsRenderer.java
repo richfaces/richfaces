@@ -187,9 +187,9 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
             UIComponent column = columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, column);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%1$s-flt-c %1$s-c-%2$s", cssPrefix, column.getId()), null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%1$s-flt-c %1$s-td-%2$s", cssPrefix, column.getId()), null);
                 writer.startElement(HtmlConstants.DIV_ELEM, column);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%s-flt-cnt", cssPrefix), null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, String.format("%1$s-flt-cnt %1$s-c-%2$s", cssPrefix, column.getId()), null);
                 if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterType"))) {
                     writer.startElement(HtmlConstants.INPUT_ELEM, column);
                     writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
