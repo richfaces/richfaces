@@ -129,8 +129,13 @@ public class AjaxOutputPanelRenderer extends RendererBase {
     private void markNoTransient(UIComponent component) {
         for (Iterator<UIComponent> iter = component.getFacetsAndChildren(); iter.hasNext();) {
             UIComponent element = iter.next();
-            markNoTransient(element);
-            element.setTransient(false);
+            // RF-12295: UIInstructions can be set to non-transient in Mojarra which causes an exception on postback
+            // because non-transient components require a zero-parameter to be restored with;
+            // (no issue in MyFaces as UIInstructions.setTransient() is an empty method)
+            if (!"com.sun.faces.facelets.compiler.UIInstructions".equals(element.getClass().getName())) {
+                markNoTransient(element);
+                element.setTransient(false);
+            }
         }
     }
 }
