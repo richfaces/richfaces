@@ -144,6 +144,12 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     @Attribute
     public abstract String getWidth();
 
+    /**
+     * Allows customizing column name in column visibility control in rich:extendedDataTable (showColumnControl)
+     */
+    @Attribute
+    public abstract String getName();
+
     public FilterField getFilterField() {
         FilterField field = null;
         Filter<?> filter = getFilter();

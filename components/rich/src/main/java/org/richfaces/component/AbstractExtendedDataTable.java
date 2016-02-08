@@ -121,7 +121,8 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
 
     /**
      * If "true" a menu for controlling column visibility will be added to the table.
-     * Requires the table to have a header. Default value - "false".
+     * Requires the table to have a header. The column names can be customized with name attribute on rich:column.
+     * Default value - "false".
      */
     @Attribute(defaultValue = "false")
     public abstract boolean isShowColumnControl();
