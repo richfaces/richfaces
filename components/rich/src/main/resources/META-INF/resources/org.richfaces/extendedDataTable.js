@@ -118,6 +118,7 @@
     };
 
     var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
+    var DATA_ATTRIBUTE = "rf-column-name";
     var MIN_WIDTH = 20;
 
     rf.ui = rf.ui || {};
@@ -958,7 +959,7 @@
                     }
                     selectors.push({
                         selector: currSelector,
-                        name: columnNames[i] || "#" + column.attr('id').match(patterns.id)[0]
+                        name: column.data(DATA_ATTRIBUTE) || columnNames[i] || "#" + column.attr('id').match(patterns.id)[0]
                     });
                 }
 

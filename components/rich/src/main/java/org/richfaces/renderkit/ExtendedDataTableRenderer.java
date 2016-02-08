@@ -80,6 +80,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
+    private static final String DATA_ATTRIBUTE = "data-rf-column-name";
 
     protected static enum PartName {
 
@@ -900,6 +901,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getContainerClientId(facesContext), null);
+                if (column instanceof AbstractColumn) {
+                    writer.writeAttribute(DATA_ATTRIBUTE, ((AbstractColumn) column).getName(), null);
+                }
                 String columnClass = "";
                 if (columnNumber != lastColumnNumber) {
                     columnClass = "rf-edt-td-" + column.getId();
