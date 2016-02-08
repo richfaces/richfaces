@@ -39,18 +39,18 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxActivatorProps;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.model.SelectionMode;
-import org.richfaces.taglib.ExtendedDataTableHandler;
 import org.richfaces.component.attribute.EventsRowProps;
 import org.richfaces.component.attribute.IterationProps;
 import org.richfaces.component.attribute.RowsProps;
 import org.richfaces.component.attribute.SequenceProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.SelectionMode;
+import org.richfaces.taglib.ExtendedDataTableHandler;
 
 /**
  * <p> The &lt;rich:extendedDataTable&gt; component builds on the functionality of the &lt;rich:dataTable&gt; component,
@@ -118,6 +118,13 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
      */
     @Attribute(events = @EventName("beforeselectionchange"))
     public abstract String getOnbeforeselectionchange();
+
+    /**
+     * If "true" a menu for controlling column visibility will be added to the table.
+     * Requires the table to have a header. Default value - "false".
+     */
+    @Attribute(defaultValue = "false")
+    public abstract boolean isShowColumnControl();
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SCROLL.equals(metaComponentId)) {

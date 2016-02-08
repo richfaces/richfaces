@@ -40,6 +40,7 @@
 
 .rf-edt-tbl-hdr {
     border-bottom: '#{a4jSkin.tableBorderWidth} solid #{a4jSkin.tableBorderColor}';
+    position: relative;
 }
 
 .rf-edt-b {
@@ -225,3 +226,33 @@ div.rf-edt-ftr-cnt {
     background-color: '#{a4jSkin.warningBackgroundColor}';
 }
 
+.rf-edt-colctrl-btn {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: "#{a4jSkin.imageUrl('comboDownButton.png')}";
+    cursor: pointer;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-left: '1px solid #{a4jSkin.tableBorderColor}';
+}
+
+.rf-edt-colctrl {
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    position: absolute;
+    background-color: '#{a4jSkin.additionalBackgroundColor}';
+    border: '1px solid #{a4jSkin.tableBorderColor}';
+    padding: 4px;
+}
+
+.rf-edt-colctrl input {
+    margin-bottom: 0;
+    vertical-align: bottom;
+}
+
+.rf-edt-colctrl label {
+    margin-bottom: 2px;
+}
