@@ -10,7 +10,9 @@
         <rich:messages/>
         <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
                                 var="car" id="table" frozenColumns="2"
-                                style="height:300px; width:500px;" selectionMode="none">
+                                style="height:300px; width:500px;" selectionMode="none"
+                                showColumnControl="true">
+                                <f:facet name="header">Header</f:facet>
             <f:facet name="noData">
                 Nothing found
             </f:facet>

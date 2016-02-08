@@ -19,7 +19,8 @@
             <rich:extendedDataTable value="#{extTableSelectionBean.inventoryItems}" var="car"
                                     selection="#{extTableSelectionBean.selection}" id="table" frozenColumns="2"
                                     style="height:300px; width:500px;"
-                                    selectionMode="#{extTableSelectionBean.selectionMode}">
+                                    selectionMode="#{extTableSelectionBean.selectionMode}"
+                                    showColumnControl="true">
                 <a4j:ajax execute="@form" event="selectionchange" listener="#{extTableSelectionBean.selectionListener}"
                           render=":res"/>
                 <f:facet name="header">
