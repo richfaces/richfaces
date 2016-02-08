@@ -93,6 +93,7 @@
 
         this.cdiv.resize(this.resizeProxy);
         this.findForm(this.cdiv).on("ajaxcomplete", this.resizeProxy);
+        $(document).on("javascriptServiceComplete", this.resizeProxy);
     };
 
     rf.BaseComponent.extend(rf.ui.PopupPanel);
@@ -168,6 +169,7 @@
                 }
 
                 this.findForm(this.cdiv).off("ajaxcomplete", this.resizeProxy);
+                $(document).off("javascriptServiceComplete", this.resizeProxy);
 
                 this._contentElement = null;
                 this.firstOutside = null;
