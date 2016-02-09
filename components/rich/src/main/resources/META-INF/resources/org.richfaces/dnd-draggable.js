@@ -33,9 +33,10 @@
         
         if (options.dragOptions) {
             this.dragElement.draggable("option", options.dragOptions);
-            if (options.dragOptions.helper) {
-                this.dragElement.data("indicator", false);
-            }
+        }
+
+        if (options.dragOptions && options.dragOptions.helper) {
+            this.dragElement.data("indicator", false);
         } else if (options.indicator) {
             var element = $(document.getElementById(options.indicator));
             var clone = element.clone();

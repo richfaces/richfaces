@@ -56,7 +56,10 @@
                 if (this.accept(ui.draggable)) {
                     this.__callAjax(e, ui);
                 }
-                var dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                var dragIndicatorObj;
+                if (ui.draggable.data('indicator')) {
+                    dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                }
                 if (dragIndicatorObj) {
                     ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
                     ui.helper.removeClass(dragIndicatorObj.getRejectClass());
@@ -69,7 +72,10 @@
             dropover : function(e) {
                 var ui = e.rf.data;
                 var draggable = ui.draggable;
-                var dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                var dragIndicatorObj;
+                if (ui.draggable.data('indicator')) {
+                    dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                }
                 this.dropElement.addClass("rf-drp-hvr");
                 if (dragIndicatorObj) {
                     if (this.accept(draggable)) {
@@ -97,7 +103,10 @@
             dropout : function(e) {
                 var ui = e.rf.data;
                 var draggable = ui.draggable;
-                var dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                var dragIndicatorObj;
+                if (ui.draggable.data('indicator')) {
+                    dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                }
                 this.dropElement.removeClass("rf-drp-hvr rf-drp-hlight");
                 if (dragIndicatorObj) {
                     ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
@@ -125,7 +134,7 @@
                 }
                 return accept;
             },
-            
+
             __getIndicatorObject: function(helper) {
                 var indicatorCloneId = helper.attr('id');
                 if (indicatorCloneId) {
