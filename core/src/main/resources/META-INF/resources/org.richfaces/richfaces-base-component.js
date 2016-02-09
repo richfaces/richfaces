@@ -377,12 +377,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 var element = rf.getDomElement(source);
                 if (element) {
                     var container = element[rf.RICH_CONTAINER] = element[rf.RICH_CONTAINER] || {};
-                    if (container.attachedComponents) {
-                        container.attachedComponents[this.name] = this;
-                    } else {
-                        container.attachedComponents = {};
-                        container.attachedComponents[this.name] = this;
-                    }
+                    container.attachedComponents = container.attachedComponents || {};
+                    container.attachedComponents[this.name] = container.attachedComponents[this.name] || [];
+                    container.attachedComponents[this.name].push(this);
                 }
                 return element;
             },

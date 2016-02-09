@@ -51,6 +51,7 @@
 
     $.extend(rf.ui.Droppable.prototype, (function() {
         return {
+            name: "Droppable",
             drop : function(e) {
                 var ui = e.rf.data;
                 if (this.accept(ui.draggable)) {

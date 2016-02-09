@@ -137,7 +137,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         if (attachedComponents) {
             for (var i in attachedComponents) {
                 if (attachedComponents.hasOwnProperty(i) && attachedComponents[i]) {
-                    attachedComponents[i].destroy();
+                    attachedComponents[i].forEach(function(component) {component.destroy()});
                 }
             }
         }
