@@ -286,6 +286,9 @@
             destroy: function() {
                 $(window).unbind("resize", this.updateLayout);
                 $(rf.getDomElement(this.id + ':st')).remove();
+                if (this.columnControl) {
+                    this.columnControl.destroy();
+                }
                 $super.destroy.call(this);
             },
 
@@ -455,8 +458,6 @@
                 this.parts = $(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt").filter(function() {
                     return $(this).parents('.rf-edt').get(0) === edt;
                 });
-                this.updateLayout();
-                this.updateScrollPosition(); //TODO Restore horizontal scroll position
                 if ($(this.element).data('offscreenElements')) {
                     this.hideOffscreen(this.element);
                 }
@@ -464,6 +465,8 @@
                 if (this.options['showColumnControl']) {
                     this.__addColumnControl();
                 }
+                this.updateLayout();
+                this.updateScrollPosition(); //TODO Restore horizontal scroll position
                 $(this.element).trigger("rich:ready", this);
             },
 
@@ -838,6 +841,16 @@
 
             ajaxComplete: function (event, data) {
                 this.storeDomReferences();
+
+                var colStateInput = document.getElementById(this.id + ":cols"),
+                    i = colStateInput.value.length;
+
+                while (i--) {
+                    if (colStateInput.value[i] == "x") {
+                        this.__hideColumn(i);
+                    }
+                };
+
                 if (data.reinitializeHeader) {
                     this.bindHeaderHandlers();
                     this.updateLayout();
@@ -934,10 +947,8 @@
                 }, this));
 
                 var columns = $(),
-                    selectors = [],
-                    column = columns.eq(0),
+                    column,
                     columnNames = this.__getColumnNames(),
-                    columnName = columnNames[0],
                     patterns = {
                         tdClass: /rf-edt-td-\w+/,
                         cellClass: /rf-edt-c-\w+/,
@@ -949,6 +960,7 @@
                     columns = columns.add($(this).children(':eq(0)').children())}
                 );
 
+                this.selectors = [];
                 for (var i = 0; i < columns.length; i++) {
                     column = columns.eq(i);
                     currSelector = column.attr('class');
@@ -957,21 +969,29 @@
                     } else {
                         currSelector = 'td:has(> .' + column.children(':eq(0)').attr('class').match(patterns.cellClass)[0] + ')';
                     }
-                    selectors.push({
+                    this.selectors.push({
                         selector: currSelector,
                         name: column.data(DATA_ATTRIBUTE) || columnNames[i] || "#" + column.attr('id').match(patterns.id)[0]
                     });
                 }
 
-                var inputPart1 = "<label><input type=\"checkbox\" checked=\"checked\" onchange=\"$('",
-                    inputPart2 = "').toggle(); RichFaces.component('" + this.id + "').updateLayout(); return false;\" onclick=\"event.stopPropagation();\">",
-                    inputPart3 = "</label><br/>";
-                
-                var $input;
-                selectors.forEach(function(item) {
-                    $input = $(inputPart1 + item.selector + inputPart2 + item.name + inputPart3);
-                    controlPopup.append($input);
+                var colStateInput = document.getElementById(this.id + ":cols"),
+                    table = this,
+                    $input, $label, newValue = "";
+                this.selectors.forEach(function(item, index) {
+                    $input = $('<input type="checkbox" onclick="event.stopPropagation();" />');
+                    $input.prop('checked', (!colStateInput.value || colStateInput.value[index] == 'o'));
+                    $input.attr('onchange', "RichFaces.component('" + table.id + "').__toggleColumn('" + index + "'); RichFaces.component('" + table.id + "').updateLayout();");
+                    $label = $('<label>' + item.name + '</label>');
+
+                    newValue += colStateInput.value ? colStateInput.value[index] : 'o';
+                    controlPopup.append($label.prepend($input), $('<br />'));
+                    if (newValue[newValue.length - 1] == 'x') {
+                        table.__hideColumn(index);
+                    }
                 });
+
+                colStateInput.value = newValue;
             },
 
             __getColumnNames: function () {
@@ -990,6 +1010,19 @@
                 });
 
                 return names;
+            },
+            
+            __toggleColumn: function(index) {
+                $(this.selectors[index].selector).toggle();
+
+                var colStateInput = document.getElementById(this.id + ":cols"),
+                    colState = colStateInput.value;
+
+                colStateInput.value = colState.substr(0, index) + (colState[index] == "o" ? "x" : "o") + colState.substr(++index);
+            }, 
+
+            __hideColumn: function(index) {
+                $(this.selectors[index].selector).hide();
             }
         });
 
