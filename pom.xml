@@ -121,7 +121,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Container Versions -->
-        <version.wildfly100>10.0.0.Beta2</version.wildfly100>
+        <version.wildfly100>10.0.0.Final</version.wildfly100>
         <version.wildfly90>9.0.1.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>

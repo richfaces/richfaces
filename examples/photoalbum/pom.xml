@@ -58,7 +58,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
-        <version.wildfly100>10.0.0.Beta2</version.wildfly100>
+        <version.wildfly100>10.0.0.Final</version.wildfly100>
         <version.wildfly90>9.0.1.Final</version.wildfly90>
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
