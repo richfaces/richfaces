@@ -35,6 +35,8 @@ import org.richfaces.component.AbstractDragSource;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.DragScript;
 
+import com.google.common.base.Strings;
+
 /**
  * @author abelevich
  *
@@ -60,7 +62,7 @@ public class DragSourceRenderer extends DnDRenderBase {
             AbstractDragSource dragSource = (AbstractDragSource) component;
             options.put("indicator", getDragIndicatorClientId(facesContext, dragSource));
             options.put("type", dragSource.getType());
-            options.put("dragOptions", new JSLiteral(dragSource.getDragOptions()));
+            options.put("dragOptions", getDragOptions(dragSource));
             options.put("parentId", getParentClientId(facesContext, component));
         }
         return options;
@@ -85,5 +87,10 @@ public class DragSourceRenderer extends DnDRenderBase {
             }
         }
         return indicatorId;
+    }
+
+    public JSLiteral getDragOptions(AbstractDragSource dragSource) {
+        String options = dragSource.getDragOptions();
+        return !Strings.isNullOrEmpty(options) ? new JSLiteral(options) : JSLiteral.EMPTY_HASH;
     }
 }
