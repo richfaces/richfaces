@@ -11,6 +11,7 @@ The supported container matrix is:
 * WildFly 10.0
 * JBoss EAP 6.2
 * JBoss EAP 6.3
+* JBoss EAP 6.4
 * Tomcat 7
 * Tomcat 8
 
@@ -272,6 +273,10 @@ Managed Containers
 
     mvn verify -Dintegration=jbosseap63
 
+### JBoss EAP 6.4 - Managed
+
+    mvn verify -Dintegration=jbosseap64
+
 ### Tomcat 7 - Managed
 
     mvn verify -Dintegration=tomcat7
@@ -362,6 +367,14 @@ Start: `[jboss-eap-6.3]$ ./bin/standalone.sh`
 Profile: `jbosseap-remote-6-3`
 
     mvn verify -Dintegration=jbosseap63-remote
+
+### JBoss EAP 6.4 - Remote
+
+Start: `[jboss-eap-6.4]$ ./bin/standalone.sh`
+
+Profile: `jbosseap-remote-6-4`
+
+    mvn verify -Dintegration=jbosseap64-remote
 
 ### Tomcat 7/8 - Remote
 

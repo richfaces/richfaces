@@ -19,9 +19,9 @@
   License along with this software; if not, write to the Free
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  -->
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -246,9 +246,9 @@
                         <keywords>true</keywords>
                         <quiet>true</quiet>
                         <!-- Solves issues related to link lookups for all
-                             modules, even those that do not need it, that
-                             was slowing builds down.  If removed review
-                             full build. -->
+                        modules, even those that do not need it, that
+                        was slowing builds down.  If removed review
+                        full build. -->
                         <detectOfflineLinks>false</detectOfflineLinks>
                     </configuration>
                 </plugin>
@@ -981,6 +981,63 @@
                 <property>
                     <name>integration</name>
                     <value>jbosseap63-remote</value>
+                </property>
+            </activation>
+            <properties>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jbosseap-managed-6-4</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap64</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.jbosseap6>true</arquillian.launch.jbosseap6>
+                <arquillian.container.home>${project.build.directory}/jboss-eap-6.4</arquillian.container.home>
+                <arquillian.container.distribution>file:///path/to/jboss-eap-6.4.0.zip</arquillian.container.distribution>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+                <showcase.war.classifier>jbas71</showcase.war.classifier>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jbosseap-remote-6-4</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap64-remote</value>
                 </property>
             </activation>
             <properties>
