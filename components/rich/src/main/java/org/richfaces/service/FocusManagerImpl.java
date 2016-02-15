@@ -19,7 +19,9 @@ import org.richfaces.util.SeparatorChar;
 public class FocusManagerImpl implements FocusManager {
 
         // find first text input among children or self
-    private static final String SCRIPT = "RichFaces.jQuery(document.getElementById('%s'))"
+    private static final String SCRIPT = "var element = document.getElementById('%1$s');\n"
+                                       + "if (!element) { RichFaces.log.warn(\"rich:focus - Component with ID '%1$s' was not found\"); return; }\n"
+                                       + "RichFaces.jQuery(element)"
                                        + ".find(':text:visible:first').addBack().focus();";
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
     private static final String ROW_ID = SeparatorChar.SEPARATOR_CHAR + "\\d+" + SeparatorChar.SEPARATOR_CHAR;
