@@ -956,9 +956,19 @@
                     },
                     currSelector;
 
-                this.tbodies.each(function() {
-                    columns = columns.add($(this).children(':eq(0)').children())}
-                );
+                if (this.tbodies) {
+                    this.tbodies.each(function() {
+                        columns = columns.add($(this).children(':eq(0)').children())}
+                    );
+                } else {
+                    columns = this.headerCells.parent();
+                    if (!columns.length) {
+                        columns = this.footerCells.parent();
+                    }
+                    if (!columns.length) {
+                        return;
+                    }
+                }
 
                 this.selectors = [];
                 for (var i = 0; i < columns.length; i++) {
