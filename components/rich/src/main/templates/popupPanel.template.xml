@@ -54,7 +54,7 @@
                 </c:if>
 
                 <div id="#{clientId}_content_scroller" style="#{getStyleIfTrimmed(component)}" class="rf-pp-cnt-scrlr">
-                    <div id="#{clientId}_content" class="rf-pp-cnt" style="#{component.attributes['style']}">
+                    <div id="#{clientId}_content" class="rf-pp-cnt">
                         <cdk:call expression="renderChildren(facesContext, component)" />
                     </div>
                 </div>
