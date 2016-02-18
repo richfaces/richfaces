@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import java.io.File;
@@ -37,8 +37,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.fragment.common.Utils;
@@ -102,6 +100,7 @@ public abstract class AbstractPhotoalbumTest {
 
     public void login() {
         login("amarkhel");
+        page.checkUserLogged("amarkhel", true, false, false);
     }
 
     public void login(String user) {
@@ -141,7 +140,7 @@ public abstract class AbstractPhotoalbumTest {
          *
          * public void loadPage(Method m) { if(m.isAnnotationPresent(LoggedUser.class)){ login(LoggedUser.getName(),
          * LoggedUser.getPassword()); } }
-         */        
+         */
     }
 
     public static class PossibleStringOptions {

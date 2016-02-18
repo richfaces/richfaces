@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 import static org.junit.Assert.assertTrue;
@@ -85,6 +85,7 @@ public class SearchPanel {
 
     private void hideSearchOptions() {
         if (Utils.isVisible(searchHideOptionsLink)) {
+            PhotoalbumUtils.scrollToElement(searchHideOptionsLink);
             searchHideOptionsLink.click();
         }
         Graphene.waitGui().until().element(searchHideOptionsLink).is().not().visible();
@@ -94,6 +95,7 @@ public class SearchPanel {
 
     private void openSearchOptions() {
         Graphene.waitAjax().until().element(searchOptionsLink).is().visible();
+        PhotoalbumUtils.scrollToElement(searchOptionsLink);
         searchOptionsLink.click();
         Graphene.waitAjax().until().element(searchOptionsLink).is().not().visible();
         Graphene.waitGui().until().element(searchHideOptionsLink).is().visible();
@@ -102,8 +104,10 @@ public class SearchPanel {
 
     /**
      * Search with all options.
+     *
      * @param key
-     **/
+     *
+     */
     public void searchFor(String key) {
         searchFor(key, EnumSet.allOf(SearchOptionsEnum.class));
     }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.photoalbum.ftest.webdriver.fragments.view;
 
 import static org.junit.Assert.assertEquals;
@@ -209,6 +209,7 @@ public class PhotoView {
         }
 
         public void addComment(final String comment) {
+            PhotoalbumUtils.scrollToElement(addCommentEditor.advanced().getRootElement());
             addCommentEditor.type(comment);
             // the page gets broken without the scrolling
             PhotoalbumUtils.scrollToElement(getAddCommentButton());

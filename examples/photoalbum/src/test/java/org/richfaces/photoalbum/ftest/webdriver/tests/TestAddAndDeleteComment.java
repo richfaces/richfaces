@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import static org.junit.Assert.assertEquals;
@@ -37,6 +37,7 @@ import category.FailingOnPhantomJS;
 
 /**
  * Every method starts with login(), cannot put it in @BeforeMethod because of https://issues.jboss.org/browse/ARQGRA-309
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
@@ -44,15 +45,15 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
     private final DateTime dt = new DateTime();
     private final DateTimeFormatter pattern = DateTimeFormat.forPattern("MMM d, YYYY");
     private final String comment = "new comment";
-    
+
     private void addSingleComment() {
         PhotoView photoView = getView(PhotoView.class);
         CommentsPanel commentPanel = photoView.getCommentPanel();
-        if(commentPanel.getComments().size() != 4) {
+        if (commentPanel.getComments().size() != 4) {
             commentPanel.addComment(comment);
         }
     }
-    
+
     @Test
     @Category(FailingOnPhantomJS.class)
     public void addComment() {
@@ -72,7 +73,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
 
         // add comment
         addSingleComment();
-        
+
         // check comments
         comments = commentPanel.getComments();
         assertEquals(4, comments.size());
@@ -89,6 +90,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
         // check comments again
         comments = commentPanel.getComments();
         assertEquals(4, comments.size());
+
         comments.get(0).checkAll(JAN_DATE_85, "Superb Shot and so beautiful Colors !!!", "avatar_w_default.png", "Noname");
         comments.get(1).checkAll(JAN_DATE_85, "really pretty. it looks like there is a lady in the _center_, blowing kisses!!", "avatar_w_default.png", "Noname");
         comments.get(2).checkAll(JAN_DATE_85, "that is a beautiful flower with great colours", "avatar_default.png", "amarkhel");
@@ -101,7 +103,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
     public void deleteComment() {
         // firstly need to add comment if its not already present (includes login)
         addSingleComment();
-        
+
         PhotoView photoView = getView(PhotoView.class);
         CommentsPanel commentPanel = photoView.getCommentPanel();
 
