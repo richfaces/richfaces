@@ -40,19 +40,18 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.event.TreeToggleEvent;
-import org.richfaces.event.TreeToggleListener;
-import org.richfaces.event.TreeToggleSource;
-import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.attribute.ImmediateProps;
 import org.richfaces.component.attribute.TreeCommonProps;
-import org.richfaces.component.attribute.TreeProps;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
+import org.richfaces.event.TreeToggleSource;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.view.facelets.TreeNodeHandler;
 
 /**
@@ -68,6 +67,8 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
+
+    private AbstractTree parent;
 
     enum PropertyKeys {
         expanded
@@ -138,12 +139,16 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     }
 
     public AbstractTree findTreeComponent() {
+        if (parent != null) {
+            return parent;
+        }
         UIComponent c = this;
         while (c != null && !(c instanceof AbstractTree)) {
             c = c.getParent();
         }
 
-        return (AbstractTree) c;
+        parent = (AbstractTree) c;
+        return parent;
     }
 
     @Override
@@ -214,5 +219,30 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
 
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    }
+
+    @Attribute(hidden = true)
+    public Object getRender() {
+        return findTreeComponent().getRender();
+    }
+
+    @Attribute(hidden = true)
+    public boolean isLimitRender() {
+        return findTreeComponent().isLimitRender();
+    }
+
+    @Attribute(hidden = true)
+    public String getOnbeforedomupdate() {
+        return findTreeComponent().getOnbeforedomupdate();
+    }
+
+    @Attribute(hidden = true)
+    public String getOncomplete() {
+        return findTreeComponent().getOncomplete();
+    }
+
+    @Attribute(hidden = true)
+    public Object getData() {
+        return findTreeComponent().getData();
     }
 }
