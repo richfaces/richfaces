@@ -6,7 +6,8 @@
         cssRoot : "ctx",
         cssClasses : {},
         attached : true,
-        showOptions : {}
+        showOptions : {},
+        attachToBody : true
     };
 
     // constructor definition

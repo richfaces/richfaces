@@ -21,12 +21,12 @@
         <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
         <cdk:object name="menuGroups" value="#{getMenuGroups(facesContext, component)}" />
 
-        <div id="#{clientId}" class="rf-ctx-lbl #{(isDisabled ? 'rf-ctx-dis ' : 'rf-ctx-unsel ') + styleClass} " style="#{style}"
-            cdk:passThroughWithExclusions="">
+        <div id="#{clientId}" class="rf-ctx-lbl #{isDisabled ? 'rf-ctx-dis' : 'rf-ctx-unsel'}">
 
             <c:if test="#{not isDisabled(facesContext, component)}">
                 <div class="rf-ctx-pos">
-                    <div id="#{clientId}_list" class="rf-ctx-lst" style="display:none;min-width:#{getPopupWidth(component)}px;">
+                    <div id="#{clientId}_list" class="rf-ctx-lst #{styleClass}" style="display:none;min-width:#{getPopupWidth(component)}px; #{style}"
+                        cdk:passThroughWithExclusions="">
                         <div class="rf-ctx-lst-bg">
                             <cdk:call expression="renderChildren(facesContext, component)" />
                         </div>
