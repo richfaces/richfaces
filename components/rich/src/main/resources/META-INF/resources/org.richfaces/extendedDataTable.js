@@ -937,7 +937,8 @@
                     jointPoint: "RT",
                     positionOffset: [8,8],
                     visible: true,
-                    type: "DROPDOWN"
+                    type: "DROPDOWN",
+                    attachToBody: true
                 };
 
                 this.columnControl = new RichFaces.ui.Popup(controlId, popupOptions);

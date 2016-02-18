@@ -246,6 +246,7 @@ div.rf-edt-ftr-cnt {
     background-color: '#{a4jSkin.additionalBackgroundColor}';
     border: '1px solid #{a4jSkin.tableBorderColor}';
     padding: 4px;
+    white-space: nowrap;
 }
 
 .rf-edt-colctrl input {
