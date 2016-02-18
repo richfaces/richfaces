@@ -926,7 +926,7 @@
             __addColumnControl: function () {
                 var button = $('<div class="rf-edt-colctrl-btn" />'),
                     controlId = this.id + ":colctrl",
-                    controlPopup = $('<div id="' + controlId + '" class="rf-edt-colctrl" />');
+                    controlPopup = $('<div id="' + controlId + '" class="rf-edt-colctrl" style="z-index: 1"/>');
 
                 var tableHeader = $(this.element).find(".rf-edt-tbl-hdr");
 
