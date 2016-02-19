@@ -314,7 +314,7 @@
                 <id>extendedDataTable</id>
                 <name>rich:extendedDataTable</name>
                 <samples>
-                    <sample>
+                    <sample new="true">
                         <id>simpleTable</id>
                         <name>Basic Usage</name>
                     </sample>

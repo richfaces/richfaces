@@ -17,13 +17,14 @@
         <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
                                 var="car" id="table" frozenColumns="2"
                                 style="height:300px; width:500px;" selectionMode="none"
-                                clientRows="#{carsBean.clientRows}">
+                                clientRows="#{carsBean.clientRows}"
+                                showColumnControl="true">
             <f:facet name="header">
                 <h:outputText value="Cars marketplace"/>
             </f:facet>
             <rich:column>
                 <f:facet name="header">
-                    <h:outputText value="vendor"/>
+                    <h:outputText value="Vendor"/>
                 </f:facet>
                 <h:outputText value="#{car.vendor}"/>
             </rich:column>
