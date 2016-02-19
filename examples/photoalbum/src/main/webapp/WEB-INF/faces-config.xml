@@ -40,11 +40,4 @@
         <phase-listener>org.richfaces.photoalbum.ui.UserExpiredPhaseListener</phase-listener>
     </lifecycle>
 
-    <!--  workaround for RF-12222 -->
-    <!--  class java.lang.InstantiationException: com.sun.faces.facelets.compiler.UIInstructions -->
-    <component>
-        <component-type>org.richfaces.OutputPanel</component-type>
-        <component-class>org.richfaces.photoalbum.util.UIOutputPanelWorkaround</component-class>
-    </component>
-
 </faces-config>
