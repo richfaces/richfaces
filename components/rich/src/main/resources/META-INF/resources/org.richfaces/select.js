@@ -322,14 +322,16 @@
                 if (this.enableManualInput) {
                     var items = this.cache.getItems(inputLabel, this.filterFunction);
                     if (items && items.length > 0) {
-                        var first = $(items[0]);
-                        $.each(this.clientSelectItems, function() {
-                            if (this.id == first.attr("id")) {
-                                label = this.label;
-                                value = this.value;
-                                return false;
-                            }
-                        });
+                        var cachedItems = [];
+                        for (var i = 0; i < items.length; i++) {
+                            currItem = items[i];
+                            $.each(this.clientSelectItems, function() {
+                                if (this.id == currItem.id) {
+                                    cachedItems.push({label: this.label, value: this.value});
+                                }
+                            });
+                        }
+                        return cachedItems;
                     } else {
                         label = inputLabel;
                         value = "";
@@ -358,8 +360,31 @@
             },
             
             __isValueSelected: function(label) {
+                this.lastSearched = this.lastSearched || {};
+                var current = {
+                        label: label,
+                        value: this.getValue()
+                    };
+
+                if (current.label === this.lastSearched.label 
+                        && current.value == this.lastSearched.value) {
+                    return true;
+                }
+
                 var item = this.__getClientItemFromCache(label);
-                return item.label === label && item.value == this.getValue();
+                if (item.label && item.label === current.label && item.value == current.value) {
+                    this.lastSearched = current;
+                    return true;
+                }
+                if (item.length) {
+                    for (var i = 0; i < item.length; i++) {
+                        if (item[i].label === current.label && item[i].value == current.value) {
+                            this.lastSearched = current;
+                            return true;
+                        }
+                    }
+                }
+                return false;
             },
             
             __selectItemByLabel: function(code) {
