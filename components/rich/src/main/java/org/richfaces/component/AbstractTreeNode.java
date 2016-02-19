@@ -226,6 +226,9 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         return findTreeComponent().getRender();
     }
 
+    public void setRender(Object o) {
+    }
+
     @Attribute(hidden = true)
     public boolean isLimitRender() {
         return findTreeComponent().isLimitRender();
