@@ -87,10 +87,10 @@
         __returnToParentMenu : function() {
             var item = this.__getItemByIndex(this.currentSelectedItemIndex);
             var menu;
-            menu = this.__getParentMenu() || this.__getParentMenuFromItem(item);
-            if (menu != null && this.id != rf.component(menu).id) {
+            menu = this.__getParentMenu();
+            if (menu != null && this.id != menu.id) {
                 this.hide();
-                rf.component(menu).popupElement.focus();
+                menu.popupElement.focus();
             } else {
                 this.hide();
             }

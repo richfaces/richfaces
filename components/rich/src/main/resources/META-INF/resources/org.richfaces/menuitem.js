@@ -81,15 +81,13 @@
             },
 
             __getParentForm : function(item) {
-                return $($(item).parents("form").get(0));
+                var menu = this.__getParentMenu();
+                return $(menu ? menu.element : this.element).parents("form").eq(0);
             },
 
             __getParentMenu : function() {
-                var menu = this.element.parents('div.' + this.options.cssClasses.labelCss);
-                if (menu && menu.length > 0)
-                    return rf.component(menu);
-                else
-                    return null;
+                var menu = $(this.element).parents('div[data-rf-parentmenu]').get(0);
+                return menu ? rf.component(menu.dataset['rfParentmenu']) : null;
             }
         };
     })());

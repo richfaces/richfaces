@@ -122,8 +122,8 @@
                     this.displayed = false;
                     this.__deselectCurrentItem();
                     this.currentSelectedItemIndex = -1;
-                    var parentMenu = rf.component(this.__getParentMenu());
-                    if (this.id != parentMenu.id) {
+                    var parentMenu = this.__getParentMenu();
+                    if (parentMenu && this.id != parentMenu.id) {
                         parentMenu.popupElement.focus();
                         rf.ui.MenuManager.setActiveSubMenu(parentMenu);
                     }
@@ -143,36 +143,9 @@
                 }
             },
 
-            __getParentMenuFromItem : function(item) {
-                var menu;
-                if (item)
-                    menu = item.parents('div.' + this.options.cssClasses.itemCss).has('div.' + this.options.cssClasses.listContainerCss).eq(1);
-                if (menu && menu.length > 0)
-                    return menu;
-                else {
-                    menu = item.parents('div.' + this.options.cssClasses.labelCss);
-                    if (menu && menu.length > 0) {
-                        return menu;
-                    }
-                    else {
-                        return null;
-                    }
-                }
-            },
-
             __getParentMenu : function() {
-                var menu = $(this.element).parents('div.' + this.options.cssClasses.itemCss).has('div.' + this.options.cssClasses.listContainerCss).eq(0);
-                if (menu && menu.length > 0) {
-                    return menu;
-                }
-                else {
-                    var item = this.items.eq(0);
-                    if (item.length == 1) {
-                        return this.__getParentMenuFromItem(item);
-                    }
-                    // disabled items are not referenced
-                    return this.__getParentMenuFromItem($(this.element));
-                }
+                var menu = $(this.element).parents('div[data-rf-parentmenu]').get(0);
+                return menu ? rf.component(menu.dataset['rfParentmenu']) : null;
             },
 
             __isGroup : function(item) {

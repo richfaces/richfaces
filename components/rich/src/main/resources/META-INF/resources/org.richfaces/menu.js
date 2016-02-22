@@ -15,6 +15,7 @@
         $.extend(this.options, defaultOptions, options || {});
         $.extend(this.options.cssClasses, buildCssClasses.call(this, this.options.cssRoot));
         $super.constructor.call(this, componentId, this.options);
+        this.popup.popup.attr('data-rf-parentmenu', componentId);
         this.id = componentId;
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.groupList = new Array();
