@@ -501,29 +501,6 @@
                 this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
 
-            __save: function() {
-                var value = "";
-                var label = "";
-                var inputLabel = this.__getValue();
-                var clientSelectItem;
-
-                if (inputLabel && inputLabel != "") {
-                    if (this.enableManualInput) {
-                        clientSelectItem = this.__getClientItemFromCache(inputLabel);
-                    } else {
-                        clientSelectItem = this.__getClientItem(inputLabel);
-                    }
-
-                    if (clientSelectItem) {
-                        label = clientSelectItem.label;
-                        value = clientSelectItem.value;
-                    }
-                }
-
-                this.__setValue(label);
-                this.selValueInput.val(value);
-            },
-
             onblur: function(e) {
                 this.__hidePopup();
                 var inputLabel = this.__getValue();
@@ -547,7 +524,8 @@
             setValue: function(value) {
                 if (value == null || value == '') {
                     this.__setValue('');
-                    this.__save();
+                    this.__setValue('');
+                    this.selValueInput.val('');
                     this.__updateItems();
                     return;
                 }
@@ -556,7 +534,7 @@
                     item = this.clientSelectItems[i];
                     if (item.value == value) {
                         this.__setValue(item.label);
-                        this.__save();
+                        this.selValueInput.val(item.value);
                         this.list.__selectByIndex(i);
                         return;
                     }
