@@ -1,9 +1,5 @@
 .rf-ctx-lbl,.rf-ctx-lbl-dis {
-    font-family: '#{a4jSkin.generalFamilyFont}';
-    font-size: '#{a4jSkin.generalSizeFont}';
-    font-weight: '#{a4jSkin.headerWeightFont}';
     position: relative;
-    white-space: nowrap;
 }
 
 .rf-ctx-lbl {
@@ -43,6 +39,10 @@
 }
 
 .rf-ctx-lst {
+    font-family: '#{a4jSkin.generalFamilyFont}';
+    font-size: '#{a4jSkin.generalSizeFont}';
+    font-weight: '#{a4jSkin.headerWeightFont}';
+    white-space: nowrap;
     border: 1px solid; /*#bfbfc0*/ /*panelBorderColor*/
     border-color: '#{a4jSkin.panelBorderColor}';
     background-color: '#{a4jSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
