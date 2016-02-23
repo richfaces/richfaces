@@ -75,8 +75,10 @@
             },
 
             destroy : function() {
+                rf.Event.unbindById(this.popup.popup, "mouseenter");
+                rf.Event.unbindById(this.popup.popup, "mouseleave");
                 rf.Event.unbind('body', 'click' + this.namespace);
-                rf.Event.unbindById(this.id, 'click' + this.namespace);
+                rf.Event.unbindById(this.popup.popup, 'click' + this.namespace);
 
                 // call parent's destroy method
                 $super.destroy.call(this);
