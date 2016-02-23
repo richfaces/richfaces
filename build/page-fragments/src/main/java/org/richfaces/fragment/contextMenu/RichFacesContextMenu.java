@@ -21,11 +21,17 @@
  */
 package org.richfaces.fragment.contextMenu;
 
+import static java.lang.String.format;
+
 import java.util.List;
 
+import org.jboss.arquillian.graphene.Graphene;
+import org.jboss.arquillian.graphene.enricher.WebElementUtils;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
 
 /**
@@ -33,16 +39,14 @@ import org.richfaces.fragment.common.AdvancedInteractions;
  */
 public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu, AdvancedInteractions<AbstractPopupMenu.AdvancedPopupMenuInteractions> {
 
-    @FindBy(className = "rf-ctx-itm")
-    private List<WebElement> menuItemsElements;
+    private static final String MENU_SELECTOR_TEMPLATE = "div[id='%s_list'].rf-ctx-lst";
+    private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions();
 
-    @FindBy(css = "div.rf-ctx-lst")
-    private WebElement contextMenuPopup;
+    @ArquillianResource
+    private WebDriver browser;
 
     @FindByJQuery("script:last")
     private WebElement script;
-
-    private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions();
 
     @Override
     public AdvancedContextMenuInteractions advanced() {
@@ -51,23 +55,41 @@ public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu
 
     public class AdvancedContextMenuInteractions extends AbstractPopupMenu.AdvancedPopupMenuInteractions {
 
+        private String menuId;
+        private MenuPopup popupFragment;
+
+        public String getLangAttribute() {
+            return getPopupFragment().getPopupElement().getAttribute("lang");
+        }
+
+        protected String getMenuId() {
+            if (menuId == null) {
+                menuId = getRootElement().getAttribute("id");
+            }
+            return menuId;
+        }
+
         @Override
         public List<WebElement> getMenuItemElements() {
-            return menuItemsElements;
+            return getPopupFragment().getMenuItemsElements();
         }
 
         @Override
         public WebElement getMenuPopup() {
-            return contextMenuPopup;
+            return getPopupFragment().getPopupElement();
+        }
+
+        protected MenuPopup getPopupFragment() {
+            if (popupFragment == null) {
+                popupFragment = Graphene.createPageFragment(MenuPopup.class,
+                    WebElementUtils.findElementLazily(By.cssSelector(format(MENU_SELECTOR_TEMPLATE, getMenuId())), browser));
+            }
+            return popupFragment;
         }
 
         @Override
         protected WebElement getScriptElement() {
             return script;
-        }
-
-        public String getLangAttribute() {
-            return getRootElement().getAttribute("lang");
         }
     }
 }
