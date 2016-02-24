@@ -19,7 +19,7 @@ public class TreeContextMenuPage {
     @FindBy(className = "rf-trn-hnd-colps")
     private List<WebElement> expandSigns;
 
-    @FindBy(css = "form[name='form']")
+    @FindBy(className = "rf-ctx-lbl")
     private RichFacesContextMenu contextMenu;
 
     @FindBy(css = "input[type='button']")

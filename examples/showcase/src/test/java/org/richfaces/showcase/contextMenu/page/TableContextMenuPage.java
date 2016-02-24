@@ -15,7 +15,7 @@ public class TableContextMenuPage {
     @FindBy(css = ".rf-edt-b > div > table > tbody > tr > td:nth-of-type(2) tr")
     private List<WebElement> prices;
 
-    @FindBy(css = "form[name='form']")
+    @FindBy(className = "rf-ctx-lbl")
     private RichFacesContextMenu contextMenu;
 
     @FindBy(css = "#popupContent tr:nth-of-type(3) input")
