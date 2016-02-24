@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010-2014, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2016, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -28,8 +28,11 @@ import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.CheckboxInputComponentImpl;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
@@ -41,6 +44,9 @@ import com.google.common.collect.Lists;
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class SearchPanel {
+
+    @ArquillianResource
+    private WebDriver browser;
 
     @FindBy(css = "div.search-div")
     private SearchDiv searchDiv;
@@ -96,7 +102,7 @@ public class SearchPanel {
     private void openSearchOptions() {
         Graphene.waitAjax().until().element(searchOptionsLink).is().visible();
         PhotoalbumUtils.scrollToElement(searchOptionsLink);
-        searchOptionsLink.click();
+        new Actions(browser).moveToElement(searchOptionsLink).click().perform();
         Graphene.waitAjax().until().element(searchOptionsLink).is().not().visible();
         Graphene.waitGui().until().element(searchHideOptionsLink).is().visible();
         Graphene.waitGui().until().element(searchOptions.getRoot()).is().visible();

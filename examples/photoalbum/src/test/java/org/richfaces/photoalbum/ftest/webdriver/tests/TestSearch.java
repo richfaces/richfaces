@@ -1,6 +1,6 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
- * Copyright 2010-2014, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2016, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.photoalbum.ftest.webdriver.tests;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +28,6 @@ import java.util.EnumSet;
 import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
-import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
@@ -56,14 +55,6 @@ public class TestSearch extends AbstractPhotoalbumTest {
 
     @FindBy(className = "rf-ulst")
     private RichFacesList list;
-
-    @After
-    public void resetSearchOptions() {
-        // we have to trigger ajax event, or the options will stay as set in test
-        if (page != null) {
-            Graphene.guardAjax(page.getSearchPanel()).searchFor("a");
-        }
-    }
 
     private SearchView searchView() {
         SearchView searchView = getView(SearchView.class);
@@ -112,6 +103,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
         RichFacesNotifyMessage message = page.getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
         assertEquals("You must select at least one search option", message.getDetail());
+        message.close();
     }
 
     @Test
@@ -136,6 +128,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
         RichFacesNotifyMessage message = page.getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
         assertEquals("You must select at least one search option", message.getDetail());
+        message.close();
     }
 
     @Test
