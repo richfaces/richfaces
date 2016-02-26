@@ -1,3 +1,39 @@
+4.5.14.Final
+------------
+
+    Bug
+    [RF-10265] - rich:tree - toggling fires @onbegin event handler, but omits @onbeforedomupdate and @oncomplete
+    [RF-12097] - Richfaces 4.2.0 invalid css entry for *.rf-insl-tt
+    [RF-12295] - Facelets exception on postback when partial state saving is off
+    [RF-12979] - rich:contextMenu inside rich:accordion displays incorrectly
+    [RF-14159] - Autosized popup panel has wrong size after re-render
+    [RF-14225] - Behavior of rich:select component with duplicate labels
+    [RF-14229] - rich:dragSource - error on dropover when using custom options
+    [RF-14231] - FocusManager: cannot focus on component inside iteration component
+    [RF-14233] - rich:dragSource - empty dragOptions cause error
+    [RF-14235] - rich:popupPanel - style attribute is applied twice
+
+    Component Upgrade
+    [RF-14226] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-14128] - Add profile for WF 10
+    [RF-14227] - Incorrect information in Developer Guide
+    [RF-14230] - Provide better handling for RichFaces.ui.Droppable
+    [RF-14239] - provide better parent menu resolutions for menu items
+
+    Feature Request
+    [RF-7872] - Tables: columns visibility
+
+    Task
+    [RF-14234] - Add profile for EAP 6.4
+    [RF-14240] - photoalbum: stabilize tests
+    [RF-14241] - page-fragments: contextMenu: fix the page fragment after refactoring in contextMenu
+    [RF-14242] - showcase: integration-tests: contextMenu: fix locators
+
+    Sub-task
+    [RF-14232] - Document @showColumnControl and add example to showcase
+
 4.5.13.Final
 ------------
 
