@@ -78,6 +78,7 @@
                 e.form = form;
                 e.itemId = itemId;
                 this.options.onClickHandler.call(this, e);
+                this.unselect();
             },
 
             __getParentForm : function(item) {
@@ -87,7 +88,7 @@
 
             __getParentMenu : function() {
                 var menu = $(this.element).parents('div[data-rf-parentmenu]').get(0);
-                return menu ? rf.component(menu.dataset['rfParentmenu']) : null;
+                return menu ? rf.component(menu.getAttribute('data-rf-parentmenu')) : null;
             }
         };
     })());

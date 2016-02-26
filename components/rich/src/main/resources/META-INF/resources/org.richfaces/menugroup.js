@@ -54,6 +54,7 @@
                         .getDomElement(menu.id), null);
                     this.__hidePopup();
                     this.shown = false;
+                    this.unselect();
                 }
             },
 

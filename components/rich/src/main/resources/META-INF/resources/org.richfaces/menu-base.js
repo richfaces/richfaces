@@ -145,7 +145,7 @@
 
             __getParentMenu : function() {
                 var menu = $(this.element).parents('div[data-rf-parentmenu]').get(0);
-                return menu ? rf.component(menu.dataset['rfParentmenu']) : null;
+                return menu ? rf.component(menu.getAttribute('data-rf-parentmenu')) : null;
             },
 
             __isGroup : function(item) {
