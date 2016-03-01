@@ -27,7 +27,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>push-demo</artifactId>
     <name>RichFaces Example - Push Demo</name>
-    <version>4.5.14.Final</version>
+    <version>4.5.15-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <description>
@@ -51,7 +51,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.14.Final</version.richfaces>
+        <version.richfaces>4.5.15-SNAPSHOT</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
