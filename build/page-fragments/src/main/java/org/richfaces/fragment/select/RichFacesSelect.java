@@ -104,7 +104,7 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
             if (advanced().getScrollingType() == ScrollingType.BY_KEYS) {
                 selectWithKeys(foundValue);
             } else {
-                foundValue.click();
+                new Actions(driver).moveToElement(foundValue).click(foundValue).perform();
             }
             advanced().waitUntilSuggestionsAreNotVisible().perform();
             advanced().getInput().advanced().trigger("blur");
