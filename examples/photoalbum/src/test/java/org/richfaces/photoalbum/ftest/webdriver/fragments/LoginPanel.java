@@ -68,7 +68,7 @@ public class LoginPanel extends RichFacesPopupPanel<TextualFragmentPart, Control
 
     private void loginWithSocial(Class<? extends SocialLoginPage> pageClass) {
         PhotoalbumUtils.loginWithSocial(pageClass, browser, (GPlusLoginPage.class.equals(pageClass) ? getBodyContent().getGplusLoginButton() : getBodyContent().getFbLoginButton()));
-        advanced().waitUntilPopupIsNotVisible().withTimeout(10, TimeUnit.SECONDS).perform();
+        advanced().waitUntilPopupIsNotVisible().withTimeout(20, TimeUnit.SECONDS).perform();
     }
 
     public void loginWithoutWait(String user, String password) {

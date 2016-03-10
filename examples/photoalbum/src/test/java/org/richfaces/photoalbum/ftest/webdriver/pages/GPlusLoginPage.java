@@ -30,8 +30,6 @@ public class GPlusLoginPage implements SocialLoginPage {
     private TextInputComponentImpl emailInput;
     @FindBy(css = "input[id$=Passwd]")
     private TextInputComponentImpl passwordInput;
-    @FindBy(css = "input[id$=next]")
-    private WebElement nextButton;
     @FindBy(css = "input[id$=signIn]")
     private WebElement loginButton;
 
@@ -39,7 +37,6 @@ public class GPlusLoginPage implements SocialLoginPage {
     public void login(String email, String password) {
         Graphene.waitModel().until().element(emailInput.advanced().getInputElement()).is().visible();
         emailInput.advanced().clear(ClearType.DELETE).sendKeys(email);
-        nextButton.click();
         Graphene.waitAjax().until().element(passwordInput.advanced().getInputElement()).is().visible();
         passwordInput.advanced().clear(ClearType.DELETE).sendKeys(password);
         loginButton.click();
