@@ -34,6 +34,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
@@ -102,7 +103,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         if (optionToBeSelected == null) {
             throw new IllegalArgumentException("There is no such option to be selected, which satisfied the given rules!");
         }
-        optionToBeSelected.click();
+        new Actions(browser).moveToElement(optionToBeSelected).click(optionToBeSelected).perform();
         if (advanced().isSaveOnSelect() && !isShowControlls()) {
             // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
             getTextInput().advanced().focus();
