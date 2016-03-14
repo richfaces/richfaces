@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.enricher.WebElementUtils;
+import org.jboss.arquillian.graphene.javascript.JSInterfaceFactory;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
 import org.openqa.selenium.By;
@@ -36,6 +37,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -63,7 +65,7 @@ public final class Utils {
      * Returns the result of invocation of jQuery function <code>index()</code> on given element.
      *
      * @param element element on which the command will be executed, has to be instance of
-     *        org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
+     * org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
      */
     public static int getIndexOfElement(WebElement element) {
         return Integer.valueOf(returningJQ(getExecutorFromElement(element), "index()", element));
@@ -201,7 +203,7 @@ public final class Utils {
      *
      * @param componentRoot root of the RF component
      * @param functionWithParams JS API function with params (e.g. <code>setValue(new Date('October 10, 2012 12:00:00'))</code>
-     *        )
+     * )
      */
     public static <T> T invokeRichFacesJSAPIFunction(WebElement componentRoot, String functionWithParams) {
         return (T) getExecutorFromElement(componentRoot).executeScript(
@@ -250,6 +252,24 @@ public final class Utils {
      */
     public static void jQ(String cmd, WebElement element) {
         jQ(getExecutorFromElement(element), cmd, element);
+    }
+
+    /**
+     * When using Firefox and body element is focused, focus on the page from url/address bar, otherwise nothing happens.
+     * Workaround for Selenium issue
+     * <a href="https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/7937">#7937</a>
+     */
+    public static void performFirefoxKeyboardWorkaround(WebDriver browser) {
+        if (browser instanceof FirefoxDriver) {
+            FirefoxKeyboardWorkaround fkw = JSInterfaceFactory.create(GrapheneContext.lastContext(), FirefoxKeyboardWorkaround.class);
+            // is body element focused and workaround was not invoked?
+            if (!fkw.isInvoked() && fkw.getActiveElementTagName().equalsIgnoreCase("body")) {
+                // insert the button element
+                fkw.insertButtonWorkaround();
+                // click on the inserted button to focus on the page and remove the button from DOM (after click)
+                fkw.getButtonElement().click();
+            }
+        }
     }
 
     /**
@@ -337,7 +357,7 @@ public final class Utils {
      *
      * @param event event to be triggered
      * @param element element on which the command will be executed, has to be instance of
-     *        org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
+     * org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
      */
     public static void triggerJQ(String event, WebElement element) {
         triggerJQ(getExecutorFromElement(element), event, element);
@@ -371,4 +391,5 @@ public final class Utils {
     public static long getWaitAjaxDefaultTimeout(WebDriver browser) {
         return 1000 * ((GrapheneProxyInstance) browser).getGrapheneContext().getConfiguration().getWaitAjaxInterval();
     }
+
 }

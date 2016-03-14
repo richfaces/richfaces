@@ -38,7 +38,6 @@ import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfiguration;
 import org.richfaces.fragment.configuration.RichFacesPageFragmentsConfigurationContext;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
 /**
  * Automatically set hotkey from widget, if no hotkey from user is set.
@@ -59,6 +58,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
     private final AdvancedHotkeyInteractions interactions = new AdvancedHotkeyInteractions();
     private String hotkey;
     private String selector;
+    private boolean firefoxKeyboardWorkaroundPerformed = false;
 
     public enum ModifierKeys {
 
@@ -87,19 +87,23 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
 
     @Override
     public void invoke() {
-        invoke(driver.findElement(advanced().getSelector().or(Utils.BY_HTML)));
+        invoke(advanced().getSelector().isPresent() ? driver.findElement(advanced().getSelector().get()) : null);
     }
 
     @Override
-    public void invoke(WebElement element) {
-        Preconditions.checkNotNull(element);
-
+    public void invoke(WebElement elementOrNull) {
+        if (elementOrNull == null || elementOrNull.getTagName().equalsIgnoreCase("body") || elementOrNull.getTagName().equalsIgnoreCase("html")) {
+            if (!firefoxKeyboardWorkaroundPerformed) {
+                Utils.performFirefoxKeyboardWorkaround(driver);
+                firefoxKeyboardWorkaroundPerformed = true;
+            }
+        }
         String key = advanced().getHotkey();
         if (key == null || key.trim().isEmpty()) {
             throw new IllegalArgumentException(
                 "The hotkey can not be null nor empty! Set it up correctly with #setUp(String) method.");
         }
-        getActions().sendKeys(element, key).perform();
+        getActions().sendKeys(elementOrNull, key).perform();
     }
 
     @Override
