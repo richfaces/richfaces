@@ -48,104 +48,63 @@ public class HeaderPanel {
 
     @FindByJQuery("div.header-content-div a:has('> img')")
     private WebElement imageIndexLink;
-
-    @FindByJQuery("div.header-content-div div[id$='logInOutMenu'] span.logged-user")
-    private WebElement loggedUserSpan;
-    @FindByJQuery("div.header-content-div div[id$='logInOutMenu'] span.logged-user + a")
-    private WebElement loggedUserLink;
-    @FindByJQuery("div.header-content-div div[id$='logInOutMenu'] a:contains('Login')")
-    private WebElement loginLink;
-    @FindByJQuery("div.header-content-div div[id$='logInOutMenu'] a:contains('Logout')")
-    private WebElement logoutLink;
-    @FindByJQuery("div.header-content-div div[id$='logInOutMenu'] a:contains('Register')")
-    private WebElement registerLink;
-    @FindBy(css = "div.header-content-div div[id$='logInOutMenu'] a.FB-btn-small")
-    private WebElement loginToFBLink;
-    @FindBy(css = "div.header-content-div div[id$='logInOutMenu'] span.FB-btn-small")
-    private WebElement loggedInWithFB;
-    @FindByJQuery("div.header-content-div div[id$='logInOutMenu'] span.logged-user + a + img")
-    private WebElement fbLoggedUserImage;
-    @FindBy(css = "div.header-content-div div[id$='logInOutMenu'] a.G-btn-small")
-    private WebElement loginToGPlusLink;
-    @FindBy(css = "div.header-content-div div[id$='logInOutMenu'] span.G-btn-small")
-    private WebElement loggedInWithGPlus;
-
-    @FindByJQuery("div.header-content-div div.top-right-menu a:contains('Wiki page')")
-    private WebElement wikiPageLink;
-    @FindByJQuery("div.header-content-div div.top-right-menu a:contains('Downloads')")
-    private WebElement downloadsLink;
-    @FindByJQuery("div.header-content-div div.top-right-menu a:contains('Community')")
-    private WebElement communityLink;
-
-    @FindByJQuery("div[id$='menuPanel'] .rf-tb")
+    @FindBy(css = "div.header-content-div div.top-right-menu")
+    private TopRightMenuLinks links;
+    @FindBy(css = "div.header-content-div div[id$='logInOutMenu']")
+    private LoginLogoutMenu llm;
+    @FindBy(css = "div[id$='menuPanel'] .rf-tb")
     private Toolbar toolbar;
 
     private void checkAlwaysPresentElements() {
-        PhotoalbumUtils.checkVisible(Lists.newArrayList(imageIndexLink, loggedUserSpan, wikiPageLink, downloadsLink,
-            communityLink));
+        PhotoalbumUtils.checkVisible(Lists.newArrayList(imageIndexLink, llm.getLoggedUserSpan(), links.getWikiPageLink(), links.getDownloadsLink(),
+            links.getCommunityLink()));
         WebElement image = imageIndexLink.findElement(By.tagName("img"));
         assertTrue(image.getAttribute("src").contains("img/shell/logo_top.gif"));
     }
 
+    public void checkIfUserNotLogged() {
+        checkAlwaysPresentElements();
+        PhotoalbumUtils.checkVisible(Lists.newArrayList(llm.getLoginLink(), llm.getRegisterLink()));
+        PhotoalbumUtils.checkNotVisible(llm.getLoggedUserLink(), llm.getLogoutLink(), llm.getLoggedInWithFB(), llm.getLoggedInWithGPlus(), llm.getLoginToFBLink(),
+            llm.getLoginToGPlusLink(), llm.getFbLoggedUserImage());
+        assertEquals("Welcome, guest! If you want access to full version of application, please register or login.",
+            llm.getLoggedUserSpan().getText().trim());
+        getToolbar().checkIfUserNotLoggedToolbar();
+    }
+
     public void checkUserLogged(String user, boolean hasOwnAlbums, boolean isLoggedWithFB, boolean isloggedWithGPlus) {
         checkAlwaysPresentElements();
-        PhotoalbumUtils.checkVisible(Lists.newArrayList(loggedUserLink, logoutLink));
-        PhotoalbumUtils.checkNotVisible(loginLink, registerLink);
-        assertEquals("Welcome,", loggedUserSpan.getText());
-        assertEquals(user, loggedUserLink.getText());
+        PhotoalbumUtils.checkVisible(Lists.newArrayList(llm.getLoggedUserLink(), llm.getLogoutLink()));
+        PhotoalbumUtils.checkNotVisible(llm.getLoginLink(), llm.getRegisterLink());
+        assertEquals("Welcome,", llm.getLoggedUserSpan().getText());
+        assertEquals(user, llm.getLoggedUserLink().getText());
         if (isLoggedWithFB) {
-            PhotoalbumUtils.checkVisible(loggedInWithFB, fbLoggedUserImage);
-            PhotoalbumUtils.checkNotVisible(loginToFBLink);
+            PhotoalbumUtils.checkVisible(llm.getLoggedInWithFB(), llm.getFbLoggedUserImage());
+            PhotoalbumUtils.checkNotVisible(llm.getLoginToFBLink());
         } else {
-            PhotoalbumUtils.checkVisible(loginToFBLink);
-            PhotoalbumUtils.checkNotVisible(loggedInWithFB, fbLoggedUserImage);
+            PhotoalbumUtils.checkVisible(llm.getLoginToFBLink());
+            PhotoalbumUtils.checkNotVisible(llm.getLoggedInWithFB(), llm.getFbLoggedUserImage());
         }
         if (isloggedWithGPlus) {
-            PhotoalbumUtils.checkVisible(loggedInWithGPlus);
-            PhotoalbumUtils.checkNotVisible(loginToGPlusLink);
+            PhotoalbumUtils.checkVisible(llm.getLoggedInWithGPlus());
+            PhotoalbumUtils.checkNotVisible(llm.getLoginToGPlusLink());
         } else {
-            PhotoalbumUtils.checkVisible(loginToGPlusLink);
-            PhotoalbumUtils.checkNotVisible(loggedInWithGPlus);
+            PhotoalbumUtils.checkVisible(llm.getLoginToGPlusLink());
+            PhotoalbumUtils.checkNotVisible(llm.getLoggedInWithGPlus());
         }
         getToolbar().checkIfUserLoggedToolbar(hasOwnAlbums);
     }
 
-    public void checkIfUserNotLogged() {
-        checkAlwaysPresentElements();
-        PhotoalbumUtils.checkVisible(Lists.newArrayList(loginLink, registerLink));
-        PhotoalbumUtils.checkNotVisible(loggedUserLink, logoutLink, loggedInWithFB, loggedInWithGPlus, loginToFBLink,
-            loginToGPlusLink, fbLoggedUserImage);
-        assertEquals("Welcome, guest! If you want access to full version of application, please register or login.",
-            loggedUserSpan.getText().trim());
-        getToolbar().checkIfUserNotLoggedToolbar();
-    }
-
-    public WebElement getCommunityLink() {
-        return communityLink;
-    }
-
-    public WebElement getDownloadsLink() {
-        return downloadsLink;
-    }
-
     public WebElement getLoggedUserLink() {
-        return loggedUserLink;
-    }
-
-    public WebElement getLoggedUserSpan() {
-        return loggedUserSpan;
+        return llm.getLoggedUserLink();
     }
 
     public WebElement getLoginLink() {
-        return loginLink;
+        return llm.getLoginLink();
     }
 
     public WebElement getLogoutLink() {
-        return logoutLink;
-    }
-
-    public WebElement getRegisterLink() {
-        return registerLink;
+        return llm.getLogoutLink();
     }
 
     public WebElement getStatusHelpLink() {
@@ -154,10 +113,6 @@ public class HeaderPanel {
 
     public Toolbar getToolbar() {
         return toolbar;
-    }
-
-    public WebElement getWikiPageLink() {
-        return wikiPageLink;
     }
 
     public void loginToFB() {
@@ -169,8 +124,73 @@ public class HeaderPanel {
     }
 
     private void loginToSocial(Class<? extends SocialLoginPage> pageClass) {
-        PhotoalbumUtils.loginWithSocial(pageClass, driver, GPlusLoginPage.class.equals(pageClass) ? loginToGPlusLink
-            : loginToFBLink);
+        PhotoalbumUtils.loginWithSocial(pageClass, driver, GPlusLoginPage.class.equals(pageClass) ? llm.getLoginToGPlusLink()
+            : llm.getLoginToFBLink());
+    }
+
+    public static class LoginLogoutMenu {
+
+        @FindBy(css = "span.logged-user + a + img")
+        private WebElement fbLoggedUserImage;
+        @FindBy(css = "span.FB-btn-small")
+        private WebElement loggedInWithFB;
+        @FindBy(css = "span.G-btn-small")
+        private WebElement loggedInWithGPlus;
+        @FindBy(css = "span.logged-user + a")
+        private WebElement loggedUserLink;
+        @FindBy(css = "span.logged-user")
+        private WebElement loggedUserSpan;
+        @FindBy(partialLinkText = "Login")
+        private WebElement loginLink;
+        @FindBy(css = "a.FB-btn-small")
+        private WebElement loginToFBLink;
+        @FindBy(css = "a.G-btn-small")
+        private WebElement loginToGPlusLink;
+        @FindBy(partialLinkText = "Logout")
+        private WebElement logoutLink;
+        @FindBy(partialLinkText = "Register")
+        private WebElement registerLink;
+
+        public WebElement getFbLoggedUserImage() {
+            return fbLoggedUserImage;
+        }
+
+        public WebElement getLoggedInWithFB() {
+            return loggedInWithFB;
+        }
+
+        public WebElement getLoggedInWithGPlus() {
+            return loggedInWithGPlus;
+        }
+
+        public WebElement getLoggedUserLink() {
+            return loggedUserLink;
+        }
+
+        public WebElement getLoggedUserSpan() {
+            return loggedUserSpan;
+        }
+
+        public WebElement getLoginLink() {
+            return loginLink;
+        }
+
+        public WebElement getLoginToFBLink() {
+            return loginToFBLink;
+        }
+
+        public WebElement getLoginToGPlusLink() {
+            return loginToGPlusLink;
+        }
+
+        public WebElement getLogoutLink() {
+            return logoutLink;
+        }
+
+        public WebElement getRegisterLink() {
+            return registerLink;
+        }
+
     }
 
     public static class Toolbar {
@@ -195,7 +215,7 @@ public class HeaderPanel {
         public void checkIfUserLoggedToolbar(boolean hasOwnAlbums) {
             PhotoalbumUtils.checkVisible(hasOwnAlbums ? Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink, myAllImagesLink,
                 addAlbumGroupLink, addAlbumLink, addImagesLink) : Lists.newArrayList(myAlbumGroupsLink, myAllAlbumsLink,
-                myAllImagesLink, addAlbumGroupLink, addAlbumLinkSpan, addImagesLinkSpan));
+                    myAllImagesLink, addAlbumGroupLink, addAlbumLinkSpan, addImagesLinkSpan));
         }
 
         public void checkIfUserNotLoggedToolbar() {
@@ -226,5 +246,29 @@ public class HeaderPanel {
         public WebElement getMyAllImagesLink() {
             return myAllImagesLink;
         }
+
+    }
+
+    public static class TopRightMenuLinks {
+
+        @FindBy(partialLinkText = "Community")
+        private WebElement communityLink;
+        @FindBy(partialLinkText = "Downloads")
+        private WebElement downloadsLink;
+        @FindBy(partialLinkText = "Wiki page")
+        private WebElement wikiPageLink;
+
+        public WebElement getCommunityLink() {
+            return communityLink;
+        }
+
+        public WebElement getDownloadsLink() {
+            return downloadsLink;
+        }
+
+        public WebElement getWikiPageLink() {
+            return wikiPageLink;
+        }
+
     }
 }

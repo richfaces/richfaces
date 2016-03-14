@@ -21,15 +21,15 @@
  */
 package org.richfaces.photoalbum.ftest.webdriver.utils;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.fragment.common.Utils;
@@ -52,10 +52,11 @@ public final class PhotoalbumUtils {
     }
 
     public static void checkNotVisible(List<WebElement> list) {
-        int i = 0;
         for (WebElement webElement : list) {
-            assertFalse(i + "(nth) element should not be visible", Utils.isVisible(webElement));
-            i++;
+            Graphene.waitAjax()
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until().element(webElement).is().not().visible();
         }
     }
 
@@ -64,10 +65,11 @@ public final class PhotoalbumUtils {
     }
 
     public static void checkVisible(List<WebElement> list) {
-        int i = 0;
         for (WebElement webElement : list) {
-            assertTrue(i + "(nth) element should be visible", Utils.isVisible(webElement));
-            i++;
+            Graphene.waitAjax()
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class)
+                .until().element(webElement).is().visible();
         }
     }
 
@@ -82,17 +84,7 @@ public final class PhotoalbumUtils {
     public static void loginWithSocial(Class<? extends SocialLoginPage> pageClass, final WebDriver browser, WebElement loginLink, boolean workaroundGplusAccInChache) {
         String originalWindow = browser.getWindowHandle();
         Graphene.guardAjax(loginLink).click();
-        Graphene.waitAjax().until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(WebDriver input) {
-                return browser.getWindowHandles().size() == 2;
-            }
-
-            @Override
-            public String toString() {
-                return "2 windows should be opened, but have: " + browser.getWindowHandles().size();
-            }
-        });
+        Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 2));
         Set<String> windowHandles = browser.getWindowHandles();
         windowHandles.remove(originalWindow);
         try {
@@ -102,18 +94,7 @@ public final class PhotoalbumUtils {
                 .login("rf.photoalbum@gmail.com", "rf.photoalbumrf.photoalbum");
         } finally {
             browser.switchTo().window(originalWindow);
-            PhotoalbumUtils.waitFor(5000);// FIXME: replace with some wait condition
-            Graphene.waitModel().until(new Predicate<WebDriver>() {
-                @Override
-                public boolean apply(WebDriver input) {
-                    return browser.getWindowHandles().size() == 1;
-                }
-
-                @Override
-                public String toString() {
-                    return "Only one window should be opened, but have: " + browser.getWindowHandles().size();
-                }
-            });
+            Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 1));
         }
     }
 
@@ -124,17 +105,7 @@ public final class PhotoalbumUtils {
         }
         String originalWindow = browser.getWindowHandle();
         Graphene.guardAjax(loginLink).click();
-        Graphene.waitModel().until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(WebDriver input) {
-                return browser.getWindowHandles().size() == 2;
-            }
-
-            @Override
-            public String toString() {
-                return "2 windows should be opened, but have: " + browser.getWindowHandles().size();
-            }
-        });
+        Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 2));
         Set<String> windowHandles = browser.getWindowHandles();
         windowHandles.remove(originalWindow);
         try {
@@ -150,18 +121,7 @@ public final class PhotoalbumUtils {
             }
         } finally {
             browser.switchTo().window(originalWindow);
-            PhotoalbumUtils.waitFor(5000);// FIXME: replace with some wait condition
-            Graphene.waitModel().until(new Predicate<WebDriver>() {
-                @Override
-                public boolean apply(WebDriver input) {
-                    return browser.getWindowHandles().size() == 1;
-                }
-
-                @Override
-                public String toString() {
-                    return "Only one window should be opened, but have: " + browser.getWindowHandles().size();
-                }
-            });
+            Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 1));
         }
     }
 
@@ -174,6 +134,27 @@ public final class PhotoalbumUtils {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException ex) {
+        }
+    }
+
+    public static class NumberOfWindowsOpenedPredicate implements Predicate<WebDriver> {
+
+        private final WebDriver browser;
+        private final int numberOfWindows;
+
+        public NumberOfWindowsOpenedPredicate(WebDriver browser, int numberOfWindows) {
+            this.browser = browser;
+            this.numberOfWindows = numberOfWindows;
+        }
+
+        @Override
+        public boolean apply(WebDriver input) {
+            return browser.getWindowHandles().size() == numberOfWindows;
+        }
+
+        @Override
+        public String toString() {
+            return numberOfWindows + " window(s) should be opened, but have: " + browser.getWindowHandles().size();
         }
     }
 }

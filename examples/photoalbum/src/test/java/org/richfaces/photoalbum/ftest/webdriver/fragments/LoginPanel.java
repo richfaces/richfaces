@@ -25,12 +25,16 @@ import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
+import org.jboss.arquillian.graphene.enricher.WebElementUtils;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.messages.RichFacesMessages;
+import org.richfaces.fragment.notify.RichFacesNotifyMessage;
 import org.richfaces.fragment.panel.TextualFragmentPart;
 import org.richfaces.fragment.popupPanel.RichFacesPopupPanel;
 import org.richfaces.photoalbum.ftest.webdriver.fragments.HowItWorksPopupPanel.Controls;
@@ -44,6 +48,7 @@ import org.richfaces.photoalbum.ftest.webdriver.utils.PhotoalbumUtils;
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class LoginPanel extends RichFacesPopupPanel<TextualFragmentPart, Controls, Body> {
+    private static final int NUMBER_OF_TRIES_SOCIAL_LOGIN = 5;
 
     @Drone
     private WebDriver browser;
@@ -59,22 +64,38 @@ public class LoginPanel extends RichFacesPopupPanel<TextualFragmentPart, Control
     }
 
     public void loginWithFB() {
-        loginWithSocial(FBLoginPage.class);
+        loginWithSocialAcc(FBLoginPage.class);
     }
 
     public void loginWithGPlus() {
-        loginWithSocial(GPlusLoginPage.class);
+        loginWithSocialAcc(GPlusLoginPage.class);
     }
 
-    private void loginWithSocial(Class<? extends SocialLoginPage> pageClass) {
-        PhotoalbumUtils.loginWithSocial(pageClass, browser, (GPlusLoginPage.class.equals(pageClass) ? getBodyContent().getGplusLoginButton() : getBodyContent().getFbLoginButton()));
-        advanced().waitUntilPopupIsNotVisible().withTimeout(20, TimeUnit.SECONDS).perform();
+    private void loginWithSocialAcc(Class<? extends SocialLoginPage> pageClass) {
+        for (int i = 0; i < NUMBER_OF_TRIES_SOCIAL_LOGIN; i++) {
+            if (tryLoginWithSocialAcc(pageClass)) {
+                break;
+            }
+        }
     }
 
     public void loginWithoutWait(String user, String password) {
         getBodyContent().getLoginInput().clear().sendKeys(user);
         getBodyContent().getPasswordInput().clear().sendKeys(password);
         Graphene.guardAjax(getBodyContent().getLoginButton()).click();
+    }
+
+    private boolean tryLoginWithSocialAcc(Class<? extends SocialLoginPage> pageClass) {
+        PhotoalbumUtils.loginWithSocial(pageClass, browser, (GPlusLoginPage.class.equals(pageClass) ? getBodyContent().getGplusLoginButton() : getBodyContent().getFbLoginButton()));
+        advanced().waitUntilPopupIsNotVisible().withTimeout(20, TimeUnit.SECONDS).perform();
+        try {
+            RichFacesNotifyMessage msg = Graphene.createPageFragment(RichFacesNotifyMessage.class, WebElementUtils.findElementLazily(By.cssSelector(".rf-ntf.photoalbum-message"), browser));
+            // wait up to 2 seconds to check whether there is no error with FB/G+ login
+            msg.advanced().waitUntilMessageIsVisible().withTimeout(2, TimeUnit.SECONDS).perform();
+            return false;// error message is visible >>> login was not successful
+        } catch (TimeoutException e) {
+            return true;// error message is not visible >>> login was successful
+        }
     }
 
     public static class Body {
