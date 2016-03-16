@@ -791,8 +791,8 @@
                 if (typeof(index) === 'undefined') {
                     return;
                 }
-                if (this.options.selectionMode == "single" || (this.options.selectionMode != "multipleKeyboardFree"
-                    && !event.shiftKey && !event.ctrlKey)) {
+                if ((this.options.selectionMode == "single" || (this.options.selectionMode != "multipleKeyboardFree"
+                    && !event.shiftKey)) && !event.ctrlKey) {
                     changed = this.selectRows(index);
                 } else if (this.options.selectionMode == "multipleKeyboardFree" || (!event.shiftKey && event.ctrlKey)) {
                     if (this.ranges.contains(index)) {
