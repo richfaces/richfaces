@@ -95,3 +95,15 @@ input.rf-pick-dflt-lbl {
 .rf-pick-tbl {
     width : 100%;
 }
+
+.rf-pick-fc {
+    padding: 0px;
+    border: 0px;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+}
+
+.rf-pick-fc:focus {
+    outline: none;
+}

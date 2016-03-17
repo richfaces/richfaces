@@ -28,7 +28,7 @@
                     <td cdk:passThrough="onkeypress:onsourcekeypress onkeydown:onsourcekeydown onkeyup:onsourcekeyup">
                         <div id="#{clientId}Source">
                             <div id="#{clientId}SourceList" class="rf-pick-src">
-                                <input id="#{clientId}SourceListFocusKeeper" name="#{clientId}SourceListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
+                                <input id="#{clientId}SourceListFocusKeeper" name="#{clientId}SourceListFocusKeeper" type="button" value="" class="rf-pick-fc" />
                                 <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
                                 <c:if test="#{! empty sourceCaption}">
                                     <div class="rf-pick-src-cptn">
@@ -95,7 +95,7 @@
                                 <td cdk:passThrough="onkeypress:ontargetkeypress onkeydown:ontargetkeydown onkeyup:ontargetkeyup">
                                     <div>
                                         <div id="#{clientId}TargetList" class="rf-pick-tgt">
-                                            <input id="#{clientId}TargetListFocusKeeper" name="#{clientId}TargetListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
+                                            <input id="#{clientId}TargetListFocusKeeper" name="#{clientId}TargetListFocusKeeper" type="button" value="" class="rf-pick-fc" />
                                             <cdk:object type="java.lang.Object" name="targetCaption" value="#{component.attributes['targetCaption']}" />
                                             <c:if test="#{! empty targetCaption}">
                                                 <div class="rf-pick-tgt-cptn">
