@@ -61,7 +61,9 @@
             },
 
             decrease: function (event) {
-                var value = this.value - this.step;
+                var currentValue = Number(this.input.val());
+                if (isNaN(currentValue)) {currentValue = this.value}
+                var value = currentValue - this.step;
                 value = this.roundFloat(value);
                 if (value < this.minValue && this.cycled) {
                     value = this.maxValue;
@@ -70,7 +72,9 @@
             },
 
             increase: function (event) {
-                var value = this.value + this.step;
+                var currentValue = Number(this.input.val());
+                if (isNaN(currentValue)) {currentValue = this.value}
+                var value = currentValue + this.step;
                 value = this.roundFloat(value);
 
                 if (value > this.maxValue && this.cycled) {
