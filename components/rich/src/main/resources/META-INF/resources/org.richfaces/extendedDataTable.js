@@ -797,6 +797,8 @@
                 } else if (this.options.selectionMode == "multipleKeyboardFree" || (!event.shiftKey && event.ctrlKey)) {
                     if (this.ranges.contains(index)) {
                         this.deselectRow(index);
+                    } else if (this.options.selectionMode == "single") {
+                        this.selectRows(index);
                     } else {
                         this.selectRow(index);
                     }
