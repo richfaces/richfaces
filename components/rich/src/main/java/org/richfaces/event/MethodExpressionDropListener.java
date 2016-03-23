@@ -22,26 +22,25 @@
 package org.richfaces.event;
 
 import javax.el.MethodExpression;
-import javax.faces.context.FacesContext;
 
 /**
  * @author abelevich
  *
  */
-public class MethodExpressionDropListener implements DropListener {
-    private MethodExpression methodExpression;
-
+public class MethodExpressionDropListener extends MethodExpressionEventListener implements DropListener {
     public MethodExpressionDropListener() {
         super();
     }
 
     public MethodExpressionDropListener(MethodExpression methodExpression) {
-        super();
-        this.methodExpression = methodExpression;
+        super(methodExpression);
+    }
+
+    public MethodExpressionDropListener(MethodExpression methodExprOneArg, MethodExpression methodExprZeroArg) {
+        super(methodExprOneArg, methodExprZeroArg);
     }
 
     public void processDrop(DropEvent event) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        methodExpression.invoke(facesContext.getELContext(), new Object[] { event });
+        processEvent(event);
     }
 }
