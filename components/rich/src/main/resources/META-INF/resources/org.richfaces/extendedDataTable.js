@@ -791,20 +791,16 @@
                 if (typeof(index) === 'undefined') {
                     return;
                 }
-                if ((this.options.selectionMode == "single" || (this.options.selectionMode != "multipleKeyboardFree"
-                    && !event.shiftKey)) && !event.ctrlKey) {
-                    changed = this.selectRows(index);
-                } else if (this.options.selectionMode == "multipleKeyboardFree" || (!event.shiftKey && event.ctrlKey)) {
-                    if (this.ranges.contains(index)) {
-                        this.deselectRow(index);
-                    } else if (this.options.selectionMode == "single") {
-                        this.selectRows(index);
-                    } else {
-                        this.selectRow(index);
-                    }
-                    changed = true;
-                } else {
+                if (this.options.selectionMode == "multiple" && event.shiftKey) {
                     changed = this.processSlectionWithShiftKey(index);
+                } else if ((event.ctrlKey || this.options.selectionMode == "multipleKeyboardFree") && this.ranges.contains(index)) {
+                    this.deselectRow(index);
+                    changed = true;
+                } else if (this.options.selectionMode == "single" || (this.options.selectionMode == "multiple" && !event.ctrlKey))
+                    changed = this.selectRows(index);
+                } else {
+                    this.selectRow(index);
+                    changed = true;
                 }
                 this.onselectionchange(event, index, changed);
             },
