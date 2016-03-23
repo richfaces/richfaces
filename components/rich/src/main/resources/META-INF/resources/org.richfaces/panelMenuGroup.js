@@ -75,7 +75,6 @@
         execAjax : function (group) {
             var oldState = group.__changeState();
             rf.ajax(group.id, null, $.extend({}, group.options["ajax"], {}));
-            group.__restoreState(oldState);
 
             return true;
         },

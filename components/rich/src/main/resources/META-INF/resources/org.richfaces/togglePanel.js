@@ -85,7 +85,7 @@
             rf.ajax(this.comp.id, null, options);
 
             if (oldPanel) {
-                this.__setActiveItem(oldPanel.getName());
+                this.comp.activeItem = oldPanel.getName();
             }
 
             return false;

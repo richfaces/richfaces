@@ -87,7 +87,7 @@
             rf.ajax(newPanel.id, null, options);
 
             if (oldPanel) {
-                this.__setActiveItem(oldPanel);
+                oldPanel.getTogglePanel().activeItem = oldPanel.getName();
             }
 
             return false;
