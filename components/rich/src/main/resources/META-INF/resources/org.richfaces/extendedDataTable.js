@@ -134,6 +134,7 @@
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
                 this.options.loadDelay = 400;
+                this.options.selectionMode = this.options.selectionMode || "multiple";
                 this.element = this.attachToDom();
                 this.newWidths = {};
                 this.storeDomReferences();
@@ -796,7 +797,7 @@
                 } else if ((event.ctrlKey || this.options.selectionMode == "multipleKeyboardFree") && this.ranges.contains(index)) {
                     this.deselectRow(index);
                     changed = true;
-                } else if (this.options.selectionMode == "single" || (this.options.selectionMode == "multiple" && !event.ctrlKey))
+                } else if (this.options.selectionMode == "single" || (this.options.selectionMode == "multiple" && !event.ctrlKey)) {
                     changed = this.selectRows(index);
                 } else {
                     this.selectRow(index);
