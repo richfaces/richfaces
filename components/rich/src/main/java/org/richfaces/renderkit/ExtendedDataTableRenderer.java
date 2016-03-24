@@ -767,7 +767,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":cols", null);
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, context.getExternalContext().getRequestParameterMap().get(clientId + ":cols"), null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
-
+        writer.endElement(HtmlConstants.INPUT_ELEM);
+        writer.startElement(HtmlConstants.INPUT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":scroll", null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":scroll", null);
+        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, context.getExternalContext().getRequestParameterMap().get(clientId + ":scroll"), null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
         encodeSelectionInput(writer, context, component);
         AjaxFunction ajaxFunction = buildAjaxFunction(context, component);

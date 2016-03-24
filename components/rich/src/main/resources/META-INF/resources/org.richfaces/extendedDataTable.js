@@ -345,6 +345,7 @@
                         this.scrollElement.style.overflowX = "scroll";
                         this.scrollElement.style.width = width + "px";
                         this.scrollContentElement.style.width = contentWidth + "px";
+                        this.scrollElement.scrollLeft = document.getElementById(this.id + ":scroll").value;
                         this.updateScrollPosition();
                     } else {
                         this.parts.each(function() {
@@ -412,6 +413,7 @@
                     this.parts.each(function() {
                         this.scrollLeft = scrollLeft;
                     });
+                    document.getElementById(this.id + ":scroll").value = scrollLeft;
                 }
                 this.adjustResizers();
             },
