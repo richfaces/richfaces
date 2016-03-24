@@ -36,6 +36,7 @@
 
 .rf-edt-hdr,.rf-edt-tbl-hdr {
     background-image: "#{a4jSkin.imageUrl('colHdrGrad.png')}";
+    background-repeat: repeat-x;
 }
 
 .rf-edt-tbl-hdr {

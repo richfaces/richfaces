@@ -65,6 +65,7 @@
     border-right-color: '#{a4jSkin.tableBorderColor}';
     background-color: '#{a4jSkin.tableHeaderBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('colHdrGrad.png')}";
+    background-repeat: repeat-x;
     background-position: top left;
     color: '#{a4jSkin.tableHeaderTextColor}';
     font-family: '#{a4jSkin.generalFamilyFont}';
