@@ -81,7 +81,7 @@ input.rf-au-inp {
 .rf-au-lst-scrl {
     overflow: auto;
     overflow-x: hidden;
-    width: 200px;
+    min-width: 200px;
     max-height: 100px;
     min-height: 20px;
 }
