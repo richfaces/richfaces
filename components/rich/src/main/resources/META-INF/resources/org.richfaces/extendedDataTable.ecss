@@ -35,8 +35,10 @@
 }
 
 .rf-edt-hdr,.rf-edt-tbl-hdr {
+    background-color: '#{a4jSkin.tableHeaderBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('colHdrGrad.png')}";
     background-repeat: repeat-x;
+    background-position: top left;
 }
 
 .rf-edt-tbl-hdr {
