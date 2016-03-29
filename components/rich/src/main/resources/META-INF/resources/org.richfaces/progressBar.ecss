@@ -1,7 +1,7 @@
 .rf-pb-rmng {
     height: 13px;
     white-space: nowrap;
-    width: 200px;
+    min-width: 200px;
     position: relative;
     border-width: 1px;
     border-style: solid;
