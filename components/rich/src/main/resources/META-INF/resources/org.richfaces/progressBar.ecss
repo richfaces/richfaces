@@ -1,3 +1,7 @@
+.rf-pb {
+    width: 200px;
+}
+
 .rf-pb-rmng {
     height: 13px;
     white-space: nowrap;
