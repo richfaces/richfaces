@@ -1,3 +1,28 @@
+4.5.15.Final
+------------
+
+    Bug
+    [RF-10967] - Drag'n'Drop does not work with PARTIAL_STATE_SAVING FALSE
+    [RF-10969] - Progress bar: not possible to resize
+    [RF-11079] - Increase size of autocomplete
+    [RF-11120] - datatable.ecss: background-repeat on .rf-dt-hdr-c is not set
+    [RF-11171] - [rich:extendedDataTable] table-scrollbar scrolls to the left side instead of holding position after filtering or sorting column
+    [RF-11628] - rich:inputNumberSpinner: arrows ignore input content
+    [RF-11932] - extendedDataTable: cannot unselect selected row with CTRL+Click when using single selection mode
+    [RF-12061] - pickList direction
+    [RF-12539] - rich:editor - wrong method names in JS API
+    [RF-12977] - a4j:queue breaks tabPanel
+    [RF-14247] - page-fragments: hotkey: fix invoking over default (html) element
+
+    Component Upgrade
+    [RF-14243] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-14245] - page-fragments: select: move to item before selection
+
+    Task
+    [RF-14246] - photoalbum: tests: fix logging in with g+
+
 4.5.14.Final
 ------------
 
