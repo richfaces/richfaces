@@ -114,13 +114,13 @@
         <version.commons-codec>1.6</version.commons-codec>
 
         <!-- Integration Tests Versions -->
-        <version.arquillian.core>1.1.10.Final</version.arquillian.core>
-        <version.arquillian.drone>2.0.0.Alpha5</version.arquillian.drone>
-        <version.arquillian.graphene>2.1.0.Alpha3</version.arquillian.graphene>
-        <version.selenium>2.48.2</version.selenium>
+        <version.arquillian.core>1.1.11.Final</version.arquillian.core>
+        <version.arquillian.drone>2.0.0.Final</version.arquillian.drone>
+        <version.arquillian.graphene>2.1.0.CR1</version.arquillian.graphene>
+        <version.selenium>2.53.0</version.selenium>
         <version.shrinkwrap>1.2.3</version.shrinkwrap>
-        <version.shrinkwrap.resolver>2.2.0</version.shrinkwrap.resolver>
-        <version.shrinkwrap.descriptors>2.0.0-alpha-8</version.shrinkwrap.descriptors>
+        <version.shrinkwrap.resolver>2.2.2</version.shrinkwrap.resolver>
+        <version.shrinkwrap.descriptors>2.0.0-alpha-9</version.shrinkwrap.descriptors>
         <version.arquillian.tomcat>1.0.0.CR6</version.arquillian.tomcat>
         <version.arquillian.suite.extension>1.1.2</version.arquillian.suite.extension>
         <version.httpclient>4.3.3</version.httpclient>
