@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.5.15-SNAPSHOT</version>
+    <version>4.5.16-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
@@ -51,7 +51,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>4.5.15-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.16-SNAPSHOT</version.richfaces>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
