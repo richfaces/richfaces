@@ -33,8 +33,8 @@ public class ButtonDisabledBackgroundImage extends BaseControlBackgroundImage {
     @Override
     protected void initializeProperties(FacesContext context, Skin skin) {
         super.initializeProperties(context, skin);
-        setBaseColorParam("tableSubfooterBackgroundColor");
-        setGradientColorParam("tableFooterBackgroundColor");
+        setBaseColorParam(Skin.TABLE_SUBFOOTER_BACKGROUND_COLOR);
+        setGradientColorParam(Skin.TABLE_FOOTER_BACKGROUND_COLOR);
         setWidth(1);
     }
 }

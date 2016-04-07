@@ -16,7 +16,7 @@
     background-image: "#{a4jSkin.imageUrl('actTabBottomBg.png')}";
     background-position: top;
     background-repeat: repeat-x;
-    background-color: "#{a4jSkin.additionalBackgroundColor}";
+    background-color: "#{a4jSkin.generalBackgroundColor}";
     cursor: default;
 }
 
@@ -33,7 +33,7 @@
     background-image: "#{a4jSkin.imageUrl('actTabBg.png')}";
     background-position: top;
     background-repeat: repeat-x;
-    background-color: "#{a4jSkin.additionalBackgroundColor}";
+    background-color: "#{a4jSkin.tabBackgroundColor}";
     cursor: default;
 }
 
@@ -41,16 +41,19 @@
     vertical-align: bottom;
     padding: 3px 5px 0px 5px;
     background-image: "#{a4jSkin.imageUrl('tabBottomBg.png')}";
+    background-color: "#{a4jSkin.tabBackgroundColor}";
 }
 .rf-tab-hdr-inact.rf-tab-hdr-top {
     vertical-align: top;
     padding: 0px 5px 3px 5px;
     background-image: "#{a4jSkin.imageUrl('tabBg.png')}";
+    background-color: "#{a4jSkin.generalBackgroundColor}";
 }
 .rf-tab-hdr-dis.rf-tab-hdr-top {
     vertical-align: top;
     padding: 0px 5px 3px 5px;
     background-image: "#{a4jSkin.imageUrl('tabBg.png')}";
+    background-color: "#{a4jSkin.generalBackgroundColor}";
     color: "#{a4jSkin.tabDisabledTextColor}";
     cursor: default;
 }
@@ -58,6 +61,7 @@
     vertical-align: bottom;
     padding: 3px 5px 0px 5px;
     background-image: "#{a4jSkin.imageUrl('tabBottomBg.png')}";
+    background-color: "#{a4jSkin.tabBackgroundColor}";
     color: "#{a4jSkin.tabDisabledTextColor}";
     cursor: default;
 }
@@ -69,7 +73,7 @@
 
 .rf-tab-hdr-tabline-vis.rf-tab-hdr-tabline-top {
     background: "#{a4jSkin.imageUrl('tabLineBg.png')} repeat-x scroll center top";
-    background-color: "#{a4jSkin.additionalBackgroundColor}";
+    background-color: "#{a4jSkin.generalBackgroundColor}";
     border-color: "#{a4jSkin.panelBorderColor}";
     border-style: solid;
     border-width: 1px;
@@ -118,7 +122,7 @@
 }
 
 .rf-tab-hdr-scrl-lft {
-    background: "#{a4jSkin.imageUrl('actTabBg.png')} top repeat-x #{a4jSkin.additionalBackgroundColor}";
+    background: "#{a4jSkin.imageUrl('actTabBg.png')} top repeat-x #{a4jSkin.tabBackgroundColor}";
     position: absolute;
     top: 1px;
     left: 1px;
@@ -133,7 +137,7 @@
 }
 
 .rf-tab-hdr-scrl-rgh {
-    background: "#{a4jSkin.imageUrl('actTabBg.png')} top repeat-x #{a4jSkin.additionalBackgroundColor}";
+    background: "#{a4jSkin.imageUrl('actTabBg.png')} top repeat-x #{a4jSkin.tabBackgroundColor}";
     position: absolute;
     top: 1px;
     right: 17px;
@@ -148,7 +152,7 @@
 }
 
 .rf-tab-hdr-tablst {
-    background: "#{a4jSkin.imageUrl('actTabBg.png')} top repeat-x #{a4jSkin.additionalBackgroundColor}";
+    background: "#{a4jSkin.imageUrl('actTabBg.png')} top repeat-x #{a4jSkin.tabBackgroundColor}";
     position: absolute;
     top: 1px;
     right: 1px;

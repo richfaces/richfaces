@@ -182,6 +182,9 @@ public interface Skin {
      * top and left borders for the dropdown list box in the ddmenu. Default value #CCCCCC.
      */
     String TABLE_BORDER_COLOR = "tableBorderColor";
+
+    String TABLE_SUBFOOTER_BACKGROUND_COLOR = "tableSubfooterBackgroundColor";
+    String TABLE_FOOTER_BACKGROUND_COLOR = "tableFooterBackgroundColor";
     /**
      * Font name for displaying tab titles. Default value Arial, Verdana.
      *

@@ -18,7 +18,7 @@ input.rf-sel-inp {
     background-color: '#{a4jSkin.controlBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('inputBackgroundImage.png')}";
     background-position: 1px 1px;
-    background-repeat: no-repeat;
+    background-repeat: repeat-x;
     border: 0px;
     margin: 0px;
     padding: 0px;

@@ -9,7 +9,6 @@
     background-color: '#{a4jSkin.headerBackgroundColor}';
     background-position: left top;
     background-repeat: repeat-x;
-    /*check gradient  from headerGradientColor to headerBackgroundColor*/
     background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
     border-collapse: collapse;
     border-spacing : 0;

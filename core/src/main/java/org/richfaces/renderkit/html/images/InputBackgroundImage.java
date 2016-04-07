@@ -37,6 +37,6 @@ public class InputBackgroundImage extends BaseControlBackgroundImage {
         super.initializeProperties(context, skin);
         setBaseColorParam(Skin.ADDITIONAL_BACKGROUND_COLOR);
         setGradientColorParam(Skin.CONTROL_BACKGROUND_COLOR);
-        setWidth(2000);
+        setWidth(1);
     }
 }

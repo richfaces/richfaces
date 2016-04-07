@@ -16,7 +16,7 @@
     background-image: "#{a4jSkin.imageUrl('colHdrGrad.png')}";
     background-repeat: repeat-x;
     background-position: top left;
-    background-color: '#{a4jSkin.headerBackgroundColor}';
+    background-color: '#{a4jSkin.tableHeaderBackgroundColor}';
     font-size: '#{a4jSkin.headerSizeFont}';
     font-family: '#{a4jSkin.headerFamilyFont}';
     font-weight: '#{a4jSkin.headerWeightFont}';

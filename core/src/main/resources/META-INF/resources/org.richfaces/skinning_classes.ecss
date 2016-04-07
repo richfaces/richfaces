@@ -83,7 +83,7 @@ selector names conversion:
 }
 
 .rfs-field {
-    background-color: '#{a4jSkin.controlBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('buttonBackgroundImage.png')}";
     background-repeat: no-repeat;
     background-position: 1px 1px;
@@ -105,24 +105,13 @@ selector names conversion:
     border-width: 1px;
     border-style: solid;
     border-color: '#{a4jSkin.panelBorderColor}';
-    background-color: '#{a4jSkin.trimColor}';
+    background-image: "#{a4jSkin.imageUrl('standardButtonBgImage.png')}";
+    background-color: "#{a4jSkin.trimColor}";
     padding: 2px 10px 2px 10px;
     text-align: center;
     cursor: pointer;
     background-repeat: repeat-x;
     background-position: top left;
-}
-
-.rfs-btn {
-    background-image: "#{a4jSkin.imageUrl('standardButtonBgImage.png')}";
-}
-
-.rfs-btn-disabled {
-    background-image: "#{a4jSkin.imageUrl('standardButtonBgImage.png')}";
-}
-
-.rfs-btn-over {
-    background-image: "#{a4jSkin.imageUrl('standardButtonBgImage.png')}";
 }
 
 .rfs-btn-press {
@@ -348,6 +337,7 @@ selector names conversion:
     background-position: bottom left;
     background-repeat: repeat-x;
     background-image: "#{a4jSkin.imageUrl('buttonHoverBackgroundImage.png')}";
+    background-color: "#{a4jSkin.headerGradientColor}";
 }
 
 .rfs-ctn button[disabled],.rfs-btn-disabled,.rfs-btn-btn[disabled],.rfs-btn-btn-disabled,.rfs-btn-reset[disabled],.rfs-btn-reset-disabled,.rfs-btn-submit[disabled],.rfs-btn-submit-disabled,.rfs-ctn input[type="reset"][disabled],.rfs-input-reset[disabled],.rfs-input-reset-disabled,.rfs-ctn input[type="submit"][disabled],.rfs-input-submit[disabled],.rfs-input-submit-disabled,.rfs-ctn input[type="button"][disabled],.rfs-input-btn[disabled],.rfs-input-btn-disabled
@@ -364,7 +354,7 @@ selector names conversion:
     border-width: 1px;
     border-style: inset;
     border-color: '#{a4jSkin.panelBorderColor}';
-    background-repeat: no-repeat;
+    background-repeat: repeat-x;
     background-position: 1px 1px;
     background-color: '#{a4jSkin.controlBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('inputBackgroundImage.png')}";

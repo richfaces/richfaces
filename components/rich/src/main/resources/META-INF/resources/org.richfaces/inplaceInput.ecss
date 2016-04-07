@@ -77,11 +77,11 @@ input.rf-ii-fld {
     background-image: "#{a4jSkin.imageUrl('inplaceBtnPressGrad.png')}";
     background-position: top;
     background-repeat: repeat-x;
-    background-color: '#{a4jSkin.tabBackgroundColor}';
+    background-color: '#{a4jSkin.generalBackgroundColor}';
     border-width: 1px;
     border-style: inset;
     border-color: '#{a4jSkin.panelBorderColor}';
-    padding: 0px;
+    padding: 3px;
     margin: 0px;
 }
 

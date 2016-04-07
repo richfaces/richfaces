@@ -76,6 +76,7 @@ button:hover,input[type="reset"]:hover,input[type="submit"]:hover,input[type="bu
     background-position: bottom left;
     background-repeat: repeat-x;
     background-image: "#{a4jSkin.imageUrl('buttonHoverBackgroundImage.png')}";
+    background-color: "#{a4jSkin.headerBackgroundColor}";
 }
 
 button[disabled],input[type="reset"][disabled],input[type="submit"][disabled],input[type="button"][disabled] {
@@ -93,7 +94,7 @@ textarea,input[type="text"],input[type="password"],select {
     font-size: '#{a4jSkin.generalSizeFont}';
     font-family: '#{a4jSkin.generalFamilyFont}';
     color: '#{a4jSkin.controlTextColor}';
-    background-repeat: no-repeat;
+    background-repeat: repeat-x;
     background-position: 1px 1px;
     background-color: '#{a4jSkin.controlBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('inputBackgroundImage.png')}";

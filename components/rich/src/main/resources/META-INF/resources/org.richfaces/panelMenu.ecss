@@ -197,7 +197,7 @@
     background-image: "#{a4jSkin.imageUrl('pmenu_bg_dis.png')}";
     background-position: top left;
     background-repeat: repeat-x;
-    background-color: '#{a4jSkin.additionalBackgroundColor}';
+    background-color: '#{a4jSkin.headerBackgroundColor}';
     font-weight: bold;
 }
 

@@ -32,6 +32,7 @@
 .rf-fu-hdr {
     background-color: '#{a4jSkin.headerBackgroundColor}';
     background-image: "#{a4jSkin.imageUrl('gradientA.png')}";
+    background-repeat: repeat-x;
     border-color: '#{a4jSkin.headerBackgroundColor}';
     border-style: solid;
     border-width: 1px;
