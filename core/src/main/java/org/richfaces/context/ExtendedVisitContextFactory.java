@@ -53,6 +53,10 @@ public class ExtendedVisitContextFactory extends VisitContextFactory {
                     case EXECUTE:
                         return new ExtendedExecuteVisitContext(visitContextToWrap, facesContext, clientIds, hints);
                     case RENDER:
+                        // RF-14252: hack for MyFaces, with @resetValues MyFaces doesn't get render ids from epvc
+                        if (clientIds.contains("@component")) {
+                            clientIds.addAll(epvc.getRenderIds());
+                        }
                         return new ExtendedRenderVisitContext(visitContextToWrap, facesContext, clientIds, hints,
                                 epvc.isLimitRender());
                 }
