@@ -87,7 +87,7 @@
         if (this.originalItems.length > 0) {
             this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.originalItems, getData, !this.options.ajaxMode);
         }
-        
+
     };
 
     var getData = function (nodeList) {
@@ -111,7 +111,7 @@
 
             __listhideHandler: function(e) {
             },
-            
+
             __onInputChangeHandler: function(e) {
                 this.__setValue(this.input.val());
             },
@@ -341,7 +341,7 @@
                 if (label) {
                     return {'label': label, 'value': value};
                 }
-                
+
                 return empty;
             },
 
@@ -358,7 +358,7 @@
                     return {'label': label, 'value': value};
                 }
             },
-            
+
             __isValueSelected: function(label) {
                 this.lastSearched = this.lastSearched || {};
                 var current = {
@@ -366,13 +366,13 @@
                         value: this.getValue()
                     };
 
-                if (current.label === this.lastSearched.label 
+                if (current.label === this.lastSearched.label
                         && current.value == this.lastSearched.value) {
                     return true;
                 }
 
                 var item = this.__getClientItemFromCache(label);
-                if (item.label && item.label === current.label && item.value == current.value) {
+                if (item.label && item.label === current.label && item.value == current.value && current.value != "") {
                     this.lastSearched = current;
                     return true;
                 }
@@ -386,26 +386,26 @@
                 }
                 return false;
             },
-            
+
             __selectItemByLabel: function(code) {
                 // only 0-9 and a-z
                 if (this.enableManualInput || code < 48 || (code > 57 && code < 65) || code > 90) {
                     return false;
                 }
-                
+
                 if (!this.popupList.isVisible()) {
                     this.__updateItems();
                     this.__showPopup();
                 }
-                
+
                 var matchingItemIndexes = new Array();
-                
+
                 $.each(this.clientSelectItems, function(index) {
                     if(this.label[0].toUpperCase().charCodeAt(0) == code) {
                         matchingItemIndexes.push( index );
                     }
                 });
-                
+
                 if (matchingItemIndexes.length)
                 {
                     var keyCodeCount = 0;
@@ -419,11 +419,11 @@
                     }
                     this.lastKeyCode = code;
                     this.lastKeyCodeCount = keyCodeCount;
-                            
+
                     this.list.__selectByIndex( matchingItemIndexes[keyCodeCount] );
-                    
+
                 }
-                
+
                 return false;
             },
 
@@ -438,7 +438,7 @@
                             $(document.getElementById(this.id + "Items")).append(this.originalItems);
                         }
                         this.list.__selectItemByValue(this.getValue());
-                    } 
+                    }
                 }
                 this.invokeEvent.call(this, "listshow", document.getElementById(this.id));
             },
@@ -552,15 +552,15 @@
             }
         }
     })());
-    
+
     // client-side validation
     rf.csv = rf.csv || {};
     rf.csv.validateSelectLabelValue = function (input, id, params, msg) {
         var value = $(document.getElementById(id + 'selValue')).val();
         var label = $(document.getElementById(id + 'Input')).val();
-        
+
         var defaultLabel = RichFaces.component(id).defaultLabel;
-        
+
         if (!value && label && (label != defaultLabel)) {
             throw rf.csv.getMessage(null, null, [id, ""], 'UISELECTONE_INVALID');
         }
