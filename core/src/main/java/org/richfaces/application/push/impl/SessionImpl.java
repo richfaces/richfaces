@@ -261,7 +261,7 @@ public class SessionImpl implements Session, DestroyableSession {
             } else {
                 try {
                     // TODO - publish another events
-                    pushTopic.checkSubscription(this);
+                    pushTopic.checkSubscription(topicKey, this);
                 } catch (SubscriptionFailureException e) {
                     if (e.getMessage() != null) {
                         errorMessage = e.getMessage();

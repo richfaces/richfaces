@@ -71,7 +71,7 @@ public interface Topic {
      *
      * @throws SubscriptionFailureException when given session can't be subscribed to this topic
      */
-    void checkSubscription(Session session) throws SubscriptionFailureException;
+    void checkSubscription(TopicKey topicKey, Session session) throws SubscriptionFailureException;
 
     /**
      * Publishes topic event to all subscribed TopicListeners
