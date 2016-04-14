@@ -178,6 +178,7 @@
                     }
                     this.sourceList.__updateItemsList();
                 }
+                rf.Event.fire(this.sourceList, "additems", this.sourceList.items);
                 this.encodeHiddenValues();
                 this.toggleButtons();
             },
