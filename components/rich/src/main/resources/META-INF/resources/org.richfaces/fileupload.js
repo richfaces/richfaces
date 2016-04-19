@@ -155,6 +155,7 @@
 
             __addItems : function() {
                 this.__addFiles(this.input.prop("files"));
+                this.input.val("");
             },
 
             __addItemsFromDrop: function(dropEvent) {
@@ -198,14 +199,9 @@
                     }
                 }
                 if (this.__accept(fileName) && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
-                    this.input.remove();
-                    this.input.unbind("change", this.addProxy);
                     var item = new Item(this, file);
                     this.list.append(item.getJQuery());
                     this.items.push(item);
-                    this.input = this.cleanInput.clone();
-                    this.inputContainer.append(this.input);
-                    this.input.change(this.addProxy);
                     this.__updateButtons();
                     rf.Event.fire(this.element, "onfileselect", fileName);
                     return true;
