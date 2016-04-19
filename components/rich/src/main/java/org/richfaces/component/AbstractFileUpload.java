@@ -49,6 +49,7 @@ import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.event.FileUploadListener;
 import org.richfaces.model.UploadedFile;
+import org.richfaces.renderkit.FileUploadRendererBase;
 import org.richfaces.view.facelets.FileUploadHandler;
 
 /**
@@ -71,6 +72,10 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     private static final String QUEUED_FILE_UPLOAD_EVENTS_ATTR = "queuedFileUploadEvents";
 
+    enum Properties {
+        maxFileSize
+    }
+
     /**
      * Defines comma separated list of file extensions accepted by component. The format of the file extension can be "png" or
      * ".png", the second format will filter extensions in the dialog window. The component does not provide any feedback when
@@ -89,10 +94,12 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     /**
      * Defines the maximum allowed size of a file. Files exceeding the size will not be added in the component.
-     * Default value is 0 (no limit).
+     * Default value is equal to 'org.richfaces.fileUpload.maxRequestSize' context parameter if it is set, otherwise 0 (no limit).
      */
     @Attribute(defaultValue = "0L")
-    public abstract long getMaxFileSize();
+    public long getMaxFileSize() {
+        return (Long) getStateHelper().eval(Properties.maxFileSize, FileUploadRendererBase.getMaxRequestSize());
+    }
 
     /**
      * <p>

@@ -113,13 +113,17 @@ public class FileUploadRendererBase extends RendererBase {
         }
     }
 
-    private long getMaxRequestSize(ServletContext servletContext) {
+    public static long getMaxRequestSize(ServletContext servletContext) {
         String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
         if (param != null) {
             return Long.parseLong(param);
         }
 
         return 0;
+    }
+
+    public static long getMaxRequestSize() {
+        return getMaxRequestSize((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext());
     }
 
     @Override
