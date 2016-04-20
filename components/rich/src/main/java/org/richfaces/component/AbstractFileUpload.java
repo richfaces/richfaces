@@ -101,6 +101,10 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
         return (Long) getStateHelper().eval(Properties.maxFileSize, FileUploadRendererBase.getMaxRequestSize());
     }
 
+    public void setMaxFileSize(long maxFileSize) {
+        getStateHelper().put(Properties.maxFileSize, maxFileSize);
+    }
+
     /**
      * <p>
      * If "true" duplicate file uploads are prevented
