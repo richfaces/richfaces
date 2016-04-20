@@ -155,7 +155,10 @@
 
             __addItems : function() {
                 this.__addFiles(this.input.prop("files"));
-                this.input.val("");
+
+                // replace input with a copy, IE 10 doesn't allow clearing just the value (this.input.val(""))
+                this.input.replaceWith(this.input.clone(true));
+                this.input = this.inputContainer.children("input");
             },
 
             __addItemsFromDrop: function(dropEvent) {
