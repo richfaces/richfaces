@@ -44,7 +44,7 @@
 
             <c:if test="#{!component.attributes['disabled']}">
                 <input id="#{clientId}Focus" type="image" name="#{clientId}Focus"
-                    style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
+                    style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-fc" />
 
                 <span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
                     <input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}" />

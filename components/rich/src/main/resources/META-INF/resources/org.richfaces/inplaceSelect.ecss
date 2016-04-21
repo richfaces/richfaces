@@ -19,15 +19,7 @@ input.rf-is-fld {
 }
 
 .rf-is-none {
-    clip: "rect(0px 0px 1px 1px)";
-}
-
-.rf-is-none {
-    clip: rect(0px, 0px, 1px, 1px);
-}
-
-.rf-is-dis {
-    
+    display: none;
 }
 
 .rf-is-fld-cntr {
@@ -36,10 +28,6 @@ input.rf-is-fld {
     left: 0px;
     width: 100px;
     background-color: '#{a4jSkin.editBackgroundColor}';
-}
-
-.rf-is-fnt {
-    
 }
 
 .rf-is {
@@ -59,10 +47,6 @@ input.rf-is-fld {
     background-image: "url(#{resource['org.richfaces:mark_changed.gif']})";
     background-position: top left;
     background-repeat: no-repeat;
-}
-
-.rf-is-act {
-    
 }
 
 .rf-is-btn {
@@ -231,4 +215,16 @@ input.rf-is-fld {
 
 .rf-is-dflt-lbl {
     color: #b3b3b3;
+}
+
+.rf-is-fc {
+    padding: 0px;
+    border: 0px;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+}
+
+.rf-is-fc:focus {
+    outline: none;
 }

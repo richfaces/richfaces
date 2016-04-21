@@ -22,11 +22,6 @@ input.rf-ii-fld {
     display: inline-block;
     width: 100%;
 }
-
-.rf-ii-dis {
-    
-}
-
 .rf-ii-lbl {
     white-space: nowrap;
     color: '#{a4jSkin.generalTextColor}';
@@ -54,10 +49,6 @@ input.rf-ii-fld {
     background-image: url("#{resource['org.richfaces:mark_changed.gif']}");
     background-position: top left;
     background-repeat: no-repeat;
-}
-
-.rf-ii-act {
-    
 }
 
 .rf-ii-btn {
@@ -174,9 +165,21 @@ input.rf-ii-fld {
 }
 
 .rf-ii-none {
-    clip: "rect(0px 0px 1px 1px)";
+    display: none;
 }
 
 .rf-ii-dflt-lbl {
     color: #b3b3b3;
+}
+
+.rf-ii-fc {
+    padding: 0px;
+    border: 0px;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+}
+
+.rf-ii-fc:focus {
+    outline: none;
 }

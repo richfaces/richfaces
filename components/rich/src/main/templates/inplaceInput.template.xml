@@ -51,8 +51,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             </span>
 
             <c:if test="#{!component.attributes['disabled']}">
-                <input id="#{clientId}Focus" type="image" name="#{clientId}Focus" tabindex="-1"
-                    style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none" />
+                <input id="#{clientId}Focus" type="image" name="#{clientId}Focus" class="rf-ii-fc" />
                 <span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
                     <input id="#{clientId}Input" autocomplete="off" name="#{clientId}" type="text"
                         value="#{getInputValue(facesContext, component)}" class="rf-ii-fld" style="width: #{getInputWidth(component)};"

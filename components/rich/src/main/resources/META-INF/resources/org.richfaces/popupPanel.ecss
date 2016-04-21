@@ -1,14 +1,11 @@
 .rf-pp-btn {
     outline-style: none;
     position: absolute;
-    clip: rect(0px, 0px, 1px, 1px);
     height: 0px;
     width: 0px;
     left: 0px;
     top: 0px;
-    z-index: -300;
-    opacity: 0.1;
-    filter: 'alpha(opacity=10)';
+    border: none;
 }
 
 .rf-pp-shade {
