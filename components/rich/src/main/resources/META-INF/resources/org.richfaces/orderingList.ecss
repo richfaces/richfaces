@@ -94,3 +94,15 @@ input.rf-ord-dflt-lbl {
 .rf-ord-tbl {
     width : 100%;
 }
+
+.rf-ord-fc {
+    padding: 0px;
+    border: 0px;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+}
+
+.rf-ord-fc:focus {
+    outline: none;
+}
