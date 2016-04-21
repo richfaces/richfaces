@@ -1,7 +1,6 @@
 <span class="rf-ii" id="form:inplaceInputWithControls">
     <span class="rf-ii-lbl rf-ii-dflt-lbl" id="form:inplaceInputWithControlsLabel">Edit Text</span>
-    <input class="rf-ii-none" id="form:inplaceInputWithControlsFocus" name="form:inplaceInputWithControlsFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;"
-        type="image" tabindex="-1" />
+    <input id="form:inplaceInputWithControlsFocus" type="image" name="form:inplaceInputWithControlsFocus" class="rf-ii-fc" />
     <span class="rf-ii-fld-cntr rf-ii-none" id="form:inplaceInputWithControlsEdit">
         <input autocomplete="off" class="rf-ii-fld" id="form:inplaceInputWithControlsInput" name="form:inplaceInputWithControls"
             style="width: 100%;" type="text" />

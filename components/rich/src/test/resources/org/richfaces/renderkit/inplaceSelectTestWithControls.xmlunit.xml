@@ -1,7 +1,6 @@
 <span class="rf-is" id="form:inplaceSelectWithControls">
     <span class="rf-is-lbl rf-is-dflt-lbl" id="form:inplaceSelectWithControlsLabel">Edit Text</span>
-    <input class="rf-is-none" id="form:inplaceSelectWithControlsFocus" name="form:inplaceSelectWithControlsFocus"
-        style="position: absolute; top: 0px; left: 0px; outline-style: none;" type="image" />
+    <input id="form:inplaceSelectWithControlsFocus" type="image" name="form:inplaceSelectWithControlsFocus" class="rf-is-fc" />
     <span class="rf-is-fld-cntr rf-is-none" id="form:inplaceSelectWithControlsEdit">
         <input id="form:inplaceSelectWithControlsselValue" name="form:inplaceSelectWithControls" type="hidden" />
         <input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectWithControlsInput" name="form:inplaceSelectWithControlsInput"
