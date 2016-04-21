@@ -298,6 +298,16 @@
                 if (this.selectFirst && this.enableManualInput && !this.__isValueSelected(newValue)) {
                     this.list.__selectByIndex(0);
                 }
+                
+                if (!this.options.enableManualInput || this.__isValueSelected(this.getLabel())) {
+                    if (this.originalItems.length > this.popupList.list.items.length) {
+                        this.popupList.list.__unselectPrevious();
+                        this.popupList.list.__setItems(this.originalItems);
+                        $(document.getElementById(this.id + "Items")).children().detach();
+                        $(document.getElementById(this.id + "Items")).append(this.originalItems);
+                    }
+                    this.list.__selectItemByValue(this.getValue());
+                }
             },
 
             __updateItemsFromCache: function(value) {
@@ -431,12 +441,6 @@
                 if (this.originalItems.length > 0) {
                     this.popupList.show();
                     if (!this.options.enableManualInput || this.__isValueSelected(this.getLabel())) {
-                        if (this.originalItems.length > this.popupList.list.items.length) {
-                            this.popupList.list.__unselectPrevious();
-                            this.popupList.list.__setItems(this.originalItems);
-                            $(document.getElementById(this.id + "Items")).children().detach();
-                            $(document.getElementById(this.id + "Items")).append(this.originalItems);
-                        }
                         this.list.__selectItemByValue(this.getValue());
                     }
                 }
