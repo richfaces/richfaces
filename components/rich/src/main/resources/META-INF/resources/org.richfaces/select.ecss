@@ -29,6 +29,8 @@ input.rf-sel-inp {
 
 .rf-sel {
     display: inline-block;
+    font-size: 1px;
+    vertical-align: middle;
 }
 
 .rf-sel-fld-err input {
