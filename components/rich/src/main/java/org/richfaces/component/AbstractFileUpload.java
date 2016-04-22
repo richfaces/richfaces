@@ -147,7 +147,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
 
     /**
      * Javascript code executed when a file exceeds the allowed size defined by maxFileSize parameter
-     *  or 'org.richfaces.fileupload.maxRequestSize' context parameter.
+     *  or 'org.richfaces.fileUpload.maxRequestSize' context parameter.
      */
     @Attribute(events = @EventName("sizerejected"))
     public abstract String getOnsizerejected();
