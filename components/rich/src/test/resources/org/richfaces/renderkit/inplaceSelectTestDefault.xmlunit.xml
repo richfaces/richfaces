@@ -1,6 +1,6 @@
 <span class="rf-is" id="form:inplaceSelectDefault">
     <span class="rf-is-lbl rf-is-dflt-lbl" id="form:inplaceSelectDefaultLabel">Edit Text</span>
-    <input id="form:inplaceSelectDefaultFocus" type="image" name="form:inplaceSelectDefaultFocus" class="rf-is-fc" />
+    <input id="form:inplaceSelectDefaultFocus" type="button" name="form:inplaceSelectDefaultFocus" class="rf-is-fc" />
     <span class="rf-is-fld-cntr rf-is-none" id="form:inplaceSelectDefaultEdit">
         <input id="form:inplaceSelectDefaultselValue" name="form:inplaceSelectDefault" type="hidden" />
         <input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectDefaultInput" name="form:inplaceSelectDefaultInput"
