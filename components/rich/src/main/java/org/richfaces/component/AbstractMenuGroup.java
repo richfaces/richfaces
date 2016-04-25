@@ -1,5 +1,6 @@
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.convert.Converter;
 
@@ -29,6 +30,8 @@ import org.richfaces.renderkit.html.MenuGroupRendererBase;
 public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, DisabledProps, EventsKeyProps, EventsMouseProps, EventsPopupsProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
 
+    private AbstractMenuContainer parent;
+
     /**
      * The icon to be displayed with the menu item
      */
@@ -55,11 +58,24 @@ public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, D
 
     @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {
-        return getParent().getAttributes().get("cssRoot");
+        return findMenuComponent().getAttributes().get("cssRoot");
     }
 
     public enum Facets {
         icon,
         iconDisabled
+    }
+
+    public AbstractMenuContainer findMenuComponent() {
+        if (parent != null) {
+            return parent;
+        }
+        UIComponent c = this;
+        while (c != null && !(c instanceof AbstractMenuContainer)) {
+            c = c.getParent();
+        }
+
+        parent = (AbstractMenuContainer) c;
+        return parent;
     }
 }

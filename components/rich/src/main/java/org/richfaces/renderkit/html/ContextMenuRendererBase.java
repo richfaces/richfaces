@@ -49,7 +49,8 @@ public abstract class ContextMenuRendererBase extends RendererBase {
 
         for (UIComponent child : contextMenu.getChildren()) {
             if (child.isRendered()
-                    && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem || child instanceof AbstractMenuSeparator)) {
+                    && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem
+                        || child instanceof AbstractMenuSeparator || UIComponent.isCompositeComponent(child))) {
 
                 child.encodeAll(facesContext);
             }

@@ -46,7 +46,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
 
         for (UIComponent child : dropDownMenu.getChildren()) {
             if (child.isRendered()
-                    && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem || child instanceof AbstractMenuSeparator)) {
+                    && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem
+                        || child instanceof AbstractMenuSeparator || UIComponent.isCompositeComponent(child))) {
 
                 child.encodeAll(facesContext);
             }

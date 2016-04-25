@@ -1,5 +1,6 @@
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
@@ -15,9 +16,23 @@ import org.richfaces.renderkit.html.MenuSeparatorRendererBase;
 public abstract class AbstractMenuSeparator extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuSeparator";
 
+    private AbstractMenuContainer parent;
+
     @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {
-        return getParent().getAttributes().get("cssRoot");
+        return findMenuComponent().getAttributes().get("cssRoot");
     }
 
+    public AbstractMenuContainer findMenuComponent() {
+        if (parent != null) {
+            return parent;
+        }
+        UIComponent c = this;
+        while (c != null && !(c instanceof AbstractMenuContainer)) {
+            c = c.getParent();
+        }
+
+        parent = (AbstractMenuContainer) c;
+        return parent;
+    }
 }
