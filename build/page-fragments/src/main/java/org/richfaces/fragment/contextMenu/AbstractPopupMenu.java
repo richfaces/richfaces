@@ -194,7 +194,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
                 throw new IllegalStateException("You are attemting to dismiss the " + getNameOfFragment() + ", however, no "
                     + getNameOfFragment() + " is displayed at the moment!");
             }
-            browser.findElement(Utils.BY_HTML).click();
+            Utils.performUniversalBlur(browser);
             waitUntilIsNotVisible().perform();
         }
 

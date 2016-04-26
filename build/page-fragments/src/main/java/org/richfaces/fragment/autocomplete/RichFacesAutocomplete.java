@@ -224,7 +224,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedVisibleCompo
                 select();// select the first item
             } else {
                 // blur the input and focus on it again >>> the change event will be triggered, but we do not lose focus
-                new Actions(driver).click(driver.findElement(Utils.BY_BODY)).perform();
+                Utils.performUniversalBlur(driver);
                 Graphene.waitModel().until().element(advanced().getInput().advanced().getInputElement()).is().present();
                 advanced().getInput().advanced().getInputElement().click();
             }

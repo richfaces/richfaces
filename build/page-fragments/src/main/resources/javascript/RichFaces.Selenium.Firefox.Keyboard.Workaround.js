@@ -36,6 +36,7 @@ window.RichFaces.Selenium.Firefox.Keyboard.Workaround = window.RichFaces.Seleniu
     button.onclick = function () {
         body.removeChild(wrapper);
         invoked = true;
+        inserted = false;
     };
 
     var wrapper = wrapper || document.createElement('div');
@@ -56,6 +57,7 @@ window.RichFaces.Selenium.Firefox.Keyboard.Workaround = window.RichFaces.Seleniu
             if (!inserted) {
                 body.insertBefore(wrapper, body.firstChild);
                 inserted = true;
+                invoked = false;
             }
         },
         getButtonElement: function () {

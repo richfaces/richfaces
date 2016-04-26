@@ -273,6 +273,18 @@ public final class Utils {
     }
 
     /**
+     * Creates and inserts a new button to DOM, clicks on it and removes it.
+     *
+     * @param browser
+     */
+    public static void performUniversalBlur(WebDriver browser) {
+        // reuse FirefoxKeyboardWorkaround
+        FirefoxKeyboardWorkaround fkw = JSInterfaceFactory.create(GrapheneContext.lastContext(), FirefoxKeyboardWorkaround.class);
+        fkw.insertButtonWorkaround();
+        new Actions(browser).moveToElement(fkw.getButtonElement()).click().perform();
+    }
+
+    /**
      * Executes returning jQuery command on input element. E.g. to get a position of element from top of the page use
      * returningjQ("position().top", element).
      *
