@@ -27,6 +27,7 @@ import org.jboss.arquillian.graphene.fragment.Root;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TextInputComponentImpl;
@@ -44,7 +45,7 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleCompo
     @FindByJQuery(".rf-ii-btn:eq(1)")
     private WebElement cancelButton;
 
-    @FindBy(css = "span[id$=Label]")
+    @FindBy(className = "rf-ii-lbl")
     private WebElement label;
 
     @FindBy(css = "span[id$=Edit] > input[id$=Input]")
@@ -70,7 +71,7 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleCompo
 
     @Override
     public ConfirmOrCancel type(String text) {
-        Utils.triggerJQ(advanced().getEditByEvent().getEventName(), advanced().getRootElement());
+        advanced().switchToEditingState();
         if (!advanced().isInState(InplaceComponentState.ACTIVE)) {
             throw new IllegalStateException("You should set correct editBy event. Current: " + advanced().getEditByEvent()
                 + " did not changed the inplace input for editing!");
@@ -175,6 +176,16 @@ public class RichFacesInplaceInput implements InplaceInput, AdvancedVisibleCompo
         @Override
         public boolean isVisible() {
             return Utils.isVisible(getRootElement());
+        }
+
+        /**
+         * Switch component to editing state, if it is not there already, by triggering the @editEvent on the label element.
+         */
+        public void switchToEditingState() {
+            if (!isInState(InplaceComponentState.ACTIVE)) {
+                new Actions(browser).moveToElement(getLabelInputElement()).triggerEventByWDOtherwiseByJS(getEditByEvent(),
+                    getLabelInputElement()).perform();
+            }
         }
     }
 }

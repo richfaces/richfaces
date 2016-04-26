@@ -29,13 +29,11 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.AdvancedVisibleComponentIteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TextInputComponentImpl;
@@ -69,8 +67,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
     @FindBy(className = "rf-is-lst-cord")
     private WebElement localList;
 
-    @FindBy(xpath = "//body/span[contains(@class, rf-is-lst-cord)]")
-    // whole page search
+    @FindBy(xpath = "//body/span[contains(@class, rf-is-lst-cord)]")// whole page search
     private WebElement globalList;
 
     private static final String OPTIONS_CLASS = "rf-is-opt";
@@ -80,9 +77,6 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
 
     @Drone
     private WebDriver browser;
-
-    @ArquillianResource
-    private JavascriptExecutor executor;
 
     private final AdvancedInplaceSelectInteractions advancedInteractions = new AdvancedInplaceSelectInteractions();
 
@@ -99,6 +93,10 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
     @Override
     public ConfirmOrCancel select(ChoicePicker picker) {
         advanced().switchToEditingState();
+        if (!advanced().isInState(InplaceComponentState.ACTIVE)) {
+            throw new IllegalStateException("You should set correct editBy event. Current: " + advanced().getEditByEvent()
+                + " did not changed the inplace select for editing!");
+        }
         WebElement optionToBeSelected = picker.pick(advanced().getOptions());
         if (optionToBeSelected == null) {
             throw new IllegalArgumentException("There is no such option to be selected, which satisfied the given rules!");
@@ -107,7 +105,6 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         if (advanced().isSaveOnSelect() && !isShowControlls()) {
             // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
             getTextInput().advanced().focus();
-
             getTextInput().advanced().trigger("blur");
             advanced().waitForPopupToHide().perform();
         }
@@ -171,6 +168,10 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
             return RF_IS_ACT_CLASS;
         }
 
+        private Event getEditByEvent() {
+            return editByEvent;
+        }
+
         protected String getOptionsClass() {
             return OPTIONS_CLASS;
         }
@@ -199,11 +200,15 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
             return root;
         }
 
+        /**
+         * Switch component to editing state, if it is not there already, by triggering the @editEvent on the label element.
+         */
         public void switchToEditingState() {
-            // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
-            getTextInput().advanced().focus();
-            Utils.triggerJQ(executor, editByEvent.getEventName(), root);
-            waitForPopupToShow().perform();
+            if (!isInState(InplaceComponentState.ACTIVE)) {
+                new Actions(browser).moveToElement(getLabelInputElement()).triggerEventByWDOtherwiseByJS(getEditByEvent(),
+                    getLabelInputElement()).perform();
+                waitForPopupToShow().perform();
+            }
         }
 
         public void setTimeoutForPopupToHide(long timeoutInMilliseconds) {
