@@ -23,6 +23,7 @@ package org.richfaces.fragment.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +37,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
+import com.google.common.collect.Sets;
+
 /**
  * Extending org.openqa.selenium.interactions.Actions by some functionality.
  *
@@ -44,6 +47,8 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 public class Actions extends org.openqa.selenium.interactions.Actions {
 
     private final WebDriver driver;
+    private static final Set<Event> supportedEventsInTriggerEventByWD = Sets.newHashSet(Event.CLICK, Event.DBLCLICK, Event.MOUSEDOWN,
+        Event.MOUSEDOWN, Event.CONTEXTCLICK, Event.CONTEXTMENU, Event.MOUSEOUT, Event.MOUSEOVER, Event.MOUSEUP);
 
     public Actions(WebDriver driver) {
         super(driver);
@@ -117,6 +122,40 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
     public Actions dragAndDropBy(WebElement source, int xOffset, int yOffset) {
         super.dragAndDropBy(source, xOffset, yOffset);
         return this;
+    }
+
+    private Point getPossibleCoordinationsForMouseOut(WebElement element) {
+        Locations l = Utils.getLocations(element);
+        Dimension size = driver.manage().window().getSize();
+        // the mouse will be in the middle of the element, these values will be used for counting the final distance
+        int halfWidth = l.getWidth() / 2;
+        int halfHeight = l.getHeight() / 2;
+        int movementDistance = 10;// distance from the element in pixels
+        // check whether position left from the Element is valid
+        Locations moved = l.moveAllBy(-movementDistance, 0);
+        Point point = moved.getTopLeft();
+        if (point.x > 0) {
+            return new Point(-halfWidth - movementDistance, 0);
+        }
+        // check whether position right from the Element is valid
+        moved = l.moveAllBy(movementDistance, 0);
+        point = moved.getTopRight();
+        if (point.x < size.getWidth()) {
+            return new Point(halfWidth + movementDistance, 0);
+        }
+        // check whether position up from the Element is valid
+        moved = l.moveAllBy(0, -movementDistance);
+        point = moved.getTopRight();
+        if (point.y > 0) {
+            return new Point(0, -halfHeight - movementDistance);
+        }
+        // check whether position down from the Element is valid
+        moved = l.moveAllBy(0, movementDistance);
+        point = moved.getBottomRight();
+        if (point.y > size.getHeight()) {
+            return new Point(0, halfHeight + movementDistance);
+        }
+        throw new RuntimeException("Cannot find any suitable position for mouseout event.");
     }
 
     @Override
@@ -197,6 +236,7 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
 
     /**
      * Will try to trigger given event with webdriver standard API method - nativelly
+     *
      * @param event
      * @param element
      * @return
@@ -252,38 +292,12 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         }
     }
 
-    private Point getPossibleCoordinationsForMouseOut(WebElement element) {
-        Locations l = Utils.getLocations(element);
-        Dimension size = driver.manage().window().getSize();
-        // the mouse will be in the middle of the element, these values will be used for counting the final distance
-        int halfWidth = l.getWidth() / 2;
-        int halfHeight = l.getHeight() / 2;
-        int movementDistance = 10;// distance from the element in pixels
-        // check whether position left from the Element is valid
-        Locations moved = l.moveAllBy(-movementDistance, 0);
-        Point point = moved.getTopLeft();
-        if (point.x > 0) {
-            return new Point(-halfWidth - movementDistance, 0);
+    public Actions triggerEventByWDOtherwiseByJS(Event event, WebElement element) {
+        if (supportedEventsInTriggerEventByWD.contains(event)) {
+            return triggerEventByWD(event, element);
+        } else {
+            return triggerEventByJS(event, element);
         }
-        // check whether position right from the Element is valid
-        moved = l.moveAllBy(movementDistance, 0);
-        point = moved.getTopRight();
-        if (point.x < size.getWidth()) {
-            return new Point(halfWidth + movementDistance, 0);
-        }
-        // check whether position up from the Element is valid
-        moved = l.moveAllBy(0, -movementDistance);
-        point = moved.getTopRight();
-        if (point.y > 0) {
-            return new Point(0, -halfHeight - movementDistance);
-        }
-        // check whether position down from the Element is valid
-        moved = l.moveAllBy(0, movementDistance);
-        point = moved.getBottomRight();
-        if (point.y > size.getHeight()) {
-            return new Point(0, halfHeight + movementDistance);
-        }
-        throw new RuntimeException("Cannot find any suitable position for mouseout event.");
     }
 
     public Actions waitAction(final long timeInMillis) {
