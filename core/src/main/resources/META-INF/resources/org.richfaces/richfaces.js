@@ -731,8 +731,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         if (sourceElement.id && !isRichFacesComponent(sourceElement)) {
             var parentElement = false;
             $(sourceElement).parents().each(function() {
-                if (this.id && sourceElement.id.indexOf(this.id) == 0) { // otherwise parent element is definitely not JSF component
-                    var suffix = sourceElement.id.substring(this.id.length); // extract suffix
+                if (isPrefixMatchingId(this.id, sourceElement.id)) { // otherwise parent element is definitely not JSF component
+                    var suffix = sourceElement.id.substring(this.id.length + 1); // extract suffix
                     if (suffix.match(/^[a-zA-Z]*$/) && isRichFacesComponent(this)) {
                         parentElement = this;
                         return false;
@@ -745,6 +745,20 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         }
         return sourceElement;
     };
+
+    var isPrefixMatchingId = function(prefix, id) {
+        if (!prefix || id.indexOf(prefix) != 0) {
+            return false;
+        }
+
+        if (jsf.separatorchar) { // only in JSF 2.2+
+            return id[prefix.length] == jsf.separatorchar;
+        } else { 
+            // only alphanumeric characters (and '-' and '_') are allowed in id
+            // a character not matching those is probably the separator
+            return !!(id[prefix.length].match(/[^\w-]/));
+        }
+    }
 
 
     /**
