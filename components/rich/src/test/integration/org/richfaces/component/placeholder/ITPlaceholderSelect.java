@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -81,11 +81,6 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
     }
 
     @Override
-    Input input() {
-        return firstInput;
-    }
-
-    @Override
     protected String getTestedValue() {
         return "item1";
     }
@@ -95,13 +90,9 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
         return "item1";
     }
 
-    /**
-     * The select component does behave differently - delegates to defaultLabel implementation
-     */
-    @Test
     @Override
-    @Category(Failing.class)
-    public void when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes() {
+    Input input() {
+        return firstInput;
     }
 
     /**
@@ -111,5 +102,14 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
     @Override
     @Category(Failing.class)
     public void testAjaxSendsEmptyValue() {
+    }
+
+    /**
+     * The select component does behave differently - delegates to defaultLabel implementation
+     */
+    @Test
+    @Override
+    @Category(Failing.class)
+    public void testWhenTextIsChanged_textChangesColorToDefaultAndRemovesPlaceholderStyleClasses() {
     }
 }

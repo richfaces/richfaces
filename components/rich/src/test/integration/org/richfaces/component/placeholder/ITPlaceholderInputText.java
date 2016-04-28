@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -52,8 +52,8 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
                 return input.getOrCreateContextParam()
-                        .paramName("javax.faces.PROJECT_STAGE")
-                        .paramValue("SystemTest")
+                    .paramName("javax.faces.PROJECT_STAGE")
+                    .paramValue("SystemTest")
                     .up();
             }
         });
@@ -101,14 +101,14 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
     @Test
     @Category(Smoke.class)
     public void testComponentSourceWithSelector() throws Exception {
-        URL url = new URL(contextPath, "selector.jsf?selector=input");
-        sourceChecker.checkComponentSource(url, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
+        URL url = new URL(getContextPath(), "selector.jsf?selector=input");
+        getSourceChecker().checkComponentSource(url, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
     }
 
     @Test
     @Category(Smoke.class)
     public void testComponentSourceWithoutSelector() throws Exception {
-        URL url = new URL(contextPath.toExternalForm() + "index.jsf");
-        sourceChecker.checkComponentSource(url, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));
+        URL url = new URL(getContextPath().toExternalForm() + "index.jsf");
+        getSourceChecker().checkComponentSource(url, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));
     }
 }

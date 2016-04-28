@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -81,11 +81,6 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
     }
 
     @Override
-    Input input() {
-        return firstInput;
-    }
-
-    @Override
     protected String getTestedValue() {
         return "Dec 12, 2012";
     }
@@ -95,8 +90,13 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
         return "Wed Dec 12 00:00:00 UTC 2012";
     }
 
+    @Override
+    Input input() {
+        return firstInput;
+    }
+
     /**
-     *  calendar date conversion problem
+     * calendar date conversion problem
      */
     @Category(Failing.class)
     @Test

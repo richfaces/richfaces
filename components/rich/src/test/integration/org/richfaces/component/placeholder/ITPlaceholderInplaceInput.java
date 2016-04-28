@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -43,7 +43,7 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        RichDeployment deployment = new RichDeployment(ITPlaceholderInputText.class);
+        RichDeployment deployment = new RichDeployment(ITPlaceholderInplaceInput.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 
@@ -85,22 +85,6 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
         return inplaceInput;
     }
 
-    @Test
-    public void testRendered() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf");
-        // then
-        assertEquals("", input().getDefaultText().trim());
-    }
-
-    @Test
-    public void when_placeholder_is_not_rendered_anddefaultLabel_is_defined_then_is_should_be_used() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf?defaultLabel=defaultLabel");
-        // then
-        assertEquals("defaultLabel", input().getDefaultText());
-    }
-
     /**
      * {@link https://issues.jboss.org/browse/RF-12651}
      */
@@ -108,6 +92,14 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
     @Override
     @Category(Failing.class)
     public void testDefaultAttributes() {
+    }
+
+    @Test
+    public void testRendered() {
+        // having
+        getBrowser().get(getContextPath().toExternalForm() + "rendered.jsf");
+        // then
+        assertEquals("", input().getDefaultText().trim());
     }
 
     /**
@@ -126,12 +118,21 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
     public void testStyleClass() {
     }
 
+    @Test
+    public void testWhenPlaceholderIsNotRenderedAndDefaultLabelIsDefined_defaultLabelShouldBeUsed() {
+        // having
+        getBrowser().get(getContextPath().toExternalForm() + "rendered.jsf?defaultLabel=defaultLabel");
+        // then
+        assertEquals("defaultLabel", input().getDefaultText());
+    }
+
     /**
      * {@link https://issues.jboss.org/browse/RF-12651}
      */
     @Test
     @Category(Failing.class)
-    public void when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes() {
+    @Override
+    public void testWhenTextIsChanged_textChangesColorToDefaultAndRemovesPlaceholderStyleClasses() {
     }
 
     /**
@@ -140,6 +141,6 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
     @Test
     @Override
     @Category(Failing.class)
-    public void when_text_is_cleared_then_input_gets_placeholder_text_and_style_again() {
+    public void testWhenTextIsCleared_inputGetsPlaceholderTextAndStyleAgain() {
     }
 }

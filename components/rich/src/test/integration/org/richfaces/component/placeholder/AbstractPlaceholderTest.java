@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2012, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -63,50 +63,36 @@ import com.google.common.base.Predicate;
 public abstract class AbstractPlaceholderTest {
 
     protected static final Color DEFAULT_PLACEHOLDER_COLOR = new Color(119, 119, 119);
-    protected static final String PLACEHOLDER_TEXT = "Placeholder Text";
-    protected static final String PLACEHOLDER_CLASS = "rf-plhdr";
-    protected static final String PLACEHOLDER_ID = "placeholderID";
+    protected static final String EMPTY_STRING = "";
     protected static final String INPUT_ID = "input";
     protected static final String INPUT_SELECTOR = "[id=input]";
+    protected static final String PLACEHOLDER_CLASS = "rf-plhdr";
+    protected static final String PLACEHOLDER_ID = "placeholderID";
+    protected static final String PLACEHOLDER_TEXT = "Placeholder Text";
     protected static final String SECOND_INPUT_ID = "second-input";
     protected static final String SECOND_INPUT_SELECTOR = "[id=second-input]";
-    protected static final String EMPTY_STRING = "";
     protected static final String TESTED_VALUE = "some value";
 
-    @Drone
-    WebDriver browser;
-
-    @ArquillianResource
-    URL contextPath;
-    @ArquillianResource
-    SourceChecker sourceChecker;
-
     @FindBy(css = "[id$=ajaxSubmit]")
-    WebElement a4jSubmitBtn;
-    @FindBy(css = "[id$=httpSubmit]")
-    WebElement httpSubmitBtn;
-    @FindBy(css = "[id$=output]")
-    WebElement output;
-    @FindBy(tagName = "body")
-    WebElement body;
+    private WebElement a4jSubmitBtn;
     @FindBy(css = "input[id$=blurButton]")
-    WebElement blurButton;
+    private WebElement blurButton;
+    @FindBy(tagName = "body")
+    private WebElement body;
+
+    @Drone
+    private WebDriver browser;
+
+    @ArquillianResource
+    private URL contextPath;
+    @FindBy(css = "[id$=httpSubmit]")
+    private WebElement httpSubmitBtn;
+    @FindBy(css = "[id$=output]")
+    private WebElement output;
     @FindBy(id = PLACEHOLDER_ID)
-    GrapheneElement placeholderElement;
-
-    abstract Input input();
-
-    protected Color getDefaultInputColor() {
-        return Color.BLACK;
-    }
-
-    protected String getTestedValue() {
-        return TESTED_VALUE;
-    }
-
-    protected String getTestedValueResponse() {
-        return TESTED_VALUE;
-    }
+    private GrapheneElement placeholderElement;
+    @ArquillianResource
+    private SourceChecker sourceChecker;
 
     protected static FaceletAsset placeholderFacelet(String name, RichDeployment deployment) {
         FaceletAsset p;
@@ -117,126 +103,59 @@ public abstract class AbstractPlaceholderTest {
         return p;
     }
 
-    @Test
-    public void testConverter() {
-        // having
-        browser.get(contextPath.toExternalForm() + "converter.jsf");
-
-        // then
-        assertEquals(PlaceHolderValue.DEFAULT_VALUE, input().getDefaultText());
+    protected void blur() {
+        blurButton.click();
     }
 
-    @Test
-    @Category(Smoke.class)
-    public void testDefaultAttributes() {
-        // having
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-
-        // then
-        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
-        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
-        assertTrue("placeholder does not contain default class",
-            input().getStyleClass().contains(PLACEHOLDER_CLASS));
+    public WebElement getA4jSubmitBtn() {
+        return a4jSubmitBtn;
     }
 
-    @Test
-    public void testRendered() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf");
-        // then
-        assertFalse("Placeholder should not be present.", placeholderElement.isPresent());
+    public WebElement getBlurButton() {
+        return blurButton;
     }
 
-    @Test
-    public void testSelector() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "selector.jsf");
-        // then
-        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+    public WebElement getBody() {
+        return body;
     }
 
-    @Test
-    public void testStyleClass() {
-        // having
-        String className = "some-class";
-        browser.navigate().to(contextPath.toExternalForm() + "index.jsf?styleClass=" + className);
-        // then
-        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
-        assertTrue("input should contain specified class", input().getStyleClass().contains(className));
+    public WebDriver getBrowser() {
+        return browser;
     }
 
-    @Test
-    public void when_input_with_placeholder_gains_focus_then_placeholder_is_removed() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
-
-        // when
-        input().clickOnInput();
-        waitGui().until(new Predicate<WebDriver>() {
-
-            @Override
-            public boolean apply(WebDriver input) {
-                return input().getEditedText().isEmpty();
-            }
-        });
+    public URL getContextPath() {
+        return contextPath;
     }
 
-    @Test
-    public void when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
-        input().setTestedValue(getTestedValue());
-        waitGui().until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(WebDriver input) {
-                return !input().getStyleClass().contains(PLACEHOLDER_CLASS);
-            }
-        });
-        // then
-        assertFalse("input should not contain placeholder class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
-        assertEquals(getDefaultInputColor(), input().getTextColor());
-        assertEquals(getTestedValue(), input().getEditedText());
+    protected Color getDefaultInputColor() {
+        return Color.BLACK;
     }
 
-    @Test
-    public void when_text_is_cleared_then_input_gets_placeholder_text_and_style_again() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
-
-        // when
-        input().setTestedValue(getTestedValue());
-        input().clear();
-        blur();
-        waitGui().until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(WebDriver input) {
-                return input().getDefaultText().equals(PLACEHOLDER_TEXT);
-            }
-        });
-        // then
-        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
-        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
-        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+    public WebElement getHttpSubmitBtn() {
+        return httpSubmitBtn;
     }
 
-    @Test
-    public void when_text_is_changed_and_input_is_blurred_then_typed_text_is_preserved() {
-        // having
-        browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
-
-        // when
-        input().setTestedValue(getTestedValue());
-        blur();
-        waitGui().until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(WebDriver input) {
-                return input().getEditedText().equals(getTestedValue());
-            }
-        });
-        // then
-        assertEquals(getTestedValue(), input().getEditedText());
-        assertEquals(getDefaultInputColor(), input().getTextColor());
+    public WebElement getOutput() {
+        return output;
     }
+
+    public GrapheneElement getPlaceholderElement() {
+        return placeholderElement;
+    }
+
+    public SourceChecker getSourceChecker() {
+        return sourceChecker;
+    }
+
+    protected String getTestedValue() {
+        return TESTED_VALUE;
+    }
+
+    protected String getTestedValueResponse() {
+        return TESTED_VALUE;
+    }
+
+    abstract Input input();
 
     @Test
     public void testAjaxSendsEmptyValue() {
@@ -272,6 +191,54 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    public void testConverter() {
+        // having
+        browser.get(contextPath.toExternalForm() + "converter.jsf");
+
+        // then
+        assertEquals(PlaceHolderValue.DEFAULT_VALUE, input().getDefaultText());
+    }
+
+    @Test
+    @Category(Smoke.class)
+    public void testDefaultAttributes() {
+        // having
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
+        // then
+        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
+        assertTrue("placeholder does not contain default class",
+            input().getStyleClass().contains(PLACEHOLDER_CLASS));
+    }
+
+    @Test
+    public void testRendered() {
+        // having
+        browser.get(contextPath.toExternalForm() + "rendered.jsf");
+        // then
+        assertFalse("Placeholder should not be present.", placeholderElement.isPresent());
+    }
+
+    @Test
+    public void testSelector() {
+        // having
+        browser.get(contextPath.toExternalForm() + "selector.jsf");
+        // then
+        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+    }
+
+    @Test
+    public void testStyleClass() {
+        // having
+        String className = "some-class";
+        browser.get(contextPath.toExternalForm() + "index.jsf?styleClass=" + className);
+        // then
+        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+        assertTrue("input should contain specified class", input().getStyleClass().contains(className));
+    }
+
+    @Test
     public void testSubmitEmptyValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
@@ -295,8 +262,138 @@ public abstract class AbstractPlaceholderTest {
         assertEquals(getTestedValueResponse(), output.getText());
     }
 
-    protected void blur() {
-        blurButton.click();
+    @Test
+    public void testWhenInputWithPlaceholderGainsFocus_placeholderIsRemoved() {
+        // having
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
+        // when
+        input().focus();
+        waitGui().until(new Predicate<WebDriver>() {
+
+            @Override
+            public boolean apply(WebDriver input) {
+                return input().getEditedText().isEmpty();
+            }
+        });
+    }
+
+    @Test
+    public void testWhenTextIsChangedAndInputIsBlurred_typedTextIsPreserved() {
+        // having
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
+        // when
+        input().setTestedValue(getTestedValue());
+        blur();
+        waitGui().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver input) {
+                return input().getEditedText().equals(getTestedValue());
+            }
+        });
+        // then
+        assertEquals(getTestedValue(), input().getEditedText());
+        assertEquals(getDefaultInputColor(), input().getTextColor());
+    }
+
+    @Test
+    public void testWhenTextIsChanged_textChangesColorToDefaultAndRemovesPlaceholderStyleClasses() {
+        // having
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        input().setTestedValue(getTestedValue());
+        waitGui().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver input) {
+                return !input().getStyleClass().contains(PLACEHOLDER_CLASS);
+            }
+        });
+        // then
+        assertFalse("input should not contain placeholder class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+        assertEquals(getDefaultInputColor(), input().getTextColor());
+        assertEquals(getTestedValue(), input().getEditedText());
+    }
+
+    @Test
+    public void testWhenTextIsCleared_inputGetsPlaceholderTextAndStyleAgain() {
+        // having
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
+        // when
+        input().setTestedValue(getTestedValue());
+        input().clear();
+        blur();
+        waitGui().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver input) {
+                return input().getDefaultText().equals(PLACEHOLDER_TEXT);
+            }
+        });
+        // then
+        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
+        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+    }
+
+    public static class InplaceInput extends Input {
+
+        @FindBy(css = "input[id$=Input]")
+        private WebElement inplaceInput;
+        @FindBy(css = "span[id$=Label]")
+        private WebElement inplaceLabel;
+
+        @Override
+        public void clear() {
+            focus();
+            inplaceInput.clear();
+        }
+
+        @Override
+        public void focus() {
+            inplaceLabel.click();
+        }
+
+        @Override
+        public String getDefaultText() {
+            return inplaceLabel.getText();
+        }
+
+        @Override
+        public String getEditedText() {
+            return inplaceInput.getAttribute("value");
+        }
+
+        public WebElement getInplaceInput() {
+            return inplaceInput;
+        }
+
+        @Override
+        public String getStyleClass() {
+            return inplaceLabel.getAttribute("class");
+        }
+
+        @Override
+        public Color getTextColor() {
+            return ColorUtils.convertToAWTColor(inplaceLabel.getCssValue("color"));
+        }
+
+        @Override
+        public void setTestedValue(String value) {
+            focus();
+            inplaceInput.sendKeys(value);
+        }
+
+    }
+
+    public static class InplaceSelectInput extends InplaceInput {
+
+        @Override
+        public void setTestedValue(String value) {
+            focus();
+            getInplaceInput().sendKeys(Keys.DOWN);
+            getInplaceInput().sendKeys("\n");//Enter does not work
+        }
+
     }
 
     public static class Input {
@@ -311,6 +408,18 @@ public abstract class AbstractPlaceholderTest {
             this.input = input;
         }
 
+        public void clear() {
+            input.clear();
+        }
+
+        public void focus() {
+            input.click();
+        }
+
+        public String getDefaultText() {
+            return getEditedText();
+        }
+
         public String getEditedText() {
             return input.getAttribute("value");
         }
@@ -319,105 +428,34 @@ public abstract class AbstractPlaceholderTest {
             return input;
         }
 
-        public String getDefaultText() {
-            return getEditedText();
-        }
-
-        public void clickOnInput() {
-            input.click();
-        }
-
-        public void clear() {
-            input.clear();
-        }
-
-        public void setTestedValue(String value) {
-            input.click();
-            waitGui().until().element(input).text().equalTo("");
-            input.sendKeys(value);
+        public String getStyleClass() {
+            return input.getAttribute("class");
         }
 
         public Color getTextColor() {
             return ColorUtils.convertToAWTColor(input.getCssValue("color"));
         }
 
-        public String getStyleClass() {
-            return input.getAttribute("class");
-        }
-    }
-
-    public static class InplaceInput extends Input {
-
-        @FindBy(css = "input[id$=Input]")
-        private WebElement inplaceInput;
-        @FindBy(css = "span[id$=Label]")
-        private WebElement inplaceLabel;
-
-        @Override
-        public String getEditedText() {
-            return inplaceInput.getAttribute("value");
-        }
-
-        @Override
-        public String getDefaultText() {
-            return inplaceLabel.getText();
-        }
-
-        @Override
-        public void clickOnInput() {
-            inplaceLabel.click();
-        }
-
-        @Override
         public void setTestedValue(String value) {
-            inplaceLabel.click();
-            inplaceInput.sendKeys(value);
-        }
-
-        @Override
-        public void clear() {
-            inplaceLabel.click();
-            inplaceInput.clear();
-        }
-
-        @Override
-        public Color getTextColor() {
-            return ColorUtils.convertToAWTColor(inplaceLabel.getCssValue("color"));
-        }
-
-        public WebElement getInplaceInput() {
-            return inplaceInput;
-        }
-
-        @Override
-        public String getStyleClass() {
-            return inplaceLabel.getAttribute("class");
-        }
-    }
-
-    public static class InplaceSelectInput extends InplaceInput {
-
-        @Override
-        public void setTestedValue(String value) {
-            getInplaceInput().click();
-            getInplaceInput().sendKeys(Keys.DOWN);
-            getInplaceInput().sendKeys("\n");//Enter does not work
+            focus();
+            waitGui().until().element(input).text().equalTo("");
+            input.sendKeys(value);
         }
     }
 
     public static class SelectInput extends Input {
 
         @Override
-        public void setTestedValue(String value) {
-            getInputElement().click();
-            getInputElement().sendKeys(value);
-            getInputElement().sendKeys("\n");//Enter does not work
+        public void clear() {
+            focus();
+            getInputElement().clear();
         }
 
         @Override
-        public void clear() {
-            getInputElement().click();
-            getInputElement().clear();
+        public void setTestedValue(String value) {
+            focus();
+            getInputElement().sendKeys(value);
+            getInputElement().sendKeys("\n");//Enter does not work
         }
     }
 }
