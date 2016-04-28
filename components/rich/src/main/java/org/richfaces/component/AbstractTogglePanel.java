@@ -558,14 +558,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             String newItemName = ((ItemChangeEvent) event).getNewItemName();
             setValue(newItemName);
             setSubmittedActiveItem(newItemName);
-            if (event.getPhaseId() == PhaseId.UPDATE_MODEL_VALUES) {
-                try {
-                    updateModel(facesContext);
-                } catch (RuntimeException e) {
-                    facesContext.renderResponse();
-                    throw e;
-                }
-            } else {
+            updateModel(facesContext);
+            if (event.getPhaseId() != PhaseId.UPDATE_MODEL_VALUES) {
                 facesContext.renderResponse();
             }
         }
