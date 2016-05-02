@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -126,8 +125,7 @@ public final class PhotoalbumUtils {
     }
 
     public static void scrollToElement(WebElement element) {
-        Point location = element.getLocation();
-        Utils.getExecutorFromElement(element).executeScript("scrollTo(" + location.x + "," + location.y + ")");
+        Utils.getExecutorFromElement(element).executeScript("arguments[0].scrollIntoView(false);", element);
     }
 
     public static void waitFor(long millis) {
