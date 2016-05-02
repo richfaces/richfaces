@@ -103,9 +103,6 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedVisibleCom
         }
         new Actions(browser).moveToElement(optionToBeSelected).click(optionToBeSelected).perform();
         if (advanced().isSaveOnSelect() && !isShowControlls()) {
-            // following line is a workaround for selenium bug - https://code.google.com/p/selenium/issues/detail?id=7130
-            getTextInput().advanced().focus();
-            getTextInput().advanced().trigger("blur");
             advanced().waitForPopupToHide().perform();
         }
         return new ConfirmOrCancelImpl();
