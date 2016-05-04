@@ -116,7 +116,7 @@ public class UserBean {
 
     public void causeDelay() {
         // attempt to cause a delay in ajax request
-        // used in a4j:status samples to improve user experience
+        // used in a4j:status and a4j:attachQueue samples to improve user experience
         try {
             Thread.sleep(500l);
         } catch (InterruptedException ex) {

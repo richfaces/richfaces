@@ -8,9 +8,9 @@
         <rich:panel bodyClass="bClass">
             <h:outputText value="Type there:" />
             <h:inputText>
-                <a4j:ajax event="keyup" />
+                <a4j:ajax event="keyup" listener="#{userBean.causeDelay}"/>
             </h:inputText>
-            <a4j:commandButton value="submit">
+            <a4j:commandButton value="submit" actionListener="#{userBean.causeDelay}">
                 <a4j:attachQueue requestDelay="0" />
             </a4j:commandButton>
             <a4j:status>
@@ -24,9 +24,9 @@
     <rich:panel bodyClass="bClass" rendered="#{(userAgent.phone || userAgent.tablet)}">
         <h:outputText value="Type there:" />
         <h:inputText>
-            <a4j:ajax event="keyup" />
+            <a4j:ajax event="keyup" listener="#{userBean.causeDelay}"/>
         </h:inputText>
-        <a4j:commandButton value="submit">
+        <a4j:commandButton value="submit" actionListener="#{userBean.causeDelay}">
             <a4j:attachQueue requestDelay="0" />
         </a4j:commandButton>
         <a4j:status>
