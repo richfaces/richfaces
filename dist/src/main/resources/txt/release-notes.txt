@@ -1,3 +1,36 @@
+4.5.16.Final
+------------
+
+    Bug
+    [RF-11063] - rich:select is not at same level with text
+    [RF-11735] - [rich:tabPanel] activeItem doesn't work if attribute immediate is set to true
+    [RF-12845] - rich:menuItem does not work as composite component
+    [RF-13776] - a4j:ajax problem with hierarchical component IDs
+    [RF-14252] - @resetValues doesn't work with MyFaces
+    [RF-14254] - filtering is not working properly in rich:select component
+    [RF-14255] - Subtopic missing in processPreSubscriptionEvent
+    [RF-14256] - pickList doesn't fire onremoveitems when keepSourceOrder is true
+    [RF-14257] - rich:fileUpload not throwing the javascript event "onsizerejected" for global maxRequestSize
+    [RF-14258] - fileUpload: js events for error not trigger when same file selected twice
+    [RF-14259] - select: error class is not removed after selecting suggestion->type->delete
+    [RF-14261] - rich:orderingList broken with direction: rtl
+
+    Component Upgrade
+    [RF-14253] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-12609] - inplace input/select : controls are always visible
+    [RF-14248] - unify background colors and gradients
+    [RF-14262] - page-fragments: replace invoking of blur event
+    [RF-14263] - page-fragments: inplace input/select: replace invoking of edit event
+
+    Task
+    [RF-14264] - Update documentation regarding file size handling in rich:fileUpload
+    [RF-14265] - update integration tests dependencies
+
+    Sub-task
+    [RF-14260] - fileUpload: @onsizerejected: update attribute description (VDL doc)
+
 4.5.15.Final
 ------------
 
