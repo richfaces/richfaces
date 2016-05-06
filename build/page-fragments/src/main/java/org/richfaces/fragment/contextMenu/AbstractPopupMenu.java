@@ -170,8 +170,8 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
      */
     public abstract class AdvancedPopupMenuInteractions implements VisibleComponentInteractions {
 
-        private final Event DEFAULT_INVOKE_EVENT = Event.CONTEXTCLICK;
-        private Event invokeEvent = DEFAULT_INVOKE_EVENT;
+        private final Event DEFAULT_SHOW_EVENT = Event.CONTEXTMENU;
+        private Event showEvent = DEFAULT_SHOW_EVENT;
 
         private static final int DEFAULT_HIDEDELAY = 300;
         private int hideDelay = DEFAULT_HIDEDELAY;
@@ -294,11 +294,11 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
         }
 
         protected Event getDefaultShowEvent() {
-            return DEFAULT_INVOKE_EVENT;
+            return DEFAULT_SHOW_EVENT;
         }
 
         protected Event getShowEvent() {
-            return invokeEvent;
+            return showEvent;
         }
 
         public void setShowEvent() {
@@ -309,7 +309,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedVisibleCom
             if (newShowEvent == null) {
                 throw new IllegalArgumentException("Parameter newInvokeEvent can not be null!");
             }
-            invokeEvent = newShowEvent;
+            showEvent = newShowEvent;
         }
 
         public void setShowEventFromWidget() {
