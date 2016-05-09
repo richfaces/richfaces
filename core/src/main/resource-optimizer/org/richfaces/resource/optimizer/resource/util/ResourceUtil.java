@@ -147,10 +147,10 @@ public final class ResourceUtil {
     public static String getResourceQualifier(Resource resource) {
         return COLON_JOINER.join(resource.getLibraryName(), resource.getResourceName());
     }
-    
+
     /**
      * Returns the qualified name of resourceKey in format libraryName:resourceName.
-     * 
+     *
      * @param resourceKey the resourceKey
      * @return the qualified name of resourceKey in format libraryName:resourceName.
      */
@@ -160,7 +160,7 @@ public final class ResourceUtil {
 
     /**
      * Returns true if resourceKey and resource represents same resource.
-     * 
+     *
      * @param resourceKey resource key representation of resource
      * @param resource resource instance
      * @return true if resourceKey and resource represents same resource; false otherwise

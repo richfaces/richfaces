@@ -136,7 +136,7 @@ public class TopicImpl extends AbstractTopic {
         private final TopicKey key;
         private boolean submittedForPublishing;
 
-        public PublishingContext(TopicKey key) {
+        PublishingContext(TopicKey key) {
             super();
             this.key = key;
         }
@@ -206,7 +206,7 @@ public class TopicImpl extends AbstractTopic {
     private static final class PublishTask implements Runnable {
         private final PublishingContext topicContext;
 
-        public PublishTask(PublishingContext topicContext) {
+        PublishTask(PublishingContext topicContext) {
             super();
             this.topicContext = topicContext;
         }

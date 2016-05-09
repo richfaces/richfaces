@@ -52,12 +52,12 @@ import javax.naming.NameParser;
 import javax.naming.NamingException;
 
 import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.application.ServiceTracker;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
@@ -183,7 +183,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
         private Thread pollingThread;
         private MessageConsumer consumer;
 
-        public JMSConsumerContext(String name) {
+        JMSConsumerContext(String name) {
             super();
             this.name = name;
         }

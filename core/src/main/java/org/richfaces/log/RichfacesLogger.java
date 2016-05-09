@@ -44,7 +44,7 @@ public enum RichfacesLogger {
     private static final String LOGGER_NAME_PREFIX = "org.richfaces.log.";
     private String loggerName;
 
-    private RichfacesLogger(String loggerName) {
+    RichfacesLogger(String loggerName) {
         this.loggerName = LOGGER_NAME_PREFIX + loggerName;
     }
 

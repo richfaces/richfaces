@@ -50,7 +50,7 @@ public class MessageFactoryImplementationTest {
         CONVERTER_STRING("javax.faces.converter.STRING");
         private String key;
 
-        private Messages(String key) {
+        Messages(String key) {
             this.key = key;
         }
 

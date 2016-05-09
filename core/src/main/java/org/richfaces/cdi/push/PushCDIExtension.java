@@ -125,7 +125,7 @@ public class PushCDIExtension implements Extension {
         private BeanManager beanManager;
         private Push pushAnnotation;
 
-        public PushObserverMethod(BeanManager beanManager, Push pushAnnotation) {
+        PushObserverMethod(BeanManager beanManager, Push pushAnnotation) {
             this.beanManager = beanManager;
             this.pushAnnotation = pushAnnotation;
         }

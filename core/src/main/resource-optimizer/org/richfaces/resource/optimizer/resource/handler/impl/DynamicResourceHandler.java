@@ -39,7 +39,7 @@ public class DynamicResourceHandler extends AbstractResourceHandler {
         private ResourceKey resourceKey;
         private Object resourceData;
 
-        public ResourceRequestDataImpl(ResourceKey resourceKey, Object resourceData) {
+        ResourceRequestDataImpl(ResourceKey resourceKey, Object resourceData) {
             super();
             this.resourceKey = resourceKey;
             this.resourceData = resourceData;

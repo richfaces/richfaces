@@ -48,18 +48,20 @@ import com.google.common.cache.LoadingCache;
  *
  */
 public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionService {
+
     private static final class GenericsCacheEntry {
+
         private Class<?> beanClass;
 
         private LoadingCache<String, Class<?>> containerClassesMap = CacheBuilder.newBuilder().initialCapacity(2)
-                .build(CacheLoader.from(new Function<String, Class<?>>() {
-                    public Class<?> apply(String input) {
-                        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(input);
-                        return getGenericContainerClass(propertyDescriptor);
-                    }
-                }));
+            .build(CacheLoader.from(new Function<String, Class<?>>() {
+                public Class<?> apply(String input) {
+                    PropertyDescriptor propertyDescriptor = getPropertyDescriptor(input);
+                    return getGenericContainerClass(propertyDescriptor);
+                }
+            }));
 
-        public GenericsCacheEntry(Class<?> beanClass) {
+        GenericsCacheEntry(Class<?> beanClass) {
             this.beanClass = beanClass;
         }
 
@@ -125,11 +127,11 @@ public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionSe
     }
 
     private final LoadingCache<Class<?>, GenericsCacheEntry> cache = CacheBuilder.newBuilder().weakKeys().softValues()
-            .build(CacheLoader.from(new Function<Class<?>, GenericsCacheEntry>() {
-                public GenericsCacheEntry apply(java.lang.Class<?> input) {
-                    return new GenericsCacheEntry(input);
-                }
-            }));
+        .build(CacheLoader.from(new Function<Class<?>, GenericsCacheEntry>() {
+            public GenericsCacheEntry apply(java.lang.Class<?> input) {
+                return new GenericsCacheEntry(input);
+            }
+        }));
 
     private Class<?> getGenericCollectionType(FacesContext context, Object base, String propertyName) {
         Class<?> genericPropertyClass = null;

@@ -39,7 +39,7 @@ class ClientIdFunctionEvaluator {
     private Node[] parsedId;
     private Collection<String> resolvedIds = Lists.newArrayListWithCapacity(1);
 
-    public ClientIdFunctionEvaluator(FacesContext context, Node[] parsedId) {
+    ClientIdFunctionEvaluator(FacesContext context, Node[] parsedId) {
         super();
         this.context = context;
         this.parsedId = parsedId;

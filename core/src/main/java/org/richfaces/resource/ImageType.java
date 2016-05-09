@@ -91,7 +91,7 @@ public enum ImageType {
     private String formatName;
     private String mimeType;
 
-    private ImageType(String formatName) {
+    ImageType(String formatName) {
         this.formatName = formatName;
         this.mimeType = "image/" + formatName;
     }

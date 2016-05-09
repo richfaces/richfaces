@@ -510,7 +510,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      */
     private class ExtensionWritingPartialResponseWriter extends PartialResponseWriterWrapper {
 
-        public ExtensionWritingPartialResponseWriter(PartialResponseWriter wrapped) {
+        ExtensionWritingPartialResponseWriter(PartialResponseWriter wrapped) {
             super(wrapped);
         }
 

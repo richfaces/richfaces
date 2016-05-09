@@ -32,7 +32,7 @@ final class ComponentIdResolverNode {
     private ComponentIdResolverNode parent;
     private Map<String, ComponentIdResolverNode> children = new HashMap<String, ComponentIdResolverNode>(2);
 
-    public ComponentIdResolverNode(ComponentIdResolverNode parent, String id) {
+    ComponentIdResolverNode(ComponentIdResolverNode parent, String id) {
         this.parent = parent;
         this.id = id;
     }

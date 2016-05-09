@@ -90,6 +90,7 @@ public final class ComponentIterators {
      * @param parentClass <code>Class</code> of desired parent
      * @return <code>UIComponent</code>
      */
+    @SuppressWarnings("unchecked")
     public static <T extends UIComponent> T getParent(UIComponent component, Class<T> parentClass) {
         if (component == null || parentClass == null) {
             return null;

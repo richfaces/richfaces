@@ -59,6 +59,7 @@ public class LRUMapTest extends TestCase {
     /**
      * Test method for {@link org.richfaces.util.LRUMap#LRUMap(int)}.
      */
+    @SuppressWarnings("unchecked")
     public void testLRUMap() {
         LRUMap map = new LRUMap(5);
 
@@ -72,9 +73,11 @@ public class LRUMapTest extends TestCase {
     /**
      * Test method for {@link org.richfaces.util.LRUMap#removeEldestEntry(java.util.Map.Entry)}.
      */
+    @SuppressWarnings("unchecked")
     public void testRemoveEldestEntryEntry() {
         LRUMap map = new LRUMap(5) {
             protected boolean removeEldestEntry(Entry arg0) {
+                @SuppressWarnings("unchecked")
                 boolean eldestEntry = super.removeEldestEntry(arg0);
 
                 assertTrue(eldestEntry ^ size() <= 5);
@@ -91,6 +94,7 @@ public class LRUMapTest extends TestCase {
     /**
      * Test method for {@link java.util.HashMap#put(K, V)}.
      */
+    @SuppressWarnings("unchecked")
     public void testPut() {
         LRUMap map = new LRUMap(5);
 

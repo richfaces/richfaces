@@ -60,7 +60,7 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
     private IdsProxyCollection idsToVisit;
     private UIComponent startingComponent;
 
-    public NamingContainerVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
+    NamingContainerVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
         Collection<String> ids) {
 
         super(visitContextToWrap, facesContext, visitMode);

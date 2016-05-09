@@ -68,9 +68,9 @@ public class CountingExecutorCompletionService<T> extends ExecutorCompletionServ
             tasksCounter.getAndDecrement();
         }
     }
-    
+
     @Override
     public String toString() {
-        return "CountingExecutorCompletionService (" + tasksCounter.get() + ")"; 
+        return "CountingExecutorCompletionService (" + tasksCounter.get() + ")";
     }
 }

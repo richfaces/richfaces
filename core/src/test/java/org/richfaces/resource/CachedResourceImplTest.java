@@ -254,7 +254,7 @@ public class CachedResourceImplTest extends AbstractFacesTest {
     private class MockCachedResourceImpl extends CachedResourceImpl {
         private final long currentTime;
 
-        public MockCachedResourceImpl() {
+        MockCachedResourceImpl() {
             super();
             this.currentTime = createBaseDateCalendar().getTimeInMillis();
         }
@@ -269,7 +269,7 @@ public class CachedResourceImplTest extends AbstractFacesTest {
         private Map<String, String> headers;
         private InputStream stream;
 
-        public MockHeadersResourceImpl(Map<String, String> headers, InputStream stream) {
+        MockHeadersResourceImpl(Map<String, String> headers, InputStream stream) {
             super();
             setResourceName(getClass().getName());
             setContentType("image/png");

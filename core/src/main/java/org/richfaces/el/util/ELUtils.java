@@ -142,6 +142,7 @@ public final class ELUtils {
      * @param targetType which should be object coerced into
      * @return the given value coerced to targetType
      */
+    @SuppressWarnings("unchecked")
     public static <T> T coerce(Object value, Class<T> targetType) {
         if (value == null) {
             return null;

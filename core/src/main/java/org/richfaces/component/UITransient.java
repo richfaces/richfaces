@@ -406,7 +406,7 @@ public abstract class UITransient extends UIComponentBase {
 
     @Override
     public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     protected abstract boolean hasAttribute(Object key);

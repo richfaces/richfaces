@@ -27,11 +27,12 @@ import com.google.common.base.Strings;
 import com.google.common.collect.AbstractIterator;
 
 final class IdSplitIterator extends AbstractIterator<String> {
+
     private String s;
     private String subtreeId;
     private int idx;
 
-    public IdSplitIterator(String s) {
+    IdSplitIterator(String s) {
         super();
         this.s = s;
         this.idx = s.length();

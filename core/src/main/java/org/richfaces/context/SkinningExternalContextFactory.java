@@ -37,7 +37,7 @@ public class SkinningExternalContextFactory extends ExternalContextFactory imple
     private static final class ExternalContextWrapperImpl extends ExternalContextWrapper {
         private ExternalContext externalContext;
 
-        public ExternalContextWrapperImpl(ExternalContext externalContext) {
+        ExternalContextWrapperImpl(ExternalContext externalContext) {
             super();
             this.externalContext = externalContext;
         }

@@ -64,7 +64,7 @@ public class StaticResourcesScanner implements ResourcesScanner {
     private void scanLibrary(String libraryName, String resourceNamePrefix, VirtualFile dir) {
         Collection<VirtualFile> children = dir.getChildren();
         for (VirtualFile child : children) {
-        	String resourceName = resourceNamePrefix + child.getName();
+            String resourceName = resourceNamePrefix + child.getName();
             if (child.isFile()) {
                 resources.add(new ResourceKey(resourceName, libraryName));
             } else if (child.isDirectory()) {
@@ -72,7 +72,7 @@ public class StaticResourcesScanner implements ResourcesScanner {
                 if (resource != null) {
                     resources.add(new ResourceKey(resourceName, libraryName));
                 } else {
-                	scanLibrary(libraryName, resourceName + "/", child);
+                    scanLibrary(libraryName, resourceName + "/", child);
                 }
             }
         }

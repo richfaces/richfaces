@@ -33,7 +33,7 @@ public enum LoggerTestMessages {
     TEST_MESSAGE("org.richfaces.TestMessage");
     private String s;
 
-    private LoggerTestMessages(String s) {
+    LoggerTestMessages(String s) {
         this.s = s;
     }
 

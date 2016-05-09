@@ -41,11 +41,11 @@ import com.google.common.collect.Sets;
  * <p>
  * Stores partial orderings in order to be able derive complete ordering.
  * </p>
- * 
+ *
  * <p>
  * When storing new partial ordering, checks that new partial ordering does not violates partial orderings stored before.
  * </p>
- * 
+ *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class PartialOrderToCompleteOrder<T> {
@@ -63,11 +63,11 @@ public class PartialOrderToCompleteOrder<T> {
      * <p>
      * Stores collection as partial ordering.
      * </p>
-     * 
+     *
      * <p>
      * Checks that this collection will not violate another partial orderings stored before.
      * </p>
-     * 
+     *
      * @param collection as partial order
      */
     public void addPartialOrdering(Collection<T> collection) {
@@ -84,7 +84,7 @@ public class PartialOrderToCompleteOrder<T> {
 
     /**
      * Provides all items which was stored in collections as partial orderings
-     * 
+     *
      * @return all items which was stored in collections as partial orderings
      */
     public Set<T> getAllItems() {
@@ -95,7 +95,7 @@ public class PartialOrderToCompleteOrder<T> {
      * <p>
      * Provides current complete ordering derived from partial orderings.
      * </p>
-     * 
+     *
      * @return current complete ordering derived from partial orderings.
      */
     public CompleteOrdering getCompleteOrdering() {
@@ -104,7 +104,7 @@ public class PartialOrderToCompleteOrder<T> {
 
     /**
      * Get all items completely ordered.
-     * 
+     *
      * @return all items completely ordered.
      */
     public Collection<T> getCompletelyOrderedItems() {
@@ -145,7 +145,7 @@ public class PartialOrderToCompleteOrder<T> {
          * <p>
          * Returns new iterable sorted according to this complete ordering.
          * </p>
-         * 
+         *
          * <p>
          * All items which are unknown in this ordering are stored on the end of returned collection in the same order like in
          * iterable.
@@ -248,7 +248,7 @@ public class PartialOrderToCompleteOrder<T> {
         private LinkedList<T> order = Lists.newLinkedList();
         private HashSet<T> items = Sets.newHashSet();
 
-        public PartialOrdering(Collection<T> collection) {
+        PartialOrdering(Collection<T> collection) {
             order = Lists.newLinkedList(collection);
             items = Sets.newHashSet(collection);
         }

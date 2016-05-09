@@ -52,7 +52,7 @@ public class ITAjaxSubmissionCallbacks {
     public static WebArchive deployment() {
         CoreDeployment deployment = new CoreDeployment(ITAjaxSubmissionCallbacks.class);
         deployment.withA4jComponents();
-        
+
         deployment.archive().addAsWebResource(buildPage(true, true), "documentAndFormScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(true, false), "formScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(false, true), "documentScoped.xhtml");

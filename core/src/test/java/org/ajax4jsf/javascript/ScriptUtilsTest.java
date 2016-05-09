@@ -41,13 +41,13 @@ import java.util.TreeSet;
 
 import javax.faces.context.ResponseWriter;
 
-import junit.framework.TestCase;
-
 import org.easymock.Capture;
 import org.easymock.CaptureType;
 import org.hamcrest.CoreMatchers;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.Test;
+
+import junit.framework.TestCase;
 
 /**
  * @author shura
@@ -60,7 +60,7 @@ public class ScriptUtilsTest extends TestCase {
         super(name);
     }
 
-    private static enum TestEnum {
+    private enum TestEnum {
         A,
         B,
         C;

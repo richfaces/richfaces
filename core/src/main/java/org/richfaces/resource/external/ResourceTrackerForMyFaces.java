@@ -116,7 +116,7 @@ public class ResourceTrackerForMyFaces implements ResourceTracker {
 
         private String[] types;
 
-        private MimeType(String... types) {
+        MimeType(String... types) {
             this.types = types;
         }
 

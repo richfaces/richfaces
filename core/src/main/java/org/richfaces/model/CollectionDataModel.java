@@ -211,6 +211,7 @@ public class CollectionDataModel<E> extends DataModel<E> {
      * @throws ClassCastException if <code>data</code> is
      *  non-<code>null</code> and is not a <code>Collection</code>
      */
+    @SuppressWarnings("unchecked")
     public void setWrappedData(Object data) {
         if (data == null) {
             inner = null;

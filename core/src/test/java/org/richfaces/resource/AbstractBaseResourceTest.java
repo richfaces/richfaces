@@ -39,10 +39,10 @@ import javax.faces.context.FacesContext;
 import org.easymock.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.application.Module;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.application.Uptime;
-import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski
@@ -287,7 +287,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         private int ttl;
         private String version;
 
-        public MockResourceImpl() {
+        MockResourceImpl() {
             super();
             setResourceName("org.richfaces.resource.MockResource");
         }
@@ -376,7 +376,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         private boolean _transient;
         private String resourceState;
 
-        public MockStateAwareResourceImpl() {
+        MockStateAwareResourceImpl() {
             super();
             setResourceName("org.richfaces.resource.MockStateAwareResource");
         }
@@ -403,7 +403,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
     }
 
     private class ResourceImpl extends AbstractCacheableResource {
-        public ResourceImpl() {
+        ResourceImpl() {
             super();
             setResourceName("org.richfaces.resource.ResourceImpl");
         }

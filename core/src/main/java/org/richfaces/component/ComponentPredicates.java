@@ -21,9 +21,9 @@
  */
 package org.richfaces.component;
 
-import com.google.common.base.Predicate;
-
 import javax.faces.component.UIComponent;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author Nick Belaevski
@@ -33,7 +33,7 @@ public final class ComponentPredicates {
     private static final class WithIdPredicate implements Predicate<UIComponent> {
         private final String id;
 
-        public WithIdPredicate(String id) {
+        WithIdPredicate(String id) {
             super();
             this.id = id;
         }

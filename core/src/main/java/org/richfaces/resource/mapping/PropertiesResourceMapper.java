@@ -34,9 +34,9 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.services.Prioritizable;
-import org.richfaces.webapp.ResourceServlet;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
+import org.richfaces.webapp.ResourceServlet;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -149,7 +149,7 @@ public class PropertiesResourceMapper implements ResourceMapper, ResourceAggrega
 
         private ResourcePath resourcePath;
 
-        public LocationBasedResourceMapping(ResourcePath resourcePath) {
+        LocationBasedResourceMapping(ResourcePath resourcePath) {
             this.resourcePath = resourcePath;
         }
 

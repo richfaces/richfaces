@@ -111,7 +111,7 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
         }
         try {
             Class<?> requestedClass = Class.forName(requestedClassName);
-            for (Class baseClass : whitelistBaseClasses ) {
+            for (Class<?> baseClass : whitelistBaseClasses ) {
                 if (baseClass.isAssignableFrom(requestedClass)) {
                     whitelistClassNameCache.add(requestedClassName);
                     return true;

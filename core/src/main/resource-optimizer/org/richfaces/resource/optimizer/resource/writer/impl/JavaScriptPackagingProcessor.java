@@ -32,10 +32,13 @@ import java.nio.charset.Charset;
 
 import javax.faces.context.FacesContext;
 
-import com.google.common.io.*;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
+
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
+import com.google.common.io.ByteStreams;
 
 /**
  * @author Nick Belaevski

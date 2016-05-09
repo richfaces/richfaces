@@ -24,8 +24,8 @@ package org.richfaces.resource.mapping;
 import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.CoreConfiguration;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 
 /**
  * <p>
@@ -51,7 +51,7 @@ enum ResourceLoadingOptimizationConfiguration {
 
     private CoreConfiguration.Items associatedConfiguration;
 
-    private ResourceLoadingOptimizationConfiguration(CoreConfiguration.Items associatedConfiguration) {
+    ResourceLoadingOptimizationConfiguration(CoreConfiguration.Items associatedConfiguration) {
         this.associatedConfiguration = associatedConfiguration;
     }
 

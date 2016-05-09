@@ -95,7 +95,7 @@ public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> i
         private ExternalContext externalContext;
         private Charset charset;
 
-        public ExternalContextWrapperImpl(ExternalContext externalContext, Charset charset) {
+        ExternalContextWrapperImpl(ExternalContext externalContext, Charset charset) {
             super();
 
             this.externalContext = externalContext;

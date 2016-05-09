@@ -33,10 +33,10 @@ import javax.faces.application.Resource;
  */
 public interface ResourceWriter extends Closeable {
     void writeResource(String skinName, Resource resource) throws IOException;
-    
+
     void writePackedResource(String packName, String skinName, Resource resource) throws IOException;
 
     void writeProcessedResourceMappings(File staticResourceMappingFile, String staticResourcePrefix) throws IOException;
-    
+
     void close();
 }

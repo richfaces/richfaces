@@ -116,7 +116,7 @@ public class FileVFSFile implements VirtualFile {
     protected File getFile() {
         return file;
     }
-    
+
     @Override
     public String toString() {
         return "FileVFSFile[" + file.getPath() + ", " + relativePath + "]";

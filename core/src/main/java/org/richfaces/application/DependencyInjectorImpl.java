@@ -245,7 +245,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
         private PropertyDescriptor propertyDescriptor;
         private T dependency;
 
-        public Injector(PropertyDescriptor propertyDescriptor, T dependency) {
+        Injector(PropertyDescriptor propertyDescriptor, T dependency) {
             super();
             this.propertyDescriptor = propertyDescriptor;
             this.dependency = dependency;
@@ -276,7 +276,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
     }
 
     private static final class PropertyDependencyInjector extends Injector<ResourceParameter> {
-        public PropertyDependencyInjector(PropertyDescriptor propertyDescriptor, ResourceParameter dependency) {
+        PropertyDependencyInjector(PropertyDescriptor propertyDescriptor, ResourceParameter dependency) {
             super(propertyDescriptor, dependency);
         }
 
@@ -313,6 +313,7 @@ public class DependencyInjectorImpl implements DependencyInjector {
                     name = getPropertyDescriptor().getName();
                 }
 
+                @SuppressWarnings("unchecked")
                 Map<String, Object> parameters = (Map<String, Object>) context.getAttributes().get(
                     ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME);
 

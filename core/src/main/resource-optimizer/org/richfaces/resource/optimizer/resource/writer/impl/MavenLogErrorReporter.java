@@ -37,7 +37,7 @@ final class MavenLogErrorReporter implements ErrorReporter {
     private StringBuilder errorMessages = new StringBuilder();
     private StringBuilder warningMessages = new StringBuilder();
 
-    public MavenLogErrorReporter(String resourceName) {
+    MavenLogErrorReporter(String resourceName) {
         super();
         this.resourceName = resourceName;
     }

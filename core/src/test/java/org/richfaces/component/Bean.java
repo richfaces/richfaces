@@ -29,17 +29,17 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
-import org.richfaces.application.ServiceTracker;
 
 @RequestScoped
 @ManagedBean(name = "test")
 public class Bean {
 
     private static final class TestScript extends JSLiteral implements ResourceLibrary {
-        public TestScript() {
+        TestScript() {
             super(TEST_SCRIPT);
         }
 

@@ -28,7 +28,7 @@ package org.richfaces.log;
  * @author shura
  */
 public interface Logger {
-    public enum Level {
+    enum Level {
         DEBUG,
         INFO,
         WARNING,

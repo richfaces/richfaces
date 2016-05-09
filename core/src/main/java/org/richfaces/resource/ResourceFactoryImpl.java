@@ -37,13 +37,13 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.DependencyInjector;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.webapp.ResourceServlet;
-import org.richfaces.application.ServiceTracker;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
@@ -397,6 +397,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
     }
 
     private Deque<ResourceKey> getMappedResourcesResolutionStack(FacesContext context) {
+        @SuppressWarnings("unchecked")
         LinkedList<ResourceKey> list = (LinkedList<ResourceKey>) context.getAttributes().get(MAPPED_RESOURCES_RESOLUTION_STACK);
         if (list == null) {
             list = new LinkedList<ResourceKey>();
@@ -472,7 +473,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         private ResourceKey resourceKey;
         private Map<String, String> params;
 
-        public MappedResourceData(ResourceKey resourceKey, Map<String, String> params) {
+        MappedResourceData(ResourceKey resourceKey, Map<String, String> params) {
             this.resourceKey = resourceKey;
             this.params = params;
         }

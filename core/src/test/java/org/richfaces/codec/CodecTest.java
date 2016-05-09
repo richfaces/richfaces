@@ -72,7 +72,7 @@ public class CodecTest extends AbstractThreadedTest {
         int id;
         String s;
 
-        public CodecTestRunnable(Codec c, String s, int id) {
+        CodecTestRunnable(Codec c, String s, int id) {
             this.c = c;
             this.s = s;
             this.id = id;

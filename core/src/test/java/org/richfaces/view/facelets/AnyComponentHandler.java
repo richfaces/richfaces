@@ -38,7 +38,7 @@ public class AnyComponentHandler extends ComponentHandler {
         private String rendererType;
         private ComponentConfig config;
 
-        public ComponentConfigWrapper(String componentType, String rendererType, ComponentConfig config) {
+        ComponentConfigWrapper(String componentType, String rendererType, ComponentConfig config) {
             super();
             this.componentType = componentType;
             this.rendererType = rendererType;

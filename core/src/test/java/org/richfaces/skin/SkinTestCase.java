@@ -149,6 +149,7 @@ public class SkinTestCase {
         assertEquals("itself", skin.getParameter(facesContext, "selfValue"));
         assertEquals("#AAA", skin.getParameter(facesContext, "customFormColor"));
 
+        @SuppressWarnings("unchecked")
         Map<String, String> map = (Map<String, String>) facesContext.getExternalContext().getRequestMap().get("test");
 
         map.put("bean", "dynabase2");
@@ -224,6 +225,7 @@ public class SkinTestCase {
 
     @Test
     @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}") })
+    @SuppressWarnings("unchecked")
     public void testSkinHash() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);

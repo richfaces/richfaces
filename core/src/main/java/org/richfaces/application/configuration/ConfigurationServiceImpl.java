@@ -174,6 +174,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 synchronized (key.getClass()) {
                     Properties properties = loadProperties(configurationItemsBundle.propertiesFile());
 
+                    @SuppressWarnings("unchecked")
                     Iterator<? extends Enum> keys = EnumSet.allOf(key.getClass()).iterator();
                     while (keys.hasNext()) {
                         Enum<?> nextBundleKey = (Enum<?>) keys.next();

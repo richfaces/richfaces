@@ -32,7 +32,7 @@ final class ZipNode {
     private ZipEntry zipEntry;
     private boolean directory;
 
-    public ZipNode(String name) {
+    ZipNode(String name) {
         super();
         this.name = name;
     }
@@ -90,7 +90,7 @@ final class ZipNode {
     public ZipEntry getZipEntry() {
         return zipEntry;
     }
-    
+
     @Override
     public String toString() {
         return "ZipNode[" + name + ", " + zipEntry.getName() + "]";

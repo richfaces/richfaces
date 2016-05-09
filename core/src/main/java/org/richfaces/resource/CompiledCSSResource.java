@@ -161,7 +161,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
         private Resource resource;
         private String resourceLocator;
 
-        public ErrorHandlerImpl(Resource resource, boolean productionStage) {
+        ErrorHandlerImpl(Resource resource, boolean productionStage) {
             super();
             this.resource = resource;
             this.productionStage = productionStage;
