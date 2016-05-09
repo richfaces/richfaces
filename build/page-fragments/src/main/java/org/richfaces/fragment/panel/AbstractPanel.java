@@ -32,7 +32,9 @@ public abstract class AbstractPanel<HEADER, BODY> implements Panel<HEADER, BODY>
     @Root
     private WebElement root;
 
+    @SuppressWarnings("unchecked")
     private final Class<BODY> bodyClass = (Class<BODY>) TypeResolver.resolveRawArguments(Panel.class, getClass())[1];
+    @SuppressWarnings("unchecked")
     private final Class<HEADER> headerClass = (Class<HEADER>) TypeResolver.resolveRawArguments(Panel.class, getClass())[0];
 
     public abstract AdvancedPanelInteractions advanced();

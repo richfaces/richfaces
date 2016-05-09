@@ -43,8 +43,8 @@ import org.richfaces.fragment.common.WaitingWrapperImpl;
 import com.google.common.base.Predicate;
 
 /**
- * The root of this tooltip will be used for invoking this tooltip. In other words:
- * set root of this toolTip to the panel on which can be the toolTip invoked so you don't have to set the target before invoking.
+ * The root of this tooltip will be used for invoking this tooltip. In other words: set root of this toolTip to the panel on
+ * which can be the toolTip invoked so you don't have to set the target before invoking.
  *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  * @param <CONTENT>
@@ -57,6 +57,7 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
     @ArquillianResource
     private WebDriver driver;
 
+    @SuppressWarnings("unchecked")
     private final Class<CONTENT> contentClass = (Class<CONTENT>) TypeResolver.resolveRawArguments(RichFacesTooltip.class, getClass())[0];
     private final AdvancedTooltipInteractions interactions = new AdvancedTooltipInteractions();
 
@@ -160,7 +161,8 @@ public abstract class RichFacesTooltip<CONTENT> implements Tooltip<CONTENT>, Adv
         }
 
         /**
-         * Show the tooltip before this method. It will return actual tooltip element (element depends on the tooltip's visible state).
+         * Show the tooltip before this method. It will return actual tooltip element (element depends on the tooltip's visible
+         * state).
          */
         public WebElement getTooltipElement() {
             if (getIdOfTooltip() == null) {

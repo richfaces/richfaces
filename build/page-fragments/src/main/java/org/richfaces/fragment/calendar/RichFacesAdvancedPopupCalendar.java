@@ -48,7 +48,7 @@ public class RichFacesAdvancedPopupCalendar {
 
     private PopupCalendar calendarPopup;
 
-    public static enum OpenedBy {
+    public enum OpenedBy {
 
         INPUT_CLICKING,
         OPEN_BUTTON_CLICKING,;

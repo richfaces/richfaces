@@ -286,7 +286,7 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
 
         private final long timeInMillis;
 
-        public WaitAction(long timeInMillis) {
+        private WaitAction(long timeInMillis) {
             this.timeInMillis = timeInMillis;
         }
 

@@ -69,7 +69,7 @@ public abstract class RichFacesDataTable<HEADER, ROW, FOOTER> extends AbstractTa
     @FindBy(className = "rf-dt-sftr-c")
     private List<WebElement> columnFooterElements;
 
-    private final AbstractTable.AdvancedTableInteractions advancedInteractions = new AdvancedDataTableInteractions();
+    private final AdvancedTableInteractions advancedInteractions = new AdvancedDataTableInteractions();
 
     @Override
     public AdvancedTableInteractions advanced() {

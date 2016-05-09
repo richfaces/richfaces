@@ -59,7 +59,8 @@ public final class ChoicePickerHelper {
     }
 
     /**
-     * @return Returns ChoicePicker for picking choices by visible text. The picker can have multiple conditions/filters (e.g. startsWith('xy').endsWith('z')).
+     * @return Returns ChoicePicker for picking choices by visible text. The picker can have multiple conditions/filters (e.g.
+     * startsWith('xy').endsWith('z')).
      */
     public static ByVisibleTextChoicePicker byVisibleText() {
         return new ByVisibleTextChoicePicker();
@@ -100,8 +101,8 @@ public final class ChoicePickerHelper {
         /**
          * Picks every nth index from 0 (including).
          *
-         * @param  nth has to be greater than 1
-         * @return     same instance
+         * @param nth has to be greater than 1
+         * @return same instance
          */
         public ByIndexChoicePicker everyNth(final int nth) {
             return everyNth(nth, 0);
@@ -110,9 +111,9 @@ public final class ChoicePickerHelper {
         /**
          * Picks every nth index from @from (including).
          *
-         * @param nth  has to be greater than 1 (the iteration step)
+         * @param nth has to be greater than 1 (the iteration step)
          * @param from has to be greater or equals to 0
-         * @return     same instance
+         * @return same instance
          */
         public ByIndexChoicePicker everyNth(final int nth, final int from) {
             Preconditions.checkArgument(nth > 1);
@@ -225,7 +226,7 @@ public final class ChoicePickerHelper {
 
     public static class ByVisibleTextChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
-        private final List<Predicate> filters = Lists.newArrayList();
+        private final List<Predicate<WebElement>> filters = Lists.newArrayList();
         private boolean allRulesMustPass = Boolean.TRUE;
         private Function<WebElement, WebElement> transformationFunction;
 
@@ -238,9 +239,9 @@ public final class ChoicePickerHelper {
         }
 
         /**
-         * If true, then all rules/filters must pass to pick an element.
-         * If false, then if at least one rule/filter passes, element will be picked.
-         * Default value is true.
+         * If true, then all rules/filters must pass to pick an element. If false, then if at least one rule/filter passes,
+         * element will be picked. Default value is true.
+         *
          * @param allRulesMustPass
          */
         public ByVisibleTextChoicePicker allRulesMustPass(boolean allRulesMustPass) {
@@ -304,14 +305,14 @@ public final class ChoicePickerHelper {
             Preconditions.checkNotNull(options, "Options cannot be null.");
             Preconditions.checkArgument(!filters.isEmpty(), "No filters specified.");
             if (options.isEmpty()) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
 
             if (pickFirst) {
                 try {
                     return Lists.newArrayList(Iterables.find(options, new PickPredicate()));
                 } catch (NoSuchElementException e) {
-                    return Collections.EMPTY_LIST;
+                    return Collections.emptyList();
                 }
 
 //                Less performant:
@@ -329,26 +330,20 @@ public final class ChoicePickerHelper {
         }
 
         /**
-         * Sets a transformation function, that will be used to transform each WebElement from list of possible choices
-         * to another WebElement.
+         * Sets a transformation function, that will be used to transform each WebElement from list of possible choices to
+         * another WebElement.
          *
-         * Example:
-         * This picker will be picking and comparing text from such divs:
+         * Example: This picker will be picking and comparing text from such divs:
          * <code>
-         *  <div>
-         *      <span>text1</span>
-         *      <span>text2</span>
-         *  </div>
-         * </code> ,
-         * but you want to compare the text only with the second span.
-         * The only thing you need to do is to add this function:
-         * <code>
+         * <div>
+         * <span>text1</span>
+         * <span>text2</span>
+         * </div>
+         * </code> , but you want to compare the text only with the second span. The only thing you need to do is to add this
+         * function:          <code>
          * new Function<WebElement, WebElement>() {
-         *      @Override
-         *      public WebElement apply(WebElement input) {
-         *          return input.findElements(By.tagName("span")).get(1);
-         *      }
-         *  }
+         *
+         * @Override public WebElement apply(WebElement input) { return input.findElements(By.tagName("span")).get(1); } }
          * </code>
          *
          * @param transformationFunction
@@ -387,14 +382,14 @@ public final class ChoicePickerHelper {
             public boolean apply(WebElement input) {
                 WebElement element = transFormIfNeeded(input);
                 if (allRulesMustPass) {
-                    for (Predicate predicate : filters) {
+                    for (Predicate<WebElement> predicate : filters) {
                         if (!predicate.apply(element)) {
                             return FALSE;
                         }
                     }
                     return TRUE;
                 } else {
-                    for (Predicate predicate : filters) {
+                    for (Predicate<WebElement> predicate : filters) {
                         if (predicate.apply(element)) {
                             return TRUE;
                         }
@@ -455,17 +450,17 @@ public final class ChoicePickerHelper {
         private enum LogicalFunctions {
 
             AND {
-                @Override
-                boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
-                    return b1 && b2.apply(e);
-                }
-            },
+                    @Override
+                    boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
+                        return b1 && b2.apply(e);
+                    }
+                },
             OR {
-                @Override
-                boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
-                    return b1 || b2.apply(e);
-                }
-            };
+                    @Override
+                    boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e) {
+                        return b1 || b2.apply(e);
+                    }
+                };
 
             abstract boolean apply(boolean b1, Predicate<WebElement> b2, WebElement e);
         }
@@ -487,7 +482,7 @@ public final class ChoicePickerHelper {
             Preconditions.checkArgument(!predicates.isEmpty());
             Preconditions.checkArgument(predicates.size() - 1 == logicalFunctions.size());
             if (options.isEmpty()) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
             LinkedHashSet<WebElement> result;
             try {
@@ -499,7 +494,7 @@ public final class ChoicePickerHelper {
                 }
                 return Lists.newArrayList(result);
             } catch (NoSuchElementException ex) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
         }
 
@@ -614,7 +609,7 @@ public final class ChoicePickerHelper {
             private final Function<String, Boolean> stringToBoolean;
             private boolean negate = Boolean.FALSE;
 
-            public MergingPredicate(Function<WebElement, String> elementToString, Function<String, Boolean> stringToBoolean) {
+            private MergingPredicate(Function<WebElement, String> elementToString, Function<String, Boolean> stringToBoolean) {
                 this.elementToString = elementToString;
                 this.stringToBoolean = stringToBoolean;
             }
@@ -652,7 +647,7 @@ public final class ChoicePickerHelper {
 
             private final String attName;
 
-            public GetAttributeFunction(String attName) {
+            private GetAttributeFunction(String attName) {
                 this.attName = attName;
             }
 
@@ -670,7 +665,7 @@ public final class ChoicePickerHelper {
 
         private static class ContainsFunction extends CompareToFunction {
 
-            public ContainsFunction(String compareTo) {
+            private ContainsFunction(String compareTo) {
                 super(compareTo);
             }
 
@@ -682,7 +677,7 @@ public final class ChoicePickerHelper {
 
         private static class EndsWithFunction extends CompareToFunction {
 
-            public EndsWithFunction(String compareTo) {
+            private EndsWithFunction(String compareTo) {
                 super(compareTo);
             }
 
@@ -694,7 +689,7 @@ public final class ChoicePickerHelper {
 
         private static class EqualsToFunction extends CompareToFunction {
 
-            public EqualsToFunction(String compareTo) {
+            private EqualsToFunction(String compareTo) {
                 super(compareTo);
             }
 
@@ -706,7 +701,7 @@ public final class ChoicePickerHelper {
 
         private static class MatchesFunction extends CompareToFunction {
 
-            public MatchesFunction(String compareTo) {
+            private MatchesFunction(String compareTo) {
                 super(compareTo);
             }
 
@@ -718,7 +713,7 @@ public final class ChoicePickerHelper {
 
         private static class StartsWithFunction extends CompareToFunction {
 
-            public StartsWithFunction(String compareTo) {
+            private StartsWithFunction(String compareTo) {
                 super(compareTo);
             }
 
@@ -732,7 +727,7 @@ public final class ChoicePickerHelper {
 
             private final String compareTo;
 
-            public CompareToFunction(String compareTo) {
+            private CompareToFunction(String compareTo) {
                 this.compareTo = compareTo;
             }
 

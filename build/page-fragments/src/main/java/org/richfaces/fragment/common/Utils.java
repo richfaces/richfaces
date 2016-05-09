@@ -205,6 +205,7 @@ public final class Utils {
      * @param functionWithParams JS API function with params (e.g. <code>setValue(new Date('October 10, 2012 12:00:00'))</code>
      * )
      */
+    @SuppressWarnings("unchecked")
     public static <T> T invokeRichFacesJSAPIFunction(WebElement componentRoot, String functionWithParams) {
         return (T) getExecutorFromElement(componentRoot).executeScript(
             "return RichFaces.component(arguments[0])." + functionWithParams, componentRoot);
@@ -212,8 +213,7 @@ public final class Utils {
 
     public static boolean isVisible(WebElement e) {
         try {
-            boolean result = false;
-            result = e.isDisplayed();
+            boolean result = e.isDisplayed();
             return result;
         } catch (NoSuchElementException ex) {
             return false;
@@ -222,8 +222,7 @@ public final class Utils {
 
     public static boolean isVisible(SearchContext searchContext, By by) {
         try {
-            boolean result = false;
-            result = searchContext.findElement(by).isDisplayed();
+            boolean result = searchContext.findElement(by).isDisplayed();
             return result;
         } catch (NoSuchElementException ex) {
             return false;

@@ -22,6 +22,7 @@
 package org.richfaces.fragment.editor.toolbar;
 
 public enum EditorOtherButton implements EditorButton {
+
     SAVE("cke_button_save"),
     NEW_PAGE("cke_button_newpage"),
     PREVIEW("cke_button_preview"),
@@ -66,7 +67,7 @@ public enum EditorOtherButton implements EditorButton {
 
     private final String className;
 
-    private EditorOtherButton(String className) {
+    EditorOtherButton(String className) {
         this.className = className;
     }
 

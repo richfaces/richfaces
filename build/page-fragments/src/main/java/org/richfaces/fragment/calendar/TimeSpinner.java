@@ -190,7 +190,7 @@ public abstract class TimeSpinner<T> {
 
     }
 
-    public static enum TimeSign {
+    public enum TimeSign {
 
         AM,
         PM;

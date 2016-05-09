@@ -52,6 +52,7 @@ public abstract class AbstractListComponent<T extends ListItem> implements ListC
 
     private final Class<T> listItemClass;
 
+    @SuppressWarnings("unchecked")
     public AbstractListComponent() {
         listItemClass = (Class<T>) TypeResolver.resolveRawArgument(ListComponent.class, getClass());
     }
@@ -111,7 +112,7 @@ public abstract class AbstractListComponent<T extends ListItem> implements ListC
         if (result.size() == 1 && !result.get(0).getRootElement().isDisplayed()) {
             // hack for RF's list.
             // when the list should be empty, there is always a hidden item.
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
         return Collections.unmodifiableList(result);
     }

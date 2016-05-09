@@ -67,7 +67,7 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         CTRL(Keys.CONTROL);
         private final Keys key;
 
-        private ModifierKeys(Keys key) {
+        ModifierKeys(Keys key) {
             this.key = key;
         }
 

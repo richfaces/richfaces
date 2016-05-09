@@ -267,7 +267,7 @@ public class DayPicker {
 
             private final String styleClass;
 
-            private DayType(String styleClass) {
+            DayType(String styleClass) {
                 this.styleClass = styleClass;
             }
 
@@ -293,6 +293,7 @@ public class DayPicker {
 
         /**
          * Checks if this day contains chosen styleClass
+         *
          * @param styleClass
          * @return
          */
@@ -323,6 +324,7 @@ public class DayPicker {
 
         /**
          * Parses and returns the element's text representing day number.
+         *
          * @return
          */
         @Override

@@ -76,6 +76,7 @@ public abstract class RichFacesPopupPanel<HEADER, HEADERCONTROLS, BODY> extends 
 
     private final AdvancedPopupPanelInteractions interactions = new AdvancedPopupPanelInteractions();
 
+    @SuppressWarnings("unchecked")
     private final Class<HEADERCONTROLS> headerControlsClass = (Class<HEADERCONTROLS>) TypeResolver.resolveRawArguments(RichFacesPopupPanel.class, getClass())[1];
 
     @Override

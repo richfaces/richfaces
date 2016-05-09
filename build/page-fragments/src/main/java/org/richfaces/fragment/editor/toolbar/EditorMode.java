@@ -39,7 +39,7 @@ public enum EditorMode implements EditorButton {
 
     private final String className;
 
-    private EditorMode(String className) {
+    EditorMode(String className) {
         this.className = className;
     }
 

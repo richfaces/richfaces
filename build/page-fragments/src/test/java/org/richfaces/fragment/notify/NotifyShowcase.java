@@ -35,7 +35,7 @@ public class NotifyShowcase {
     private RichFacesNotifyMessage notifyMessage;
 
     public void showcase_notify() {
-        List<NotifyMessage> errorMessages = (List<NotifyMessage>) notify.getItems(MessageType.ERROR);
+        List<? extends NotifyMessage> errorMessages = notify.getItems(MessageType.ERROR);
 
         notify.getItem(4);
 

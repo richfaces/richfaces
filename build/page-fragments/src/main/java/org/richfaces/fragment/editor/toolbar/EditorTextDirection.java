@@ -28,7 +28,7 @@ public enum EditorTextDirection implements EditorButton {
 
     private final String className;
 
-    private EditorTextDirection(String className) {
+    EditorTextDirection(String className) {
         this.className = className;
     }
 

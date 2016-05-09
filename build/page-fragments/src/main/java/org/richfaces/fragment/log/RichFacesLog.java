@@ -134,7 +134,7 @@ public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<Ri
         }
     }
 
-    private static enum RichFacesLogEntryLevel {
+    private enum RichFacesLogEntryLevel {
 
         DEBUG(LogEntryLevel.DEBUG, "rf-log-entry-lbl-debug"),
         INFO(LogEntryLevel.INFO, "rf-log-entry-lbl-info"),
@@ -144,7 +144,7 @@ public class RichFacesLog implements Log, AdvancedVisibleComponentIteractions<Ri
         private final LogEntryLevel level;
         private final String containsClass;
 
-        private RichFacesLogEntryLevel(LogEntryLevel level, String containsClass) {
+        RichFacesLogEntryLevel(LogEntryLevel level, String containsClass) {
             this.level = level;
             this.containsClass = containsClass;
         }

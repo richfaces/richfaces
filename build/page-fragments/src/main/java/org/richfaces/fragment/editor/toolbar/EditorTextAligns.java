@@ -22,6 +22,7 @@
 package org.richfaces.fragment.editor.toolbar;
 
 public enum EditorTextAligns implements EditorButton {
+
     LEFT("cke_button_justifyleft"),
     CENTER("cke_button_justifycenter"),
     RIGHT("cke_button_justifyright"),
@@ -29,7 +30,7 @@ public enum EditorTextAligns implements EditorButton {
 
     private final String className;
 
-    private EditorTextAligns(String className) {
+    EditorTextAligns(String className) {
         this.className = className;
     }
 

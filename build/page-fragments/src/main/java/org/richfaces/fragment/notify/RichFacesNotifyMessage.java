@@ -145,7 +145,7 @@ public class RichFacesNotifyMessage extends AbstractMessage implements NotifyMes
         private final String containsClass;
         private final NotifyMessagePosition position;
 
-        private RichFacesNotifyMessagePosition(NotifyMessagePosition position, String containsClass) {
+        RichFacesNotifyMessagePosition(NotifyMessagePosition position, String containsClass) {
             this.position = position;
             this.containsClass = containsClass;
         }
