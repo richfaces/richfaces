@@ -1,9 +1,14 @@
 language: java
 
-jdk: 
+jdk:
   - oraclejdk8
   - oraclejdk7
   - openjdk7
+
+
+before_install:
+  # override default MAVEN_OPTS
+  - echo "MAVEN_OPTS='-Xms1g -Xmx2g -XX:MaxPermSize=512m'" > ~/.mavenrc
 
 install: mvn clean install -B -DskipTests=true -s /home/travis/build/richfaces/richfaces/buildhive-settings.xml
 
