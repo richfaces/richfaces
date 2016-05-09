@@ -66,7 +66,7 @@ public class GraphValidatorHandler extends ComponentHandler {
     private class FacesBeanValidatorAddListener implements ComponentSystemEventListener, StateHolder {
         private final SetupValidatorsParameter parameterObject;
 
-        public FacesBeanValidatorAddListener(SetupValidatorsParameter parameterObject) {
+        FacesBeanValidatorAddListener(SetupValidatorsParameter parameterObject) {
             this.parameterObject = parameterObject;
         }
 

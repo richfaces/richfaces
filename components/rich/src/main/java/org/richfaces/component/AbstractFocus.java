@@ -102,7 +102,7 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
         return Mode.FORM;
     }
 
-    public static enum Mode {
+    public enum Mode {
         /**
          * In this mode, focus is processed every time form is submitted.
          *

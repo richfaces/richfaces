@@ -35,7 +35,7 @@ final class FileUploadDiscResource extends FileUploadResource {
     private File file;
     private FileOutputStream fos;
 
-    public FileUploadDiscResource(String name, String uploadLocation) {
+    FileUploadDiscResource(String name, String uploadLocation) {
         super(name, uploadLocation);
     }
 

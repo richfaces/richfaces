@@ -78,13 +78,13 @@ public class PopupPanelBaseRenderer extends RendererBase {
                 boolean show = panel.isShow() || Boolean.parseBoolean((String) panelOpenState);
                 panel.setShow(show);
 
-                Map<String, Object> visualOptions = (Map<String, Object>) getHandledVisualOptions(panel);
+                Map<String, Object> visualOptions = getHandledVisualOptions(panel);
                 Iterator<Entry<String, String>> it = rqMap.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry<String, String> entry = it.next();
-                    int suffixPos = entry.getKey().toString().indexOf(STATE_OPTION_SUFFIX);
+                    int suffixPos = entry.getKey().indexOf(STATE_OPTION_SUFFIX);
                     if (-1 != suffixPos) {
-                        String key = entry.getKey().toString().substring(suffixPos + STATE_OPTION_SUFFIX.length());
+                        String key = entry.getKey().substring(suffixPos + STATE_OPTION_SUFFIX.length());
                         visualOptions.put(key, entry.getValue());
                     }
                 }
@@ -92,7 +92,8 @@ public class PopupPanelBaseRenderer extends RendererBase {
         }
     }
 
-    protected Class getComponentClass() {
+    @Override
+    protected Class<? extends UIComponent> getComponentClass() {
         return AbstractPopupPanel.class;
     }
 
@@ -136,15 +137,15 @@ public class PopupPanelBaseRenderer extends RendererBase {
         // We are already processed KeepVisualState and current open state in
         // doDecode, so no need to check panel.isKeepVisualState() here.
         if (panel.isShow()) {
-            result.append("RichFaces.ui.PopupPanel.showPopupPanel('" + panel.getClientId(context) + "', {");
+            result.append("RichFaces.ui.PopupPanel.showPopupPanel('").append(panel.getClientId(context)).append("', {");
 
             // TODO nick - use ScriptUtils.toScript
-            Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
+            Iterator<Map.Entry<String, Object>> it = getHandledVisualOptions(panel).entrySet()
                 .iterator();
             while (it.hasNext()) {
                 Map.Entry<String, Object> entry = it.next();
 
-                result.append(entry.getKey() + ": '" + entry.getValue() + "'");
+                result.append(entry.getKey()).append(": '").append(entry.getValue()).append("'");
                 if (it.hasNext()) {
                     result.append(", ");
                 }
@@ -183,13 +184,6 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return res.toString();
     }
 
-    private Object buildEventFunction(Object eventFunction) {
-        if (eventFunction != null && eventFunction.toString().length() > 0) {
-            return "new Function(\"" + eventFunction.toString() + "\");";
-        }
-        return null;
-    }
-
     public Map<String, Object> getHandledVisualOptions(UIComponent component) {
         AbstractPopupPanel panel = (AbstractPopupPanel) component;
         String options = panel.getVisualOptions();
@@ -202,6 +196,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {
             return new HashMap<String, Object>();

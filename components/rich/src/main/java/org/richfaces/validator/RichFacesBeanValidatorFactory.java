@@ -97,7 +97,7 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
     private static final class JsfMessageInterpolator implements MessageInterpolator {
         private MessageInterpolator delegate;
 
-        public JsfMessageInterpolator(MessageInterpolator delegate) {
+        JsfMessageInterpolator(MessageInterpolator delegate) {
             this.delegate = delegate;
         }
 

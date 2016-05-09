@@ -47,7 +47,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         private State state = State.initial;
         private TreeDataModelTuple tuple;
 
-        public QueuedData(TreeDataModelTuple tuple) {
+        QueuedData(TreeDataModelTuple tuple) {
             super();
             this.tuple = tuple;
         }
@@ -79,7 +79,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
     protected final AbstractTree tree;
     private LinkedList<QueuedData> queuedDataList = new LinkedList<QueuedData>();
 
-    public TreeEncoderBase(FacesContext context, AbstractTree tree) {
+    TreeEncoderBase(FacesContext context, AbstractTree tree) {
         super();
         this.context = context;
         this.responseWriter = context.getResponseWriter();

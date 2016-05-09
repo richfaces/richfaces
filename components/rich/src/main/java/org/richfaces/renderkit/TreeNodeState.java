@@ -63,7 +63,7 @@ public enum TreeNodeState {
     private String iconClass;
     private String customIconClass;
 
-    private TreeNodeState(String nodeClass, String defaultHandleClass, String iconClass) {
+    TreeNodeState(String nodeClass, String defaultHandleClass, String iconClass) {
         this.nodeClass = nodeClass;
         this.handleClass = HtmlUtil.concatClasses(defaultHandleClass, "rf-trn-hnd");
         this.iconClass = HtmlUtil.concatClasses(iconClass, "rf-trn-ico");

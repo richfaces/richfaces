@@ -82,13 +82,13 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
     private static final String DATA_ATTRIBUTE = "data-rf-column-name";
 
-    protected static enum PartName {
+    protected enum PartName {
 
         frozen,
         normal;
         private String id;
 
-        private PartName() {
+        PartName() {
             id = String.valueOf(this.toString().charAt(0));
         }
 

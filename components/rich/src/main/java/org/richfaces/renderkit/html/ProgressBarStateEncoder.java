@@ -41,7 +41,7 @@ class ProgressBarStateEncoder {
     private static final int DEFAULT_MAX_VALUE = 100;
     private boolean renderContentAsPlaceHolders;
 
-    public ProgressBarStateEncoder(boolean renderContentAsPlaceHolders) {
+    ProgressBarStateEncoder(boolean renderContentAsPlaceHolders) {
         super();
         this.renderContentAsPlaceHolders = renderContentAsPlaceHolders;
     }

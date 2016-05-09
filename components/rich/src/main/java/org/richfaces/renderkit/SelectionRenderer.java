@@ -54,7 +54,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         private String selectionFlag;
         private int index;
 
-        public ClientSelection(String selectionString) {
+        ClientSelection(String selectionString) {
             // TODO nick - this code is not readable at all - lacks comments, has lot of arrays operation
             String[] strings = selectionString.split("\\|", -1);
             String[] rangeStrings = strings[0].split(";");

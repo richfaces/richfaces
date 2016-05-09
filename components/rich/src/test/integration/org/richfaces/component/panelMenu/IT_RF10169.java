@@ -611,16 +611,16 @@ public class IT_RF10169 {
         checkForIconWithTopClass(allItemsInnerNotDisabled, allItemsTopNotDisabled, true, false);
     }
 
-    public static interface HasIcon {
+    public interface HasIcon {
 
-        public Icon getLeftIcon();
+        Icon getLeftIcon();
 
-        public Icon getRightIcon();
+        Icon getRightIcon();
 
-        public WebElement getRootElement();
+        WebElement getRootElement();
     }
 
-    public static interface Icon {
+    public interface Icon {
 
         WebElement getCollapsedElement();
 

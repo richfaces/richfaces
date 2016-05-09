@@ -22,6 +22,7 @@
 package org.richfaces.renderkit;
 
 import static java.util.Arrays.asList;
+
 import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 
@@ -295,7 +296,7 @@ public abstract class ChartRendererBase extends RendererBase {
         private final RenderKitUtils.ScriptHashVariableWrapper eventWrapper = RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
         private boolean nodata;
 
-        public VisitChart(AbstractChart ch) {
+        VisitChart(AbstractChart ch) {
             this.nodata = true;
             this.chart = ch;
             this.chartType = null;
@@ -340,6 +341,7 @@ public abstract class ChartRendererBase extends RendererBase {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public VisitResult visit(VisitContext context, UIComponent target) {
 
             if (target instanceof AbstractChartLegend) {
@@ -483,12 +485,13 @@ public abstract class ChartRendererBase extends RendererBase {
         private ChartDataModel model = null;
         private final ChartDataModel.ChartType type;
 
-        public VisitSeries(ChartDataModel.ChartType type) {
+        VisitSeries(ChartDataModel.ChartType type) {
             this.type = type;
 
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public VisitResult visit(VisitContext context, UIComponent target) {
 
             if (target instanceof AbstractChartPoint) {

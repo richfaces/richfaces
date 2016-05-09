@@ -60,7 +60,8 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 
-    public AbstractTab() {setRendererType("org.richfaces.TabRenderer");
+    public AbstractTab() {
+        setRendererType("org.richfaces.TabRenderer");
     }
 
     // ------------------------------------------------ Html Attributes

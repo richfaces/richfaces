@@ -3,12 +3,16 @@ package org.richfaces.component;
 import static org.richfaces.component.Framework.Family.cf;
 import static org.richfaces.component.Framework.Family.dotNet;
 import static org.richfaces.component.Framework.Family.php;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import org.richfaces.component.Framework.Family;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
@@ -26,7 +30,7 @@ public class DragDropBean implements Serializable {
 
         private Framework.Family family;
 
-        public FrameworkFamilyPredicate(Family family) {
+        FrameworkFamilyPredicate(Family family) {
             super();
             this.family = family;
         }

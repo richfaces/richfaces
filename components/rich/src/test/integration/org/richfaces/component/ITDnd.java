@@ -2,6 +2,9 @@ package org.richfaces.component;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
+import java.io.File;
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -22,9 +25,6 @@ import org.richfaces.integration.RichDeployment;
 
 import category.Smoke;
 
-import java.io.File;
-import java.net.URL;
-
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITDnd {
@@ -37,16 +37,16 @@ public class ITDnd {
 
     @FindBy(id = "form:ind")
     private WebElement indicator;
-    
+
     @FindBy(id = "form:php")
     private WebElement phpTarget;
-    
+
     @FindBy(id = "form:dnet")
     private WebElement dnetTarget;
-    
+
     @FindBy(id = "form:cf")
     private WebElement cfTarget;
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RichDeployment deployment = new RichDeployment(ITDnd.class);
@@ -66,7 +66,7 @@ public class ITDnd {
     public void test_dnd() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "dnd.jsf");
-        
+
         WebElement framework = browser.findElements(By.cssSelector(".ui-draggable")).get(0);
 
         Actions builder = new Actions(browser);

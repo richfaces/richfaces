@@ -119,11 +119,11 @@ public enum FacesMessages {
     private static final String DETAIL = "_detail";
     private String key;
 
-    private FacesMessages(String key) {
+    FacesMessages(String key) {
         this(key, false);
     }
 
-    private FacesMessages(String key, boolean isDetail) {
+    FacesMessages(String key, boolean isDetail) {
         this.key = isDetail ? key + DETAIL : key;
     }
 

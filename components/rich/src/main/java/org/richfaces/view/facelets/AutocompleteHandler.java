@@ -92,7 +92,7 @@ public class AutocompleteHandler extends ComponentHandler {
     abstract static class ConverterMetadata extends Metadata {
         private final TagAttribute attr;
 
-        public ConverterMetadata(TagAttribute attr) {
+        ConverterMetadata(TagAttribute attr) {
             this.attr = attr;
         }
 

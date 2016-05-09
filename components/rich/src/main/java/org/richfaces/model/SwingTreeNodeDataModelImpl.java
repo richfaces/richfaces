@@ -43,6 +43,7 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
     private boolean asksAllowsChildren = false;
     private Object wrappedData;
 
+    @SuppressWarnings("unchecked")
     private TreeNode createFakeRootNode(Object wrappedData) {
         Collection<TreeNode> nodes;
 
@@ -82,6 +83,7 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
     }
 
     public Iterator<TreeDataModelTuple> children() {
+        @SuppressWarnings("unchecked")
         Iterator<TreeNode> children = Iterators.forEnumeration((Enumeration<TreeNode>) getData().children());
         return new IterableDataTuplesIterator(getRowKey(), children);
     }

@@ -51,7 +51,7 @@ abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements
     /**
      * @param request
      */
-    public BaseMultipartRequest(HttpServletRequest request, String uploadId) {
+    BaseMultipartRequest(HttpServletRequest request, String uploadId) {
         super(request);
         this.uploadId = uploadId;
     }

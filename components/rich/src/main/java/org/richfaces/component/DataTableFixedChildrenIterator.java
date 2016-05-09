@@ -34,7 +34,7 @@ class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> dataTableChildren;
     private Iterator<UIComponent> columnFacets = ImmutableSet.<UIComponent>of().iterator();
 
-    public DataTableFixedChildrenIterator(UIComponent dataTable) {
+    DataTableFixedChildrenIterator(UIComponent dataTable) {
         super();
 
         this.facetsIterator = dataTable.getFacets().values().iterator();

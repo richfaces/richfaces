@@ -56,6 +56,7 @@ public abstract class EventListenerHandler extends TagHandler implements Attache
             this.binding = binding;
         }
 
+        @SuppressWarnings("unchecked")
         public void processEvent(FacesEvent event) throws AbortProcessingException {
 
             FacesContext faces = FacesContext.getCurrentInstance();

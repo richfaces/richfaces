@@ -31,17 +31,16 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
-import com.google.common.base.Strings;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.event.PreRenderParentListener;
 import org.richfaces.renderkit.PlaceholderRendererBase;
+
+import com.google.common.base.Strings;
 
 /**
  * Adds placeholder capability to HTML input and textarea elements. A placeholder typically appears as light gray text within an
@@ -99,7 +98,7 @@ public abstract class AbstractPlaceholder extends UIOutput implements StyleClass
 
         private static final long serialVersionUID = 1870218106060075543L;
 
-        public PlaceholderParentPreRenderListener(UIComponent parent, UIComponent component) {
+        PlaceholderParentPreRenderListener(UIComponent parent, UIComponent component) {
             super(parent, component);
         }
 

@@ -54,7 +54,7 @@ public class RichFunctionTest {
     private static final class StubComponentLocator implements ComponentLocator {
         private UIComponent locatedComponent;
 
-        public StubComponentLocator(UIComponent locatedComponent) {
+        StubComponentLocator(UIComponent locatedComponent) {
             super();
             this.locatedComponent = locatedComponent;
         }

@@ -74,6 +74,7 @@ public final class GraphValidatorState {
     }
 
     public static Map<Object, GraphValidatorState> getStateMap(FacesContext context) {
+        @SuppressWarnings("unchecked")
         IdentityHashMap<Object, GraphValidatorState> statesMap = (IdentityHashMap<Object, GraphValidatorState>) context
             .getAttributes().get(STATE_ATTRIBUTE);
         if (null == statesMap) {

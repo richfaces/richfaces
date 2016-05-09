@@ -63,7 +63,7 @@ public class CalendarHandler extends ComponentHandler {
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeEvent.class };
         private final TagAttribute attribute;
 
-        public CalendarMapper(TagAttribute attribute) {
+        CalendarMapper(TagAttribute attribute) {
             this.attribute = attribute;
         }
 

@@ -29,7 +29,7 @@ import category.Smoke;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITStaticTab {
-    
+
     @FindByJQuery("[id$='tabPanel']")
     private RichFacesTabPanel tabPanel;
 
@@ -40,7 +40,7 @@ public class ITStaticTab {
     private URL contextPath;
 
     @FindBy(tagName = "body")
-    private WebElement body;    
+    private WebElement body;
 
     @FindBy(id = "out")
     private WebElement out;
@@ -132,18 +132,17 @@ public class ITStaticTab {
     public void check_header_button_render() {
         browser.get(contextPath.toExternalForm() + "headerButton.jsf");
         Assert.assertEquals("0 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-        
+
         guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("button"))).click();
         Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
 
         guardAjax(tabPanel.advanced().getTabHeaders().get(1)).click();
         guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("myText"))).click();
         Assert.assertEquals("1 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
-        
+
         guardAjax(tabPanel.advanced().getTabHeaders().get(0).findElement(By.className("button"))).click();
         Assert.assertEquals("2 clicks", tabPanel.advanced().getTabHeaders().get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
-
 
     private static void addIndexPage(RichDeployment deployment) {
         FaceletAsset p = new FaceletAsset();

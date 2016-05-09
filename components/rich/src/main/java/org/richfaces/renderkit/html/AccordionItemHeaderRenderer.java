@@ -17,7 +17,7 @@ import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
 
 class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccordionItem> {
-    public AccordionItemHeaderRenderer() {
+    AccordionItemHeaderRenderer() {
         super("header", "rf-ac-itm");
     }
 

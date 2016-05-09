@@ -54,7 +54,7 @@ public class ValueExpressionAnalayserImpl implements ValueExpressionAnalayser {
     private static final class SetValueCommand extends ValueResolutionCommand {
         private Object value;
 
-        public SetValueCommand(Object value) {
+        SetValueCommand(Object value) {
             super();
             this.value = value;
         }

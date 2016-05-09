@@ -72,7 +72,7 @@ public class DataTableHandler extends ComponentHandler {
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.SortingEvent.class };
         private final TagAttribute attribute;
 
-        public SortingListenerMapper(TagAttribute attribute) {
+        SortingListenerMapper(TagAttribute attribute) {
             this.attribute = attribute;
         }
 
@@ -86,7 +86,7 @@ public class DataTableHandler extends ComponentHandler {
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.FilteringEvent.class };
         private final TagAttribute attribute;
 
-        public FilteringListenerMapper(TagAttribute attribute) {
+        FilteringListenerMapper(TagAttribute attribute) {
             this.attribute = attribute;
         }
 

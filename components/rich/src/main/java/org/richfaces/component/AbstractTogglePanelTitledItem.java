@@ -21,17 +21,17 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.renderkit.html.DivPanelRenderer;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky
  * @since 2010-08-05
  */
 public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemInterface, DisabledProps {
-    public enum HeaderStates {
+    enum HeaderStates {
         active("act"),
         inactive("inact"),
         disabled("dis");

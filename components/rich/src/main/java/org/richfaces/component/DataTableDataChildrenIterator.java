@@ -37,7 +37,7 @@ class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> dataTableChildren;
     private Iterator<UIComponent> columnChildren = ImmutableSet.<UIComponent>of().iterator();
 
-    public DataTableDataChildrenIterator(UIComponent dataTable) {
+    DataTableDataChildrenIterator(UIComponent dataTable) {
         super();
         this.dataTableChildren = dataTable.getChildren().iterator();
     }

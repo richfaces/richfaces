@@ -76,7 +76,7 @@ public abstract class ListRendererBase extends RendererBase {
     private class SimpleItemsEncoder extends ItemsEncoder {
         private String itemClass;
 
-        public SimpleItemsEncoder(String itemClass) {
+        SimpleItemsEncoder(String itemClass) {
             super();
             this.itemClass = itemClass;
         }

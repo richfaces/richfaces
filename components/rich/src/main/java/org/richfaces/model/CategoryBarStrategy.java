@@ -22,9 +22,7 @@
 package org.richfaces.model;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
-import org.richfaces.json.JSONException;
+
 import org.richfaces.json.JSONObject;
 import org.richfaces.renderkit.ChartRendererBase;
 
@@ -34,8 +32,7 @@ import org.richfaces.renderkit.ChartRendererBase;
  */
 class CategoryBarStrategy implements ChartStrategy {
 
-    public CategoryBarStrategy() {
-
+    CategoryBarStrategy() {
     }
 
     @Override

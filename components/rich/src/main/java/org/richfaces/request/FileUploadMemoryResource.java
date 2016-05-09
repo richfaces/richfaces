@@ -24,9 +24,10 @@ package org.richfaces.request;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.google.common.io.Files;
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;
+
+import com.google.common.io.Files;
 
 /**
  * @author Nick Belaevski
@@ -34,7 +35,7 @@ import org.ajax4jsf.io.FastBufferInputStream;
 class FileUploadMemoryResource extends FileUploadResource {
     private ByteBuffer buffer;
 
-    public FileUploadMemoryResource(String name, String uploadLocation) {
+    FileUploadMemoryResource(String name, String uploadLocation) {
         super(name, uploadLocation);
     }
 

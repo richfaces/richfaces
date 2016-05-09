@@ -62,6 +62,7 @@ public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<
         return new TreeDataModelTuple(getRowKey(), getData());
     }
 
+    @SuppressWarnings("unchecked")
     public void restoreFromSnapshot(TreeDataModelTuple tuple) {
         setRowKeyAndData((SequenceRowKey) tuple.getRowKey(), (V) tuple.getData());
     }

@@ -36,17 +36,20 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p>The &lt;r:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
- * then be passed to the client JavaScript API functions of any RichFaces component.</p>
+ * <p>
+ * The &lt;r:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can then be
+ * passed to the client JavaScript API functions of any RichFaces component.</p>
  *
  * @author Anton Belevich
  */
 @JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handlerClass = ComponentHandler.class))
 public class UIHashParameter extends UIComponentBase {
+
     public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
     public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";
 
     enum PropertyKeys {
+
         name
     }
 
@@ -56,7 +59,9 @@ public class UIHashParameter extends UIComponentBase {
     }
 
     @Attribute(hidden = true)
-    public boolean isRendered() {return true;};
+    public boolean isRendered() {
+        return true;
+    }
 
     /**
      * The name of the javascript hash property which this hash should be assigned to (can be used as nested hashParameter) or
@@ -91,7 +96,7 @@ public class UIHashParameter extends UIComponentBase {
                 Map<String, Object> value = hashParameter.getValue();
                 if (name == null) {
                     throw new FacesException("attribute 'name' for the nested " + UIHashParameter.class.getName()
-                            + " component (id = '" + hashParameter.getClientId() + "') should not be 'null'");
+                        + " component (id = '" + hashParameter.getClientId() + "') should not be 'null'");
                 } else {
                     parameters.put(name, value);
                 }

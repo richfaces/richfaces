@@ -117,7 +117,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
         private String type;
 
-        public MatchingTreeNodePredicate(String type) {
+        MatchingTreeNodePredicate(String type) {
             super();
             this.type = type;
         }

@@ -65,7 +65,7 @@ public class DataScrollerHandler extends ComponentHandler {
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DataScrollEvent.class };
         private final TagAttribute attribute;
 
-        public ScrollListenerMapper(TagAttribute attribute) {
+        ScrollListenerMapper(TagAttribute attribute) {
             this.attribute = attribute;
         }
 
@@ -80,7 +80,7 @@ public class DataScrollerHandler extends ComponentHandler {
     private static final class PageMapper extends Metadata {
         private final TagAttribute page;
 
-        public PageMapper(TagAttribute attribute) {
+        PageMapper(TagAttribute attribute) {
             page = attribute;
         }
 

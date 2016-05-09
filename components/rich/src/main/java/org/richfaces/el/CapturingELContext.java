@@ -146,7 +146,7 @@ public class CapturingELContext extends ELContext {
         private boolean clonedObject;
         private final Map<Object, GraphValidatorState> states;
 
-        public InterceptingResolver(ELResolver delegate, Map<Object, GraphValidatorState> states) {
+        InterceptingResolver(ELResolver delegate, Map<Object, GraphValidatorState> states) {
             this.delegate = delegate;
             this.states = states;
         }

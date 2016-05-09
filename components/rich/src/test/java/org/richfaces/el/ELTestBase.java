@@ -88,7 +88,7 @@ public class ELTestBase {
     }
 
     class DummyELContext extends ELContext {
-        public DummyELContext() {
+        DummyELContext() {
             putContext(FacesContext.class, FacesContext.getCurrentInstance());
         }
 

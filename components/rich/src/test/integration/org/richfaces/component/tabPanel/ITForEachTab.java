@@ -23,7 +23,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITForEachTab {
-    
+
     @FindByJQuery("[id$='tabPanel']")
     private RichFacesTabPanel tabPanel;
 

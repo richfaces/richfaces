@@ -35,7 +35,7 @@ abstract class FileUploadResource implements FileUploadParam {
     private String name;
     private String uploadLocation;
 
-    public FileUploadResource(String name, String uploadLocation) {
+    FileUploadResource(String name, String uploadLocation) {
         super();
 
         this.name = name;

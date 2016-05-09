@@ -37,7 +37,7 @@ import com.google.common.collect.AbstractIterator;
 class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> childrenIterator;
 
-    public DataTableColumnsIterator(UIComponent component) {
+    DataTableColumnsIterator(UIComponent component) {
         super();
         this.childrenIterator = component.getChildren().iterator();
     }

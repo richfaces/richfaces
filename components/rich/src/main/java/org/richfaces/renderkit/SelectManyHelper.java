@@ -21,17 +21,22 @@
  */
 package org.richfaces.renderkit;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterators;
-
-import org.richfaces.component.AbstractSelectManyComponent;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.component.util.SelectItemsInterface;
-import org.richfaces.component.util.SelectUtils;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 import javax.el.ValueExpression;
@@ -49,23 +54,17 @@ import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import org.richfaces.component.AbstractSelectManyComponent;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.component.util.SelectItemsInterface;
+import org.richfaces.component.util.SelectUtils;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.util.HtmlDimensions;
+
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterators;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -270,6 +269,7 @@ public class SelectManyHelper {
         return clientSelectItems;
     }
 
+    @SuppressWarnings("unchecked")
     public static Object getConvertedValue(FacesContext facesContext, UIComponent component, Object val) throws ConverterException {
         String[] values = (val == null) ? new String[0] : (String[]) val;
         Converter converter = SelectManyHelper.getItemConverter(facesContext, component);
@@ -355,6 +355,7 @@ public class SelectManyHelper {
         return targetForConvertedValues;
     }
 
+    @SuppressWarnings("unchecked")
     private static Class getCollectionClass(Object collectionType) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         Class<? extends Collection> collectionClass = null;

@@ -38,7 +38,7 @@ class TreeEncoderPartial extends TreeEncoderBase {
     protected final AbstractTreeNode treeNode;
     private Object rowKey;
 
-    public TreeEncoderPartial(FacesContext context, AbstractTreeNode treeNode) {
+    TreeEncoderPartial(FacesContext context, AbstractTreeNode treeNode) {
         super(context, treeNode.findTreeComponent());
 
         this.treeNode = treeNode;

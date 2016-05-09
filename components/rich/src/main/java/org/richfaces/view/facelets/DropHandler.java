@@ -63,7 +63,7 @@ public class DropHandler extends ComponentHandler {
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DropEvent.class };
         private final TagAttribute attribute;
 
-        public DropTargetMapper(TagAttribute attribute) {
+        DropTargetMapper(TagAttribute attribute) {
             this.attribute = attribute;
         }
 

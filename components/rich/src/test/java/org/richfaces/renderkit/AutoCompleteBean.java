@@ -40,7 +40,7 @@ public class AutoCompleteBean implements Serializable {
     private class CountryNamePredicate implements Predicate<Country> {
         private String countryNamePrefix;
 
-        public CountryNamePredicate(String countryNamePrefix) {
+        CountryNamePredicate(String countryNamePrefix) {
             super();
             this.countryNamePrefix = countryNamePrefix;
         }

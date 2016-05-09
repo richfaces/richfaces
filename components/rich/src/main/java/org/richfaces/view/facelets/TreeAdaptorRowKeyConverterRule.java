@@ -54,7 +54,7 @@ public class TreeAdaptorRowKeyConverterRule extends MetaRule {
     static final class DynamicConverterMetaData extends Metadata {
         private final TagAttribute attribute;
 
-        public DynamicConverterMetaData(TagAttribute attribute) {
+        DynamicConverterMetaData(TagAttribute attribute) {
             super();
             this.attribute = attribute;
         }
@@ -68,7 +68,7 @@ public class TreeAdaptorRowKeyConverterRule extends MetaRule {
     static final class StaticConverterMetadata extends Metadata {
         private final String converterId;
 
-        public StaticConverterMetadata(String converterId) {
+        StaticConverterMetadata(String converterId) {
             super();
             this.converterId = converterId;
         }

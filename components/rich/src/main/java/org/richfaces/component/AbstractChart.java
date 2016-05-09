@@ -122,6 +122,7 @@ public abstract class AbstractChart extends UIComponentBase implements CoreProps
 
             //particular series listener
             int seriesId = ((PlotClickEvent) event).getSeriesIndex();
+            @SuppressWarnings("unchecked")
             List<MethodExpression> particularSeriesListeners = (List<MethodExpression>) getAttributes().get("particularSeriesListeners");
 
             if(particularSeriesListeners!=null){

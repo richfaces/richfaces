@@ -151,6 +151,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
         return descriptors;
     }
 
+    @SuppressWarnings("unchecked")
     private Class<? extends Annotation> findAnnotationClass(Annotation a) {
         Class<? extends Annotation> annotationClass = a.getClass();
         // RF-10311, Hibernate validator wraps annotation class with proxy;

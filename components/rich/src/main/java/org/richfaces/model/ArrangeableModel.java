@@ -258,6 +258,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         }
     }
 
+    @SuppressWarnings("unchecked")
     private boolean accept(FacesContext context, Object rowKey) {
         originalModel.setRowKey(rowKey);
         Object object = originalModel.getRowData();
@@ -279,6 +280,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     private int compare(FacesContext context, Object rowKey1, Object rowKey2) {
         originalModel.setRowKey(rowKey1);
         Object object1 = originalModel.getRowData();
@@ -310,6 +312,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private int compareSortByValues(FacesContext context, Object value1, Object value2) {
         int result = 0;
         if (value1 instanceof String && value2 instanceof String) {

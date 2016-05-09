@@ -30,7 +30,7 @@ import org.richfaces.component.AbstractTree;
  *
  */
 class TreeEncoderFull extends TreeEncoderBase {
-    public TreeEncoderFull(FacesContext context, AbstractTree tree) {
+    TreeEncoderFull(FacesContext context, AbstractTree tree) {
         super(context, tree);
     }
 

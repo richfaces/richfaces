@@ -38,7 +38,7 @@ final class FileUploadValueParam implements FileUploadParam {
     private String encoding;
     private String value;
 
-    public FileUploadValueParam(String name, String encoding) {
+    FileUploadValueParam(String name, String encoding) {
         super();
 
         this.name = name;
