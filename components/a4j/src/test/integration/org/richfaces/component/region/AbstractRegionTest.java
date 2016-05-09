@@ -26,7 +26,6 @@ import java.net.URL;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,7 +45,7 @@ public abstract class AbstractRegionTest {
 
     @FindBy(id = "output")
     protected WebElement output;
-    
+
     protected static class RegionTestDeployment extends A4JDeployment {
 
         RegionTestDeployment(Class<?> baseClass) {

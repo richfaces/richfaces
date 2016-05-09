@@ -107,7 +107,7 @@ public class SelectUtilsTest extends AbstractFacesTest {
     }
 
     private class UISelectItemStub extends UISelectItem {
-        public UISelectItemStub(Object itemValue, String itemLabel, String itemDescription, boolean itemDisabled,
+        UISelectItemStub(Object itemValue, String itemLabel, String itemDescription, boolean itemDisabled,
             boolean itemEscaped, boolean noSelectionOption) {
             super();
             setItemValue(itemValue);

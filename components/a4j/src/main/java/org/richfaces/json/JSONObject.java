@@ -172,6 +172,7 @@ public class JSONObject implements Serializable {
      *
      * @param map A map object that can be used to initialize the contents of the JSONObject.
      */
+    @SuppressWarnings("unchecked")
     public JSONObject(Map map) {
         this.myHashMap = (map == null) ? new HashMap() : new HashMap(map);
     }
@@ -781,6 +782,7 @@ public class JSONObject implements Serializable {
      * @return this.
      * @throws JSONException If the value is non-finite number or if the key is null.
      */
+    @SuppressWarnings("unchecked")
     public JSONObject put(String key, Object value) throws JSONException {
         if (key == null) {
             throw new JSONException("Null key.");

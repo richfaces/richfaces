@@ -29,9 +29,7 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.component.AbstractActionComponent;
 import org.richfaces.component.BasicActionComponent;
-import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.renderkit.AjaxConstants;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
@@ -74,7 +72,7 @@ public final class AjaxRendererUtils {
     private AjaxRendererUtils() {
     }
 
-    private static enum BehaviorOptionsData {
+    private enum BehaviorOptionsData {
         begin {
             @Override
             public String getAttributeValue(AjaxClientBehavior behavior) {

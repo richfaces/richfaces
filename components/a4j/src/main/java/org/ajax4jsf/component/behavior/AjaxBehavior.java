@@ -422,6 +422,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, 
         return Collections.unmodifiableSet(new HashSet<String>(collection));
     }
 
+    @SuppressWarnings("unchecked")
     private Collection<String> getCollectionValue(Serializable propertyName, Collection<String> collection) {
         if (collection != null) {
             return collection;

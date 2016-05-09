@@ -33,7 +33,7 @@ final class AttachQueueInfo {
     private UIComponent parentComponent;
     private AbstractAttachQueue attachQueue;
 
-    public AttachQueueInfo(UIComponent parentComponent) {
+    AttachQueueInfo(UIComponent parentComponent) {
         super();
         this.parentComponent = parentComponent;
     }

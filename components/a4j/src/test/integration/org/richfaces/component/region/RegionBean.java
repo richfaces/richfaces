@@ -39,7 +39,7 @@ public class RegionBean implements Serializable {
     public Collection<String> getExecutedIds() {
         return executedIds;
     }
-    
+
     public void action() {
         executedIds = FacesContext.getCurrentInstance().getPartialViewContext().getExecuteIds();
     }

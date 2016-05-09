@@ -50,7 +50,7 @@ public enum PanelIcons {
     private final String disabledCssClass;
     private final String disabledHeaderClass;
 
-    private PanelIcons(String baseClass) {
+    PanelIcons(String baseClass) {
         this.cssClass = baseClass;
 
         this.headerClass = baseClass + " rf-ico-t-hdr";

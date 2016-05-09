@@ -42,6 +42,7 @@ public class SerializationTest extends TestCase {
         oos.close();
 
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
+        @SuppressWarnings("unchecked")
         T restoredT = (T) t.getClass().cast(ois.readObject());
 
         return restoredT;

@@ -38,12 +38,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
 import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.UserResourceRenderer2;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.ajax4jsf.renderkit.UserResourceRenderer2;
 import org.ajax4jsf.resource.InternetResourceBuilder;
 import org.ajax4jsf.resource.ResourceNotFoundException;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
@@ -52,6 +49,10 @@ import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.NativeObject;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.Undefined;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
+
 import com.gargoylesoftware.htmlunit.AlertHandler;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
@@ -71,6 +72,7 @@ import com.sun.facelets.impl.ResourceResolver;
  * @since 3.3.0
  */
 public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCase {
+
     private static final String AJAX_SUBMIT = "ajaxSubmit";
     private static final String COMPONENT_TYPE = AjaxSubmitFunctionComponent.class.getName();
     public static final int DEFAULT_REQUEST_TIME = 1000;
@@ -96,8 +98,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     static {
         try {
             systemOut.defineProperty("println",
-                    new FunctionObject(null, systemOut.getClass().getMethod("println", String.class),
-                            systemOut), ScriptableObject.READONLY);
+                new FunctionObject(null, systemOut.getClass().getMethod("println", String.class),
+                    systemOut), ScriptableObject.READONLY);
         } catch (SecurityException e) {
             throw new IllegalStateException(e.getMessage(), e);
         } catch (NoSuchMethodException e) {
@@ -133,7 +135,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         form.getChildren().add(commandButton);
         facesContext.getRenderKit().addRenderer(COMPONENT_TYPE, COMPONENT_TYPE,
-                new AjaxSubmitFunctionResourceRenderer());
+            new AjaxSubmitFunctionResourceRenderer());
         form.getChildren().add(new AjaxSubmitFunctionComponent());
         resource = (UIResource) application.createComponent("org.ajax4jsf.LoadScript");
         resource.setSrc("resource:///" + SIMULATION_SCRIPT_NAME);
@@ -151,7 +153,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     protected void checkRequestData(RequestData requestData, String data, double startTime, double endTime,
-            boolean aborted) {
+        boolean aborted) {
         assertEquals("Data check failed for " + requestData, data, requestData.getData());
         assertEquals("Start time check failed for " + requestData, startTime, requestData.getStartTime());
         assertEquals("End time check failed for " + requestData, endTime, requestData.getEndTime());
@@ -159,9 +161,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     /**
-     * Execute simulated ajax request starting on given time and having data and paramaters passed as arguments.
-     * For simulated requests defaut value of data is id of the element firing request and default request time
-     * is 1000
+     * Execute simulated ajax request starting on given time and having data and paramaters passed as arguments. For simulated
+     * requests defaut value of data is id of the element firing request and default request time is 1000
      *
      * @param time
      * @param data
@@ -175,7 +176,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
     protected void executeOnTime(int time, String expression) {
         JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
-                new JSFunctionDefinition().addToBody(expression));
+            new JSFunctionDefinition().addToBody(expression));
 
         page.executeJavaScript(function.toScript());
     }
@@ -186,7 +187,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
     protected void clickOnTime(int time, String id) {
         JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
-                new JSFunctionDefinition().addToBody(buildClickExpression(id)));
+            new JSFunctionDefinition().addToBody(buildClickExpression(id)));
 
         page.executeJavaScript(function.toScript());
     }
@@ -235,8 +236,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     protected void postRenderView() throws Exception {
-        ScriptableObject scriptableObject =
-                (ScriptableObject) this.page.executeJavaScript("window.LOG").getJavaScriptResult();
+        ScriptableObject scriptableObject
+            = (ScriptableObject) this.page.executeJavaScript("window.LOG").getJavaScriptResult();
 
         scriptableObject.defineProperty("out", systemOut, ScriptableObject.READONLY);
     }
@@ -315,7 +316,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         });
     }
 
-    public final static class AjaxSubmitFunctionComponent extends UIComponentBase {
+    public static final class AjaxSubmitFunctionComponent extends UIComponentBase {
+
         @Override
         public String getRendererType() {
             return COMPONENT_TYPE;
@@ -327,15 +329,16 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         }
     }
 
-    private final static class AjaxSubmitFunctionResourceRenderer extends Renderer implements UserResourceRenderer2 {
+    private static final class AjaxSubmitFunctionResourceRenderer extends Renderer implements UserResourceRenderer2 {
+
         public void encodeToHead(FacesContext facesContext, UIComponent component) throws IOException {
             JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(component, facesContext);
             Map<String, Object> options = AjaxRendererUtils.buildEventOptions(facesContext, component, true);
 
             options.put("requestDelay", new JSReference("options.requestDelay"));
             options.put("similarityGroupingId",
-                    new JSReference("options.similarityGroupingId || '" + component.getClientId(facesContext)
-                            + "'"));
+                new JSReference("options.similarityGroupingId || '" + component.getClientId(facesContext)
+                    + "'"));
             options.put("data", new JSReference("data"));
             options.put("requestTime", new JSReference("options.requestTime"));
             options.put("timeout", new JSReference("options.timeout"));
@@ -349,12 +352,13 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
             responseWriter.startElement(HTML.SCRIPT_ELEM, component);
             responseWriter.writeAttribute(HTML.TYPE_ATTR, "text/javascript", null);
             responseWriter.writeText("var " + AJAX_SUBMIT + " = function(data, options) {" + ajaxFunction.toScript()
-                    + "};", null);
+                + "};", null);
             responseWriter.endElement(HTML.SCRIPT_ELEM);
         }
     }
 
     protected static final class ParametersBuilder {
+
         private Map<String, Object> parameters;
 
         private ParametersBuilder() {
@@ -377,6 +381,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Sets value of requestDelay parameter
+         *
          * @param value
          * @return
          */
@@ -386,6 +391,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Sets value of similarityGroupingId parameter
+         *
          * @param id
          * @return
          */
@@ -395,6 +401,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Defines how long this request will be executed on server
+         *
          * @param value
          * @return
          */
@@ -404,6 +411,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Sets value of timeout parameter
+         *
          * @param value
          * @return
          */
@@ -413,6 +421,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Sets value of eventsQueue parameter
+         *
          * @param name
          * @return
          */
@@ -422,6 +431,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Sets value of implicitEventsQueue parameter
+         *
          * @param name
          * @return
          */
@@ -431,6 +441,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
         /**
          * Sets value of ignoreDupResponses parameter
+         *
          * @param value
          * @return
          */
@@ -440,6 +451,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     protected static final class RequestData {
+
         private boolean aborted;
         private String data;
         private double endTime;
@@ -492,6 +504,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     protected static final class TestsResult {
+
         private List<RequestData> dataList = new ArrayList<RequestData>();
         private double currentTime;
 
@@ -528,12 +541,11 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
             return builder.toString();
         }
-    }
-
-    ;
+    };
 }
 
 class UnescapingScriptPreprocessor implements ScriptPreProcessor {
+
     private static final Map<String, String> ENTITIES_MAP = new HashMap<String, String>();
     private static final Pattern ENTITIES_PATTERN;
 

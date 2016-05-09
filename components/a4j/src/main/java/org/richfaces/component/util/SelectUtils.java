@@ -95,7 +95,7 @@ public final class SelectUtils {
     private static final class MapItemsIterator extends AbstractIterator<SelectItem> {
         private Iterator<?> data;
 
-        public MapItemsIterator(Map<?, ?> map) {
+        MapItemsIterator(Map<?, ?> map) {
             super();
             this.data = map.entrySet().iterator();
         }
@@ -117,7 +117,7 @@ public final class SelectUtils {
         private UIComponent component;
         private Iterator<?> data;
 
-        public GenericItemsIterator(FacesContext facesContext, UIComponent component, Iterator<?> data) {
+        GenericItemsIterator(FacesContext facesContext, UIComponent component, Iterator<?> data) {
             super();
             this.facesContext = facesContext;
             this.component = component;
@@ -148,7 +148,7 @@ public final class SelectUtils {
         private Iterator<SelectItem> items = ImmutableSet.<SelectItem>of().iterator();
         private FacesContext context;
 
-        public SelectItemsIterator(FacesContext context, Iterator<UIComponent> children) {
+        SelectItemsIterator(FacesContext context, Iterator<UIComponent> children) {
             this.context = context;
             this.children = children;
         }

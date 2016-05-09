@@ -88,6 +88,7 @@ public class JSONArray implements Serializable {
      *
      * @param collection A Collection.
      */
+    @SuppressWarnings("unchecked")
     public JSONArray(Collection collection) {
         this.myArrayList = (collection == null) ? new ArrayList() : new ArrayList(collection);
     }
@@ -98,6 +99,7 @@ public class JSONArray implements Serializable {
      * @param x A JSONTokener
      * @throws JSONException If there is a syntax error.
      */
+    @SuppressWarnings("unchecked")
     public JSONArray(JSONTokener x) throws JSONException {
         this();
 
@@ -568,6 +570,7 @@ public class JSONArray implements Serializable {
      *        the JSONObject.NULL object.
      * @return this.
      */
+    @SuppressWarnings("unchecked")
     public JSONArray put(Object value) {
         this.myArrayList.add(value);
 
@@ -672,6 +675,7 @@ public class JSONArray implements Serializable {
      * @return this.
      * @throws JSONException If the index is negative or if the the value is an invalid number.
      */
+    @SuppressWarnings("unchecked")
     public JSONArray put(int index, Object value) throws JSONException {
         JSONObject.testValidity(value);
 

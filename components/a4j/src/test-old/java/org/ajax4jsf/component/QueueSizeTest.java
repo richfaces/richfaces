@@ -335,8 +335,8 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         assertEquals("a", handlersData.get(0, handlersData));
     }
 
-    private static abstract interface SequenceGenerator<T> {
-        public abstract T next();
+    private interface SequenceGenerator<T> {
+       T next();
     }
 
     private static final class RandomSequenceGenerator implements SequenceGenerator<Integer> {
@@ -344,7 +344,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         private int limit;
         private int offset;
 
-        public RandomSequenceGenerator(int minimum, int maximum) {
+        RandomSequenceGenerator(int minimum, int maximum) {
             super();
             this.limit = maximum - minimum;
             this.offset = minimum;

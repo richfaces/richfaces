@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.region;
 
 import java.util.Arrays;
@@ -45,19 +44,19 @@ public class ITRegionRichAjax extends AbstractRegionTest {
 
     @FindBy(id = "buttonNull")
     private WebElement buttonNull;
-    
+
     @FindBy(id = "buttonThis")
     private WebElement buttonThis;
-    
+
     @FindBy(id = "buttonAll")
     private WebElement buttonAll;
-    
+
     @FindBy(id = "buttonForm")
     private WebElement buttonForm;
-    
+
     @FindBy(id = "buttonRegion")
     private WebElement buttonRegion;
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         RegionTestDeployment deployment = new RegionTestDeployment(ITRegionRichAjax.class);
@@ -95,7 +94,7 @@ public class ITRegionRichAjax extends AbstractRegionTest {
         openPage("@region");
         verifyExecutedIds(buttonRegion, "region");
     }
-    
+
     protected void verifyExecutedIds(WebElement button, String... expectedExecutedIds) {
         Graphene.guardAjax(button).click();
         Assert.assertEquals(Arrays.toString(expectedExecutedIds), output.getText());

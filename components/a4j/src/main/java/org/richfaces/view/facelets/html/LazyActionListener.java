@@ -47,7 +47,7 @@ class LazyActionListener implements ActionListener, Serializable {
     private final String type;
     private final ValueExpression binding;
 
-    public LazyActionListener(String type, ValueExpression binding) {
+    LazyActionListener(String type, ValueExpression binding) {
         this.type = type;
         this.binding = binding;
     }

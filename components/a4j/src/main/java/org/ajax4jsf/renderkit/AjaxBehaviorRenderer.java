@@ -201,7 +201,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         }
     }
 
-    private static enum BehaviorOptionsData {
+    private enum BehaviorOptionsData {
         begin {
             @Override
             public String getAttributeValue(AjaxClientBehavior behavior) {

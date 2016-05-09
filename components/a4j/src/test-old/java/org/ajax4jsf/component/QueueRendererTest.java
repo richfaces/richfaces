@@ -30,6 +30,7 @@ import javax.faces.component.UIViewRoot;
 import org.ajax4jsf.renderkit.html.scripts.QueueScriptResourceRenderer;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
 import org.jaxen.JaxenException;
+
 import com.gargoylesoftware.htmlunit.html.DomText;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -47,7 +48,7 @@ public class QueueRendererTest extends AbstractAjax4JsfTestCase {
         super(name);
     }
 
-    private static final String dry(String s) {
+    private String dry(String s) {
         return s.replace(" ", "");
     }
 

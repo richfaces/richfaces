@@ -57,9 +57,11 @@ import org.jboss.test.faces.AbstractFacesTest;
  *
  */
 public class DataAdaptorTestCase extends AbstractFacesTest {
+
     private static final String VAR_NAME = "item";
 
     private static class TestCallback {
+
         private int value;
 
         public void handle() {
@@ -375,13 +377,13 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "2" + separatorChar
             + "_child", new ContextCallback() {
-            public void invokeContextCallback(FacesContext context, UIComponent target) {
-                callback.getAndIncrement();
-                assertEquals(child, target);
-                assertEquals(data.get(2), getVarValue());
-                assertEquals("_data" + separatorChar + "2" + separatorChar + "_child", target.getClientId());
-            }
-        });
+                public void invokeContextCallback(FacesContext context, UIComponent target) {
+                    callback.getAndIncrement();
+                    assertEquals(child, target);
+                    assertEquals(data.get(2), getVarValue());
+                    assertEquals("_data" + separatorChar + "2" + separatorChar + "_child", target.getClientId());
+                }
+            });
 
         assertTrue(invocationResult);
         assertEquals(1, callback.get());
@@ -389,10 +391,10 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "100" + separatorChar
             + "_child", new ContextCallback() {
-            public void invokeContextCallback(FacesContext context, UIComponent target) {
-                fail();
-            }
-        });
+                public void invokeContextCallback(FacesContext context, UIComponent target) {
+                    fail();
+                }
+            });
         assertFalse(invocationResult);
 
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "nonExistentComponent",
@@ -436,7 +438,11 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
             }
         });
 
-        assertEquals(1 /* adaptor itself */+ 1 /* facet */+ data.size(), callback.get());
+        assertEquals(1 /*
+             * adaptor itself
+             */ + 1 /*
+             * facet
+             */ + data.size(), callback.get());
 
         callback.reset();
 
@@ -471,6 +477,7 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 }
 
 class IterationStateHolderComponent extends UIComponentBase implements IterationStateHolder {
+
     private Object iterationState;
 
     @Override

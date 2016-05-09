@@ -103,7 +103,7 @@ public final class BehaviorStack {
         private String eventName;
         private List<ClientBehavior> behaviors;
 
-        public BehaviorInfoImpl(String behaviorId, String eventName, Object behaviorState) {
+        BehaviorInfoImpl(String behaviorId, String eventName, Object behaviorState) {
             this.behaviorId = behaviorId;
             this.eventName = eventName;
             this.behaviorState = behaviorState;

@@ -39,7 +39,7 @@ public final class PartialStateHolderUtil {
         private boolean partialState;
         private Object savedState;
 
-        public StateHolderObject(boolean partialState, Object savedState) {
+        StateHolderObject(boolean partialState, Object savedState) {
             super();
             this.partialState = partialState;
             this.savedState = savedState;

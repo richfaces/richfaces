@@ -32,8 +32,6 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.component.attribute.AjaxCommandProps;
-import org.richfaces.component.attribute.AjaxProps;
-import org.richfaces.component.attribute.ErrorProps;
 import org.richfaces.util.Sets;
 
 public class BasicActionComponent extends AbstractActionComponent implements AjaxCommandProps {
@@ -62,6 +60,7 @@ public class BasicActionComponent extends AbstractActionComponent implements Aja
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private Collection<String> getCollectionValue(Serializable propertyName) {
         Object value = getStateHelper().get(propertyName);
         if (value != null) {

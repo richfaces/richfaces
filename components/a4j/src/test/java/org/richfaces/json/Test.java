@@ -25,9 +25,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.junit.Ignore;
+
+import junit.framework.TestCase;
 
 /**
  * Test class. This file is not formally a member of the org.json library. It is just a casual test tool.
@@ -381,7 +381,7 @@ public class Test extends TestCase {
         private double aNumber;
         private String aString;
 
-        public Obj(String string, double n, boolean b) {
+        Obj(String string, double n, boolean b) {
             this.aString = string;
             this.aNumber = n;
             this.aBoolean = b;

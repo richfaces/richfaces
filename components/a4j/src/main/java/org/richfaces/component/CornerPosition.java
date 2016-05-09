@@ -33,7 +33,7 @@ public enum CornerPosition {
 
     private String shortcut;
 
-    private CornerPosition(String shortcut) {
+    CornerPosition(String shortcut) {
         this.shortcut = shortcut;
     }
 

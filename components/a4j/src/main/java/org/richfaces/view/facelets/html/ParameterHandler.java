@@ -76,7 +76,7 @@ public class ParameterHandler extends ComponentHandler {
     static final class LiteralConverterMetadata extends Metadata {
         private final String converterId;
 
-        public LiteralConverterMetadata(String converterId) {
+        LiteralConverterMetadata(String converterId) {
             this.converterId = converterId;
         }
 
@@ -89,7 +89,7 @@ public class ParameterHandler extends ComponentHandler {
     static final class DynamicConverterMetadata extends Metadata {
         private final TagAttribute attr;
 
-        public DynamicConverterMetadata(TagAttribute attr) {
+        DynamicConverterMetadata(TagAttribute attr) {
             this.attr = attr;
         }
 
@@ -101,7 +101,7 @@ public class ParameterHandler extends ComponentHandler {
     static final class AssignToValueExpressionMetadata extends Metadata {
         private final TagAttribute attr;
 
-        public AssignToValueExpressionMetadata(TagAttribute attr) {
+        AssignToValueExpressionMetadata(TagAttribute attr) {
             this.attr = attr;
         }
 

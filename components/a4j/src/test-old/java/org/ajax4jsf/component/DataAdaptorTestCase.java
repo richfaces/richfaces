@@ -28,12 +28,12 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.model.DataComponentState;
-import org.richfaces.model.ExtendedDataModel;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
 import org.ajax4jsf.tests.MockComponentState;
 import org.ajax4jsf.tests.MockDataModel;
 import org.ajax4jsf.tests.MockUIInputRenderer;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.ExtendedDataModel;
 
 /**
  * @author shura
@@ -91,7 +91,7 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
                 super.processDecodes(context);
             }
         };
-        ;
+
         childChildInvoked = 0;
         childChild.setId("childChild");
         child.getChildren().add(childChild);
@@ -101,7 +101,7 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
                 super.processDecodes(context);
             }
         };
-        ;
+
         childChildFacetInvoked = 0;
         childChildFacet.setId("childChildFacet");
         childChild.getFacets().put("facet", childChildFacet);

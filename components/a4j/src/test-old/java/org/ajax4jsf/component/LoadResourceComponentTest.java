@@ -20,8 +20,6 @@
  */
 package org.ajax4jsf.component;
 
-import static org.ajax4jsf.resource.InternetResource.RESOURCE_URI_PREFIX;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +28,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.javascript.AjaxScript;
 import org.ajax4jsf.renderkit.HeaderResourceProducer2;
 import org.ajax4jsf.renderkit.ProducerContext;
 import org.ajax4jsf.renderkit.RendererBase;
@@ -39,6 +36,8 @@ import org.ajax4jsf.resource.InternetResource;
 import org.ajax4jsf.resource.InternetResourceBuilder;
 import org.ajax4jsf.resource.ResourceNotFoundException;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
+import org.richfaces.javascript.AjaxScript;
+
 import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
@@ -305,7 +304,7 @@ class ResourceDependentComponent extends UIComponentBase {
     private InternetResource[] resources;
     private boolean useScripts;
 
-    public ResourceDependentComponent(boolean useScripts, InternetResource... resources) {
+    ResourceDependentComponent(boolean useScripts, InternetResource... resources) {
         this.useScripts = useScripts;
         this.resources = resources;
     }

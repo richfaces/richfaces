@@ -37,8 +37,8 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAjaxStatus;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 
@@ -58,7 +58,7 @@ public class AjaxStatusRenderer extends RendererBase {
     private static final String ERROR = "error";
     private static final String[] EVENT_NAMES = { "start", "stop", "error", "success" };
 
-    private static enum StatusState {
+    private enum StatusState {
         // NOTE: states encode order is important for script!
         start(START),
         error(ERROR) {
@@ -79,7 +79,7 @@ public class AjaxStatusRenderer extends RendererBase {
         private boolean initial;
         private boolean optional;
 
-        private StatusState(String stateName) {
+        StatusState(String stateName) {
             this.stateName = stateName;
             this.styleAttributeName = stateName + "Style";
             this.styleClassAttributeName = stateName + "StyleClass";

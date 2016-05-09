@@ -101,6 +101,7 @@ public class JsonTest extends TestCase {
         assertTrue(map.isEmpty());
     }
 
+    @SuppressWarnings("unchecked")
     public void testMapAddiition() throws Exception {
         JSONMap map = new JSONMap();
         Set set = map.entrySet();
@@ -145,7 +146,7 @@ class JsonTestMockMapEntry implements Map.Entry {
     private Object key;
     private Object value;
 
-    public JsonTestMockMapEntry(Object key, Object value) {
+    JsonTestMockMapEntry(Object key, Object value) {
         super();
         this.key = key;
         this.value = value;

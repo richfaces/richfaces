@@ -34,7 +34,7 @@ final class AttachQueueStack {
     private static final String STACK_ATTRIBUTE_NAME = "org.richfaces.AttachQueueStack";
     private LinkedList<AttachQueueInfo> stack = null;
 
-    public AttachQueueStack() {
+    AttachQueueStack() {
         stack = new LinkedList<AttachQueueInfo>();
     }
 
