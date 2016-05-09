@@ -1,11 +1,7 @@
 package org.richfaces.demo.common.navigation;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,6 +13,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 
 @ManagedBean
 @SessionScoped

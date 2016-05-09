@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:rich="http://richfaces.org/rich">
     <h:outputStylesheet>
         .label {
@@ -18,7 +18,7 @@
             <h:outputText value="Car Store" />
         </f:facet>
         <h:form>
-            <rich:dataGrid value="#{carsBean.allInventoryItems}" var="car" columns="3" elements="9" width="600px" border="0">
+            <rich:dataGrid value="#{carsBean.allInventoryItems}" var="car" columns="3" elements="9">
                 <rich:panel bodyClass="pbody">
                     <f:facet name="header">
                         <h:outputText value="#{car.vendor} #{car.model}" />
