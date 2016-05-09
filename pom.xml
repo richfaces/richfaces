@@ -276,6 +276,7 @@
                         <logViolationsToConsole>true</logViolationsToConsole>
                         <violationSeverity>error</violationSeverity>
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <sourceDirectory>src</sourceDirectory>
                     </configuration>
                     <executions>
                         <execution>
