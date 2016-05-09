@@ -37,9 +37,13 @@
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="IllegalInstantiation"/>
+
+        <!-- removed in checkstyle 6.2 -->
+        <!--
         <module name="RedundantThrows">
             <property name="allowUnchecked" value="true"/>
         </module>
+        -->
 
         <!-- Miscellaneous other checks.                   -->
         <module name="UpperEll"/>
