@@ -68,7 +68,15 @@
             },
 
             getItem: function (name) {
-                return this.items[name];
+                var item = this.items[name];
+
+                if (!item) { // name not found, try id
+                    var menuItem = rf.component(name);
+                    if (menuItem) {
+                        item = this.items[menuItem.itemName];
+                    }
+                }
+                return item;
             },
 
             /***************************** Public Methods  ****************************************************************/
@@ -82,7 +90,11 @@
              * @return {void} TODO ...
              */
             selectItem: function (name) {
-                // TODO implement
+                var item = this.getItem(name);
+
+                if (item) {
+                    item.select();
+                }
             },
 
             /**
@@ -124,50 +136,64 @@
              * @methodOf
              * @name PanelMenu#expandAll
              *
-             * TODO ...
-             *
-             * @return {void} TODO ...
+             * expands all groups and subgroups
              */
             expandAll: function () {
-                // TODO implement
+                for (var item in this.items) {
+                    if (this.items.hasOwnProperty(item)) {
+                        if (this.items[item].expand) {
+                            this.items[item].expand();
+                        }
+                    }
+                }
             },
 
             /**
              * @methodOf
              * @name PanelMenu#collapseAll
              *
-             * TODO ...
-             *
-             * @return {void} TODO ...
+             * collapses all groups and subgroups
              */
             collapseAll: function () {
-                // TODO implement
+                for (var item in this.items) {
+                    if (this.items.hasOwnProperty(item)) {
+                        if (this.items[item].collapse) {
+                            this.items[item].collapse();
+                        }
+                    }
+                }
             },
 
             /**
              * @methodOf
              * @name PanelMenu#expandGroup
              *
-             * TODO ...
+             * expands a group with the given name
              *
-             * @param {String} groupName
-             * @return {void} TODO ...
+             * @param {String} groupName - name of the group or id of the group component
              */
             expandGroup: function (groupName) {
-                // TODO implement
+                var group = this.getItem(groupName);
+
+                if (group && group.expand) {
+                    group.expand();
+                }
             },
 
             /**
              * @methodOf
              * @name PanelMenu#collapseGroup
              *
-             * TODO ...
+             * collapses a group with the given name
              *
-             * @param {String} groupName
-             * @return {void} TODO ...
+             * @param {String} groupName - name of the group or id of the group component
              */
             collapseGroup: function (groupName) {
-                // TODO implement
+                var group = this.getItem(groupName);
+
+                if (group && group.collapse) {
+                    group.collapse();
+                }
             },
 
 

@@ -253,11 +253,16 @@
                 this.__updateStyles(false);
 
                 this.__childGroups().each(function(index, group) {
-                    //TODO nick - why not group.collapse()?
                     rf.component(group.id).__collapse();
                 });
 
                 return this.__fireEvent("collapse");
+            },
+
+            select : function() {
+                if (this.options.selectable) {
+                    $super.select.call(this);
+                }
             },
 
             __updateStyles : function (expand) {
