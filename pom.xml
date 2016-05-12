@@ -129,7 +129,7 @@
         <version.tomcat8>8.0.33</version.tomcat8>
 
         <!-- Plugin Management: versions -->
-        <version.compiler.plugin>3.2</version.compiler.plugin>
+        <version.compiler.plugin>3.5.1</version.compiler.plugin>
         <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
         <version.jrebel.plugin>1.1.3</version.jrebel.plugin>
         <version.replacer.plugin>1.5.3</version.replacer.plugin>
