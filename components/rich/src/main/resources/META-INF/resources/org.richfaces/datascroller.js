@@ -114,11 +114,11 @@
             },
 
             fastForward: function() {
-                this.switchToPage("fastforward");
+                this.switchToPage("fastForward");
             },
 
             fastRewind: function() {
-                this.switchToPage("fastrewind");
+                this.switchToPage("fastRewind");
             },
 
             next: function() {
