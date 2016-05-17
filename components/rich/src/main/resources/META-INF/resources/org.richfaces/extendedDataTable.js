@@ -636,17 +636,28 @@
                 }
             },
 
-            selectRow: function(index) {
+            selectRow: function(index, skipEvent) {
                 this.ranges.add(index);
                 for (var i = 0; i < this.tbodies.length; i++) {
                     $(this.tbodies[i].rows[index]).addClass("rf-edt-r-sel");
                 }
+                
+                if (!skipEvent) {
+                    this.onselectionchange({}, index, true);
+                }
             },
 
-            deselectRow: function (index) {
+            deselectRow: function (index, skipEvent) {
+                if (!skipEvent && !this.onbeforeselectionchange(event)) {
+                    return;
+                }
                 this.ranges.remove(index);
                 for (var i = 0; i < this.tbodies.length; i++) {
                     $(this.tbodies[i].rows[index]).removeClass("rf-edt-r-sel");
+                }
+                
+                if (!skipEvent) {
+                    this.onselectionchange({}, index, true);
                 }
             },
 
@@ -709,7 +720,11 @@
                 this.selectionInput.value = [this.ranges, this.activeIndex, this.shiftIndex, this.selectionFlag].join("|");
             },
 
-            selectRows: function(range) {
+            selectRows: function(range, skipEvent) {
+                if (!this.options.selectionMode || this.options.selectionMode == 'none' 
+                    || (!skipEvent && !this.onbeforeselectionchange(event))) {
+                    return;
+                }
                 if (typeof range == "number") {
                     range = [range, range];
                 }
@@ -717,23 +732,27 @@
                 var i = 0;
                 for (; i < range[0]; i++) {
                     if (this.ranges.contains(i)) {
-                        this.deselectRow(i);
+                        this.deselectRow(i, true);
                         changed = true;
                     }
                 }
                 for (; i <= range[1]; i++) {
                     if (!this.ranges.contains(i)) {
-                        this.selectRow(i);
+                        this.selectRow(i, true);
                         changed = true;
                     }
                 }
                 for (; i < this.rows; i++) {
                     if (this.ranges.contains(i)) {
-                        this.deselectRow(i);
+                        this.deselectRow(i, true);
                         changed = true;
                     }
                 }
                 this.selectionFlag = typeof this.shiftIndex == "string" ? this.shiftIndex : "x";
+                if (!skipEvent) {
+                    this.onselectionchange({}, range, true);
+                    return;
+                }
                 return changed;
             },
 
@@ -751,7 +770,7 @@
                 } else {
                     range = [index, this.shiftIndex];
                 }
-                return this.selectRows(range);
+                return this.selectRows(range, true);
             },
 
             onbeforeselectionchange: function (event) {
@@ -797,12 +816,12 @@
                 if (this.options.selectionMode == "multiple" && event.shiftKey) {
                     changed = this.processSlectionWithShiftKey(index);
                 } else if ((event.ctrlKey || this.options.selectionMode == "multipleKeyboardFree") && this.ranges.contains(index)) {
-                    this.deselectRow(index);
+                    this.deselectRow(index, true);
                     changed = true;
                 } else if (this.options.selectionMode == "single" || (this.options.selectionMode == "multiple" && !event.ctrlKey)) {
-                    changed = this.selectRows(index);
+                    changed = this.selectRows(index, true);
                 } else {
-                    this.selectRow(index);
+                    this.selectRow(index, true);
                     changed = true;
                 }
                 this.onselectionchange(event, index, changed);
@@ -811,7 +830,7 @@
             selectionKeyDownListener: function(event) {
                 if (event.ctrlKey && this.options.selectionMode != "single" && (event.keyCode == 65 || event.keyCode == 97) //Ctrl-A
                     && this.onbeforeselectionchange(event)) {
-                    this.selectRows([0, this.rows]);
+                    this.selectRows([0, this.rows], true);
                     this.selectionFlag = "a";
                     this.onselectionchange(event, this.activeIndex, true); //TODO Is there a way to know that selection haven't changed?
                     event.preventDefault();
@@ -828,7 +847,7 @@
                             if (index >= 0 && index < this.rows) {
                                 var changed;
                                 if (this.options.selectionMode == "single" || (!event.shiftKey && !event.ctrlKey)) {
-                                    changed = this.selectRows(index);
+                                    changed = this.selectRows(index, true);
                                 } else if (event.shiftKey) {
                                     changed = this.processSlectionWithShiftKey(index);
                                 }
