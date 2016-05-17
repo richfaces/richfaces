@@ -1,4 +1,4 @@
-.rf-sel-inp,.rf-sel-opt {
+.rf-sel-inp,.rf-sel-opt, .rf-sel-opt-dis {
     color: '#{a4jSkin.generalTextColor}';
     font-size: '#{a4jSkin.generalSizeFont}';
     font-family: '#{a4jSkin.generalFamilyFont}';
@@ -89,11 +89,15 @@ input.rf-sel-inp {
     overflow-x: hidden;
 }
 
-.rf-sel-opt {
+.rf-sel-opt, .rf-sel-opt-dis {
     padding: 2px;
     white-space: nowrap;
     cursor: default;
     list-style-type: none;
+}
+
+.rf-sel-opt-dis {
+    color: '#{a4jSkin.tabDisabledTextColor}';
 }
 
 .rf-sel-sel {

@@ -108,7 +108,8 @@ public final class SelectHelper {
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
 
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                    HtmlUtil.concatClasses(defaultItemCss, select.getItemClass()), null);
+                    HtmlUtil.concatClasses(defaultItemCss + (clientSelectItem.getSelectItem().isDisabled() ? "-dis" : ""),
+                        select.getItemClass()), null);
 
                 String label = clientSelectItem.getLabel();
                 if (label != null && label.trim().length() > 0) {

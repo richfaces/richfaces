@@ -1,4 +1,4 @@
-.rf-is-fld,.rf-is-opt,.rf-is-lbl {
+.rf-is-fld,.rf-is-opt,.rf-is-lbl,.rf-is-opt-dis {
     color: '#{a4jSkin.generalTextColor}';
     font-family: '#{a4jSkin.generalFamilyFont}';
     font-size: '#{a4jSkin.generalSizeFont}';
@@ -113,12 +113,16 @@ input.rf-is-fld {
     /*height : 100px;*/
 }
 
-.rf-is-opt {
+.rf-is-opt, .rf-is-opt-dis {
     display: block;
     padding: 2px;
     white-space: nowrap;
     background-color: '#{a4jSkin.editBackgroundColor}';
     cursor: default;
+}
+
+.rf-is-opt-dis {
+    color: '#{a4jSkin.tabDisabledTextColor}';
 }
 
 .rf-is-sel {

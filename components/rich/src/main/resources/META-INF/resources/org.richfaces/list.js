@@ -15,6 +15,7 @@
         this.parentContainer = mergedOptions.parentContainer ? $(mergedOptions.parentContainer) : this.scrollContainer;
         this.itemCss = mergedOptions.itemCss.split(" ", 1)[0]; // we only need one of the item css classes to identify the item
         this.listCss = mergedOptions.listCss;
+        this.itemDisabledCss = this.itemCss + "-dis";
         this.clickRequiredToSelect = mergedOptions.clickRequiredToSelect;
         this.index = -1;
         this.disabled = mergedOptions.disabled;
@@ -80,6 +81,9 @@
             name : "list",
 
             processItem: function(item) {
+                if ($(item).hasClass(this.itemDisabledCss)) {
+                    return;
+                }
                 if (this.selectListener.processItem && typeof this.selectListener.processItem == 'function') {
                     this.selectListener.processItem(item);
                 }
@@ -93,6 +97,9 @@
                 if (this.selectListener.selectItem && typeof this.selectListener.selectItem == 'function') {
                     this.selectListener.selectItem(item);
                 } else {
+                    if (item.hasClass(this.itemDisabledCss)) {
+                        return;
+                    }
                     item.addClass(this.selectItemCss);
                     rf.Event.fire(this, "selectItem", item);
                 }
@@ -176,7 +183,7 @@
             onClick: function(e) {
                 this.setFocus();
                 var item = this.__getItem(e);
-                if (!item) return;
+                if (!item || $(item).hasClass(this.itemDisabledCss)) return;
                 this.processItem(item);
                 var clickModified = e.metaKey || e.ctrlKey;
                 if (!this.disabled) {
