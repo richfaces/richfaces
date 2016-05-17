@@ -78,6 +78,7 @@
 
 .rf-pick-opt-dis {
     cursor: default;
+    color: '#{a4jSkin.tabDisabledTextColor}';
 }
 
 .rf-pick-sel {

@@ -215,7 +215,7 @@ public class SelectManyHelper {
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
                 String itemCss;
-                if (!select.isDisabled()) {
+                if (!select.isDisabled() && !clientSelectItem.getSelectItem().isDisabled()) {
                     itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss);
                 } else {
                     itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss, defaultItemCssDis);
