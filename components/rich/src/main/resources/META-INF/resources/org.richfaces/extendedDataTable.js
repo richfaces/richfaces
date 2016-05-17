@@ -648,7 +648,7 @@
             },
 
             deselectRow: function (index, skipEvent) {
-                if (!skipEvent && !this.onbeforeselectionchange(event)) {
+                if (!skipEvent && !this.onbeforeselectionchange({})) {
                     return;
                 }
                 this.ranges.remove(index);
@@ -722,7 +722,7 @@
 
             selectRows: function(range, skipEvent) {
                 if (!this.options.selectionMode || this.options.selectionMode == 'none' 
-                    || (!skipEvent && !this.onbeforeselectionchange(event))) {
+                    || (!skipEvent && !this.onbeforeselectionchange({}))) {
                     return;
                 }
                 if (typeof range == "number") {
