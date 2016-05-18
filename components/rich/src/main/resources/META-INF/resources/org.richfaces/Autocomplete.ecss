@@ -13,7 +13,8 @@ input.rf-au-inp {
     margin: 0px;
     padding: 0px;
     vertical-align: top;
-    width: 182px;
+    width: 100%;
+    height: 16px;
 }
 
 .rf-au {
@@ -33,7 +34,7 @@ input.rf-au-inp {
     display: inline-block;
     font-size: 1px;
     white-space: nowrap;
-    vertical-align: top;
+    width: 100%;
 }
 
 .rf-au-btn {
@@ -46,6 +47,7 @@ input.rf-au-inp {
     border-left-color: '#{a4jSkin.panelBorderColor}';
     display: inline-block;
     vertical-align: top;
+    margin-left: -16px;
 }
 
 .rf-au-btn-arrow,.rf-au-btn-arrow-dis {

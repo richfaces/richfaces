@@ -40,6 +40,8 @@ input.rf-insp-inp[type="text"] {
     margin: 0px;
     padding: 0px;
     vertical-align: top;
+    width: 100%;
+    height: 16px;
 }
 
 .rf-insp-btns {
@@ -52,6 +54,7 @@ input.rf-insp-inp[type="text"] {
     border-left-color: '#{a4jSkin.panelBorderColor}';
     display: inline-block;
     vertical-align: top;
+    margin-left: -16px;
 }
 
 .rf-insp-dec,.rf-insp-inc,.rf-insp-dec-dis,.rf-insp-inc-dis {

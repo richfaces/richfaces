@@ -1,5 +1,5 @@
 .rf-cal {
-    display: inline;
+    display: inline-block;
 }
 
 .rf-cal-extr {
@@ -11,6 +11,10 @@
 
 .rf-cal-popup {
     cursor: default;
+}
+
+.rf-cal-inp {
+    width: 100%;
 }
 
 .rf-cal-btn {
