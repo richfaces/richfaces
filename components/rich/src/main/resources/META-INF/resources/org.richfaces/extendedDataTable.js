@@ -648,7 +648,8 @@
             },
 
             deselectRow: function (index, skipEvent) {
-                if (!skipEvent && !this.onbeforeselectionchange({})) {
+                if (!this.options.selectionMode || this.options.selectionMode == 'none' 
+                    || (!skipEvent && !this.onbeforeselectionchange({}))) {
                     return;
                 }
                 this.ranges.remove(index);
@@ -727,6 +728,9 @@
                 }
                 if (typeof range == "number") {
                     range = [range, range];
+                }
+                if (this.options.selectionMode == 'single') {
+                    range[1] = range[0];
                 }
                 var changed;
                 var i = 0;
