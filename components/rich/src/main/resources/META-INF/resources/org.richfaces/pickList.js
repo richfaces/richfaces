@@ -183,6 +183,10 @@
                 this.toggleButtons();
             },
 
+            __getEnabledSourceItems: function() {
+                return this.sourceList.items.filter(":not(." + this.sourceList.itemDisabledCss + ")");
+            },
+            
             add: function() {
                 this.targetList.setFocus();
                 var items = this.sourceList.removeSelectedItems();
@@ -203,7 +207,8 @@
 
             addAll: function() {
                 this.targetList.setFocus();
-                var items = this.sourceList.removeAllItems();
+                var items = this.__getEnabledSourceItems();
+                this.sourceList.removeItems(items);
                 this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
@@ -231,7 +236,7 @@
             toggleButtons: function() {
                 this.__toggleButton(this.addButton, this.sourceList.__getItems().filter('.' + this.baseSelectItemCss).length > 0);
                 this.__toggleButton(this.removeButton, this.targetList.__getItems().filter('.' + this.baseSelectItemCss).length > 0);
-                this.__toggleButton(this.addAllButton, this.sourceList.__getItems().length > 0);
+                this.__toggleButton(this.addAllButton, this.__getEnabledSourceItems().length > 0);
                 this.__toggleButton(this.removeAllButton, this.targetList.__getItems().length > 0);
                 if (this.orderable) {
                     this.orderingList.toggleButtons();
