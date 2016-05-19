@@ -105,8 +105,11 @@ public final class ClientSelectItem implements ScriptString {
     }
 
     public String toScript() {
-        return "{ \"id\" : " + ScriptUtils.toScript(clientId) + " , \"label\" : " + ScriptUtils.toScript(label) + ", \"value\" : "
-            + ScriptUtils.toScript(convertedValue) + "}";
+        return "{ \"id\" : " + ScriptUtils.toScript(clientId)
+            + " , \"label\" : " + ScriptUtils.toScript(label)
+            + ", \"value\" : " + ScriptUtils.toScript(convertedValue)
+            + ", \"disabled\" : " + ScriptUtils.toScript(selectItem.isDisabled())
+            + "}";
     }
 
     public boolean isSelected() {

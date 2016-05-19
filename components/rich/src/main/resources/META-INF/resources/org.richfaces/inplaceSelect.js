@@ -221,6 +221,9 @@
             },
             setValue: function(value) {
                 var item = this.list.__selectItemByValue(value);
+                if (!item) {
+                    return;
+                }
                 var clientSelectItem = item.data('clientSelectItem');
                 this.__setValue(clientSelectItem.label);
                 if (this.__isValueChanged()) {

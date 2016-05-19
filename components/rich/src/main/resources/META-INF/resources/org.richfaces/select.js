@@ -528,7 +528,6 @@
             setValue: function(value) {
                 if (value == null || value == '') {
                     this.__setValue('');
-                    this.__setValue('');
                     this.selValueInput.val('');
                     this.__updateItems();
                     return;
@@ -536,7 +535,7 @@
                 var item;
                 for (var i = 0; i < this.clientSelectItems.length; i++) {
                     item = this.clientSelectItems[i];
-                    if (item.value == value) {
+                    if (item.value == value && !item.disabled) {
                         this.__setValue(item.label);
                         this.selValueInput.val(item.value);
                         this.list.__selectByIndex(i);
