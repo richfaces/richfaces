@@ -71,6 +71,9 @@
         },
 
         remove: function(index) {
+            if (!this.contains(index)) {
+                return;
+            }
             var i = 0;
             while (i < this.ranges.length && index > this.ranges[i++][1]);
             i--;
@@ -649,7 +652,7 @@
 
             deselectRow: function (index, skipEvent) {
                 if (!this.options.selectionMode || this.options.selectionMode == 'none' 
-                    || (!skipEvent && !this.onbeforeselectionchange({}))) {
+                    || !this.ranges.contains(index) || (!skipEvent && !this.onbeforeselectionchange({}))) {
                     return;
                 }
                 this.ranges.remove(index);
