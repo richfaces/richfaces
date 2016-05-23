@@ -20,7 +20,9 @@
         rf.Event.unbindById(this.id, "mouseenter");
         rf.Event.unbindById(this.id, "mouseleave");
         rf.Event.bind(this.popup.popup, "mouseenter", $.proxy(this.__overHandler, this), this);
-        rf.Event.bind(this.popup.popup, "mouseleave", $.proxy(this.__leaveHandler, this), this);
+        if (!this.options.sticky) {
+            rf.Event.bind(this.popup.popup, "mouseleave", $.proxy(this.__leaveHandler, this), this);
+        }
         rf.Event.bind('body', 'click' + this.namespace, $.proxy(this.__leaveHandler, this));
         rf.Event.bindById(this.popup.popup, 'click' + this.namespace, $.proxy(this.__clilckHandler, this));
     }

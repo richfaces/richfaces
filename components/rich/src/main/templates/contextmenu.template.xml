@@ -46,6 +46,7 @@
                         <cdk:scriptOption name="hideDelay" value="#{component.attributes['hideDelay']}" defaultValue='300' />
                         <cdk:scriptOption name="showDelay" value="#{component.attributes['showDelay']}" defaultValue='50' />
                         <cdk:scriptOption name="targetSelector" value="#{component.attributes['targetSelector']}" defaultValue='""' />
+                        <cdk:scriptOption name="sticky" value="#{component.attributes['sticky']}" defaultValue='false' />
                         <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide onitemclick" wrapper="eventHandler" />
                     </cdk:scriptObject>
 

@@ -71,6 +71,12 @@ public abstract class AbstractContextMenu extends AbstractMenuContainer implemen
     @Attribute
     public abstract String getTargetSelector();
 
+    /**
+     * If "true" the menu will stay visible when the mouse is moved away from it. Default value: "false".
+     */
+    @Attribute(defaultValue = "false")
+    public abstract boolean isSticky();
+
     public Object getCssRoot() {
         return "ctx";
     }
