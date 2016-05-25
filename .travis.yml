@@ -27,7 +27,7 @@ before_script:
   - echo "Using firefox version `firefox --version`"
 
 # use WildFly 9 so it can run with Java 7 (WildFly 10 requires Java 8)
-script: mvn verify -Dintegration=wildfly90 -Dsmoke -s /home/travis/build/richfaces/richfaces/buildhive-settings.xml -Darquillian.maven.settings=/home/travis/build/richfaces/richfaces/buildhive-settings.xml -Dbrowser=firefox | awk '{ print strftime("%H:%M:%S"), $0; fflush(); }'
+script: mvn verify -Dintegration=wildfly90 -Dsmoke -Darquillian.container.jboss.outputToConsole=false -s /home/travis/build/richfaces/richfaces/buildhive-settings.xml -Darquillian.maven.settings=/home/travis/build/richfaces/richfaces/buildhive-settings.xml -Dbrowser=firefox | awk '{ print strftime("%H:%M:%S"), $0; fflush(); }'
 
 cache:
   directories:
