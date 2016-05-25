@@ -12,7 +12,7 @@ before_install:
 
 install: mvn clean install -B -DskipTests=true -s /home/travis/build/richfaces/richfaces/buildhive-settings.xml
 
-script: mvn clean verify -Dintegration=wildfly90 -Dsmoke -s /home/travis/build/richfaces/richfaces/buildhive-settings.xml -Darquillian.maven.settings=/home/travis/build/richfaces/richfaces/buildhive-settings.xml
+script: mvn clean verify -Dintegration=wildfly90 -Dsmoke -s /home/travis/build/richfaces/richfaces/buildhive-settings.xml -Darquillian.maven.settings=/home/travis/build/richfaces/richfaces/buildhive-settings.xml | awk '{ print strftime("%H:%M:%S"), $0; fflush(); }'
 
 cache:
   directories:
