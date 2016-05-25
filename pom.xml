@@ -453,6 +453,7 @@
                 <arquillian.container.configuration />
                 <arquillian.container.uninstall>true</arquillian.container.uninstall>
                 <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
+                <arquillian.container.jboss.outputToConsole>true</arquillian.container.jboss.outputToConsole>
                 <arquillian.maven.settings />
 
                 <!-- Container Selection -->

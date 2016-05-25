@@ -38,6 +38,7 @@
         <configuration>
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
             <property name="jbossHome">${arquillian.container.home}</property>
+            <property name="outputToConsole">${arquillian.container.jboss.outputToConsole}</property>
         </configuration>
     </container>
     
@@ -45,6 +46,7 @@
         <configuration>
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
             <property name="jbossHome">${arquillian.container.home}</property>
+            <property name="outputToConsole">${arquillian.container.jboss.outputToConsole}</property>
         </configuration>
     </container>
     
@@ -52,6 +54,7 @@
         <configuration>
             <property name="javaVmArguments">${arquillian.container.vmargs}</property>
             <property name="jbossHome">${arquillian.container.home}</property>
+            <property name="outputToConsole">${arquillian.container.jboss.outputToConsole}</property>
         </configuration>
     </container>
 
