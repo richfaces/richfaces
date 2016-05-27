@@ -107,7 +107,7 @@ public class RichFacesSelect implements Select, AdvancedVisibleComponentIteracti
                 new Actions(driver).moveToElement(foundValue).click(foundValue).perform();
             }
             advanced().waitUntilSuggestionsAreNotVisible().perform();
-            advanced().getInput().advanced().trigger("blur");
+            Utils.performUniversalBlur(driver);
         }
 
         @Override
