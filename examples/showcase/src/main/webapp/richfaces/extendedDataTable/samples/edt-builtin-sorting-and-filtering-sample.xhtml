@@ -5,7 +5,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <h:form>
+    <h:form id="form">
         <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
                                 var="car" filterVar="filterValue" id="table" frozenColumns="2"
                                 sortPriority="#{carsSortingBean.sortPriorities}"

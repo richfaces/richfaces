@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich">
     <a4j:queue requestDelay="2000" rendered="#{not (userAgent.phone || userAgent.tablet)}"/>
 
-    <h:form rendered="#{not (userAgent.phone || userAgent.tablet)}">
+    <h:form id="form">
         <rich:panel bodyClass="bClass">
             <h:outputText value="Type there:" />
             <h:inputText>
@@ -20,19 +20,4 @@
             </a4j:status>
         </rich:panel>
     </h:form>
-
-    <rich:panel bodyClass="bClass" rendered="#{(userAgent.phone || userAgent.tablet)}">
-        <h:outputText value="Type there:" />
-        <h:inputText>
-            <a4j:ajax event="keyup" listener="#{userBean.causeDelay}"/>
-        </h:inputText>
-        <a4j:commandButton value="submit" actionListener="#{userBean.causeDelay}">
-            <a4j:attachQueue requestDelay="0" />
-        </a4j:commandButton>
-        <a4j:status>
-            <f:facet name="start">
-                Please wait...
-            </f:facet>
-        </a4j:status>
-    </rich:panel>
 </ui:composition>

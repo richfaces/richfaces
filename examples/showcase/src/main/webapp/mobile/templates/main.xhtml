@@ -65,50 +65,52 @@
                 <f:param name="demo" value="param1"/>
                 <f:param name="sample" value="param2"/>
             </a4j:jsFunction>
+            </h:form>
 
             <div id="page-container">
-                <div id="home-page" class="page stage-left">
-                    <nav>
-                        <div class="nav-list">
-
-                             <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
-                                <c:forEach items="#{demoNavigator.groups}" var="gr">
-                                    <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
-                                        rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
-                                        <c:forEach items="#{gr.demos}" var="d">
-
-                                            <rich:panelMenuItem label="#{d.name}" oncomplete="location.hash='#{d.id}:#{demoNavigator.currentSample.id}'" render="@form"
-                                                                 rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
-                                                    <f:param name="demo" value="#{d.id}"/>
-                                                    <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
-                                            </rich:panelMenuItem>
-                                        </c:forEach>
-                                    </rich:panelMenuGroup>
-                                </c:forEach>
-                            </rich:panelMenu>
-
-                        </div>
-                    </nav>
-                </div>
-
-                <div id="component-page" class="page stage-right">
-
-                        <div>
-                            <h:outputStylesheet>
-                                .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
-                                display: none;
-                                }
-                            </h:outputStylesheet>
+                <a4j:outputPanel id="componentPanel">
+                    <div id="home-page" class="page stage-left">
+                        <nav>
+                            <div class="nav-list">
+                                <h:form>
+                                 <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
+                                    <c:forEach items="#{demoNavigator.groups}" var="gr">
+                                        <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
+                                            rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
+                                            <c:forEach items="#{gr.demos}" var="d">
+    
+                                                <rich:panelMenuItem label="#{d.name}" oncomplete="location.hash='#{d.id}:#{demoNavigator.currentSample.id}'" render="componentPanel form"
+                                                                     rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
+                                                        <f:param name="demo" value="#{d.id}"/>
+                                                        <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
+                                                </rich:panelMenuItem>
+                                            </c:forEach>
+                                        </rich:panelMenuGroup>
+                                    </c:forEach>
+                                </rich:panelMenu>
+                                </h:form>
+                            </div>
+                        </nav>
+                    </div>
+    
+                    <div id="component-page" class="page stage-right">
+    
                             <div>
-                                <fieldset class="example-cnt">
-                                    <ui:include src="#{demoNavigator.sampleURI}" />
-                                </fieldset>
-
-                             </div>
-                        </div>
-                </div>
+                                <h:outputStylesheet>
+                                    .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
+                                    display: none;
+                                    }
+                                </h:outputStylesheet>
+                                <div>
+                                    <fieldset class="example-cnt">
+                                        <ui:include src="#{demoNavigator.sampleURI}" />
+                                    </fieldset>
+    
+                                 </div>
+                            </div>
+                    </div>
+                </a4j:outputPanel>
             </div>
-            </h:form>
         </div>
 
     </h:body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
-    <h:form>
+    <h:form id="form">
         <h:selectOneMenu value="#{selectsBean.currentType}" valueChangeListener="#{selectsBean.valueChanged}">
             <f:selectItems value="#{selectsBean.firstList}" />
             <a4j:ajax event="valueChange" render="second" execute="@this" />

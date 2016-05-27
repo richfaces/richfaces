@@ -4,7 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich">
 
-    <h:form>
+    <h:form id="form">
         <rich:tree toggleType="ajax" var="item" style="max-width: 400px">
             <rich:treeModelRecursiveAdaptor roots="#{fileSystemBean.sourceRoots}" nodes="#{item.directories}">
                 <rich:treeNode>

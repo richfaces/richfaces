@@ -8,7 +8,7 @@
         }
     </h:outputStylesheet>
 
-    <h:form>
+    <h:form id="form">
         <a4j:ajax render="editor">
             <rich:panel header="Toolbar Configuration">
                 <h:selectOneRadio id="toolbarSelection" value="#{editorBean.toolbar}">
@@ -18,9 +18,7 @@
                 </h:selectOneRadio>
             </rich:panel>
         </a4j:ajax>
-    </h:form>
 
-    <h:form>
         <rich:editor id="editor" toolbar="#{editorBean.toolbar}" skin="#{editorBean.skin}">
             <f:facet name="config">
                     toolbar_custom:

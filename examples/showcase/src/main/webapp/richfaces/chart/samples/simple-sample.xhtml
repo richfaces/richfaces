@@ -4,7 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
-    <h:form>
+    <h:form id="form">
         <rich:chart title="Countries by carbon dioxide emissions per capita" styleClass="graf">
             <a4j:repeat value="#{chartBean.countries}" var="country">
                 <rich:chartSeries label="#{country.name}" type="line">

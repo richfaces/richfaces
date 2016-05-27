@@ -21,7 +21,7 @@
         //]]>
     </script>
      
-    <h:form >
+    <h:form id="form">
         <rich:chart onplotclick="log(event)" onplothover="hover(event)" onmouseout="clear()" plotClickListener="#{chartBean.handler}">
             <a4j:repeat value="#{chartBean.countries}" var="country" >
                 <rich:chartSeries label="#{country.name}" type="line">

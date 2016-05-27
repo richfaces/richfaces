@@ -13,7 +13,7 @@
         }
     </h:outputStylesheet>
     <h:panelGrid columns="2" columnClasses="top,top" width="60%">
-        <h:form>
+        <h:form id="form">
             <rich:tree id="tree" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
                 selectionType="ajax" selectionChangeListener="#{treeBean.selectionChanged}">
                 <rich:treeNode type="country">

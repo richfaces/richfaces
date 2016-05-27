@@ -14,7 +14,7 @@
             overflow: auto;
         }
     </h:outputStylesheet>
-    <h:form>
+    <h:form id="form">
         <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes=".jpg, .gif, .png, .bmp"
             ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');" maxFilesQuantity="5">
             <a4j:ajax event="uploadcomplete" execute="@none" render="info" />
