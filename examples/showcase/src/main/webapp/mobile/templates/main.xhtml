@@ -19,7 +19,8 @@
 
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/slidfast.css" />
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/mobile/slidfast.js"></script>
-
+    </h:head>
+    <h:body>
         <script type="text/javascript">
 
            var _gaq = _gaq || [];
@@ -42,11 +43,7 @@
            });
 
         </script>
-
-    </h:head>
-    <h:body>
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/rf-mobile-skin.css" />
-
         <div id="browser">
             <header>
                 <div>
@@ -59,12 +56,38 @@
                 </div>
             </header>
             <h:form style="width:100%;height:100%;">
-            <a4j:queue requestDelay="2000" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'attachQueue'}" />
+            <script>
+                var updateQueue = function(options) {
+                        RichFaces.queue.setQueueOptions({[RichFaces.queue.DEFAULT_QUEUE_ID]:options});
+                    },
+                    setUpQueue = function(id) {
+                        if (id == 'attachQueue') {
+                            updateQueue({"requestDelay":2000});
+                            $("#back-button").on('click', setUpQueue);
+                        } else if (id == 'queue') {
+                            if (!RichFaces.queue.getQueueOptions(RichFaces.queue.DEFAULT_QUEUE_ID).requestDelay) {
+                                updateQueue({"requestDelay":500});
+                            }
+                            $("#back-button").on('click', setUpQueue);
+                        } else {
+                            updateQueue({});
+                            $("#back-button").off('click', setUpQueue);
+                        }
+                    };
+
+                var handleHashChange = function(demo,sample) {
+                    slidfast.core.slideTo('component-page');
+                    setUpQueue(sample);
+                };
+
+                $(window).on('load', function() {
+                    var sample = '#{demoNavigator.currentSample.id}';
+                    if (sample == 'queue') { // slide back after page refresh
+                        location.hash = '#{demoNavigator.currentDemo.id}' + ":" + sample;
+                    }
+                    });
+            </script>
             <a4j:push id="pushTopics" address="pushTopics" ondataavailable="jQuery(#{rich:element('serverDate')}).text(event.rf.data)" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'push'}" />
-            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slidfast.core.slideTo('component-page')">
-                <f:param name="demo" value="param1"/>
-                <f:param name="sample" value="param2"/>
-            </a4j:jsFunction>
             </h:form>
 
             <div id="page-container">
@@ -78,7 +101,7 @@
                                         <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
                                             rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
                                             <c:forEach items="#{gr.demos}" var="d">
-    
+
                                                 <rich:panelMenuItem label="#{d.name}" oncomplete="location.hash='#{d.id}:#{demoNavigator.currentSample.id}'" render="componentPanel form"
                                                                      rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
                                                         <f:param name="demo" value="#{d.id}"/>
@@ -92,9 +115,9 @@
                             </div>
                         </nav>
                     </div>
-    
+
                     <div id="component-page" class="page stage-right">
-    
+
                             <div>
                                 <h:outputStylesheet>
                                     .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
@@ -105,7 +128,7 @@
                                     <fieldset class="example-cnt">
                                         <ui:include src="#{demoNavigator.sampleURI}" />
                                     </fieldset>
-    
+
                                  </div>
                             </div>
                     </div>
