@@ -1,9 +1,7 @@
 package org.richfaces.showcase;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
 import org.junit.Before;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +17,6 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
     public void loadPage() {
         String addition = getAdditionToContextRoot();
         this.contextRoot = getContextRoot();
-        ShowcaseLayout layout = loadLayout();
         if (runInPortalEnv) {
             webDriver.get(String.format("%s://%s:%s/%s", contextRoot.getProtocol(), contextRoot.getHost(),
                 contextRoot.getPort(), "portal/classic/showcase"));
@@ -29,13 +26,7 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
             js.executeScript(String.format(setTextQuery, "seleniumTestSample", getSampleName()));
             js.executeScript("document.querySelector(\"a[id$='portalForm:redirectToPortlet']\").click()");
         } else {
-            if (layout == ShowcaseLayout.MOBILE) {
-                webDriver.get(this.contextRoot.toExternalForm() + "mobile/"); // because of '#' in URLs
-            }
             webDriver.get(contextRoot.toExternalForm() + addition);
-            if (layout == ShowcaseLayout.MOBILE) {
-                Graphene.waitAjax().until().element(By.className("sourceView")).is().visible();
-            }
         }
     }
 

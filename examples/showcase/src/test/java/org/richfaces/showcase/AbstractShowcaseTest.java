@@ -37,16 +37,7 @@ public class AbstractShowcaseTest {
     }
 
     protected String getAdditionToContextRoot() {
-        ShowcaseLayout layout = loadLayout();
-        String addition;
-        if (layout == ShowcaseLayout.COMMON) {
-            addition = String.format("richfaces/component-sample.jsf?skin=blueSky&demo=%s&sample=%s", getDemoName(),
-                getSampleName());
-        } else {
-            addition = String.format("mobile/#%s:%s", getDemoName(), getSampleName());
-        }
-
-        return addition;
+        return String.format("richfaces/component-sample.jsf?skin=blueSky&demo=%s&sample=%s", getDemoName(), getSampleName());
     }
 
     protected URL getContextRoot() {
@@ -77,16 +68,6 @@ public class AbstractShowcaseTest {
         String sampleName = this.getClass().getSimpleName().substring(5);
         sampleName = ("" + sampleName.charAt(0)).toLowerCase() + sampleName.substring(1);
         return sampleName;
-    }
-
-    protected ShowcaseLayout loadLayout() {
-        String fromProperties = System.getProperty("showcase.layout", "common");
-        return ShowcaseLayout.valueOf(fromProperties.toUpperCase());
-    }
-
-    protected static enum ShowcaseLayout {
-
-        COMMON, MOBILE;
     }
 
 }
