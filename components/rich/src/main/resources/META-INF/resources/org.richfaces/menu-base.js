@@ -183,7 +183,7 @@
             },
 
             __showHandler : function(e) {
-                if (!this.__isShown()) {
+                if (!this.__isShown() && !this.showTimeoutId) {
                     // prevent menu from hiding in case __leaveHandler was triggered
                     // (happens when showEvent is preceded by a click, e.g. "dblclick")
                     if (this.hideTimeoutId) {
