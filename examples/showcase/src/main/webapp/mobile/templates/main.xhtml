@@ -58,14 +58,14 @@
             <h:form style="width:100%;height:100%;">
             <script>
                 var updateQueue = function(options) {
-                        RichFaces.queue.setQueueOptions({[RichFaces.queue.DEFAULT_QUEUE_ID]:options});
+                        RichFaces.queue.setQueueOptions({"org.richfaces.queue.global":options});
                     },
                     setUpQueue = function(id) {
                         if (id == 'attachQueue') {
                             updateQueue({"requestDelay":2000});
                             $("#back-button").on('click', setUpQueue);
                         } else if (id == 'queue') {
-                            if (!RichFaces.queue.getQueueOptions(RichFaces.queue.DEFAULT_QUEUE_ID).requestDelay) {
+                            if (!RichFaces.queue.getQueueOptions("org.richfaces.queue.global").requestDelay) {
                                 updateQueue({"requestDelay":500});
                             }
                             $("#back-button").on('click', setUpQueue);
