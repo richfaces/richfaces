@@ -26,7 +26,6 @@ import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.fragment.common.Event;
-import org.richfaces.fragment.common.Utils;
 import org.richfaces.fragment.inplaceSelect.RichFacesInplaceSelect;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.inplaceSelect.page.SimplePage;
@@ -64,8 +63,6 @@ public class ITestInplaceSelect extends AbstractWebDriverTest {
             select.select(option).confirmByControlls();
         } else {
             select.select(option).confirm();
-            // blur & wait for popup to hide
-            webDriver.findElement(Utils.BY_BODY).click();
         }
         waitModel().until().element(select.advanced().getLabelInputElement()).text().equalTo(option);
     }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,11 +18,12 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.param;
 
 import static org.junit.Assert.assertEquals;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
@@ -31,27 +32,17 @@ import org.richfaces.showcase.param.page.SkinChangePage;
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
- * @version $Revision$
  */
 public class ITestSkinChange extends AbstractWebDriverTest {
-
-    /* *******************************************************************************************************
-     * Locators ****************************************************************** *************************************
-     */
 
     @Page
     private SkinChangePage page;
 
-    /* ********************************************************************************************************
-     * Tests ********************************************************************* ***********************************
-     */
-
     @Test
     public void testChangeSkin() {
-        page.getDeepMarineSkin().click();
+        Graphene.guardHttp(page.getDeepMarineSkin()).click();
         assertEquals("Deep marine should be selected skin", "deepMarine", page.getCurrentSkin().getText());
-        page.getBlueSky().click();
+        Graphene.guardHttp(page.getBlueSky()).click();
         assertEquals("Blue Sky should be selected skin", "blueSky", page.getCurrentSkin().getText());
     }
-
 }

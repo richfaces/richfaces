@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,10 +18,9 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.ajax;
 
-import category.Smoke;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
@@ -29,19 +28,16 @@ import org.junit.experimental.categories.Category;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.ajax.page.AjaxPage;
 
+import category.Smoke;
+
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
- * @version $Revision$
  */
 public class ITestAjax extends AbstractWebDriverTest {
 
     @Page
     private AjaxPage page;
-
-    /* ***************************************************************************************
-     * Tests***************************************************************************************
-     */
 
     @Test
     @Category(Smoke.class)
@@ -49,16 +45,15 @@ public class ITestAjax extends AbstractWebDriverTest {
         page.getInput().click();
         page.getInput().clear();
         String toWrite = "text";
-        for (char ch: toWrite.toCharArray()) {
+        for (char ch : toWrite.toCharArray()) {
             Graphene.guardAjax(page.getInput()).sendKeys(Character.toString(ch));
         }
 
-
         Graphene.waitAjax()
-                .until()
-                .element(page.getOutput())
-                .text()
-                .equalTo(toWrite);
+            .until()
+            .element(page.getOutput())
+            .text()
+            .equalTo(toWrite);
     }
 
     @Test
@@ -67,18 +62,18 @@ public class ITestAjax extends AbstractWebDriverTest {
         page.getInput().clear();
         String toWrite = "to erase";
 
-        for (char ch: toWrite.toCharArray()) {
+        for (char ch : toWrite.toCharArray()) {
             Graphene.guardAjax(page.getInput()).sendKeys(Character.toString(ch));
         }
 
         page.getInput().clear();
-        page.getInput().sendKeys("x");
+        Graphene.guardAjax(page.getInput()).sendKeys("x");
 
         Graphene.waitAjax()
-                .until()
-                .element(page.getOutput())
-                .text()
-                .equalTo("x");
+            .until()
+            .element(page.getOutput())
+            .text()
+            .equalTo("x");
     }
 
 }

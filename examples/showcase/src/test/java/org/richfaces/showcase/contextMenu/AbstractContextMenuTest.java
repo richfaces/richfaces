@@ -23,8 +23,6 @@ package org.richfaces.showcase.contextMenu;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
-import java.util.concurrent.TimeUnit;
-
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -54,8 +52,8 @@ public class AbstractContextMenuTest extends AbstractWebDriverTest {
             } else {
                 target.click();
             }
-            Graphene.waitGui(webDriver).withTimeout(2, TimeUnit.SECONDS).until(conditionTargetIsFocused);
-            waitFor(1000);// stabilization wait time, the waitGui before does not suffice
+            Graphene.waitAjax().until(conditionTargetIsFocused);
+            waitFor(1000);// stabilization wait time, the wait before does not suffice
         }
 
         ctxMenuFragment.advanced().setShowEvent(showEvent);

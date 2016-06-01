@@ -26,6 +26,7 @@ public class AbstractWebDriverTest extends AbstractShowcaseTest {
             js.executeScript(String.format(setTextQuery, "seleniumTestSample", getSampleName()));
             js.executeScript("document.querySelector(\"a[id$='portalForm:redirectToPortlet']\").click()");
         } else {
+            webDriver.manage().deleteAllCookies();// remove state from previous test
             webDriver.get(contextRoot.toExternalForm() + addition);
         }
     }

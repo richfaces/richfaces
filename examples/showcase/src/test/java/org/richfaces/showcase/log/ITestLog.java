@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.log;
 
 import static org.junit.Assert.assertEquals;
@@ -37,22 +37,12 @@ import org.richfaces.showcase.log.page.LogPage;
  */
 public class ITestLog extends AbstractWebDriverTest {
 
-    /* *******************************************************************************************************
-     * Locators *************************************
-     */
-
     @Page
     private LogPage page;
 
-    /* ********************************************************************************************************
-     * Tests ********************************************************************* ***********************************
-     */
-
     @Test
     public void testInitialStateNothingToInputAndCheckTheOutput() {
-
         Graphene.guardAjax(page.getSubmit()).click();
-
         assertEquals("The ouput string should be empty!", "", page.getOutput().getText().trim());
     }
 
@@ -60,7 +50,7 @@ public class ITestLog extends AbstractWebDriverTest {
     public void testLogAndClear() {
         Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.INFO.getIndex());
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Graphene
             .waitAjax()
             .until(
@@ -78,7 +68,7 @@ public class ITestLog extends AbstractWebDriverTest {
     public void testLogDebug() {
         Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.DEBUG.getIndex());
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Graphene
             .waitAjax()
             .until(
@@ -95,7 +85,7 @@ public class ITestLog extends AbstractWebDriverTest {
     public void testLogError() {
         Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.ERROR.getIndex());
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax()
             .until("After setting severity to <error> and submitting, the logging area should contain no message.")
             .element(page.getLoggingArea()).text().equalTo("");
@@ -105,7 +95,7 @@ public class ITestLog extends AbstractWebDriverTest {
     public void testLogInfo() throws InterruptedException {
         Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.INFO.getIndex());
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Thread.sleep(400); // workaround till ARQGRA-259 is resolved
         Graphene
             .waitAjax()
@@ -118,7 +108,7 @@ public class ITestLog extends AbstractWebDriverTest {
     public void testLogWarn() {
         Select select = new Select(page.getSeveritySelect());
         select.selectByIndex(LogPage.Severity.WARN.getIndex());
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax()
             .until("After setting severity to <warn> and submitting, the logging area should contain no message.")
             .element(page.getLoggingArea()).text().equalTo("");
@@ -126,7 +116,7 @@ public class ITestLog extends AbstractWebDriverTest {
 
     @Test
     public void testSubmitEmpty() {
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax().until("After submitting empty input, the output should contain nothing.").element(page.getOutput())
             .text().equalTo("");
     }
@@ -135,7 +125,7 @@ public class ITestLog extends AbstractWebDriverTest {
     public void testSubmitSomething() {
         page.getInput().click();
         page.getInput().sendKeys("something");
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         Graphene.waitAjax().until("After submitting the input, the content of the output should match.").element(page.getOutput())
             .text().equalTo("Hello something!");
     }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,14 +18,14 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.attachQueue;
 
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import static org.junit.Assert.assertTrue;
 
-import java.util.concurrent.TimeUnit;
-
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,7 +34,6 @@ import org.richfaces.showcase.attachQueue.page.AttachQueuePage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 @Ignore("Will be rewritten once XHRHalter lands in Graphene 2.0.4")
 public class ITestAttachQueue extends AbstractWebDriverTest {
@@ -66,14 +65,14 @@ public class ITestAttachQueue extends AbstractWebDriverTest {
     private void typeToTheInputAndCheckTheDelay() {
         long timeBeforePressingKey = System.currentTimeMillis();
         page.getInput().sendKeys("a");
-        waitGui(webDriver).withTimeout(3, TimeUnit.SECONDS).until().element(page.getAjaxRequestProcessing()).is().visible();
+        waitModel(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long timeAfterAjaxRequestIsPresent = System.currentTimeMillis();
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         waitGui(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long actualDelay = timeAfterAjaxRequestIsPresent - timeBeforePressingKey;
         assertTrue("The delay should be between " + DELAY_IN_MILISECONDS + "ms and " + (DELAY_IN_MILISECONDS + 1000)
-                + "ms but was:" + actualDelay, (actualDelay >= DELAY_IN_MILISECONDS)
-                && (actualDelay <= DELAY_IN_MILISECONDS + 1000));
+            + "ms but was:" + actualDelay, (actualDelay >= DELAY_IN_MILISECONDS)
+            && (actualDelay <= DELAY_IN_MILISECONDS + 1000));
     }
 
     /*
@@ -81,10 +80,10 @@ public class ITestAttachQueue extends AbstractWebDriverTest {
      */
     private void clickOnTheButtonAndCheckTheDelay() {
         long timeBeforePressingKey = System.currentTimeMillis();
-        page.getSubmit().click();
+        Graphene.guardAjax(page.getSubmit()).click();
         waitGui(webDriver).until().element(page.getAjaxRequestProcessing()).is().visible();
         long actualDelay = System.currentTimeMillis() - timeBeforePressingKey;
         assertTrue("The delay should be between " + NO_DELAY + "ms and " + (NO_DELAY + 500) + "ms but was:!" + actualDelay,
-                (actualDelay >= NO_DELAY) && (actualDelay <= NO_DELAY + 500));
+            (actualDelay >= NO_DELAY) && (actualDelay <= NO_DELAY + 500));
     }
 }

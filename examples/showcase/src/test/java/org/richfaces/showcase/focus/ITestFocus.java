@@ -25,6 +25,7 @@ import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 import java.util.concurrent.TimeUnit;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
@@ -52,7 +53,7 @@ public class ITestFocus extends AbstractWebDriverTest {
         page.getNameInput().sendKeys("RichFaces");
         page.getJobInput().sendKeys("1");
 
-        page.getSubmitButton().click();
+        Graphene.guardAjax(page.getSubmitButton()).click();
         page.getValidationMessage().advanced().waitUntilMessageIsVisible().perform();
         waitModel().withTimeout(TIMEOUT_FOCUS, TimeUnit.SECONDS).until(new ElementIsFocused(page.getJobInput().advanced().getInputElement()));
     }

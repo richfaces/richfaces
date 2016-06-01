@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,13 +18,14 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.tooltip;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 import java.util.concurrent.TimeUnit;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
@@ -69,15 +70,15 @@ public class ITestTooltip extends AbstractWebDriverTest {
 
     @Test
     public void testAjaxClickTooltip() {
-        page.getAjaxClickTooltipActivatingArea().click();
+        Graphene.guardAjax(page.getAjaxClickTooltipActivatingArea()).click();
         waitForTooltipText(TOOLTIP_TEXT_AJAX_CLICK);
     }
 
     private void waitForTooltipText(String message) {
         waitAjax(webDriver).withTimeout(5, TimeUnit.SECONDS)
-                .until("The tool tip text is different!")
-                .element(page.getTooltip())
-                .text()
-                .equalTo(message);
+            .until("The tool tip text is different!")
+            .element(page.getTooltip())
+            .text()
+            .equalTo(message);
     }
 }

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.componentControl;
 
 import static org.junit.Assert.assertEquals;
@@ -32,30 +32,17 @@ import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestTableFilteringAPI extends AbstractDataIterationWithCars {
-
-    /* ***********************************************************************
-     * Locators***********************************************************************
-     */
 
     @Page
     private TableFilteringAPIPage page;
 
-    /* *************************************************************************
-     * Tests*************************************************************************
-     */
-
     @Test
     public void testFilteringOnTheFirstPage() {
-
         for (int i = 0; i < 6; i++) {
-
             Graphene.guardAjax(page.getFilterValue(i)).click();
-
             for (WebElement row : page.getTableRows()) {
-
                 Car carFromRow = retrieveCarFromRow(row, 0, 0);
 
                 String expectedVendor = page.getFilterValue(i).getText();
@@ -63,7 +50,5 @@ public class ITestTableFilteringAPI extends AbstractDataIterationWithCars {
                     carFromRow.getVendor());
             }
         }
-
     }
-
 }

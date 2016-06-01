@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.dataScroller;
 
 import static org.junit.Assert.assertEquals;
@@ -37,16 +37,12 @@ import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
 
     @Page
     private SimpleScrollingPage page;
 
-    /* **********************************************************************************************************
-     * Tests**********************************************************************************************************
-     */
     @Test
     public void testFirstPageButton() {
         // starting from the first page
@@ -60,11 +56,8 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         // check
         assertFalse("The data from table should be different, " + "when clicking on the on the the first page button",
             carBeforeClick.equals(carAfterClick));
-
         assertTrue("The first page button should be disabled", isElementPresent(page.getFirstPageButtonDis()));
-
         assertTrue("The fast previous page button should be disabled", isElementPresent(page.getFastPrevButtonDis()));
-
         assertTrue("The previous button should be disabled", isElementPresent(page.getPreviousButtonDis()));
     }
 
@@ -82,11 +75,8 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         // check
         assertFalse("The data from table should be different, " + "when clicking on the on the the last page button",
             carBeforeClick.equals(carAfterClick));
-
         assertTrue("The last page button should be disabled", isElementPresent(page.getLastPageButtonDis()));
-
         assertTrue("The fast next page button should be disabled", isElementPresent(page.getFastNextButtonDis()));
-
         assertTrue("The next button should be disabled", isElementPresent(page.getNextButtonDis()));
     }
 
@@ -103,44 +93,29 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
 
     @Test
     public void testNumberOfPagesButtons() {
-
         try {
             page.getFirstPageButtonDis().isDisplayed();
         } catch (NoSuchElementException ignored) {
             Graphene.guardAjax(page.getFirstPageButton()).click();
         }
-
         checkNumberOfPagesButtons(3);
-
         checkNumberOfPagesButtons(5);
-
         checkNumberOfPagesButtons(6);
-
         checkNumberOfPagesButtons(4);
     }
 
-    /* **********************************************************************************************************************
-     * Help methods ******************************************************************************************************
-     * ****************
-     */
     /**
      * Checking the buttons which have number of pages
      */
     private void checkNumberOfPagesButtons(int numberOfPage) {
-
         WebElement checkingButton = webDriver.findElement(ByJQuery.selector("a[class*='"
             + page.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "'):first"));
-
         Car carBeforeClicking = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
-
         Graphene.guardAjax(checkingButton).click();
 
         Car carAfterClicking = retrieveCarFromRow(page.getFirstRowOfTable(), 0, 4);
-
         assertFalse("The data should be different on the different pages!", carBeforeClicking.equals(carAfterClicking));
-
         int actualCurrentNumberOfPage = page.getNumberOfCurrentPage();
-
         assertEquals("We should be on the " + numberOfPage + ". page", numberOfPage, actualCurrentNumberOfPage);
     }
 
@@ -179,5 +154,4 @@ public class ITestSimpleScrolling extends AbstractDataIterationWithCars {
         assertEquals("The " + (fast ? "fast " : "") + " previous button does not work", numberOfPageAtBeginning,
             currentNumberOfPage);
     }
-
 }

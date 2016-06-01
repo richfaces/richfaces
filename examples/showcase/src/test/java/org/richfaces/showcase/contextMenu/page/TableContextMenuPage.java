@@ -1,7 +1,6 @@
 package org.richfaces.showcase.contextMenu.page;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.graphene.Graphene;
 import org.openqa.selenium.WebDriver;
@@ -40,7 +39,7 @@ public class TableContextMenuPage {
     public void closePopup() {
         closeButton.click();
 
-        Graphene.waitGui().withTimeout(2, TimeUnit.SECONDS).withMessage("The popup was not closed in a given timeout!")
+        Graphene.waitModel().withMessage("The popup was not closed in a given timeout!")
             .until().element(closeButton).is().not().visible();
     }
 

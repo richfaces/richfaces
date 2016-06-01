@@ -55,7 +55,7 @@ public class ITestInplaceInput extends AbstractWebDriverTest {
         final String expectedString = "Test string";
         input.type(expectedString).confirm();
         // blur
-        webDriver.findElement(Utils.BY_BODY).click();
+        Utils.performUniversalBlur(webDriver);
         waitModel().until().element(input.advanced().getLabelInputElement()).text().equalTo(expectedString);
     }
 }

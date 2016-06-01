@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,47 +18,32 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.repeat;
 
 import org.richfaces.showcase.AbstractWebDriverTest;
 
-
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class AbstractDataIterationWithStates extends AbstractWebDriverTest {
 
-    /* *************************************************************************************************************
-     * Inner class for State infomation, which are used in data iteration components
-     * **************************************************************************************************************
-     */
+    // Inner class for State infomation, which are used in data iteration components
     public class StateWithCapitalAndTimeZone {
 
         private String state = null;
         private String capital = null;
         private String timeZone = null;
 
-        /* ****************************************************************************************************
-         * Constructors
-         * ****************************************************************************************************
-         */
         public StateWithCapitalAndTimeZone() {
-
         }
 
         public StateWithCapitalAndTimeZone(String state, String capital, String timeZone) {
-
             this.state = state;
             this.capital = capital;
             this.timeZone = timeZone;
         }
 
-        /* *****************************************************************************************************
-         * Setters and getters
-         * *****************************************************************************************************
-         */
         public String getState() {
             return state;
         }
@@ -100,36 +85,42 @@ public class AbstractDataIterationWithStates extends AbstractWebDriverTest {
             return result;
         }
 
-        /* *******************************************************************************************************
-         * Equals and hashCode
-         * *******************************************************************************************************
-         */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             StateWithCapitalAndTimeZone other = (StateWithCapitalAndTimeZone) obj;
-            if (!getOuterType().equals(other.getOuterType()))
+            if (!getOuterType().equals(other.getOuterType())) {
                 return false;
+            }
             if (capital == null) {
-                if (other.capital != null)
+                if (other.capital != null) {
                     return false;
-            } else if (!capital.equals(other.capital))
+                }
+            } else if (!capital.equals(other.capital)) {
                 return false;
+            }
             if (state == null) {
-                if (other.state != null)
+                if (other.state != null) {
                     return false;
-            } else if (!state.equals(other.state))
+                }
+            } else if (!state.equals(other.state)) {
                 return false;
+            }
             if (timeZone == null) {
-                if (other.timeZone != null)
+                if (other.timeZone != null) {
                     return false;
-            } else if (!timeZone.equals(other.timeZone))
+                }
+            } else if (!timeZone.equals(other.timeZone)) {
                 return false;
+            }
             return true;
         }
 

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.dataScroller;
 
 import static org.junit.Assert.assertEquals;
@@ -35,90 +35,62 @@ import org.richfaces.showcase.dataScroller.page.DataScrollerAPIPage;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
- * @version $Revision$
  */
 public class ITestDataScrollerAPI extends AbstractWebDriverTest {
 
     @Page
     private DataScrollerAPIPage page;
 
-    /* *************************************************************************************************************************
-     * Tests *************************************************************************************************************
-     * *************
-     */
-
     @Test
     public void testNumberOfPagesButtons() {
-
         checkNumberOfPagesButtons(1);
-
         checkNumberOfPagesButtons(2);
-
         checkNumberOfPagesButtons(3);
-
     }
 
     @Test
     public void testAPINextPrevious() {
-
         int currentNumberOfThePage = page.getNumberOfCurrentPage();
-
         if (currentNumberOfThePage > 1) {
             Graphene.guardAjax(page.getPreviousButton()).click();
             Graphene.guardAjax(page.getPreviousButton()).click();
         }
-
         String srcBeforeClicking = getSrcOfFirstImage();
-
         Graphene.guardAjax(page.getNextButton()).click();
 
         String srcAfterClicking = getSrcOfFirstImage();
-
         assertFalse("The data should be different on he different pages!", srcBeforeClicking.equals(srcAfterClicking));
 
         int numberOfThePageAfterClicking = page.getNumberOfCurrentPage();
-
         assertEquals("The current number of the page should be higher", currentNumberOfThePage + 1,
             numberOfThePageAfterClicking);
 
         Graphene.guardAjax(page.getPreviousButton()).click();
-
         numberOfThePageAfterClicking = page.getNumberOfCurrentPage();
-
         assertEquals("The current number of the page should be less", currentNumberOfThePage, numberOfThePageAfterClicking);
     }
-
-    /* ***************************************************************************************************************************************
-     * Help methods ******************************************************************************************************
-     * **********************************
-     */
 
     /**
      * Checking the buttons which have number of pages
      */
     private void checkNumberOfPagesButtons(int numberOfPage) {
-
-        String imgSrcBeforeClick = null;
-
+        String imgSrcBeforeClick;
         try {
             WebElement checkingButton = webDriver.findElement(ByJQuery.selector("a[class*='"
-                + page.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "')"));
+                + DataScrollerAPIPage.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:contains('" + numberOfPage + "')"));
             imgSrcBeforeClick = getSrcOfFirstImage();
             Graphene.guardAjax(checkingButton).click();
         } catch (NoSuchElementException ignored) {
             WebElement inactiveButton = webDriver.findElement(ByJQuery.selector("a[class*='"
-                + page.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:first"));
+                + DataScrollerAPIPage.CLASS_OF_INACTIVE_BUTTON_WITH_NUMBER + "']:first"));
             imgSrcBeforeClick = getSrcOfFirstImage();
             Graphene.guardAjax(inactiveButton).click();
             numberOfPage = page.getNumberOfCurrentPage();
         }
 
         String imgSrcAfterClick = getSrcOfFirstImage();
-
         assertFalse("The data should be different on the different pages!", imgSrcAfterClick.equals(imgSrcBeforeClick));
-
         int actualCurrentNumberOfPage = page.getNumberOfCurrentPage();
-
         assertEquals("We should be on the " + numberOfPage + ". page", numberOfPage, actualCurrentNumberOfPage);
     }
 

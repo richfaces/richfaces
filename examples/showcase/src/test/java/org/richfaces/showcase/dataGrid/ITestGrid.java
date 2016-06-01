@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,11 +18,11 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.dataGrid;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import org.jboss.arquillian.graphene.Graphene;
@@ -36,37 +36,25 @@ import org.richfaces.showcase.dataTable.AbstractDataIterationWithCars;
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
- * @version $Revision$
  */
 public class ITestGrid extends AbstractDataIterationWithCars {
 
-    /* *****************************************************************************************************
-     * Locators*****************************************************************************************************
-     */
     @Page
     private GridPage page;
 
-    /* ********************************************************************************************************
-     * Tests********************************************************************************************************
-     */
-
     @Test
     public void testDataGridIsNotEmpty() {
-
-        @SuppressWarnings("unused")
-        Car pageFirstCar = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
-        @SuppressWarnings("unused")
-        Car pageLastCar = retrieveCarFromThePanelGrid(page.getLastPanelGridOnThePage());
+        retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
+        retrieveCarFromThePanelGrid(page.getLastPanelGridOnThePage());
 
         Graphene.guardAjax(page.getLastPageButton()).click();
 
-        pageFirstCar = retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
-        pageLastCar = retrieveCarFromThePanelGrid(page.getLastPanelGridOnThePage());
+        retrieveCarFromThePanelGrid(page.getFirstPanelGridOnThePage());
+        retrieveCarFromThePanelGrid(page.getLastPanelGridOnThePage());
     }
 
     @Test
     public void testDataGridIsScrollable() {
-
         int numberOfThePageBeforeClick;
         Car carBeforeClicking;
 
@@ -93,31 +81,20 @@ public class ITestGrid extends AbstractDataIterationWithCars {
         assertFalse("Data should be different on the different pages!", carBeforeClicking.equals(carAfterClicking));
     }
 
-    /* *********************************************************************************************************
-     * Help methods **********************************************************************************************************
-     */
     private Car retrieveCarFromThePanelGrid(WebElement panelGrid) {
-
         Car car = new Car();
-
         String panelGridText = panelGrid.getText();
-
         String[] partsOfPanelGrid = panelGridText.split("[ \n]");
-
         try {
-
             car.setVendor(partsOfPanelGrid[0].trim());
             car.setModel(partsOfPanelGrid[1].trim());
             car.setPrice(partsOfPanelGrid[3].trim());
             car.setMileage(partsOfPanelGrid[5].trim());
             car.setVin(partsOfPanelGrid[7].trim());
             car.setStock(partsOfPanelGrid[9]);
-
         } catch (IllegalArgumentException ex) {
-
             fail("The table should not be empty");
         }
-
         return car;
     }
 

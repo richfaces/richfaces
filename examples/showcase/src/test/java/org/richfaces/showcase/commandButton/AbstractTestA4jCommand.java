@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.commandButton;
 
 import static org.junit.Assert.assertEquals;
@@ -33,26 +33,16 @@ import org.richfaces.showcase.AbstractWebDriverTest;
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
- * @version $Revision$
  */
 public abstract class AbstractTestA4jCommand extends AbstractWebDriverTest {
 
-    /* *********************************************************************
-     * Locators*********************************************************************
-     */
     @FindByJQuery("form input[type=text]:first")
     protected WebElement input;
     @FindBy(className = "outhello")
     protected WebElement output;
 
-    /* ******************************************************************************
-     * Tests******************************************************************************
-     */
     protected void checkClickOnTheButtonWhileInputIsEmpty(String empty) {
-
-        /*
-         * click on the button, the output should be empty string
-         */
+        // click on the button, the output should be empty string
         Graphene.guardAjax(getCommand()).click();
 
         try {
@@ -63,10 +53,7 @@ public abstract class AbstractTestA4jCommand extends AbstractWebDriverTest {
     }
 
     protected void checkTypeSomeCharactersAndClickOnTheButton() {
-
-        /*
-         * type a string and click on the button, check the outHello
-         */
+        // type a string and click on the button, check the outHello
         String testString = "Test string";
 
         input.click();
@@ -80,10 +67,7 @@ public abstract class AbstractTestA4jCommand extends AbstractWebDriverTest {
     }
 
     protected void checkEraseSomeStringAndClickOnTheButton(String empty) {
-
-        /*
-         * erases string and check the output is empty string
-         */
+        // erases string and check the output is empty string
         String testString = "Test string";
 
         input.click();

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,10 +18,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.jsFunction;
-
-import static org.junit.Assert.assertEquals;
 
 import java.util.Map.Entry;
 
@@ -29,24 +27,17 @@ import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.richfaces.fragment.common.Utils;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.jsFunction.page.JsFunctionPage;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  * @author <a href="mailto:jpapouse@redhat.com">Jan Papousek</a>
- * @version $Revision$
  */
 public class ITestJsFunction extends AbstractWebDriverTest {
-
-    /* *****************************************************************************
-     * Locators*****************************************************************************
-     */
 
     @Page
     private JsFunctionPage page;
@@ -54,13 +45,9 @@ public class ITestJsFunction extends AbstractWebDriverTest {
     @ArquillianResource
     private Actions actions;
 
-    /* ******************************************************************************
-     * Tests******************************************************************************
-     */
-
     @Test
     public void testInitialState() {
-        webDriver.findElement(By.tagName("body")).click();
+        Utils.performUniversalBlur(webDriver);
         Graphene.waitAjax().until().element(page.getOutput()).text().equalTo("");
     }
 
@@ -70,7 +57,6 @@ public class ITestJsFunction extends AbstractWebDriverTest {
          * Move mouse over all td elements and check whether the showName is same as text of particular td element then move
          * mouse out of td element and check whether the output is empty
          */
-
         for (Entry<String, WebElement> entry : page.getNames().entrySet()) {
             String name = entry.getKey();
             WebElement element = entry.getValue();

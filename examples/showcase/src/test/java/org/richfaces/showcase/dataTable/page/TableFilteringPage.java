@@ -51,19 +51,14 @@ public class TableFilteringPage {
 
     @FindBy(css = "span.rf-msgs-sum")
     private WebElement errorMessage;
-
     @FindBy(tagName = "select")
     private WebElement vendorSelect;
-
     @FindByJQuery("input[type=text]:first")
     private WebElement mileageInput;
-
     @FindByJQuery("input[type=text]:last")
     private WebElement vinInput;
-
     @FindBy(css = "*.rf-dt-b")
     private WebElement tBody;
-
     @FindBy(id = "footer")
     private WebElement toBlur;
 

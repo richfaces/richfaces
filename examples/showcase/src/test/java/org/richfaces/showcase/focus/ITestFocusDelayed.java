@@ -21,6 +21,7 @@
  *******************************************************************************/
 package org.richfaces.showcase.focus;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.richfaces.showcase.AbstractWebDriverTest;
@@ -52,7 +53,7 @@ public class ITestFocusDelayed extends AbstractWebDriverTest {
         page.getNameInput().sendKeys("RichFaces");
         page.getJobInput().sendKeys("aa");
 
-        page.getSaveButton().click();
+        Graphene.guardAjax(page.getSaveButton()).click();
         page.waitForFocusIsGiven(page.getJobInput().advanced().getInputElement());
 
         page.cancelPopup();

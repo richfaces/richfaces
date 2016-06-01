@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *******************************************************************************/
+ */
 package org.richfaces.showcase.extendedDataTable.page;
 
 import java.util.ArrayList;
@@ -42,13 +42,13 @@ public class EDTSelectionPage {
 
     @FindByJQuery("*.rf-edt-b td div *.rf-edt-tbl")
     private List<WebElement> tableParts;
-    
+
     @FindByJQuery("tbody[id$=tbf] tr")
     private List<WebElement> rows;
-    
+
     @FindBy(css = "ul.rf-ulst li")
     private List<WebElement> selected;
-    
+
     @FindBy(css = "input[type='radio']")
     private List<WebElement> radios;
 
@@ -64,7 +64,7 @@ public class EDTSelectionPage {
     }
 
     public void setSelectionMode(SelectionMode mode) {
-        WebElement radio = null;
+        WebElement radio;
         switch (mode) {
             case SINGLE:
                 radio = radios.get(0);
@@ -74,6 +74,9 @@ public class EDTSelectionPage {
                 break;
             case MULTIPLE_KEYBOARD_FREE:
                 radio = radios.get(2);
+                break;
+            default:
+                throw new UnsupportedOperationException();
         }
         if (!radio.isSelected()) {
             Graphene.guardAjax(radio).click();

@@ -42,32 +42,27 @@ public class ITestAutosaving extends AbstractWebDriverTest {
     @Page
     private AutosavingPage page;
 
-    private static final int TIMEOUT_FOR_AUTOSAVING = 5000;
+    private static final int TIMEOUT_FOR_AUTOSAVING_WITH_RESERVE = 5000;// 4000 + 1000
 
     private final String[] EXPECTED_PARAGRAPHS = {
-            "\"Little Red Riding Hood\" is a famous fairy tale about a young girl's encounter with a wolf. "
-                + "The story has been changed considerably in its history and subject to numerous modern adaptations and readings.",
-
-            "The version most widely known today is based on the Brothers Grimm variant. "
-                + "It is about a girl called Little Red Riding Hood, after the red hooded cape or cloak she wears. "
-                + "The girl walks through the woods to deliver food to her sick grandmother.",
-
-            "A wolf wants to eat the girl but is afraid to do so in public. "
-                + "He approaches the girl, and she naïvely tells him where she is going. "
-                + "He suggests the girl pick some flowers, which she does. In the meantime, he goes to "
-                + "the grandmother's house and gains entry by pretending to be the girl. He swallows the "
-                + "grandmother whole, and waits for the girl, disguised as the grandmother.",
-
-            "When the girl arrives, she notices he looks very strange to be her grandma. In most retellings",
-
-            "A hunter, however, comes to the rescue and cuts the wolf open. Little "
-                + "Red Riding Hood and her grandmother emerge unharmed. They fill the wolf's body with "
-                + "heavy stones, which drown him when he falls into a well. Other versions of the story have "
-                + "had the grandmother shut in the closet instead of eaten, and some have Little Red Riding "
-                + "Hood saved by the hunter as the wolf advances on her rather than after she is eaten.",
-
-            "The tale makes the clearest contrast between the safe world of the village and the "
-                + "dangers of the forest, conventional antitheses that are essentially medieval, though no written versions are as old as that." };
+        "\"Little Red Riding Hood\" is a famous fairy tale about a young girl's encounter with a wolf. "
+        + "The story has been changed considerably in its history and subject to numerous modern adaptations and readings.",
+        "The version most widely known today is based on the Brothers Grimm variant. "
+        + "It is about a girl called Little Red Riding Hood, after the red hooded cape or cloak she wears. "
+        + "The girl walks through the woods to deliver food to her sick grandmother.",
+        "A wolf wants to eat the girl but is afraid to do so in public. "
+        + "He approaches the girl, and she naïvely tells him where she is going. "
+        + "He suggests the girl pick some flowers, which she does. In the meantime, he goes to "
+        + "the grandmother's house and gains entry by pretending to be the girl. He swallows the "
+        + "grandmother whole, and waits for the girl, disguised as the grandmother.",
+        "When the girl arrives, she notices he looks very strange to be her grandma. In most retellings",
+        "A hunter, however, comes to the rescue and cuts the wolf open. Little "
+        + "Red Riding Hood and her grandmother emerge unharmed. They fill the wolf's body with "
+        + "heavy stones, which drown him when he falls into a well. Other versions of the story have "
+        + "had the grandmother shut in the closet instead of eaten, and some have Little Red Riding "
+        + "Hood saved by the hunter as the wolf advances on her rather than after she is eaten.",
+        "The tale makes the clearest contrast between the safe world of the village and the "
+        + "dangers of the forest, conventional antitheses that are essentially medieval, though no written versions are as old as that." };
 
     @Test
     public void testContentOfEditor() {
@@ -95,7 +90,7 @@ public class ITestAutosaving extends AbstractWebDriverTest {
         String expected = "Added and possibly saved text!";
         page.getEditor().type(expected);
 
-        waitModel().withTimeout(TIMEOUT_FOR_AUTOSAVING, TimeUnit.MILLISECONDS).until(
+        waitModel().withTimeout(TIMEOUT_FOR_AUTOSAVING_WITH_RESERVE, TimeUnit.MILLISECONDS).until(
             new ElementTextContains(page.getOutputFromEditor(), expected));
     }
 
