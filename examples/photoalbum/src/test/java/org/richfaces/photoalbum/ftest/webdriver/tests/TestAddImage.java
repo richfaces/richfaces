@@ -59,7 +59,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
         login();
 
         // open view
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddImagesLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddImagesLink()).click();
         AddImagesView addImagesView = getView(AddImagesView.class);
 
         // select album to add the pictures
@@ -86,7 +86,7 @@ public class TestAddImage extends AbstractPhotoalbumTest {
         fileUpload.clearAll();
         fileUpload.addFile(getFileFromFileName(BAD_IMAGE_TO_UPLOAD));
 
-        RichFacesNotifyMessage message = page.getMessage();
+        RichFacesNotifyMessage message = getPage().getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
         assertEquals("Error", message.getSummary());
         assertEquals("Invalid file type. Only JPG is allowed.", message.getDetail());

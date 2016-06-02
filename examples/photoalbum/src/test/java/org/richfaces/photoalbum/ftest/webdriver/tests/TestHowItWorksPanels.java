@@ -47,7 +47,7 @@ public class TestHowItWorksPanels extends AbstractPhotoalbumTest {
     @Test
     public void testHowItWorksCustomButton() {
         login();
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddImagesLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddImagesLink()).click();
         Graphene.guardAjax(getView(AddImagesView.class).getButtonHelpLink()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
         howItWorksPanel.checkAll("How the button is created and how it acts");
@@ -56,7 +56,7 @@ public class TestHowItWorksPanels extends AbstractPhotoalbumTest {
     @Test
     public void testHowItWorksFileUpload() {
         login();
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddImagesLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddImagesLink()).click();
         Graphene.guardAjax(getView(AddImagesView.class).getFileUploadHelpLink()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
         howItWorksPanel.checkAll("Upload Images");
@@ -64,7 +64,7 @@ public class TestHowItWorksPanels extends AbstractPhotoalbumTest {
 
     @Test
     public void testHowItWorksImagesScroller() {
-        PhotoView photoView = page.getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature").getPhotos().get(0).open();
+        PhotoView photoView = getPage().getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature").getPhotos().get(0).open();
         Graphene.guardAjax(photoView.getImagesScroller().getImageScrollerHelp()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
         howItWorksPanel.checkAll("Images Scroller");
@@ -72,40 +72,31 @@ public class TestHowItWorksPanels extends AbstractPhotoalbumTest {
 
     @Test
     public void testHowItWorksInputNumberSlider() {
-        Graphene.guardAjax(page.getLeftPanel().openAlbumInPredefinedGroup("Nature", "Nature").getSliderHelpLink()).click();
+        Graphene.guardAjax(getPage().getLeftPanel().openAlbumInPredefinedGroup("Nature", "Nature").getSliderHelpLink()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
         howItWorksPanel.checkAll("Image Size Control with <rich:inputNumberSlider>");
-    }
-
-    //@Test this test was disabled
-    public void testHowItWorksNavigationForGPlusAlbums() {
-        gPlusLogin();
-
-        Graphene.guardAjax(page.getLeftPanel().getGPlusGroupsHelpLink()).click();
-        howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
-        howItWorksPanel.checkAll("Google+ albums");
     }
 
     @Test
     public void testHowItWorksNavigationForOwnGroups() {
         login();
 
-        Graphene.guardAjax(page.getLeftPanel().getMyGroupsHelpLink()).click();
+        Graphene.guardAjax(getPage().getLeftPanel().getMyGroupsHelpLink()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
         howItWorksPanel.checkAll("Navigation tree for a registered user");
     }
 
     @Test
     public void testHowItWorksNavigationForPredefinedGroups() {
-        Graphene.waitAjax().until().element(page.getLeftPanel().getPreDefinedGroupsHelpLink()).is().visible();
-        Graphene.guardAjax(page.getLeftPanel().getPreDefinedGroupsHelpLink()).click();
+        Graphene.waitAjax().until().element(getPage().getLeftPanel().getPreDefinedGroupsHelpLink()).is().visible();
+        Graphene.guardAjax(getPage().getLeftPanel().getPreDefinedGroupsHelpLink()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
         howItWorksPanel.checkAll("Navigation tree with public album groups.");
     }
 
     @Test
     public void testHowItWorksSlideShow() {
-        page.getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature").getPhotos().get(0).open();
+        getPage().getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature").getPhotos().get(0).open();
         PhotoView photoView = getView(PhotoView.class);
         Graphene.guardAjax(photoView.getSlideShowHelp()).click();
         howItWorksPanel.advanced().waitUntilPopupIsVisible().perform();
@@ -123,7 +114,7 @@ public class TestHowItWorksPanels extends AbstractPhotoalbumTest {
     public void testHowItWorksValidation() {
         login();
 
-        Graphene.guardAjax(page.getHeaderPanel().getLoggedUserLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getLoggedUserLink()).click();
         UserProfileView preView = getView(UserProfileView.class);
         preView.openEditProfile();
 

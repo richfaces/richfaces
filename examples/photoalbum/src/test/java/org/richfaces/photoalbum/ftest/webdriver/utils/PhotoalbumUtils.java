@@ -80,29 +80,13 @@ public final class PhotoalbumUtils {
         return result;
     }
 
-    public static void loginWithSocial(Class<? extends SocialLoginPage> pageClass, final WebDriver browser, WebElement loginLink, boolean workaroundGplusAccInChache) {
-        String originalWindow = browser.getWindowHandle();
-        Graphene.guardAjax(loginLink).click();
-        Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 2));
-        Set<String> windowHandles = browser.getWindowHandles();
-        windowHandles.remove(originalWindow);
-        try {
-            WebDriver window = browser.switchTo().window(windowHandles.iterator().next());
-            Graphene.waitModel().until().element(By.tagName("body")).is().visible();
-            Graphene.createPageFragment(pageClass, window.findElement(By.tagName("body")))
-                .login("rf.photoalbum@gmail.com", "rf.photoalbumrf.photoalbum");
-        } finally {
-            browser.switchTo().window(originalWindow);
-            Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 1));
-        }
-    }
-
     public static void loginWithSocial(Class<? extends SocialLoginPage> pageClass, final WebDriver browser, WebElement loginLink) {
         // in case this incovation targets G+ login, check if G+ credentials were provided; if not then throw IllegalArgumentException
         if (GPlusLoginPage.class.equals(pageClass) && (System.getProperty("googlePlus.username").equals("undefined") || System.getProperty("googlePlus.password").equals("undefined"))) {
             throw new IllegalArgumentException("G+ login was invoked but no login parameters were provided. Please specify them via -DgooglePlus.username and -DgooglePlus.password!");
         }
         String originalWindow = browser.getWindowHandle();
+        checkVisible(loginLink);
         Graphene.guardAjax(loginLink).click();
         Graphene.waitModel().withTimeout(20, TimeUnit.SECONDS).until(new NumberOfWindowsOpenedPredicate(browser, 2));
         Set<String> windowHandles = browser.getWindowHandles();
@@ -115,7 +99,7 @@ public final class PhotoalbumUtils {
                 //G+ credential are extracted from system property
                 loginPage.login(System.getProperty("googlePlus.username"), System.getProperty("googlePlus.password"));
             } else {
-                //FCB test account credentials are hardcoded and usable by anyone, should not result in acc being locked
+                //FB test account credentials are hardcoded and usable by anyone, should not result in acc being locked
                 loginPage.login("vocfryc_wongwitz_1429527192@tfbnw.net", "12345");
             }
         } finally {

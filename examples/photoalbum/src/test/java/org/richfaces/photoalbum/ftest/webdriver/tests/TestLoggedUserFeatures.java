@@ -64,7 +64,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         login();
 
         // switch to Animals album and get header
-        AlbumHeader albumHeader = page.getLeftPanel().openAlbumInOwnGroup("Animals", "Nature").getAlbumHeader();
+        AlbumHeader albumHeader = getPage().getLeftPanel().openAlbumInOwnGroup("Animals", "Nature").getAlbumHeader();
         assertEquals("Animals", albumHeader.getNameElement().getText().trim());
         RichFacesInplaceInput input = albumHeader.getInput();
         assertEquals("Animals", input.getTextInput().getStringValue());
@@ -73,10 +73,10 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         Graphene.guardAjax(input.type("Animals album")).confirm();
         // check the change in left panel (navigation tree) and on current content view
         assertEquals("Animals album", albumHeader.getNameElement().getText().trim());
-        assertEquals("Animals album", page.getLeftPanel().getMyGroupsTree().advanced().getFirstNode() // animals are first album in first own group
+        assertEquals("Animals album", getPage().getLeftPanel().getMyGroupsTree().advanced().getFirstNode() // animals are first album in first own group
             .advanced().getFirstNode().advanced().getLabelElement().getText().trim());
         // check the change in the name of the link of inner photo
-        PhotoView photoView = page.getContentPanel().albumView().getPhotos().get(0).open();
+        PhotoView photoView = getPage().getContentPanel().albumView().getPhotos().get(0).open();
         String albumLinkText = photoView.getPhotoHeader().getLinks().get(1).getText();
         assertEquals("Album: Animals album", albumLinkText.trim());
     }
@@ -87,7 +87,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         login();
 
         // switch to Animals album, open first photo
-        PhotoView photoView = page.getLeftPanel().openAlbumInOwnGroup("Animals", "Nature").getPhotos().get(0).open();
+        PhotoView photoView = getPage().getLeftPanel().openAlbumInOwnGroup("Animals", "Nature").getPhotos().get(0).open();
         assertEquals("1750979205_6e51b47ce9_o.jpg", photoView.getPhotoHeader().getNameElement().getText().trim());
         RichFacesInplaceInput input = photoView.getPhotoHeader().getInput();
         assertEquals("1750979205_6e51b47ce9_o.jpg", input.getTextInput().getStringValue());
@@ -105,7 +105,7 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         login();
 
         // switch to Nature group and get header
-        GroupView.GroupHeader albumGroupHeader = page.getLeftPanel().openOwnGroup("Nature").getGroupHeader();
+        GroupView.GroupHeader albumGroupHeader = getPage().getLeftPanel().openOwnGroup("Nature").getGroupHeader();
         assertEquals("Nature", albumGroupHeader.getNameElement().getText().trim());
         RichFacesInplaceInput input = albumGroupHeader.getInput();
         assertEquals("Nature", input.getTextInput().getStringValue());
@@ -115,11 +115,11 @@ public class TestLoggedUserFeatures extends AbstractPhotoalbumTest {
         Graphene.guardAjax(input.type(albumGroupNewName)).confirm();
         // check the change in left panel (navigation tree) and on current content view
         assertEquals(albumGroupNewName, albumGroupHeader.getNameElement().getText().trim());
-        assertEquals(albumGroupNewName, page.getLeftPanel().getMyGroupsTree().advanced().getFirstNode()
+        assertEquals(albumGroupNewName, getPage().getLeftPanel().getMyGroupsTree().advanced().getFirstNode()
             .advanced().getLabelElement().getText().trim());
 
         // check the change in the name of the link of inner album
-        AlbumView albumView = page.getContentPanel().groupView().getAlbumPreviews().get(0).open();
+        AlbumView albumView = getPage().getContentPanel().groupView().getAlbumPreviews().get(0).open();
         String albumLinkText = albumView.getAlbumHeader().getLinks().get(0).getText();
         assertEquals(String.format("Album group: %s", albumGroupNewName), albumLinkText.trim());
     }

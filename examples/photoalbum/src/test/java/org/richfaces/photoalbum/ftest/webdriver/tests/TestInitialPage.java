@@ -40,6 +40,6 @@ public class TestInitialPage extends AbstractPhotoalbumTest {
     @Test
     @Category(Smoke.class)
     public void testTitle() {
-        assertEquals("RichFaces PhotoAlbum demo", Utils.getTextFromHiddenElement(browser.findElement(By.tagName("title"))));
+        assertEquals("RichFaces PhotoAlbum demo", Utils.getTextFromHiddenElement(getBrowser().findElement(By.tagName("title"))));
     }
 }

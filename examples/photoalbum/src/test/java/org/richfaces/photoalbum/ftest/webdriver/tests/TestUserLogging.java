@@ -39,8 +39,8 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
 
     @Test
     public void testBadLoginWillShowErrorMessages() {
-        Graphene.guardAjax(page.getHeaderPanel().getLoginLink()).click();
-        LoginPanel loginPanel = page.getLoginPanel();
+        Graphene.guardAjax(getPage().getHeaderPanel().getLoginLink()).click();
+        LoginPanel loginPanel = getPage().getLoginPanel();
         loginPanel.advanced().waitUntilPopupIsVisible();
         loginPanel.loginWithoutWait("amarkhel", "bad password");
         assertEquals(1, loginPanel.getBodyContent().getMessages().size());
@@ -48,33 +48,33 @@ public class TestUserLogging extends AbstractPhotoalbumTest {
         assertEquals(Message.MessageType.ERROR, loginPanel.getBodyContent().getMessages().getItem(0).getType());
         loginPanel.getHeaderControlsContent().close();
         loginPanel.advanced().waitUntilPopupIsNotVisible().perform();
-        page.checkNotLogged();
+        getPage().checkNotLogged();
     }
 
     @Test
     @Category(Smoke.class)
     public void testLogInAndOut() {
-        page.login("amarkhel", "12345");
-        page.checkUserLogged("amarkhel", true, false, false);
-        page.logout();
-        page.checkNotLogged();
+        getPage().login("amarkhel", "12345");
+        getPage().checkUserLogged("amarkhel", true, false, false);
+        getPage().logout();
+        getPage().checkNotLogged();
     }
 
     @Test
     @Category({ FailingOnPhantomJS.class })
     public void testLogInAndOutWithFB() {
-        page.openLoginPanel().loginWithFB();
-        page.checkUserLogged("Tom", false, true, false);
-        page.logout();
-        page.checkNotLogged();
+        getPage().openLoginPanel().loginWithFB();
+        getPage().checkUserLogged("Tom", false, true, false);
+        getPage().logout();
+        getPage().checkNotLogged();
     }
 
     @Test
     @Category({ FailingOnPhantomJS.class })
     public void testLogInAndOutWithGPlus() {
-        page.openLoginPanel().loginWithGPlus();
-        page.checkUserLogged("Rich", false, false, true);
-        page.logout();
-        page.checkNotLogged();
+        getPage().openLoginPanel().loginWithGPlus();
+        getPage().checkUserLogged("Rich", false, false, true);
+        getPage().logout();
+        getPage().checkNotLogged();
     }
 }

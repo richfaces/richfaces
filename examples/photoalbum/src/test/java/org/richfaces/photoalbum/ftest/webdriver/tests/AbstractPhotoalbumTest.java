@@ -68,21 +68,25 @@ public abstract class AbstractPhotoalbumTest {
     }
 
     @Drone
-    protected WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
     private URL contextPath;
 
     @Page
-    protected PhotoalbumPage page;
+    private PhotoalbumPage page;
 
     public void deleteCookies() {
         Assume.assumeNotNull(browser);
         browser.manage().deleteAllCookies();
     }
 
-    public void gPlusLogin() {
-        throw new UnsupportedOperationException("Not supported yet");
+    public WebDriver getBrowser() {
+        return browser;
+    }
+
+    public PhotoalbumPage getPage() {
+        return page;
     }
 
     protected <T> T getView(Class<T> klass) {

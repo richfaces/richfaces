@@ -47,14 +47,14 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
 
     @Test
     public void testInitialState() {
-        assertEquals(PREDEFINED_SHELVES, PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()));
+        assertEquals(PREDEFINED_SHELVES, PhotoalbumUtils.getStringsFromElements(getPage().getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()));
     }
 
     @Test
     public void testInitialStateLoggedUser() {
         login();
-        assertEquals(PREDEFINED_SHELVES, PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()));
-        assertEquals(CUSTOM_SHELVES, PhotoalbumUtils.getStringsFromElements(page.getLeftPanel().getMyGroupsTree().advanced().getNodesElements()));
+        assertEquals(PREDEFINED_SHELVES, PhotoalbumUtils.getStringsFromElements(getPage().getLeftPanel().getPreDefinedGroupsTree().advanced().getNodesElements()));
+        assertEquals(CUSTOM_SHELVES, PhotoalbumUtils.getStringsFromElements(getPage().getLeftPanel().getMyGroupsTree().advanced().getNodesElements()));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
 
         AlbumView album = getView(AlbumView.class);
         // check Nature group
-        TreeNode node = page.getLeftPanel().getMyGroupsTree().expandNode(0);
+        TreeNode node = getPage().getLeftPanel().getMyGroupsTree().expandNode(0);
         assertEquals(2, node.advanced().getNodes().size());
         // open Animals album
         Graphene.guardAjax(node).selectNode(0);
@@ -76,7 +76,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         album.getPhotos().get(5).checkAll(120, "5395800621_c0bc80ca53_o.jpg", IMAGES_DEC_DATE);
 
         // check Sport & Cars group
-        node = page.getLeftPanel().getMyGroupsTree().expandNode(1);
+        node = getPage().getLeftPanel().getMyGroupsTree().expandNode(1);
         assertEquals(2, node.advanced().getNodes().size());
         // open Sport album
         Graphene.guardAjax(node).selectNode(1);
@@ -93,14 +93,14 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         login();
 
         // check Nature group
-        GroupView albumGroup = page.getLeftPanel().openOwnGroup(0);
+        GroupView albumGroup = getPage().getLeftPanel().openOwnGroup(0);
         albumGroup.checkAll("Nature", "Created 2009-12-18, contains 12 images into 2 albums", "Nature pictures", false);
         assertEquals(2, albumGroup.getAlbumPreviews().size());
         albumGroup.getAlbumPreview(0).checkAll("Animals", IMAGES_DEC_DATE);
         albumGroup.getAlbumPreview(1).checkAll("Nature", IMAGES_DEC_DATE);
 
         // check Sport & Cars group
-        page.getLeftPanel().openOwnGroup(1);
+        getPage().getLeftPanel().openOwnGroup(1);
         albumGroup.checkAll("Sport & Cars", "Created 2009-12-18, contains 9 images into 2 albums", "Sport & Cars pictures", false);
         assertEquals(2, albumGroup.getAlbumPreviews().size());
         albumGroup.getAlbumPreview(0).checkAll("Cars", IMAGES_DEC_DATE);
@@ -110,7 +110,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
     @Test
     public void testOwnGroupsView() {
         login();
-        GroupsView albumGroupsView = page.getLeftPanel().openOwnGroups(2);
+        GroupsView albumGroupsView = getPage().getLeftPanel().openOwnGroups(2);
         albumGroupsView.checkHeader("My album groups (2)");
         List<GroupView> groups = albumGroupsView.getGroups();
         assertEquals(2, groups.size());
@@ -134,7 +134,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
     public void testPublicAlbumView() {
         AlbumView album = getView(AlbumView.class);
         // check Monuments group
-        TreeNode node = page.getLeftPanel().getPreDefinedGroupsTree().expandNode(0);
+        TreeNode node = getPage().getLeftPanel().getPreDefinedGroupsTree().expandNode(0);
         assertEquals(1, node.advanced().getNodes().size());
         // open Monuments and just buildings album
         Graphene.guardAjax(node).selectNode(0);
@@ -147,7 +147,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
         album.getPhotos().get(2).checkAll(120, "4065627169_2e3cea3acf_o.jpg", IMAGES_DEC_DATE);
 
         // check Nature group
-        node = page.getLeftPanel().getPreDefinedGroupsTree().expandNode(1);
+        node = getPage().getLeftPanel().getPreDefinedGroupsTree().expandNode(1);
         assertEquals(2, node.advanced().getNodes().size());
         // open Animals album
         Graphene.guardAjax(node).selectNode(0);
@@ -176,13 +176,13 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
     @Test
     public void testPublicGroupView() {
         // check Monuments group
-        GroupView group = page.getLeftPanel().openPredefinedGroup(0);
+        GroupView group = getPage().getLeftPanel().openPredefinedGroup(0);
         group.checkAll("Monuments", "Created 2009-12-18, contains 3 images into 1 albums", "Monuments pictures", false);
         assertEquals(1, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Monuments and just buildings", IMAGES_DEC_DATE);
 
         // check Nature group
-        page.getLeftPanel().openPredefinedGroup(1);
+        getPage().getLeftPanel().openPredefinedGroup(1);
         group.checkAll("Nature", "Created 2009-12-18, contains 12 images into 2 albums", "Nature pictures", false);
         assertEquals(2, group.getAlbumPreviews().size());
         group.getAlbumPreview(0).checkAll("Animals", IMAGES_DEC_DATE);
@@ -191,7 +191,7 @@ public class TestLeftPanelNavigations extends AbstractPhotoalbumTest {
 
     @Test
     public void testPublicGroupsView() {
-        GroupsView groupssView = page.getLeftPanel().openPredefinedGroups(5);
+        GroupsView groupssView = getPage().getLeftPanel().openPredefinedGroups(5);
         groupssView.checkHeader("Public album groups (5)");
         List<GroupView> groups = groupssView.getGroups();
         assertEquals(5, groups.size());

@@ -60,7 +60,7 @@ public class TestAddAndDeleteComment extends AbstractPhotoalbumTest {
         login();
 
         // open first photo in album 'Monuments and just buildings'
-        PhotoView photoView = page.getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments")
+        PhotoView photoView = getPage().getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments")
             .getPhotos().get(0).open();
         CommentsPanel commentPanel = photoView.getCommentPanel();
 

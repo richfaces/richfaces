@@ -22,12 +22,13 @@
 package org.richfaces.photoalbum.ftest.webdriver.fragments;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,8 +47,8 @@ public class HeaderPanel {
     @ArquillianResource
     private WebDriver driver;
 
-    @FindByJQuery("div.header-content-div a:has('> img')")
-    private WebElement imageIndexLink;
+    @FindBy(css = "div.header-content-div a img")
+    private WebElement image;
     @FindBy(css = "div.header-content-div div.top-right-menu")
     private TopRightMenuLinks links;
     @FindBy(css = "div.header-content-div div[id$='logInOutMenu']")
@@ -56,10 +57,12 @@ public class HeaderPanel {
     private Toolbar toolbar;
 
     private void checkAlwaysPresentElements() {
-        PhotoalbumUtils.checkVisible(Lists.newArrayList(imageIndexLink, llm.getLoggedUserSpan(), links.getWikiPageLink(), links.getDownloadsLink(),
+        PhotoalbumUtils.checkVisible(Lists.newArrayList(image, llm.getLoggedUserSpan(), links.getWikiPageLink(), links.getDownloadsLink(),
             links.getCommunityLink()));
-        WebElement image = imageIndexLink.findElement(By.tagName("img"));
-        assertTrue(image.getAttribute("src").contains("img/shell/logo_top.gif"));
+        Graphene.waitAjax()
+            .ignoring(StaleElementReferenceException.class)
+            .ignoring(NoSuchElementException.class)
+            .until().element(image).attribute("src").contains("img/shell/logo_top.gif");
     }
 
     public void checkIfUserNotLogged() {

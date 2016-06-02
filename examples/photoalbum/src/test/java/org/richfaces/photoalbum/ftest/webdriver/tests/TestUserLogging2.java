@@ -37,13 +37,13 @@ public class TestUserLogging2 extends AbstractPhotoalbumTest {
     @Test
     @Category({ FailingOnPhantomJS.class })
     public void testLoginUser_loginWithSocials_logout() {
-        page.login("amarkhel", "12345");
-        page.checkUserLogged("amarkhel", true, false, false);
-        page.getHeaderPanel().loginToFB();
-        page.checkUserLogged("amarkhel", true, true, false);
-        page.getHeaderPanel().loginToGPlus();
-        page.checkUserLogged("amarkhel", true, true, true);
-        page.logout();
-        page.checkNotLogged();
+        getPage().login("amarkhel", "12345");
+        getPage().checkUserLogged("amarkhel", true, false, false);
+        getPage().getHeaderPanel().loginToFB();
+        getPage().checkUserLogged("amarkhel", true, true, false);
+        getPage().getHeaderPanel().loginToGPlus();
+        getPage().checkUserLogged("amarkhel", true, true, true);
+        getPage().logout();
+        getPage().checkNotLogged();
     }
 }

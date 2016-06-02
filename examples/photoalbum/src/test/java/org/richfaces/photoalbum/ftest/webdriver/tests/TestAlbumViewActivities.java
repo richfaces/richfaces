@@ -42,8 +42,8 @@ public class TestAlbumViewActivities extends AbstractPhotoalbumTest {
 
     @Test
     public void testImagesResizingWithSlider() {
-        page.getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature");
-        AlbumView albumView = page.getContentPanel().albumView();
+        getPage().getLeftPanel().openAlbumInPredefinedGroup("Animals", "Nature");
+        AlbumView albumView = getPage().getContentPanel().albumView();
         waitAjax().until().element(albumView.getSlider()
             .advanced().getRootElement()).is().visible();
         Graphene.guardAjax(albumView.getSlider()).slideToValue(1);
@@ -62,11 +62,11 @@ public class TestAlbumViewActivities extends AbstractPhotoalbumTest {
     //currently fails with FF && is unstable with PhantomJS on Jenkins
     @Category({ FailingOnFirefox.class }) // failures on Jenkins are due to latest selenium release being much slower
     public void testSlideShow() {
-        page.getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments");
-        AlbumView albumView = page.getContentPanel().albumView();
+        getPage().getLeftPanel().openAlbumInPredefinedGroup("Monuments and just buildings", "Monuments");
+        AlbumView albumView = getPage().getContentPanel().albumView();
         waitAjax().until().element(albumView.getSlideShowLink()).is().visible();
         albumView.openSlideShow();
-        SlideShowPanel slideShowPanel = page.getSlideShowPanel();
+        SlideShowPanel slideShowPanel = getPage().getSlideShowPanel();
         slideShowPanel.advanced().waitUntilPopupIsVisible().perform();
         slideShowPanel.checkImagesInfoFromTooltip("Monuments and just buildings", Lists.newArrayList("Brandenburg Gate by Night", "London Eye", "Great Wall of China"));
     }

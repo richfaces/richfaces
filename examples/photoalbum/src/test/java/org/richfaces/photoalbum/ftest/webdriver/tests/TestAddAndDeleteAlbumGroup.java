@@ -50,14 +50,14 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
     private void addGroup() {
         login();
         
-        RichFacesTree myGroupsTree = page.getLeftPanel().getMyGroupsTree();
+        RichFacesTree myGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
         
         // if album exists, do not add anything
         if (myGroupsTree.advanced().getNodes().size() != 3) {
          // create group
-            AddAlbumGroupPanel panel = page.getAddAlbumGroupPanel();
-            Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
-            panel = page.getAddAlbumGroupPanel();
+            AddAlbumGroupPanel panel = getPage().getAddAlbumGroupPanel();
+            Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
+            panel = getPage().getAddAlbumGroupPanel();
             panel.advanced().waitUntilPopupIsVisible().perform();
             panel.addGroup(GROUP_NAME, false);
         }
@@ -71,31 +71,31 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
         DateTimeFormatter pattern = DateTimeFormat.forPattern("EEE MMM dd");
 
         // open and cancel
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
-        AddAlbumGroupPanel panel = page.getAddAlbumGroupPanel();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
+        AddAlbumGroupPanel panel = getPage().getAddAlbumGroupPanel();
         panel.advanced().waitUntilPopupIsVisible().perform();
         panel.cancel();
 
         // open and close
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
-        panel = page.getAddAlbumGroupPanel();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getAddAlbumGroupLink()).click();
+        panel = getPage().getAddAlbumGroupPanel();
         panel.advanced().waitUntilPopupIsVisible().perform();
         panel.cancel();
 
         // check initial state
-        RichFacesTree myGroupsTree = page.getLeftPanel().getMyGroupsTree();
+        RichFacesTree myGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
         assertEquals(2, myGroupsTree.advanced().getNodes().size());
         assertEquals(0, myGroupsTree.advanced().getLeafNodes().size());
 
         addGroup();
         
         // check changed state in left panel
-        myGroupsTree = page.getLeftPanel().getMyGroupsTree();
+        myGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
         assertEquals(3, myGroupsTree.advanced().getNodes().size());
         assertEquals(0, myGroupsTree.advanced().getNodes().get(2).advanced().getNodes().size());
 
         // check changed state in groups view
-        GroupsView ownAlbumGroups = page.getLeftPanel().openOwnGroups(3);
+        GroupsView ownAlbumGroups = getPage().getLeftPanel().openOwnGroups(3);
         ownAlbumGroups.checkHeader("My album groups (3)");
         ownAlbumGroups
             .getGroups()
@@ -104,7 +104,7 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
                 "Created " + dt.toString(pattern) + ".*" + dt.getYear() + ", contains 0 images into 0 albums", "", true);
 
         // open group
-        GroupView groupView = page.getLeftPanel().openOwnGroup(GROUP_NAME);
+        GroupView groupView = getPage().getLeftPanel().openOwnGroup(GROUP_NAME);
 
         // check data
         groupView.checkGroupHeader(GROUP_NAME, "Created " + dt.toString(pattern) + ".*" + dt.getYear()
@@ -119,13 +119,13 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
         addGroup();
 
         // navigate to newly created group
-        page.getLeftPanel().openOwnGroups(3);
-        page.getLeftPanel().openOwnGroup(GROUP_NAME);
+        getPage().getLeftPanel().openOwnGroups(3);
+        getPage().getLeftPanel().openOwnGroup(GROUP_NAME);
         
         GroupView groupView = getView(GroupView.class);
         // cancel before delete
         Graphene.guardAjax(groupView.getGroupHeader().getDeleteAlbumGroupLink()).click();
-        ConfirmationPanel confirmationPanel = page.getConfirmationPanel();
+        ConfirmationPanel confirmationPanel = getPage().getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
         confirmationPanel
             .check("Are You sure? All nested albums and images will also be dropped! Click OK to proceed, otherwise click Cancel.");
@@ -133,18 +133,18 @@ public class TestAddAndDeleteAlbumGroup extends AbstractPhotoalbumTest {
 
         // close before delete
         Graphene.guardAjax(groupView.getGroupHeader().getDeleteAlbumGroupLink()).click();
-        confirmationPanel = page.getConfirmationPanel();
+        confirmationPanel = getPage().getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
         confirmationPanel.close();
 
         // delete
         Graphene.guardAjax(groupView.getGroupHeader().getDeleteAlbumGroupLink()).click();
-        confirmationPanel = page.getConfirmationPanel();
+        confirmationPanel = getPage().getConfirmationPanel();
         confirmationPanel.advanced().waitUntilPopupIsVisible().perform();
         confirmationPanel.ok();
 
         // check
-        RichFacesTree myAlbumGroupsTree = page.getLeftPanel().getMyGroupsTree();
+        RichFacesTree myAlbumGroupsTree = getPage().getLeftPanel().getMyGroupsTree();
         assertEquals(2, myAlbumGroupsTree.advanced().getNodes().size());
         assertEquals(0, myAlbumGroupsTree.advanced().getLeafNodes().size());
     }

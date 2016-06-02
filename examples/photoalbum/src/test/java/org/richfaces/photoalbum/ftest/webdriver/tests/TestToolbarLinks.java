@@ -40,7 +40,7 @@ public class TestToolbarLinks extends AbstractPhotoalbumTest {
     public void testToolbarViewMyAlbumGroups() {
         login();
 
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getMyAlbumGroupsLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getMyAlbumGroupsLink()).click();
         GroupsView groupsView = getView(GroupsView.class);
         groupsView.checkHeader("My album groups (2)");
         assertEquals(2, groupsView.getGroups().size());
@@ -52,7 +52,7 @@ public class TestToolbarLinks extends AbstractPhotoalbumTest {
     public void testToolbarViewMyAllAlbums() {
         login();
 
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getMyAllAlbumsLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getMyAllAlbumsLink()).click();
         AllAlbumsView albumsView = getView(AllAlbumsView.class);
         albumsView.checkAlbumsHeader("My all albums (4)");
         assertEquals(4, albumsView.getAlbumPreviews().size());
@@ -66,7 +66,7 @@ public class TestToolbarLinks extends AbstractPhotoalbumTest {
     public void testToolbarViewMyAllImages() {
         login();
 
-        Graphene.guardAjax(page.getHeaderPanel().getToolbar().getMyAllImagesLink()).click();
+        Graphene.guardAjax(getPage().getHeaderPanel().getToolbar().getMyAllImagesLink()).click();
 
         AllImagesView allImagesView = getView(AllImagesView.class);
         allImagesView.checkHeader("My all images (21)");

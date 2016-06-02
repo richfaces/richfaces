@@ -68,7 +68,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
 
         EnumSet<SearchOptionsEnum> allExceptInShared = EnumSet.allOf(SearchOptionsEnum.class);
         allExceptInShared.remove(SearchOptionsEnum.IN_SHARED);
-        page.getSearchPanel().searchFor("a", allExceptInShared);
+        getPage().getSearchPanel().searchFor("a", allExceptInShared);
         assertEquals(2, searchView().getTabPanel().getNumberOfTabs());
         assertEquals(Lists.newArrayList("Users search result", "Tags search result"),
             PhotoalbumUtils.getStringsFromElements(searchView().getTabPanel().advanced().getAllVisibleHeadersElements()));
@@ -99,8 +99,8 @@ public class TestSearch extends AbstractPhotoalbumTest {
     @Test
     public void testSearchOptions_searchInNowhere_messageWillShow() {
         // set all options off
-        page.getSearchPanel().searchFor("a", EnumSet.noneOf(SearchOptionsEnum.class));
-        RichFacesNotifyMessage message = page.getMessage();
+        getPage().getSearchPanel().searchFor("a", EnumSet.noneOf(SearchOptionsEnum.class));
+        RichFacesNotifyMessage message = getPage().getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
         assertEquals("You must select at least one search option", message.getDetail());
         message.close();
@@ -108,7 +108,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
 
     @Test
     public void testSearchOptions_searchOnlyForUsers() {
-        page.getSearchPanel().searchFor("a", EnumSet.of(SearchOptionsEnum.IN_SHARED, SearchOptionsEnum.USERS));
+        getPage().getSearchPanel().searchFor("a", EnumSet.of(SearchOptionsEnum.IN_SHARED, SearchOptionsEnum.USERS));
         assertEquals(1, searchView().getTabPanel().getNumberOfTabs());
         AlbumView albumView = searchView().getTabPanel().switchTo(TABNAMES.get(3)).getContent(AlbumView.class);
         PhotoalbumUtils.checkNotVisible(albumView.getSlider().advanced().getRootElement(), albumView.getAlbumInfo(),
@@ -124,8 +124,8 @@ public class TestSearch extends AbstractPhotoalbumTest {
     @Test
     public void testSearchOptions_searchWithoutOptions_messageWillShow() {
         // set all options off
-        page.getSearchPanel().searchFor("a", EnumSet.noneOf(SearchOptionsEnum.class));
-        RichFacesNotifyMessage message = page.getMessage();
+        getPage().getSearchPanel().searchFor("a", EnumSet.noneOf(SearchOptionsEnum.class));
+        RichFacesNotifyMessage message = getPage().getMessage();
         message.advanced().waitUntilMessageIsVisible().perform();
         assertEquals("You must select at least one search option", message.getDetail());
         message.close();
@@ -134,7 +134,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
     @Test
     public void testSearchWithAllResults() {
         String key = "a";
-        page.getSearchPanel().searchFor(key);
+        getPage().getSearchPanel().searchFor(key);
         searchView().checkAll(TABNAMES.get(0), TABNAMES, ALL_CRITERIAS, key);
     }
 
@@ -216,7 +216,7 @@ public class TestSearch extends AbstractPhotoalbumTest {
 
     @Test
     public void testSearchWithNoResults() {
-        page.getSearchPanel().searchFor("+++");
+        getPage().getSearchPanel().searchFor("+++");
         searchView().checkEmptyResults();
     }
 }
