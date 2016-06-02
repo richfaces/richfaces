@@ -21,10 +21,9 @@
  */
 package org.richfaces.showcase.dataTable;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Iterator;
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.jboss.arquillian.graphene.Graphene;
@@ -32,9 +31,12 @@ import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.page.Page;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.showcase.AbstractWebDriverTest;
 import org.richfaces.showcase.dataTable.page.ArrangableModelPage;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -46,35 +48,17 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
 
     @Test
     public void testFirstNameFilter() {
-        filterAColumn(page.getFirstNameFilterInput(), "as", ByJQuery.selector("td:eq(0)"));
-        assertEquals(page.getFirstRowSomeColumn(0).getText(), "Hashim");
-        assertEquals(page.getFirstRowSomeColumn(1).getText(), "Knight");
-        assertEquals(page.getFirstRowSomeColumn(2).getText(), "Mauris@aliquetProin.edu");
-        page.getFirstNameFilterInput().click();
-        page.getFirstNameFilterInput().clear();
-        Graphene.guardAjax(fireEventAction(page.getFirstNameFilterInput(), "keyup")).perform();
+        filterColumnAndCheck(page.getFirstNameFilterInput(), "as", ByJQuery.selector("td:eq(0)"), 8);
     }
 
     @Test
     public void testSurnameFilter() {
-        filterAColumn(page.getSecondNameFilterInput(), "al", ByJQuery.selector("td:eq(1)"));
-        assertEquals(page.getFirstRowSomeColumn(0).getText(), "Miriam");
-        assertEquals(page.getFirstRowSomeColumn(1).getText(), "Gonzales");
-        assertEquals(page.getFirstRowSomeColumn(2).getText(), "velit@urna.com");
-        page.getSecondNameFilterInput().click();
-        page.getSecondNameFilterInput().clear();
-        Graphene.guardAjax(fireEventAction(page.getFirstNameFilterInput(), "keyup")).perform();
+        filterColumnAndCheck(page.getSecondNameFilterInput(), "al", ByJQuery.selector("td:eq(1)"), 11);
     }
 
     @Test
     public void testEmailFilter() {
-        filterAColumn(page.getEmailFilterInput(), "ab", ByJQuery.selector("td:eq(2)"));
-        assertEquals(page.getFirstRowSomeColumn(0).getText(), "Leandra");
-        assertEquals(page.getFirstRowSomeColumn(1).getText(), "Macias");
-        assertEquals(page.getFirstRowSomeColumn(2).getText(), "erat.Vivamus.nisi@NullainterdumCurabitur.ca");
-        page.getEmailFilterInput().click();
-        page.getEmailFilterInput().clear();
-        fireEvent(page.getEmailFilterInput(), "keyup");
+        filterColumnAndCheck(page.getEmailFilterInput(), "ab", ByJQuery.selector("td:eq(2)"), 8);
     }
 
     @Test
@@ -92,24 +76,37 @@ public class ITestArrangeableModel extends AbstractWebDriverTest {
         ascendingDescendingSortingOnColumn(2, "v");
     }
 
-    private boolean doesColumnContainsOnlyRowsWithData(By column, String data) {
-        List<WebElement> table = page.getTable().findElements(By.tagName("tr"));
-        for (Iterator<WebElement> i = table.iterator(); i.hasNext();) {
-            WebElement td = i.next().findElement(column);
-            String tdText = td.getText();
-            if (!tdText.toLowerCase().contains(data)) {
+    private boolean doesColumnContainsOnlyRowsWithData(By column, String data, final int numberOfVisibleRows) {
+        final List<WebElement> rows = page.getTable().findElements(By.tagName("tr"));
+        Graphene.waitAjax().until(new Predicate<WebDriver>() {
+            private int lastVisibleRowsCount;
+
+            @Override
+            public boolean apply(WebDriver t) {
+                return (lastVisibleRowsCount = rows.size()) == numberOfVisibleRows;
+            }
+
+            @Override
+            public String toString() {
+                return MessageFormat.format("table to have <{0}> visible rows. Last visible rows count was <{1}>.", numberOfVisibleRows, lastVisibleRowsCount);
+            }
+
+        });
+        for (WebElement row : rows) {
+            String cellText = row.findElement(column).getText();
+            if (!cellText.toLowerCase().contains(data)) {
                 return false;
             }
         }
         return true;
     }
 
-    private void filterAColumn(WebElement filterInput, String filterValue, By column) {
+    private void filterColumnAndCheck(WebElement filterInput, String filterValue, By column, int numberOfVisibleRows) {
         filterInput.click();
         filterInput.clear();
         Graphene.guardAjax(filterInput).sendKeys(filterValue);
 
-        boolean result = doesColumnContainsOnlyRowsWithData(column, filterValue);
+        boolean result = doesColumnContainsOnlyRowsWithData(column, filterValue, numberOfVisibleRows);
         assertTrue("The table should contains only rows, which column " + column + " contains only data '" + filterValue + "'",
             result);
     }
