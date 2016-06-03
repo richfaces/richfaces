@@ -7,7 +7,6 @@ import org.richfaces.component.AutocompleteMode;
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -54,6 +53,12 @@ public interface AutocompleteProps {
      */
     @Attribute()
     Object getAutocompleteList();
+
+    /**
+     * Name of the request status component that will indicate the status of the Ajax request
+     */
+    @Attribute
+    String getStatus();
 
     /**
      * A method which provides a list of suggestions according to a user-provided filtering value

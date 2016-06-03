@@ -73,6 +73,7 @@
                             defaultValue="true" />
                         <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}"
                             defaultValue="false" />
+                        <cdk:scriptOption name="status" value="#{component.attributes['status']}" />
                     </cdk:scriptObject>
                     new RichFaces.ui.Autocomplete("#{clientId}",
                     "#{clientId}Input", #{toScriptArgs(options)}
