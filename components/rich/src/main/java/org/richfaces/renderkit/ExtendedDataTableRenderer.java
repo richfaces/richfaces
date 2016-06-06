@@ -39,7 +39,10 @@ import java.util.Map;
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
@@ -56,6 +59,7 @@ import org.richfaces.component.AbstractColumn;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.ExtendedDataTableState;
 import org.richfaces.component.SortOrder;
+import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
@@ -81,6 +85,8 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
     private static final String DATA_ATTRIBUTE = "data-rf-column-name";
+    private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
+    private static final String ROW = "row";
 
     protected static enum PartName {
 
@@ -949,7 +955,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     }
 
     @Override
-    protected void doDecode(FacesContext context, UIComponent component) {
+    protected void doDecode(FacesContext context, final UIComponent component) {
         super.doDecode(context, component);
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String clientId = component.getClientId(context);
@@ -965,6 +971,41 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (component.getAttributes().get("tableState") != null) {
             ExtendedDataTableState tableState = new ExtendedDataTableState((UIDataTableBase) component);
             updateAttribute(context, component, "tableState", tableState.toString());
+        }
+
+        if (component instanceof ClientBehaviorHolder) {
+            final Map<String, List<ClientBehavior>> behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
+
+            if (behaviors == null || behaviors.isEmpty()) {
+                return;
+            }
+
+            Map<String, String> parametersMap = context.getExternalContext().getRequestParameterMap();
+            final String behaviorEvent = parametersMap.get(BEHAVIOR_EVENT_NAME);
+
+            if (behaviorEvent == null || !behaviorEvent.startsWith(ROW)) {
+                return;
+            }
+
+            String behaviorSourceId = RenderKitUtils.getBehaviorSourceId(context);
+            if (behaviorSourceId.endsWith(":n")) {
+                behaviorSourceId = behaviorSourceId.substring(0, behaviorSourceId.length() - 2);
+            } else {
+                return;
+            }
+
+            ((UIDataAdaptor) component).invokeOnRow(context, behaviorSourceId, new ContextCallback() {
+                public void invokeContextCallback(FacesContext context, UIComponent target) {
+                    if (target.equals(component)) {
+                        List<ClientBehavior> behaviorsForEvent = behaviors.get(behaviorEvent);
+                        if (behaviorsForEvent != null && !behaviorsForEvent.isEmpty()) {
+                            for (ClientBehavior behavior : behaviorsForEvent) {
+                                behavior.decode(context, component);
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 
