@@ -1,6 +1,7 @@
 package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.component.AutocompleteMode;
 
@@ -59,6 +60,24 @@ public interface AutocompleteProps {
      */
     @Attribute
     String getStatus();
+
+    /**
+     * The client-side script method to be called before an ajax request.
+     */
+    @Attribute(events = @EventName("begin"))
+    String getOnbegin();
+
+    /**
+     * The client-side script method to be called after the DOM is updated
+     */
+    @Attribute(events = @EventName("complete"))
+    String getOncomplete();
+
+    /**
+     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
+     */
+    @Attribute(events = @EventName("beforedomupdate"))
+    String getOnbeforedomupdate();
 
     /**
      * A method which provides a list of suggestions according to a user-provided filtering value

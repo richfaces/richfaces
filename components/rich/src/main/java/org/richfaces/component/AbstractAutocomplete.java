@@ -247,26 +247,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    // ----------- selected ajax props
-
-    /**
-     * The client-side script method to be called before an ajax request.
-     */
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
-
-    /**
-     * The client-side script method to be called after the DOM is updated
-     */
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-
-    /**
-     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
-     */
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
     public DataModel<Object> getItems(FacesContext facesContext, String value) {
         return getItems(facesContext, this, value);
     }
