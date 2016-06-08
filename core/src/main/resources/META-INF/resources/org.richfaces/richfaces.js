@@ -561,7 +561,11 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         // event source re-targeting finds a RichFaces component root
         // to setup javax.faces.source correctly - RF-12616)
         if (sourceElement) {
-            source = searchForComponentRootOrReturn(sourceElement);
+            if (options.parameters && options.parameters["org.richfaces.ajax.component"] == sourceId) {
+                source = sourceElement;
+            } else {
+                source = searchForComponentRootOrReturn(sourceElement);
+            }
         }
 
         parameters = options.parameters || {}; // TODO: change "parameters" to "richfaces.ajax.params"
@@ -790,7 +794,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
     var getSourceId = function(source, options) {
         if (options.sourceId) {
-            return options.sourceId;
+            return options.sourceId.id ? options.sourceId.id : options.sourceId;
         } else {
             return (typeof source == 'object' && (source.id || source.name)) ? (source.id ? source.id : source.name) : source;
         }
