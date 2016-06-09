@@ -461,7 +461,7 @@
             __onEnter: function (event) {
                 var value = getSelectedItemValue.call(this);
                 this.__onChangeValue(event, value);
-                this.invokeEvent("selectitem", rf.getDomElement(this.fieldId), event, value);
+                this.invokeEvent("selectitem", rf.getDomElement(this.id), event, value);
             },
             __onShow: function (event) {
                 if (this.options.selectFirst) {
