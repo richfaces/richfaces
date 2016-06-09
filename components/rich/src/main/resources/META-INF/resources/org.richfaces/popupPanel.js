@@ -460,7 +460,7 @@
                     showEvent.parameters = opts || {};
                     this.shown = true;
                     // Cache the height difference between the shadoww div and the scroller div for later height calculations
-                    this.scrollerSizeDelta = parseInt(this.shadowDiv.css('height')) - parseInt(this.scrollerDiv.css('height'));
+                    this.scrollerSizeDelta = this.getStyle(this.shadowDiv, "height") - this.getStyle(this.scrollerDiv, "height");
                     this.invokeEvent("show", showEvent, null, element);
                 }
             },
@@ -615,7 +615,7 @@
             },
 
             getStyle: function(elt, name) {
-                return parseInt($(rf.getDomElement(elt)).css(name).replace("px", ""), 10);
+                return Number($(rf.getDomElement(elt)).css(name).replace("px", ""));
             },
 
             resizeListener: function(event, diff) {
