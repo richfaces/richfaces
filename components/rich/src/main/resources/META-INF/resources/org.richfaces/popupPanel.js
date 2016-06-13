@@ -631,6 +631,7 @@
                 var contentHashWH = {};
                 var scrollerHashWH = {};
                 var newSize;
+                var delta;
                 var scrollerHeight = this.scrollerSizeDelta;
                 var scrollerWidth = 0;
                 var eContentElt = this.getContentElement();
@@ -643,7 +644,7 @@
                         this.resetWidth();
                     }
 
-                    newSize = Math.round(this.getStyle(eContentElt, "width"));
+                    newSize = this.getStyle(eContentElt, "width");
 
                     var oldWidthSize = newSize;
                     newSize += diff.deltaWidth || 0;
@@ -659,8 +660,9 @@
                         contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
                         scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
 
-                        if (diff.deltaWidth) {
-                            vetoes.vx = oldWidthSize - this.currentMinWidth;
+                        delta = oldWidthSize - this.currentMinWidth;
+                        if (diff.deltaWidth) { 
+                            vetoes.vx = Math.abs(delta) >= 1 ? delta : 0; // avoid rounding errors caused by zooming
                             vetoes.x = true;
                         }
                     }
@@ -671,8 +673,9 @@
                         contentHashWH.width = this.options.maxWidth - scrollerWidth + 'px';
                         scrollerHashWH.width = this.options.maxWidth - scrollerWidth + 'px';
 
+                        delta = oldWidthSize - this.options.maxWidth;
                         if (diff.deltaWidth) {
-                            vetoes.vx = oldWidthSize - this.options.maxWidth;
+                            vetoes.vx = Math.abs(delta) >= 1 ? delta : 0; // avoid rounding errors caused by zooming
                             vetoes.x = true;
                         }
                     }
@@ -696,7 +699,7 @@
                 }
 
                 if (doResize) {
-                    newSize = Math.round(this.getStyle(eContentElt, "height"));
+                    newSize = this.getStyle(eContentElt, "height");
 
                     var oldHeightSize = newSize;
                     newSize += diff.deltaHeight || 0;
@@ -710,8 +713,9 @@
                         shadowHashWH.height = this.currentMinHeight + 'px';
                         scrollerHashWH.height = this.currentMinHeight - scrollerHeight + 'px';
 
+                        delta = oldHeightSize - this.currentMinHeight;
                         if (diff.deltaHeight) {
-                            vetoes.vy = oldHeightSize - this.currentMinHeight;
+                            vetoes.vy = Math.abs(delta) >= 1 ? delta : 0; // avoid rounding errors caused by zooming
                             vetoes.y = true;
                         }
                     }
@@ -721,8 +725,9 @@
                         shadowHashWH.height = this.options.maxHeight + 'px';
                         scrollerHashWH.height = this.options.maxHeight - scrollerHeight + 'px';
 
+                        delta = oldHeightSize - this.options.maxHeight;
                         if (diff.deltaHeight) {
-                            vetoes.vy = oldHeightSize - this.options.maxHeight;
+                            vetoes.vy = Math.abs(delta) >= 1 ? delta : 0; // avoid rounding errors caused by zooming
                             vetoes.y = true;
                         }
                     }
