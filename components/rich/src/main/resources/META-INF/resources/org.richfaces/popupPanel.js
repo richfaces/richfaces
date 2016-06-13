@@ -643,7 +643,7 @@
                         this.resetWidth();
                     }
 
-                    newSize = this.getStyle(eContentElt, "width");
+                    newSize = Math.round(this.getStyle(eContentElt, "width"));
 
                     var oldWidthSize = newSize;
                     newSize += diff.deltaWidth || 0;
@@ -696,7 +696,7 @@
                 }
 
                 if (doResize) {
-                    newSize = this.getStyle(eContentElt, "height");
+                    newSize = Math.round(this.getStyle(eContentElt, "height"));
 
                     var oldHeightSize = newSize;
                     newSize += diff.deltaHeight || 0;
