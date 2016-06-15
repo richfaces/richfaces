@@ -15,6 +15,7 @@ import javax.faces.validator.Validator;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -154,6 +155,30 @@ public abstract class AbstractSelect extends AbstractSelectComponent implements 
     @Override
     @Attribute
     public abstract String getVar();
+
+    /**
+     * The client-side script method to be called before an ajax request. (Only valid in autocomplete mode).
+     */
+    @Attribute(events = @EventName("begin"))
+    public abstract String getOnbegin();
+
+    /**
+     * The client-side script method to be called after the DOM is updated. (Only valid in autocomplete mode).
+     */
+    @Attribute(events = @EventName("complete"))
+    public abstract String getOncomplete();
+
+    /**
+     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated. (Only valid in autocomplete mode).
+     */
+    @Attribute(events = @EventName("beforedomupdate"))
+    public abstract String getOnbeforedomupdate();
+
+    /**
+     * Name of the request status component that will indicate the status of the Ajax request. (Only valid in autocomplete mode).
+     */
+    @Attribute
+    public abstract String getStatus();
 
     /**
      * Override the validateValue method in cases where the component implements SelectItemsInterface
