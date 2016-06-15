@@ -19,6 +19,15 @@
 
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/slidfast.css" />
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/mobile/slidfast.js"></script>
+        <h:outputScript library="org.richfaces" name="jquery.js" />
+        <h:outputScript library="flot" name="jquery.flot.js" />
+        <h:outputScript library="flot" name="jquery.flot.pie.js" />
+        <h:outputScript library="flot" name="jquery.flot.axislabels.js" />
+        <h:outputScript library="flot" name="jquery.flot.symbol.js" />
+        <h:outputScript library="flot" name="jquery.flot.orderBars.js" />
+        <h:outputScript library="flot" name="jquery.flot.tooltip.js" />
+        <h:outputScript library="org.richfaces.ckeditor" name="ckeditor.js" />
+        <h:outputScript library="org.richfaces.ckeditor" name="config.js" />
     </h:head>
     <h:body>
         <script type="text/javascript">
@@ -43,7 +52,7 @@
            });
 
         </script>
-        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/rf-mobile-skin.css" />
+        <h:outputStylesheet library="css" name="mobile/rf-mobile-skin.css" />
         <div id="browser">
             <header>
                 <div>

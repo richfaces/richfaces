@@ -277,6 +277,14 @@ nav .rf-tab-lbl {
     font: normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
 }
 
+.rf-p-b, .rf-tab-cnt, .rf-cp-b, .rf-ac-itm-cnt, .rf-pp-cnt {
+    font-size: 18px;
+}
+
+.rf-p-hdr, .rf-tab-hdr, .rf-cp-hdr, .rf-ac-itm-hdr, .rf-pp-hdr-cnt {
+    font-size: 13px;
+}
+
 textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
     -webkit-text-fill-color: #B6AD84;
 }
@@ -291,9 +299,13 @@ textarea, input[type="text"], input[type="password"], select {
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+    box-sizing: border-box;
 }
 
-button, input[type="reset"], input[type="submit"], input[type="button"] {
+button:not([class]), 
+input[type="reset"]:not([class]),
+input[type="submit"]:not([class]),
+input[type="button"]:not([class]) {
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -442,7 +454,7 @@ fieldset {
     border-color: #eee;
 }
 
-.rf-p {
+.rf-p, .rf-pp-cntr {
     border-radius: 8px;
    -moz-border-radius: 8px;
    -webkit-border-radius: 8px;
@@ -453,7 +465,13 @@ fieldset {
     padding: 1px;
 }
 
-.rf-p-b {
+.rf-pp-shdw {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+}
+
+.rf-p-b, .rf-pp-b {
     padding: 8px 4px;
 }
 
@@ -461,7 +479,7 @@ fieldset {
 add rounded corners
 *************************************************/
 
-.rf-p-hdr {
+.rf-p-hdr, .rf-pp-hdr {
     border-radius: 8px;
    -moz-border-radius: 8px;
    -webkit-border-radius: 8px;
@@ -469,13 +487,18 @@ add rounded corners
 }
 
 /*************************************************
-rich:inplaceInput
+rich:inplaceInput, inplaceSelect
 *************************************************/
 
-.rf-ii-lbl {
-    font-size: 22px;
+.rf-ii-lbl, .rf-is-lbl, .rf-is-opt,
+input.rf-is-fld {
+    font-size: 18px;
 }
 
+input.rf-ii-fld, input.rf-is-fld, .rf-is-fld-cntr {
+    height: 24px;
+    width: 210px;
+}
 
 /*************************************************
 rich:inputNumberSpinner
@@ -488,6 +511,7 @@ rich:inputNumberSpinner
 
 input.rf-insp-inp[type="text"] {
     font-size: 34px;
+    height: 40px;
 }
 
 /*************************************************
@@ -523,3 +547,40 @@ rich:calendar
     padding:  5px;
 }
 
+/*************************************************
+rich:chart
+*************************************************/
+
+.chart-container {
+    width: 600px;
+}
+
+/*************************************************
+rich:progressbar
+*************************************************/
+
+.rf-pb {
+    width: 300px;
+}
+
+.rf-pb-rmng {
+    height: 20px;
+    font-size: 18px;
+
+}
+
+/*************************************************
+rich:autocomplete, select, picklist, orderingList
+*************************************************/
+
+.rf-au, input.rf-au-inp, .rf-sel, input.rf-sel-inp {
+    height: 30px;
+}
+
+.rf-au-itm, .rf-sel-opt, .rf-ord-opt, .rf-pick-opt {
+    font-size: 14px;
+}
+
+.rf-ord-btn, .rf-pick-btn {
+   font-size: 16px;
+}
