@@ -2,11 +2,22 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
+    <style type="text/css">
+        .panel {
+            float:left;
+            width:190px;
+            padding:5px;
+        }
+        
+        .panel .rf-p-b {
+            font-size: 12px;
+        }
+    </style>
     <h:form id="form">
         <h:panelGrid columns="1" style="width: 640px">
             <a4j:outputPanel id="panel" layout="block">
                 <a4j:repeat value="#{capitalsBean.capitals}" var="cap" rows="15" id="repeat">
-                    <rich:panel style="float:left; width:190px; padding:5px;">
+                    <rich:panel styleClass="panel">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:graphicImage value="#{cap.stateFlag}" alt="flag" />
