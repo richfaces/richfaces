@@ -250,5 +250,5 @@
                 $superInputNumberSlider.destroy.call(this);
             }
         });
-    $superInputNumberSlider = rf.ui.InputNumberSlider.$super;
+    var $superInputNumberSlider = rf.ui.InputNumberSlider.$super;
 }(RichFaces.jQuery, window.RichFaces));
