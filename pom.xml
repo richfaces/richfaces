@@ -126,7 +126,7 @@
         <version.wildfly81>8.1.0.Final</version.wildfly81>
         <version.wildfly82>8.2.1.Final</version.wildfly82>
         <version.tomcat7>7.0.69</version.tomcat7>
-        <version.tomcat8>8.0.33</version.tomcat8>
+        <version.tomcat8>8.0.35</version.tomcat8>
 
         <!-- Plugin Management: versions -->
         <version.assembly.plugin>2.6</version.assembly.plugin>
