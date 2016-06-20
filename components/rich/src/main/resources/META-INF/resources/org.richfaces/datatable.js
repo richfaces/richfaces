@@ -2,6 +2,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:dataTable
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.DataTable
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.DataTable = function(id, options) {
         $super.constructor.call(this, id);
         this.options = $.extend(this.options, options || {});
@@ -52,10 +62,26 @@
 
             name : "RichFaces.ui.DataTable",
 
+            /**
+             * Sort a table column
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#sort
+             * @param columnId {string} short column id
+             * @param [direction] {string} sort direction ("ascending", "descending", "unsorted")
+             *          if not provided and the column is sorted the direction switches, if it's unsorted it will be sorted in ascending sirection
+             * @param [isClear] {boolean} whether or not to clear the previous sort, default - false
+             */
             sort: function(columnId, direction, isClear) {
                 invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.SORTING, columnId, direction, isClear));
             },
 
+            /**
+             * Clear any sorting currently applied to the table
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#clearSorting
+             */
             clearSorting: function() {
                 this.sort("", "", true);
             },
@@ -68,10 +94,25 @@
                 this.sort(columnId, sortOrder, false);
             },
 
+            /**
+             * Filter a table column
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#filter
+             * @param columnId {string} short column id
+             * @param filterValue {string} value to filter by
+             * @param [isClear] {boolean} whether or not to clear the previous filter, default - false
+             */
             filter: function(columnId, filterValue, isClear) {
                 invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.FILTERING, columnId, filterValue, isClear));
             },
 
+            /**
+             * Clear any filtering currently applied to the table
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#clearFiltering
+             */
             clearFiltering: function() {
                 this.filter("", "", true);
             },
@@ -86,14 +127,33 @@
                 this.filter(columnId, filterValue, false);
             },
 
+            /**
+             * Expand all subtables in a dataTable
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#expandAllSubTables
+             */
             expandAllSubTables: function() {
                 this.invokeOnSubTables('expand');
             },
 
+            /**
+             * Collapse all subtables in a dataTable
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#collapseAllSubTables
+             */
             collapseAllSubTables: function() {
                 this.invokeOnSubTables('collapse');
             },
 
+            /**
+             * Switch the state of a subtable
+             * 
+             * @method
+             * @name RichFaces.ui.DataTable#switchSubTable
+             * @param id {string} full subtable id
+             */
             switchSubTable: function(id) {
                 this.getSubTable(id).switchState();
             },

@@ -46,6 +46,16 @@
     };
 
 
+    /**
+     * Backing object for rich:popupPanel
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.PopupPanel
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.PopupPanel = function(id, options) {
         $super.constructor.call(this, id);
         this.markerId = id;
@@ -120,10 +130,24 @@
                 return this.getContentElement()[0].clientHeight;//TODO
             },
 
+            /**
+             * Returns the left coordinate of the popup
+             * 
+             * @method
+             * @name RichFaces.ui.PopupPanel#getLeft
+             * @return {string} left coordinate
+             */
             getLeft : function () {
                 return this.cdiv.css('left');
             },
 
+            /**
+             * Returns the top coordinate of the popup
+             * 
+             * @method
+             * @name RichFaces.ui.PopupPanel#getTop
+             * @return {string} top coordinate
+             */
             getTop : function () {
                 return this.cdiv.css('top');
             },
@@ -231,6 +255,14 @@
                 }
             },
 
+            /**
+             * Show the popup panel
+             * 
+             * @method
+             * @name RichFaces.ui.PopupPanel#show
+             * @param [event] {Event} event triggering this behavior
+             * @param [opts] {Object} object containing options for the popup (top, left, width, height)
+             */
             show: function(event, opts) {
                 var element = this.cdiv;
                 if (!this.shown && this.invokeEvent("beforeshow", event, null, element)) {
@@ -574,6 +606,12 @@
                 enableSelection(document.body);
             },
 
+            /**
+             * Hide the popup panel
+             * 
+             * @method
+             * @name RichFaces.ui.PopupPanel#hide
+             */
             hide: function(event, opts) {
                 var element = this.cdiv;
                 this.restoreFocus();
@@ -811,6 +849,14 @@
                 this.doResizeOrMove(diff);
             },
 
+            /**
+             * Move the popup panel
+             * 
+             * @method
+             * @name RichFaces.ui.PopupPanel#moveTo
+             * @param top {number|string} top coordinate
+             * @param left {number|string} left coordinate
+             */
             moveTo : function (top, left) {
                 this.cdiv.css('top', top);
                 this.cdiv.css('left', left);
@@ -821,6 +867,14 @@
                 this.doResizeOrMove(diff);
             },
 
+            /**
+             * Resize the popup panel
+             * 
+             * @method
+             * @name RichFaces.ui.PopupPanel#resize
+             * @param dx {number} value to be added to current width
+             * @param dy {number} value to be added to current height
+             */
             resize : function (dx, dy) {
                 var diff = new rf.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
                 this.doResizeOrMove(diff);

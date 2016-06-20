@@ -130,6 +130,18 @@
 
             name: "ExtendedDataTable",
 
+            /**
+             * Backing object for rich:extendedDataTable
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.ExtendedDataTable
+             * 
+             * @param id
+             * @param rowCount
+             * @param ajaxFunction
+             * @param options
+             */
             init: function (id, rowCount, ajaxFunction, options) {
                 $super.constructor.call(this, id);
                 this.ranges = new rf.utils.Ranges();
@@ -242,6 +254,15 @@
                 this.ajaxFunction(); // TODO Maybe, event model should be used here.
             },
 
+            /**
+             * Filter a table column
+             * 
+             * @method
+             * @name RichFaces.ui.ExtendedDataTable#filter
+             * @param columnId {string} short column id
+             * @param filterValue {string} value to filter by
+             * @param [isClear] {boolean} whether or not to clear the previous filter, default - false
+             */
             filter: function(colunmId, filterValue, isClear) {
                 if (typeof(filterValue) == "undefined" || filterValue == null) {
                     filterValue = "";
@@ -251,6 +272,12 @@
                 this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
             },
 
+            /**
+             * Clear any filtering currently applied to the table
+             * 
+             * @method
+             * @name RichFaces.ui.ExtendedDataTable#clearFiltering
+             */
             clearFiltering: function() {
                 this.filter("", "", true);
             },
@@ -274,6 +301,16 @@
             },
 
 
+            /**
+             * Sort a table column
+             * 
+             * @method
+             * @name RichFaces.ui.ExtendedDataTable#sort
+             * @param columnId {string} short column id
+             * @param [direction] {string} sort direction ("ascending", "descending", "unsorted")
+             *          if not provided and the column is sorted the direction switches, if it's unsorted it will be sorted in ascending sirection
+             * @param [isClear] {boolean} whether or not to clear the previous sort, default - false
+             */
             sort: function(colunmId, sortOrder, isClear) {
                 if (typeof(sortOrder) == "string") {
                     sortOrder = sortOrder.toLowerCase();
@@ -283,6 +320,12 @@
                 this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
             },
 
+            /**
+             * Clear any sorting currently applied to the table
+             * 
+             * @method
+             * @name RichFaces.ui.ExtendedDataTable#clearSorting
+             */
             clearSorting: function() {
                 this.sort("", "", true);
             },
@@ -650,6 +693,13 @@
                 }
             },
 
+            /**
+             * Deselect a table row
+             * 
+             * @method
+             * @name RichFaces.ui.ExtendedDataTable#deselectRow
+             * @param index {int} row index, 0-based
+             */
             deselectRow: function (index, skipEvent) {
                 if (!this.options.selectionMode || this.options.selectionMode == 'none' 
                     || !this.ranges.contains(index) || (!skipEvent && !this.onbeforeselectionchange({}))) {
@@ -724,6 +774,13 @@
                 this.selectionInput.value = [this.ranges, this.activeIndex, this.shiftIndex, this.selectionFlag].join("|");
             },
 
+            /**
+             * Select one or more table rows
+             * 
+             * @method
+             * @name RichFaces.ui.ExtendedDataTable#selectRow
+             * @param index {int|int[]} row index (2) or range ([2,5])
+             */
             selectRows: function(range, skipEvent) {
                 if (!this.options.selectionMode || this.options.selectionMode == 'none' 
                     || (!skipEvent && !this.onbeforeselectionchange({}))) {

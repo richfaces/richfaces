@@ -111,12 +111,14 @@
             name:"PanelMenuGroup",
 
             /**
-             * @class PanelMenuGroup
-             * @name PanelMenuGroup
-             *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * Backing object for rich:panelMenuGroup
+             * 
+             * @extends RichFaces.ui.PanelMenuItem
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.PanelMenuGroup
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId, $.extend({}, __DEFAULT_OPTIONS, options || {}));
@@ -218,6 +220,12 @@
                 return this.__getExpandValue();
             },
 
+            /**
+             * Expand this group
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenuGroup#expand
+             */
             expand : function () {
                 if (this.expanded()) return;
                 if (!this.__fireEvent("beforeexpand")) {
@@ -240,6 +248,12 @@
                 return !this.__getExpandValue();
             },
 
+            /**
+             * Collapse this group
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenuGroup#collapse
+             */
             collapse : function () {
                 if (!this.expanded()) return;
                 if (!this.__fireEvent("beforecollapse")) {
@@ -259,6 +273,12 @@
                 return this.__fireEvent("collapse");
             },
 
+            /**
+             * Select this group
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenuGroup#select
+             */
             select : function() {
                 if (this.options.selectable) {
                     $super.select.call(this);
@@ -281,10 +301,8 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenuGroup#switch
-             *
-             * TODO ...
+             * @ignore
+             * @memberOf! RichFaces.ui.PanelMenuGroup#
              *
              * @param {boolean} expand
              * @return {void} TODO ...
@@ -302,10 +320,10 @@
                 }
             },
 
-            /**
+            /*
              * please, remove this method when client side ajax events will be added
              *
-             * */
+             */
             onCompleteHandler : function () {
                 if (this.options.selectable) {
                     $super.onCompleteHandler.call(this);
@@ -355,6 +373,7 @@
             },
 
             /**
+             * @private
              * @methodOf
              * @name PanelMenuGroup#__setExpandValue
              *

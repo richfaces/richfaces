@@ -19,6 +19,16 @@
     var defaultOptions = {
     };
 
+    /**
+     * Backing object for rich:dropTarget
+     * 
+     * @extends RichFaces.BaseNonVisualComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Droppable
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.Droppable = function(id, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});

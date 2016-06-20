@@ -29,6 +29,16 @@
             // class name
             name:"TogglePanelItem",
 
+            /**
+             * Backing object for rich:togglePanelItem
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.TogglePanelItem
+             * 
+             * @param componentId
+             * @param options
+             */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId);
                 this.attachToDom(this.id);
@@ -51,7 +61,7 @@
              * @methodOf TogglePanelItem
              * @name TogglePanelItem#getName
              *
-             * @return {String} panel item name
+             * @return {string} panel item name
              */
             getName: function () {
                 return this.options.name;

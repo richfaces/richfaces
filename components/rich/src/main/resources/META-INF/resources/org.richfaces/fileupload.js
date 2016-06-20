@@ -23,6 +23,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:fileUpload
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.FileUpload
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.FileUpload = function(id, options) {
         this.id = id;
         this.items = [];

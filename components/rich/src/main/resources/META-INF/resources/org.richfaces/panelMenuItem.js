@@ -140,12 +140,14 @@
             name:"PanelMenuItem",
 
             /**
-             * @class PanelMenuItem
-             * @name PanelMenuItem
-             *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * Backing object for rich:panelMenuItem
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.PanelMenuItem
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId);
@@ -195,12 +197,10 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenuItem#select
-             *
-             * TODO ...
-             *
-             * @return {void} TODO ...
+             * Select this item
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenuItem#select
              */
             select: function () {
                 var continueProcess = this.__fireBeforeSelect();
@@ -211,10 +211,10 @@
                 return SELECT_ITEM.exec(this)
             },
 
-            /**
+            /*
              * please, remove this method when client side ajax events will be added
              *
-             * */
+             */
             onCompleteHandler : function () {
                 SELECT_ITEM.execClient(this);
             },

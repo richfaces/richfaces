@@ -28,6 +28,16 @@
 
     rf.ui.CollapsiblePanelItem = rf.ui.TogglePanelItem.extendClass({
 
+            /**
+             * Backing object for rich:collapsiblePanelItem
+             * 
+             * @extends RichFaces.ui.TogglePanelItem
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.CollapsiblePanelItem
+             * 
+             * @param componentId
+             * @param options
+             */
             init : function (componentId, options) {
                 rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
 

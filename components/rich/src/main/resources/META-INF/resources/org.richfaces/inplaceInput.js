@@ -2,6 +2,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:inplaceInput
+     * 
+     * @extends RichFaces.ui.InplaceBase
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.InplaceInput
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.InplaceInput = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
@@ -115,6 +125,13 @@
                 }
             },
 
+            /**
+             * Returns true if the value has changed from default
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceInput#isValueChanged
+             * @return {boolean} true if the value has changed
+             */
             isValueChanged: function () {
                 return (this.__getValue() != this.initialLabel);
             },
@@ -175,6 +192,13 @@
             __isFocused: function() {
                 return this.focused;
             },
+            /**
+             * Set new value
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceInput#setValue
+             * @param value {string} new value
+             */
             setValue: function(value) {
                 this.__setValue(value);
                 this.save();

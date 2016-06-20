@@ -15,6 +15,16 @@
     };
 
     // Constructor definition
+    /**
+     * Backing object for rich:progressBar
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.ProgressBar
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.ProgressBar = function(componentId, options) {
         // call constructor of parent class
         $super.constructor.call(this, componentId);
@@ -119,6 +129,13 @@
                 return obj;
             },
 
+            /**
+             * Get current value
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#getValue
+             * @return {int} current value
+             */
             getValue: function() {
                 return this.value;
             },
@@ -154,6 +171,13 @@
                 $(".rf-pb-prgs", this.__elt).css('width', p + "%");
             },
 
+            /**
+             * Set new value
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#setValue
+             * @param value {int} new value
+             */
             setValue: function(val) {
                 var wasInFinishState = this.__isFinishState();
 
@@ -165,10 +189,24 @@
                 }
             },
 
+            /**
+             * Get max value of the progress bar
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#getMaxValue
+             * @return {int} max value
+             */
             getMaxValue: function() {
                 return this.maxValue;
             },
 
+            /**
+             * Get min value of the progress bar
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#getMinValue
+             * @return {int} min value
+             */
             getMinValue: function() {
                 return this.minValue;
             },
@@ -177,6 +215,12 @@
                 return !!this.submitFunction || !!this.options.resource;
             },
 
+            /**
+             * Disable the progress bar
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#disable
+             */
             disable: function () {
                 this.__params = null;
                 if (this.__pollTimer) {
@@ -187,6 +231,12 @@
                 this.enabled = false;
             },
 
+            /**
+             * Enable the progress bar
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#enable
+             */
             enable: function (params) {
                 if (this.isEnabled()) {
                     return;
@@ -201,6 +251,13 @@
 
             },
 
+            /**
+             * Returns true if the progress bar is enabled
+             *
+             * @method
+             * @name RichFaces.ui.ProgressBar#isEnabled
+             * @return {boolean} true if the progress bar is enabled
+             */
             isEnabled: function() {
                 return this.enabled;
             },

@@ -88,7 +88,7 @@
 	       * @type Object
 	       * @default { content: '%s [%x,%y]'}
 	       * @property tooltipOpts
-	       *    @property content {String}
+	       *    @property content {string}
 	       *    Specify the tooltip format. Use %s for series label, %x for X values, %y for Y value
 	       *    @property defaultTheme
 	       */
@@ -106,9 +106,9 @@
 	       * @type Object
 	       * @default {postion:'ne', sorted: 'ascending'}
 	       * @property legend
-	       *    @property position {String}
+	       *    @property position {string}
 	       *    Defines the placement of the legend in the grid. One of ne,nw,se,sw
-	       *    @property sorted {String}
+	       *    @property sorted {string}
 	       *    Defines the order of labels in the legend. One of ascending,descending,false.
 	       */
 	      legend: {
@@ -121,14 +121,14 @@
 	       * @type Object
 	       * @default {min: null, max: null,autoscaleMargin: null, axisLabel: ''}
 	       * @property xaxis
-	       *   @property min {Number}
+	       *   @property min {number}
 	       *   Minimal value shown on axis
-	       *   @property max {Number}
+	       *   @property max {number}
 	       *   Maximal values show on axis
-	       *   @property autoscaleMargin {Number}
+	       *   @property autoscaleMargin {number}
 	       *   It's the fraction of margin that the scaling algorithm will add
 	       *   to avoid that the outermost points ends up on the grid border
-	       *   @property axisLabel {String}
+	       *   @property axisLabel {string}
 	       *   Axis description
 	       */
 	      xaxis:{
@@ -143,14 +143,14 @@
 	       * @type Object
 	       * @default {min: null, max: null,autoscaleMargin: 0.2,axisLabel: ''}
 	       * @property yaxis
-	       *   @property min {Number}
+	       *   @property min {number}
 	       *   Minimal value shown on axis
-	       *   @property max {Number}
+	       *   @property max {number}
 	       *   Maximal values show on axis
-	       *   @property autoscaleMargin {Number}
+	       *   @property autoscaleMargin {number}
 	       *   It's the fraction of margin that the scaling algorithm will add to
 	       *   avoid that the outermost points ends up on the grid border.
-	       *   @property axisLabel {String}
+	       *   @property axisLabel {string}
 	       *   Axis description
 	       */
 	      yaxis:{
@@ -253,6 +253,16 @@
             // class name
             name:"Chart",
 
+            /**
+             * Backing object for rich:chart
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.Chart
+             * 
+             * @param componentId
+             * @param options
+             */
             init : function (componentId, options) {
             	$super.constructor.call(this, componentId, options);
 
@@ -300,7 +310,9 @@
             /**
              * Returns chart object
              *
-             * @method getPlotObject
+             * @method
+             * @name RichFaces.ui.Chart#getPlotObject
+             * @return {Plot} chart object
              */
             getPlotObject: function () {
               return this.plot;
@@ -308,18 +320,22 @@
 
             /**
              * Highlights the point in chart selected by seriesIndex or point index. Does not work for pie charts.
-             * @param seriesIndex {int}
-             * @param pointIndex {int}
-             * @method highlight
+             * 
+             * @method
+             * @name RichFaces.ui.Chart#highlight
+             * @param seriesIndex {int} index of the series
+             * @param pointIndex {int} index of the point
              */
             highlight: function(seriesIndex,pointIndex){
                this.plot.highlight(seriesIndex,pointIndex);
             },
             /**
              * Removes highlighting of point. If method is called without parameters it unhighlights all points.
-             * @param seriesIndex {int}
-             * @param pointIndex {int}
-             * @method unghighlight
+             * 
+             * @method
+             * @name RichFaces.ui.Chart#unhighlight
+             * @param seriesIndex {int} index of the series
+             * @param pointIndex {int} index of the point
              */
             unhighlight: function(seriesIndex,pointIndex){
                this.plot.unhighlight(seriesIndex,pointIndex);
@@ -434,6 +450,12 @@
                 plot.clearSelection();
             },
 
+            /**
+             * Reset the zoom level
+             *
+             * @method
+             * @name RichFaces.ui.Chart#resetZoom
+             */
             resetZoom: function () {
                 this.plot = $.plot(this.chartElement,this.options.data,this.options);
             },

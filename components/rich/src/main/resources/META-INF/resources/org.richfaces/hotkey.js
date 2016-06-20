@@ -14,6 +14,16 @@
     
     var types = [ 'keydown', 'keyup' ];
 
+    /**
+     * Backing object for rich:hotKey
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.HotKey
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);

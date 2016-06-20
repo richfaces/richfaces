@@ -36,6 +36,17 @@
             handleSelectedClass: "rf-insl-hnd-sel",
             increaseSelectedClass: "rf-insl-inc-sel",
 
+            /**
+             * Backing object for rich:inuptNumberSlider
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.InputnumberSlider
+             * 
+             * @param id
+             * @param options
+             * @param selectedClasses
+             */
             init: function (id, options, selectedClasses) {
                 $superInputNumberSlider.constructor.call(this, id);
                 $.extend(this, options);
@@ -78,22 +89,48 @@
                 }
             },
 
+            /**
+             * Decrease the current value by @step
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSlider#decrease
+             */
             decrease: function (event) {
                 var value = this.value - this.step;
                 value = this.roundFloat(value);
                 this.setValue(value, event);
             },
 
+            /**
+             * Increase the current value by @step
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSlider#increase
+             */
             increase: function (event) {
                 var value = this.value + this.step;
                 value = this.roundFloat(value);
                 this.setValue(value, event);
             },
 
+            /**
+             * Get the current value
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSlider#getValue
+             * @return {number} current value
+             */
             getValue: function () {
                 return this.value;
             },
 
+            /**
+             * Set new value
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSlider#setValue
+             * @param value {number} new value
+             */
             setValue: function (value, event) {
                 if (!this.disabled) {
                     this.__setValue(value, event);
@@ -117,6 +154,12 @@
                 return parseFloat(ret);
             },
 
+            /**
+             * Focus the input element
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSlider#focus
+             */
             focus: function() {
                 this.input.focus();
             },

@@ -2,6 +2,17 @@
     rf.ui = rf.ui || {};
     var defaultOptions = {
     };
+    
+    /**
+     * Backing object for a4j:poll
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Poll
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.Poll = function(componentId, options) {
         $super.constructor.call(this, componentId, options);
         this.id = componentId;
@@ -24,6 +35,12 @@
         return {
             name: "Poll",
 
+            /**
+             * Start the poll
+             * 
+             * @method
+             * @name RichFaces.ui.Poll#startPoll
+             */
             startPoll: function() {
                 this.stopPoll();
                 var poll = this;
@@ -37,6 +54,12 @@
                 }, poll.interval);
             },
 
+            /**
+             * Stop the poll
+             * 
+             * @method
+             * @name RichFaces.ui.Poll#stopPoll
+             */
             stopPoll : function() {
                 if (rf.ui.pollTracker && rf.ui.pollTracker[this.id]) {
                     window.clearTimeout(rf.ui.pollTracker[this.id]);

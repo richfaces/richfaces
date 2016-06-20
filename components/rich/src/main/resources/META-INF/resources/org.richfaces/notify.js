@@ -78,6 +78,14 @@
         return array.push.apply(array, rest);
     };
     
+    /**
+     * Backing object for notifications
+     * 
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Notify
+     * 
+     * @param options
+     */
     rf.ui.Notify = function(options) {
         var options = $.extend({}, defaultOptions, options);
         

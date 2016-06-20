@@ -22,6 +22,17 @@
     
     var eventsForDirty = [ "key", "paste", "undo", "redo" ];
 
+    /**
+     * Backing object for rich:editor
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Editor
+     * 
+     * @param componentId {string} component id
+     * @param options {object} editor options
+     * @param config {object} CKeditor configuration
+     */
     rf.ui.Editor = function(componentId, options, config) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
@@ -116,6 +127,8 @@
         },
 
         /**
+         * @private
+         * 
          * Returns the form where this editor component is placed
          */
         __getForm : function() {
@@ -205,10 +218,24 @@
             }
         },
 
+        /**
+         * Get the CKEditor object instance
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#getEditor
+         * @return {CKEDITOR} CKEditor instance
+         */
         getEditor : function() {
             return this.ckeditor;
         },
 
+        /**
+         * Set value
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#setValue
+         * @param value {string} new value
+         */
         setValue : function(newValue) {
             this.ckeditor.setData(newValue, $.proxy(function() {
                 this.valueChanged = false;
@@ -217,6 +244,13 @@
             }, this));
         },
 
+        /**
+         * Get current value
+         * 
+         * @method
+         * @name RichFaces.ui.Editor.getValue
+         * @return {string} current value
+         */
         getValue : function() {
             return this.ckeditor.getData();
         },
@@ -225,30 +259,77 @@
             return document.getElementById(this.textareaId);
         },
 
+        /**
+         * Set focus to this component
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#focus
+         */
         focus : function() {
             this.ckeditor.focus();
         },
 
+        /**
+         * Remove focus from this component
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#blur
+         */
         blur : function() {
             this.ckeditor.focusManager.blur(true);
         },
 
+        /**
+         * Returns true if the component is focused
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#isFocused
+         * @return {boolean} true if the editor is focused
+         */
         isFocused : function() {
             return this.ckeditor.focusManager.hasFocus;
         },
 
+        /**
+         * Returns true if the editor is in a dirty state, i.e. edited since last receiving focus
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#isDirty
+         * @return {boolean} true if the editor is in a dirty state
+         */
         isDirty : function() {
             return this.dirtyState || this.ckeditor.checkDirty();
         },
 
+        /**
+         * Returns true of the value has changed from default
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#isValueChanged
+         * @return {boolean} true if the value is changed
+         */
         isValueChanged : function() {
             return this.valueChanged || this.isDirty();
         },
 
+        /**
+         * Set the readonly state
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#setReadOnly
+         * @param readOnly {boolean} the new state
+         */
         setReadOnly : function(readOnly) {
             this.ckeditor.setReadOnly(readOnly !== false);
         },
 
+        /**
+         * Returns true if the editor is read-only
+         * 
+         * @method
+         * @name RichFaces.ui.Editor#isReadOnly
+         * @return {boolean} true if the editor is read-only
+         */
         isReadOnly : function() {
             return this.ckeditor.readOnly;
         },

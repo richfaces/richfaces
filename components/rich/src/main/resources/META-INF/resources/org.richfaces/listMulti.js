@@ -2,6 +2,15 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * 
+     * @extends RichFaces.ui.List
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.ListMulti
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.ListMulti = function(id, options) {
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
@@ -22,10 +31,24 @@
 
             name : "listMulti",
 
+            /**
+             * Get selected items
+             * 
+             * @method
+             * @name RichFaces.ui.ListMulti#getSelectedItems
+             * @return {jQuery} selected items
+             */
             getSelectedItems: function() {
                 return this.list.find("." + this.selectItemCssMarker);
             },
 
+            /**
+             * Remove selected items from this list
+             * 
+             * @method
+             * @name RichFaces.ui.ListMulti#removeSelectedItems
+             * @return {jQuery} removed items
+             */
             removeSelectedItems: function() {
                 var items = this.getSelectedItems();
                 this.removeItems(items);

@@ -15,6 +15,16 @@
         cssClasses : {}
     };
 
+    /**
+     * Parent class for menu objects
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.MenuBase
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.MenuBase = function(componentId, options) {
         $super.constructor.call(this, componentId, options);
         this.id = componentId;

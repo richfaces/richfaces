@@ -29,12 +29,14 @@
             name:"CollapsiblePanel",
 
             /**
-             * @class CollapsiblePanel
-             * @name CollapsiblePanel
-             *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * Backing object for rich:collapsiblePanel
+             * 
+             * @extends RichFaces.ui.TogglePanel
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.CollapsiblePanel
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 rf.ui.TogglePanel.call(this, componentId, options);
@@ -57,18 +59,44 @@
                 })
             },
 
+            /**
+             * Switch the state of the panel
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsiblePanel#switchPanel
+             * @param [to] {string} state to switch to: "true" (expanded), "false" (collapsed), "@next"
+             */
             switchPanel : function (to) {
                 this.switchToItem(to || "@next");
             },
 
+            /**
+             * Expand the panel
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsiblePanel#expand
+             */
             expand: function() {
                 this.switchToItem("true");
             },
-            
+
+            /**
+             * Collapse the panel
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsiblePanel#collapse
+             */
             collapse: function() {
                 this.switchToItem("false");
             },
-            
+
+            /**
+             * Returns true if the panel is expanded
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsiblePanel#isExpanded
+             * @return {boolean} true if the panel is expanded
+             */
             isExpanded: function() {
                 return this.activeItem == "true";
             },

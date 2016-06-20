@@ -35,12 +35,14 @@
             name:"PanelMenu",
 
             /**
-             * @class PanelMenu
-             * @name PanelMenu
-             *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * Backing object for rich:panelMenu
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.PanelMenu
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId);
@@ -81,13 +83,11 @@
 
             /***************************** Public Methods  ****************************************************************/
             /**
-             * @methodOf
-             * @name PanelMenu#selectItem
-             *
-             * TODO ...
-             *
-             * @param {String} name
-             * @return {void} TODO ...
+             * Select a menu item
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenu#selectItem
+             * @param {string} name
              */
             selectItem: function (name) {
                 var item = this.getItem(name);
@@ -97,14 +97,6 @@
                 }
             },
 
-            /**
-             * @methodOf
-             * @name PanelMenu#selectedItem
-             *
-             * TODO ...
-             *
-             * @return {String} TODO ...
-             */
             selectedItem: function (id) {
                 if (typeof id != "undefined") {
                     var valueInput = this.__getValueInput();
@@ -133,10 +125,10 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenu#expandAll
-             *
-             * expands all groups and subgroups
+             * Expand all groups and subgroups
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenu#expandAll
              */
             expandAll: function () {
                 for (var item in this.items) {
@@ -149,10 +141,10 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenu#collapseAll
-             *
-             * collapses all groups and subgroups
+             * Collapse all groups and subgroups
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenu#collapseAll
              */
             collapseAll: function () {
                 for (var item in this.items) {
@@ -165,12 +157,11 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenu#expandGroup
-             *
-             * expands a group with the given name
-             *
-             * @param {String} groupName - name of the group or id of the group component
+             * Expand a menu group
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenu#expandGroup
+             * @param groupName {string} name or full id of the group
              */
             expandGroup: function (groupName) {
                 var group = this.getItem(groupName);
@@ -181,12 +172,11 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenu#collapseGroup
-             *
-             * collapses a group with the given name
-             *
-             * @param {String} groupName - name of the group or id of the group component
+             * Collapse a menu group
+             * 
+             * @method
+             * @name RichFaces.ui.PanelMenu#collapseGroup
+             * @param groupName {string} name or full id of the group
              */
             collapseGroup: function (groupName) {
                 var group = this.getItem(groupName);

@@ -8,7 +8,16 @@
     }
 
     // constructor definition
-
+    /**
+     * Backing object for rich:menuItem
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.MenuItem
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.MenuItem = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});

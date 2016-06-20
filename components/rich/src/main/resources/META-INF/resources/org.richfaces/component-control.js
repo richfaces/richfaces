@@ -2,10 +2,24 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:componentControl
+     * 
+     * @memberOf! RichFaces.ui
+     * @static
+     * @alias RichFaces.ui.ComponentControl
+     */
     rf.ui.ComponentControl = rf.ui.ComponentControl || {};
 
     $.extend(rf.ui.ComponentControl, {
 
+            /**
+             * @ignore
+             * @memberOf! RichFaces.ui.ComponentControl
+             * 
+             * @param event
+             * @param parameters
+             */
             execute: function(event, parameters) {
                 var targetList = parameters.target;
                 var selector = parameters.selector;

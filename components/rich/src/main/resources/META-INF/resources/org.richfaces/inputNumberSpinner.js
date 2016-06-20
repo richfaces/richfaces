@@ -32,6 +32,16 @@
             minValue: 0,
             step: 1,
 
+            /**
+             * Backing object for rich:inputNumberSpinner
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.InputNumberSpinner
+             * 
+             * @param id
+             * @param options
+             */
             init: function (id, options) {
                 $super.constructor.call(this, id);
                 $.extend(this, options);
@@ -60,6 +70,12 @@
                 }
             },
 
+            /**
+             * Decrease the current value by @step
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSpinner#decrease
+             */
             decrease: function (event) {
                 var currentValue = Number(this.input.val());
                 if (isNaN(currentValue)) {currentValue = this.value}
@@ -71,6 +87,12 @@
                 this.__setValue(value, event);
             },
 
+            /**
+             * Increase the current value by @step
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSpinner#increase
+             */
             increase: function (event) {
                 var currentValue = Number(this.input.val());
                 if (isNaN(currentValue)) {currentValue = this.value}
@@ -83,10 +105,24 @@
                 this.__setValue(value, event);
             },
 
+            /**
+             * Get the current value
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSpinner#getValue
+             * @return {number} current value
+             */
             getValue: function () {
                 return this.value;
             },
 
+            /**
+             * Set new value
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSpinner#setValue
+             * @param value {number} new value
+             */
             setValue: function (value, event) {
                 if (!this.input.attr("disabled")) {
                     this.__setValue(value);
@@ -110,6 +146,12 @@
                 return parseFloat(ret);
             },
 
+            /**
+             * Focus the input element
+             * 
+             * @method
+             * @name RichFaces.ui.InputNumberSpinner#focus
+             */
             focus: function() {
                 this.input.focus();
             },

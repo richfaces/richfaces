@@ -2,6 +2,14 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.List
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.List = function(id, options) {
         $super.constructor.call(this, id);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);

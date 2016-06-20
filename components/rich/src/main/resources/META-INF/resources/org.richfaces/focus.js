@@ -10,6 +10,16 @@
 
         name : "Focus",
 
+        /**
+         * Backing object for rich:focus
+         * 
+         * @extends RichFaces.BaseComponent
+         * @memberOf! RichFaces.ui
+         * @constructs RichFaces.ui.Focus
+         * 
+         * @param componentId
+         * @param options
+         */
         init : function(componentId, options) {
             $super.constructor.call(this, componentId);
             options = this.options = $.extend({}, defaultOptions, options);

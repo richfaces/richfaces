@@ -29,12 +29,14 @@
             name:"Accordion",
 
             /**
-             * @class Accordion
-             * @name Accordion
+             * Backing object for rich:accordion
+             * 
+             * @extends RichFaces.ui.TogglePanel
+             * @memberOf! RichFaces.ui
              *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * @constructs RichFaces.ui.Accordion
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId, options);

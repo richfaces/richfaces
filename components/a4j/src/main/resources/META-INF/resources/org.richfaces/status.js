@@ -104,11 +104,21 @@
     };
 
     rf.ui = rf.ui || {};
-
+    
     rf.ui.Status = rf.BaseComponent.extendClass({
 
             name: "Status",
-
+            
+            /**
+             * Backing object for a4j:status
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.Status
+             * 
+             * @param id {string} component id
+             * @param [options] {Object} status options
+             */
             //TODO - support for parallel requests
             init: function(id, options) {
                 this.id = id;
@@ -143,6 +153,12 @@
                 statuses[this.id] = this;
             },
 
+            /**
+             * Switches status to the stop state.
+             * 
+             * @method
+             * @name RichFaces.ui.Status#start
+             */
             start: function() {
                 if (this.options.onstart) {
                     this.options.onstart.apply(this, arguments);
@@ -151,6 +167,12 @@
                 return this.__showHide('.rf-st-start');
             },
 
+            /**
+             * Switches status to the stop state.
+             * 
+             * @method
+             * @name RichFaces.ui.Status#stop
+             */
             stop: function() {
                 this.__stop();
                 return this.__showHide('.rf-st-stop');
@@ -163,6 +185,12 @@
                 return this.stop();
             },
 
+            /**
+             * Switches status to the error state.
+             * 
+             * @method
+             * @name RichFaces.ui.Status#error
+             */
             error: function() {
                 if (this.options.onerror) {
                     this.options.onerror.apply(this, arguments);

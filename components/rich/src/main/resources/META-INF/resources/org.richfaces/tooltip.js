@@ -93,11 +93,14 @@
             name:"Tooltip",
 
             /**
-             * @class Tooltip
-             * @name Tooltip
-             *
-             * @constructor
-             * @param {String} componentId - component id
+             * Backing object for rich:tooltip
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.Tooltip
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId);
@@ -138,12 +141,10 @@
 
             /***************************** Public Methods  ****************************************************************/
             /**
-             * @methodOf
-             * @name PanelMenuItem#hide
-             *
-             * TODO ...
-             *
-             * @return {void} TODO ...
+             * Hides the tooltip
+             * 
+             * @method
+             * @name RichFaces.ui.Tooltip#hide
              */
             hide: function () {
 
@@ -207,12 +208,11 @@
             },
 
             /**
-             * @methodOf
-             * @name PanelMenuItem#show
-             *
-             * TODO ...
-             *
-             * @return {void} TODO ...
+             * Shows the tooltip
+             * 
+             * @method
+             * @name RichFaces.ui.Tooltip#show
+             * @param [event] {MouseEvent} event that triggered the function, used to postion the tooltip
              */
             show: function (event) {
                 var tooltip = this;

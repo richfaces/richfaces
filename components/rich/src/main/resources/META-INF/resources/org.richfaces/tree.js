@@ -39,6 +39,16 @@
 
             name: "TreeNode",
 
+            /**
+             * Backing object for rich:treeNode
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.TreeNode
+             * 
+             * @param id
+             * @param commonOptions
+             */
             init: function (id, commonOptions) {
                 $superTreeNode.constructor.call(this, id);
                 this.__rootElt = $(this.attachToDom());
@@ -320,6 +330,16 @@
 
             name: "Tree",
 
+            /**
+             * Backing object for rich:tree
+             * 
+             * @extends RichFaces.ui.TreeNode
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.Tree
+             * 
+             * @param id
+             * @param options
+             */
             init: function (id, options) {
                 this.__treeRootElt = $(rf.getDomElement(id));
 

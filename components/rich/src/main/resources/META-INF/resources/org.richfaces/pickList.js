@@ -2,6 +2,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:pickList
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.PickList
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.PickList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
@@ -149,10 +159,24 @@
                 }
             },
 
+            /**
+             * Get the backing object of the source list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#getSourceList
+             * @return {ListMulti} source list
+             */
             getSourceList: function() {
                 return this.sourceList;
             },
 
+            /**
+             * Get the backing object of the target list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#getTargetList
+             * @return {ListMulti} target list
+             */
             getTargetList: function() {
                 return this.targetList;
             },
@@ -186,7 +210,13 @@
             __getEnabledSourceItems: function() {
                 return this.sourceList.items.filter(":not(." + this.sourceList.itemDisabledCss + ")");
             },
-            
+
+            /**
+             * Move selected items from source list to target list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#add
+             */
             add: function() {
                 this.targetList.setFocus();
                 var items = this.sourceList.removeSelectedItems();
@@ -194,6 +224,12 @@
                 this.encodeHiddenValues();
             },
 
+            /**
+             * Move selected items from target list to source list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#remove
+             */
             remove: function() {
                 this.sourceList.setFocus();
                 var items = this.targetList.removeSelectedItems();
@@ -205,6 +241,12 @@
                 this.__insertSorted(items);
             },
 
+            /**
+             * Move all items from source list to target list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#addAll
+             */
             addAll: function() {
                 this.targetList.setFocus();
                 var items = this.__getEnabledSourceItems();
@@ -213,6 +255,12 @@
                 this.encodeHiddenValues();
             },
 
+            /**
+             * Move all items from target list to source list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#removeAll
+             */
             removeAll: function() {
                 this.sourceList.setFocus();
                 var items = this.targetList.removeAllItems();
@@ -233,6 +281,12 @@
                 rf.Event.fire(this, "change" + this.namespace, {oldValues : oldValues, newValues : newValues});
             },
 
+            /**
+             * Update the state of the buttons based on the current state
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#toggleButtons
+             */
             toggleButtons: function() {
                 this.__toggleButton(this.addButton, this.sourceList.__getItems().filter('.' + this.baseSelectItemCss).length > 0);
                 this.__toggleButton(this.removeButton, this.targetList.__getItems().filter('.' + this.baseSelectItemCss).length > 0);
@@ -243,6 +297,12 @@
                 }
             },
 
+            /**
+             * Focus the source list
+             * 
+             * @method
+             * @name RichFaces.ui.PickList#focus
+             */
             focus: function () {
                 this.sourceList.setFocus();
             },

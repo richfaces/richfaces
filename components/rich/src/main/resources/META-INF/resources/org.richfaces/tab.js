@@ -29,12 +29,14 @@
             name:"Tab",
 
             /**
-             * @class AccordionItem
-             * @name AccordionItem
-             *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * Backing object for rich:tab
+             * 
+             * @extends RichFaces.ui.TogglePanelItem
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.Tab
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId, options);
@@ -44,10 +46,12 @@
             },
 
             /**
+             * @private
+             * @memberOf! RichFaces.ui.Tab#
              * @param newState {string} = inactive | active | disabled
              *     in that case looking header by css class appropriate to this state
              *
-             * @return {jQuery Object}
+             * @return {jQuery}
              * */
             __header : function (newState) {
                 var header = $(rf.getDomElement(this.id + ":header"));
@@ -66,7 +70,9 @@
             },
 
             /**
-             * @return {jQuery Object}
+             * @private
+             * @memberOf! RichFaces.ui.Tab#
+             * @return {jQuery}
              * */
             __content : function () {
                 if (!this.__content_) {
@@ -76,10 +82,9 @@
             },
 
             /**
-             * @private
-             *
              * used in TogglePanel
-             * */
+             * @private
+             **/
             __enter : function () {
 
                 this.__content().show();

@@ -1,8 +1,8 @@
-/**
- * @fileOverview jQuery setPosition Plugin to place elements on the page
- * @author Pavel Yaschenko, 05.2010
- * @version 0.5
- */
+///**
+// * @fileOverview jQuery setPosition Plugin to place elements on the page
+// * @author Pavel Yaschenko, 05.2010
+// * @version 0.5
+// */
 
 // draft examples of usage
 // jQuery('#tooltip').setPosition('#aaa',{from:'bottom-left', to:'auto-auto'});

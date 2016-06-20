@@ -2,6 +2,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Parent object for inplace components
+     * 
+     * @extends RichFaces.ui.InputBase
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.InplaceBase
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.InplaceBase = function(id, options) {
         $super.constructor.call(this, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
@@ -59,6 +69,12 @@
             oncancel: function() {
             },
 
+            /**
+             * Save the value
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceBase#save
+             */
             save: function() {
                 var value = this.__getValue()
                 if (value.length > 0) {
@@ -75,6 +91,12 @@
                 this.onsave();
             },
 
+            /**
+             * Cancel editing the value
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceBase#cancel
+             */
             cancel: function() {
                 var text = "";
                 if (!this.useDefaultLabel) {
@@ -85,6 +107,12 @@
                 this.oncancel();
             },
 
+            /**
+             * Open the component for editing
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceBase#open
+             */
             open: function() {
                 this.__editHandler();
             },
@@ -93,6 +121,13 @@
                 return this.isSaved;
             },
 
+            /**
+             * Returns true if the component is in editing state
+             * 
+             * @method
+             * @name RichFaces.ui.Editor#focus
+             * @return {boolean} true if the component is in editing state
+             */
             isEditState: function() {
                 return this.editState;
             },

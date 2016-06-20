@@ -2,6 +2,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object of the rich:select
+     * 
+     * @extends RichFaces.ui.InputBase
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Select
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.Select = function(id, options) {
         this.id = id;
         this.element = this.attachToDom();
@@ -459,6 +469,12 @@
                 this.invokeEvent.call(this, "listhide", document.getElementById(this.id));
             },
 
+            /**
+             * Show the popup list of options
+             * 
+             * @method
+             * @name RichFaces.ui.Select#showPopup
+             */
             showPopup: function() {
                 if (!this.popupList.isVisible()) {
                     this.__updateItems();
@@ -475,6 +491,12 @@
                 }
             },
 
+            /**
+             * Hide the popup list
+             * 
+             * @method
+             * @name RichFaces.ui.Select#hidePopup
+             */
             hidePopup: function() {
                 if (this.popupList.isVisible()) {
                     this.__hidePopup();
@@ -528,10 +550,24 @@
                 }
             },
 
+            /**
+             * Get the current value
+             * 
+             * @method
+             * @name RichFaces.ui.Select#getValue
+             * @return {string} current value
+             */
             getValue: function() {
                 return this.selValueInput.val();
             },
 
+            /**
+             * Set new value
+             * 
+             * @method
+             * @name RichFaces.ui.Select#setValue
+             * @param value {string} new value
+             */
             setValue: function(value) {
                 if (value == null || value == '') {
                     this.__setValue('');
@@ -551,6 +587,12 @@
                 }
             },
 
+            /**
+             * Get the value of the default label
+             * 
+             * @method
+             * @name RichFaces.ui.Select#getLabel
+             */
             getLabel: function() {
                 return this.__getValue();
             },

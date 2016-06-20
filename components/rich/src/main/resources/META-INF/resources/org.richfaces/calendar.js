@@ -440,6 +440,18 @@
     }
 
     // Constructor definition
+    /**
+     * Backing object for rich:calendar
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Calendar
+     * 
+     * @param componentId {string} component id
+     * @param locale {string} calendar locale
+     * @param options {string}
+     * @param markups
+     */
     rf.ui.Calendar = function(componentId, locale, options, markups) {
 
         // dayListMarkup - day cell markup
@@ -1054,6 +1066,12 @@
                 this.hidePopup();
             },
 
+            /**
+            * Hide the popup
+            * 
+            * @method
+            * @name RichFaces.ui.Calendar#hidePopup
+            */
             hidePopup: function() {
 
                 if (!this.options.popup || !this.isVisible) return;
@@ -1075,6 +1093,12 @@
                 }
             },
 
+            /**
+             * Show the popup
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#showPopup
+             */
             showPopup: function(e) {
                 if (!this.isRendered) {
                     this.isRendered = true;
@@ -1123,6 +1147,12 @@
                 }
             },
 
+            /**
+             * Switch the state of the popup
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#switchPopup
+             */
             switchPopup: function(e) {
                 this.isVisible ? this.hidePopup() : this.showPopup(e);
             },
@@ -1156,6 +1186,12 @@
                 return this.currentDate;
             },
 
+            /**
+             * Focus the input element
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#focus
+             */
             focus: function() {
                 rf.getDomElement(this.INPUT_DATE_ID).focus();
             },
@@ -1181,9 +1217,23 @@
                     return this.options.monthLabels[value];
                 } else return value;
             },
+            /**
+             * Get the current year
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#getCurrentYear
+             * @return {int} current year
+             */
             getCurrentYear: function() {
                 return this.currentDate.getFullYear();
             },
+            /**
+             * Get the number of the current month
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#getCurrentMonth
+             * @return {int} number of current month, 0-based
+             */
             getCurrentMonth: function(asMonthLabel) {
                 var value = this.currentDate.getMonth();
                 if (asMonthLabel) {
@@ -1634,6 +1684,12 @@
                 }
             },
 
+            /**
+             * Select today's date
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#today
+             */
             today: function(noUpdate, noHighlight) {
 
                 var now = new Date();
@@ -1858,6 +1914,12 @@
                 }
             },
 
+            /**
+             * Show the month containing the selected date
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#showSelectedDate
+             */
             showSelectedDate: function() {
                 if (!this.selectedDate) return;
                 if (this.currentDate.getMonth() != this.selectedDate.getMonth() || this.currentDate.getFullYear() != this.selectedDate.getFullYear()) {
@@ -1901,6 +1963,12 @@
                 }
             },
 
+            /**
+             * Show the time editor popup
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#showTimeEditor
+             */
             showTimeEditor: function() {
                 rf.Event.unbindById(this.id, "focusout" + this.namespace);
                 var editor;
@@ -1934,6 +2002,12 @@
                 this.isEditorVisible = false;
             },
 
+            /**
+             * Hide the time editor popup
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#hideTimeEditor
+             */
             hideTimeEditor: function(updateTime) {
                 this.hideEditor();
                 if (updateTime && this.selectedDate) {
@@ -1962,6 +2036,12 @@
                 rf.Event.bindById(this.id, "focusout" + this.namespace, this.eventOnCollapse, this);
             },
 
+            /**
+             * Show the date editor popup
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#showDateEditor
+             */
             showDateEditor: function() {
                 rf.Event.unbindById(this.id, "focusout" + this.namespace);
                 var editor;
@@ -1984,6 +2064,12 @@
                 this.isEditorVisible = true;
             },
 
+            /**
+             * Hide the date editor popup
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#hideDateEditor
+             */
             hideDateEditor: function(updateCurrentDate) {
                 this.hideEditor();
                 if (updateCurrentDate) {
@@ -1994,18 +2080,46 @@
                 rf.Event.bindById(this.id, "focusout" + this.namespace, this.eventOnCollapse, this);
             },
 
+            /**
+            * Get the current date value
+            * 
+            * @method
+            * @name RichFaces.ui.Calendar#getValue
+            * @return {date} current date value
+            */
             getValue: function() {
                 return this.__getSelectedDate();
             },
 
+            /**
+            * Get the current date value as string, formatted by the given pattern
+            * 
+            * @method
+            * @name RichFaces.ui.Calendar#getValueAsString
+            * @param [pattern] {string} date pattern
+            * @return {string} current value
+            */
             getValueAsString: function(pattern) {
                 return this.__getSelectedDateString(pattern);
             },
 
+            /**
+            * Set new date value
+            * 
+            * @method
+            * @name RichFaces.ui.AutocompleteBase#setValue
+            * @param value {date} new date
+            */
             setValue: function(value) {
                 this.__selectDate(value, undefined, undefined, true);
             },
 
+            /**
+             * Clear the current date value
+             * 
+             * @method
+             * @name RichFaces.ui.Calendar#resetValue
+             */
             resetValue: function() {
                 this.__resetSelectedDate();
                 if (this.options.defaultLabel && !this.isFocused) {

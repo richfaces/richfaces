@@ -140,12 +140,14 @@
             name:"TabPanel",
 
             /**
-             * @class TabPanel
-             * @name TabPanel
-             *
-             * @constructor
-             * @param {String} componentId - component id
-             * @param {Hash} options - params
+             * Backing object for rich:tabPanel
+             * 
+             * @extends RichFaces.ui.TogglePanel
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.TabPanel
+             * 
+             * @param {string} componentId - component id
+             * @param {Object} options - params
              * */
             init : function (componentId, options) {
                 rf.ui.TogglePanel.call(this, componentId, options);

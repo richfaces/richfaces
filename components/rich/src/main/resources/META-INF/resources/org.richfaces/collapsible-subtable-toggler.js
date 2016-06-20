@@ -2,6 +2,15 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:collapsibleSubTableToggler
+     * 
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.CollapsibleSubTableToggler
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.CollapsibleSubTableToggler = function(id, options) {
         this.id = id;
         this.eventName = options.eventName;

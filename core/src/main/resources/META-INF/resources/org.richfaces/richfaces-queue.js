@@ -29,7 +29,7 @@
     /**
      * RichFaces Ajax container
      * @class
-     * @memberOf RichFaces
+     * @memberOf! RichFaces
      * @static
      * @name ajaxContainer
      * */
@@ -80,9 +80,9 @@
     /**
      * RichFaces Queue API container
      * @class
-     * @memberOf RichFaces
+     * @memberOf! RichFaces
      * @static
-     * @name queue
+     * @alias RichFaces.queue
      * */
     rf.queue = (function() {
 
@@ -391,7 +391,7 @@
             /**
              * @constant
              * @name RichFaces.queue.DEFAULT_QUEUE_ID
-             * @type string
+             * @type {string}
              * */
             DEFAULT_QUEUE_ID: DEFAULT_QUEUE_ID,
 
@@ -430,7 +430,7 @@
             /**
              * Create and push QueueEntry to the queue for ajax requests
              * @function
-             * @name RichFaces.queue.push
+             * @alias RichFaces.queue.push
              *
              * @param {string|DOMElement} source - The DOM element or an id that triggered this ajax request
              * @param {object} [event] - The DOM event that triggered this ajax request
@@ -490,7 +490,7 @@
             /**
              * Remove all QueueEntry from the queue
              * @function
-             * @name RichFaces.queue.clear
+             * @alias RichFaces.queue.clear
              * */
             clear: function () {
                 var lastEntry = getLastEntry();
@@ -503,9 +503,9 @@
             /**
              * Set queue default options
              * @function
-             * @name RichFaces.queue.setQueueOptions
+             * @alias RichFaces.queue.setQueueOptions
              *
-             * @param {string||object} [id] - Queue id for storing options or hash with options for multiple options set
+             * @param {string|object} [id] - Queue id for storing options or hash with options for multiple options set
              * @param {object} options - Queue options object
              * */
             setQueueOptions: function (id, options) {

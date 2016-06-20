@@ -23,11 +23,15 @@
 window.RichFaces = window.RichFaces || {};
 RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
+/**
+ * 
+ * @namespace RichFaces
+ */
 (function($, rf) {
 
     rf.RICH_CONTAINER = "rf";
 
-    /**
+    /*
      * All input elements which can hold value, which are enabled and visible.
      */
     rf.EDITABLE_INPUT_SELECTOR = ":not(:submit):not(:button):not(:image):input:visible:enabled";
@@ -76,7 +80,14 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         return element;
     };
 
-    // get RichFaces component object by component id or DOM element or jQuery object
+    /**
+     * Retrieve RichFaces component object
+     * 
+     * @memberOf! RichFaces
+     * @alias component
+     * @param source {Object} component id, DOM element or a jQuery object
+     * @returns {Object} RichFaces component
+     */
     rf.component = function (source) {
         var element = rf.getDomElement(source);
 
@@ -90,7 +101,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         return rf.component.call(this, source);
     }
 
-    /**
+    /*
      * jQuery selector ":editable" which selects only input elements which can be edited, are visible and enabled
      */
     $.extend($.expr[':'], {
@@ -248,8 +259,10 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
      * Escapes CSS meta-characters in string according to
      *  <a href="http://api.jquery.com/category/selectors/">jQuery selectors</a> document.
      *
-     * @param s - string to escape meta-characters in
-     * @return string with meta-characters escaped
+     * @memberOf! RichFaces
+     * @alias escapeCSSMetachars
+     * @param s {string} - string to escape meta-characters in
+     * @return {string} - string with meta-characters escaped
      */
     rf.escapeCSSMetachars = function(s) {
         //TODO nick - cache results
@@ -313,7 +326,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
      * For example, window.document.location is equivalent to
      * "propertyNamesString" = "document.location" and "base" = window
      * Evaluation is safe, so it stops on the first null or undefined object
-     *
+     * 
+     * @memberOf! RichFaces
+     * @alias getValue
      * @param propertyNamesArray - array of strings that contains names of the properties to evaluate
      * @param base - base object to evaluate properties on
      * @return returns result of evaluation or empty string
@@ -728,7 +743,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         };
     }
 
-    /**
+    /*
      * Returns RichFaces component root for given element in the list of ancestors of sourceElement.
      * Otherwise returns sourceElement if RichFaces component root can't be located.
      */
@@ -766,7 +781,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     }
 
 
-    /**
+    /*
      * Detects whether the element has bound RichFaces component.
      *
      * Supports detection of RichFaces 5 (bridge-base.js) and RichFaces 4 (richfaces-base-component.js) components.

@@ -16,6 +16,16 @@
         
         name : "NotifyStack",
 
+        /**
+         * Backing object for rich:notifyStack
+         * 
+         * @extends RichFaces.BaseComponent
+         * @memberOf! RichFaces.ui
+         * @constructs RichFaces.ui.NotifyStack
+         * 
+         * @param componentId
+         * @param options
+         */
         init : function(componentId, options) {
             $super.constructor.call(this, componentId);
             this.attachToDom(this.id);

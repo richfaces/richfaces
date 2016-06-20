@@ -24,6 +24,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * A simple popup
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Popup
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.Popup = function(id, options) {
         $super.constructor.call(this, id);
         this.options = $.extend({}, defaultOptions, options);
@@ -49,6 +59,12 @@
 
             name : "popup",
 
+            /**
+             * Show the popup
+             * 
+             * @method
+             * @name RichFaces.ui.Popup#show
+             */
             show: function(event) {
                 if (!this.visible) {
                     if (this.attachToBody) {
@@ -61,6 +77,12 @@
                 this.popup.setPosition(event || {id: this.attachTo}, this.positionOptions).show();
             },
 
+            /**
+             * Hide the popup
+             * 
+             * @method
+             * @name RichFaces.ui.Popup#hide
+             */
             hide: function() {
                 if (this.visible) {
                     this.popup.hide();
@@ -72,6 +94,13 @@
                 }
             },
 
+            /**
+             * Returns true if the popup is visible
+             * 
+             * @method
+             * @name RichFaces.ui.Popup#isVisible
+             * @return {boolean} true if the popup is visible
+             */
             isVisible: function() {
                 return this.visible;
             },

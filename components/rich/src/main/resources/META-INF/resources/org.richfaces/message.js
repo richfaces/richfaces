@@ -3,6 +3,16 @@
     rf.ui = rf.ui || {};
     
     // Constructor definition
+    /**
+     * Backing object for rich:message
+     * 
+     * @extends RichFaces.ui.Base
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Message
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.Message = function(componentId, options) {
         // call constructor of parent class
         $super.constructor.call(this, componentId, options, defaultOptions);

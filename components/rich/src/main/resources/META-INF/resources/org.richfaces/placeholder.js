@@ -10,6 +10,16 @@
 
         name:"Placeholder",
 
+        /**
+         * Backing object for rich:placeholder
+         * 
+         * @extends RichFaces.BaseComponent
+         * @memberOf! RichFaces.ui
+         * @constructs RichFaces.ui.PlaceHolder
+         * 
+         * @param componentId
+         * @param options
+         */
         init: function (componentId, options) {
             $super.constructor.call(this, componentId);
             options = $.extend({}, defaultOptions, options);

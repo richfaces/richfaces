@@ -2,6 +2,17 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:collapsibleSubTable
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.CollapsibleSubTable
+     * 
+     * @param id
+     * @param f
+     * @param options
+     */
     rf.ui.CollapsibleSubTable = function(id, f, options) {
         this.id = id;
         this.options = $.extend(this.options, options || {});
@@ -105,10 +116,26 @@
 
             name: "CollapsibleSubTable",
 
+            /**
+             * Sort a table column
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#sort
+             * @param columnId {string} short column id
+             * @param [direction] {string} sort direction ("ascending", "descending", "unsorted")
+             *          if not provided and the column is sorted the direction switches, if it's unsorted it will be sorted in ascending sirection
+             * @param [isClear] {boolean} whether or not to clear the previous sort, default - false
+             */
             sort: function(columnId, direction, isClear) {
                 invoke.call(this, null, createParameters.call(this, rf.ui.CollapsibleSubTable.SORTING, columnId, direction, isClear));
             },
 
+            /**
+             * Clear any sorting currently applied to the table
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#clearSorting
+             */
             clearSorting: function() {
                 this.sort("", "", true);
             },
@@ -121,10 +148,25 @@
                 this.sort(columnId, sortOrder, false);
             },
 
+            /**
+             * Filter a table column
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#filter
+             * @param columnId {string} short column id
+             * @param filterValue {string} value to filter by
+             * @param [isClear] {boolean} whether or not to clear the previous filter, default - false
+             */
             filter: function(columnId, filterValue, isClear) {
                 invoke.call(this, null, createParameters.call(this, rf.ui.CollapsibleSubTable.FILTERING, columnId, filterValue, isClear));
             },
 
+            /**
+             * Clear any filtering currently applied to the table
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#clearFiltering
+             */
             clearFiltering: function() {
                 this.filter("", "", true);
             },
@@ -149,6 +191,12 @@
                 }
             },
 
+            /**
+             * Collapse this subtable
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#collapse
+             */
             collapse: function(options) {
                 this.setState(rf.ui.CollapsibleSubTable.collapse);
                 if (this.isNested) {
@@ -159,6 +207,12 @@
                 }
             },
 
+            /**
+             * Expand this subtable
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#expand
+             */
             expand: function(options) {
                 this.setState(rf.ui.CollapsibleSubTable.expand);
                 
@@ -183,6 +237,13 @@
                 }
             },
 
+            /**
+             * Returns true if this subtable is expanded
+             * 
+             * @method
+             * @name RichFaces.ui.CollapsibleSubDataTable#isExpanded
+             * @return {boolean} true if this subtable is expanded
+             */
             isExpanded: function() {
                 return (parseInt(this.getState()) == rf.ui.CollapsibleSubTable.expand);
             },

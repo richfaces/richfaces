@@ -2,6 +2,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:inplaceSelect
+     * 
+     * @extends RichFaces.ui.InplaceBase
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.InplaceSelect
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.InplaceSelect = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
@@ -64,6 +74,12 @@
                 this.__hidePopup();
             },
 
+            /**
+             * Show the popup list of options
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceSelect#showPopup
+             */
             showPopup: function() {
                 $super.__show.call(this);
 
@@ -72,6 +88,13 @@
                 this.popupList.show();
                 this.__hideLabel();
             },
+
+            /**
+             * Hide the popup list
+             * 
+             * @method
+             * @name RichFaces.ui.InplaceSelect#hidePopup
+             */
             hidePopup: function() {
             	$super.__hide.call(this);
             },

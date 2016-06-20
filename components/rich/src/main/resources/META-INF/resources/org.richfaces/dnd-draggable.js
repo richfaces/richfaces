@@ -16,6 +16,16 @@
         draggingClass : "rf-ind-drag"
     };
 
+    /**
+     * Backing object for rich:dragSource
+     * 
+     * @extends RichFaces.BaseNonVisualComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Draggable
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.Draggable = function(id, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});

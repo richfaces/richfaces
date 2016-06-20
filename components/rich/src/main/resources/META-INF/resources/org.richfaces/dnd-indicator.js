@@ -12,6 +12,16 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * Backing object for rich:dragIndicator
+     * 
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.DragIndicator
+     * 
+     * @param id
+     * @param options
+     */
     rf.ui.DragIndicator = function(id, options) {
         $super.constructor.call(this, id);
         this.attachToDom(id);

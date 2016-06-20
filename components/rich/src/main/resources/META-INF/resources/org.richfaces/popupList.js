@@ -2,6 +2,15 @@
 
     rf.ui = rf.ui || {};
 
+    /**
+     * @extends RichFaces.ui.Popup
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.PopupList
+     * 
+     * @param id
+     * @param listener
+     * @param options
+     */
     rf.ui.PopupList = function(id, listener, options) {
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, id);
         var mergedOptions = $.extend({}, defaultOptions, options);

@@ -11,6 +11,16 @@
     };
 
     // constructor definition
+    /**
+     * Backing object for rich:contextMenu
+     * 
+     * @extends RichFaces.ui.Menu
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.ContextMenu
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.ContextMenu = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
@@ -52,6 +62,14 @@
                 return $super.__showHandler.call(this, e);
             },
 
+            /**
+             * Show the contextMenu
+             * 
+             * @method
+             * @name RichFaces.ui.ContextMenu#show
+             * @param [event] {Event} event triggering this behavior
+             * @param [opts] {Object} object containing options for the menu
+             */
             show : function(e, options) {
                 if (e) {
                     e.stopPropagation();

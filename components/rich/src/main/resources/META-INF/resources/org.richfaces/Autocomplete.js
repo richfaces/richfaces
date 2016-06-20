@@ -6,6 +6,17 @@
      */
 
     rf.ui = rf.ui || {};
+    /**
+     * Backing object for rich:autocomplete
+     * 
+     * @extends RichFaces.ui.AutocompleteBase
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Autocomplete
+     * 
+     * @param componentId {string} component id
+     * @param fieldId {string} id of the input box
+     * @param options {Object} autocomplete options
+     */
     // Constructor definition
     rf.ui.Autocomplete = function(componentId, fieldId, options) {
         this.namespace = "." + rf.Event.createNamespace(this.name, componentId);

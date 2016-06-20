@@ -3,6 +3,16 @@
     rf.ui = rf.ui || {};
 
     // Constructor definition
+    /**
+     * @extends RichFaces.BaseComponent
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.AutocompleteBase
+     * 
+     * @param componentId
+     * @param selectId
+     * @param fieldId
+     * @param options
+     */
     rf.ui.AutocompleteBase = function(componentId, selectId, fieldId, options) {
         // call constructor of parent class
         $super.constructor.call(this, componentId);
@@ -264,26 +274,58 @@
              * public API functions
              */
             name:"AutocompleteBase",
+            /**
+             * Show the popup list of completion values
+             * 
+             * @method
+             * @name RichFaces.ui.AutocompleteBase#showPopup
+             */
             showPopup: function (event) {
                 if (!this.focused) {
                     rf.getDomElement(this.fieldId).focus();
                 }
                 onShow.call(this, event);
             },
+            /**
+             * Hide the popup list
+             * 
+             * @method
+             * @name RichFaces.ui.AutocompleteBase#hidePopup
+             */
             hidePopup: function (event) {
                 this.__hide(event)
             },
             getNamespace: function () {
                 return this.namespace;
             },
+            /**
+             * Get the current value
+             * 
+             * @method
+             * @name RichFaces.ui.AutocompleteBase#getValue
+             * @return {string} current value
+             */
             getValue: function () {
                 return this.fieldId ? rf.getDomElement(this.fieldId).value : "";
             },
+            /**
+             * Set the value
+             * 
+             * @method
+             * @name RichFaces.ui.AutocompleteBase#setValue
+             * @param {string} new value
+             */
             setValue: function (value) {
                 if (value == this.currentValue) return;
                 updateInputValue.call(this, value);
                 this.isChanged = true;
             },
+            /**
+             * Focus the input element
+             * 
+             * @method
+             * @name RichFaces.ui.AutocompleteBase#focus
+             */
             focus: function () {
                 rf.getDomElement(this.fieldId).focus();
             },

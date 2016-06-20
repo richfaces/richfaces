@@ -139,19 +139,21 @@
         }
     };
 
-    /**
-     * @class TogglePanel
-     * @name TogglePanel
-     *
-     * @constructor
-     * @param {String} componentId - component id
-     * @param {Hash} options - params
-     * */
     rf.ui.TogglePanel = rf.BaseComponent.extendClass({
 
             // class name
             name:"TogglePanel",
 
+            /**
+             * Backing object for rich:togglePanel
+             * 
+             * @extends RichFaces.BaseComponent
+             * @memberOf! RichFaces.ui
+             * @constructs RichFaces.ui.TogglePanel
+             * 
+             * @param componentId {string} component id
+             * @param options {Object} params
+             */
             init : function (componentId, options) {
                 $super.constructor.call(this, componentId);
                 this.attachToDom();
@@ -168,21 +170,22 @@
             /***************************** Public Methods  ****************************************************************/
 
             /**
-             * @methodOf
+             * @method
+             * @name RichFaces.ui.TogglePanel#getSelectedItem
              *
-             * @name TogglePanel#getSelectItem
-             *
-             * @return {String} name of current selected panel item
+             * @return {string} name of current selected panel item
              */
             getSelectItem: function () {
                 return this.activeItem;
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#switchToItem
+             * Switch to a new item
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#switchToItem
              *
-             * @param {String} name - panel item name to switch
+             * @param name {string} panel item name to switch
              *           we can use meta names @first, @prev, @next and @last
              * @return {Boolean} - false if something wrong and true if all is ok
              */
@@ -205,10 +208,12 @@
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#getNextItem
+             * Get the next item after given name
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#getNextItem
              *
-             * @param {String} name of TogglePanelItem or meta name (@first | @prev | @next | @last)
+             * @param name {string} name of TogglePanelItem or meta name (@first | @prev | @next | @last)
              * @return {TogglePanelItem} null if item not found
              */
             getNextItem : function (name) {
@@ -224,10 +229,10 @@
                 }
             },
 
-            /**
+            /*
              * please, remove this method when client side ajax events will be added
              *
-             * */
+             */
             onCompleteHandler : function (newItemName) {
                 var oldItem = this.__getItemByName(this.activeItem);
                 var newItem = this.__getItemByName(newItemName);
@@ -238,8 +243,10 @@
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#getItems
+             * Get all items
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#getItems
              *
              * @return {TogglePanelItem[]} all defined panel items
              */
@@ -248,10 +255,12 @@
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#getItemsNames
+             * Get names of items
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#getItemsNames
              *
-             * @return {String[]} names of all defined items
+             * @return {string[]} names of all defined items
              */
             getItemsNames: function () {
                 var res = [];
@@ -263,11 +272,13 @@
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#nextItem
+             * Get the name of the next item
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#nextItem
              *
-             * @param {String} [itemName = activeItem]
-             * @return {String} name of next panel item
+             * @param iteName {string} name of the item for which the next is computed
+             * @return {string} name of next panel item
              */
             nextItem: function (itemName) {
                 var itemIndex = this.__getItemIndex(itemName || this.activeItem);
@@ -279,31 +290,37 @@
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#firstItem
+             * Get the name of the first item
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#firstItem
              *
-             * @return {String} name of first panel item
+             * @return {string} name of first panel item
              */
             firstItem: function () {
                 return this.__getItemName(0);
             },
 
             /**
-             * @methodOf
-             * @name TogglePanel#lastItem
+             * Get the name of the last item
+             * 
+             * @method
+             * @name RichFaces.ui.TogglePanel#lastItem
              *
-             * @return {String} name of last panel item
+             * @return {string} name of last panel item
              */
             lastItem: function () {
                 return this.__getItemName(this.items.length - 1);
             },
 
             /**
-             * @methodOf
+             * Get the name of the previous items
+             * 
+             * @method
              * @name TogglePanel#prevItem
              *
-             * @param {String} itemName
-             * @return {String} name of prev panel item
+             * @param iteName {string} name of the item for which the previous is computed
+             * @return {string} name of previous panel item
              *                  null if it is first item
              */
             prevItem: function (itemName) {
@@ -382,7 +399,7 @@
 
             /**
              * @private
-             * @param {Number} index - array index
+             * @param {number} index - array index
              *
              * @return {TogglePanelItem}
              *    null - if item not found
@@ -412,9 +429,10 @@
             },
 
             /**
+             * @private
+             * @memberOf! RichFaces.ui.TogglePanel#
              * Fire Concealable Event
              * */
-
             __fireItemChange : function (oldItem, newItem) {
                 return new rf.Event.fireById(this.id, "itemchange", {
                         id: this.id,

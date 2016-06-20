@@ -10,6 +10,16 @@
     };
 
     // constructor definition
+    /**
+     * Parent object for menu components
+     * 
+     * @extends RichFaces.ui.MenuBase
+     * @memberOf! RichFaces.ui
+     * @constructs RichFaces.ui.Menu
+     * 
+     * @param componentId
+     * @param options
+     */
     rf.ui.Menu = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
