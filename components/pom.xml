@@ -30,13 +30,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4.5.17-SNAPSHOT</version>
+        <version>4.5.17.Final</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-components-parent</artifactId>
-    <version>4.5.17-SNAPSHOT</version>
+    <version>4.5.17.Final</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Parent</name>
 
@@ -46,7 +46,7 @@
     </modules>
 
     <properties>
-        <version.richfaces>4.5.17-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.5.17.Final</version.richfaces>
     </properties>
 
     <build>
