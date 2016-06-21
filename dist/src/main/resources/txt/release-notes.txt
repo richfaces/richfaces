@@ -1,3 +1,55 @@
+4.5.17.Final
+------------
+
+    Bug
+    [RF-4491] - pickList doesn't honor property 'disabled' of selectItems
+    [RF-10966] - rich:autocomplete - missing @status attribute, autocomplete and select not unified
+    [RF-12242] - rich:dropDownMenu and showTimeout works wrong
+    [RF-12731] - mobile showcase: a4j:queue/attachQueue are not working
+    [RF-12778] - panelMenu: JS API calls doesn't work
+    [RF-13537] - Autocomplete: onbegin attribute ignored
+    [RF-14268] - mobile showcase: ajax validation messages does not show up without refreshing the page [MyFaces]
+    [RF-14272] - page-fragments: inplace select: remove unnecessary Selenium workaround in select method
+    [RF-14273] - page-fragments: contextMenu: correct the default showEvent and fix workaround for phantomjs
+    [RF-14275] - dataScroller: JS API: invoking fastRewind/fastForward throws NumberFormatException
+    [RF-14277] - extendedDataTable: JS API
+    [RF-14282] - dataTable: add missing clearSorting/Filtering JS API methods to Component reference
+    [RF-14288] - examples: missing checkstyle plugin version
+    [RF-14295] - mobile showcase: visual issues
+    [RF-14297] - RichFaces Update 4.5.15 => 4.5.16 breaks a4j:ajax => method not invoked
+    [RF-14298] - datatable - rowclick listener triggered twice
+    [RF-14299] - Popup-Panel resizing broken in 4k resolution monitors
+    [RF-14301] - autocomplete events invoked on wrong target
+    [RF-14302] - mobile showcase: browsing to sample by url returns to last opened sample
+
+    Component Upgrade
+    [RF-14274] - Upgrade third-party libraries
+
+    Enhancement
+    [RF-14270] - showcase: attachQueue: UX: add intentional delay for showing the status
+    [RF-14287] - page-fragments: select: replace invoking of blur in select method
+    [RF-14290] - integration-tests: limit page load timeout
+    [RF-14294] - Configure the tests to run with Firefox in Travis-ci
+
+    Feature Request
+    [RF-6678] - RichFaces Select components: implement disabled state support for selectItem
+    [RF-13437] - contextMenu: support hiding by clicking outside only
+
+    Task
+    [RF-10782] - simplify width control of Input components
+    [RF-14165] - Clean up Showcase
+    [RF-14279] - Update JSDoc
+    [RF-14280] - Update core maven dependencies for build
+    [RF-14291] - showcase: integration-tests: remove unsupported layout switching
+    [RF-14292] - integration-tests: try to reload the page when loading timed out
+    [RF-14293] - showcase: integration-tests: add missing request guards and cleanup session
+    [RF-14296] - photoalbum: tests: encapsulate fields, add waiting to header panel
+    [RF-14303] - upgrade Tomcat containers version
+
+    Sub-task
+    [RF-14278] - Update documentation of panelMenu JS API
+    [RF-14300] - select: vdl-doc: specify attributes status, onbegin, oncomplete, onbeforedomupdate can only be used in an auto-completing mode
+
 4.5.16.Final
 ------------
 
