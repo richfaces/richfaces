@@ -57,7 +57,10 @@ public class UISequence extends UIDataAdaptor {
     private Converter defaultRowKeyConverter;
 
     protected enum PropertyKeys {
-        first, rows, value, iterationStatusVar
+        first,
+        rows,
+        value,
+        iterationStatusVar
     }
 
     protected void updateState(SequenceState state) {
