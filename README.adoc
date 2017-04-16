@@ -11,11 +11,16 @@ RichFaces 4.5 image:https://travis-ci.org/richfaces/richfaces.png?branch=master[
 
 == Project Info
 
---
-[horizontal]
-License:: LGPL v2.1
-Build System::  Maven
---
+[cols="2"]
+|===
+
+|License
+|LGPL v2.1
+
+|Build System
+|Maven
+
+|===
 
 * http://richfaces.org[Project Site]
 * http://docs.jboss.org/richfaces/[Documentation]
